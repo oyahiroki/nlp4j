@@ -55,8 +55,14 @@ public class MaService {
 	}
 
 	public void process() throws IOException {
+
 		// https://e.developer.yahoo.co.jp/dashboard/
-		String appID = "22njTRuxg64Q7rLHhzHLLb0wu1EQkEoIwi.tMSSZ4v5dXONa_V96_e99PB81kdgc";
+		// -Dyhoo_jp.appid=xxx
+		String appID = System.getProperty("yhoo_jp.appid");
+
+		if (appID == null) {
+			throw new IOException("no appid");
+		}
 
 		String url = "https://jlp.yahooapis.jp/MAService/V1/parse?" + "appid=" + appID;
 
