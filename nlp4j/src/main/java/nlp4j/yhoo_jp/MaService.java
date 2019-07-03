@@ -4,21 +4,25 @@
 package nlp4j.yhoo_jp;
 
 import java.io.ByteArrayInputStream;
-import java.io.FileInputStream;
 import java.io.IOException;
+import java.lang.invoke.MethodHandles;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
-import nlp4j.util.XmlUtils;
-import okhttp3.HttpUrl;
-import okhttp3.MediaType;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import nlp4j.Keyword;
+import nlp4j.NlpService;
+import nlp4j.NlpServiceResponse;
+import nlp4j.impl.KeywordImpl;
+import nlp4j.impl.NlpServiceResponseImpl;
+import nlp4j.util.HttpClient;
 
 /**
  * https://developer.yahoo.co.jp/webapi/jlp/ma/v1/parse.html
@@ -26,45 +30,27 @@ import okhttp3.Response;
  * @author oyahiroki
  *
  */
-public class MaService {
+public class MaService implements NlpService {
 
-	public static final MediaType JSON = MediaType.get("application/json; charset=utf-8");
+	static private Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
-	OkHttpClient client = new OkHttpClient();
+	String appID;
 
-	String post(String url, String json) throws IOException {
-		RequestBody body = RequestBody.create(JSON, json);
-		Request request = new Request.Builder().url(url).post(body).build();
-		try (Response response = client.newCall(request).execute()) {
-			return response.body().string();
+	public MaService() {
+		appID = System.getProperty("yhoo_jp.appid");
+
+		if (appID == null) {
+			throw new RuntimeException("no appid");
 		}
 	}
 
-	String get(String url, Map<String, String> params) throws IOException {
-
-		HttpUrl.Builder builder = HttpUrl.parse(url).newBuilder();
-		if (params != null) {
-			params.forEach(builder::addQueryParameter);
-		}
-
-		Request request = new Request.Builder().url(builder.build()).build();
-
-		try (Response response = client.newCall(request).execute()) {
-			return response.body().string();
-		}
-	}
-
-	public void process() throws IOException {
+	public NlpServiceResponseImpl process(String text) throws IOException {
 
 		// https://e.developer.yahoo.co.jp/dashboard/
 		// -Dyhoo_jp.appid=xxx
-		String appID = System.getProperty("yhoo_jp.appid");
 
-		if (appID == null) {
-			throw new IOException("no appid");
-		}
-
-		String url = "https://jlp.yahooapis.jp/MAService/V1/parse?" + "appid=" + appID;
+		String url = "https://jlp.yahooapis.jp/MAService/V1/parse?" //
+				+ "appid=" + appID;
 
 		Map<String, String> params = new HashMap<>();
 		params.put("results", "ma,uniq");
@@ -84,24 +70,37 @@ public class MaService {
 //			12 : 助動詞
 //			13 : 特殊（句読点、カッコ、記号など）
 		params.put("uniq_filter", "1|2|3|4|5|6|7|8|9|10|11|12|13");
-		params.put("sentence", "今日はいい天気なので走って会社に行きました。");
+		params.put("sentence", text);
 
-		String res = get(url, params);
-		System.err.println(res);
+		HttpClient client = new HttpClient();
+		NlpServiceResponseImpl res = client.get(url, params);
+		logger.debug(res);
 
-		String s2 = XmlUtils.prettyFormatXml(res);
-		System.err.println(s2);
+//		String s2 = XmlUtils.prettyFormatXml(res);
+//		System.err.println(s2);
 
 		try {
 			SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
 			SAXParser saxParser = saxParserFactory.newSAXParser();
 			MaServiceResponseHandler handler = new MaServiceResponseHandler();
 
-			saxParser.parse(new ByteArrayInputStream(res.getBytes("utf-8")), handler);
+			saxParser.parse(new ByteArrayInputStream(res.getOriginalResponseBody().getBytes("utf-8")), handler);
+
+			ArrayList<Keyword> keywords = handler.getKeywords();
+
+			res.setKeywords(keywords);
+
+			return res;
 
 		} catch (Exception e) {
 			throw new IOException(e);
 		}
+	}
+
+	@Override
+	public ArrayList<Keyword> getKeywords(String text) throws IOException {
+		NlpServiceResponseImpl r = process(text);
+		return r.getKeywords();
 	}
 
 }

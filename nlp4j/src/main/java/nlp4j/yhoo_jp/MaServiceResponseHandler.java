@@ -3,13 +3,14 @@
  */
 package nlp4j.yhoo_jp;
 
+import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
-import java.util.Stack;
 
-import org.xml.sax.Attributes;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.xml.sax.SAXException;
-import org.xml.sax.helpers.DefaultHandler;
 
+import nlp4j.AbstractXmlHandler;
 import nlp4j.Keyword;
 import nlp4j.impl.KeywordImpl;
 
@@ -21,8 +22,14 @@ import nlp4j.impl.KeywordImpl;
  */
 public class MaServiceResponseHandler extends AbstractXmlHandler {
 
-	ArrayList<KeywordImpl> keywords = new ArrayList<>();
+	static private Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
+
+	ArrayList<Keyword> keywords = new ArrayList<>();
 	KeywordImpl kwd;
+
+	public ArrayList<Keyword> getKeywords() {
+		return keywords;
+	}
 
 	/*
 	 * (non-Javadoc)
@@ -32,8 +39,8 @@ public class MaServiceResponseHandler extends AbstractXmlHandler {
 	 */
 	@Override
 	public void endElement(String uri, String localName, String qName) throws SAXException {
-		System.err.println(super.getPath());
-		System.err.println(super.getText());
+		logger.debug(super.getPath());
+		logger.debug(super.getText());
 
 		if ("ResultSet/ma_result/word_list/word/surface".equals(super.getPath())) {
 			kwd = new KeywordImpl();
@@ -52,7 +59,6 @@ public class MaServiceResponseHandler extends AbstractXmlHandler {
 			keywords.add(kwd);
 			kwd = new KeywordImpl();
 		} //
-
 		super.endElement(uri, localName, qName);
 	}
 
@@ -64,11 +70,6 @@ public class MaServiceResponseHandler extends AbstractXmlHandler {
 	@Override
 	public void endDocument() throws SAXException {
 		super.endDocument();
-
-		for (Keyword kwd : keywords) {
-			System.err.println("--> " + kwd.toString());
-		}
-
 	}
 
 }

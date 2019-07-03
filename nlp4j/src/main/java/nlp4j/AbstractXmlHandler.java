@@ -1,7 +1,7 @@
 /**
  * 
  */
-package nlp4j.yhoo_jp;
+package nlp4j;
 
 import java.util.Stack;
 
