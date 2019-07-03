@@ -1,0 +1,3 @@
+使い方
+1. NLP Client として
+2. Annotator として
