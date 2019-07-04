@@ -1,7 +1,7 @@
 /**
  * 
  */
-package nlp4j;
+package nlp4j.xml;
 
 import java.util.Stack;
 

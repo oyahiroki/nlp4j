@@ -10,9 +10,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.xml.sax.SAXException;
 
-import nlp4j.AbstractXmlHandler;
 import nlp4j.Keyword;
 import nlp4j.impl.KeywordImpl;
+import nlp4j.xml.AbstractXmlHandler;
 
 /**
  * 日本語形態素解析

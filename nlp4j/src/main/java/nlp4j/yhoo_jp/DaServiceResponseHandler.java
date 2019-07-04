@@ -9,7 +9,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.xml.sax.SAXException;
 
-import nlp4j.AbstractXmlHandler;
+import nlp4j.xml.AbstractXmlHandler;
 
 /**
  * @author oyahiroki
