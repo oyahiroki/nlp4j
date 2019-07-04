@@ -10,6 +10,7 @@ import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
 import junit.framework.TestCase;
+import nlp4j.KeywordWithDependency;
 import nlp4j.yhoo_jp.DaServiceResponseHandler;
 import nlp4j.yhoo_jp.MaServiceResponseHandler;
 
@@ -30,6 +31,14 @@ public class DaServiceResponseHandlerTestCase extends TestCase {
 
 			saxParser.parse(new FileInputStream(inFileName), handler);
 
+			KeywordWithDependency kwd = handler.getRoot();
+			System.err.println("<tostring1>");
+			System.err.println(kwd.toString1());
+			System.err.println("</tostring1>");
+
+			System.err.println("<tostring2>");
+			System.err.println(kwd.toString2());
+			System.err.println("</tostring2>");
 		} catch (Exception e) {
 			throw new IOException(e);
 		}
