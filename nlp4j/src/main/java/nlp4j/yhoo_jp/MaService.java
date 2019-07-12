@@ -35,8 +35,10 @@ public class MaService implements NlpService {
 	static private Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
 	String appID;
+	static String baseUrl = "https://jlp.yahooapis.jp/MAService/V1/parse";
 
 	public MaService() {
+		super();
 		appID = System.getProperty("yhoo_jp.appid");
 
 		if (appID == null) {
@@ -49,7 +51,7 @@ public class MaService implements NlpService {
 		// https://e.developer.yahoo.co.jp/dashboard/
 		// -Dyhoo_jp.appid=xxx
 
-		String url = "https://jlp.yahooapis.jp/MAService/V1/parse?" //
+		String url = baseUrl + "?" //
 				+ "appid=" + appID;
 
 		Map<String, String> params = new HashMap<>();
@@ -97,7 +99,6 @@ public class MaService implements NlpService {
 		}
 	}
 
-	@Override
 	public ArrayList<Keyword> getKeywords(String text) throws IOException {
 		NlpServiceResponseImpl r = process(text);
 		return r.getKeywords();

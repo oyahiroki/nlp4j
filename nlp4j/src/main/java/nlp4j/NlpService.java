@@ -12,6 +12,5 @@ import java.util.ArrayList;
  */
 public interface NlpService {
 
-	public ArrayList<Keyword> getKeywords(String text) throws IOException;
 
 }

@@ -33,11 +33,11 @@ public class DaServiceResponseHandlerTestCase extends TestCase {
 
 			KeywordWithDependency kwd = handler.getRoot();
 			System.err.println("<tostring1>");
-			System.err.println(kwd.toString1());
+			System.err.println(kwd.toStringAsDependencyTree());
 			System.err.println("</tostring1>");
 
 			System.err.println("<tostring2>");
-			System.err.println(kwd.toString2());
+			System.err.println(kwd.toStringAsDependencyList());
 			System.err.println("</tostring2>");
 		} catch (Exception e) {
 			throw new IOException(e);

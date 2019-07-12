@@ -20,7 +20,7 @@ public class MaServiceTestCase extends TestCase {
 	 * Test method for {@link nlp4j.yhoo_jp.MaService#process()}.
 	 */
 	public void testProcess001() throws Exception {
-		String text = "今日はいい天気です。";
+		String text = "今日はいい天気です。２０１９年４月１日";
 		MaService service = new MaService();
 		NlpServiceResponseImpl res = service.process(text);
 		System.err.println(res.getOriginalResponseBody());
@@ -29,7 +29,7 @@ public class MaServiceTestCase extends TestCase {
 	}
 
 	public void testGetKeywords001() throws Exception {
-		String text = "今日はいい天気です。";
+		String text = "今日はいい天気です。２０１９年４月１日";
 		MaService service = new MaService();
 		ArrayList<Keyword> kwds = service.getKeywords(text);
 		for (Keyword kwd : kwds) {

@@ -23,6 +23,12 @@ import org.w3c.dom.Document;
  */
 public class XmlUtils {
 
+	/**
+	 * Format String as XML
+	 * 
+	 * @param xml
+	 * @return
+	 */
 	static public String prettyFormatXml(String xml) {
 		try (InputStream bais = new ByteArrayInputStream(xml.getBytes("utf-8"))) {
 			// be closed safely automatically

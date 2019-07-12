@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import nlp4j.Keyword;
 import nlp4j.KeywordWithDependency;
+import nlp4j.util.XmlUtils;
 
 public class KeywordWithDependencyImpl extends KeywordImpl implements KeywordWithDependency {
 
@@ -87,7 +88,7 @@ public class KeywordWithDependencyImpl extends KeywordImpl implements KeywordWit
 	}
 
 	@Override
-	public String toString1() {
+	public String toStringAsDependencyTree() {
 		String indent = "\t";
 		String bar = "-";
 		StringBuffer sb = new StringBuffer();
@@ -98,13 +99,13 @@ public class KeywordWithDependencyImpl extends KeywordImpl implements KeywordWit
 		sb.append(this.str);
 		for (KeywordWithDependency c : children) {
 			sb.append("\n");
-			sb.append(c.toString1());
+			sb.append(c.toStringAsDependencyTree());
 		}
 		return sb.toString();
 	}
 
 	@Override
-	public String toString2() {
+	public String toStringAsDependencyList() {
 		StringBuffer sb = new StringBuffer();
 
 		if (parent != null) {
@@ -121,8 +122,28 @@ public class KeywordWithDependencyImpl extends KeywordImpl implements KeywordWit
 			if (sb.length() > 0) {
 				sb.append("\n");
 			}
-			sb.append(c.toString2());
+			sb.append(c.toStringAsDependencyList());
 		}
+		return sb.toString();
+	}
+
+	@Override
+	public String toStringAsXml() {
+		return XmlUtils.prettyFormatXml(toStringAsXml(0));
+	}
+
+	public String toStringAsXml(int depth) {
+		StringBuffer sb = new StringBuffer();
+		sb.append("<w " //
+				+ "str=\"" + this.str + "\" " //
+				+ "lex=\"" + this.lex + "\" " //
+				+ ">");
+		for (KeywordWithDependency c : children) {
+			sb.append("\n");
+			sb.append(c.toStringAsXml(depth + 1));
+		}
+		sb.append("</w>");
+
 		return sb.toString();
 	}
 

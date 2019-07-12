@@ -2,8 +2,11 @@ package nlp4j;
 
 public interface KeywordWithDependency extends Keyword, Dependency {
 
-	public String toString1();
-	
-	public String toString2();
-	
+	public String toStringAsDependencyTree();
+
+	public String toStringAsDependencyList();
+
+	public String toStringAsXml();
+
+	Object toStringAsXml(int i);
 }
