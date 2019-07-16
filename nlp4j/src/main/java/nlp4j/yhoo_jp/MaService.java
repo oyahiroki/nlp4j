@@ -1,6 +1,3 @@
-/**
- * 
- */
 package nlp4j.yhoo_jp;
 
 import java.io.ByteArrayInputStream;
@@ -8,7 +5,6 @@ import java.io.IOException;
 import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.xml.parsers.SAXParser;
@@ -19,13 +15,14 @@ import org.apache.logging.log4j.Logger;
 
 import nlp4j.Keyword;
 import nlp4j.NlpService;
-import nlp4j.NlpServiceResponse;
-import nlp4j.impl.KeywordImpl;
 import nlp4j.impl.NlpServiceResponseImpl;
 import nlp4j.util.HttpClient;
 
 /**
+ * <pre>
+ * morphological analysis
  * https://developer.yahoo.co.jp/webapi/jlp/ma/v1/parse.html
+ * </pre>
  * 
  * @author oyahiroki
  *
@@ -35,7 +32,7 @@ public class MaService implements NlpService {
 	static private Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
 	String appID;
-	static String baseUrl = "https://jlp.yahooapis.jp/MAService/V1/parse";
+	static final String baseUrl = "https://jlp.yahooapis.jp/MAService/V1/parse";
 
 	public MaService() {
 		super();

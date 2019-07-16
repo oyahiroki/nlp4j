@@ -139,12 +139,18 @@ public class KeywordWithDependencyImpl extends KeywordImpl implements KeywordWit
 				+ "lex=\"" + this.lex + "\" " //
 				+ ">");
 		for (KeywordWithDependency c : children) {
-			sb.append("\n");
 			sb.append(c.toStringAsXml(depth + 1));
 		}
 		sb.append("</w>");
 
 		return sb.toString();
+	}
+
+	@Override
+	public String toString() {
+		return "KeywordWithDependencyImpl [dependencyKey=" + dependencyKey + ", children=" + children + ", parent="
+				+ parent + ", sequence=" + sequence + ", facet=" + facet + ", lex=" + lex + ", str=" + str
+				+ ", reading=" + reading + ", begin=" + begin + ", end=" + end + "]";
 	}
 
 }

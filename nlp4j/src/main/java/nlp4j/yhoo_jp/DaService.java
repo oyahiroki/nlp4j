@@ -3,7 +3,6 @@ package nlp4j.yhoo_jp;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.lang.invoke.MethodHandles;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,16 +12,18 @@ import javax.xml.parsers.SAXParserFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import nlp4j.Keyword;
 import nlp4j.KeywordWithDependency;
 import nlp4j.NlpService;
 import nlp4j.impl.NlpServiceResponseImpl;
 import nlp4j.util.HttpClient;
 
 /**
+ * <pre>
+ * dependency analysis
  * https://developer.yahoo.co.jp/webapi/jlp/da/v1/parse.html
+ * </pre>
  * 
- * @author oyahi
+ * @author oyahiroki
  *
  */
 public class DaService implements NlpService {
@@ -30,7 +31,7 @@ public class DaService implements NlpService {
 	static private Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
 	String appID;
-	static String baseUrl = "https://jlp.yahooapis.jp/DAService/V1/parse";
+	static final String baseUrl = "https://jlp.yahooapis.jp/DAService/V1/parse";
 
 	public DaService() {
 		super();
@@ -59,7 +60,7 @@ public class DaService implements NlpService {
 		try {
 			SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
 			SAXParser saxParser = saxParserFactory.newSAXParser();
-			DaServiceResponseHandler handler = new DaServiceResponseHandler();
+			DaServiceResponseHandler2 handler = new DaServiceResponseHandler2();
 			saxParser.parse(new ByteArrayInputStream(res.getOriginalResponseBody().getBytes("utf-8")), handler);
 			KeywordWithDependency root = handler.getRoot();
 			return root;

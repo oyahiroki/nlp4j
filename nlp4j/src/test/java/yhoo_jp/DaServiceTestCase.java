@@ -13,7 +13,23 @@ public class DaServiceTestCase extends TestCase {
 	}
 
 	public void testGetKeywords001() throws IOException {
-		String text = "今日は走って学校に行った。";
+		String text = "今日はいい天気です";
+		DaService service = new DaService();
+		KeywordWithDependency kwd = service.getKeywords(text);
+		System.err.println("<tostring1>");
+		System.err.println(kwd.toStringAsDependencyTree());
+		System.err.println("</tostring1>");
+		System.err.println("<tostring2>");
+		System.err.println(kwd.toStringAsDependencyList());
+		System.err.println("</tostring2>");
+		System.err.println("<tostring3>");
+		System.err.println(kwd.toStringAsXml());
+		System.err.println("</tostring3>");
+	}
+
+	public void testGetKeywords002() throws IOException {
+		// 着る: 一段
+		String text = "ボールを美しく蹴る";
 		DaService service = new DaService();
 		KeywordWithDependency kwd = service.getKeywords(text);
 		System.err.println("<tostring1>");
