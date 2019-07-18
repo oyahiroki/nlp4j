@@ -2,6 +2,11 @@ package nlp4j;
 
 import java.util.ArrayList;
 
+/**
+ * @author Hiroki Oya
+ * @version 1.0
+ *
+ */
 public interface Dependency {
 	public void addChild(KeywordWithDependency keyword);
 

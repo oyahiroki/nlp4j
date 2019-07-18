@@ -12,6 +12,7 @@ import javax.xml.parsers.SAXParserFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import nlp4j.DefaultEnv;
 import nlp4j.KeywordWithDependency;
 import nlp4j.NlpService;
 import nlp4j.impl.NlpServiceResponseImpl;
@@ -23,7 +24,8 @@ import nlp4j.util.HttpClient;
  * https://developer.yahoo.co.jp/webapi/jlp/da/v1/parse.html
  * </pre>
  * 
- * @author oyahiroki
+ * @author Hiroki Oya
+ * @version 1.0
  *
  */
 public class DaService implements NlpService {
@@ -38,7 +40,11 @@ public class DaService implements NlpService {
 		appID = System.getProperty("yhoo_jp.appid");
 
 		if (appID == null) {
-			throw new RuntimeException("no appid");
+			// throw new RuntimeException("no appid");
+			appID = DefaultEnv.YHOO_JP_API_ID;
+			Exception e = new Exception("Please get your own APP_ID for Yahoo! Japan API "
+					+ "and set as Dyhoo_jp.appid={your_app_id} " + "- https://e.developer.yahoo.co.jp/dashboard/");
+			e.printStackTrace();
 		}
 	}
 

@@ -1,12 +1,10 @@
-/**
- * 
- */
 package nlp4j;
 
 import java.util.List;
 
 /**
- * @author oyahiroki
+ * @author Hiroki Oya
+ * @version 1.0
  *
  */
 public interface NlpServiceResponse {

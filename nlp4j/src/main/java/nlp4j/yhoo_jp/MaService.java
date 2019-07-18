@@ -24,7 +24,8 @@ import nlp4j.util.HttpClient;
  * https://developer.yahoo.co.jp/webapi/jlp/ma/v1/parse.html
  * </pre>
  * 
- * @author oyahiroki
+ * @author Hiroki Oya
+ * @version 1.0
  *
  */
 public class MaService implements NlpService {
@@ -39,7 +40,10 @@ public class MaService implements NlpService {
 		appID = System.getProperty("yhoo_jp.appid");
 
 		if (appID == null) {
-			throw new RuntimeException("no appid");
+			// throw new RuntimeException("no appid");
+			Exception e = new Exception("Please get your own APP_ID for Yahoo! Japan API "
+					+ "and set as Dyhoo_jp.appid={your_app_id} " + "- https://e.developer.yahoo.co.jp/dashboard/");
+			e.printStackTrace();
 		}
 	}
 

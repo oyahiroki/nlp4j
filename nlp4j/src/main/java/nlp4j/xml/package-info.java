@@ -1,8 +1,4 @@
 /**
- * 
- */
-/**
- * @author oyahiroki
- *
+ * XML Handling
  */
 package nlp4j.xml;

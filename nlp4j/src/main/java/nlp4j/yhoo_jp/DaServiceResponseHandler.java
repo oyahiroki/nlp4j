@@ -1,6 +1,3 @@
-/**
- * 
- */
 package nlp4j.yhoo_jp;
 
 import java.lang.invoke.MethodHandles;
@@ -15,7 +12,8 @@ import nlp4j.impl.KeywordWithDependencyImpl;
 import nlp4j.xml.AbstractXmlHandler;
 
 /**
- * @author oyahiroki
+ * @author Hiroki Oya
+ * @version 1.0
  *
  */
 public class DaServiceResponseHandler extends AbstractXmlHandler {

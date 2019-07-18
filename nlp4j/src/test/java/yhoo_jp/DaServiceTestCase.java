@@ -6,10 +6,15 @@ import junit.framework.TestCase;
 import nlp4j.KeywordWithDependency;
 import nlp4j.yhoo_jp.DaService;
 
+/**
+ * @author Hiroki Oya
+ * @version 1.0
+ *
+ */
 public class DaServiceTestCase extends TestCase {
 
 	public void testDaService() {
-		fail("Not yet implemented");
+		DaService service = new DaService();
 	}
 
 	public void testGetKeywords001() throws IOException {

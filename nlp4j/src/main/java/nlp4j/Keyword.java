@@ -8,6 +8,9 @@ import java.io.Serializable;
 /**
  * Keywords are usually words and phrases that are extracted from textual
  * content.
+ * 
+ * @author Hiroki Oya
+ * @version 1.0
  */
 public interface Keyword extends Comparable<Keyword>, Serializable {
 	/**

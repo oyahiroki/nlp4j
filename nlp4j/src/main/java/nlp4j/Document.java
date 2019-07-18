@@ -2,6 +2,11 @@ package nlp4j;
 
 import java.util.ArrayList;
 
+/**
+ * @author Hiroki Oya
+ * @version 1.0
+ *
+ */
 public class Document implements DefaultDocument {
 
 	String text;
@@ -29,6 +34,3 @@ public class Document implements DefaultDocument {
 	}
 
 }
-
-
-

@@ -1,6 +1,3 @@
-/**
- * 
- */
 package nlp4j.util;
 
 import java.io.ByteArrayInputStream;
@@ -18,7 +15,8 @@ import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.Document;
 
 /**
- * @author oyahiroki
+ * @author Hiroki Oya
+ * @version 1.0
  *
  */
 public class XmlUtils {

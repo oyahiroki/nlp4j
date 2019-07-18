@@ -1,6 +1,3 @@
-/**
- * 
- */
 package yhoo_jp;
 
 import java.util.ArrayList;
@@ -11,7 +8,8 @@ import nlp4j.impl.NlpServiceResponseImpl;
 import nlp4j.yhoo_jp.MaService;
 
 /**
- * @author oyahiroki
+ * @author Hiroki Oya
+ * @version 1.0
  *
  */
 public class MaServiceTestCase extends TestCase {
@@ -26,6 +24,7 @@ public class MaServiceTestCase extends TestCase {
 		System.err.println(res.getResponseCode());
 		System.err.println(res.getKeywords().size());
 	}
+
 	/**
 	 * Test method for {@link nlp4j.yhoo_jp.MaService#process()}.
 	 */

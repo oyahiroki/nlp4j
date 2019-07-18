@@ -2,6 +2,11 @@ package nlp4j;
 
 import java.util.ArrayList;
 
+/**
+ * @author Hiroki Oya
+ * @version 1.0
+ *
+ */
 public interface DefaultDocument {
 
 	String getText();
@@ -13,5 +18,3 @@ public interface DefaultDocument {
 	void setKeywords(ArrayList<Keyword> keywords);
 
 }
-
-

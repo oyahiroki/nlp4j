@@ -17,7 +17,8 @@ import nlp4j.xml.AbstractXmlHandler;
 /**
  * 日本語形態素解析
  * 
- * @author oyahiroki
+ * @author Hiroki Oya
+ * @version 1.0
  *
  */
 public class MaServiceResponseHandler extends AbstractXmlHandler {
@@ -73,6 +74,3 @@ public class MaServiceResponseHandler extends AbstractXmlHandler {
 	}
 
 }
-
-
-

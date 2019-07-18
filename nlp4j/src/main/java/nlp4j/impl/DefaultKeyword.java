@@ -1,12 +1,10 @@
-/**
- * 
- */
 package nlp4j.impl;
 
 import nlp4j.Keyword;
 
 /**
- * @author oyahiroki
+ * @author Hiroki Oya
+ * @version 1.0
  *
  */
 public class DefaultKeyword implements Keyword {
@@ -160,6 +158,3 @@ public class DefaultKeyword implements Keyword {
 	}
 
 }
-
-
-

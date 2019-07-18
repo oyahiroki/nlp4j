@@ -2,6 +2,11 @@ package nlp4j.util;
 
 import junit.framework.TestCase;
 
+/**
+ * @author Hiroki Oya
+ * @version 1.0
+ *
+ */
 public class XmlUtilsTestCase extends TestCase {
 
 	public void testPrettyFormatXml() {

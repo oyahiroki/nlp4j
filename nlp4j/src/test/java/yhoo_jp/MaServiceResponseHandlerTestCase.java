@@ -13,7 +13,8 @@ import junit.framework.TestCase;
 import nlp4j.yhoo_jp.MaServiceResponseHandler;
 
 /**
- * @author oyahiroki
+ * @author Hiroki Oya
+ * @version 1.0
  *
  */
 public class MaServiceResponseHandlerTestCase extends TestCase {

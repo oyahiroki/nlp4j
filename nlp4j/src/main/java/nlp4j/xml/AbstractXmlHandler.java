@@ -1,6 +1,3 @@
-/**
- * 
- */
 package nlp4j.xml;
 
 import java.util.Stack;
@@ -10,7 +7,8 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 /**
- * @author oyahiroki
+ * @author Hiroki Oya
+ * @version 1.0
  *
  */
 public abstract class AbstractXmlHandler extends DefaultHandler {

@@ -16,7 +16,8 @@ import nlp4j.yhoo_jp.DaServiceResponseHandler2;
 import nlp4j.yhoo_jp.MaServiceResponseHandler;
 
 /**
- * @author oyahiroki
+ * @author Hiroki Oya
+ * @version 1.0
  *
  */
 public class DaServiceResponseHandlerTestCase extends TestCase {

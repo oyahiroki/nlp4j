@@ -1,11 +1,15 @@
 package nlp4j.impl;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import nlp4j.Keyword;
 import nlp4j.NlpServiceResponse;
 
+/**
+ * @author Hiroki Oya
+ * @version 1.0
+ *
+ */
 public class NlpServiceResponseImpl implements NlpServiceResponse {
 
 	String originalResponseBody;

@@ -6,6 +6,11 @@ import nlp4j.Keyword;
 import nlp4j.KeywordWithDependency;
 import nlp4j.util.XmlUtils;
 
+/**
+ * @author Hiroki Oya
+ * @version 1.0
+ *
+ */
 public class KeywordWithDependencyImpl extends DefaultKeyword implements KeywordWithDependency {
 
 	private static final long serialVersionUID = 1L;

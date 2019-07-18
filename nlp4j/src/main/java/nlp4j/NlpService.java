@@ -7,10 +7,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- * @author oyahiroki
+ * @author Hiroki Oya
+ * @version 1.0
  *
  */
 public interface NlpService {
-
 
 }
