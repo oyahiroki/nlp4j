@@ -15,11 +15,21 @@ import nlp4j.yhoo_jp.MaService;
  *
  */
 public class MaServiceTestCase extends TestCase {
-
 	/**
 	 * Test method for {@link nlp4j.yhoo_jp.MaService#process()}.
 	 */
 	public void testProcess001() throws Exception {
+		String text = "今日はいい天気です。今日はいい天気です。";
+		MaService service = new MaService();
+		NlpServiceResponseImpl res = service.process(text);
+		System.err.println(res.getOriginalResponseBody());
+		System.err.println(res.getResponseCode());
+		System.err.println(res.getKeywords().size());
+	}
+	/**
+	 * Test method for {@link nlp4j.yhoo_jp.MaService#process()}.
+	 */
+	public void testProcess002() throws Exception {
 		String text = "今日はいい天気です。２０１９年４月１日";
 		MaService service = new MaService();
 		NlpServiceResponseImpl res = service.process(text);
