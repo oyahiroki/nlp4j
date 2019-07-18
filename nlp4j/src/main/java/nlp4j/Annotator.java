@@ -4,6 +4,6 @@ import java.io.IOException;
 
 public interface Annotator {
 
-	public void annotate(Document doc) throws IOException;
+	public void annotate(DefaultDocument doc) throws IOException;
 
 }

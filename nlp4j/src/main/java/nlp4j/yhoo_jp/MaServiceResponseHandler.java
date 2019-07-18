@@ -11,7 +11,7 @@ import org.apache.logging.log4j.Logger;
 import org.xml.sax.SAXException;
 
 import nlp4j.Keyword;
-import nlp4j.impl.KeywordImpl;
+import nlp4j.impl.DefaultKeyword;
 import nlp4j.xml.AbstractXmlHandler;
 
 /**
@@ -25,7 +25,7 @@ public class MaServiceResponseHandler extends AbstractXmlHandler {
 	static private Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
 	ArrayList<Keyword> keywords = new ArrayList<>();
-	KeywordImpl kwd;
+	DefaultKeyword kwd;
 
 	public ArrayList<Keyword> getKeywords() {
 		return keywords;
@@ -43,7 +43,7 @@ public class MaServiceResponseHandler extends AbstractXmlHandler {
 		logger.debug(super.getText());
 
 		if ("ResultSet/ma_result/word_list/word/surface".equals(super.getPath())) {
-			kwd = new KeywordImpl();
+			kwd = new DefaultKeyword();
 			kwd.setStr(super.getText());
 		} //
 		else if ("ResultSet/ma_result/word_list/word/reading".equals(super.getPath())) {
@@ -57,7 +57,7 @@ public class MaServiceResponseHandler extends AbstractXmlHandler {
 		} //
 		else if ("ResultSet/ma_result/word_list/word".equals(super.getPath())) {
 			keywords.add(kwd);
-			kwd = new KeywordImpl();
+			kwd = new DefaultKeyword();
 		} //
 		super.endElement(uri, localName, qName);
 	}

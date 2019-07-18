@@ -9,7 +9,7 @@ import nlp4j.Keyword;
  * @author oyahiroki
  *
  */
-public class KeywordImpl implements Keyword {
+public class DefaultKeyword implements Keyword {
 	/**
 	 * 
 	 */
