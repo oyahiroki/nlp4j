@@ -35,6 +35,13 @@ public class DaService implements NlpService {
 	String appID;
 	static final String baseUrl = "https://jlp.yahooapis.jp/DAService/V1/parse";
 
+	/**
+	 * Set APP ID of Yahoo! Japan API as System Property.
+	 * 
+	 * <pre>
+	 * System Property: yhoo_jp.appid
+	 * </pre>
+	 */
 	public DaService() {
 		super();
 		appID = System.getProperty("yhoo_jp.appid");

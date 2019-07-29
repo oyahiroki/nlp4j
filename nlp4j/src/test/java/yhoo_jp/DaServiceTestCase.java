@@ -21,6 +21,7 @@ public class DaServiceTestCase extends TestCase {
 		String text = "今日はいい天気です";
 		DaService service = new DaService();
 		KeywordWithDependency kwd = service.getKeywords(text);
+		System.err.println(kwd.toString());
 		System.err.println("<tostring1>");
 		System.err.println(kwd.toStringAsDependencyTree());
 		System.err.println("</tostring1>");
