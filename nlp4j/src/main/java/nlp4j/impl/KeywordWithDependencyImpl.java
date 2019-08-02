@@ -153,9 +153,17 @@ public class KeywordWithDependencyImpl extends DefaultKeyword implements Keyword
 
 	@Override
 	public String toString() {
-		return "KeywordWithDependencyImpl [dependencyKey=" + dependencyKey + ", children=" + children + ", parent="
-				+ parent + ", sequence=" + sequence + ", facet=" + facet + ", lex=" + lex + ", str=" + str
-				+ ", reading=" + reading + ", begin=" + begin + ", end=" + end + "]";
+		return "KeywordWithDependencyImpl [" //
+				+ "dependencyKey=" + dependencyKey + ", " //
+				+ "children=" + (children != null && children.size() > 0) + ", " //
+				+ "parent=" + (parent != null) + ", " //
+				+ "sequence=" + sequence + ", " //
+				+ "facet=" + facet + ", " //
+				+ "lex=" + lex + ", " //
+				+ "str=" + str + ", " //
+				+ "reading=" + reading + ", " //
+				+ "begin=" + begin + ", " //
+				+ "end=" + end + "" + "]";
 	}
 
 }
