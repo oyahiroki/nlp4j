@@ -4,22 +4,22 @@ import java.io.IOException;
 
 import junit.framework.TestCase;
 import nlp4j.KeywordWithDependency;
-import nlp4j.yhoo_jp.DaService;
+import nlp4j.yhoo_jp.YJpDaService;
 
 /**
  * @author Hiroki Oya
  * @version 1.0
  *
  */
-public class DaServiceTestCase extends TestCase {
+public class YJpDaServiceTestCase extends TestCase {
 
 	public void testDaService() {
-		DaService service = new DaService();
+		YJpDaService service = new YJpDaService();
 	}
 
 	public void testGetKeywords001() throws IOException {
 		String text = "今日はいい天気です";
-		DaService service = new DaService();
+		YJpDaService service = new YJpDaService();
 		KeywordWithDependency kwd = service.getKeywords(text);
 		System.err.println("<tostring1>");
 		System.err.println(kwd.toStringAsDependencyTree());
@@ -35,7 +35,7 @@ public class DaServiceTestCase extends TestCase {
 	public void testGetKeywords002() throws IOException {
 		// 着る: 一段
 		String text = "ボールを美しく蹴る";
-		DaService service = new DaService();
+		YJpDaService service = new YJpDaService();
 		KeywordWithDependency kwd = service.getKeywords(text);
 		System.err.println("<tostring1>");
 		System.err.println(kwd.toStringAsDependencyTree());

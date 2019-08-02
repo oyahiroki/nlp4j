@@ -13,11 +13,13 @@ import nlp4j.impl.KeywordWithDependencyImpl;
 import nlp4j.xml.AbstractXmlHandler;
 
 /**
+ * Yahoo! Japan Dependency Analysis Response XML Handler
+ * 
  * @author Hiroki Oya
  * @version 1.0
  *
  */
-public class DaServiceResponseHandler2 extends AbstractXmlHandler {
+public class YJpDaServiceResponseHandler extends AbstractXmlHandler {
 
 	static private Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 

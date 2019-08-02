@@ -20,7 +20,7 @@ import nlp4j.util.HttpClient;
 
 /**
  * <pre>
- * dependency analysis
+ * Yahoo! Japan dependency analysis
  * https://developer.yahoo.co.jp/webapi/jlp/da/v1/parse.html
  * </pre>
  * 
@@ -28,14 +28,14 @@ import nlp4j.util.HttpClient;
  * @version 1.0
  *
  */
-public class DaService implements NlpService {
+public class YJpDaService implements NlpService {
 
 	static private Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
 	String appID;
 	static final String baseUrl = "https://jlp.yahooapis.jp/DAService/V1/parse";
 
-	public DaService() {
+	public YJpDaService() {
 		super();
 		appID = System.getProperty("yhoo_jp.appid");
 
@@ -66,7 +66,7 @@ public class DaService implements NlpService {
 		try {
 			SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
 			SAXParser saxParser = saxParserFactory.newSAXParser();
-			DaServiceResponseHandler2 handler = new DaServiceResponseHandler2();
+			YJpDaServiceResponseHandler handler = new YJpDaServiceResponseHandler();
 			saxParser.parse(new ByteArrayInputStream(res.getOriginalResponseBody().getBytes("utf-8")), handler);
 			KeywordWithDependency root = handler.getRoot();
 			return root;

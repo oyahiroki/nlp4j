@@ -13,6 +13,7 @@ import javax.xml.parsers.SAXParserFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import nlp4j.DefaultEnv;
 import nlp4j.Keyword;
 import nlp4j.NlpService;
 import nlp4j.impl.NlpServiceResponseImpl;
@@ -20,7 +21,7 @@ import nlp4j.util.HttpClient;
 
 /**
  * <pre>
- * morphological analysis
+ * Yahoo! Japan Morphological analysis
  * https://developer.yahoo.co.jp/webapi/jlp/ma/v1/parse.html
  * </pre>
  * 
@@ -28,19 +29,20 @@ import nlp4j.util.HttpClient;
  * @version 1.0
  *
  */
-public class MaService implements NlpService {
+public class YJpMaService implements NlpService {
 
 	static private Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
 	String appID;
 	static final String baseUrl = "https://jlp.yahooapis.jp/MAService/V1/parse";
 
-	public MaService() {
+	public YJpMaService() {
 		super();
 		appID = System.getProperty("yhoo_jp.appid");
 
 		if (appID == null) {
 			// throw new RuntimeException("no appid");
+			appID = DefaultEnv.YHOO_JP_API_ID;
 			Exception e = new Exception("Please get your own APP_ID for Yahoo! Japan API "
 					+ "and set as Dyhoo_jp.appid={your_app_id} " + "- https://e.developer.yahoo.co.jp/dashboard/");
 			e.printStackTrace();
@@ -85,7 +87,7 @@ public class MaService implements NlpService {
 		try {
 			SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
 			SAXParser saxParser = saxParserFactory.newSAXParser();
-			MaServiceResponseHandler handler = new MaServiceResponseHandler();
+			YJpMaServiceResponseHandler handler = new YJpMaServiceResponseHandler();
 
 			saxParser.parse(new ByteArrayInputStream(res.getOriginalResponseBody().getBytes("utf-8")), handler);
 

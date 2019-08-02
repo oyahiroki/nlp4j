@@ -15,13 +15,13 @@ import nlp4j.impl.DefaultKeyword;
 import nlp4j.xml.AbstractXmlHandler;
 
 /**
- * 日本語形態素解析
+ * Yahoo! Japan Japan Morphological analysis Response XML Handler
  * 
  * @author Hiroki Oya
  * @version 1.0
  *
  */
-public class MaServiceResponseHandler extends AbstractXmlHandler {
+public class YJpMaServiceResponseHandler extends AbstractXmlHandler {
 
 	static private Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 

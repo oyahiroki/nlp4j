@@ -11,40 +11,15 @@ import javax.xml.parsers.SAXParserFactory;
 
 import junit.framework.TestCase;
 import nlp4j.KeywordWithDependency;
-import nlp4j.yhoo_jp.DaServiceResponseHandler;
-import nlp4j.yhoo_jp.DaServiceResponseHandler2;
-import nlp4j.yhoo_jp.MaServiceResponseHandler;
+import nlp4j.yhoo_jp.YJpDaServiceResponseHandler;
+import nlp4j.yhoo_jp.YJpMaServiceResponseHandler;
 
 /**
  * @author Hiroki Oya
  * @version 1.0
  *
  */
-public class DaServiceResponseHandlerTestCase extends TestCase {
-
-	public void test001() throws Exception {
-
-		String inFileName = "src/test/resources/nlp4j/yhoo_jp/response_DAService.xml";
-
-		try {
-			SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
-			SAXParser saxParser = saxParserFactory.newSAXParser();
-			DaServiceResponseHandler handler = new DaServiceResponseHandler();
-
-			saxParser.parse(new FileInputStream(inFileName), handler);
-
-			KeywordWithDependency kwd = handler.getRoot();
-			System.err.println("<tostring1>");
-			System.err.println(kwd.toStringAsDependencyTree());
-			System.err.println("</tostring1>");
-
-			System.err.println("<tostring2>");
-			System.err.println(kwd.toStringAsDependencyList());
-			System.err.println("</tostring2>");
-		} catch (Exception e) {
-			throw new IOException(e);
-		}
-	}
+public class YJpDaServiceResponseHandlerTestCase extends TestCase {
 
 	public void test011() throws Exception {
 
@@ -53,7 +28,7 @@ public class DaServiceResponseHandlerTestCase extends TestCase {
 		try {
 			SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
 			SAXParser saxParser = saxParserFactory.newSAXParser();
-			DaServiceResponseHandler2 handler = new DaServiceResponseHandler2();
+			YJpDaServiceResponseHandler handler = new YJpDaServiceResponseHandler();
 
 			saxParser.parse(new FileInputStream(inFileName), handler);
 
@@ -77,7 +52,7 @@ public class DaServiceResponseHandlerTestCase extends TestCase {
 		try {
 			SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
 			SAXParser saxParser = saxParserFactory.newSAXParser();
-			DaServiceResponseHandler2 handler = new DaServiceResponseHandler2();
+			YJpDaServiceResponseHandler handler = new YJpDaServiceResponseHandler();
 
 			saxParser.parse(new FileInputStream(inFileName), handler);
 
