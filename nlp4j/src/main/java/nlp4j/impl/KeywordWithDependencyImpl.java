@@ -2,7 +2,6 @@ package nlp4j.impl;
 
 import java.util.ArrayList;
 
-import nlp4j.Keyword;
 import nlp4j.KeywordWithDependency;
 import nlp4j.util.XmlUtils;
 

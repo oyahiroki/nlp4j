@@ -6,6 +6,12 @@ import java.util.ArrayList;
 import nlp4j.Keyword;
 import nlp4j.yhoo_jp.YJpMaService;
 
+/**
+ * Yahoo! Japan の日本語形態素解析サービスを利用するサンプルです。
+ * 
+ * @author Hiroki Oya
+ *
+ */
 public class YJpMorphologicalAnalysisExampleMain {
 
 	public static void main(String[] args) throws IOException {
