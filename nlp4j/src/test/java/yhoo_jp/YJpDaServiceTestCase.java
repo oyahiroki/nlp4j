@@ -30,6 +30,7 @@ public class YJpDaServiceTestCase extends TestCase {
 		System.err.println("<tostring3>");
 		System.err.println(kwd.toStringAsXml());
 		System.err.println("</tostring3>");
+		assertNotNull(kwd);
 	}
 
 	public void testGetKeywords002() throws IOException {
@@ -46,6 +47,14 @@ public class YJpDaServiceTestCase extends TestCase {
 		System.err.println("<tostring3>");
 		System.err.println(kwd.toStringAsXml());
 		System.err.println("</tostring3>");
+		assertNotNull(kwd);
+	}
+
+	public void testGetKeywords501() throws IOException {
+		String text = " ";
+		YJpDaService service = new YJpDaService();
+		KeywordWithDependency kwd = service.getKeywords(text);
+		assertNull(kwd);
 	}
 
 }
