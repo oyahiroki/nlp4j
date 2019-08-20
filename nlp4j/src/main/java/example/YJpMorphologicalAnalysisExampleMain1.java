@@ -12,11 +12,11 @@ import nlp4j.yhoo_jp.YJpMaService;
  * @author Hiroki Oya
  *
  */
-public class YJpMorphologicalAnalysisExampleMain {
+public class YJpMorphologicalAnalysisExampleMain1 {
 
 	public static void main(String[] args) throws IOException {
 		// 自然文のテキスト
-		String text = "今日は走って学校に行きました。これはテストです。";
+		String text = "今日は走って学校に行きました。";
 		// 日本語形態素解析
 		YJpMaService service = new YJpMaService();
 		// 形態素解析の結果を取得する

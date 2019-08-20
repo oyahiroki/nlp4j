@@ -3,6 +3,7 @@ package nlp4j.yhoo_jp;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.lang.invoke.MethodHandles;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,8 +14,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import nlp4j.DefaultEnv;
+import nlp4j.Keyword;
 import nlp4j.KeywordWithDependency;
 import nlp4j.NlpService;
+import nlp4j.impl.KeywordWithDependencyImpl;
 import nlp4j.impl.NlpServiceResponseImpl;
 import nlp4j.util.HttpClient;
 
@@ -51,15 +54,7 @@ public class YJpDaService implements NlpService {
 		}
 	}
 
-	/**
-	 * Get response from dependency analysis service 日本語係り受け解析の結果を取得する
-	 * 
-	 * @param text
-	 * @return
-	 * @throws IOException
-	 */
-	public KeywordWithDependency getKeywords(String text) throws IOException {
-
+	public NlpServiceResponseImpl process(String text) throws IOException {
 		if (text == null || text.isEmpty() || text.trim().isEmpty()) {
 			return null;
 		}
@@ -75,6 +70,7 @@ public class YJpDaService implements NlpService {
 
 		HttpClient client = new HttpClient();
 		NlpServiceResponseImpl res = client.get(url, params);
+
 		logger.debug(res);
 		logger.debug(res.getOriginalResponseBody());
 		try {
@@ -83,10 +79,29 @@ public class YJpDaService implements NlpService {
 			YJpDaServiceResponseHandler handler = new YJpDaServiceResponseHandler(text);
 			saxParser.parse(new ByteArrayInputStream(res.getOriginalResponseBody().getBytes("utf-8")), handler);
 			KeywordWithDependency root = handler.getRoot();
-			return root;
+
+			ArrayList<Keyword> kwds = new ArrayList<Keyword>();
+			kwds.add(root);
+
+			res.setKeywords(kwds);
 		} catch (Exception e) {
 			throw new IOException(e);
 		}
+
+		return res;
+	}
+
+	/**
+	 * Get response from dependency analysis service 日本語係り受け解析の結果を取得する
+	 * 
+	 * @param text
+	 * @return
+	 * @throws IOException
+	 */
+	public KeywordWithDependency getKeywords(String text) throws IOException {
+
+		NlpServiceResponseImpl res = process(text);
+		return (KeywordWithDependency) res.getKeywords().get(0);
 	}
 
 }

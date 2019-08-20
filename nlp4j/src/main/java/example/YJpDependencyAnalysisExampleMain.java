@@ -26,7 +26,7 @@ public class YJpDependencyAnalysisExampleMain {
 
 	public static void main(String[] args) throws IOException {
 		// 自然文のテキスト
-		String text = "今日はとてもいい天気です。";
+		String text = "私は急いでドアを開ける。";
 		// 係り受け解析
 		YJpDaService service = new YJpDaService();
 		// 係り受け解析の結果を取得する
