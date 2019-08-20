@@ -21,7 +21,7 @@ import nlp4j.util.HttpClient;
 
 /**
  * <pre>
- * Yahoo! Japan Morphological analysis
+ * Yahoo! Japan Morphological analysis 日本語形態素解析
  * https://developer.yahoo.co.jp/webapi/jlp/ma/v1/parse.html
  * </pre>
  * 
@@ -36,6 +36,9 @@ public class YJpMaService implements NlpService {
 	String appID;
 	static final String baseUrl = "https://jlp.yahooapis.jp/MAService/V1/parse";
 
+	/**
+	 * Yahoo! Japan Morphological analysis 日本語形態素解析
+	 */
 	public YJpMaService() {
 		super();
 		appID = System.getProperty("yhoo_jp.appid");
@@ -102,6 +105,13 @@ public class YJpMaService implements NlpService {
 		}
 	}
 
+	/**
+	 * Get response of Morphological analysis 日本語形態素解析の結果を取得する
+	 * 
+	 * @param text
+	 * @return
+	 * @throws IOException
+	 */
 	public ArrayList<Keyword> getKeywords(String text) throws IOException {
 		NlpServiceResponseImpl r = process(text);
 		return r.getKeywords();

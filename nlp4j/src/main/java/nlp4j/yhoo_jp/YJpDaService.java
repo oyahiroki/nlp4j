@@ -20,7 +20,7 @@ import nlp4j.util.HttpClient;
 
 /**
  * <pre>
- * Yahoo! Japan dependency analysis
+ * Yahoo! Japan dependency analysis 日本語係り受け解析
  * https://developer.yahoo.co.jp/webapi/jlp/da/v1/parse.html
  * </pre>
  * 
@@ -35,6 +35,9 @@ public class YJpDaService implements NlpService {
 	String appID;
 	static final String baseUrl = "https://jlp.yahooapis.jp/DAService/V1/parse";
 
+	/**
+	 * Yahoo! Japan dependency analysis 日本語係り受け解析
+	 */
 	public YJpDaService() {
 		super();
 		appID = System.getProperty("yhoo_jp.appid");
@@ -48,6 +51,13 @@ public class YJpDaService implements NlpService {
 		}
 	}
 
+	/**
+	 * Get response from dependency analysis service 日本語係り受け解析の結果を取得する
+	 * 
+	 * @param text
+	 * @return
+	 * @throws IOException
+	 */
 	public KeywordWithDependency getKeywords(String text) throws IOException {
 
 		// https://e.developer.yahoo.co.jp/dashboard/
