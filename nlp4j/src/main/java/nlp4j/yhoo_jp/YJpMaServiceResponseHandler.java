@@ -27,10 +27,18 @@ public class YJpMaServiceResponseHandler extends AbstractXmlHandler {
 
 	ArrayList<Keyword> keywords = new ArrayList<>();
 	DefaultKeyword kwd;
+	String sentence;
+
+	public YJpMaServiceResponseHandler(String sentence) {
+		super();
+		this.sentence = sentence;
+	}
 
 	public ArrayList<Keyword> getKeywords() {
 		return keywords;
 	}
+
+	int maxBegin = 0;
 
 	/*
 	 * (non-Javadoc)
@@ -58,6 +66,14 @@ public class YJpMaServiceResponseHandler extends AbstractXmlHandler {
 		} //
 		else if ("ResultSet/ma_result/word_list/word".equals(super.getPath())) {
 			keywords.add(kwd);
+
+			{
+				int begin = sentence.indexOf(kwd.getStr(), maxBegin);
+				kwd.setBegin(begin);
+				kwd.setEnd(begin + kwd.getStr().length());
+				maxBegin = begin;
+			}
+
 			kwd = new DefaultKeyword();
 		} //
 		super.endElement(uri, localName, qName);

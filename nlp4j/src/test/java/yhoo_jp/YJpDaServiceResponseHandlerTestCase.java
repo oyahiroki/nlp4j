@@ -12,7 +12,6 @@ import javax.xml.parsers.SAXParserFactory;
 import junit.framework.TestCase;
 import nlp4j.KeywordWithDependency;
 import nlp4j.yhoo_jp.YJpDaServiceResponseHandler;
-import nlp4j.yhoo_jp.YJpMaServiceResponseHandler;
 
 /**
  * @author Hiroki Oya
@@ -23,12 +22,13 @@ public class YJpDaServiceResponseHandlerTestCase extends TestCase {
 
 	public void test011() throws Exception {
 
+		String sentence = "庭には二羽ニワトリがいる。";
 		String inFileName = "src/test/resources/nlp4j/yhoo_jp/response_DAService.xml";
 
 		try {
 			SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
 			SAXParser saxParser = saxParserFactory.newSAXParser();
-			YJpDaServiceResponseHandler handler = new YJpDaServiceResponseHandler();
+			YJpDaServiceResponseHandler handler = new YJpDaServiceResponseHandler(sentence);
 
 			saxParser.parse(new FileInputStream(inFileName), handler);
 
@@ -47,12 +47,13 @@ public class YJpDaServiceResponseHandlerTestCase extends TestCase {
 
 	public void test012() throws Exception {
 
+		String sentence = "今日はいい天気です。";
 		String inFileName = "src/test/resources/nlp4j/yhoo_jp/response_DAService2.xml";
 
 		try {
 			SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
 			SAXParser saxParser = saxParserFactory.newSAXParser();
-			YJpDaServiceResponseHandler handler = new YJpDaServiceResponseHandler();
+			YJpDaServiceResponseHandler handler = new YJpDaServiceResponseHandler(sentence);
 
 			saxParser.parse(new FileInputStream(inFileName), handler);
 

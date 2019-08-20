@@ -54,6 +54,10 @@ public class YJpMaService implements NlpService {
 
 	public NlpServiceResponseImpl process(String text) throws IOException {
 
+		if (text == null || text.isEmpty() || text.trim().isEmpty()) {
+			return null;
+		}
+
 		// https://e.developer.yahoo.co.jp/dashboard/
 		// -Dyhoo_jp.appid=xxx
 
@@ -90,7 +94,7 @@ public class YJpMaService implements NlpService {
 		try {
 			SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
 			SAXParser saxParser = saxParserFactory.newSAXParser();
-			YJpMaServiceResponseHandler handler = new YJpMaServiceResponseHandler();
+			YJpMaServiceResponseHandler handler = new YJpMaServiceResponseHandler(text);
 
 			saxParser.parse(new ByteArrayInputStream(res.getOriginalResponseBody().getBytes("utf-8")), handler);
 

@@ -31,28 +31,24 @@ public class YJpDaServiceResponseHandler extends AbstractXmlHandler {
 
 	int sequence = 0;
 
-	public KeywordWithDependency getRoot() {
-		return root;
-	}
+	String sentence;
 
 	String id;
+
 	String dependency;
+
 	String surface;
 	String reading;
 	String baseform;
 	String pos;
 	String feature;
-
 	int morphemID = -1;
 
-	@Override
-	public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
-		super.startElement(uri, localName, qName, attributes);
+	int maxBegin = 0;
 
-		if ("ResultSet/Result/ChunkList/Chunk/MorphemList/Morphem".equals(super.getPath())) {
-			morphemID++;
-		} //
-
+	public YJpDaServiceResponseHandler(String sentence) {
+		super();
+		this.sentence = sentence;
 	}
 
 	@Override
@@ -87,6 +83,15 @@ public class YJpDaServiceResponseHandler extends AbstractXmlHandler {
 			kwd.setStr(surface);
 			kwd.setFacet("word." + pos);
 
+			{
+				int begin = sentence.indexOf(kwd.getStr(), maxBegin);
+				if (begin != -1) {
+					kwd.setBegin(begin);
+					kwd.setEnd(begin + kwd.getStr().length());
+					maxBegin = begin;
+				}
+			}
+
 			String fullMorphemId = id + "-" + morphemID;
 			map.put(fullMorphemId, kwd);
 
@@ -114,6 +119,20 @@ public class YJpDaServiceResponseHandler extends AbstractXmlHandler {
 		}
 
 		super.endElement(uri, localName, qName);
+	}
+
+	public KeywordWithDependency getRoot() {
+		return root;
+	}
+
+	@Override
+	public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
+		super.startElement(uri, localName, qName, attributes);
+
+		if ("ResultSet/Result/ChunkList/Chunk/MorphemList/Morphem".equals(super.getPath())) {
+			morphemID++;
+		} //
+
 	}
 
 }

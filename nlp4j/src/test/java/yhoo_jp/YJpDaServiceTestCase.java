@@ -14,7 +14,7 @@ import nlp4j.yhoo_jp.YJpDaService;
 public class YJpDaServiceTestCase extends TestCase {
 
 	public void testDaService() {
-		YJpDaService service = new YJpDaService();
+		new YJpDaService();
 	}
 
 	public void testGetKeywords001() throws IOException {
