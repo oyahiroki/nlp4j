@@ -16,20 +16,10 @@ public class DefaultKeyword implements Keyword {
 	String lex;
 	String str;
 	String reading;
-
+	long count = -1;
 	int begin = -1;
 	int end = -1;
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Comparable#compareTo(java.lang.Object)
-	 */
-	@Override
-	public int compareTo(Keyword o) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+	double correlation;
 
 	/*
 	 * (non-Javadoc)
@@ -155,6 +145,26 @@ public class DefaultKeyword implements Keyword {
 	public String toString() {
 		return "Keyword [facet=" + facet + ", lex=" + lex + ", str=" + str + ", reading=" + reading + ", begin=" + begin
 				+ ", end=" + end + "]";
+	}
+
+	@Override
+	public double getCorrelation() {
+		return this.correlation;
+	}
+
+	@Override
+	public long getCount() {
+		return this.count;
+	}
+
+	@Override
+	public void setCorrelation(double d) {
+		this.correlation = d;
+	}
+
+	@Override
+	public void setCount(long count) {
+		this.count = count;
 	}
 
 }

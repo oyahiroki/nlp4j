@@ -17,7 +17,6 @@ import nlp4j.DefaultEnv;
 import nlp4j.Keyword;
 import nlp4j.KeywordWithDependency;
 import nlp4j.NlpService;
-import nlp4j.impl.KeywordWithDependencyImpl;
 import nlp4j.impl.NlpServiceResponseImpl;
 import nlp4j.util.HttpClient;
 

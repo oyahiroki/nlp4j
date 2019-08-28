@@ -7,30 +7,22 @@ import java.util.ArrayList;
  * @version 1.0
  *
  */
-public class Document implements DefaultDocument {
+public interface Document {
 
-	String text;
+	Object getAttribute(String key);
 
-	ArrayList<Keyword> keywords;
+	String getId();
 
-	@Override
-	public String getText() {
-		return text;
-	}
+	ArrayList<Keyword> getKeywords();
 
-	@Override
-	public void setText(String text) {
-		this.text = text;
-	}
+	String getText();
 
-	@Override
-	public ArrayList<Keyword> getKeywords() {
-		return keywords;
-	}
+	void putAttribute(String key, String value);
 
-	@Override
-	public void setKeywords(ArrayList<Keyword> keywords) {
-		this.keywords = keywords;
-	}
+	void setId(String id);
+
+	void setKeywords(ArrayList<Keyword> keywords);
+
+	void setText(String text);
 
 }

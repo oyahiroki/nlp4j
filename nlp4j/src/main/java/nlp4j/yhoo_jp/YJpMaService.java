@@ -36,6 +36,8 @@ public class YJpMaService implements NlpService {
 	String appID;
 	static final String baseUrl = "https://jlp.yahooapis.jp/MAService/V1/parse";
 
+	boolean alerted = false;
+
 	/**
 	 * Yahoo! Japan Morphological analysis 日本語形態素解析
 	 */
@@ -46,9 +48,12 @@ public class YJpMaService implements NlpService {
 		if (appID == null) {
 			// throw new RuntimeException("no appid");
 			appID = DefaultEnv.YHOO_JP_API_ID;
-			Exception e = new Exception("Please get your own APP_ID for Yahoo! Japan API "
-					+ "and set as Dyhoo_jp.appid={your_app_id} " + "- https://e.developer.yahoo.co.jp/dashboard/");
-			e.printStackTrace();
+			if (alerted == false) {
+				Exception e = new Exception("Please get your own APP_ID for Yahoo! Japan API "
+						+ "and set as Dyhoo_jp.appid={your_app_id} " + "- https://e.developer.yahoo.co.jp/dashboard/");
+				e.printStackTrace();
+				alerted = true;
+			}
 		}
 	}
 

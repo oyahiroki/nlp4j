@@ -12,11 +12,21 @@ import java.io.Serializable;
  * @author Hiroki Oya
  * @version 1.0
  */
-public interface Keyword extends Comparable<Keyword>, Serializable {
+public interface Keyword extends Serializable {
 	/**
 	 * @return the begin
 	 */
 	int getBegin();
+
+	/**
+	 * @return correlation
+	 */
+	double getCorrelation();
+
+	/**
+	 * @return count
+	 */
+	long getCount();
 
 	/**
 	 * @return the end
@@ -49,6 +59,16 @@ public interface Keyword extends Comparable<Keyword>, Serializable {
 	void setBegin(int begin);
 
 	/**
+	 * @param Correlation
+	 */
+	void setCorrelation(double d);
+
+	/**
+	 * @param count
+	 */
+	void setCount(long count);
+
+	/**
 	 * @param end the end to set
 	 */
 	void setEnd(int end);
@@ -72,5 +92,4 @@ public interface Keyword extends Comparable<Keyword>, Serializable {
 	 * @param lex the str to set
 	 */
 	void setStr(String str);
-
 }

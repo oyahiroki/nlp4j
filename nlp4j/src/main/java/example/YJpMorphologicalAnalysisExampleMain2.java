@@ -1,7 +1,6 @@
 package example;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import nlp4j.Keyword;
 import nlp4j.impl.NlpServiceResponseImpl;
