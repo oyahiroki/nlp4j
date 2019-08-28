@@ -1,8 +1,11 @@
-package nlp4j;
+package nlp4j.impl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
+import nlp4j.Document;
+import nlp4j.Keyword;
 
 /**
  * @author Hiroki Oya
