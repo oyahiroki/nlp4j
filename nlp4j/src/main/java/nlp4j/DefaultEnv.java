@@ -5,7 +5,7 @@ package nlp4j;
  * @version 1.0
  *
  */
-public class DefaultEnv {
+public interface DefaultEnv {
 
 	static public final String YHOO_JP_API_ID = "22njTRuxg64Q7rLHhzHLLb0wu1EQkEoIwi.tMSSZ4v5dXONa_V96_e99PB81kdgc";
 
