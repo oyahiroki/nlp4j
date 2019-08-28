@@ -9,6 +9,8 @@ import java.util.ArrayList;
  */
 public interface Document {
 
+	void addKeyword(Keyword keyword);
+
 	Object getAttribute(String key);
 
 	String getId();

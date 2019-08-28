@@ -16,7 +16,12 @@ public class DefaultDocument implements Document {
 
 	Map<String, Object> attributes = new HashMap<String, Object>();
 
-	ArrayList<Keyword> keywords;
+	ArrayList<Keyword> keywords = new ArrayList<Keyword>();
+
+	@Override
+	public void addKeyword(Keyword keyword) {
+		keywords.add(keyword);
+	}
 
 	@Override
 	public Object getAttribute(String key) {
