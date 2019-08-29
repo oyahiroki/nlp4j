@@ -57,4 +57,18 @@ public class YJpDaServiceTestCase extends TestCase {
 		assertNull(kwd);
 	}
 
+	public void testGetKeywords502() throws IOException {
+		String text = " ";
+		YJpDaService service = new YJpDaService();
+		KeywordWithDependency kwd = service.getKeywords(text);
+		assertNull(kwd);
+	}
+
+	public void testGetKeywords503() throws IOException {
+		String text = null;
+		YJpDaService service = new YJpDaService();
+		KeywordWithDependency kwd = service.getKeywords(text);
+		assertNull(kwd);
+	}
+
 }
