@@ -98,9 +98,15 @@ public class YJpDaService implements NlpService {
 	 * @throws IOException
 	 */
 	public KeywordWithDependency getKeywords(String text) throws IOException {
-
+		if (text == null) {
+			return null;
+		}
 		NlpServiceResponseImpl res = process(text);
-		return (KeywordWithDependency) res.getKeywords().get(0);
+		if (res != null) {
+			return (KeywordWithDependency) res.getKeywords().get(0);
+		} else {
+			return null;
+		}
 	}
 
 }

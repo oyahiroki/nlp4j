@@ -123,7 +123,11 @@ public class YJpMaService implements NlpService {
 	 */
 	public ArrayList<Keyword> getKeywords(String text) throws IOException {
 		NlpServiceResponseImpl r = process(text);
-		return r.getKeywords();
+		if (r != null) {
+			return r.getKeywords();
+		} else {
+			return new ArrayList<Keyword>();
+		}
 	}
 
 }
