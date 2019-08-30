@@ -1,5 +1,6 @@
 package nlp4j;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import junit.framework.TestCase;
@@ -44,27 +45,43 @@ public class DefaultDocumentTestCase extends TestCase {
 	}
 
 	public void testGetText() {
-		fail("Not yet implemented");
+		DefaultDocument doc = new DefaultDocument();
+		doc.setText("text");
+		assertEquals("text", doc.getText());
 	}
 
 	public void testPutAttribute() {
-		fail("Not yet implemented");
+		DefaultDocument doc = new DefaultDocument();
+		doc.putAttribute("key", "value");
+		assertEquals("value", doc.getAttribute("key"));
 	}
 
 	public void testSetId() {
-		fail("Not yet implemented");
+		DefaultDocument doc = new DefaultDocument();
+		doc.setId("id");
+		assertEquals("id", doc.getId());
 	}
 
 	public void testSetKeywords() {
-		fail("Not yet implemented");
+		DefaultDocument doc = new DefaultDocument();
+		Keyword kwd = new DefaultKeyword();
+		kwd.setLex("lex");
+		List<Keyword> kwds = new ArrayList<Keyword>();
+		kwds.add(kwd);
+		doc.setKeywords(kwds);
+
 	}
 
 	public void testSetText() {
-		fail("Not yet implemented");
+		DefaultDocument doc = new DefaultDocument();
+		doc.setText("text");
+		assertEquals("text", doc.getText());
 	}
 
 	public void testToString() {
-		fail("Not yet implemented");
+		DefaultDocument doc = new DefaultDocument();
+		String s = doc.toString();
+		System.err.println(s);
 	}
 
 }

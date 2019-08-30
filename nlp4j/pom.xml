@@ -4,8 +4,36 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>nlp4j</groupId>
 	<artifactId>nlp4j</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0</version>
+
+	<name>NLP4J</name>
+
+	<licenses>
+		<license>
+			<name>Apache License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+
+	<scm>
+		<url>https://github.com/oyahiroki/nlp4j</url>
+		<connection>scm:git:git@github.com:oyahiroki/nlp4j.git</connection>
+		<developerConnection>scm:git:git@github.com:oyahiroki/nlp4j.git</developerConnection>
+	</scm>
+
+	<url>https://github.com/oyahiroki/nlp4j</url>
+
 	<description>Natural Language Processing Library for Java</description>
+
+	<developers>
+		<developer>
+			<id>oyahiroki</id>
+			<name>Hiroki Oya</name>
+			<email>oyahiroki@gmail.com</email>
+			<url>https://twitter.com/oyahiroki</url>
+		</developer>
+	</developers>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -13,18 +41,48 @@
 
 	<build>
 		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3.2</version>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
 			<!-- Javadoc -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>2.10.3</version>
+
+				<version>3.1.1</version>
 				<configuration>
+					<additionalparam>-Xdoclint:none</additionalparam>
+					<javadocExecutable>${java.home}/../bin/javadoc</javadocExecutable>
 					<author>true</author>
-					<source>1.8</source>
+					<source>${maven.compiler.source}</source>
 					<show>protected</show>
 					<encoding>UTF-8</encoding>
 					<charset>UTF-8</charset>
 					<docencoding>UTF-8</docencoding>
+					<aggregate>true</aggregate>
+					<notimestamp>true</notimestamp>
+
+					<doctitle>${javadoc.title}</doctitle>
+					<windowtitle>${javadoc.title}</windowtitle>
+					<jarOutputDirectory>jar</jarOutputDirectory>
+					<destDir>docs</destDir>
+					<links>
+						<link>https://docs.oracle.com/javase/jp/8/docs/api</link>
+					</links>
+
+					<groups>
+						<group>
+							<title>NLP4J</title>
+							<packages>nlp4j*</packages>
+						</group>
+					</groups>
+
 				</configuration>
 			</plugin>
 		</plugins>

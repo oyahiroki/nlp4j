@@ -1,6 +1,7 @@
 package nlp4j;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Hiroki Oya
@@ -15,7 +16,7 @@ public interface Document {
 
 	String getId();
 
-	ArrayList<Keyword> getKeywords();
+	List<Keyword> getKeywords();
 
 	String getText();
 
@@ -23,7 +24,7 @@ public interface Document {
 
 	void setId(String id);
 
-	void setKeywords(ArrayList<Keyword> keywords);
+	void setKeywords(List<Keyword> keywords);
 
 	void setText(String text);
 

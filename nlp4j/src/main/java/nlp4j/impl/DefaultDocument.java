@@ -2,6 +2,7 @@ package nlp4j.impl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import nlp4j.Document;
@@ -19,7 +20,7 @@ public class DefaultDocument implements Document {
 
 	Map<String, Object> attributes = new HashMap<String, Object>();
 
-	ArrayList<Keyword> keywords = new ArrayList<Keyword>();
+	List<Keyword> keywords = new ArrayList<Keyword>();
 
 	@Override
 	public void addKeyword(Keyword keyword) {
@@ -43,7 +44,7 @@ public class DefaultDocument implements Document {
 	}
 
 	@Override
-	public ArrayList<Keyword> getKeywords() {
+	public List<Keyword> getKeywords() {
 		return keywords;
 	}
 
@@ -63,7 +64,7 @@ public class DefaultDocument implements Document {
 	}
 
 	@Override
-	public void setKeywords(ArrayList<Keyword> keywords) {
+	public void setKeywords(List<Keyword> keywords) {
 		this.keywords = keywords;
 	}
 

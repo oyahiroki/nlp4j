@@ -59,7 +59,7 @@ public interface Keyword extends Serializable {
 	void setBegin(int begin);
 
 	/**
-	 * @param Correlation
+	 * @param correlation d
 	 */
 	void setCorrelation(double d);
 
