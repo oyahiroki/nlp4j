@@ -9,7 +9,7 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 
 import nlp4j.KeywordWithDependency;
-import nlp4j.impl.KeywordWithDependencyImpl;
+import nlp4j.impl.DefaultKeywordWithDependency;
 import nlp4j.xml.AbstractXmlHandler;
 
 /**
@@ -23,9 +23,9 @@ public class YJpDaServiceResponseHandler extends AbstractXmlHandler {
 
 	static private Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
-	KeywordWithDependencyImpl kwd;
+	DefaultKeywordWithDependency kwd;
 
-	HashMap<String, KeywordWithDependencyImpl> map = new HashMap<String, KeywordWithDependencyImpl>();
+	HashMap<String, DefaultKeywordWithDependency> map = new HashMap<String, DefaultKeywordWithDependency>();
 
 	KeywordWithDependency root;
 
@@ -78,7 +78,7 @@ public class YJpDaServiceResponseHandler extends AbstractXmlHandler {
 			feature = super.getText();
 		} //
 		else if ("ResultSet/Result/ChunkList/Chunk/MorphemList/Morphem".equals(super.getPath())) {
-			kwd = new KeywordWithDependencyImpl();
+			kwd = new DefaultKeywordWithDependency();
 			kwd.setLex(null);
 			kwd.setStr(surface);
 			kwd.setFacet("word." + pos);
@@ -110,7 +110,7 @@ public class YJpDaServiceResponseHandler extends AbstractXmlHandler {
 			morphemID = -1;
 		} //
 		else if ("ResultSet".equals(super.getPath())) {
-			for (KeywordWithDependencyImpl kwd : map.values()) {
+			for (DefaultKeywordWithDependency kwd : map.values()) {
 				if (map.get(kwd.getDependencyKey()) != null) {
 					kwd.setParent(map.get(kwd.getDependencyKey()));
 				}

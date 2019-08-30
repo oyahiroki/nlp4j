@@ -10,7 +10,7 @@ import nlp4j.util.XmlUtils;
  * @version 1.0
  *
  */
-public class KeywordWithDependencyImpl extends DefaultKeyword implements KeywordWithDependency {
+public class DefaultKeywordWithDependency extends DefaultKeyword implements KeywordWithDependency {
 
 	private static final long serialVersionUID = 1L;
 

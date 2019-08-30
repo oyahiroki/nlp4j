@@ -17,7 +17,7 @@ import nlp4j.DefaultEnv;
 import nlp4j.Keyword;
 import nlp4j.KeywordWithDependency;
 import nlp4j.NlpService;
-import nlp4j.impl.NlpServiceResponseImpl;
+import nlp4j.impl.DefaultNlpServiceResponse;
 import nlp4j.util.HttpClient;
 
 /**
@@ -53,7 +53,7 @@ public class YJpDaService implements NlpService {
 		}
 	}
 
-	public NlpServiceResponseImpl process(String text) throws IOException {
+	public DefaultNlpServiceResponse process(String text) throws IOException {
 		if (text == null || text.isEmpty() || text.trim().isEmpty()) {
 			return null;
 		}
@@ -68,7 +68,7 @@ public class YJpDaService implements NlpService {
 		params.put("sentence", text);
 
 		HttpClient client = new HttpClient();
-		NlpServiceResponseImpl res = client.get(url, params);
+		DefaultNlpServiceResponse res = client.get(url, params);
 
 		logger.debug(res);
 		logger.debug(res.getOriginalResponseBody());
@@ -101,7 +101,7 @@ public class YJpDaService implements NlpService {
 		if (text == null) {
 			return null;
 		}
-		NlpServiceResponseImpl res = process(text);
+		DefaultNlpServiceResponse res = process(text);
 		if (res != null) {
 			return (KeywordWithDependency) res.getKeywords().get(0);
 		} else {

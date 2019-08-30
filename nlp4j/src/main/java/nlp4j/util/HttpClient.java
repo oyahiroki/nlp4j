@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.Map;
 
 import nlp4j.NlpServiceResponse;
-import nlp4j.impl.NlpServiceResponseImpl;
+import nlp4j.impl.DefaultNlpServiceResponse;
 import okhttp3.HttpUrl;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -28,13 +28,13 @@ public class HttpClient {
 		try (Response response = client.newCall(request).execute()) {
 			int responseCode = response.code();
 			String originalResponseBody = response.body().string();
-			NlpServiceResponseImpl res //
-					= new NlpServiceResponseImpl(responseCode, originalResponseBody);
+			DefaultNlpServiceResponse res //
+					= new DefaultNlpServiceResponse(responseCode, originalResponseBody);
 			return res;
 		}
 	}
 
-	public NlpServiceResponseImpl get(String url, Map<String, String> params) throws IOException {
+	public DefaultNlpServiceResponse get(String url, Map<String, String> params) throws IOException {
 
 		HttpUrl.Builder builder = HttpUrl.parse(url).newBuilder();
 		if (params != null) {
@@ -46,8 +46,8 @@ public class HttpClient {
 		try (Response response = client.newCall(request).execute()) {
 			int responseCode = response.code();
 			String originalResponseBody = response.body().string();
-			NlpServiceResponseImpl res //
-					= new NlpServiceResponseImpl(responseCode, originalResponseBody);
+			DefaultNlpServiceResponse res //
+					= new DefaultNlpServiceResponse(responseCode, originalResponseBody);
 			return res;
 		}
 	}

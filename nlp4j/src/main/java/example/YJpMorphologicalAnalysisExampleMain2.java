@@ -3,7 +3,7 @@ package example;
 import java.io.IOException;
 
 import nlp4j.Keyword;
-import nlp4j.impl.NlpServiceResponseImpl;
+import nlp4j.impl.DefaultNlpServiceResponse;
 import nlp4j.yhoo_jp.YJpMaService;
 
 /**
@@ -20,7 +20,7 @@ public class YJpMorphologicalAnalysisExampleMain2 {
 		// 日本語形態素解析
 		YJpMaService service = new YJpMaService();
 		// 形態素解析の結果を取得する
-		NlpServiceResponseImpl response = service.process(text);
+		DefaultNlpServiceResponse response = service.process(text);
 		// すべてのキーワードを出力する
 		for (Keyword kwd : response.getKeywords()) {
 			System.out.println(kwd);

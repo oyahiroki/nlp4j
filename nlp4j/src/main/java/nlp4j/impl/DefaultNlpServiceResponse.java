@@ -10,13 +10,13 @@ import nlp4j.NlpServiceResponse;
  * @version 1.0
  *
  */
-public class NlpServiceResponseImpl implements NlpServiceResponse {
+public class DefaultNlpServiceResponse implements NlpServiceResponse {
 
 	String originalResponseBody;
 	int responseCode = -1;
 	private ArrayList<Keyword> keywords;
 
-	public NlpServiceResponseImpl(int responseCode, String originalResponseBody) {
+	public DefaultNlpServiceResponse(int responseCode, String originalResponseBody) {
 		super();
 		this.responseCode = responseCode;
 		this.originalResponseBody = originalResponseBody;
