@@ -15,3 +15,4 @@ public interface Annotator {
 	public void annotate(List<Document> docs) throws IOException;
 
 }
+
