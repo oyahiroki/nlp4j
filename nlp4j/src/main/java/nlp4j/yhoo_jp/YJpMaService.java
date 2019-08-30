@@ -15,6 +15,7 @@ import org.apache.logging.log4j.Logger;
 
 import nlp4j.DefaultEnv;
 import nlp4j.Keyword;
+import nlp4j.Nlp4JRuntimeException;
 import nlp4j.NlpService;
 import nlp4j.impl.NlpServiceResponseImpl;
 import nlp4j.util.HttpClient;
@@ -49,7 +50,7 @@ public class YJpMaService implements NlpService {
 			// throw new RuntimeException("no appid");
 			appID = DefaultEnv.YHOO_JP_API_ID;
 			if (alerted == false) {
-				Exception e = new Exception("Please get your own APP_ID for Yahoo! Japan API "
+				Nlp4JRuntimeException e = new Nlp4JRuntimeException("Please get your own APP_ID for Yahoo! Japan API "
 						+ "and set as Dyhoo_jp.appid={your_app_id} " + "- https://e.developer.yahoo.co.jp/dashboard/");
 				e.printStackTrace();
 				alerted = true;
