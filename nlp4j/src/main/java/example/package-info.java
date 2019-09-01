@@ -1,4 +1,4 @@
 /**
- * package for Example
+ * package for example source code
  */
 package example;

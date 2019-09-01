@@ -14,82 +14,82 @@ import java.io.Serializable;
  */
 public interface Keyword extends Serializable {
 	/**
-	 * @return the begin
+	 * @return begin 開始位置
 	 */
 	int getBegin();
 
 	/**
-	 * @return correlation
+	 * @return correlation 共起性
 	 */
 	double getCorrelation();
 
 	/**
-	 * @return count
+	 * @return count カウント
 	 */
 	long getCount();
 
 	/**
-	 * @return the end
+	 * @return end 終了位置
 	 */
 	int getEnd();
 
 	/**
-	 * @return the facet
+	 * @return facet ファセット
 	 */
 	String getFacet();
 
 	/**
-	 * @return the lex
+	 * @return the lex 正規形
 	 */
 	String getLex();
 
 	/**
-	 * @return the reading
+	 * @return reading 読み
 	 */
 	String getReading();
 
 	/**
-	 * @return the str
+	 * @return str 表出文字
 	 */
 	String getStr();
 
 	/**
-	 * @param begin the begin to set
+	 * @param begin 開始位置
 	 */
 	void setBegin(int begin);
 
 	/**
-	 * @param correlation d
+	 * @param d correlation
 	 */
 	void setCorrelation(double d);
 
 	/**
-	 * @param count
+	 * @param count カウント
 	 */
 	void setCount(long count);
 
 	/**
-	 * @param end the end to set
+	 * @param end 終了位置
 	 */
 	void setEnd(int end);
 
 	/**
-	 * @param facet the facet to set
+	 * @param facet ファセット
 	 */
 	void setFacet(String facet);
 
 	/**
-	 * @param lex the lex to set
+	 * @param lex 正規形
 	 */
 	void setLex(String lex);
 
 	/**
-	 * @param lex the reading to set
+	 * @param reading 読み
 	 */
 	void setReading(String reading);
 
 	/**
-	 * @param lex the str to set
+	 * @param str 表出文字
 	 */
 	void setStr(String str);
 }

@@ -11,6 +11,12 @@ import nlp4j.impl.DefaultDocument;
 import nlp4j.index.SimpleDocumentIndex;
 import nlp4j.yhoo_jp.YJpMaAnnotator;
 
+/**
+ * サンプルソースコードです。日本語形態素解析とインデックス処理を利用して、共起性の高いキーワードを抽出します。
+ * 
+ * @author oyahiroki
+ *
+ */
 public class HelloTextMiningMain1 {
 
 	public static void main(String[] args) throws Exception {

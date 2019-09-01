@@ -93,9 +93,9 @@ public class YJpDaService implements NlpService {
 	/**
 	 * Get response from dependency analysis service 日本語係り受け解析の結果を取得する
 	 * 
-	 * @param text
-	 * @return
-	 * @throws IOException
+	 * @param text 日本語の自然文文字列
+	 * @return 日本語係り受け解析の結果
+	 * @throws IOException IOで発生した例外
 	 */
 	public KeywordWithDependency getKeywords(String text) throws IOException {
 		if (text == null) {

@@ -9,8 +9,7 @@ import nlp4j.yhoo_jp.YJpDaService;
  * Yahoo! Japan の日本語係り受け解析サービスを利用するサンプルです。
  * 
  * <pre>
- * Input:
- * 今日はいい天気です
+ * Input: 今日はいい天気です
  * Output:
  * -です
  *     -天気

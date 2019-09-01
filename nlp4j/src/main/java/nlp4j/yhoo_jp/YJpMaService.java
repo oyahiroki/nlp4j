@@ -118,9 +118,9 @@ public class YJpMaService implements NlpService {
 	/**
 	 * Get response of Morphological analysis 日本語形態素解析の結果を取得する
 	 * 
-	 * @param text
-	 * @return
-	 * @throws IOException
+	 * @param text 日本語の自然文文字列
+	 * @return 日本語形態素解析の結果
+	 * @throws IOException IOで発生した例外
 	 */
 	public ArrayList<Keyword> getKeywords(String text) throws IOException {
 		DefaultNlpServiceResponse r = process(text);

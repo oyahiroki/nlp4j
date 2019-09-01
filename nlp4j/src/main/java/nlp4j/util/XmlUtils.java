@@ -22,10 +22,10 @@ import org.w3c.dom.Document;
 public class XmlUtils {
 
 	/**
-	 * Format String as XML
+	 * Format String as XML / XML形式の文字列をフォーマットします
 	 * 
-	 * @param xml
-	 * @return
+	 * @param xml XML形式の文字列
+	 * @return フォーマットされたXML形式の文字列
 	 */
 	static public String prettyFormatXml(String xml) {
 		try (InputStream bais = new ByteArrayInputStream(xml.getBytes("utf-8"))) {
