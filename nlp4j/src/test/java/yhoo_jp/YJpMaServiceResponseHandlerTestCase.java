@@ -5,11 +5,13 @@ package yhoo_jp;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
 import junit.framework.TestCase;
+import nlp4j.Keyword;
 import nlp4j.yhoo_jp.YJpMaServiceResponseHandler;
 
 /**
@@ -30,6 +32,12 @@ public class YJpMaServiceResponseHandlerTestCase extends TestCase {
 			YJpMaServiceResponseHandler handler = new YJpMaServiceResponseHandler(sentece);
 
 			saxParser.parse(new FileInputStream(inFileName), handler);
+
+			ArrayList<Keyword> kwds = handler.getKeywords();
+
+			for (Keyword kwd : kwds) {
+				System.err.println(kwd);
+			}
 
 		} catch (Exception e) {
 			throw new IOException(e);

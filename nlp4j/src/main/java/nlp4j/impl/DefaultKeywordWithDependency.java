@@ -23,7 +23,13 @@ public class DefaultKeywordWithDependency extends DefaultKeyword implements Keyw
 
 	@Override
 	public void addChild(KeywordWithDependency keyword) {
-		children.add(keyword);
+		this.children.add(keyword);
+		keyword.setParentOnly(this);
+	}
+
+	@Override
+	public void addChildOnly(KeywordWithDependency keyword) {
+		this.children.add(keyword);
 	}
 
 	@Override
@@ -74,7 +80,7 @@ public class DefaultKeywordWithDependency extends DefaultKeyword implements Keyw
 
 	@Override
 	public boolean isRoot() {
-		return hasParent();
+		return !hasParent();
 	}
 
 	public void setDependencyKey(String dependencyKey) {
@@ -84,28 +90,32 @@ public class DefaultKeywordWithDependency extends DefaultKeyword implements Keyw
 	@Override
 	public void setParent(KeywordWithDependency parent) {
 		this.parent = parent;
-		parent.addChild(this);
+		parent.addChildOnly(this);
+	}
+
+	@Override
+	public void setParentOnly(KeywordWithDependency parent) {
+		this.parent = parent;
 	}
 
 	public void setSequence(int sequence) {
 		this.sequence = sequence;
+
 	}
 
 	@Override
-	public String toStringAsDependencyTree() {
-		String indent = "\t";
-		String bar = "-";
-		StringBuffer sb = new StringBuffer();
-		for (int n = 0; n < this.getDepth(); n++) {
-			sb.append(indent);
-		}
-		sb.append(bar);
-		sb.append(this.str);
-		for (KeywordWithDependency c : children) {
-			sb.append("\n");
-			sb.append(c.toStringAsDependencyTree());
-		}
-		return sb.toString();
+	public String toString() {
+		return "KeywordWithDependencyImpl [" //
+				+ "sequence=" + sequence + ", " //
+				+ "dependencyKey=" + dependencyKey + ", " //
+				+ "children=" + (children != null && children.size() > 0) + ", " //
+				+ "parent=" + (parent != null) + ", " //
+				+ "facet=" + facet + ", " //
+				+ "lex=" + lex + ", " //
+				+ "str=" + str + ", " //
+				+ "reading=" + reading + ", " //
+				+ "begin=" + begin + ", " //
+				+ "end=" + end + "" + "]";
 	}
 
 	@Override
@@ -132,37 +142,49 @@ public class DefaultKeywordWithDependency extends DefaultKeyword implements Keyw
 	}
 
 	@Override
+	public String toStringAsDependencyTree() {
+		String indent = "\t";
+		String bar = "-";
+		StringBuffer sb = new StringBuffer();
+		for (int n = 0; n < this.getDepth(); n++) {
+			sb.append(indent);
+		}
+		sb.append(bar);
+		sb.append("sequence=" + this.sequence + ",lex=" + this.lex + ",str=" + this.str);
+		for (KeywordWithDependency c : children) {
+			sb.append("\n");
+			sb.append(c.toStringAsDependencyTree());
+		}
+		return sb.toString();
+	}
+
+	@Override
 	public String toStringAsXml() {
 		return XmlUtils.prettyFormatXml(toStringAsXml(0));
 	}
 
 	public String toStringAsXml(int depth) {
 		StringBuffer sb = new StringBuffer();
-		sb.append("<w " //
-				+ "str=\"" + this.str + "\" " //
-				+ "lex=\"" + this.lex + "\" " //
-				+ ">");
-		for (KeywordWithDependency c : children) {
-			sb.append(c.toStringAsXml(depth + 1));
+
+		if (children == null || children.size() == 0) {
+			sb.append("<w " //
+					+ "str=\"" + this.str + "\" " //
+					+ "lex=\"" + this.lex + "\" " //
+					+ "depth=\"" + depth + "\" " //
+					+ "/>");
+		} else {
+			sb.append("<w " //
+					+ "str=\"" + this.str + "\" " //
+					+ "lex=\"" + this.lex + "\" " //
+					+ "depth=\"" + depth + "\" " //
+					+ ">");
+			for (KeywordWithDependency c : children) {
+				sb.append(c.toStringAsXml(depth + 1));
+			}
+			sb.append("</w>");
 		}
-		sb.append("</w>");
 
 		return sb.toString();
-	}
-
-	@Override
-	public String toString() {
-		return "KeywordWithDependencyImpl [" //
-				+ "dependencyKey=" + dependencyKey + ", " //
-				+ "children=" + (children != null && children.size() > 0) + ", " //
-				+ "parent=" + (parent != null) + ", " //
-				+ "sequence=" + sequence + ", " //
-				+ "facet=" + facet + ", " //
-				+ "lex=" + lex + ", " //
-				+ "str=" + str + ", " //
-				+ "reading=" + reading + ", " //
-				+ "begin=" + begin + ", " //
-				+ "end=" + end + "" + "]";
 	}
 
 }

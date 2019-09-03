@@ -9,6 +9,8 @@ import nlp4j.impl.DefaultKeyword;
 
 public class DefaultDocumentTestCase extends TestCase {
 
+	Class target = DefaultDocument.class;
+
 	public void testGetAttribute() {
 		String key = "item";
 		String value = "value";

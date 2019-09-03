@@ -21,6 +21,8 @@ public class DefaultKeyword implements Keyword {
 	int end = -1;
 	double correlation;
 
+	int sequence=-1;
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -29,6 +31,16 @@ public class DefaultKeyword implements Keyword {
 	@Override
 	public int getBegin() {
 		return begin;
+	}
+
+	@Override
+	public double getCorrelation() {
+		return this.correlation;
+	}
+
+	@Override
+	public long getCount() {
+		return this.count;
 	}
 
 	/*
@@ -72,6 +84,10 @@ public class DefaultKeyword implements Keyword {
 		return this.reading;
 	}
 
+	public int getSequence() {
+		return sequence;
+	}
+
 	/**
 	 * @return the str
 	 */
@@ -87,6 +103,16 @@ public class DefaultKeyword implements Keyword {
 	@Override
 	public void setBegin(int begin) {
 		this.begin = begin;
+	}
+
+	@Override
+	public void setCorrelation(double d) {
+		this.correlation = d;
+	}
+
+	@Override
+	public void setCount(long count) {
+		this.count = count;
 	}
 
 	/*
@@ -128,7 +154,10 @@ public class DefaultKeyword implements Keyword {
 	public void setReading(String reading) {
 		this.reading = reading;
 	}
-
+	public void setSequence(int sequence) {
+		this.sequence = sequence;
+		
+	}
 	/**
 	 * @param str the str to set
 	 */
@@ -136,35 +165,12 @@ public class DefaultKeyword implements Keyword {
 		this.str = str;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
 	@Override
 	public String toString() {
-		return "Keyword [facet=" + facet + ", lex=" + lex + ", str=" + str + ", reading=" + reading + ", begin=" + begin
-				+ ", end=" + end + "]";
+		return "DefaultKeyword [sequence=" + sequence + ", facet=" + facet + ", lex=" + lex + ", str=" + str
+				+ ", reading=" + reading + ", count=" + count + ", begin=" + begin + ", end=" + end + ", correlation="
+				+ correlation + "]";
 	}
 
-	@Override
-	public double getCorrelation() {
-		return this.correlation;
-	}
-
-	@Override
-	public long getCount() {
-		return this.count;
-	}
-
-	@Override
-	public void setCorrelation(double d) {
-		this.correlation = d;
-	}
-
-	@Override
-	public void setCount(long count) {
-		this.count = count;
-	}
 
 }

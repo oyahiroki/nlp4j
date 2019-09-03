@@ -39,6 +39,8 @@ public class YJpMaServiceResponseHandler extends AbstractXmlHandler {
 	}
 
 	int maxBegin = 0;
+	
+	int sequence = 0;
 
 	/*
 	 * (non-Javadoc)
@@ -52,8 +54,10 @@ public class YJpMaServiceResponseHandler extends AbstractXmlHandler {
 		logger.debug(super.getText());
 
 		if ("ResultSet/ma_result/word_list/word/surface".equals(super.getPath())) {
+			sequence++;
 			kwd = new DefaultKeyword();
 			kwd.setStr(super.getText());
+			kwd.setSequence(sequence);
 		} //
 		else if ("ResultSet/ma_result/word_list/word/reading".equals(super.getPath())) {
 			kwd.setReading(super.getText());
@@ -74,7 +78,9 @@ public class YJpMaServiceResponseHandler extends AbstractXmlHandler {
 				maxBegin = begin;
 			}
 
-			kwd = new DefaultKeyword();
+//			sequence++;
+//			kwd = new DefaultKeyword();
+//			kwd.setSequence(sequence);
 		} //
 		super.endElement(uri, localName, qName);
 	}

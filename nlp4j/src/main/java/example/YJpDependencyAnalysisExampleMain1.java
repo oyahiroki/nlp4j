@@ -21,11 +21,11 @@ import nlp4j.yhoo_jp.YJpDaService;
  * @author Hiroki Oya
  *
  */
-public class YJpDependencyAnalysisExampleMain {
+public class YJpDependencyAnalysisExampleMain1 {
 
 	public static void main(String[] args) throws IOException {
 		// 自然文のテキスト
-		String text = "私は急いでドアを開ける。";
+		String text = "私は急いでドアを開けた。";
 		// 係り受け解析
 		YJpDaService service = new YJpDaService();
 		// 係り受け解析の結果を取得する

@@ -78,10 +78,14 @@ public class YJpDaServiceResponseHandler extends AbstractXmlHandler {
 			feature = super.getText();
 		} //
 		else if ("ResultSet/Result/ChunkList/Chunk/MorphemList/Morphem".equals(super.getPath())) {
+
+			this.sequence++;
+
 			kwd = new DefaultKeywordWithDependency();
 			kwd.setLex(null);
 			kwd.setStr(surface);
 			kwd.setFacet("word." + pos);
+			kwd.setSequence(sequence);
 
 			{
 				int begin = sentence.indexOf(kwd.getStr(), maxBegin);
