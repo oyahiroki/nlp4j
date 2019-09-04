@@ -77,10 +77,12 @@ public class YJpDaService implements NlpService {
 			SAXParser saxParser = saxParserFactory.newSAXParser();
 			YJpDaServiceResponseHandler handler = new YJpDaServiceResponseHandler(text);
 			saxParser.parse(new ByteArrayInputStream(res.getOriginalResponseBody().getBytes("utf-8")), handler);
-			KeywordWithDependency root = handler.getRoot();
+//			KeywordWithDependency root = handler.getRoot();
+			ArrayList<KeywordWithDependency> roots = handler.getRoots();
 
 			ArrayList<Keyword> kwds = new ArrayList<Keyword>();
-			kwds.add(root);
+//			kwds.add(root);
+			kwds.addAll(roots);
 
 			res.setKeywords(kwds);
 		} catch (Exception e) {
@@ -97,13 +99,19 @@ public class YJpDaService implements NlpService {
 	 * @return 日本語係り受け解析の結果
 	 * @throws IOException IOで発生した例外
 	 */
-	public KeywordWithDependency getKeywords(String text) throws IOException {
+	public ArrayList<KeywordWithDependency> getKeywords(String text) throws IOException {
 		if (text == null) {
 			return null;
 		}
 		DefaultNlpServiceResponse res = process(text);
 		if (res != null) {
-			return (KeywordWithDependency) res.getKeywords().get(0);
+
+			ArrayList<KeywordWithDependency> ret = new ArrayList<KeywordWithDependency>();
+			for (Keyword kwd : res.getKeywords()) {
+				ret.add((KeywordWithDependency) kwd);
+			}
+
+			return ret;
 		} else {
 			return null;
 		}

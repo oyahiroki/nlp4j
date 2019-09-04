@@ -1,7 +1,9 @@
 package nlp4j.yhoo_jp;
 
 import java.lang.invoke.MethodHandles;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Set;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -27,7 +29,7 @@ public class YJpDaServiceResponseHandler extends AbstractXmlHandler {
 
 	HashMap<String, DefaultKeywordWithDependency> map = new HashMap<String, DefaultKeywordWithDependency>();
 
-	KeywordWithDependency root;
+	ArrayList<KeywordWithDependency> roots = new ArrayList<KeywordWithDependency>();;
 
 	int sequence = 0;
 
@@ -61,6 +63,7 @@ public class YJpDaServiceResponseHandler extends AbstractXmlHandler {
 		} //
 		else if ("ResultSet/Result/ChunkList/Chunk/Dependency".equals(super.getPath())) {
 			dependency = super.getText();
+			logger.debug("dependency: " + dependency);
 		} //
 		else if ("ResultSet/Result/ChunkList/Chunk/MorphemList/Morphem/Surface".equals(super.getPath())) {
 			surface = super.getText();
@@ -76,7 +79,9 @@ public class YJpDaServiceResponseHandler extends AbstractXmlHandler {
 		} //
 		else if ("ResultSet/Result/ChunkList/Chunk/MorphemList/Morphem/Feature".equals(super.getPath())) {
 			feature = super.getText();
+			// IF(文の終わり)
 		} //
+			// キーワードの終わり
 		else if ("ResultSet/Result/ChunkList/Chunk/MorphemList/Morphem".equals(super.getPath())) {
 
 			this.sequence++;
@@ -84,10 +89,10 @@ public class YJpDaServiceResponseHandler extends AbstractXmlHandler {
 			kwd = new DefaultKeywordWithDependency();
 			kwd.setLex(null);
 			kwd.setStr(surface);
-			kwd.setFacet("word." + pos);
-			kwd.setSequence(sequence);
+			kwd.setFacet(pos);
+			kwd.setSequence(sequence); // 連番
 
-			{
+			{ // キーワードの開始位置・終了位置を設定
 				int begin = sentence.indexOf(kwd.getStr(), maxBegin);
 				if (begin != -1) {
 					kwd.setBegin(begin);
@@ -99,12 +104,27 @@ public class YJpDaServiceResponseHandler extends AbstractXmlHandler {
 			String fullMorphemId = id + "-" + morphemID;
 			map.put(fullMorphemId, kwd);
 
+			// MEMO: ヤフーの構文解析は文をまたいでも係り受けとみなすが、修正する
+			boolean isEndOfSentence = feature.startsWith("特殊,句点,");
+
 			if (morphemID == 0) {
-				kwd.setDependencyKey(this.dependency + "-" + "0");
+				if (isEndOfSentence == false) {
+					kwd.setDependencyKey(this.dependency + "-" + "0");
+				} else {
+					kwd.setDependencyKey("-1");
+				}
 			} //
 			else if (morphemID > 0) {
+				// このMorphemが最後かもしれないのでこのようにセットしておく
+				if (isEndOfSentence == false) {
+					kwd.setDependencyKey(this.dependency + "-" + "0");
+				} else {
+					kwd.setDependencyKey("-1");
+				}
+				// ひとつ前の Morphem について DependencyKey を上書きする
 				map.get(id + "-" + (morphemID - 1)).setDependencyKey(id + "-" + (morphemID));
-				kwd.setDependencyKey(this.dependency + "-" + "0");
+			} //
+			else {
 			}
 
 		} //
@@ -113,20 +133,47 @@ public class YJpDaServiceResponseHandler extends AbstractXmlHandler {
 		else if ("ResultSet/Result/ChunkList/Chunk".equals(super.getPath())) {
 			morphemID = -1;
 		} //
+		else if ("ResultSet/Result/ChunkList".equals(super.getPath())) {
+			// do nothing
+		} //
+		else if ("ResultSet/Result".equals(super.getPath())) {
+			// do nothing
+		} //
 		else if ("ResultSet".equals(super.getPath())) {
 			for (DefaultKeywordWithDependency kwd : map.values()) {
+				logger.debug("dependencyKey: " + kwd.getDependencyKey());
 				if (map.get(kwd.getDependencyKey()) != null) {
-					kwd.setParent(map.get(kwd.getDependencyKey()));
+					String dependencyKey = kwd.getDependencyKey();
+					logger.debug("dep: " + dependencyKey);
+					kwd.setParent(map.get(dependencyKey));
+				} else {
 				}
 			}
-			root = map.get("0-1").getRoot();
+//			root = map.get("0-1").getRoot();
+
+//			System.err.println("Root: " + root);
+
+			{
+				for (String key : map.keySet()) {
+					DefaultKeywordWithDependency kwd = map.get(key);
+					logger.debug(key + ": isRoot: " + kwd.isRoot() + " " + kwd.toString());
+					if (kwd.isRoot()) {
+						roots.add(kwd);
+					}
+				}
+			}
+
 		}
 
 		super.endElement(uri, localName, qName);
 	}
 
-	public KeywordWithDependency getRoot() {
-		return root;
+//	public KeywordWithDependency getRoot() {
+//		return roots.get(0);
+//	}
+
+	public ArrayList<KeywordWithDependency> getRoots() {
+		return this.roots;
 	}
 
 	@Override

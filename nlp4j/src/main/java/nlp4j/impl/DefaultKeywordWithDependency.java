@@ -1,6 +1,7 @@
 package nlp4j.impl;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import nlp4j.KeywordWithDependency;
 import nlp4j.util.XmlUtils;
@@ -64,6 +65,7 @@ public class DefaultKeywordWithDependency extends DefaultKeyword implements Keyw
 		}
 	}
 
+	@Override
 	public int getSequence() {
 		return sequence;
 	}
@@ -98,9 +100,9 @@ public class DefaultKeywordWithDependency extends DefaultKeyword implements Keyw
 		this.parent = parent;
 	}
 
+	@Override
 	public void setSequence(int sequence) {
 		this.sequence = sequence;
-
 	}
 
 	@Override
@@ -108,8 +110,8 @@ public class DefaultKeywordWithDependency extends DefaultKeyword implements Keyw
 		return "KeywordWithDependencyImpl [" //
 				+ "sequence=" + sequence + ", " //
 				+ "dependencyKey=" + dependencyKey + ", " //
-				+ "children=" + (children != null && children.size() > 0) + ", " //
-				+ "parent=" + (parent != null) + ", " //
+				+ "hasChildren=" + (children != null && children.size() > 0) + ", " //
+				+ "hasParent=" + (parent == null) + ", " //
 				+ "facet=" + facet + ", " //
 				+ "lex=" + lex + ", " //
 				+ "str=" + str + ", " //
@@ -187,5 +189,30 @@ public class DefaultKeywordWithDependency extends DefaultKeyword implements Keyw
 		return sb.toString();
 	}
 
-}
+	@Override
+	public KeywordWithDependency getParent(int depth) {
+		if (depth < 0) {
+			return null;
+		} else if (depth == 0) {
+			return this;
+		} else {
+			if (this.parent != null) {
+				return this.parent.getParent(depth - 1);
+			} else {
+				return null;
+			}
+		}
 
+	}
+
+	@Override
+	public List<KeywordWithDependency> asList() {
+		List<KeywordWithDependency> ret = new ArrayList<KeywordWithDependency>();
+		ret.add(this);
+		for (KeywordWithDependency c : this.children) {
+			ret.addAll(c.asList());
+		}
+		return ret;
+	}
+
+}

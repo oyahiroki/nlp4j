@@ -1,6 +1,5 @@
 package nlp4j;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -11,6 +10,8 @@ import java.util.List;
 public interface Document {
 
 	void addKeyword(Keyword keyword);
+
+	void addKeywords(List<Keyword> kwds);
 
 	Object getAttribute(String key);
 

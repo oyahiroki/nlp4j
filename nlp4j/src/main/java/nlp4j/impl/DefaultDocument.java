@@ -28,6 +28,11 @@ public class DefaultDocument implements Document {
 	}
 
 	@Override
+	public void addKeywords(List<Keyword> kwds) {
+		this.keywords.addAll(kwds);
+	}
+
+	@Override
 	public Object getAttribute(String key) {
 		return this.attributes.get(key);
 	}

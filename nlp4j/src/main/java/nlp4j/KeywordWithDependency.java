@@ -1,6 +1,7 @@
 package nlp4j;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Hiroki Oya
@@ -13,13 +14,19 @@ public interface KeywordWithDependency extends Keyword {
 
 	public void addChildOnly(KeywordWithDependency keyword);
 
+	public List<KeywordWithDependency> asList();
+
 	public ArrayList<KeywordWithDependency> getChildren();
 
 	public int getDepth();
 
 	public KeywordWithDependency getParent();
 
+	public KeywordWithDependency getParent(int depth);
+
 	public KeywordWithDependency getRoot();
+
+	public int getSequence();
 
 	public boolean hasChild();
 
@@ -31,12 +38,14 @@ public interface KeywordWithDependency extends Keyword {
 
 	public void setParentOnly(KeywordWithDependency parent);
 
-	public String toStringAsDependencyTree();
+	public void setSequence(int sequence);
 
 	public String toStringAsDependencyList();
+
+	public String toStringAsDependencyTree();
 
 	public String toStringAsXml();
 
 	Object toStringAsXml(int i);
-}
 
+}

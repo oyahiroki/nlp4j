@@ -94,6 +94,22 @@ public class DefaultKeywordWithDependencyTestCase extends TestCase {
 
 	}
 
+	public void testGetParentInt() {
+		DefaultKeywordWithDependency kwd1 = new DefaultKeywordWithDependency();
+		kwd1.setLex("aaa");
+
+		DefaultKeywordWithDependency kwd2 = new DefaultKeywordWithDependency();
+		kwd2.setLex("bbb");
+
+		kwd2.setParent(kwd1);
+
+		System.err.println(kwd2.getParent(-1));
+		System.err.println(kwd2.getParent(0));
+		System.err.println(kwd2.getParent(1));
+		System.err.println(kwd2.getParent(2));
+
+	}
+
 	public void testGetRoot001() {
 		DefaultKeywordWithDependency kwd1 = new DefaultKeywordWithDependency();
 		kwd1.setLex("aaa");
