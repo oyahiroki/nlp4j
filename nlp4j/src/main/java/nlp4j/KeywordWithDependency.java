@@ -39,3 +39,4 @@ public interface KeywordWithDependency extends Keyword {
 
 	Object toStringAsXml(int i);
 }
+
