@@ -49,7 +49,7 @@ public class YJpDaService implements NlpService {
 			appID = DefaultEnv.YHOO_JP_API_ID;
 			Exception e = new Exception("Please get your own APP_ID for Yahoo! Japan API "
 					+ "and set as Dyhoo_jp.appid={your_app_id} " + "- https://e.developer.yahoo.co.jp/dashboard/");
-			e.printStackTrace();
+			System.err.println("ERROR: " + e.getMessage());
 		}
 	}
 
@@ -101,9 +101,11 @@ public class YJpDaService implements NlpService {
 	 */
 	public ArrayList<KeywordWithDependency> getKeywords(String text) throws IOException {
 		if (text == null) {
+			System.err.println("INFO: text is null");
 			return null;
 		}
 		DefaultNlpServiceResponse res = process(text);
+		logger.debug(res.getOriginalResponseBody());
 		if (res != null) {
 
 			ArrayList<KeywordWithDependency> ret = new ArrayList<KeywordWithDependency>();

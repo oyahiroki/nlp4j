@@ -29,4 +29,6 @@ public interface Document {
 
 	void setText(String text);
 
+	List<Keyword> getKeywords(String string);
+
 }

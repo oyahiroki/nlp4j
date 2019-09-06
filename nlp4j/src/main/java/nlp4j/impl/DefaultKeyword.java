@@ -7,7 +7,7 @@ import nlp4j.Keyword;
  * @version 1.0
  *
  */
-public class DefaultKeyword implements Keyword {
+public class DefaultKeyword implements Keyword, Cloneable {
 	/**
 	 * 
 	 */
@@ -21,7 +21,7 @@ public class DefaultKeyword implements Keyword {
 	int end = -1;
 	double correlation;
 
-	int sequence=-1;
+	int sequence = -1;
 
 	/*
 	 * (non-Javadoc)
@@ -154,10 +154,12 @@ public class DefaultKeyword implements Keyword {
 	public void setReading(String reading) {
 		this.reading = reading;
 	}
+
 	public void setSequence(int sequence) {
 		this.sequence = sequence;
-		
+
 	}
+
 	/**
 	 * @param str the str to set
 	 */
@@ -166,12 +168,43 @@ public class DefaultKeyword implements Keyword {
 	}
 
 	@Override
-	public String toString() {
-		return "DefaultKeyword [sequence=" + sequence + ", facet=" + facet + ", lex=" + lex + ", str=" + str
-				+ ", reading=" + reading + ", count=" + count + ", begin=" + begin + ", end=" + end + ", correlation="
-				+ correlation + "]";
+	public boolean equals(Object obj) {
+
+		if (obj instanceof Keyword) {
+			Keyword kw = (Keyword) obj;
+			String facet = kw.getFacet();
+			String lex = kw.getLex();
+
+			if (this.lex == null || lex == null || this.facet == null || facet == null) {
+				return false;
+			} else {
+				return this.facet.equals(facet) && this.lex.equals(lex);
+			}
+		} else {
+			return super.equals(obj);
+		}
+
 	}
 
+	@Override
+	public int hashCode() {
+		if (this.lex == null || lex == null || this.facet == null || facet == null) {
+			return super.hashCode();
+		} else {
+			return (facet + lex).hashCode();
+		}
+	}
+
+	@Override
+	public String toString() {
+		return this.lex + " [sequence=" + sequence + ", facet=" + facet + ", lex=" + lex + ", str=" + str + ", reading="
+				+ reading + ", count=" + count + ", begin=" + begin + ", end=" + end + ", correlation=" + correlation
+				+ "]";
+	}
+
+	@Override
+	protected Object clone() throws CloneNotSupportedException {
+		return super.clone();
+	}
 
 }
-

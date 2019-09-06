@@ -8,6 +8,8 @@ public interface Index {
 
 	void addDocuments(List<Document> docs);
 
+	List<Keyword> getKeywords();
+
 	List<Keyword> getKeywords(String facet);
 
 	List<Keyword> getKeywords(String facet, String condition);

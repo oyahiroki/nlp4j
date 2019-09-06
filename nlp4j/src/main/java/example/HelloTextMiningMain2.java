@@ -2,6 +2,7 @@ package example;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import nlp4j.Annotator;
 import nlp4j.Document;
@@ -9,7 +10,7 @@ import nlp4j.Index;
 import nlp4j.Keyword;
 import nlp4j.impl.DefaultDocument;
 import nlp4j.index.SimpleDocumentIndex;
-import nlp4j.yhoo_jp.YJpMaAnnotator;
+import nlp4j.yhoo_jp.YjpAllAnnotator;
 
 /**
  * サンプルソースコードです。日本語形態素解析とインデックス処理を利用して、共起性の高いキーワードを抽出します。
@@ -17,7 +18,7 @@ import nlp4j.yhoo_jp.YJpMaAnnotator;
  * @author oyahiroki
  *
  */
-public class HelloTextMiningMain1 {
+public class HelloTextMiningMain2 {
 
 	public static void main(String[] args) throws Exception {
 
@@ -40,46 +41,57 @@ public class HelloTextMiningMain1 {
 			docs.add(createDocument("Honda", "軽自動車を作っています。"));
 		}
 
-		Annotator annotator = new YJpMaAnnotator();
+		Annotator annotator = new YjpAllAnnotator(); // 形態素解析＋構文解析
 		{
-			// 形態素解析処理
+			System.err.println("形態素解析＋構文解析");
+			long time1 = System.currentTimeMillis();
+			// 形態素解析＋構文解析
 			annotator.annotate(docs);
+			long time2 = System.currentTimeMillis();
+			System.err.println("処理時間[ms]：" + (time2 - time1));
 		}
 
 		Index index = new SimpleDocumentIndex();
 		{
+			System.err.println("インデックス作成");
+			long time1 = System.currentTimeMillis();
 			// キーワードインデックス作成処理
 			index.addDocuments(docs);
+			long time2 = System.currentTimeMillis();
+			System.err.println("処理時間[ms]：" + (time2 - time1));
 		}
 
+		{
+			// 頻度の高いキーワードの取得
+			System.out.println("名詞の頻度順");
+			List<Keyword> kwds = index.getKeywords();
+			kwds = kwds.stream() //
+					.filter(o -> o.getCount() > 1) // 2件以上
+					.filter(o -> o.getFacet().equals("名詞")) // 品詞が名詞
+					.collect(Collectors.toList());
+			for (Keyword kwd : kwds) {
+				System.out.println(
+						String.format("count=%d,facet=%s, lex=%s", kwd.getCount(), kwd.getFacet(), kwd.getLex()));
+			}
+		}
 		{
 			// 共起性の高いキーワードの取得
 			List<Keyword> kwds = index.getKeywords("名詞", "item=Nissan");
-
-			System.out.println("Keywords(名詞) for Nissan");
+			System.out.println("名詞 for Nissan");
 			for (Keyword kwd : kwds) {
-				System.out.println(String.format("%.1f,%s", kwd.getCorrelation(), kwd.getLex()));
+				System.out.println(String.format("count=%d,correlation=%.1f,lex=%s", kwd.getCount(),
+						kwd.getCorrelation(), kwd.getLex()));
 			}
 		}
 		{
 			// 共起性の高いキーワードの取得
-			List<Keyword> kwds = index.getKeywords("名詞", "item=Toyota");
-
-			System.out.println("Keywords(名詞) for Toyota");
+			List<Keyword> kwds = index.getKeywords("名詞...動詞", "item=Nissan");
+			System.out.println("名詞...動詞 for Nissan");
 			for (Keyword kwd : kwds) {
-				System.out.println(String.format("%.1f,%s", kwd.getCorrelation(), kwd.getLex()));
+				System.out.println(String.format("count=%d,correlation=%.1f,lex=%s", kwd.getCount(),
+						kwd.getCorrelation(), kwd.getLex()));
 			}
 		}
-		{
-			// 共起性の高いキーワードの取得
-			List<Keyword> kwds = index.getKeywords("名詞", "item=Honda");
-
-			System.out.println("Keywords(名詞) for Honda");
-			for (Keyword kwd : kwds) {
-				System.out.println(String.format("%.1f,%s", kwd.getCorrelation(), kwd.getLex()));
-			}
-		}
-
 	}
 
 	static Document createDocument(String item, String text) {

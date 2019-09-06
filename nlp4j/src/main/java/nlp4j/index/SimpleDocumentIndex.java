@@ -25,16 +25,17 @@ public class SimpleDocumentIndex implements Index {
 
 	HashMap<String, Document> mapDocument = new HashMap<>();
 
+	// <String facet, HashMap <String lex, Long count>>
 	HashMap<String, HashMap<String, Long>> mapKeywordCount = new HashMap<>();
+
+	HashMap<Keyword, Long> keywordCount = new HashMap<Keyword, Long>();
 
 	@Override
 	public void addDocument(Document doc) {
 		mapDocument.put(doc.getId(), doc);
-
 		for (Keyword kwd : doc.getKeywords()) {
 			addKeyword(kwd);
 		}
-
 	}
 
 	@Override
@@ -45,6 +46,17 @@ public class SimpleDocumentIndex implements Index {
 	}
 
 	private void addKeyword(Keyword kwd) {
+		{
+			Long kwCount = keywordCount.get(kwd);
+			if (kwCount == null) {
+				keywordCount.put(kwd, (long) 1);
+			} else {
+				kwCount++;
+				kwd.setCount(kwCount);
+				keywordCount.put(kwd, kwCount);
+			}
+		}
+
 		// facet , keyword, count
 
 		String facet = kwd.getFacet();
@@ -143,6 +155,19 @@ public class SimpleDocumentIndex implements Index {
 	@Override
 	public String toString() {
 		return "SimpleDocumentIndex [mapDocument=" + mapDocument + ", mapKeywordCount=" + mapKeywordCount + "]";
+	}
+
+	@Override
+	public List<Keyword> getKeywords() {
+		ArrayList<Keyword> kwds = new ArrayList<Keyword>(keywordCount.keySet());
+		// clone を正しく実装する必要がある？
+		for (int n = 0; n < kwds.size(); n++) {
+			Long l = keywordCount.get(kwds.get(n));
+			kwds.get(n).setCount(l);
+		}
+		List<Keyword> kwds2 = kwds.stream().sorted(Comparator.comparing(Keyword::getCount).reversed())
+				.collect(Collectors.toList());
+		return kwds2;
 	}
 
 }

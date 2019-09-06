@@ -1,11 +1,29 @@
 package nlp4j.impl;
 
 import junit.framework.TestCase;
+import nlp4j.Keyword;
 
 public class DefaultKeywordWithDependencyTestCase extends TestCase {
 
 	@SuppressWarnings("rawtypes")
 	Class target = DefaultKeywordWithDependency.class;
+
+	public void testEqualsObject001() {
+		Keyword kwd = new DefaultKeywordWithDependency();
+		kwd.setFacet("facet");
+		kwd.setLex("lex");
+		assertTrue(kwd.equals(kwd));
+	}
+
+	public void testEqualsObject002() {
+		Keyword kwd1 = new DefaultKeywordWithDependency();
+		kwd1.setFacet("facet");
+		kwd1.setLex("lex");
+		Keyword kwd2 = new DefaultKeywordWithDependency();
+		kwd2.setFacet("facet");
+		kwd2.setLex("lex");
+		assertTrue(kwd1.equals(kwd2));
+	}
 
 	public void testToString() {
 		DefaultKeywordWithDependency kwd1 = new DefaultKeywordWithDependency();

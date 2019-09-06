@@ -34,6 +34,16 @@ public class DefaultKeywordWithDependency extends DefaultKeyword implements Keyw
 	}
 
 	@Override
+	public List<KeywordWithDependency> asList() {
+		List<KeywordWithDependency> ret = new ArrayList<KeywordWithDependency>();
+		ret.add(this);
+		for (KeywordWithDependency c : this.children) {
+			ret.addAll(c.asList());
+		}
+		return ret;
+	}
+
+	@Override
 	public ArrayList<KeywordWithDependency> getChildren() {
 		return this.children;
 	}
@@ -54,6 +64,22 @@ public class DefaultKeywordWithDependency extends DefaultKeyword implements Keyw
 	@Override
 	public KeywordWithDependency getParent() {
 		return this.parent;
+	}
+
+	@Override
+	public KeywordWithDependency getParent(int depth) {
+		if (depth < 0) {
+			return null;
+		} else if (depth == 0) {
+			return this;
+		} else {
+			if (this.parent != null) {
+				return this.parent.getParent(depth - 1);
+			} else {
+				return null;
+			}
+		}
+
 	}
 
 	@Override
@@ -107,7 +133,7 @@ public class DefaultKeywordWithDependency extends DefaultKeyword implements Keyw
 
 	@Override
 	public String toString() {
-		return "KeywordWithDependencyImpl [" //
+		return this.lex + " [" //
 				+ "sequence=" + sequence + ", " //
 				+ "dependencyKey=" + dependencyKey + ", " //
 				+ "hasChildren=" + (children != null && children.size() > 0) + ", " //
@@ -173,12 +199,14 @@ public class DefaultKeywordWithDependency extends DefaultKeyword implements Keyw
 					+ "str=\"" + this.str + "\" " //
 					+ "lex=\"" + this.lex + "\" " //
 					+ "depth=\"" + depth + "\" " //
+					+ "facet=\"" + this.facet + "\" " //
 					+ "/>");
 		} else {
 			sb.append("<w " //
 					+ "str=\"" + this.str + "\" " //
 					+ "lex=\"" + this.lex + "\" " //
 					+ "depth=\"" + depth + "\" " //
+					+ "facet=\"" + this.facet + "\" " //
 					+ ">");
 			for (KeywordWithDependency c : children) {
 				sb.append(c.toStringAsXml(depth + 1));
@@ -190,29 +218,8 @@ public class DefaultKeywordWithDependency extends DefaultKeyword implements Keyw
 	}
 
 	@Override
-	public KeywordWithDependency getParent(int depth) {
-		if (depth < 0) {
-			return null;
-		} else if (depth == 0) {
-			return this;
-		} else {
-			if (this.parent != null) {
-				return this.parent.getParent(depth - 1);
-			} else {
-				return null;
-			}
-		}
-
-	}
-
-	@Override
-	public List<KeywordWithDependency> asList() {
-		List<KeywordWithDependency> ret = new ArrayList<KeywordWithDependency>();
-		ret.add(this);
-		for (KeywordWithDependency c : this.children) {
-			ret.addAll(c.asList());
-		}
-		return ret;
+	public boolean equals(Object obj) {
+		return super.equals(obj);
 	}
 
 }

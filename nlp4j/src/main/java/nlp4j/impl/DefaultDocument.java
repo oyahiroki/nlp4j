@@ -83,4 +83,18 @@ public class DefaultDocument implements Document {
 		return "Document [attributes=" + attributes + ", keywords=" + keywords + "]";
 	}
 
+	@Override
+	public List<Keyword> getKeywords(String facet) {
+
+		ArrayList<Keyword> ret = new ArrayList<Keyword>();
+
+		for (Keyword kwd : this.keywords) {
+			if (kwd.getFacet() != null && kwd.getFacet().equals(facet)) {
+				ret.add(kwd);
+			}
+		}
+
+		return ret;
+	}
+
 }
