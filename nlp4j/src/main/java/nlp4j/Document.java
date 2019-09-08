@@ -23,7 +23,7 @@ public interface Document {
 	/**
 	 * 複数キーワードを追加します。
 	 * 
-	 * @param keyword キーワード
+	 * @param kwds keyword キーワード
 	 * @since 1.0
 	 */
 	void addKeywords(List<Keyword> kwds);
@@ -64,8 +64,8 @@ public interface Document {
 	/**
 	 * この文書の属性をセットします。
 	 * 
-	 * @param key
-	 * @param value
+	 * @param key   属性名
+	 * @param value 属性の値
 	 * @since 1.0
 	 */
 	void putAttribute(String key, String value);
@@ -73,7 +73,7 @@ public interface Document {
 	/**
 	 * この文書のIDをセットします。
 	 * 
-	 * @param id
+	 * @param id 文書のID
 	 * @since 1.0
 	 */
 	void setId(String id);
@@ -81,7 +81,7 @@ public interface Document {
 	/**
 	 * この文書のキーワードをセットします。
 	 * 
-	 * @param keywords
+	 * @param keywords キーワード
 	 * @since 1.0
 	 */
 	void setKeywords(List<Keyword> keywords);
@@ -89,7 +89,7 @@ public interface Document {
 	/**
 	 * この文書のテキストをセットします。
 	 * 
-	 * @param text
+	 * @param text テキスト
 	 * @since 1.0
 	 */
 	void setText(String text);
@@ -97,8 +97,8 @@ public interface Document {
 	/**
 	 * この文書のキーワードをファセットで指定して返します。
 	 * 
-	 * @param facet
-	 * @return
+	 * @param facet ファセット
+	 * @return キーワード
 	 * @since 1.0
 	 */
 	List<Keyword> getKeywords(String facet);

@@ -8,7 +8,18 @@ import nlp4j.yhoo_jp.YJpMaService;
 
 /**
  * Yahoo! Japan の日本語形態素解析サービスを利用するサンプルです。
- * 
+<pre>
+Input:
+日産自動車はEVを作ります。
+Ouput:
+日産自動車 [sequence=1, facet=名詞, lex=日産自動車, str=日産自動車, reading=にっさんじどうしゃ, count=-1, begin=0, end=5, correlation=0.0]
+は [sequence=2, facet=助詞, lex=は, str=は, reading=は, count=-1, begin=5, end=6, correlation=0.0]
+EV [sequence=3, facet=名詞, lex=EV, str=EV, reading=EV, count=-1, begin=6, end=8, correlation=0.0]
+を [sequence=4, facet=助詞, lex=を, str=を, reading=を, count=-1, begin=8, end=9, correlation=0.0]
+作る [sequence=5, facet=動詞, lex=作る, str=作り, reading=つくり, count=-1, begin=9, end=11, correlation=0.0]
+ます [sequence=6, facet=助動詞, lex=ます, str=ます, reading=ます, count=-1, begin=11, end=13, correlation=0.0]
+。 [sequence=7, facet=特殊, lex=。, str=。, reading=。, count=-1, begin=13, end=14, correlation=0.0]
+</pre>
  * @author Hiroki Oya
  *
  */

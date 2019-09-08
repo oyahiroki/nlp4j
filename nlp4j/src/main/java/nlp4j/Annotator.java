@@ -25,7 +25,7 @@ public interface Annotator {
 	/**
 	 * 複数のドキュメントにアノテーションを付加します。
 	 * 
-	 * @param doc ドキュメント
+	 * @param docs ドキュメント
 	 * @throws IOException IO例外
 	 * @since 1.0
 	 */

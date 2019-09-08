@@ -14,7 +14,7 @@ public interface DefaultEnv {
 	 * Yahoo! Japan デベロッパーネットワークのアプリケーションIDです。ご自身のアプリケーションIDを取得して利用してください。
 	 * 
 	 * <pre>
-	 * デベロッパーネットワークトップ > Yahoo! ID連携 > v1 > アプリケーションIDを登録する
+	 * デベロッパーネットワークトップ &gt; Yahoo! ID連携 &gt; v1 &gt; アプリケーションIDを登録する
 	 * https://developer.yahoo.co.jp/yconnect/v1/registration.html
 	 * </pre>
 	 */

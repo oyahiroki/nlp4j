@@ -2,7 +2,6 @@ package example;
 
 import java.io.IOException;
 
-import nlp4j.KeywordWithDependency;
 import nlp4j.impl.DefaultNlpServiceResponse;
 import nlp4j.yhoo_jp.YJpDaService;
 

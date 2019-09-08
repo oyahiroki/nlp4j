@@ -21,7 +21,7 @@ public interface Index {
 	/**
 	 * インデックスに複数のドキュメントを追加します。
 	 * 
-	 * @param docs
+	 * @param docs 複数のドキュメント
 	 * @since 1.0
 	 */
 	void addDocuments(List<Document> docs);
@@ -37,8 +37,8 @@ public interface Index {
 	/**
 	 * ファセットを指定してインデックスのキーワードを返します。
 	 * 
-	 * @param facet ファセットID
-	 * @return
+	 * @param facet ファセット
+	 * @return キーワード
 	 * @since 1.0
 	 */
 	List<Keyword> getKeywords(String facet);
@@ -48,7 +48,7 @@ public interface Index {
 	 * 
 	 * @param facet     ファセットID
 	 * @param condition 条件
-	 * @return
+	 * @return キーワード
 	 * @since 1.0
 	 */
 	List<Keyword> getKeywords(String facet, String condition);
