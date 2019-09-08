@@ -16,7 +16,7 @@ public class YJpMorphologicalAnalysisExampleMain2 {
 
 	public static void main(String[] args) throws IOException {
 		// 自然文のテキスト
-		String text = "今日は走って学校に行きました。";
+		String text = "日産自動車はEVを作ります。";
 		// 日本語形態素解析
 		YJpMaService service = new YJpMaService();
 		// 形態素解析の結果を取得する

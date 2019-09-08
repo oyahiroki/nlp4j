@@ -71,7 +71,7 @@ public class HelloTextMiningMain2 {
 					.collect(Collectors.toList());
 			for (Keyword kwd : kwds) {
 				System.out.println(
-						String.format("count=%d,facet=%s, lex=%s", kwd.getCount(), kwd.getFacet(), kwd.getLex()));
+						String.format("count=%d,facet=%s,lex=%s", kwd.getCount(), kwd.getFacet(), kwd.getLex()));
 			}
 		}
 		{

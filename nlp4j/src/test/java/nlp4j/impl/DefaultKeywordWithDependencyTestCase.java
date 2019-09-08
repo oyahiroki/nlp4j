@@ -263,8 +263,12 @@ public class DefaultKeywordWithDependencyTestCase extends TestCase {
 		DefaultKeywordWithDependency kwd2 = new DefaultKeywordWithDependency();
 		kwd2.setLex("bbb_lex");
 		kwd2.setStr("bbb_str");
+		DefaultKeywordWithDependency kwd3 = new DefaultKeywordWithDependency();
+		kwd3.setLex("ccc_lex");
+		kwd3.setStr("ccc_str");
 
 		kwd2.setParent(kwd1);
+		kwd3.setParent(kwd2);
 		String s = kwd1.toStringAsDependencyList();
 		System.err.println(s);
 	}
