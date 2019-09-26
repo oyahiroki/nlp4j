@@ -2,6 +2,13 @@ package nlp4j;
 
 import java.util.List;
 
+/**
+ * Abstract Document Imporeter
+ * 
+ * @author Hiroki Oya
+ * @since 1.0
+ *
+ */
 public abstract class AbstractDocumentImporter implements DocumentImporter {
 
 	@Override
