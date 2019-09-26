@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import nlp4j.Annotator;
+import nlp4j.DocumentAnnotator;
 import nlp4j.Document;
 import nlp4j.Index;
 import nlp4j.Keyword;
@@ -41,7 +41,7 @@ public class HelloTextMiningMain2 {
 			docs.add(createDocument("Honda", "軽自動車を作っています。"));
 		}
 
-		Annotator annotator = new YjpAllAnnotator(); // 形態素解析＋構文解析
+		DocumentAnnotator annotator = new YjpAllAnnotator(); // 形態素解析＋構文解析
 		{
 			System.err.println("形態素解析＋構文解析");
 			long time1 = System.currentTimeMillis();

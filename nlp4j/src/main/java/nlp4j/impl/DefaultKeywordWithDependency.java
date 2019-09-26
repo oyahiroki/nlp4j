@@ -7,6 +7,7 @@ import nlp4j.KeywordWithDependency;
 import nlp4j.util.XmlUtils;
 
 /**
+ * TODO Node<T> にリファクタリング
  * @author Hiroki Oya
  * @version 1.0
  *

@@ -3,7 +3,7 @@ package example;
 import java.util.ArrayList;
 import java.util.List;
 
-import nlp4j.Annotator;
+import nlp4j.DocumentAnnotator;
 import nlp4j.Document;
 import nlp4j.Index;
 import nlp4j.Keyword;
@@ -40,7 +40,7 @@ public class HelloTextMiningMain1 {
 			docs.add(createDocument("Honda", "軽自動車を作っています。"));
 		}
 
-		Annotator annotator = new YJpMaAnnotator();
+		DocumentAnnotator annotator = new YJpMaAnnotator();
 		{
 			// 形態素解析処理
 			annotator.annotate(docs);

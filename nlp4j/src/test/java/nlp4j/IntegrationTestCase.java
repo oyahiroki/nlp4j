@@ -31,7 +31,7 @@ public class IntegrationTestCase extends TestCase {
 			docs.add(createDocument("Honda", "軽自動車を作っています。"));
 		}
 
-		Annotator annotator = new YJpMaAnnotator();
+		DocumentAnnotator annotator = new YJpMaAnnotator();
 		{
 			// 形態素解析処理
 			annotator.annotate(docs);
@@ -82,7 +82,7 @@ public class IntegrationTestCase extends TestCase {
 			docs.add(createDocument("Honda", ""));
 		}
 
-		Annotator annotator = new YJpMaAnnotator();
+		DocumentAnnotator annotator = new YJpMaAnnotator();
 		{
 			// 形態素解析処理
 			annotator.annotate(docs);
@@ -133,7 +133,7 @@ public class IntegrationTestCase extends TestCase {
 //			docs.add(createDocument("Honda", ""));
 		}
 
-		Annotator annotator = new YJpMaAnnotator();
+		DocumentAnnotator annotator = new YJpMaAnnotator();
 		{
 			// 形態素解析処理
 			annotator.annotate(docs);

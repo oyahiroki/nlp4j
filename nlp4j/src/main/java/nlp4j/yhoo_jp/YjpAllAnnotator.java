@@ -6,7 +6,8 @@ import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 
-import nlp4j.Annotator;
+import nlp4j.DocumentAnnotator;
+import nlp4j.AbstractDocumentAnnotator;
 import nlp4j.Document;
 import nlp4j.Keyword;
 import nlp4j.KeywordWithDependency;
@@ -18,7 +19,7 @@ import nlp4j.impl.DefaultKeyword;
  * @author oyahiroki
  *
  */
-public class YjpAllAnnotator implements Annotator {
+public class YjpAllAnnotator extends AbstractDocumentAnnotator implements DocumentAnnotator {
 
 	static private final org.apache.logging.log4j.Logger logger = LogManager.getLogger(YjpAllAnnotator.class);
 
@@ -196,14 +197,6 @@ public class YjpAllAnnotator implements Annotator {
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new IOException(e);
-		}
-
-	}
-
-	@Override
-	public void annotate(List<Document> docs) throws IOException {
-		for (Document doc : docs) {
-			annotate(doc);
 		}
 
 	}

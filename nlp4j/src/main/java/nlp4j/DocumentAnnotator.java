@@ -11,7 +11,7 @@ import java.util.List;
  * @since 1.0
  *
  */
-public interface Annotator {
+public interface DocumentAnnotator {
 
 	/**
 	 * ドキュメントにアノテーションを付加します。
@@ -20,7 +20,7 @@ public interface Annotator {
 	 * @throws IOException IO例外
 	 * @since 1.0
 	 */
-	public void annotate(Document doc) throws IOException;
+	public void annotate(Document doc) throws Exception;
 
 	/**
 	 * 複数のドキュメントにアノテーションを付加します。
@@ -29,6 +29,6 @@ public interface Annotator {
 	 * @throws IOException IO例外
 	 * @since 1.0
 	 */
-	public void annotate(List<Document> docs) throws IOException;
+	public void annotate(List<Document> docs) throws Exception;
 
 }
