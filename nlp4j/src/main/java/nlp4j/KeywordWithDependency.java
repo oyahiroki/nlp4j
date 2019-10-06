@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 係り受けの依存関係をセットできるキーワードです。
+ * 係り受けの依存関係をセットできるキーワードです。Keyword with Dependency.
  * 
  * @author Hiroki Oya
  * @version 1.0

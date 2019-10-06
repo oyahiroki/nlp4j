@@ -3,7 +3,8 @@ package nlp4j;
 import java.util.List;
 
 /**
- * Document importer for document index like Apache Solr, Azure Search.
+ * ドキュメントインポーター。Apache SolrやAzure Searchのようなコンポーネントを想定。Document importer for
+ * document index like Apache Solr, Azure Search.
  * 
  * @author Hiroki Oya
  * @since 1.0

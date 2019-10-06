@@ -3,7 +3,7 @@ package nlp4j;
 import java.util.List;
 
 /**
- * Document Crawler
+ * ドキュメントクローラー。Document Crawler.
  * 
  * @since 1.0
  * @author Hiroki Oya

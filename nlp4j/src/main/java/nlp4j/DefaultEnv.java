@@ -1,7 +1,7 @@
 package nlp4j;
 
 /**
- * デフォルトで利用できるAPP IDです。極力利用しないでください。^_^
+ * デフォルトで利用できるAPP IDです。極力利用しないでください。^_^ Default API APP IDs
  * 
  * @author Hiroki Oya
  * @version 1.0

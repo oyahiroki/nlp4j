@@ -3,6 +3,8 @@ package nlp4j;
 import java.util.List;
 
 /**
+ * 自然言語処理の結果. NLP Response.
+ * 
  * @author Hiroki Oya
  * @version 1.0
  *

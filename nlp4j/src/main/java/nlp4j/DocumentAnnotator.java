@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.List;
 
 /**
- * ドキュメントにメタ情報を付加するアノテーターです。
+ * ドキュメントにメタ情報を付加するアノテーターです。Document Annotator.
  * 
  * @author Hiroki Oya
  * @version 1.0
@@ -14,7 +14,7 @@ import java.util.List;
 public interface DocumentAnnotator {
 
 	/**
-	 * ドキュメントにアノテーションを付加します。
+	 * ドキュメントにアノテーションを付加します。Add an annotation to a document.
 	 * 
 	 * @param doc ドキュメント
 	 * @throws IOException IO例外
@@ -23,7 +23,7 @@ public interface DocumentAnnotator {
 	public void annotate(Document doc) throws Exception;
 
 	/**
-	 * 複数のドキュメントにアノテーションを付加します。
+	 * 複数のドキュメントにアノテーションを付加します。Add an annotation to documents.
 	 * 
 	 * @param docs ドキュメント
 	 * @throws IOException IO例外

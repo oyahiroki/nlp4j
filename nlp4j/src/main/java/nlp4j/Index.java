@@ -3,7 +3,7 @@ package nlp4j;
 import java.util.List;
 
 /**
- * ドキュメントのインデックスです。
+ * ドキュメントのインデックスです。Index of Documents.
  * 
  * @author Hiroki Oya
  * @version 1.0

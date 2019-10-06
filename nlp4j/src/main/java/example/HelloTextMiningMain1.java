@@ -21,6 +21,7 @@ public class HelloTextMiningMain1 {
 
 	public static void main(String[] args) throws Exception {
 
+		// ドキュメントの用意（CSVを読み込むなどでも可）
 		List<Document> docs = new ArrayList<Document>();
 		{
 			docs.add(createDocument("Toyota", "ハイブリッドカーを作っています。"));
@@ -40,12 +41,14 @@ public class HelloTextMiningMain1 {
 			docs.add(createDocument("Honda", "軽自動車を作っています。"));
 		}
 
+		// 形態素解析アノテーター
 		DocumentAnnotator annotator = new YJpMaAnnotator();
 		{
 			// 形態素解析処理
 			annotator.annotate(docs);
 		}
 
+		// キーワードインデックス（統計処理）の用意
 		Index index = new SimpleDocumentIndex();
 		{
 			// キーワードインデックス作成処理
