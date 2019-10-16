@@ -1,4 +1,5 @@
 /**
- * package for example source code. サンプルコードのパッケージ
+ * サンプルコードのパッケージです。<br/>
+ * Package for example source code.
  */
 package example;

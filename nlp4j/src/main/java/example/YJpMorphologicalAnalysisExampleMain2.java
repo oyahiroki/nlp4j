@@ -7,8 +7,11 @@ import nlp4j.impl.DefaultNlpServiceResponse;
 import nlp4j.yhoo_jp.YJpMaService;
 
 /**
- * Yahoo! Japan の日本語形態素解析サービスを利用するサンプルです。
-<pre>
+ * Yahoo! Japan の日本語形態素解析サービスを利用するサンプルです。<br/>
+ * Example for Japanese Language Morphological Analysis with Yahoo! Japan API
+ * Service.
+ * 
+ * <pre>
 Input:
 日産自動車はEVを作ります。
 Ouput:
@@ -19,7 +22,8 @@ EV [sequence=3, facet=名詞, lex=EV, str=EV, reading=EV, count=-1, begin=6, end
 作る [sequence=5, facet=動詞, lex=作る, str=作り, reading=つくり, count=-1, begin=9, end=11, correlation=0.0]
 ます [sequence=6, facet=助動詞, lex=ます, str=ます, reading=ます, count=-1, begin=11, end=13, correlation=0.0]
 。 [sequence=7, facet=特殊, lex=。, str=。, reading=。, count=-1, begin=13, end=14, correlation=0.0]
-</pre>
+ * </pre>
+ * 
  * @author Hiroki Oya
  *
  */

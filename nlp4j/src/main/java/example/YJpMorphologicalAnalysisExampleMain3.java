@@ -7,11 +7,14 @@ import nlp4j.Keyword;
 import nlp4j.yhoo_jp.YJpMaService;
 
 /**
- * Yahoo! Japan の日本語形態素解析サービスを利用するサンプルです。
-	 * <pre>
-	 * Input:今日は走って学校に行きました。
-	 * 
-	 * Output:
+ * Yahoo! Japan の日本語形態素解析サービスを利用するサンプルです。<br/>
+ * Example for Japanese Language Morphological Analysis with Yahoo! Japan API
+ * Service.
+ * 
+ * <pre>
+ * Input:今日は走って学校に行きました。
+ * 
+ * Output:
 Keyword [facet=名詞, lex=今日, str=今日, reading=きょう, begin=0, end=2]
 Keyword [facet=助詞, lex=は, str=は, reading=は, begin=2, end=3]
 Keyword [facet=動詞, lex=走る, str=走っ, reading=はしっ, begin=3, end=5]
@@ -22,7 +25,7 @@ Keyword [facet=動詞, lex=行く, str=行き, reading=いき, begin=9, end=11]
 Keyword [facet=助動詞, lex=ます, str=まし, reading=まし, begin=11, end=13]
 Keyword [facet=助動詞, lex=た, str=た, reading=た, begin=13, end=14]
 Keyword [facet=特殊, lex=。, str=。, reading=。, begin=14, end=15]
-	 * </pre>
+ * </pre>
  * 
  * @author Hiroki Oya
  *

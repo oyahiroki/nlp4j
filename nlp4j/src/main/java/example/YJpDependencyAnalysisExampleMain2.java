@@ -6,7 +6,8 @@ import nlp4j.impl.DefaultNlpServiceResponse;
 import nlp4j.yhoo_jp.YJpDaService;
 
 /**
- * Yahoo! Japan の日本語係り受け解析サービスを利用するサンプルです。
+ * Yahoo! Japan の日本語係り受け解析サービスを利用するサンプルです。<br/>
+ * Example for Japanese Dependency Analysis with Yahoo! Japan API Service.
  * 
  * <pre>
  * Input: 今日はいい天気です
@@ -37,4 +38,3 @@ public class YJpDependencyAnalysisExampleMain2 {
 	}
 
 }
-
