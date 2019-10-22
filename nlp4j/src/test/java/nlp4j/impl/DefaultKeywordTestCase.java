@@ -6,75 +6,111 @@ import nlp4j.Keyword;
 public class DefaultKeywordTestCase extends TestCase {
 
 	public void testGetBegin() {
-		fail("Not yet implemented");
+		DefaultKeyword kw = new DefaultKeyword();
+		kw.setBegin(100);
+		assertEquals(100, kw.getBegin());
 	}
 
 	public void testGetCorrelation() {
-		fail("Not yet implemented");
+		DefaultKeyword kw = new DefaultKeyword();
+		kw.setCorrelation(1.23);
+		assertEquals(1.23, kw.getCorrelation());
 	}
 
 	public void testGetCount() {
-		fail("Not yet implemented");
+		DefaultKeyword kw = new DefaultKeyword();
+		kw.setCount(100);
+		assertEquals(100, kw.getCount());
 	}
 
 	public void testGetEnd() {
-		fail("Not yet implemented");
+		DefaultKeyword kw = new DefaultKeyword();
+		kw.setEnd(100);
+		assertEquals(100, kw.getEnd());
 	}
 
 	public void testGetFacet() {
-		fail("Not yet implemented");
+		DefaultKeyword kw = new DefaultKeyword();
+		kw.setFacet("facet1");
+		assertEquals("facet1", kw.getFacet());
 	}
 
 	public void testGetLex() {
-		fail("Not yet implemented");
+		DefaultKeyword kw = new DefaultKeyword();
+		kw.setLex("lex");
+		assertEquals("lex", kw.getLex());
 	}
 
 	public void testGetReading() {
-		fail("Not yet implemented");
+		DefaultKeyword kw = new DefaultKeyword();
+		kw.setReading("よみ");
+		assertEquals("よみ", kw.getReading());
 	}
 
 	public void testGetSequence() {
-		fail("Not yet implemented");
+		DefaultKeyword kw = new DefaultKeyword();
+		kw.setSequence(10);
+		assertEquals(10, kw.getSequence());
 	}
 
 	public void testGetStr() {
-		fail("Not yet implemented");
+		DefaultKeyword kw = new DefaultKeyword();
+		kw.setStr("abc");
+		assertEquals("abc", kw.getStr());
 	}
 
 	public void testSetBegin() {
-		fail("Not yet implemented");
+		DefaultKeyword kw = new DefaultKeyword();
+		kw.setBegin(10);
+		assertEquals(10, kw.getBegin());
 	}
 
 	public void testSetCorrelation() {
-		fail("Not yet implemented");
+		DefaultKeyword kw = new DefaultKeyword();
+		kw.setCorrelation(1.23);
+		assertEquals(1.23, kw.getCorrelation());
 	}
 
 	public void testSetCount() {
-		fail("Not yet implemented");
+		DefaultKeyword kw = new DefaultKeyword();
+		kw.setCount(100);
+		assertEquals(100, kw.getCount());
 	}
 
 	public void testSetEnd() {
-		fail("Not yet implemented");
+		DefaultKeyword kw = new DefaultKeyword();
+		kw.setEnd(100);
+		assertEquals(100, kw.getEnd());
 	}
 
 	public void testSetFacet() {
-		fail("Not yet implemented");
+		DefaultKeyword kw = new DefaultKeyword();
+		kw.setFacet("facet1");
+		assertEquals("facet1", kw.getFacet());
 	}
 
 	public void testSetLex() {
-		fail("Not yet implemented");
+		DefaultKeyword kw = new DefaultKeyword();
+		kw.setLex("lex");
+		assertEquals("lex", kw.getLex());
 	}
 
 	public void testSetReading() {
-		fail("Not yet implemented");
+		DefaultKeyword kw = new DefaultKeyword();
+		kw.setReading("よみ");
+		assertEquals("よみ", kw.getReading());
 	}
 
 	public void testSetSequence() {
-		fail("Not yet implemented");
+		DefaultKeyword kw = new DefaultKeyword();
+		kw.setSequence(10);
+		assertEquals(10, kw.getSequence());
 	}
 
 	public void testSetStr() {
-		fail("Not yet implemented");
+		DefaultKeyword kw = new DefaultKeyword();
+		kw.setStr("abc");
+		assertEquals("abc", kw.getStr());
 	}
 
 	public void testEqualsObject001() {
@@ -105,7 +141,9 @@ public class DefaultKeywordTestCase extends TestCase {
 	}
 
 	public void testToString() {
-		fail("Not yet implemented");
+		Keyword kwd = new DefaultKeyword();
+		System.err.println(kwd.toString());
+		assertNotNull(kwd.toString());
 	}
 
 }

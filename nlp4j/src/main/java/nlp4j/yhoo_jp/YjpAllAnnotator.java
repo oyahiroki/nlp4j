@@ -2,21 +2,22 @@ package nlp4j.yhoo_jp;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 
-import nlp4j.DocumentAnnotator;
 import nlp4j.AbstractDocumentAnnotator;
 import nlp4j.Document;
+import nlp4j.DocumentAnnotator;
 import nlp4j.Keyword;
 import nlp4j.KeywordWithDependency;
 import nlp4j.impl.DefaultKeyword;
 
 /**
- * 形態素解析結果と構文解析結果をマージする
+ * 形態素解析結果と構文解析結果をマージする<br/>
+ * Merge a Morphological analysis response and a Dependency analysis response.
  * 
- * @author oyahiroki
+ * @author Hiroki Oya
+ * @since 1.0
  *
  */
 public class YjpAllAnnotator extends AbstractDocumentAnnotator implements DocumentAnnotator {

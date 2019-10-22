@@ -15,6 +15,9 @@ import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.Document;
 
 /**
+ * XML用ユーティリティのクラスです。<br/>
+ * XML Utility class.
+ * 
  * @author Hiroki Oya
  * @version 1.0
  *

@@ -6,8 +6,8 @@ import java.util.List;
  * ドキュメントクローラー。<br/>
  * Document Crawler.
  * 
- * @since 1.0
  * @author Hiroki Oya
+ * @since 1.0
  *
  */
 public interface DocumentCrawler {

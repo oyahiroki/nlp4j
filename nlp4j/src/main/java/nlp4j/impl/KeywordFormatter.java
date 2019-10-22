@@ -3,6 +3,13 @@ package nlp4j.impl;
 import nlp4j.KeywordWithDependency;
 import nlp4j.util.XmlUtils;
 
+/**
+ * キーワードのクラスを文字列としてフォーマットするクラスです。<br/>
+ * Keyword formatter for printing as string data.
+ * 
+ * @author Hiroki Oya
+ *
+ */
 public class KeywordFormatter {
 
 	static public String toString1(KeywordWithDependency kwd) {

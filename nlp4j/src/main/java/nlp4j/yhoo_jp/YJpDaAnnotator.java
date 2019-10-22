@@ -9,6 +9,13 @@ import nlp4j.DocumentAnnotator;
 import nlp4j.Keyword;
 import nlp4j.impl.DefaultNlpServiceResponse;
 
+/**
+ * Yahoo! Japan Developer Network の係り受け解析結果をアノテーションするクラスです。<br/>
+ * Annotation class for Yahoo! Japan Developer Network Dependency Analysis.
+ * 
+ * @author Hiroki Oya
+ * @since 1.0
+ */
 public class YJpDaAnnotator extends AbstractDocumentAnnotator implements DocumentAnnotator {
 
 	// 構文解析サービス

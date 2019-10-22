@@ -21,13 +21,17 @@ import nlp4j.impl.DefaultNlpServiceResponse;
 import nlp4j.util.HttpClient;
 
 /**
+ * Yahoo! Japan dependency analysis 日本語係り受け解析 <br/>
+ * NLP Service of Yahoo! Japan dependency analysis.
+ * 
  * <pre>
- * Yahoo! Japan dependency analysis 日本語係り受け解析
  * https://developer.yahoo.co.jp/webapi/jlp/da/v1/parse.html
  * </pre>
  * 
+ * 
  * @author Hiroki Oya
  * @version 1.0
+ * @since 1.0
  *
  */
 public class YJpDaService implements NlpService {

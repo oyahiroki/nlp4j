@@ -6,6 +6,9 @@ import nlp4j.Keyword;
 import nlp4j.NlpServiceResponse;
 
 /**
+ * 自然言語処理サービスのレスポンスです。<br/>
+ * Response of NLP Service.
+ * 
  * @author Hiroki Oya
  * @version 1.0
  *

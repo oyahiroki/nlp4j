@@ -1,7 +1,8 @@
 package nlp4j;
 
 /**
- * 実行時例外。Runtime Exception of NLP.
+ * 実行時例外。<br/>
+ * Runtime Exception of NLP.
  * 
  * @author Hiroki Oya
  * @version 1.0

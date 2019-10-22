@@ -3,7 +3,6 @@ package nlp4j.yhoo_jp;
 import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Set;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -15,6 +14,7 @@ import nlp4j.impl.DefaultKeywordWithDependency;
 import nlp4j.xml.AbstractXmlHandler;
 
 /**
+ * Yahoo! Japan Dependency AnalysisのレスポンスXMLをパースするクラスです。<br/>
  * Yahoo! Japan Dependency Analysis Response XML Handler
  * 
  * @author Hiroki Oya

@@ -13,6 +13,9 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 /**
+ * HTTPクライアントのクラスです。<br/>
+ * HTTP Client class.
+ * 
  * @author Hiroki Oya
  * @version 1.0
  *

@@ -5,6 +5,14 @@ import java.util.Properties;
 
 import nlp4j.Document;
 
+/**
+ * データクローラーの抽象クラス<br/>
+ * Abstract class for data crawler
+ * 
+ * @author Hiroki Oya
+ * @since 1.0
+ *
+ */
 public abstract class AbstractCrawler implements Crawler {
 
 	@Override

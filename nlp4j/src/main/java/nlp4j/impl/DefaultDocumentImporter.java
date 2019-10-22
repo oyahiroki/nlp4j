@@ -4,6 +4,13 @@ import nlp4j.AbstractDocumentImporter;
 import nlp4j.Document;
 import nlp4j.DocumentImporter;
 
+/**
+ * ドキュメントをインデックスにインポートするクラスです。<br/>
+ * Document Importer for document index.
+ * 
+ * @author Hiroki Oya
+ * @since 1.0
+ */
 public class DefaultDocumentImporter extends AbstractDocumentImporter implements DocumentImporter {
 
 	@Override

@@ -6,6 +6,14 @@ import java.util.Properties;
 
 import nlp4j.Document;
 
+/**
+ * 文書をインデックスにインポートするドキュメントインポーターの抽象クラスです。<br/>
+ * Abstract class of document importer for indexing.
+ * 
+ * @author Hiroki Oya
+ * @since 1.0
+ *
+ */
 public abstract class AbstractDocumentImporter implements DocumentImporter {
 
 	protected Properties props = new Properties();

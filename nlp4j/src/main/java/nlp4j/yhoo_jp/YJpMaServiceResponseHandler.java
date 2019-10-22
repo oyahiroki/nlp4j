@@ -15,10 +15,12 @@ import nlp4j.impl.DefaultKeyword;
 import nlp4j.xml.AbstractXmlHandler;
 
 /**
- * Yahoo! Japan Japan Morphological analysis Response XML Handler
+ * Yahoo! Japan Developer Network が提供する形態素解析処理のレスポンスXMLをパースするクラスです。<br/>
+ * Yahoo! Japan Japanese language Morphological analysis Response XML Handler
  * 
  * @author Hiroki Oya
  * @version 1.0
+ * @since 1.0
  *
  */
 public class YJpMaServiceResponseHandler extends AbstractXmlHandler {
@@ -39,7 +41,7 @@ public class YJpMaServiceResponseHandler extends AbstractXmlHandler {
 	}
 
 	int maxBegin = 0;
-	
+
 	int sequence = 0;
 
 	/*

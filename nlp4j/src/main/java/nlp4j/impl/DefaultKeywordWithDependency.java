@@ -7,7 +7,9 @@ import nlp4j.KeywordWithDependency;
 import nlp4j.util.XmlUtils;
 
 /**
- * TODO Node<T> にリファクタリング
+ * 係り受けの関係を持つキーワードのクラスです。<br/>
+ * Keyword with Dependency.
+ * 
  * @author Hiroki Oya
  * @version 1.0
  *
