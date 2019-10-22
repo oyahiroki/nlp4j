@@ -3,7 +3,8 @@ package nlp4j;
 import java.util.List;
 
 /**
- * ドキュメントインポーターの抽象クラス。Abstract Document Imporeter
+ * ドキュメントインポーターの抽象クラス。<br/>
+ * Abstract Document Imporeter
  * 
  * @author Hiroki Oya
  * @since 1.0

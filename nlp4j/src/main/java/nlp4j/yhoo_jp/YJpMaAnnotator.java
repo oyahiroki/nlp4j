@@ -8,6 +8,13 @@ import nlp4j.Document;
 import nlp4j.DocumentAnnotator;
 import nlp4j.Keyword;
 
+/**
+ * Yahoo! Japan が提供する日本語形態素解析を利用するアノテーター. <br/>
+ * Document annotator for Yahoo! Japan Morphological analysis
+ * 
+ * @author Hiroki Oya
+ *
+ */
 public class YJpMaAnnotator extends AbstractDocumentAnnotator implements DocumentAnnotator {
 
 	// 日本語形態素解析

@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 係り受けの依存関係をセットできるキーワードです。Keyword with Dependency.
+ * 係り受けの依存関係をセットできるキーワードです。<br/>
+ * Keyword with Dependency.
  * 
  * @author Hiroki Oya
  * @version 1.0
@@ -13,21 +14,24 @@ import java.util.List;
 public interface KeywordWithDependency extends Keyword {
 
 	/**
-	 * 依存関係の子ノードを追加します。子ノードには親ノードへの依存関係がセットされます。
+	 * 依存関係の子ノードを追加します。子ノードには親ノードへの依存関係がセットされます。<br/>
+	 * Add a child keyword. A parent keyword is set to child keyword.
 	 * 
 	 * @param keyword キーワード
 	 */
 	public void addChild(KeywordWithDependency keyword);
 
 	/**
-	 * 依存関係の子ノードを追加します。子ノードには親ノードへの依存関係はセットされません。
+	 * 依存関係の子ノードを追加します。子ノードには親ノードへの依存関係はセットされません。<br/>
+	 * Add a child keywod without set a parent to child keyword.
 	 * 
 	 * @param keyword キーワード
 	 */
 	public void addChildOnly(KeywordWithDependency keyword);
 
 	/**
-	 * 依存関係のあるキーワードをリストとして返します。
+	 * 依存関係のあるキーワードをリストとして返します。<br/>
+	 * Return keywords as a list from dependency keywords.
 	 * 
 	 * @return 依存関係のあるキーワード
 	 */

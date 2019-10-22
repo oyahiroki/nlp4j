@@ -3,7 +3,8 @@ package nlp4j;
 import java.util.List;
 
 /**
- * ドキュメントアノテーターの抽象クラス。 Abstract Class of Document Annotator.
+ * ドキュメントアノテーターの抽象クラス。 <br/>
+ * Abstract Class of Document Annotator.
  * 
  * @author Hiroki Oya
  * @since 1.0
