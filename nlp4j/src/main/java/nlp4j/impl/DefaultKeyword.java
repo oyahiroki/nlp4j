@@ -178,7 +178,9 @@ public class DefaultKeyword implements Keyword, Cloneable {
 			String facet = kw.getFacet();
 			String lex = kw.getLex();
 
-			if (this.lex == null || lex == null || this.facet == null || facet == null) {
+			if (this.facet == null && facet == null) {
+				return this.lex.equals(lex);
+			} else if (this.lex == null || lex == null || this.facet == null || facet == null) {
 				return false;
 			} else {
 				return this.facet.equals(facet) && this.lex.equals(lex);

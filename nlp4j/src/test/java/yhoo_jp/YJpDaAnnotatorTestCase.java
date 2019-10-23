@@ -143,8 +143,4 @@ public class YJpDaAnnotatorTestCase extends TestCase {
 		}
 	}
 
-	public void testAnnotateListOfDocument() {
-		fail("Not yet implemented");
-	}
-
 }

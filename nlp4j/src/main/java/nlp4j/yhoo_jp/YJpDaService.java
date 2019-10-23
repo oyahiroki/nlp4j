@@ -109,8 +109,8 @@ public class YJpDaService implements NlpService {
 			return null;
 		}
 		DefaultNlpServiceResponse res = process(text);
-		logger.debug(res.getOriginalResponseBody());
 		if (res != null) {
+			logger.debug(res.getOriginalResponseBody());
 
 			ArrayList<KeywordWithDependency> ret = new ArrayList<KeywordWithDependency>();
 			for (Keyword kwd : res.getKeywords()) {

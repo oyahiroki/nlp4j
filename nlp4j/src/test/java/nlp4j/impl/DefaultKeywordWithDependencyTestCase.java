@@ -144,7 +144,7 @@ public class DefaultKeywordWithDependencyTestCase extends TestCase {
 
 		kwd2.setParent(kwd1);
 
-		assertEquals(kwd1, kwd2.getRoot());
+		assertEquals(kwd1.getLex(), kwd2.getRoot().getLex());
 	}
 
 	public void testGetRoot003() {

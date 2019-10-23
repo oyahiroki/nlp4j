@@ -16,7 +16,7 @@ public class YjpAllAnnotatorTestCase extends TestCase {
 		// 自然文のテキスト
 		String text = "私は学校に行きました。";
 		Document doc = new DefaultDocument();
-		doc.putAttribute("description", text);
+		doc.putAttribute("text", text);
 		DocumentAnnotator annotator = new YjpAllAnnotator();
 		annotator.annotate(doc); // throws Exception
 		System.err.println("Finished : annotation");
@@ -33,7 +33,7 @@ public class YjpAllAnnotatorTestCase extends TestCase {
 		// 自然文のテキスト
 		String text = "私は急いで走って直接学校に行きました。";
 		Document doc = new DefaultDocument();
-		doc.putAttribute("description", text);
+		doc.putAttribute("text", text);
 		DocumentAnnotator annotator = new YjpAllAnnotator();
 		System.err.println("Finished : annotation");
 		annotator.annotate(doc); // throws Exception
@@ -50,7 +50,7 @@ public class YjpAllAnnotatorTestCase extends TestCase {
 		// 自然文のテキスト
 		String text = "設備が新しい。";
 		Document doc = new DefaultDocument();
-		doc.putAttribute("description", text);
+		doc.putAttribute("text", text);
 		DocumentAnnotator annotator = new YjpAllAnnotator();
 		System.err.println("Finished : annotation");
 		annotator.annotate(doc); // throws Exception
@@ -174,7 +174,7 @@ public class YjpAllAnnotatorTestCase extends TestCase {
 		// 構文解析の形態素解析が以下のように間違えて返すケースがある
 		// 設備(名詞)は(助詞)新(接頭辞)しく(動詞)、
 		Document doc = new DefaultDocument();
-		doc.putAttribute("description", text);
+		doc.putAttribute("text", text);
 		DocumentAnnotator annotator = new YjpAllAnnotator();
 		System.err.println("Finished : annotation");
 		annotator.annotate(doc); // throws Exception
