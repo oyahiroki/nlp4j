@@ -97,9 +97,6 @@
 			</build>
 		</profile>
 	</profiles>
-	<modules>
-		<module>nlp4j</module>
-	</modules>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
