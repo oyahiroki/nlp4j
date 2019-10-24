@@ -2,12 +2,13 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>nlp4j</groupId>
+	<groupId>org.nlp4j</groupId>
 	<artifactId>nlp4j</artifactId>
 	<version>1.0</version>
-
+	<packaging>pom</packaging>
 	<name>NLP4J</name>
-
+	<description>Natural Language Processing Library for Java</description>
+	<url>https://www.nlp4j.org/</url>
 	<licenses>
 		<license>
 			<name>Apache License, Version 2.0</name>
@@ -15,25 +16,87 @@
 			<distribution>repo</distribution>
 		</license>
 	</licenses>
-
 	<scm>
 		<url>https://github.com/oyahiroki/nlp4j</url>
 		<connection>scm:git:git@github.com:oyahiroki/nlp4j.git</connection>
 		<developerConnection>scm:git:git@github.com:oyahiroki/nlp4j.git</developerConnection>
 	</scm>
-
-	<url>https://github.com/oyahiroki/nlp4j</url>
-
-	<description>Natural Language Processing Library for Java</description>
-
 	<developers>
 		<developer>
 			<id>oyahiroki</id>
 			<name>Hiroki Oya</name>
 			<email>oyahiroki@gmail.com</email>
 			<url>https://twitter.com/oyahiroki</url>
+			<roles>
+				<role>lead</role>
+				<role>architect</role>
+				<role>developer</role>
+			</roles>
+			<timezone>-9</timezone>
 		</developer>
 	</developers>
+
+	<distributionManagement>
+		<repository>
+			<id>sonatype-nexus-staging</id>
+			<name>Nexus Release Repository</name>
+			<uniqueVersion>false</uniqueVersion>
+			<url>http://oss.sonatype.org/service/local/staging/deploy/maven2/
+            </url>
+		</repository>
+		<snapshotRepository>
+			<id>org.nlp4j</id>
+			<name>nlp4j.org Repository</name>
+			<uniqueVersion>false</uniqueVersion>
+			<url>file:${user.home}/maven2/</url>
+		</snapshotRepository>
+	</distributionManagement>
+
+	<profiles>
+		<profile>
+			<id>release-sign-artifacts</id>
+			<!-- for release -->
+			<!-- mvn -DperformRelease=true deploy -->
+			<activation>
+				<property>
+					<name>performRelease</name>
+					<value>true</value>
+				</property>
+			</activation>
+			<build>
+				<plugins>
+					<!-- sonatype release -->
+					<plugin>
+						<groupId>org.sonatype.plugins</groupId>
+						<artifactId>nexus-staging-maven-plugin</artifactId>
+						<version>1.6.8</version>
+						<extensions>true</extensions>
+						<configuration>
+							<serverId>ossrh</serverId>
+							<nexusUrl>https://oss.sonatype.org/</nexusUrl>
+							<autoReleaseAfterClose>true</autoReleaseAfterClose>
+						</configuration>
+					</plugin>
+
+					<!-- gpg sign -->
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-gpg-plugin</artifactId>
+						<version>1.6</version>
+						<executions>
+							<execution>
+								<id>sign-artifacts</id>
+								<phase>verify</phase>
+								<goals>
+									<goal>sign</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -84,6 +147,32 @@
 					</groups>
 					<docfilessubdirs>true</docfilessubdirs>
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>2.2.1</version>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar-no-fork</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.9.1</version>
+				<executions>
+					<execution>
+						<id>attach-javadocs</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
