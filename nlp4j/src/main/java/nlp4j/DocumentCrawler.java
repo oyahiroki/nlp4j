@@ -16,8 +16,8 @@ public interface DocumentCrawler {
 	 * プロパティを設定します。<br>
 	 * Set property.
 	 * 
-	 * @param key
-	 * @param value
+	 * @param key   プロパティのキー
+	 * @param value プロパティの値
 	 */
 	void setProperty(String key, String value);
 

@@ -20,8 +20,8 @@ public interface DocumentImporter {
 	 * ドキュメントをインポートしてコミットします。<br>
 	 * Import a document and commit.
 	 * 
-	 * @param doc
-	 * @throws IOException
+	 * @param doc インポート対象のドキュメント
+	 * @throws IOException 例外発生時にスローされる
 	 */
 	public void importDocumentAndCommit(Document doc) throws IOException;
 
@@ -29,8 +29,8 @@ public interface DocumentImporter {
 	 * 複数のドキュメントをインポートします。<br>
 	 * Import multiple documents.
 	 * 
-	 * @param docs
-	 * @throws IOException
+	 * @param docs インポート対象のドキュメント
+	 * @throws IOException 例外発生時にスローされる
 	 */
 	public void importDocuments(List<Document> docs) throws IOException;
 
@@ -38,8 +38,8 @@ public interface DocumentImporter {
 	 * 単一のドキュメントをインポートします。<br>
 	 * Import a single document.
 	 * 
-	 * @param doc
-	 * @throws IOException
+	 * @param doc インポート対象のドキュメント
+	 * @throws IOException 例外発生時にスローされる
 	 */
 	public void importDocument(Document doc) throws IOException;
 
@@ -47,7 +47,7 @@ public interface DocumentImporter {
 	 * インポートしたドキュメントをコミットします。<br>
 	 * Commit a imported document.
 	 * 
-	 * @throws IOException
+	 * @throws IOException 例外発生時にスローされる
 	 */
 	public void commit() throws IOException;
 
@@ -55,7 +55,7 @@ public interface DocumentImporter {
 	 * プロパティをセットします。<br>
 	 * Set properties.
 	 * 
-	 * @param prop
+	 * @param prop プロパティ
 	 */
 	public void setProperties(Properties prop);
 
@@ -63,8 +63,8 @@ public interface DocumentImporter {
 	 * プロパティをセットします。<br>
 	 * Set a property key and value.
 	 * 
-	 * @param key
-	 * @param value
+	 * @param key   プロパティのキー
+	 * @param value プロパティの値
 	 */
 	public void setProperty(String key, String value);
 

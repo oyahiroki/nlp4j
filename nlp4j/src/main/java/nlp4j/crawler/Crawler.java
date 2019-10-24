@@ -31,6 +31,12 @@ public interface Crawler {
 	 */
 	public void setProperty(String key, String value);
 
+	/**
+	 * ドキュメントをクロールします。<br>
+	 * Crawl documents
+	 * 
+	 * @return クロールされたドキュメント
+	 */
 	public ArrayList<Document> crawlDocuments();
 
 }
