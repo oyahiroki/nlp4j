@@ -3,7 +3,7 @@ package nlp4j;
 import java.util.List;
 
 /**
- * ドキュメントインポーター。Apache SolrやAzure Searchのようなコンポーネントを想定。<br/>
+ * ドキュメントインポーター。Apache SolrやAzure Searchのようなコンポーネントを想定。<br>
  * Document importer for document index like Apache Solr, Azure Search.
  * 
  * @author Hiroki Oya
@@ -13,7 +13,7 @@ import java.util.List;
 public interface DocumentImporter {
 
 	/**
-	 * プロパティをセットします。<br/>
+	 * プロパティをセットします。<br>
 	 * Set Propery
 	 * 
 	 * @param key
@@ -22,7 +22,7 @@ public interface DocumentImporter {
 	void setProperty(String key, String value);
 
 	/**
-	 * ドキュメントをインポートします。<br/>
+	 * ドキュメントをインポートします。<br>
 	 * Import documents.
 	 * 
 	 * @param docs
@@ -31,7 +31,7 @@ public interface DocumentImporter {
 	void importDocuments(List<Document> docs) throws Exception;
 
 	/**
-	 * ドキュメントをインポートします。<br/>
+	 * ドキュメントをインポートします。<br>
 	 * Import document.
 	 * 
 	 * @param doc
@@ -40,7 +40,7 @@ public interface DocumentImporter {
 	void importDocument(Document doc) throws Exception;
 
 	/**
-	 * ドキュメントのインポートをコミットします。<br/>
+	 * ドキュメントのインポートをコミットします。<br>
 	 * Commit document import.
 	 */
 	void commit();

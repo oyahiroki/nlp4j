@@ -13,7 +13,7 @@ import nlp4j.KeywordWithDependency;
 import nlp4j.impl.DefaultKeyword;
 
 /**
- * 形態素解析結果と構文解析結果をマージする<br/>
+ * 形態素解析結果と構文解析結果をマージする<br>
  * Merge a Morphological analysis response and a Dependency analysis response.
  * 
  * @author Hiroki Oya

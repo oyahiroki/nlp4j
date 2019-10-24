@@ -9,7 +9,7 @@ import nlp4j.DocumentAnnotator;
 import nlp4j.Keyword;
 
 /**
- * Yahoo! Japan が提供する日本語形態素解析を利用するアノテーターです。 <br/>
+ * Yahoo! Japan が提供する日本語形態素解析を利用するアノテーターです。 <br>
  * Document annotator for Yahoo! Japan Morphological analysis
  * 
  * @author Hiroki Oya

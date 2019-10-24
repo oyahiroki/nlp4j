@@ -15,7 +15,7 @@ import nlp4j.impl.DefaultDocumentImporter;
 import nlp4j.yhoo_jp.YJpMaAnnotator;
 
 /**
- * アノテーション機能を利用するサンプルです。<br/>
+ * アノテーション機能を利用するサンプルです。<br>
  * Example for annotation functions.
  * 
  * @author Hiroki Oya
@@ -24,7 +24,7 @@ import nlp4j.yhoo_jp.YJpMaAnnotator;
 public class DocumentProcessExample1Main {
 
 	/**
-	 * アノテーション機能を利用するサンプルです。<br/>
+	 * アノテーション機能を利用するサンプルです。<br>
 	 * Example for annotation functions.
 	 */
 	public static void main(String[] args) throws Exception {

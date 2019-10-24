@@ -13,7 +13,7 @@ import nlp4j.index.SimpleDocumentIndex;
 import nlp4j.yhoo_jp.YjpAllAnnotator;
 
 /**
- * 日本語形態素解析とインデックス処理を利用して、共起性の高いキーワードを抽出するサンプルソースコードです。 <br/>
+ * 日本語形態素解析とインデックス処理を利用して、共起性の高いキーワードを抽出するサンプルソースコードです。 <br>
  * Sample for Dependency Analysis and Morphological analysis.
  * 
  * @author Hiroki Oya

@@ -1,7 +1,7 @@
 package nlp4j;
 
 /**
- * NLPサービス<br/>
+ * NLPサービス<br>
  * NLP Service Interface.
  * 
  * @author Hiroki Oya

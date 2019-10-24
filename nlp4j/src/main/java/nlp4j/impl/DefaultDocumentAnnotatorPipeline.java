@@ -9,7 +9,7 @@ import nlp4j.DocumentAnnotator;
 import nlp4j.DocumentAnnotatorPipeline;
 
 /**
- * ドキュメントに対してアノテーター処理を連続的に処理するパイプラインのクラスです。<br/>
+ * ドキュメントに対してアノテーター処理を連続的に処理するパイプラインのクラスです。<br>
  * Document Annotator pipeline class.
  * 
  * @author Hiroki Oya

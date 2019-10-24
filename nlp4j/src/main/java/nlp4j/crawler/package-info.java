@@ -1,5 +1,5 @@
 /**
- * データクローラーのパッケージクラスです。<br/>
+ * データクローラーのパッケージクラスです。<br>
  * Package for Data Crawler
  * 
  * @author Hiroki Oya

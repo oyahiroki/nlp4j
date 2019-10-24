@@ -7,7 +7,7 @@ import nlp4j.KeywordWithDependency;
 import nlp4j.util.XmlUtils;
 
 /**
- * 係り受けの関係を持つキーワードのクラスです。<br/>
+ * 係り受けの関係を持つキーワードのクラスです。<br>
  * Keyword with Dependency.
  * 
  * @author Hiroki Oya

@@ -7,7 +7,7 @@ import nlp4j.Document;
 import nlp4j.Keyword;
 
 /**
- * 自然言語データに対して情報を付加するドキュメントアノテーターです。<br/>
+ * 自然言語データに対して情報を付加するドキュメントアノテーターです。<br>
  * Document annotator for Natural Language Input.
  * 
  * @author Hiroki Oya

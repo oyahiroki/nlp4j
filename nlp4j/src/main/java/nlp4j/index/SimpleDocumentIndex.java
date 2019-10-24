@@ -16,7 +16,7 @@ import nlp4j.Keyword;
 import nlp4j.impl.DefaultKeyword;
 
 /**
- * シンプルなドキュメントインデックスのクラスです。<br/>
+ * シンプルなドキュメントインデックスのクラスです。<br>
  * Simple document index.
  * 
  * @author Hiroki Oya

@@ -1,5 +1,5 @@
 /**
- * ヤフーデベロッパーネットワークの自然言語処理を扱うためのクラスパッケージです。<br/>
+ * ヤフーデベロッパーネットワークの自然言語処理を扱うためのクラスパッケージです。<br>
  * Class package for Yahoo! Japan Developer Network NLP
  * 
  * <pre>

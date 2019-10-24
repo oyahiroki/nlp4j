@@ -4,7 +4,7 @@ import nlp4j.KeywordWithDependency;
 import nlp4j.util.XmlUtils;
 
 /**
- * キーワードのクラスを文字列としてフォーマットするクラスです。<br/>
+ * キーワードのクラスを文字列としてフォーマットするクラスです。<br>
  * Keyword formatter for printing as string data.
  * 
  * @author Hiroki Oya

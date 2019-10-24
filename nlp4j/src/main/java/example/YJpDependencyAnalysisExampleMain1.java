@@ -8,7 +8,7 @@ import nlp4j.KeywordWithDependency;
 import nlp4j.yhoo_jp.YJpDaService;
 
 /**
- * Yahoo! Japan の日本語係り受け解析サービスを利用するサンプルです。<br/>
+ * Yahoo! Japan の日本語係り受け解析サービスを利用するサンプルです。<br>
  * Example for Japanese Dependency Analysis with Yahoo! Japan API Service.
  * 
  * <pre>

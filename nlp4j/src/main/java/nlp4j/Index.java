@@ -3,7 +3,7 @@ package nlp4j;
 import java.util.List;
 
 /**
- * ドキュメントのインデックスです。<br/>
+ * ドキュメントのインデックスです。<br>
  * Index of Documents.
  * 
  * @author Hiroki Oya
@@ -12,7 +12,7 @@ import java.util.List;
 public interface Index {
 
 	/**
-	 * インデックスにドキュメントを追加します。<br/>
+	 * インデックスにドキュメントを追加します。<br>
 	 * Add an document to Index.
 	 * 
 	 * @param doc ドキュメント
@@ -21,7 +21,7 @@ public interface Index {
 	void addDocument(Document doc);
 
 	/**
-	 * インデックスに複数のドキュメントを追加します。<br/>
+	 * インデックスに複数のドキュメントを追加します。<br>
 	 * Add documents to Index.
 	 * 
 	 * @param docs 複数のドキュメント
@@ -30,7 +30,7 @@ public interface Index {
 	void addDocuments(List<Document> docs);
 
 	/**
-	 * インデックスのキーワードを返します。<br/>
+	 * インデックスのキーワードを返します。<br>
 	 * Return keywords of index.
 	 * 
 	 * @return キーワード
@@ -39,7 +39,7 @@ public interface Index {
 	List<Keyword> getKeywords();
 
 	/**
-	 * ファセットを指定してインデックスのキーワードを返します。<br/>
+	 * ファセットを指定してインデックスのキーワードを返します。<br>
 	 * Return facet keywords of index.
 	 * 
 	 * @param facet ファセット
@@ -49,7 +49,7 @@ public interface Index {
 	List<Keyword> getKeywords(String facet);
 
 	/**
-	 * ファセットと条件を指定してインデックスのキーワードを返します。<br/>
+	 * ファセットと条件を指定してインデックスのキーワードを返します。<br>
 	 * Return facet keywords with a condition query.
 	 * 
 	 * @param facet     ファセットID

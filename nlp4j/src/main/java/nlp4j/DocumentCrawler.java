@@ -3,7 +3,7 @@ package nlp4j;
 import java.util.List;
 
 /**
- * ドキュメントクローラー。<br/>
+ * ドキュメントクローラー。<br>
  * Document Crawler.
  * 
  * @author Hiroki Oya
@@ -13,7 +13,7 @@ import java.util.List;
 public interface DocumentCrawler {
 
 	/**
-	 * プロパティを設定します。<br/>
+	 * プロパティを設定します。<br>
 	 * Set property.
 	 * 
 	 * @param key
@@ -22,7 +22,7 @@ public interface DocumentCrawler {
 	void setProperty(String key, String value);
 
 	/**
-	 * ドキュメントをクロールします。<br/>
+	 * ドキュメントをクロールします。<br>
 	 * Crawl documents.
 	 * 
 	 * @return

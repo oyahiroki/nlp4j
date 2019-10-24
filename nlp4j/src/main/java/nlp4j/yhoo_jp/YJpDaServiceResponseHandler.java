@@ -14,7 +14,7 @@ import nlp4j.impl.DefaultKeywordWithDependency;
 import nlp4j.xml.AbstractXmlHandler;
 
 /**
- * Yahoo! Japan Dependency AnalysisのレスポンスXMLをパースするクラスです。<br/>
+ * Yahoo! Japan Dependency AnalysisのレスポンスXMLをパースするクラスです。<br>
  * Yahoo! Japan Dependency Analysis Response XML Handler
  * 
  * @author Hiroki Oya

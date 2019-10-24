@@ -6,7 +6,7 @@ import java.util.Properties;
 import nlp4j.Document;
 
 /**
- * データクローラーのインターフェイスクラスです。<br/>
+ * データクローラーのインターフェイスクラスです。<br>
  * Interface class for data crawler.
  * 
  * @author Hiroki Oya

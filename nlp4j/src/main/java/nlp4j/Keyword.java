@@ -6,7 +6,7 @@ package nlp4j;
 import java.io.Serializable;
 
 /**
- * キーワード<br/>
+ * キーワード<br>
  * Keywords are usually words and phrases that are extracted from textual
  * content.
  * 
@@ -16,7 +16,7 @@ import java.io.Serializable;
 public interface Keyword extends Serializable {
 
 	/**
-	 * キーワードの開始位置を返します。<br/>
+	 * キーワードの開始位置を返します。<br>
 	 * Return begin of keyword.
 	 * 
 	 * @return begin 開始位置
@@ -25,7 +25,7 @@ public interface Keyword extends Serializable {
 	int getBegin();
 
 	/**
-	 * キーワードの共起性を返します。<br/>
+	 * キーワードの共起性を返します。<br>
 	 * Return keyword correlation.
 	 * 
 	 * @return correlation 共起性
@@ -34,7 +34,7 @@ public interface Keyword extends Serializable {
 	double getCorrelation();
 
 	/**
-	 * キーワードのカウントを返します。<br/>
+	 * キーワードのカウントを返します。<br>
 	 * Return keyword count.
 	 * 
 	 * @return count カウント
@@ -43,7 +43,7 @@ public interface Keyword extends Serializable {
 	long getCount();
 
 	/**
-	 * キーワードの終了位置を返します。<br/>
+	 * キーワードの終了位置を返します。<br>
 	 * Return end of keyword.
 	 * 
 	 * @return end 終了位置
@@ -52,7 +52,7 @@ public interface Keyword extends Serializable {
 	int getEnd();
 
 	/**
-	 * ファセットを返します。<br/>
+	 * ファセットを返します。<br>
 	 * Return facet.
 	 * 
 	 * @return facet ファセット
@@ -61,7 +61,7 @@ public interface Keyword extends Serializable {
 	String getFacet();
 
 	/**
-	 * キーワードの正規形を返します。正規形は見出し語とも呼ばれます。<br/>
+	 * キーワードの正規形を返します。正規形は見出し語とも呼ばれます。<br>
 	 * Return normalized string.
 	 * 
 	 * @return the lex 正規形
@@ -70,7 +70,7 @@ public interface Keyword extends Serializable {
 	String getLex();
 
 	/**
-	 * キーワードの「読み」を返します。<br/>
+	 * キーワードの「読み」を返します。<br>
 	 * Return reading of keyword.
 	 * 
 	 * @return reading 読み
@@ -79,7 +79,7 @@ public interface Keyword extends Serializable {
 	String getReading();
 
 	/**
-	 * キーワードの表出文字を返します。<br/>
+	 * キーワードの表出文字を返します。<br>
 	 * Return string of keyword.
 	 * 
 	 * @return 表出文字
@@ -88,7 +88,7 @@ public interface Keyword extends Serializable {
 	String getStr();
 
 	/**
-	 * キーワードの開始位置をセットします。<br/>
+	 * キーワードの開始位置をセットします。<br>
 	 * Set begin of keyword.
 	 * 
 	 * @param begin 開始位置
@@ -97,7 +97,7 @@ public interface Keyword extends Serializable {
 	void setBegin(int begin);
 
 	/**
-	 * キーワードの共起性をセットします。<br/>
+	 * キーワードの共起性をセットします。<br>
 	 * Set correlation of keyword.
 	 * 
 	 * @param d correlation
@@ -106,7 +106,7 @@ public interface Keyword extends Serializable {
 	void setCorrelation(double d);
 
 	/**
-	 * キーワードのカウントをセットします。<br/>
+	 * キーワードのカウントをセットします。<br>
 	 * Set count of keyword.
 	 * 
 	 * @param count カウント
@@ -115,7 +115,7 @@ public interface Keyword extends Serializable {
 	void setCount(long count);
 
 	/**
-	 * キーワードの終了位置をセットします。<br/>
+	 * キーワードの終了位置をセットします。<br>
 	 * Set end of keyword.
 	 * 
 	 * @param end 終了位置
@@ -124,7 +124,7 @@ public interface Keyword extends Serializable {
 	void setEnd(int end);
 
 	/**
-	 * キーワードのファセットをセットします。<br/>
+	 * キーワードのファセットをセットします。<br>
 	 * Set facet of keyword.
 	 * 
 	 * @param facet ファセット
@@ -133,7 +133,7 @@ public interface Keyword extends Serializable {
 	void setFacet(String facet);
 
 	/**
-	 * キーワードの正規形をセットします。正規形は見出し語とも呼ばれます。<br/>
+	 * キーワードの正規形をセットします。正規形は見出し語とも呼ばれます。<br>
 	 * Set normalized string of keyword.
 	 * 
 	 * @param lex 正規形
@@ -142,7 +142,7 @@ public interface Keyword extends Serializable {
 	void setLex(String lex);
 
 	/**
-	 * キーワードの読みをセットします。<br/>
+	 * キーワードの読みをセットします。<br>
 	 * Set reading of keyword.
 	 * 
 	 * @param reading 読み
@@ -151,7 +151,7 @@ public interface Keyword extends Serializable {
 	void setReading(String reading);
 
 	/**
-	 * キーワードの表出文字をセットします。<br/>
+	 * キーワードの表出文字をセットします。<br>
 	 * Set string of keyword.
 	 * 
 	 * @param str 表出文字

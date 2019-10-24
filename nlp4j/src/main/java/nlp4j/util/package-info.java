@@ -1,5 +1,5 @@
 /**
- * ユーティリティクラスのパッケージです。<br/>
+ * ユーティリティクラスのパッケージです。<br>
  * Package for Utilities
  * 
  * @author Hiroki Oya

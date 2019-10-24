@@ -21,7 +21,7 @@ import nlp4j.impl.DefaultNlpServiceResponse;
 import nlp4j.util.HttpClient;
 
 /**
- * Yahoo! Japan dependency analysis 日本語係り受け解析 <br/>
+ * Yahoo! Japan dependency analysis 日本語係り受け解析 <br>
  * NLP Service of Yahoo! Japan dependency analysis.
  * 
  * <pre>

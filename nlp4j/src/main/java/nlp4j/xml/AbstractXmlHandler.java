@@ -7,7 +7,7 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 /**
- * XMLハンドラーの抽象クラスです。<br/>
+ * XMLハンドラーの抽象クラスです。<br>
  * Abstact XML Handler.
  * 
  * @author Hiroki Oya

@@ -1,7 +1,7 @@
 package nlp4j;
 
 /**
- * ドキュメントアノテーターのパイプライン処理。<br/>
+ * ドキュメントアノテーターのパイプライン処理。<br>
  * Pipeline Process of Document Annotation.
  * 
  * @author Hiroki Oya

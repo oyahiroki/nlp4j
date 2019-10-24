@@ -7,7 +7,7 @@ import nlp4j.impl.DefaultNlpServiceResponse;
 import nlp4j.yhoo_jp.YJpMaService;
 
 /**
- * Yahoo! Japan の日本語形態素解析サービスを利用するサンプルです。<br/>
+ * Yahoo! Japan の日本語形態素解析サービスを利用するサンプルです。<br>
  * Example for Japanese Language Morphological Analysis with Yahoo! Japan API
  * Service.
  * 

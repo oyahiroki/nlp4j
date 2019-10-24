@@ -21,7 +21,7 @@ import nlp4j.impl.DefaultNlpServiceResponse;
 import nlp4j.util.HttpClient;
 
 /**
- * Yahoo! Japan 日本語形態素解析を利用するサービスです。<br/>
+ * Yahoo! Japan 日本語形態素解析を利用するサービスです。<br>
  * NLP Service for Yahoo! Japan Morphological analysis.
  * 
  * <pre>

@@ -3,7 +3,7 @@ package nlp4j.impl;
 import nlp4j.Keyword;
 
 /**
- * ドキュメントのキーワードとなるクラスです。<br/>
+ * ドキュメントのキーワードとなるクラスです。<br>
  * Keyword class of a document.
  * 
  * @author Hiroki Oya

@@ -9,7 +9,7 @@ import nlp4j.Document;
 import nlp4j.Keyword;
 
 /**
- * 自然言語処理対象のドキュメントクラスです。<br/>
+ * 自然言語処理対象のドキュメントクラスです。<br>
  * Document class for NLP
  * 
  * @author Hiroki Oya

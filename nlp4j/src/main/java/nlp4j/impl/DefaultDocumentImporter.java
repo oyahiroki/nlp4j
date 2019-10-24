@@ -5,7 +5,7 @@ import nlp4j.Document;
 import nlp4j.DocumentImporter;
 
 /**
- * ドキュメントをインデックスにインポートするクラスです。<br/>
+ * ドキュメントをインデックスにインポートするクラスです。<br>
  * Document Importer for document index.
  * 
  * @author Hiroki Oya

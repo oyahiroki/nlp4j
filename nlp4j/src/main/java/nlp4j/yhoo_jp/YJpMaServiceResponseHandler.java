@@ -15,7 +15,7 @@ import nlp4j.impl.DefaultKeyword;
 import nlp4j.xml.AbstractXmlHandler;
 
 /**
- * Yahoo! Japan Developer Network が提供する形態素解析処理のレスポンスXMLをパースするクラスです。<br/>
+ * Yahoo! Japan Developer Network が提供する形態素解析処理のレスポンスXMLをパースするクラスです。<br>
  * Yahoo! Japan Japanese language Morphological analysis Response XML Handler
  * 
  * @author Hiroki Oya

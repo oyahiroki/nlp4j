@@ -12,7 +12,7 @@ import nlp4j.index.SimpleDocumentIndex;
 import nlp4j.yhoo_jp.YJpMaAnnotator;
 
 /**
- * サンプルソースコードです。日本語形態素解析とインデックス処理を利用して、共起性の高いキーワードを抽出します。<br/>
+ * サンプルソースコードです。日本語形態素解析とインデックス処理を利用して、共起性の高いキーワードを抽出します。<br>
  * Example of keyword extraction with Morphological and Dependency Analysis
  * 
  * @author Hiroki Oya

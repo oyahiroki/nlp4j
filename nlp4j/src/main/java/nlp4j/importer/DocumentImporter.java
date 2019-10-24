@@ -7,7 +7,7 @@ import java.util.Properties;
 import nlp4j.Document;
 
 /**
- * ドキュメントインポーターのインターフェイスクラスです。<br/>
+ * ドキュメントインポーターのインターフェイスクラスです。<br>
  * Interface class for document importer.
  * 
  * @author Hiroki Oya
@@ -17,7 +17,7 @@ import nlp4j.Document;
 public interface DocumentImporter {
 
 	/**
-	 * ドキュメントをインポートしてコミットします。<br/>
+	 * ドキュメントをインポートしてコミットします。<br>
 	 * Import a document and commit.
 	 * 
 	 * @param doc
@@ -26,7 +26,7 @@ public interface DocumentImporter {
 	public void importDocumentAndCommit(Document doc) throws IOException;
 
 	/**
-	 * 複数のドキュメントをインポートします。<br/>
+	 * 複数のドキュメントをインポートします。<br>
 	 * Import multiple documents.
 	 * 
 	 * @param docs
@@ -35,7 +35,7 @@ public interface DocumentImporter {
 	public void importDocuments(List<Document> docs) throws IOException;
 
 	/**
-	 * 単一のドキュメントをインポートします。<br/>
+	 * 単一のドキュメントをインポートします。<br>
 	 * Import a single document.
 	 * 
 	 * @param doc
@@ -44,7 +44,7 @@ public interface DocumentImporter {
 	public void importDocument(Document doc) throws IOException;
 
 	/**
-	 * インポートしたドキュメントをコミットします。<br/>
+	 * インポートしたドキュメントをコミットします。<br>
 	 * Commit a imported document.
 	 * 
 	 * @throws IOException
@@ -52,7 +52,7 @@ public interface DocumentImporter {
 	public void commit() throws IOException;
 
 	/**
-	 * プロパティをセットします。<br/>
+	 * プロパティをセットします。<br>
 	 * Set properties.
 	 * 
 	 * @param prop
@@ -60,7 +60,7 @@ public interface DocumentImporter {
 	public void setProperties(Properties prop);
 
 	/**
-	 * プロパティをセットします。<br/>
+	 * プロパティをセットします。<br>
 	 * Set a property key and value.
 	 * 
 	 * @param key
@@ -69,7 +69,7 @@ public interface DocumentImporter {
 	public void setProperty(String key, String value);
 
 	/**
-	 * インデックスとの接続を閉じます。<br/>
+	 * インデックスとの接続を閉じます。<br>
 	 * Close a connection of a index.
 	 */
 	public void close();

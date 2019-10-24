@@ -1,5 +1,5 @@
 /**
- * キーワードインデックスのパッケージです。<br/>
+ * キーワードインデックスのパッケージです。<br>
  * package for Document / Keyword Index
  * 
  * @author Hiroki Oya

@@ -1,7 +1,7 @@
 package nlp4j;
 
 /**
- * デフォルトで利用できるAPP IDです。極力利用しないでください。^_^ <br/>
+ * デフォルトで利用できるAPP IDです。極力利用しないでください。^_^ <br>
  * Default API APP IDs. Please get your own APP ID for Web API.
  * 
  * @author Hiroki Oya
@@ -12,7 +12,7 @@ package nlp4j;
 public interface DefaultEnv {
 
 	/**
-	 * Yahoo! Japan デベロッパーネットワークのアプリケーションIDです。ご自身のアプリケーションIDを取得して利用してください。<br/>
+	 * Yahoo! Japan デベロッパーネットワークのアプリケーションIDです。ご自身のアプリケーションIDを取得して利用してください。<br>
 	 * Application ID of Yahoo! Japan Developer network. Please get your own ID.
 	 * 
 	 * <pre>

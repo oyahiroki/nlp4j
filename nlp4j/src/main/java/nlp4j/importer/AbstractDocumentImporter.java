@@ -7,7 +7,7 @@ import java.util.Properties;
 import nlp4j.Document;
 
 /**
- * 文書をインデックスにインポートするドキュメントインポーターの抽象クラスです。<br/>
+ * 文書をインデックスにインポートするドキュメントインポーターの抽象クラスです。<br>
  * Abstract class of document importer for indexing.
  * 
  * @author Hiroki Oya
