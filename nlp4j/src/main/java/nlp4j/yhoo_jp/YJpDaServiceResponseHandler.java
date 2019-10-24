@@ -48,6 +48,9 @@ public class YJpDaServiceResponseHandler extends AbstractXmlHandler {
 
 	int maxBegin = 0;
 
+	/**
+	 * @param sentence 自然言語文字列
+	 */
 	public YJpDaServiceResponseHandler(String sentence) {
 		super();
 		this.sentence = sentence;
@@ -172,6 +175,9 @@ public class YJpDaServiceResponseHandler extends AbstractXmlHandler {
 //		return roots.get(0);
 //	}
 
+	/**
+	 * @return キーワード
+	 */
 	public ArrayList<KeywordWithDependency> getRoots() {
 		return this.roots;
 	}

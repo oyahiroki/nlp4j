@@ -20,6 +20,13 @@ import nlp4j.yhoo_jp.YJpMaAnnotator;
  */
 public class HelloTextMiningMain1 {
 
+	/**
+	 * メイン関数です。<br>
+	 * Main Method
+	 * 
+	 * @param args 無し
+	 * @throws Exception 実行時の例外
+	 */
 	public static void main(String[] args) throws Exception {
 
 		// ドキュメントの用意（CSVを読み込むなどでも可）

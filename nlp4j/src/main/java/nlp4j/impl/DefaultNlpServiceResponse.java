@@ -19,6 +19,10 @@ public class DefaultNlpServiceResponse implements NlpServiceResponse {
 	int responseCode = -1;
 	private ArrayList<Keyword> keywords;
 
+	/**
+	 * @param responseCode         HTTPレスポンスコード
+	 * @param originalResponseBody オリジナルのレスポンスボディ
+	 */
 	public DefaultNlpServiceResponse(int responseCode, String originalResponseBody) {
 		super();
 		this.responseCode = responseCode;
@@ -39,6 +43,9 @@ public class DefaultNlpServiceResponse implements NlpServiceResponse {
 		return keywords;
 	}
 
+	/**
+	 * @param keywords キーワード
+	 */
 	public void setKeywords(ArrayList<Keyword> keywords) {
 		this.keywords = keywords;
 

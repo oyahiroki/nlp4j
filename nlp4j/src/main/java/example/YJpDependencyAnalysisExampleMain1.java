@@ -1,6 +1,5 @@
 package example;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 import nlp4j.Keyword;
@@ -26,7 +25,14 @@ import nlp4j.yhoo_jp.YJpDaService;
  */
 public class YJpDependencyAnalysisExampleMain1 {
 
-	public static void main(String[] args) throws IOException {
+	/**
+	 * メイン関数です。<br>
+	 * Main Method
+	 * 
+	 * @param args 無し
+	 * @throws Exception 実行時の例外
+	 */
+	public static void main(String[] args) throws Exception {
 		// 自然文のテキスト
 		String text = "私は急いでドアを開けた。";
 		// 係り受け解析

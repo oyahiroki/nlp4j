@@ -31,11 +31,17 @@ public class YJpMaServiceResponseHandler extends AbstractXmlHandler {
 	DefaultKeyword kwd;
 	String sentence;
 
+	/**
+	 * @param sentence 自然言語文字列
+	 */
 	public YJpMaServiceResponseHandler(String sentence) {
 		super();
 		this.sentence = sentence;
 	}
 
+	/**
+	 * @return キーワード
+	 */
 	public ArrayList<Keyword> getKeywords() {
 		return keywords;
 	}

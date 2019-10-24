@@ -26,6 +26,8 @@ public class DocumentProcessExample1Main {
 	/**
 	 * アノテーション機能を利用するサンプルです。<br>
 	 * Example for annotation functions.
+	 * @param args 無し
+	 * @throws Exception 実行時の例外 
 	 */
 	public static void main(String[] args) throws Exception {
 

@@ -1,7 +1,5 @@
 package example;
 
-import java.io.IOException;
-
 import nlp4j.Keyword;
 import nlp4j.impl.DefaultNlpServiceResponse;
 import nlp4j.yhoo_jp.YJpMaService;
@@ -29,7 +27,14 @@ EV [sequence=3, facet=名詞, lex=EV, str=EV, reading=EV, count=-1, begin=6, end
  */
 public class YJpMorphologicalAnalysisExampleMain2 {
 
-	public static void main(String[] args) throws IOException {
+	/**
+	 * メイン関数です。<br>
+	 * Main Method
+	 * 
+	 * @param args 無し
+	 * @throws Exception 実行時の例外
+	 */
+	public static void main(String[] args) throws Exception {
 		// 自然文のテキスト
 		String text = "日産自動車はEVを作ります。";
 		// 日本語形態素解析

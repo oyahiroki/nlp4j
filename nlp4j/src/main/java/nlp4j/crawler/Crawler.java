@@ -14,8 +14,21 @@ import nlp4j.Document;
  */
 public interface Crawler {
 
+	/**
+	 * プロパティをセットします。<br>
+	 * Set properties.
+	 * 
+	 * @param prop プロパティ
+	 */
 	public void setProperties(Properties prop);
 
+	/**
+	 * プロパティをセットします。<br>
+	 * Set property.
+	 * 
+	 * @param key   プロパティのキー
+	 * @param value プロパティの値
+	 */
 	public void setProperty(String key, String value);
 
 	public ArrayList<Document> crawlDocuments();

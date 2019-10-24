@@ -87,6 +87,9 @@ public class DefaultKeyword implements Keyword, Cloneable {
 		return this.reading;
 	}
 
+	/**
+	 * @return 連番
+	 */
 	public int getSequence() {
 		return sequence;
 	}
@@ -158,6 +161,11 @@ public class DefaultKeyword implements Keyword, Cloneable {
 		this.reading = reading;
 	}
 
+	/**
+	 * 連番を返します。
+	 * 
+	 * @param sequence 連番
+	 */
 	public void setSequence(int sequence) {
 		this.sequence = sequence;
 

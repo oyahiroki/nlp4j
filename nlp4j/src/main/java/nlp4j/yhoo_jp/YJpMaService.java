@@ -62,6 +62,11 @@ public class YJpMaService implements NlpService {
 		}
 	}
 
+	/**
+	 * @param text 自然言語文字列
+	 * @return 自然言語処理結果
+	 * @throws IOException 例外発生時にスローされる
+	 */
 	public DefaultNlpServiceResponse process(String text) throws IOException {
 
 		if (text == null || text.isEmpty() || text.trim().isEmpty()) {

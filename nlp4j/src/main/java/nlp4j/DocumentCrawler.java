@@ -25,7 +25,7 @@ public interface DocumentCrawler {
 	 * ドキュメントをクロールします。<br>
 	 * Crawl documents.
 	 * 
-	 * @return
+	 * @return ドキュメント
 	 */
 	List<Document> crawl();
 

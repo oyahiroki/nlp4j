@@ -21,10 +21,20 @@ import okhttp3.Response;
  *
  */
 public class HttpClient {
+	/**
+	 * JSONのMediaTypeです。<br>
+	 * Media Type of JSON
+	 */
 	public static final MediaType JSON = MediaType.get("application/json; charset=utf-8");
 
 	OkHttpClient client = new OkHttpClient();
 
+	/**
+	 * @param url  APIのURL
+	 * @param json API パラメータ
+	 * @return NLPの結果
+	 * @throws IOException 例外発生時にスローされる
+	 */
 	public NlpServiceResponse post(String url, String json) throws IOException {
 		RequestBody body = RequestBody.create(JSON, json);
 		Request request = new Request.Builder().url(url).post(body).build();
@@ -37,6 +47,12 @@ public class HttpClient {
 		}
 	}
 
+	/**
+	 * @param url    APIのURL
+	 * @param params API パラメータ
+	 * @return NLPの結果
+	 * @throws IOException 例外発生時にスローされる
+	 */
 	public DefaultNlpServiceResponse get(String url, Map<String, String> params) throws IOException {
 
 		HttpUrl.Builder builder = HttpUrl.parse(url).newBuilder();

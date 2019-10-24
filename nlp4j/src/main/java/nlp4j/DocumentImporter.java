@@ -16,8 +16,8 @@ public interface DocumentImporter {
 	 * プロパティをセットします。<br>
 	 * Set Propery
 	 * 
-	 * @param key
-	 * @param value
+	 * @param key   プロパティのキー
+	 * @param value プロパティの値
 	 */
 	void setProperty(String key, String value);
 
@@ -25,8 +25,8 @@ public interface DocumentImporter {
 	 * ドキュメントをインポートします。<br>
 	 * Import documents.
 	 * 
-	 * @param docs
-	 * @throws Exception
+	 * @param docs 複数のドキュメント
+	 * @throws Exception 例外発生時にスローされる
 	 */
 	void importDocuments(List<Document> docs) throws Exception;
 
@@ -34,8 +34,8 @@ public interface DocumentImporter {
 	 * ドキュメントをインポートします。<br>
 	 * Import document.
 	 * 
-	 * @param doc
-	 * @throws Exception
+	 * @param doc ドキュメント
+	 * @throws Exception 例外発生時にスローされる
 	 */
 	void importDocument(Document doc) throws Exception;
 

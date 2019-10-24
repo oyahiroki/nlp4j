@@ -143,6 +143,12 @@ public interface KeywordWithDependency extends Keyword {
 	 */
 	public String toStringAsXml();
 
-	Object toStringAsXml(int i);
+	/**
+	 * 階層を指定してキーワードの依存関係をXML形式の文字列で表現します。
+	 * 
+	 * @param depth このオブジェクトの階層の深さ
+	 * @return 文字列
+	 */
+	Object toStringAsXml(int depth);
 
 }

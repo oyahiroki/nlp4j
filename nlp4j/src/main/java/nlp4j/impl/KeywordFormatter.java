@@ -12,6 +12,12 @@ import nlp4j.util.XmlUtils;
  */
 public class KeywordFormatter {
 
+	/**
+	 * キーワードを文字列表現にフォーマットします。
+	 * 
+	 * @param kwd キーワード
+	 * @return 文字列表現
+	 */
 	static public String toString1(KeywordWithDependency kwd) {
 
 		StringBuffer sb = new StringBuffer();

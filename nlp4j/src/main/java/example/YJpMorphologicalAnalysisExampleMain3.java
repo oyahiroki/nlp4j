@@ -1,6 +1,5 @@
 package example;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 import nlp4j.Keyword;
@@ -33,11 +32,13 @@ Keyword [facet=特殊, lex=。, str=。, reading=。, begin=14, end=15]
 public class YJpMorphologicalAnalysisExampleMain3 {
 
 	/**
+	 * メイン関数です。<br>
+	 * Main Method
 	 * 
 	 * @param args 無し
-	 * @throws IOException IOでの例外
+	 * @throws Exception 実行時の例外
 	 */
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws Exception {
 		// 自然文のテキスト
 		String text = "今日は走って学校に行きました。";
 		// 日本語形態素解析

@@ -51,6 +51,9 @@ public class DefaultKeywordWithDependency extends DefaultKeyword implements Keyw
 		return this.children;
 	}
 
+	/**
+	 * @return この依存関係をあらわす文字列キー
+	 */
 	public String getDependencyKey() {
 		return dependencyKey;
 	}
@@ -114,6 +117,9 @@ public class DefaultKeywordWithDependency extends DefaultKeyword implements Keyw
 		return !hasParent();
 	}
 
+	/**
+	 * @param dependencyKey この依存関係をあらわす文字列キー
+	 */
 	public void setDependencyKey(String dependencyKey) {
 		this.dependencyKey = dependencyKey;
 	}

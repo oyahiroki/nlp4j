@@ -40,9 +40,9 @@ public class YjpAllAnnotator extends AbstractDocumentAnnotator implements Docume
 			// 係り受け解析の結果を取得する
 			ArrayList<KeywordWithDependency> kwdsDa = service1.getKeywords(text); // throws IOException
 			// 係り受け解析の結果を出力する
-			for (KeywordWithDependency kw : kwdsDa) {
+//			for (KeywordWithDependency kw : kwdsDa) {
 //				System.err.println(kw.toStringAsXml());
-			}
+//			}
 
 			// 形態素解析の結果を取得する
 			ArrayList<Keyword> kwdsMa = service2.getKeywords(text);

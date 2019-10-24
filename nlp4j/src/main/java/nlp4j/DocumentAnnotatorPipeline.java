@@ -9,6 +9,13 @@ package nlp4j;
  */
 public interface DocumentAnnotatorPipeline extends DocumentAnnotator {
 
+	/**
+	 * アノテーターを追加します。<br>
+	 * Add an annotator.
+	 * 
+	 * @param annotator アノテーター
+	 * @throws Exception 例外発生時
+	 */
 	void add(DocumentAnnotator annotator) throws Exception;
 
 }
