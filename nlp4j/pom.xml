@@ -82,7 +82,7 @@
 							<packages>nlp4j*</packages>
 						</group>
 					</groups>
-
+					<docfilessubdirs>true</docfilessubdirs>
 				</configuration>
 			</plugin>
 		</plugins>
