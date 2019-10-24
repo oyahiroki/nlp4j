@@ -37,19 +37,19 @@
 	</developers>
 
 	<distributionManagement>
-		<repository>
-			<id>sonatype-nexus-staging</id>
-			<name>Nexus Release Repository</name>
-			<uniqueVersion>false</uniqueVersion>
-			<url>http://oss.sonatype.org/service/local/staging/deploy/maven2/
-            </url>
-		</repository>
 		<snapshotRepository>
 			<id>org.nlp4j</id>
 			<name>nlp4j.org Repository</name>
 			<uniqueVersion>false</uniqueVersion>
-			<url>file:${user.home}/maven2/</url>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
 		</snapshotRepository>
+		<repository>
+			<id>sonatype-nexus-staging</id>
+			<name>Nexus Release Repository</name>
+			<uniqueVersion>false</uniqueVersion>
+			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2
+            </url>
+		</repository>
 	</distributionManagement>
 
 	<profiles>
