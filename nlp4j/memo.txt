@@ -4,6 +4,7 @@
 
 Maven
 mvn javadoc:javadoc
+mvn -DperformRelease=true clean deploy
 
 Javadoc Output
 file:///C:/Users/oyahi/git/nlp4j/nlp4j/target/site/apidocs/index.html
