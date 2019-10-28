@@ -3,6 +3,8 @@ package nlp4j.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.text.StringEscapeUtils;
+
 import nlp4j.KeywordWithDependency;
 import nlp4j.util.XmlUtils;
 
@@ -205,17 +207,17 @@ public class DefaultKeywordWithDependency extends DefaultKeyword implements Keyw
 
 		if (children == null || children.size() == 0) {
 			sb.append("<w " //
-					+ "str=\"" + this.str + "\" " //
-					+ "lex=\"" + this.lex + "\" " //
+					+ "str=\"" + StringEscapeUtils.escapeXml10(this.str) + "\" " //
+					+ "lex=\"" + StringEscapeUtils.escapeXml10(this.lex) + "\" " //
 					+ "depth=\"" + depth + "\" " //
-					+ "facet=\"" + this.facet + "\" " //
+					+ "facet=\"" + StringEscapeUtils.escapeXml10(this.facet) + "\" " //
 					+ "/>");
 		} else {
 			sb.append("<w " //
-					+ "str=\"" + this.str + "\" " //
-					+ "lex=\"" + this.lex + "\" " //
+					+ "str=\"" + StringEscapeUtils.escapeXml10(this.str) + "\" " //
+					+ "lex=\"" + StringEscapeUtils.escapeXml10(this.lex) + "\" " //
 					+ "depth=\"" + depth + "\" " //
-					+ "facet=\"" + this.facet + "\" " //
+					+ "facet=\"" + StringEscapeUtils.escapeXml10(this.facet) + "\" " //
 					+ ">");
 			for (KeywordWithDependency c : children) {
 				sb.append(c.toStringAsXml(depth + 1));

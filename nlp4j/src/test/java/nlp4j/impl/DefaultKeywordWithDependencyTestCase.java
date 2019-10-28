@@ -2,6 +2,7 @@ package nlp4j.impl;
 
 import junit.framework.TestCase;
 import nlp4j.Keyword;
+import nlp4j.util.XmlUtils;
 
 public class DefaultKeywordWithDependencyTestCase extends TestCase {
 
@@ -297,6 +298,23 @@ public class DefaultKeywordWithDependencyTestCase extends TestCase {
 		kwd2.setParent(kwd1);
 		String s = kwd1.toStringAsXml(0);
 		System.err.println(s);
+
+		System.err.println(XmlUtils.prettyFormatXml(s));
+	}
+
+	public void testToStringAsXmlInt002() {
+		DefaultKeywordWithDependency kwd1 = new DefaultKeywordWithDependency();
+		kwd1.setLex("<test>");
+		kwd1.setStr("<test>");
+		DefaultKeywordWithDependency kwd2 = new DefaultKeywordWithDependency();
+		kwd2.setLex("a&b");
+		kwd2.setStr("a&b");
+
+		kwd2.setParent(kwd1);
+		String s = kwd1.toStringAsXml(0);
+		System.err.println(s);
+
+		System.err.println(XmlUtils.prettyFormatXml(s));
 	}
 
 }

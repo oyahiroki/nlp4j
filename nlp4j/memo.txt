@@ -10,3 +10,6 @@ Javadoc Output
 file:///C:/Users/oyahi/git/nlp4j/nlp4j/target/site/apidocs/index.html
 
 
+1.0.1 FIX nlp4j.impl.DefaultKeywordWithDependency.toStringAsXml(int) でXMLをエスケープするように修正
+
+
