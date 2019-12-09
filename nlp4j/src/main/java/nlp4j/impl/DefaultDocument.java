@@ -1,7 +1,7 @@
 package nlp4j.impl;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -21,9 +21,29 @@ public class DefaultDocument implements Document {
 	static private final String KEY_ID = "id";
 	static private final String KEY_TEXT = "text";
 
-	Map<String, Object> attributes = new HashMap<String, Object>();
+	// 1.1.0 HashMap to LinkedHashMap
+	Map<String, Object> attributes = new LinkedHashMap<String, Object>();
 
 	List<Keyword> keywords = new ArrayList<Keyword>();
+
+	/**
+	 * Default Constructor
+	 * 
+	 * @since 1.1
+	 */
+	public DefaultDocument() {
+		super();
+	}
+
+	@Override
+	public List<String> getAttributeKeys() {
+		if (attributes == null) {
+			return new ArrayList<String>();
+		} else {
+			List<String> list = new ArrayList<>(attributes.keySet());
+			return list;
+		}
+	}
 
 	@Override
 	public void addKeyword(Keyword keyword) {

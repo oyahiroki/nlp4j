@@ -42,6 +42,14 @@ public interface Document {
 	Object getAttribute(String key);
 
 	/**
+	 * 属性のキーを返します。<br>
+	 * 
+	 * @return Attribute Keys
+	 * @since 1.1
+	 */
+	public List<String> getAttributeKeys();
+
+	/**
 	 * 文書IDを返します。この値を用いてドキュメントを区別します。 <br>
 	 * Return Document ID.
 	 * 
@@ -58,6 +66,16 @@ public interface Document {
 	 * @since 1.0
 	 */
 	List<Keyword> getKeywords();
+
+	/**
+	 * この文書のキーワードをファセットで指定して返します。<br>
+	 * Return keywords for a facet.
+	 * 
+	 * @param facet ファセット
+	 * @return キーワード
+	 * @since 1.0
+	 */
+	List<Keyword> getKeywords(String facet);
 
 	/**
 	 * この文書のテキストを返します。<br>
@@ -104,15 +122,5 @@ public interface Document {
 	 * @since 1.0
 	 */
 	void setText(String text);
-
-	/**
-	 * この文書のキーワードをファセットで指定して返します。<br>
-	 * Return keywords for a facet.
-	 * 
-	 * @param facet ファセット
-	 * @return キーワード
-	 * @since 1.0
-	 */
-	List<Keyword> getKeywords(String facet);
 
 }
