@@ -39,7 +39,7 @@
 
 	<distributionManagement>
 		<snapshotRepository>
-			<id>org.nlp4j</id>
+			<id>ossrh</id>
 			<name>nlp4j.org Repository</name>
 			<uniqueVersion>false</uniqueVersion>
 			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
