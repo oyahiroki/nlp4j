@@ -23,10 +23,22 @@ public class YJpMaAnnotator extends AbstractDocumentAnnotator implements Documen
 
 	@Override
 	public void annotate(Document doc) throws IOException {
-		String text = doc.getText();
-		// 形態素解析の結果を取得する
-		ArrayList<Keyword> kwds = service.getKeywords(text);
-		doc.setKeywords(kwds);
+
+		if (targets != null && targets.size() > 0) {
+			for (String target : targets) {
+				String text = doc.getAttribute(target).toString();
+				// 形態素解析の結果を取得する
+				ArrayList<Keyword> kwds = service.getKeywords(text);
+				doc.setKeywords(kwds);
+			}
+		}
+		// else : default target is 'text'
+		else {
+			String text = doc.getText();
+			// 形態素解析の結果を取得する
+			ArrayList<Keyword> kwds = service.getKeywords(text);
+			doc.setKeywords(kwds);
+		}
 	}
 
 }

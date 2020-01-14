@@ -15,6 +15,8 @@ import nlp4j.Document;
  */
 public abstract class AbstractCrawler implements Crawler {
 
+	protected Properties prop = new Properties();
+
 	@Override
 	abstract public ArrayList<Document> crawlDocuments();
 
@@ -25,7 +27,15 @@ public abstract class AbstractCrawler implements Crawler {
 		}
 	}
 
-	@Override
-	abstract public void setProperty(String key, String value);
+	/**
+	 * プロパティをセットします。 <br>
+	 * Set Property
+	 * 
+	 * @param key   キー
+	 * @param value 値
+	 */
+	public void setProperty(String key, String value) {
+		this.prop.setProperty(key, value);
+	}
 
 }

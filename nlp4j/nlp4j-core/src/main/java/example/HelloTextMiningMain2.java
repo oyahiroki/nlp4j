@@ -6,9 +6,9 @@ import java.util.stream.Collectors;
 
 import nlp4j.DocumentAnnotator;
 import nlp4j.Document;
-import nlp4j.Index;
 import nlp4j.Keyword;
 import nlp4j.impl.DefaultDocument;
+import nlp4j.index.DocumentIndex;
 import nlp4j.index.SimpleDocumentIndex;
 import nlp4j.yhoo_jp.YjpAllAnnotator;
 
@@ -62,7 +62,7 @@ public class HelloTextMiningMain2 {
 		}
 
 		// キーワードインデックス（統計処理）の用意
-		Index index = new SimpleDocumentIndex();
+		DocumentIndex index = new SimpleDocumentIndex();
 		{
 			System.err.println("インデックス作成");
 			long time1 = System.currentTimeMillis();

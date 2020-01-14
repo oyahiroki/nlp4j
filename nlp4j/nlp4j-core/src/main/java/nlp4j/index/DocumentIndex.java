@@ -1,15 +1,18 @@
-package nlp4j;
+package nlp4j.index;
 
 import java.util.List;
+
+import nlp4j.Document;
+import nlp4j.Keyword;
 
 /**
  * ドキュメントのインデックスです。<br>
  * Index of Documents.
  * 
  * @author Hiroki Oya
- * @version 1.0
+ * @version 1.1.1.0
  */
-public interface Index {
+public interface DocumentIndex {
 
 	/**
 	 * インデックスにドキュメントを追加します。<br>

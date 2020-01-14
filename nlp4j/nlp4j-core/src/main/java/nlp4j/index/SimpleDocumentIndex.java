@@ -11,7 +11,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import nlp4j.Document;
-import nlp4j.Index;
 import nlp4j.Keyword;
 import nlp4j.impl.DefaultKeyword;
 
@@ -23,7 +22,7 @@ import nlp4j.impl.DefaultKeyword;
  * @since 1.0
  *
  */
-public class SimpleDocumentIndex implements Index {
+public class SimpleDocumentIndex implements DocumentIndex {
 
 	static private final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
@@ -33,6 +32,8 @@ public class SimpleDocumentIndex implements Index {
 	HashMap<String, HashMap<String, Long>> mapKeywordCount = new HashMap<>();
 
 	HashMap<Keyword, Long> keywordCount = new HashMap<Keyword, Long>();
+
+	ArrayList<Keyword> keywords = new ArrayList<>();
 
 	@Override
 	public void addDocument(Document doc) {
@@ -50,6 +51,9 @@ public class SimpleDocumentIndex implements Index {
 	}
 
 	private void addKeyword(Keyword kwd) {
+		{
+			keywords.add(kwd);
+		}
 		{
 			Long kwCount = keywordCount.get(kwd);
 			if (kwCount == null) {
@@ -92,6 +96,15 @@ public class SimpleDocumentIndex implements Index {
 
 	}
 
+	/**
+	 * カウント無しキーワードのリストを返します。
+	 * 
+	 * @return Keywords
+	 */
+	public List<Keyword> getKeywordsWithoutCount() {
+		return keywords;
+	}
+
 	@Override
 	public List<Keyword> getKeywords(String facet) {
 
@@ -132,7 +145,7 @@ public class SimpleDocumentIndex implements Index {
 
 		List<Document> ddd = dd.stream().filter(d -> d.getAttribute(condKey).equals(condValue))
 				.collect(Collectors.toList());
-		Index smallIndex = new SimpleDocumentIndex();
+		DocumentIndex smallIndex = new SimpleDocumentIndex();
 		smallIndex.addDocuments(ddd);
 
 		List<Keyword> kwds = smallIndex.getKeywords(facet);

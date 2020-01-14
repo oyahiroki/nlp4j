@@ -5,6 +5,7 @@ import java.util.List;
 
 import junit.framework.TestCase;
 import nlp4j.impl.DefaultDocument;
+import nlp4j.index.DocumentIndex;
 import nlp4j.index.SimpleDocumentIndex;
 import nlp4j.yhoo_jp.YJpMaAnnotator;
 
@@ -37,7 +38,7 @@ public class IntegrationTestCase extends TestCase {
 			annotator.annotate(docs);
 		}
 
-		Index index = new SimpleDocumentIndex();
+		DocumentIndex index = new SimpleDocumentIndex();
 		{
 			// キーワードインデックス作成処理
 			index.addDocuments(docs);
@@ -88,7 +89,7 @@ public class IntegrationTestCase extends TestCase {
 			annotator.annotate(docs);
 		}
 
-		Index index = new SimpleDocumentIndex();
+		DocumentIndex index = new SimpleDocumentIndex();
 		{
 			// キーワードインデックス作成処理
 			index.addDocuments(docs);
@@ -139,7 +140,7 @@ public class IntegrationTestCase extends TestCase {
 			annotator.annotate(docs);
 		}
 
-		Index index = new SimpleDocumentIndex();
+		DocumentIndex index = new SimpleDocumentIndex();
 		{
 			// キーワードインデックス作成処理
 			index.addDocuments(docs);

@@ -3,7 +3,6 @@ package nlp4j.index;
 import java.util.List;
 
 import junit.framework.TestCase;
-import nlp4j.Index;
 import nlp4j.Keyword;
 import nlp4j.impl.DefaultDocument;
 import nlp4j.impl.DefaultKeyword;
