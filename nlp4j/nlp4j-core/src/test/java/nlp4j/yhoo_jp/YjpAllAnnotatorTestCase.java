@@ -1,4 +1,4 @@
-package yhoo_jp;
+package nlp4j.yhoo_jp;
 
 import junit.framework.TestCase;
 import nlp4j.DocumentAnnotator;

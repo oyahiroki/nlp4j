@@ -1,4 +1,4 @@
-package yhoo_jp;
+package nlp4j.yhoo_jp;
 
 import java.io.IOException;
 import java.util.ArrayList;

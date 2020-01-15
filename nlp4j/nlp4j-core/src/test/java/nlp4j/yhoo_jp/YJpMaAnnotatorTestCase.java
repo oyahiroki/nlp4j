@@ -1,4 +1,4 @@
-package yhoo_jp;
+package nlp4j.yhoo_jp;
 
 import junit.framework.TestCase;
 import nlp4j.Document;
@@ -60,6 +60,30 @@ public class YJpMaAnnotatorTestCase extends TestCase {
 			for (Keyword kwd : doc.getKeywords()) {
 				System.err.println(kwd);
 			}
+		}
+
+	}
+
+	/**
+	 * Test case for "私は学校に行きました。"
+	 * 
+	 * @throws Exception 例外発生時
+	 */
+	public void testAnnotateDocument003() throws Exception {
+		// 自然文のテキスト
+		String text = "私は学校に行きました。";
+		Document doc = new DefaultDocument();
+		doc.putAttribute("text", text);
+		YJpMaAnnotator annotator = new YJpMaAnnotator();
+		annotator.setProperty("target", "text");
+		annotator.annotate(doc); // throws Exception
+		System.err.println("Finished : annotation");
+
+		assertNotNull(doc.getKeywords());
+		assertTrue(doc.getKeywords().size() > 0);
+
+		for (Keyword kwd : doc.getKeywords()) {
+			System.err.println(kwd);
 		}
 
 	}

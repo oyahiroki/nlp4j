@@ -1,0 +1,65 @@
+package nlp4j.krmj.annotator;
+
+import java.util.List;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import com.atilika.kuromoji.ipadic.Token;
+import com.atilika.kuromoji.ipadic.Tokenizer;
+
+import nlp4j.AbstractDocumentAnnotator;
+import nlp4j.Document;
+import nlp4j.DocumentAnnotator;
+import nlp4j.impl.DefaultKeyword;
+import nlp4j.yhoo_jp.YjpAllAnnotator;
+
+/**
+ * Kuromoji Annotator
+ * 
+ * @author Hiroki Oya
+ * @since 1.2
+ *
+ */
+public class KuromojiAnnotator extends AbstractDocumentAnnotator implements DocumentAnnotator {
+
+	static private final Logger logger = LogManager.getLogger(YjpAllAnnotator.class);
+
+	@Override
+	public void annotate(Document doc) throws Exception {
+
+		Tokenizer tokenizer = new Tokenizer();
+
+		for (String target : targets) {
+			Object obj = doc.getAttribute(target);
+			if (obj == null || obj instanceof String == false) {
+				continue;
+			}
+
+			String text = (String) obj;
+
+			List<Token> tokens = tokenizer.tokenize(text);
+
+			int sequence = 1;
+
+			for (Token token : tokens) {
+
+				logger.debug(token.getAllFeatures());
+
+				DefaultKeyword kwd = new DefaultKeyword();
+
+				kwd.setLex(token.getBaseForm());
+				kwd.setStr(token.getSurface());
+				kwd.setReading(token.getReading());
+				kwd.setBegin(token.getPosition());
+				kwd.setEnd(token.getPosition() + token.getSurface().length());
+				kwd.setFacet(token.getPartOfSpeechLevel1());
+				kwd.setSequence(sequence);
+
+				doc.addKeyword(kwd);
+
+				sequence++;
+			}
+		}
+	}
+}

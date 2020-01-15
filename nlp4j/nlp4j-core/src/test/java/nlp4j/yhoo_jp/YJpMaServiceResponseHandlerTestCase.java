@@ -1,7 +1,7 @@
 /**
  * 
  */
-package yhoo_jp;
+package nlp4j.yhoo_jp;
 
 import java.io.FileInputStream;
 import java.io.IOException;
