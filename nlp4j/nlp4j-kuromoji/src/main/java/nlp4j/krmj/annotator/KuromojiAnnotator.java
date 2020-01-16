@@ -12,7 +12,6 @@ import nlp4j.AbstractDocumentAnnotator;
 import nlp4j.Document;
 import nlp4j.DocumentAnnotator;
 import nlp4j.impl.DefaultKeyword;
-import nlp4j.yhoo_jp.YjpAllAnnotator;
 
 /**
  * Kuromoji Annotator
@@ -23,7 +22,7 @@ import nlp4j.yhoo_jp.YjpAllAnnotator;
  */
 public class KuromojiAnnotator extends AbstractDocumentAnnotator implements DocumentAnnotator {
 
-	static private final Logger logger = LogManager.getLogger(YjpAllAnnotator.class);
+	static private final Logger logger = LogManager.getLogger(KuromojiAnnotator.class);
 
 	@Override
 	public void annotate(Document doc) throws Exception {

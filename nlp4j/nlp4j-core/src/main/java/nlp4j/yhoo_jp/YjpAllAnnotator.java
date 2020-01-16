@@ -1,9 +1,11 @@
 package nlp4j.yhoo_jp;
 
 import java.io.IOException;
+import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import nlp4j.AbstractDocumentAnnotator;
 import nlp4j.Document;
@@ -22,7 +24,7 @@ import nlp4j.impl.DefaultKeyword;
  */
 public class YjpAllAnnotator extends AbstractDocumentAnnotator implements DocumentAnnotator {
 
-	static private final org.apache.logging.log4j.Logger logger = LogManager.getLogger(YjpAllAnnotator.class);
+	static private Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
 	// 係り受け解析
 	YJpDaService service1 = new YJpDaService();

@@ -16,6 +16,16 @@ import java.io.Serializable;
 public interface Keyword extends Serializable {
 
 	/**
+	 * キーワードの属性値を返します。<br>
+	 * Return value for an attribute
+	 * 
+	 * @param attribute 属性名
+	 * @return value 値
+	 * @since 1.2
+	 */
+	String get(String attribute);
+
+	/**
 	 * キーワードの開始位置を返します。<br>
 	 * Return begin of keyword.
 	 * 

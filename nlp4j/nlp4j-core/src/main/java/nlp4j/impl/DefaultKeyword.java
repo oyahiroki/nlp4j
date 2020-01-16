@@ -220,4 +220,42 @@ public class DefaultKeyword implements Keyword, Cloneable {
 		return super.clone();
 	}
 
+	@Override
+	public String get(String attribute) {
+
+		if (attribute == null) {
+			return null;
+		} //
+		else if ("facet".equals(attribute)) {
+			return facet;
+		} //
+		else if ("lex".equals(attribute)) {
+			return lex;
+		} //
+		else if ("str".equals(attribute)) {
+			return str;
+		} //
+		else if ("reading".equals(attribute)) {
+			return reading;
+		} //
+		else if ("count".equals(attribute)) {
+			return "" + count;
+		} //
+		else if ("begin".equals(attribute)) {
+			return "" + begin;
+		} //
+		else if ("end".equals(attribute)) {
+			return "" + end;
+		} //
+		else if ("correlation".equals(attribute)) {
+			return "" + correlation;
+		} //
+		else if ("sequence".equals(attribute)) {
+			return "" + sequence;
+		} //
+		else {
+			return null;
+		}
+	}
+
 }
