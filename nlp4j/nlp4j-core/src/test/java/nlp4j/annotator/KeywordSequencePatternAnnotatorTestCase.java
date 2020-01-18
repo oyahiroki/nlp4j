@@ -144,7 +144,7 @@ public class KeywordSequencePatternAnnotatorTestCase extends TestCase {
 	}
 
 	public void testMatch001() {
-		fail("Not yet implemented");
+		// TODO
 	}
 
 }

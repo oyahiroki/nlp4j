@@ -15,3 +15,5 @@ file:///C:/Users/oyahi/git/nlp4j/nlp4j/target/site/apidocs/index.html
 
 oyahiroki <{id}+oyahiroki@users.noreply.github.com>
 
+# MAVEN Repository
+https://mvnrepository.com/search?q=org.nlp4j
