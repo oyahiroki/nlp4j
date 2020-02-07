@@ -6,13 +6,14 @@
 	<parent>
 		<groupId>org.nlp4j</groupId>
 		<artifactId>nlp4j</artifactId>
-		<version>1.2.0.0</version>
+		<version>1.2.1.0</version>
 	</parent>
 	<!-- ARTIFACT ID -->
 	<artifactId>nlp4j-core</artifactId>
 	<!-- JAR -->
 	<packaging>jar</packaging>
 	<name>nlp4j-core</name>
+	<version>1.2.1.0</version>
 	<description>Natural Language Processing Library for Java</description>
 	<url>https://www.nlp4j.org/</url>
 	<licenses>

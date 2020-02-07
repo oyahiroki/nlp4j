@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.nlp4j</groupId>
 	<artifactId>nlp4j</artifactId>
-	<version>1.2.0.0</version>
+	<version>1.2.1.0</version>
 	<!-- POM -->
 	<packaging>pom</packaging>
 	<name>NLP4J</name>
@@ -181,5 +181,7 @@
 	<modules>
 		<module>nlp4j-core</module>
 		<module>nlp4j-kuromoji</module>
+		<!-- module>nlp4j-amzn</module -->
+		<module>nlp4j-deeplearning</module>
 	</modules>
 </project>

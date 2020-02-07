@@ -37,6 +37,12 @@ public class YJpMaAnnotatorTestCase extends TestCase {
 				System.err.println(kwd);
 			}
 		}
+		assertEquals("今日", doc.getKeywords().get(0).getLex());
+		assertEquals("は", doc.getKeywords().get(1).getLex());
+		assertEquals("いい", doc.getKeywords().get(2).getLex());
+		assertEquals("天気", doc.getKeywords().get(3).getLex());
+		assertEquals("です", doc.getKeywords().get(4).getLex());
+		assertEquals("。", doc.getKeywords().get(5).getLex());
 
 	}
 
@@ -46,7 +52,7 @@ public class YJpMaAnnotatorTestCase extends TestCase {
 	 * @throws Exception 例外発生時
 	 */
 	public void testAnnotateDocument002() throws Exception {
-		String text = "100円拾った。";
+		String text = "私は100円を拾いました。";
 		Document doc = new DefaultDocument();
 		{
 			doc.setText(text);
@@ -62,6 +68,15 @@ public class YJpMaAnnotatorTestCase extends TestCase {
 			}
 		}
 
+		assertEquals("私", doc.getKeywords().get(0).getLex());
+		assertEquals("は", doc.getKeywords().get(1).getLex());
+		assertEquals("100", doc.getKeywords().get(2).getLex());
+		assertEquals("円", doc.getKeywords().get(3).getLex());
+		assertEquals("を", doc.getKeywords().get(4).getLex());
+		assertEquals("拾う", doc.getKeywords().get(5).getLex());
+		assertEquals("ます", doc.getKeywords().get(6).getLex());
+		assertEquals("た", doc.getKeywords().get(7).getLex());
+		assertEquals("。", doc.getKeywords().get(8).getLex());
 	}
 
 	/**
@@ -85,6 +100,47 @@ public class YJpMaAnnotatorTestCase extends TestCase {
 		for (Keyword kwd : doc.getKeywords()) {
 			System.err.println(kwd);
 		}
+
+		assertEquals("私", doc.getKeywords().get(0).getLex());
+		assertEquals("は", doc.getKeywords().get(1).getLex());
+		assertEquals("学校", doc.getKeywords().get(2).getLex());
+		assertEquals("に", doc.getKeywords().get(3).getLex());
+		assertEquals("行く", doc.getKeywords().get(4).getLex());
+		assertEquals("ます", doc.getKeywords().get(5).getLex());
+		assertEquals("た", doc.getKeywords().get(6).getLex());
+		assertEquals("。", doc.getKeywords().get(7).getLex());
+	}
+
+	/**
+	 * 英文字の形態素解析をテストする
+	 * 
+	 * @throws Exception
+	 */
+	public void testAnnotateDocument004() throws Exception {
+		// 自然文のテキスト
+		String text = "私はEVを買いました。";
+		Document doc = new DefaultDocument();
+		doc.putAttribute("text", text);
+		YJpMaAnnotator annotator = new YJpMaAnnotator();
+		annotator.setProperty("target", "text");
+		annotator.annotate(doc); // throws Exception
+		System.err.println("Finished : annotation");
+
+		assertNotNull(doc.getKeywords());
+		assertTrue(doc.getKeywords().size() > 0);
+
+		for (Keyword kwd : doc.getKeywords()) {
+			System.err.println(kwd);
+		}
+
+		assertEquals("私", doc.getKeywords().get(0).getLex());
+		assertEquals("は", doc.getKeywords().get(1).getLex());
+		assertEquals("EV", doc.getKeywords().get(2).getLex());
+		assertEquals("を", doc.getKeywords().get(3).getLex());
+		assertEquals("買う", doc.getKeywords().get(4).getLex());
+		assertEquals("ます", doc.getKeywords().get(5).getLex());
+		assertEquals("た", doc.getKeywords().get(6).getLex());
+		assertEquals("。", doc.getKeywords().get(7).getLex());
 
 	}
 

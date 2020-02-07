@@ -1,5 +1,11 @@
 package nlp4j.util;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.text.StringEscapeUtils;
 
 import com.google.gson.Gson;
@@ -21,6 +27,12 @@ public class DocumentUtil {
 
 	static String XML_HEADER = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
 
+	/**
+	 * Convert to XML
+	 * 
+	 * @param doc to be converted
+	 * @return XML of document
+	 */
 	static public String toXml(Document doc) {
 		StringBuilder xml = new StringBuilder();
 
@@ -49,6 +61,12 @@ public class DocumentUtil {
 
 	}
 
+	/**
+	 * Convert to XML
+	 * 
+	 * @param kwd to be converted
+	 * @return XML of Keyword
+	 */
 	static public String toXml(Keyword kwd) {
 		StringBuilder xml = new StringBuilder();
 		xml.append("<w ");
@@ -57,6 +75,12 @@ public class DocumentUtil {
 		return xml.toString();
 	}
 
+	/**
+	 * Convert to XML
+	 * 
+	 * @param kwd to be converted
+	 * @return XML of document
+	 */
 	static public String toXmlAttributes(Keyword kwd) {
 		StringBuilder xml = new StringBuilder();
 		xml.append(" begin=\"" + kwd.getBegin() + "\"");
@@ -148,6 +172,45 @@ public class DocumentUtil {
 		Gson gson = new Gson();
 		String json = toJsonString(kwd);
 		return gson.fromJson(json, JsonObject.class);
+	}
+
+	/**
+	 * Write documents as Line Separated Json
+	 * 
+	 * @param docs Document to write to file
+	 * @param file to write
+	 * @throws IOException on error writing file
+	 * @since 1.2.1.0
+	 */
+	static public void writeAsLineSeparatedJson(List<Document> docs, File file) throws IOException {
+
+		for (Document doc : docs) {
+			String json = toJsonString(doc);
+			String encoding = "UTF-8";
+			boolean append = true;
+			FileUtils.write(file, json + "\n", encoding, append);
+		}
+
+	}
+
+	/**
+	 * read documents from line separated json
+	 * 
+	 * @param file UTF-8 Line Separated Json File
+	 * @return documents parsed from file
+	 * @throws IOException on Error
+	 * @since 1.2.1.0
+	 */
+	static public List<Document> readFromLineSeparatedJson(File file) throws IOException {
+		ArrayList<Document> docs = new ArrayList<>();
+		List<String> lines = FileUtils.readLines(file, "UTF-8");
+
+		for (String line : lines) {
+			Document doc = toDocument(line);
+			docs.add(doc);
+		}
+		return docs;
+
 	}
 
 }

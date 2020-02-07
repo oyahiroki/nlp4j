@@ -6,6 +6,7 @@ import junit.framework.TestCase;
 import nlp4j.Keyword;
 import nlp4j.impl.DefaultDocument;
 import nlp4j.impl.DefaultKeyword;
+import nlp4j.indexer.SimpleDocumentIndex;
 
 public class SimpleDocumentIndexTestCase extends TestCase {
 

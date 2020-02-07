@@ -20,7 +20,7 @@ public class NodeTestCase extends TestCase {
 		System.err.println(n1);
 	}
 
-	public void testNext() {
+	public void testNextChild001() {
 		Node n1 = new Node("a");
 		Node n2 = new Node("b");
 		n1.addChildNode(n2);
@@ -42,6 +42,36 @@ public class NodeTestCase extends TestCase {
 		{
 			n1.addChildNode(new Node("b"));
 			n1.addChildNode(new Node("c"));
+		}
+
+		Node n = n1;
+		System.err.println(n);
+		while (true) {
+			n = n.next();
+			if (n != null) {
+				System.err.println(n);
+			} else {
+				break;
+			}
+		}
+
+	}
+
+	public void testNext002() {
+		Node n1 = new Node("a");
+		{
+			Node n2 = new Node("b");
+			n2.addChildNode(new Node("c"));
+			n2.addChildNode(new Node("d"));
+			n1.addChildNode(n2);
+			Node n3 = new Node("e");
+			n1.addChildNode(n3);
+			Node n4 = new Node("f");
+			n3.addChildNode(n4);
+			Node n5 = new Node("g");
+			n3.addChildNode(n5);
+			n1.addChildNode(new Node("h"));
+			n1.print();
 		}
 
 		Node n = n1;

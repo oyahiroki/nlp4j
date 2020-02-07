@@ -50,6 +50,13 @@ public class KuromojiAnnotator extends AbstractDocumentAnnotator implements Docu
 				kwd.setLex(token.getBaseForm());
 				kwd.setStr(token.getSurface());
 				kwd.setReading(token.getReading());
+
+				// 英字
+				// @since 1.2.0.1
+				if (kwd.getLex().equals("*") && kwd.getReading().equals("*") && kwd.getStr().matches("[a-zA-Z]*")) {
+					kwd.setLex(kwd.getStr());
+				}
+
 				kwd.setBegin(token.getPosition());
 				kwd.setEnd(token.getPosition() + token.getSurface().length());
 				kwd.setFacet(token.getPartOfSpeechLevel1());

@@ -53,7 +53,7 @@ public class YJpDaService implements NlpService {
 			appID = DefaultEnv.YHOO_JP_API_ID;
 			Exception e = new Exception("Please get your own APP_ID for Yahoo! Japan API "
 					+ "and set as Dyhoo_jp.appid={your_app_id} " + "- https://e.developer.yahoo.co.jp/dashboard/");
-			System.err.println("ERROR: " + e.getMessage());
+			System.err.println("WARNING: " + e.getMessage());
 		}
 	}
 

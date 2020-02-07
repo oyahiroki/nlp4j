@@ -7,8 +7,8 @@ import nlp4j.DocumentAnnotator;
 import nlp4j.Document;
 import nlp4j.Keyword;
 import nlp4j.impl.DefaultDocument;
-import nlp4j.index.DocumentIndex;
-import nlp4j.index.SimpleDocumentIndex;
+import nlp4j.indexer.DocumentIndexer;
+import nlp4j.indexer.SimpleDocumentIndex;
 import nlp4j.yhoo_jp.YJpMaAnnotator;
 
 /**
@@ -57,7 +57,7 @@ public class HelloTextMiningMain1 {
 		}
 
 		// キーワードインデックス（統計処理）の用意
-		DocumentIndex index = new SimpleDocumentIndex();
+		DocumentIndexer index = new SimpleDocumentIndex();
 		{
 			// キーワードインデックス作成処理
 			index.addDocuments(docs);

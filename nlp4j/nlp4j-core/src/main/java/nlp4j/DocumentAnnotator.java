@@ -1,6 +1,7 @@
 package nlp4j;
 
 import java.util.List;
+import java.util.Properties;
 
 /**
  * ドキュメントにメタ情報を付加するアノテーターです。<br>
@@ -32,5 +33,21 @@ public interface DocumentAnnotator {
 	 * @since 1.0
 	 */
 	public void annotate(List<Document> docs) throws Exception;
+
+	/**
+	 * プロパティをセットします<br>
+	 * Set Property
+	 * 
+	 * @since 1.2
+	 */
+	public void setProperty(String key, String value);
+
+	/**
+	 * プロパティをセットします<br>
+	 * Set Properties
+	 * 
+	 * @since 1.2
+	 */
+	public void setProperties(Properties prop);
 
 }

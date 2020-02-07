@@ -12,7 +12,7 @@ import nlp4j.crawler.TextFileLineSeparatedCrawler;
 import nlp4j.impl.DefaultDocument;
 import nlp4j.impl.DefaultDocumentAnnotatorPipeline;
 import nlp4j.impl.DefaultKeyword;
-import nlp4j.index.SimpleDocumentIndex;
+import nlp4j.indexer.SimpleDocumentIndex;
 import nlp4j.yhoo_jp.YJpMaAnnotator;
 
 public class KeywordSequencePatternAnnotatorTestCase extends TestCase {

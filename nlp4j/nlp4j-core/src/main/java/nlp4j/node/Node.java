@@ -50,7 +50,7 @@ public class Node implements Cloneable {
 		}
 	}
 
-	public boolean hasNextChild() {
+	protected boolean hasNextChild() {
 		if (idxChild == children.size()) {
 			return false;
 		} else {

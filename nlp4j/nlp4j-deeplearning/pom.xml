@@ -1,0 +1,53 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.nlp4j</groupId>
+		<artifactId>nlp4j</artifactId>
+		<version>1.2.1.0</version>
+	</parent>
+	<artifactId>nlp4j-deeplearning</artifactId>
+	<version>1.0.0.0</version>
+	<name>deeplearning</name>
+	<dependencies>
+		<dependency>
+			<groupId>org.nlp4j</groupId>
+			<artifactId>nlp4j-kuromoji</artifactId>
+			<version>1.2.1.0</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.deeplearning4j/deeplearning4j-core -->
+		<dependency>
+			<groupId>org.deeplearning4j</groupId>
+			<artifactId>deeplearning4j-core</artifactId>
+			<version>0.9.1</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.deeplearning4j/deeplearning4j-nlp -->
+		<dependency>
+			<groupId>org.deeplearning4j</groupId>
+			<artifactId>deeplearning4j-nlp</artifactId>
+			<version>0.9.1</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.nd4j/nd4j-native-platform -->
+		<dependency>
+			<groupId>org.nd4j</groupId>
+			<artifactId>nd4j-native-platform</artifactId>
+			<version>0.9.1</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.nd4j/nd4j-api -->
+		<dependency>
+			<groupId>org.nd4j</groupId>
+			<artifactId>nd4j-api</artifactId>
+			<version>0.9.1</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-core -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<version>5.1.8.RELEASE</version>
+		</dependency>
+	</dependencies>
+</project>

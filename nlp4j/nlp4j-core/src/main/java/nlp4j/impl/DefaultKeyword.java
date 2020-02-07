@@ -26,6 +26,31 @@ public class DefaultKeyword implements Keyword, Cloneable {
 
 	int sequence = -1;
 
+	/**
+	 * Default constructor
+	 * 
+	 * @since 1.2.1.0
+	 */
+	public DefaultKeyword() {
+		super();
+	}
+
+	/**
+	 * @param begin 開始位置
+	 * @param end   終了位置
+	 * @param facet ファセット
+	 * @param lex   正規形
+	 * @param str   表出文字
+	 */
+	public DefaultKeyword(int begin, int end, String facet, String lex, String str) {
+		super();
+		this.begin = begin;
+		this.end = end;
+		this.facet = facet;
+		this.lex = lex;
+		this.str = str;
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
