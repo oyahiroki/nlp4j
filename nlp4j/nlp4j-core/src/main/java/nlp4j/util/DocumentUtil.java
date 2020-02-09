@@ -184,6 +184,11 @@ public class DocumentUtil {
 	 */
 	static public void writeAsLineSeparatedJson(List<Document> docs, File file) throws IOException {
 
+		File parentDir = file.getParentFile();
+		if (parentDir.exists() == false) {
+			FileUtils.forceMkdir(parentDir);
+		}
+
 		for (Document doc : docs) {
 			String json = toJsonString(doc);
 			String encoding = "UTF-8";

@@ -183,5 +183,7 @@
 		<module>nlp4j-kuromoji</module>
 		<!-- module>nlp4j-amzn</module -->
 		<module>nlp4j-deeplearning</module>
+		<module>nlp4j-azure</module>
+		<module>nlp4j-webcrawler</module>
 	</modules>
 </project>

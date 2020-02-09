@@ -1,0 +1,205 @@
+/**
+ * 
+ */
+package nlp4j.webcrawler.mlit;
+
+import java.io.IOException;
+import java.lang.invoke.MethodHandles;
+import java.net.URL;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
+import nlp4j.Document;
+import nlp4j.crawler.Crawler;
+import nlp4j.impl.DefaultDocument;
+import nlp4j.webcrawler.AbstractWebCrawler;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+/**
+ * 
+ * @see "http://carinf.mlit.go.jp/jidosha/carinf/opn/index.html"
+ * @author Hiroki Oya
+ *
+ */
+public class MlitCarInfoCrawler extends AbstractWebCrawler implements Crawler {
+
+	static private Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
+
+	String txtFrDat = "2019/01/01";
+	String txtToDat = "2019/12/31";
+
+	static private SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+
+	/**
+	 * Validate param value
+	 * 
+	 * @param value to be set as date
+	 * @return
+	 */
+	static boolean checkDateFormat(String value) {
+		try {
+			sdf.parse(value);
+			return true;
+		} catch (ParseException e) {
+			return false;
+		}
+	}
+
+	@Override
+	public void setProperty(String key, String value) {
+		super.setProperty(key, value);
+
+		if ("from_date".equals(key)) {
+			if (checkDateFormat(value)) {
+				this.txtFrDat = value;
+			} else {
+				// warn
+			}
+		} //
+		else if ("to_date".equals(key)) {
+			if (checkDateFormat(value)) {
+				this.txtToDat = value;
+			} else {
+				// warn
+			}
+		}
+
+	}
+
+	/**
+	 * Default Constructor
+	 */
+	public MlitCarInfoCrawler() {
+		super();
+	}
+
+	@Override
+	public ArrayList<Document> crawlDocuments() {
+
+		ArrayList<Document> docs = new ArrayList<>();
+
+		int countMax = 1;
+
+		int page = 1;
+
+		for (int count = 0; count < countMax; count++) {
+
+			String url = String.format("http://carinf.mlit.go.jp/jidosha/carinf/opn/search.html?" //
+					+ "selCarTp=1" //
+					+ "&lstCarNo=000" //
+					+ "&txtFrDat=%s" //
+					+ "&txtToDat=%s" //
+					+ "&txtNamNm=" //
+					+ "&txtMdlNm=" //
+					+ "&txtEgmNm=" //
+					+ "&chkDevCd=" //
+					+ "&page=%d" //
+					+ "", this.txtFrDat, this.txtToDat, page);
+
+			logger.info("crawling: " + url);
+
+			try {
+
+				org.jsoup.nodes.Document document = Jsoup.parse(new URL(url), 1000 * 10); // throws IOException
+
+				{ // 総ページ数の取得
+					Elements elements = document.select("#p1 p");
+
+					if (elements.size() == 0) {
+						logger.info("page not returned info: " + url);
+						break;
+					}
+
+					Element el = elements.get(0);
+					String sMaxPages = el.text().trim().split(" ")[2];
+					try {
+						countMax = Integer.parseInt(sMaxPages);
+					} catch (NumberFormatException e) {
+						e.printStackTrace();
+					}
+				}
+
+				// ヘッダ名を動的に取得する
+
+				Elements elements = document.select("#r1 tr");
+
+				ArrayList<String> header = new ArrayList<>();
+
+				// ヘッダー情報は各ページで動的に取得する
+				for (int idx = 0; idx < elements.size(); idx++) {
+					Element element = elements.get(idx);
+
+					// ヘッダー行
+					if (idx == 0) {
+						// 番号
+						{
+							Elements ee = element.select("th:first-child");
+							header.add(ee.text().trim());
+						}
+
+						Elements elDivs = element.select("div");
+
+						for (int n = 0; n < elDivs.size(); n++) {
+							Element elDiv = elDivs.get(n);
+							header.add(elDiv.text().replace("\u3000", "").replace(" ", "").trim());
+						}
+					}
+					// データ行
+					else {
+
+						Document doc = new DefaultDocument();
+
+						// 番号
+						{
+							Elements ee = element.select("td:first-child");
+							String key = header.get(0);
+							String value = ee.text().trim();
+							doc.putAttribute(key, value);
+						}
+
+						Elements elDivs = element.select("div");
+
+						for (int n = 0; n < elDivs.size(); n++) {
+							Element elDiv = elDivs.get(n);
+							String key = header.get(n + 1);
+							String value = elDiv.text().trim();
+							doc.putAttribute(key, value);
+						}
+
+						docs.add(doc);
+					}
+
+				} // end of for
+
+			}
+			// on getting Page data
+			catch (IOException e) {
+				e.printStackTrace();
+			}
+
+			try {
+				Thread.sleep(1000 * 1);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			page++;
+
+			if (super.prop.get("debug") != null && "true".equals(super.prop.get("debug"))) {
+				if (count > 2) {
+					break;
+				}
+			}
+
+		} // end of for loop (page)
+
+		return docs;
+	}
+
+}

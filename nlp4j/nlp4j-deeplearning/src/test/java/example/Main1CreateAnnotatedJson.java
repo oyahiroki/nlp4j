@@ -1,4 +1,4 @@
-package nlp4j.deeplearnig;
+package example;
 
 import java.io.File;
 import java.util.ArrayList;
