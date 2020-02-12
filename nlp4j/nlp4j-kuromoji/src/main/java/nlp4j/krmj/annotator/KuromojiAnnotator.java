@@ -27,6 +27,8 @@ public class KuromojiAnnotator extends AbstractDocumentAnnotator implements Docu
 	@Override
 	public void annotate(Document doc) throws Exception {
 
+		logger.info("processing document");
+
 		Tokenizer tokenizer = new Tokenizer();
 
 		for (String target : targets) {
