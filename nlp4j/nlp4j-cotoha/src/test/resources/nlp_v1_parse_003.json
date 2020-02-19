@@ -1,0 +1,352 @@
+{
+  "result" : [ {
+    "chunk_info" : {
+      "id" : 0,
+      "head" : 1,
+      "dep" : "D",
+      "chunk_head" : 0,
+      "chunk_func" : 1,
+      "links" : [ ]
+    },
+    "tokens" : [ {
+      "id" : 0,
+      "form" : "高速道路",
+      "kana" : "コウソクドウロ",
+      "lemma" : "高速道路",
+      "pos" : "名詞",
+      "features" : [ ],
+      "common_noun_semantic" : [ 418 ],
+      "proper_noun_semantic" : [ ],
+      "declinable_word_semantic" : [ ],
+      "dependency_labels" : [ {
+        "token_id" : 1,
+        "label" : "case"
+      } ],
+      "attributes" : { }
+    }, {
+      "id" : 1,
+      "form" : "を",
+      "kana" : "ヲ",
+      "lemma" : "を",
+      "pos" : "格助詞",
+      "features" : [ "連用" ],
+      "common_noun_semantic" : [ ],
+      "proper_noun_semantic" : [ ],
+      "declinable_word_semantic" : [ ],
+      "attributes" : { }
+    } ]
+  }, {
+    "chunk_info" : {
+      "id" : 1,
+      "head" : 6,
+      "dep" : "D",
+      "chunk_head" : 1,
+      "chunk_func" : 1,
+      "links" : [ {
+        "link" : 0,
+        "label" : "object"
+      } ],
+      "predicate" : [ ]
+    },
+    "tokens" : [ {
+      "id" : 2,
+      "form" : "走行",
+      "kana" : "ソウコウ",
+      "lemma" : "走行",
+      "pos" : "名詞",
+      "features" : [ "動作" ],
+      "common_noun_semantic" : [ 1577 ],
+      "proper_noun_semantic" : [ ],
+      "declinable_word_semantic" : [ ],
+      "attributes" : { }
+    }, {
+      "id" : 3,
+      "form" : "中",
+      "kana" : "チュウ",
+      "lemma" : "中",
+      "pos" : "名詞接尾辞",
+      "features" : [ "名詞" ],
+      "common_noun_semantic" : [ 2623, 2694, 2709 ],
+      "proper_noun_semantic" : [ ],
+      "declinable_word_semantic" : [ ],
+      "dependency_labels" : [ {
+        "token_id" : 0,
+        "label" : "dobj"
+      }, {
+        "token_id" : 2,
+        "label" : "compound"
+      }, {
+        "token_id" : 4,
+        "label" : "punct"
+      } ],
+      "attributes" : { }
+    }, {
+      "id" : 4,
+      "form" : "、",
+      "kana" : "",
+      "lemma" : "、",
+      "pos" : "読点",
+      "features" : [ ],
+      "common_noun_semantic" : [ ],
+      "proper_noun_semantic" : [ ],
+      "declinable_word_semantic" : [ ],
+      "attributes" : { }
+    } ]
+  }, {
+    "chunk_info" : {
+      "id" : 2,
+      "head" : 4,
+      "dep" : "D",
+      "chunk_head" : 0,
+      "chunk_func" : 1,
+      "links" : [ ]
+    },
+    "tokens" : [ {
+      "id" : 5,
+      "form" : "エンジン",
+      "kana" : "エンジン",
+      "lemma" : "エンジン",
+      "pos" : "名詞",
+      "features" : [ ],
+      "common_noun_semantic" : [ 964, 991 ],
+      "proper_noun_semantic" : [ ],
+      "declinable_word_semantic" : [ ],
+      "dependency_labels" : [ {
+        "token_id" : 6,
+        "label" : "case"
+      } ],
+      "attributes" : { }
+    }, {
+      "id" : 6,
+      "form" : "が",
+      "kana" : "ガ",
+      "lemma" : "が",
+      "pos" : "格助詞",
+      "features" : [ "連用" ],
+      "common_noun_semantic" : [ ],
+      "proper_noun_semantic" : [ ],
+      "declinable_word_semantic" : [ ],
+      "attributes" : { }
+    } ]
+  }, {
+    "chunk_info" : {
+      "id" : 3,
+      "head" : 4,
+      "dep" : "D",
+      "chunk_head" : 0,
+      "chunk_func" : 1,
+      "links" : [ ]
+    },
+    "tokens" : [ {
+      "id" : 7,
+      "form" : "煙",
+      "kana" : "ケムリ",
+      "lemma" : "煙",
+      "pos" : "名詞",
+      "features" : [ ],
+      "common_noun_semantic" : [ 738 ],
+      "proper_noun_semantic" : [ ],
+      "declinable_word_semantic" : [ ],
+      "dependency_labels" : [ {
+        "token_id" : 8,
+        "label" : "case"
+      } ],
+      "attributes" : { }
+    }, {
+      "id" : 8,
+      "form" : "を",
+      "kana" : "ヲ",
+      "lemma" : "を",
+      "pos" : "格助詞",
+      "features" : [ "連用" ],
+      "common_noun_semantic" : [ ],
+      "proper_noun_semantic" : [ ],
+      "declinable_word_semantic" : [ ],
+      "attributes" : { }
+    } ]
+  }, {
+    "chunk_info" : {
+      "id" : 4,
+      "head" : 6,
+      "dep" : "D",
+      "chunk_head" : 0,
+      "chunk_func" : 2,
+      "links" : [ {
+        "link" : 2,
+        "label" : "object"
+      }, {
+        "link" : 3,
+        "label" : "object"
+      } ],
+      "predicate" : [ "past" ]
+    },
+    "tokens" : [ {
+      "id" : 9,
+      "form" : "出",
+      "kana" : "ダ",
+      "lemma" : "出す",
+      "pos" : "動詞語幹",
+      "features" : [ "S" ],
+      "common_noun_semantic" : [ 1477, 1499 ],
+      "proper_noun_semantic" : [ ],
+      "declinable_word_semantic" : [ 20, 21, 31, 5, 8 ],
+      "dependency_labels" : [ {
+        "token_id" : 5,
+        "label" : "dobj"
+      }, {
+        "token_id" : 7,
+        "label" : "dobj"
+      }, {
+        "token_id" : 10,
+        "label" : "aux"
+      }, {
+        "token_id" : 11,
+        "label" : "aux"
+      } ],
+      "attributes" : { }
+    }, {
+      "id" : 10,
+      "form" : "し",
+      "kana" : "シ",
+      "lemma" : "し",
+      "pos" : "動詞活用語尾",
+      "features" : [ ],
+      "common_noun_semantic" : [ ],
+      "proper_noun_semantic" : [ ],
+      "declinable_word_semantic" : [ ],
+      "attributes" : { }
+    }, {
+      "id" : 11,
+      "form" : "て",
+      "kana" : "テ",
+      "lemma" : "て",
+      "pos" : "動詞接尾辞",
+      "features" : [ "接続", "連用" ],
+      "common_noun_semantic" : [ ],
+      "proper_noun_semantic" : [ ],
+      "declinable_word_semantic" : [ ],
+      "attributes" : { }
+    } ]
+  }, {
+    "chunk_info" : {
+      "id" : 5,
+      "head" : 6,
+      "dep" : "D",
+      "chunk_head" : 0,
+      "chunk_func" : 1,
+      "links" : [ ]
+    },
+    "tokens" : [ {
+      "id" : 12,
+      "form" : "急",
+      "kana" : "キュウ",
+      "lemma" : "急",
+      "pos" : "名詞",
+      "features" : [ ],
+      "common_noun_semantic" : [ 2556 ],
+      "proper_noun_semantic" : [ ],
+      "declinable_word_semantic" : [ ],
+      "dependency_labels" : [ {
+        "token_id" : 13,
+        "label" : "case"
+      } ],
+      "attributes" : { }
+    }, {
+      "id" : 13,
+      "form" : "に",
+      "kana" : "ニ",
+      "lemma" : "に",
+      "pos" : "格助詞",
+      "features" : [ "連用" ],
+      "common_noun_semantic" : [ ],
+      "proper_noun_semantic" : [ ],
+      "declinable_word_semantic" : [ ],
+      "attributes" : { }
+    } ]
+  }, {
+    "chunk_info" : {
+      "id" : 6,
+      "head" : -1,
+      "dep" : "O",
+      "chunk_head" : 0,
+      "chunk_func" : 2,
+      "links" : [ {
+        "link" : 1,
+        "label" : "other"
+      }, {
+        "link" : 4,
+        "label" : "manner"
+      }, {
+        "link" : 5,
+        "label" : "goal"
+      } ],
+      "predicate" : [ "past" ]
+    },
+    "tokens" : [ {
+      "id" : 14,
+      "form" : "停止",
+      "kana" : "テイシ",
+      "lemma" : "停止",
+      "pos" : "名詞",
+      "features" : [ "動作" ],
+      "common_noun_semantic" : [ 2101, 2126 ],
+      "proper_noun_semantic" : [ ],
+      "declinable_word_semantic" : [ 20, 36 ],
+      "dependency_labels" : [ {
+        "token_id" : 3,
+        "label" : "nmod"
+      }, {
+        "token_id" : 9,
+        "label" : "advcl"
+      }, {
+        "token_id" : 12,
+        "label" : "nmod"
+      }, {
+        "token_id" : 15,
+        "label" : "aux"
+      }, {
+        "token_id" : 16,
+        "label" : "aux"
+      }, {
+        "token_id" : 17,
+        "label" : "punct"
+      } ],
+      "attributes" : { }
+    }, {
+      "id" : 15,
+      "form" : "し",
+      "kana" : "シ",
+      "lemma" : "し",
+      "pos" : "動詞活用語尾",
+      "features" : [ ],
+      "common_noun_semantic" : [ 2050 ],
+      "proper_noun_semantic" : [ ],
+      "declinable_word_semantic" : [ ],
+      "attributes" : { }
+    }, {
+      "id" : 16,
+      "form" : "た",
+      "kana" : "タ",
+      "lemma" : "た",
+      "pos" : "動詞接尾辞",
+      "features" : [ "終止" ],
+      "common_noun_semantic" : [ ],
+      "proper_noun_semantic" : [ ],
+      "declinable_word_semantic" : [ ],
+      "attributes" : { }
+    }, {
+      "id" : 17,
+      "form" : "。",
+      "kana" : "",
+      "lemma" : "。",
+      "pos" : "句点",
+      "features" : [ ],
+      "common_noun_semantic" : [ ],
+      "proper_noun_semantic" : [ ],
+      "declinable_word_semantic" : [ ],
+      "attributes" : { }
+    } ]
+  } ],
+  "status" : 0,
+  "message" : ""
+}

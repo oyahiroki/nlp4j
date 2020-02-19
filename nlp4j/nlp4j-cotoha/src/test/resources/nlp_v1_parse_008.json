@@ -1,0 +1,196 @@
+{
+  "result" : [ {
+    "chunk_info" : {
+      "id" : 0,
+      "head" : 3,
+      "dep" : "D",
+      "chunk_head" : 0,
+      "chunk_func" : 1,
+      "links" : [ ]
+    },
+    "tokens" : [ {
+      "id" : 0,
+      "form" : "太郎",
+      "kana" : "タロウ",
+      "lemma" : "太郎",
+      "pos" : "名詞",
+      "features" : [ "名", "固有" ],
+      "common_noun_semantic" : [ 4, 48 ],
+      "proper_noun_semantic" : [ ],
+      "declinable_word_semantic" : [ ],
+      "dependency_labels" : [ {
+        "token_id" : 1,
+        "label" : "case"
+      } ],
+      "attributes" : { }
+    }, {
+      "id" : 1,
+      "form" : "は",
+      "kana" : "ハ",
+      "lemma" : "は",
+      "pos" : "連用助詞",
+      "features" : [ ],
+      "common_noun_semantic" : [ ],
+      "proper_noun_semantic" : [ ],
+      "declinable_word_semantic" : [ ],
+      "attributes" : { }
+    } ]
+  }, {
+    "chunk_info" : {
+      "id" : 1,
+      "head" : 3,
+      "dep" : "D",
+      "chunk_head" : 0,
+      "chunk_func" : 1,
+      "links" : [ ]
+    },
+    "tokens" : [ {
+      "id" : 2,
+      "form" : "花子",
+      "kana" : "ハナコ",
+      "lemma" : "花子",
+      "pos" : "名詞",
+      "features" : [ "名", "固有" ],
+      "common_noun_semantic" : [ 4, 49 ],
+      "proper_noun_semantic" : [ ],
+      "declinable_word_semantic" : [ ],
+      "dependency_labels" : [ {
+        "token_id" : 3,
+        "label" : "case"
+      } ],
+      "attributes" : { }
+    }, {
+      "id" : 3,
+      "form" : "に",
+      "kana" : "ニ",
+      "lemma" : "に",
+      "pos" : "格助詞",
+      "features" : [ "連用" ],
+      "common_noun_semantic" : [ ],
+      "proper_noun_semantic" : [ ],
+      "declinable_word_semantic" : [ ],
+      "attributes" : { }
+    } ]
+  }, {
+    "chunk_info" : {
+      "id" : 2,
+      "head" : 3,
+      "dep" : "D",
+      "chunk_head" : 0,
+      "chunk_func" : 1,
+      "links" : [ ]
+    },
+    "tokens" : [ {
+      "id" : 4,
+      "form" : "手紙",
+      "kana" : "テガミ",
+      "lemma" : "手紙",
+      "pos" : "名詞",
+      "features" : [ ],
+      "common_noun_semantic" : [ 1114, 919 ],
+      "proper_noun_semantic" : [ ],
+      "declinable_word_semantic" : [ ],
+      "dependency_labels" : [ {
+        "token_id" : 5,
+        "label" : "case"
+      } ],
+      "attributes" : { }
+    }, {
+      "id" : 5,
+      "form" : "を",
+      "kana" : "ヲ",
+      "lemma" : "を",
+      "pos" : "格助詞",
+      "features" : [ "連用" ],
+      "common_noun_semantic" : [ ],
+      "proper_noun_semantic" : [ ],
+      "declinable_word_semantic" : [ ],
+      "attributes" : { }
+    } ]
+  }, {
+    "chunk_info" : {
+      "id" : 3,
+      "head" : -1,
+      "dep" : "O",
+      "chunk_head" : 0,
+      "chunk_func" : 2,
+      "links" : [ {
+        "link" : 0,
+        "label" : "agent"
+      }, {
+        "link" : 1,
+        "label" : "beneficiary"
+      }, {
+        "link" : 2,
+        "label" : "object"
+      } ],
+      "predicate" : [ "past" ]
+    },
+    "tokens" : [ {
+      "id" : 6,
+      "form" : "送",
+      "kana" : "オク",
+      "lemma" : "送る",
+      "pos" : "動詞語幹",
+      "features" : [ "R" ],
+      "common_noun_semantic" : [ 1708 ],
+      "proper_noun_semantic" : [ ],
+      "declinable_word_semantic" : [ 18, 2, 23, 29, 31 ],
+      "dependency_labels" : [ {
+        "token_id" : 0,
+        "label" : "nsubj"
+      }, {
+        "token_id" : 2,
+        "label" : "nmod"
+      }, {
+        "token_id" : 4,
+        "label" : "dobj"
+      }, {
+        "token_id" : 7,
+        "label" : "aux"
+      }, {
+        "token_id" : 8,
+        "label" : "aux"
+      }, {
+        "token_id" : 9,
+        "label" : "punct"
+      } ],
+      "attributes" : { }
+    }, {
+      "id" : 7,
+      "form" : "っ",
+      "kana" : "ッ",
+      "lemma" : "っ",
+      "pos" : "動詞活用語尾",
+      "features" : [ ],
+      "common_noun_semantic" : [ ],
+      "proper_noun_semantic" : [ ],
+      "declinable_word_semantic" : [ ],
+      "attributes" : { }
+    }, {
+      "id" : 8,
+      "form" : "た",
+      "kana" : "タ",
+      "lemma" : "た",
+      "pos" : "動詞接尾辞",
+      "features" : [ "終止" ],
+      "common_noun_semantic" : [ ],
+      "proper_noun_semantic" : [ ],
+      "declinable_word_semantic" : [ ],
+      "attributes" : { }
+    }, {
+      "id" : 9,
+      "form" : "。",
+      "kana" : "",
+      "lemma" : "。",
+      "pos" : "句点",
+      "features" : [ ],
+      "common_noun_semantic" : [ ],
+      "proper_noun_semantic" : [ ],
+      "declinable_word_semantic" : [ ],
+      "attributes" : { }
+    } ]
+  } ],
+  "status" : 0,
+  "message" : ""
+}

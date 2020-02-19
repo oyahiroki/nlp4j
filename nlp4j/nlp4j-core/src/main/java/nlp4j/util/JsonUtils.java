@@ -1,0 +1,42 @@
+package nlp4j.util;
+
+import java.io.File;
+import java.io.IOException;
+
+import org.apache.commons.io.FileUtils;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+
+/**
+ * @author Hiroki Oya
+ * @since 1.2.1.0
+ *
+ */
+public class JsonUtils {
+
+	/**
+	 * @param file     the file to write
+	 * @param jsonData the JSON content write to the file
+	 * @throws IOException in case of an I/O error
+	 */
+	static public void write(File file, String jsonData) throws IOException {
+
+		Gson gson = new Gson();
+
+		// tab, new line is removed
+		JsonObject json = gson.fromJson(jsonData, JsonObject.class);
+
+		String encoding = "UTF-8";
+
+		boolean append = true;
+
+		if (file.getParentFile().exists() == false) {
+			FileUtils.forceMkdir(file.getParentFile());
+		}
+
+		FileUtils.write(file, json.toString() + "\n", encoding, append);
+
+	}
+
+}

@@ -23,7 +23,7 @@ import nlp4j.xml.AbstractXmlHandler;
  */
 public class YJpDaServiceResponseHandler extends AbstractXmlHandler {
 
-	static private Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
+	static private final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
 	DefaultKeywordWithDependency kwd;
 

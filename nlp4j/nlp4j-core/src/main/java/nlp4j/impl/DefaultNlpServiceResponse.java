@@ -20,6 +20,15 @@ public class DefaultNlpServiceResponse implements NlpServiceResponse {
 	private ArrayList<Keyword> keywords;
 
 	/**
+	 * コンストラクタ
+	 */
+	public DefaultNlpServiceResponse() {
+		super();
+	}
+
+	/**
+	 * コンストラクタ
+	 * 
 	 * @param responseCode         HTTPレスポンスコード
 	 * @param originalResponseBody オリジナルのレスポンスボディ
 	 */
@@ -27,6 +36,10 @@ public class DefaultNlpServiceResponse implements NlpServiceResponse {
 		super();
 		this.responseCode = responseCode;
 		this.originalResponseBody = originalResponseBody;
+	}
+
+	public ArrayList<Keyword> getKeywords() {
+		return keywords;
 	}
 
 	@Override
@@ -39,16 +52,36 @@ public class DefaultNlpServiceResponse implements NlpServiceResponse {
 		return this.responseCode;
 	}
 
-	public ArrayList<Keyword> getKeywords() {
-		return keywords;
-	}
-
 	/**
 	 * @param keywords キーワード
 	 */
 	public void setKeywords(ArrayList<Keyword> keywords) {
 		this.keywords = keywords;
 
+	}
+
+	/**
+	 * @param originalResponseBody レスポンスボディ
+	 * @since 1.2.1.0
+	 */
+	public void setOriginalResponseBody(String originalResponseBody) {
+		this.originalResponseBody = originalResponseBody;
+	}
+
+	/**
+	 * @param responseCode レスポンスコード
+	 * @since 1.2.1.0
+	 */
+	public void setResponseCode(int responseCode) {
+		this.responseCode = responseCode;
+	}
+
+	/**
+	 * @since 1.2.1.0
+	 */
+	public String toString() {
+		return "DefaultNlpServiceResponse [responseCode=" + responseCode + ", originalResponseBody="
+				+ originalResponseBody + "]";
 	}
 
 }

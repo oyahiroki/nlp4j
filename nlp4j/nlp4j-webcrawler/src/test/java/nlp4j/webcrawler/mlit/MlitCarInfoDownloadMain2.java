@@ -6,10 +6,15 @@ import java.util.List;
 import nlp4j.Document;
 import nlp4j.util.DocumentUtil;
 
+/**
+ * 国土交通省「自動車のリコール・不具合情報」をダウンロードする<br>
+ * http://carinf.mlit.go.jp/jidosha/carinf/opn/index.html<br>
+ */
 public class MlitCarInfoDownloadMain2 {
 
 	/**
-	 * @param args
+	 * @param args 利用しない
+	 * @throws Exception 例外発生時
 	 */
 	public static void main(String[] args) throws Exception {
 
@@ -25,7 +30,7 @@ public class MlitCarInfoDownloadMain2 {
 		}
 
 		DocumentUtil.writeAsLineSeparatedJson(docs,
-				new File("src/test/resources/nlp4j.webcrawler.mlit/milt_carinfo-20200101-20200131_json.txt"));
+				new File("/usr/local/nlp4j/collections/mlit/data/json1/milt_carinfo-20200101-20200131_json.txt"));
 
 	}
 

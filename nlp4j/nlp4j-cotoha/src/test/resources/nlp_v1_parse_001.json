@@ -1,0 +1,167 @@
+{
+	"result": [
+		{
+			"chunk_info": {
+				"id": 0,
+				"head": 2,
+				"dep": "D",
+				"chunk_head": 0,
+				"chunk_func": 1,
+				"links": []
+			},
+			"tokens": [
+				{
+					"id": 0,
+					"form": "今日",
+					"kana": "キョウ",
+					"lemma": "今日",
+					"pos": "名詞",
+					"features": [
+						"日時"
+					],
+					"dependency_labels": [
+						{
+							"token_id": 1,
+							"label": "case"
+						}
+					],
+					"attributes": {
+						
+					}
+				},
+				{
+					"id": 1,
+					"form": "は",
+					"kana": "ハ",
+					"lemma": "は",
+					"pos": "連用助詞",
+					"features": [],
+					"attributes": {
+						
+					}
+				}
+			]
+		},
+		{
+			"chunk_info": {
+				"id": 1,
+				"head": 2,
+				"dep": "D",
+				"chunk_head": 0,
+				"chunk_func": 1,
+				"links": []
+			},
+			"tokens": [
+				{
+					"id": 2,
+					"form": "い",
+					"kana": "イ",
+					"lemma": "いい",
+					"pos": "形容詞語幹",
+					"features": [
+						"イ段"
+					],
+					"dependency_labels": [
+						{
+							"token_id": 3,
+							"label": "aux"
+						}
+					],
+					"attributes": {
+						
+					}
+				},
+				{
+					"id": 3,
+					"form": "い",
+					"kana": "イ",
+					"lemma": "い",
+					"pos": "形容詞接尾辞",
+					"features": [
+						"連体"
+					],
+					"attributes": {
+						
+					}
+				}
+			]
+		},
+		{
+			"chunk_info": {
+				"id": 2,
+				"head": -1,
+				"dep": "O",
+				"chunk_head": 0,
+				"chunk_func": 1,
+				"links": [
+					{
+						"link": 0,
+						"label": "time"
+					},
+					{
+						"link": 1,
+						"label": "adjectivals"
+					}
+				],
+				"predicate": []
+			},
+			"tokens": [
+				{
+					"id": 4,
+					"form": "天気",
+					"kana": "テンキ",
+					"lemma": "天気",
+					"pos": "名詞",
+					"features": [],
+					"dependency_labels": [
+						{
+							"token_id": 0,
+							"label": "nmod"
+						},
+						{
+							"token_id": 2,
+							"label": "amod"
+						},
+						{
+							"token_id": 5,
+							"label": "cop"
+						},
+						{
+							"token_id": 6,
+							"label": "punct"
+						}
+					],
+					"attributes": {
+						
+					}
+				},
+				{
+					"id": 5,
+					"form": "です",
+					"kana": "デス",
+					"lemma": "です",
+					"pos": "判定詞",
+					"features": [
+						"終止"
+					],
+					"attributes": {
+						
+					}
+				},
+				{
+					"id": 6,
+					"form": "。",
+					"kana": "",
+					"lemma": "。",
+					"pos": "句点",
+					"features": [],
+					"attributes": {
+						
+					}
+				}
+			]
+		}
+	],
+	"status": 0,
+	"message": ""
+}

@@ -23,6 +23,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
+ * 国土交通省「自動車のリコール・不具合情報」をダウンロードする<br>
+ * http://carinf.mlit.go.jp/jidosha/carinf/opn/index.html<br>
+ * 電子計算機による情報解析（多数の著作物その他の大量の情報から， 当該情報を構成する言語，音，影像その他の要素に係る情報を抽出し，
+ * 比較，分類その他の統計的な解析を行うことをいう。）を行うことを目的とする
  * 
  * @see "http://carinf.mlit.go.jp/jidosha/carinf/opn/index.html"
  * @author Hiroki Oya
@@ -31,9 +35,6 @@ import org.apache.logging.log4j.Logger;
 public class MlitCarInfoCrawler extends AbstractWebCrawler implements Crawler {
 
 	static private Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
-
-	String txtFrDat = "2019/01/01";
-	String txtToDat = "2019/12/31";
 
 	static private SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
 
@@ -52,34 +53,27 @@ public class MlitCarInfoCrawler extends AbstractWebCrawler implements Crawler {
 		}
 	}
 
-	@Override
-	public void setProperty(String key, String value) {
-		super.setProperty(key, value);
+	String txtFrDat = "2019/01/01";
 
-		if ("from_date".equals(key)) {
-			if (checkDateFormat(value)) {
-				this.txtFrDat = value;
-			} else {
-				// warn
-			}
-		} //
-		else if ("to_date".equals(key)) {
-			if (checkDateFormat(value)) {
-				this.txtToDat = value;
-			} else {
-				// warn
-			}
-		}
-
-	}
+	String txtToDat = "2019/12/31";
 
 	/**
+	 * 国土交通省「自動車のリコール・不具合情報」をダウンロードする<br>
+	 * http://carinf.mlit.go.jp/jidosha/carinf/opn/index.html<br>
+	 * 電子計算機による情報解析（多数の著作物その他の大量の情報から， 当該情報を構成する言語，音，影像その他の要素に係る情報を抽出し，
+	 * 比較，分類その他の統計的な解析を行うことをいう。）を行うことを目的とする <br>
 	 * Default Constructor
 	 */
 	public MlitCarInfoCrawler() {
 		super();
 	}
 
+	/**
+	 * 国土交通省「自動車のリコール・不具合情報」をダウンロードする<br>
+	 * http://carinf.mlit.go.jp/jidosha/carinf/opn/index.html<br>
+	 * 電子計算機による情報解析（多数の著作物その他の大量の情報から， 当該情報を構成する言語，音，影像その他の要素に係る情報を抽出し，
+	 * 比較，分類その他の統計的な解析を行うことをいう。）を行うことを目的とする <br>
+	 */
 	@Override
 	public ArrayList<Document> crawlDocuments() {
 
@@ -200,6 +194,32 @@ public class MlitCarInfoCrawler extends AbstractWebCrawler implements Crawler {
 		} // end of for loop (page)
 
 		return docs;
+	}
+
+	/**
+	 * key:<br>
+	 * from_date: 開始日(yyyy/MM/dd)<br>
+	 * to_date: 終了日(yyyy/MM/dd)<br>
+	 */
+	@Override
+	public void setProperty(String key, String value) {
+		super.setProperty(key, value);
+
+		if ("from_date".equals(key)) {
+			if (checkDateFormat(value)) {
+				this.txtFrDat = value;
+			} else {
+				// warn
+			}
+		} //
+		else if ("to_date".equals(key)) {
+			if (checkDateFormat(value)) {
+				this.txtToDat = value;
+			} else {
+				// warn
+			}
+		}
+
 	}
 
 }

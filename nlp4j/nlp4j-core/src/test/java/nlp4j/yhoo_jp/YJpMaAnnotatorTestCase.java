@@ -114,7 +114,7 @@ public class YJpMaAnnotatorTestCase extends TestCase {
 	/**
 	 * 英文字の形態素解析をテストする
 	 * 
-	 * @throws Exception
+	 * @throws Exception 例外発生時
 	 */
 	public void testAnnotateDocument004() throws Exception {
 		// 自然文のテキスト
@@ -141,6 +141,38 @@ public class YJpMaAnnotatorTestCase extends TestCase {
 		assertEquals("ます", doc.getKeywords().get(5).getLex());
 		assertEquals("た", doc.getKeywords().get(6).getLex());
 		assertEquals("。", doc.getKeywords().get(7).getLex());
+
+	}
+
+	/**
+	 * 複数文の形態素解析をテストする
+	 * 
+	 * @throws Exception 例外発生時
+	 * @since 1.2.1.0
+	 */
+	public void testAnnotateDocument005() throws Exception {
+		// 自然文のテキスト
+		String text = "今日はいい天気です。明日は学校に行きます。";
+		// 形態素原形
+		String[] expect = "今日/は/いい/天気/です/。/明日/は/学校/に/行く/ます/。".split("/");
+
+		Document doc = new DefaultDocument();
+		doc.putAttribute("text", text);
+		YJpMaAnnotator annotator = new YJpMaAnnotator();
+		annotator.setProperty("target", "text");
+		annotator.annotate(doc); // throws Exception
+		System.err.println("Finished : annotation");
+
+		assertNotNull(doc.getKeywords());
+		assertTrue(doc.getKeywords().size() > 0);
+
+		for (Keyword kwd : doc.getKeywords()) {
+			System.err.println(kwd);
+		}
+
+		for (int n = 0; n < expect.length; n++) {
+			assertEquals(expect[n], doc.getKeywords().get(n).getLex());
+		}
 
 	}
 

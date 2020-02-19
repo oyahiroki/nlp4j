@@ -24,7 +24,7 @@ import nlp4j.impl.DefaultKeyword;
  */
 public class YjpAllAnnotator extends AbstractDocumentAnnotator implements DocumentAnnotator {
 
-	static private Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
+	static private final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
 	// 係り受け解析
 	YJpDaService service1 = new YJpDaService();

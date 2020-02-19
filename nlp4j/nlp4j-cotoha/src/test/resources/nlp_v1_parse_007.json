@@ -1,0 +1,253 @@
+{
+  "result" : [ {
+    "chunk_info" : {
+      "id" : 0,
+      "head" : 4,
+      "dep" : "D",
+      "chunk_head" : 0,
+      "chunk_func" : 1,
+      "links" : [ ]
+    },
+    "tokens" : [ {
+      "id" : 0,
+      "form" : "私",
+      "kana" : "ワタシ",
+      "lemma" : "私",
+      "pos" : "名詞",
+      "features" : [ "代名詞" ],
+      "common_noun_semantic" : [ 37, 8 ],
+      "proper_noun_semantic" : [ ],
+      "declinable_word_semantic" : [ ],
+      "dependency_labels" : [ {
+        "token_id" : 1,
+        "label" : "case"
+      } ],
+      "attributes" : { }
+    }, {
+      "id" : 1,
+      "form" : "は",
+      "kana" : "ハ",
+      "lemma" : "は",
+      "pos" : "連用助詞",
+      "features" : [ ],
+      "common_noun_semantic" : [ ],
+      "proper_noun_semantic" : [ ],
+      "declinable_word_semantic" : [ ],
+      "attributes" : { }
+    } ]
+  }, {
+    "chunk_info" : {
+      "id" : 1,
+      "head" : 2,
+      "dep" : "D",
+      "chunk_head" : 0,
+      "chunk_func" : 1,
+      "links" : [ ]
+    },
+    "tokens" : [ {
+      "id" : 2,
+      "form" : "3時",
+      "kana" : "サンジ",
+      "lemma" : "3時",
+      "pos" : "名詞",
+      "features" : [ "日時" ],
+      "common_noun_semantic" : [ 2688, 2692 ],
+      "proper_noun_semantic" : [ ],
+      "declinable_word_semantic" : [ ],
+      "dependency_labels" : [ {
+        "token_id" : 3,
+        "label" : "case"
+      } ],
+      "attributes" : { }
+    }, {
+      "id" : 3,
+      "form" : "に",
+      "kana" : "ニ",
+      "lemma" : "に",
+      "pos" : "格助詞",
+      "features" : [ "連用" ],
+      "common_noun_semantic" : [ ],
+      "proper_noun_semantic" : [ ],
+      "declinable_word_semantic" : [ ],
+      "attributes" : { }
+    } ]
+  }, {
+    "chunk_info" : {
+      "id" : 2,
+      "head" : 4,
+      "dep" : "D",
+      "chunk_head" : 0,
+      "chunk_func" : 2,
+      "links" : [ {
+        "link" : 1,
+        "label" : "place"
+      } ],
+      "predicate" : [ "past" ]
+    },
+    "tokens" : [ {
+      "id" : 4,
+      "form" : "歩",
+      "kana" : "アル",
+      "lemma" : "歩く",
+      "pos" : "動詞語幹",
+      "features" : [ "K" ],
+      "common_noun_semantic" : [ 1576 ],
+      "proper_noun_semantic" : [ ],
+      "declinable_word_semantic" : [ ],
+      "dependency_labels" : [ {
+        "token_id" : 2,
+        "label" : "nmod"
+      }, {
+        "token_id" : 5,
+        "label" : "aux"
+      }, {
+        "token_id" : 6,
+        "label" : "aux"
+      } ],
+      "attributes" : { }
+    }, {
+      "id" : 5,
+      "form" : "い",
+      "kana" : "イ",
+      "lemma" : "い",
+      "pos" : "動詞活用語尾",
+      "features" : [ ],
+      "common_noun_semantic" : [ ],
+      "proper_noun_semantic" : [ ],
+      "declinable_word_semantic" : [ ],
+      "attributes" : { }
+    }, {
+      "id" : 6,
+      "form" : "て",
+      "kana" : "テ",
+      "lemma" : "て",
+      "pos" : "動詞接尾辞",
+      "features" : [ "接続", "連用" ],
+      "common_noun_semantic" : [ ],
+      "proper_noun_semantic" : [ ],
+      "declinable_word_semantic" : [ ],
+      "attributes" : { }
+    } ]
+  }, {
+    "chunk_info" : {
+      "id" : 3,
+      "head" : 4,
+      "dep" : "D",
+      "chunk_head" : 0,
+      "chunk_func" : 1,
+      "links" : [ ]
+    },
+    "tokens" : [ {
+      "id" : 7,
+      "form" : "学校",
+      "kana" : "ガッコウ",
+      "lemma" : "学校",
+      "pos" : "名詞",
+      "features" : [ ],
+      "common_noun_semantic" : [ 367, 405 ],
+      "proper_noun_semantic" : [ ],
+      "declinable_word_semantic" : [ ],
+      "dependency_labels" : [ {
+        "token_id" : 8,
+        "label" : "case"
+      } ],
+      "attributes" : { }
+    }, {
+      "id" : 8,
+      "form" : "に",
+      "kana" : "ニ",
+      "lemma" : "に",
+      "pos" : "格助詞",
+      "features" : [ "連用" ],
+      "common_noun_semantic" : [ ],
+      "proper_noun_semantic" : [ ],
+      "declinable_word_semantic" : [ ],
+      "attributes" : { }
+    } ]
+  }, {
+    "chunk_info" : {
+      "id" : 4,
+      "head" : -1,
+      "dep" : "O",
+      "chunk_head" : 0,
+      "chunk_func" : 2,
+      "links" : [ {
+        "link" : 0,
+        "label" : "agent"
+      }, {
+        "link" : 2,
+        "label" : "manner"
+      }, {
+        "link" : 3,
+        "label" : "goal"
+      } ],
+      "predicate" : [ "past" ]
+    },
+    "tokens" : [ {
+      "id" : 9,
+      "form" : "行",
+      "kana" : "イ",
+      "lemma" : "行く",
+      "pos" : "動詞語幹",
+      "features" : [ "IKU" ],
+      "common_noun_semantic" : [ 2053, 2132 ],
+      "proper_noun_semantic" : [ ],
+      "declinable_word_semantic" : [ 15, 20, 29, 32, 5 ],
+      "dependency_labels" : [ {
+        "token_id" : 0,
+        "label" : "nsubj"
+      }, {
+        "token_id" : 4,
+        "label" : "advcl"
+      }, {
+        "token_id" : 7,
+        "label" : "nmod"
+      }, {
+        "token_id" : 10,
+        "label" : "aux"
+      }, {
+        "token_id" : 11,
+        "label" : "aux"
+      }, {
+        "token_id" : 12,
+        "label" : "punct"
+      } ],
+      "attributes" : { }
+    }, {
+      "id" : 10,
+      "form" : "き",
+      "kana" : "キ",
+      "lemma" : "き",
+      "pos" : "動詞活用語尾",
+      "features" : [ ],
+      "common_noun_semantic" : [ ],
+      "proper_noun_semantic" : [ ],
+      "declinable_word_semantic" : [ ],
+      "attributes" : { }
+    }, {
+      "id" : 11,
+      "form" : "ました",
+      "kana" : "マシタ",
+      "lemma" : "ました",
+      "pos" : "動詞接尾辞",
+      "features" : [ "終止" ],
+      "common_noun_semantic" : [ ],
+      "proper_noun_semantic" : [ ],
+      "declinable_word_semantic" : [ ],
+      "attributes" : { }
+    }, {
+      "id" : 12,
+      "form" : "。",
+      "kana" : "",
+      "lemma" : "。",
+      "pos" : "句点",
+      "features" : [ ],
+      "common_noun_semantic" : [ ],
+      "proper_noun_semantic" : [ ],
+      "declinable_word_semantic" : [ ],
+      "attributes" : { }
+    } ]
+  } ],
+  "status" : 0,
+  "message" : ""
+}

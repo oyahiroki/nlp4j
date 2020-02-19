@@ -36,7 +36,7 @@ import nlp4j.util.HttpClient;
  */
 public class YJpMaService implements NlpService {
 
-	static private Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
+	static private final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
 	String appID;
 	static final String baseUrl = "https://jlp.yahooapis.jp/MAService/V1/parse";
