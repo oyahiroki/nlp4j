@@ -14,6 +14,22 @@ import java.util.List;
 public interface KeywordWithDependency extends Keyword {
 
 	/**
+	 * 係り受けのラベル
+	 * 
+	 * @return dependency label
+	 * @since 1.2.1.0
+	 */
+	public String getRelation();
+
+	/**
+	 * 係り受けのラベル
+	 * 
+	 * @param relation 係り受けのラベル
+	 * @since 1.2.1.0
+	 */
+	public void setRelation(String relation);
+
+	/**
 	 * 依存関係の子ノードを追加します。子ノードには親ノードへの依存関係がセットされます。<br>
 	 * Add a child keyword. A parent keyword is set to child keyword.
 	 * 

@@ -6,7 +6,7 @@ package nlp4j.cotoha;
  * @author Hiroki Oya
  * @since 1.0.0.0
  */
-public class Config {
+public class CotohaConfig {
 
 	/**
 	 * URL for access token
@@ -26,7 +26,7 @@ public class Config {
 	/**
 	 * api_base_url
 	 */
-	static public String API_BASE_URL = "https://api.ce-cotoha.com/api/dev";
+	static public String COTOHA_API_BASE_URL = "https://api.ce-cotoha.com/api/dev";
 
 	static {
 		// https://api.ce-cotoha.com/contents/mypage/index.html
@@ -34,6 +34,7 @@ public class Config {
 		COTOHA_CLIENT_SECRET = System.getProperty("COTOHA_CLIENT_SECRET", "uNRzcGVTG1rBTGeq");
 		COTOHA_URL_ACCESSTOKEN = System.getProperty("COTOHA_URL_ACCESSTOKEN",
 				"https://api.ce-cotoha.com/v1/oauth/accesstokens");
+		COTOHA_API_BASE_URL = System.getProperty("COTOHA_API_BASE_URL","https://api.ce-cotoha.com/api/dev");
 	}
 
 }

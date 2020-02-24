@@ -16,11 +16,11 @@ import com.google.gson.JsonObject;
 public class JsonUtils {
 
 	/**
-	 * @param file     the file to write
+	 * @param outFile     the file to write
 	 * @param jsonData the JSON content write to the file
 	 * @throws IOException in case of an I/O error
 	 */
-	static public void write(File file, String jsonData) throws IOException {
+	static public void write(File outFile, String jsonData) throws IOException {
 
 		Gson gson = new Gson();
 
@@ -31,11 +31,11 @@ public class JsonUtils {
 
 		boolean append = true;
 
-		if (file.getParentFile().exists() == false) {
-			FileUtils.forceMkdir(file.getParentFile());
+		if (outFile.getParentFile().exists() == false) {
+			FileUtils.forceMkdir(outFile.getParentFile());
 		}
 
-		FileUtils.write(file, json.toString() + "\n", encoding, append);
+		FileUtils.write(outFile, json.toString() + "\n", encoding, append);
 
 	}
 

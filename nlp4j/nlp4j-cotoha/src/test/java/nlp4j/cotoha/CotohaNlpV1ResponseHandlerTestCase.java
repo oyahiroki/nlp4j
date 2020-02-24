@@ -75,6 +75,33 @@ public class CotohaNlpV1ResponseHandlerTestCase extends TestCase {
 	}
 
 	/**
+	 * 「高速道路を走行中、エンジンが煙を出して急に停止した。」の解析結果をパースするテスト
+	 * 
+	 * @throws Exception 例外発生時
+	 */
+	public void testParse003() throws Exception {
+
+		File file = new File("src/test/resources/nlp_v1_parse_003.json");
+		String json = FileUtils.readFileToString(file, "UTF-8");
+
+		CotohaNlpV1ResponseHandler handler = new CotohaNlpV1ResponseHandler();
+		handler.parse(json);
+
+		List<DefaultKeywordWithDependency> roots = handler.getRoots();
+
+		for (DefaultKeywordWithDependency root : roots) {
+			System.err.println(root.toStringAsDependencyTree());
+		}
+
+		System.err.println("---");
+
+		for (Keyword kwd : handler.getKeywords()) {
+			System.err.println(kwd.toString());
+		}
+
+	}
+
+	/**
 	 * 「私と息子は焼き肉を食べた。」の解析結果をパースするテスト
 	 * 
 	 * @throws Exception 例外発生時

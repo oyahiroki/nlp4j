@@ -2,6 +2,7 @@ package nlp4j.cotoha;
 
 import java.io.IOException;
 import java.lang.invoke.MethodHandles;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -53,9 +54,9 @@ public class CotohaNlpService implements NlpService {
 	 */
 	public AccessToken accessToken() throws IOException {
 
-		String url = Config.COTOHA_URL_ACCESSTOKEN;
-		String clientId = Config.COTOHA_CLIENT_ID;
-		String clientSecret = Config.COTOHA_CLIENT_SECRET;
+		String url = CotohaConfig.COTOHA_URL_ACCESSTOKEN;
+		String clientId = CotohaConfig.COTOHA_CLIENT_ID;
+		String clientSecret = CotohaConfig.COTOHA_CLIENT_SECRET;
 
 //		request body
 //		{
@@ -102,7 +103,8 @@ public class CotohaNlpService implements NlpService {
 //	          }
 
 			JsonObject responseJson = gson.fromJson(originalResponseBody, JsonObject.class);
-			{
+			if (responseJson.get("access_token") != null) {
+
 				String access_token = responseJson.get("access_token").getAsString();
 				String token_type = responseJson.get("token_type").getAsString();
 				long issued_at = Long.parseLong(responseJson.get("issued_at").getAsString());
@@ -111,6 +113,15 @@ public class CotohaNlpService implements NlpService {
 				AccessToken accessToken = new AccessToken(access_token, token_type, expires_in, scope, issued_at);
 				this.accessToken = accessToken;
 				return accessToken;
+			} //
+			else {
+				logger.error(responseCode);
+				System.err.println(responseCode);
+				logger.error(response.headers().toString());
+				System.err.println(response.headers().toString());
+				logger.error(originalResponseBody);
+				System.err.println(originalResponseBody);
+				return null;
 			}
 
 		} // END OF try
@@ -153,7 +164,11 @@ public class CotohaNlpService implements NlpService {
 			accessToken();
 		}
 
-		String url = Config.API_BASE_URL + "/nlp/v1/parse";
+		// Not Initialized
+		if (accessToken == null) {
+			throw new IOException("accessToken not initialized.");
+		}
+		String url = CotohaConfig.COTOHA_API_BASE_URL + "/nlp/v1/parse";
 
 		JsonObject jsonObjRequestBody = new JsonObject();
 		{
@@ -161,7 +176,14 @@ public class CotohaNlpService implements NlpService {
 			jsonObjRequestBody.addProperty("type", type);
 		}
 
-		OkHttpClient client = new OkHttpClient();
+//		default config
+//		OkHttpClient client = new OkHttpClient();
+		
+// connection timeout, read timeout
+		OkHttpClient client = new OkHttpClient.Builder() //
+				.connectTimeout(60, TimeUnit.SECONDS)//
+				.readTimeout(60, TimeUnit.SECONDS)//
+				.build();
 
 		RequestBody body = RequestBody.create(JSON, jsonObjRequestBody.toString());
 

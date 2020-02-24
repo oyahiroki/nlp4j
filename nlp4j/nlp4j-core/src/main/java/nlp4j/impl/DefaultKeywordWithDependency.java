@@ -27,6 +27,18 @@ public class DefaultKeywordWithDependency extends DefaultKeyword implements Keyw
 
 	int sequence = -1;
 
+	String relation;
+
+	@Override
+	public String getRelation() {
+		return relation;
+	}
+
+	@Override
+	public void setRelation(String relation) {
+		this.relation = relation;
+	}
+
 	@Override
 	public void addChild(KeywordWithDependency keyword) {
 		this.children.add(keyword);
@@ -145,6 +157,7 @@ public class DefaultKeywordWithDependency extends DefaultKeyword implements Keyw
 	@Override
 	public String toString() {
 		return this.lex + " [" //
+				+ "relation=" + relation + ", " // @since 1.2.1.0
 				+ "sequence=" + sequence + ", " //
 				+ "dependencyKey=" + dependencyKey + ", " //
 				+ "hasChildren=" + (children != null && children.size() > 0) + ", " //
@@ -189,7 +202,9 @@ public class DefaultKeywordWithDependency extends DefaultKeyword implements Keyw
 			sb.append(indent);
 		}
 		sb.append(bar);
-		sb.append("sequence=" + this.sequence + ",lex=" + this.lex + ",str=" + this.str);
+		sb.append("sequence=" + this.sequence + ",lex=" + this.lex + ",str=" + this.str //
+				+ ",relation=" + this.relation // @since 1.2.1.0
+		);
 		for (KeywordWithDependency c : children) {
 			sb.append("\n");
 			sb.append(c.toStringAsDependencyTree());
