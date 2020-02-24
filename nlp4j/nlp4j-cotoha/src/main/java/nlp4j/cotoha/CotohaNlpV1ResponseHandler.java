@@ -39,6 +39,9 @@ public class CotohaNlpV1ResponseHandler {
 	// Map: id --> Keyword
 	HashMap<String, DefaultKeywordWithDependency> idMapKwd = new HashMap<>();
 
+	// token id --> sentence
+	HashMap<Integer, Integer> idSentenceMap = new HashMap<>();
+
 	/**
 	 * @return 抽出された係り受けルートキーワード
 	 */
@@ -79,6 +82,8 @@ public class CotohaNlpV1ResponseHandler {
 
 		int idxBegin = 0;
 
+		int idxSentence = 0;
+
 		// FOR EACH(chunk_tokens)
 		for (int idxChunkTokens = 0; idxChunkTokens < chunk_tokens.size(); idxChunkTokens++) {
 
@@ -110,6 +115,8 @@ public class CotohaNlpV1ResponseHandler {
 
 			// 2. tokens
 			JsonArray tokens = chunk_token.get("tokens").getAsJsonArray();
+
+			int idEndOfSentence = Integer.MAX_VALUE;
 
 			// FOR EACH TOKENS
 			for (int idxTokens = 0; idxTokens < tokens.size(); idxTokens++) {
@@ -151,7 +158,14 @@ public class CotohaNlpV1ResponseHandler {
 					logger.warn("lemma is null");
 				}
 
+				int intId = token.get("id").getAsInt();
 				String id = "" + token.get("id").getAsInt();
+
+				idSentenceMap.put(intId, idxSentence);
+
+				if (isLastOfSentence) {
+					idxSentence++;
+				}
 
 //				// 次のtokenのID
 //				String next_token = null;
@@ -183,6 +197,11 @@ public class CotohaNlpV1ResponseHandler {
 				// set str 表出形
 				kw.setStr(token.get("form").getAsString());
 				kw.setEnd(idxBegin + kw.getStr().length());
+
+				if (isLastOfSentence) {
+					idEndOfSentence = token.get("id").getAsInt();
+				}
+
 				idxBegin += kw.getStr().length();
 
 				// set reading 読み
@@ -197,19 +216,25 @@ public class CotohaNlpV1ResponseHandler {
 
 				// dependency labels
 				if (token.get("dependency_labels") != null) {
-					
+
 					JsonArray arr = token.get("dependency_labels").getAsJsonArray();
-					
+
 					for (int n = 0; n < arr.size(); n++) {
 						JsonObject obj = arr.get(n).getAsJsonObject();
 						logger.debug(obj.get("token_id").getAsInt());
 						logger.debug(obj.get("label").getAsString());
 
+//						int intParentID = obj.get("token_id").getAsInt();
+//						if (intParentID > idEndOfSentence) {
+//							System.err.println("文をまたいでいるのでスキップ");
+//							continue;
+//						}
+
 						String parentID = "" + obj.get("token_id").getAsInt();
 						String label = obj.get("label").getAsString();
-						
+
 						kw.setDependencyKey(parentID);
-						
+
 						if (idMapKwd.get(parentID) != null) {
 							System.err.println(
 									idMapKwd.get(parentID).getLex() + " ... " + kw.getLex() + "(" + label + ")");
@@ -259,7 +284,7 @@ public class CotohaNlpV1ResponseHandler {
 
 				DefaultKeywordWithDependency kw = idMapKwd.get(id);
 
-				// dependency labels: 読んでみるが捨てる
+				// dependency labels
 				if (token.get("dependency_labels") != null) {
 					JsonArray arr = token.get("dependency_labels").getAsJsonArray();
 					for (int n = 0; n < arr.size(); n++) {
@@ -272,12 +297,17 @@ public class CotohaNlpV1ResponseHandler {
 						String childID = "" + obj.get("token_id").getAsInt();
 						String labelDependency = obj.get("label").getAsString();
 
-						if (idMapKwd.get(childID) != null) {
+						int sentence1 = idSentenceMap.get(token.get("id").getAsInt());
+						int sentence2 = idSentenceMap.get(obj.get("token_id").getAsInt());
+
+						System.err.println("debug:sentence1=" + sentence1 + ",sentence2=" + sentence2);
+
+						if (idMapKwd.get(childID) != null && (sentence1 == sentence2)) {
 
 							// 20200224 ParentとChildを逆にしていたのを修正(英語と日本語で異なる)
 							DefaultKeywordWithDependency kw1Child = idMapKwd.get(childID);
 							DefaultKeywordWithDependency kw2Parent = kw;
-							
+
 							kw2Parent.addChild(kw1Child);
 
 							kw1Child.setRelation(labelDependency);
@@ -331,12 +361,10 @@ public class CotohaNlpV1ResponseHandler {
 
 			// 係り受け先のキー
 			String depKey = kw.getDependencyKey();
-			
-			
-			if(kw.getParent()==null) {
+
+			if (kw.getParent() == null) {
 				roots.add(kw);
 			}
-			
 
 //			// IF()
 //			if (depKey != null) {
