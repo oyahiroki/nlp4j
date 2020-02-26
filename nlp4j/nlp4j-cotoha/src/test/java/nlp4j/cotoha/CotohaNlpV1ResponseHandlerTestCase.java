@@ -20,6 +20,33 @@ import nlp4j.impl.DefaultKeywordWithDependency;
  */
 public class CotohaNlpV1ResponseHandlerTestCase extends TestCase {
 
+	private void printResult(CotohaNlpV1ResponseHandler handler) {
+		for (DefaultKeywordWithDependency root : handler.getRoots()) {
+			System.err.println(root.toStringAsDependencyTree());
+		}
+
+		System.err.println("---");
+
+		for (Keyword kwd : handler.getKeywords()) {
+			System.err.println(kwd.getLex() + " (" + "word." + kwd.getFacet() + ")");
+			System.err.println("\t" + kwd);
+		}
+
+		System.err.println("---");
+
+		for (Keyword kwd : handler.getPatternKeywords()) {
+			System.err.println(kwd.getLex() + " (" + "pattern." + kwd.getFacet() + ")");
+			System.err.println("\t" + kwd);
+		}
+
+		System.err.println("---");
+		for (Keyword kwd : handler.getChunkLinkKeywords()) {
+			System.err.println(kwd.getLex() + " (" + "pattern." + kwd.getFacet() + ")");
+			System.err.println("\t" + kwd);
+		}
+
+	}
+
 	/**
 	 * 「今日はいい天気です。」の解析結果をパースするテスト
 	 * 
@@ -60,18 +87,7 @@ public class CotohaNlpV1ResponseHandlerTestCase extends TestCase {
 		CotohaNlpV1ResponseHandler handler = new CotohaNlpV1ResponseHandler();
 		handler.parse(json);
 
-		List<DefaultKeywordWithDependency> roots = handler.getRoots();
-
-		for (DefaultKeywordWithDependency root : roots) {
-			System.err.println(root.toStringAsDependencyTree());
-		}
-
-		System.err.println("---");
-
-		for (Keyword kwd : handler.getKeywords()) {
-			System.err.println(kwd.toString());
-		}
-
+		printResult(handler);
 	}
 
 	/**
@@ -87,17 +103,7 @@ public class CotohaNlpV1ResponseHandlerTestCase extends TestCase {
 		CotohaNlpV1ResponseHandler handler = new CotohaNlpV1ResponseHandler();
 		handler.parse(json);
 
-		List<DefaultKeywordWithDependency> roots = handler.getRoots();
-
-		for (DefaultKeywordWithDependency root : roots) {
-			System.err.println(root.toStringAsDependencyTree());
-		}
-
-		System.err.println("---");
-
-		for (Keyword kwd : handler.getKeywords()) {
-			System.err.println(kwd.toString());
-		}
+		printResult(handler);
 
 	}
 
@@ -114,18 +120,7 @@ public class CotohaNlpV1ResponseHandlerTestCase extends TestCase {
 		CotohaNlpV1ResponseHandler handler = new CotohaNlpV1ResponseHandler();
 		handler.parse(json);
 
-		List<DefaultKeywordWithDependency> roots = handler.getRoots();
-
-		for (DefaultKeywordWithDependency root : roots) {
-			System.err.println(root.toStringAsDependencyTree());
-		}
-
-		System.err.println("---");
-
-		for (Keyword kwd : handler.getKeywords()) {
-			System.err.println(kwd.toString());
-		}
-
+		printResult(handler);
 	}
 
 	/**
@@ -141,18 +136,7 @@ public class CotohaNlpV1ResponseHandlerTestCase extends TestCase {
 		CotohaNlpV1ResponseHandler handler = new CotohaNlpV1ResponseHandler();
 		handler.parse(json);
 
-		List<DefaultKeywordWithDependency> roots = handler.getRoots();
-
-		for (DefaultKeywordWithDependency root : roots) {
-			System.err.println(root.toStringAsDependencyTree());
-		}
-
-		System.err.println("---");
-
-		for (Keyword kwd : handler.getKeywords()) {
-			System.err.println(kwd.toString());
-		}
-
+		printResult(handler);
 	}
 
 	/**
@@ -168,18 +152,7 @@ public class CotohaNlpV1ResponseHandlerTestCase extends TestCase {
 		CotohaNlpV1ResponseHandler handler = new CotohaNlpV1ResponseHandler();
 		handler.parse(json);
 
-		List<DefaultKeywordWithDependency> roots = handler.getRoots();
-
-		for (DefaultKeywordWithDependency root : roots) {
-			System.err.println(root.toStringAsDependencyTree());
-		}
-
-		System.err.println("---");
-
-		for (Keyword kwd : handler.getKeywords()) {
-			System.err.println(kwd.toString());
-		}
-
+		printResult(handler);
 	}
 
 	/**
@@ -195,18 +168,7 @@ public class CotohaNlpV1ResponseHandlerTestCase extends TestCase {
 		CotohaNlpV1ResponseHandler handler = new CotohaNlpV1ResponseHandler();
 		handler.parse(json);
 
-		List<DefaultKeywordWithDependency> roots = handler.getRoots();
-
-		for (DefaultKeywordWithDependency root : roots) {
-			System.err.println(root.toStringAsDependencyTree());
-		}
-
-		System.err.println("---");
-
-		for (Keyword kwd : handler.getKeywords()) {
-			System.err.println(kwd.toString());
-		}
-
+		printResult(handler);
 	}
 
 	/**
@@ -222,18 +184,7 @@ public class CotohaNlpV1ResponseHandlerTestCase extends TestCase {
 		CotohaNlpV1ResponseHandler handler = new CotohaNlpV1ResponseHandler();
 		handler.parse(json);
 
-		List<DefaultKeywordWithDependency> roots = handler.getRoots();
-
-		for (DefaultKeywordWithDependency root : roots) {
-			System.err.println(root.toStringAsDependencyTree());
-		}
-
-		System.err.println("---");
-
-		for (Keyword kwd : handler.getKeywords()) {
-			System.err.println(kwd.toString());
-		}
-
+		printResult(handler);
 	}
 
 	/**
