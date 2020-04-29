@@ -2,6 +2,9 @@ package nlp4j.azure.admin;
 
 import java.io.IOException;
 
+import nlp4j.azure.search.admin.AzureSearchIndexAdmin;
+import nlp4j.azure.search.admin.Config;
+
 public class AzureSearchIndexAdmin002Get {
 
 	static public void main(String[] args) throws IOException {

@@ -95,7 +95,7 @@ public class DocumentUtilTestCase extends TestCase {
 	/**
 	 * @since 1.3
 	 */
-	public void testToJsonOjbectForIndex001() {
+	public void testToJsonOjbectForIndex001() throws Exception {
 		DefaultDocument doc = new DefaultDocument();
 		{
 			DefaultKeyword kwd = new DefaultKeyword();
@@ -118,10 +118,12 @@ public class DocumentUtilTestCase extends TestCase {
 			kwd.setLex("do");
 			doc.addKeyword(kwd);
 		}
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Date date = sdf.parse("2020-04-01");
 		{
 			doc.putAttribute("field1", "TEST");
 			doc.putAttribute("field2", 100);
-			doc.putAttribute("date", new Date());
+			doc.putAttribute("date", date);
 			doc.setText("This is test.");
 		}
 

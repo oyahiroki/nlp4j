@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Properties;
 
 import nlp4j.Document;
+import nlp4j.DocumentImporter;
 
 /**
  * 文書をインデックスにインポートするドキュメントインポーターの抽象クラスです。<br>

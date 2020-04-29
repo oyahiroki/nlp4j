@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.TimeZone;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.text.StringEscapeUtils;
@@ -29,7 +30,12 @@ import nlp4j.impl.DefaultKeyword;
  */
 public class DocumentUtil {
 
+	static private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
 	static String XML_HEADER = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
+
+	static {
+		sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
+	}
 
 	/**
 	 * Convert to XML
@@ -177,8 +183,6 @@ public class DocumentUtil {
 			}
 		}
 	}
-
-	static private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
 
 	/**
 	 * @since 1.3

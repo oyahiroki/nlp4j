@@ -41,12 +41,22 @@ public class JsonUtils {
 	}
 
 	/**
-	 * @param json
+	 * @param json of JsonObject
 	 * @return String in Pretty Print
 	 */
 	static public String prettyPrint(JsonObject json) {
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
 		return gson.toJson(json);
+	}
+
+	/**
+	 * @param json of String
+	 * @return String in Pretty Print
+	 */
+	static public String prettyPrint(String json) {
+		Gson gson = new Gson();
+		JsonObject obj = gson.fromJson(json, JsonObject.class);
+		return prettyPrint(obj);
 	}
 
 }

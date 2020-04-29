@@ -1,4 +1,4 @@
-package nlp4j.azure.admin;
+package nlp4j.azure.search.admin;
 
 import com.azure.core.util.Configuration;
 

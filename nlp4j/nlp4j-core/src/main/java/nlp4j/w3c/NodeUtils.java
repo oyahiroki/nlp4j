@@ -183,7 +183,7 @@ public class NodeUtils {
 	 * ルートのNodeを文字列表現を返します。
 	 * 
 	 * @param singleNode
-	 * @return
+	 * @return Nodeの文字列表現
 	 */
 	public static String toStringAsSingleNode(Node singleNode) {
 		StringBuilder sbAttributes = new StringBuilder();
@@ -201,7 +201,7 @@ public class NodeUtils {
 	 * 文字列表現を返します。
 	 * 
 	 * @param nodeSet
-	 * @return
+	 * @return 文字列表現
 	 */
 	public static String toString(Set<Node> nodeSet) {
 		StringBuilder sb = new StringBuilder();
@@ -218,7 +218,7 @@ public class NodeUtils {
 	 * 文字列表現を返します。
 	 * 
 	 * @param nodeList
-	 * @return
+	 * @return 文字列表現
 	 */
 	static public String toString(List<Node> nodeList) {
 		StringBuilder sb = new StringBuilder();
@@ -234,7 +234,7 @@ public class NodeUtils {
 	 * 子Nodeも含めて文字列表現を返します。
 	 * 
 	 * @param node
-	 * @return
+	 * @return 文字列表現
 	 */
 	static public String toString(Node node) {
 		StringBuilder sb = new StringBuilder();

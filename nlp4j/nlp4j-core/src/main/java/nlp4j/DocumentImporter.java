@@ -1,10 +1,12 @@
 package nlp4j;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.Properties;
 
 /**
- * ドキュメントインポーター。Apache SolrやAzure Searchのようなコンポーネントを想定。<br>
- * Document importer for document index like Apache Solr, Azure Search.
+ * ドキュメントインポーターのインターフェイスクラスです。<br>
+ * Interface class for document importer.
  * 
  * @author Hiroki Oya
  * @since 1.0
@@ -13,36 +15,62 @@ import java.util.List;
 public interface DocumentImporter {
 
 	/**
+	 * ドキュメントをインポートしてコミットします。<br>
+	 * Import a document and commit.
+	 * 
+	 * @param doc インポート対象のドキュメント
+	 * @throws IOException 例外発生時にスローされる
+	 */
+	public void importDocumentAndCommit(Document doc) throws IOException;
+
+	/**
+	 * 複数のドキュメントをインポートします。<br>
+	 * Import multiple documents.
+	 * 
+	 * @param docs インポート対象のドキュメント
+	 * @throws IOException 例外発生時にスローされる
+	 */
+	public void importDocuments(List<Document> docs) throws IOException;
+
+	/**
+	 * 単一のドキュメントをインポートします。<br>
+	 * Import a single document.
+	 * 
+	 * @param doc インポート対象のドキュメント
+	 * @throws IOException 例外発生時にスローされる
+	 * @throws Exception 
+	 */
+	public void importDocument(Document doc) throws IOException;
+
+	/**
+	 * インポートしたドキュメントをコミットします。<br>
+	 * Commit a imported document.
+	 * 
+	 * @throws IOException 例外発生時にスローされる
+	 */
+	public void commit() throws IOException;
+
+	/**
 	 * プロパティをセットします。<br>
-	 * Set Propery
+	 * Set properties.
+	 * 
+	 * @param prop プロパティ
+	 */
+	public void setProperties(Properties prop);
+
+	/**
+	 * プロパティをセットします。<br>
+	 * Set a property key and value.
 	 * 
 	 * @param key   プロパティのキー
 	 * @param value プロパティの値
 	 */
-	void setProperty(String key, String value);
+	public void setProperty(String key, String value);
 
 	/**
-	 * ドキュメントをインポートします。<br>
-	 * Import documents.
-	 * 
-	 * @param docs 複数のドキュメント
-	 * @throws Exception 例外発生時にスローされる
+	 * インデックスとの接続を閉じます。<br>
+	 * Close a connection of a index.
 	 */
-	void importDocuments(List<Document> docs) throws Exception;
-
-	/**
-	 * ドキュメントをインポートします。<br>
-	 * Import document.
-	 * 
-	 * @param doc ドキュメント
-	 * @throws Exception 例外発生時にスローされる
-	 */
-	void importDocument(Document doc) throws Exception;
-
-	/**
-	 * ドキュメントのインポートをコミットします。<br>
-	 * Commit document import.
-	 */
-	void commit();
+	public void close();
 
 }

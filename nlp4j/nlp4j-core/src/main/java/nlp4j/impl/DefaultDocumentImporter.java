@@ -1,5 +1,7 @@
 package nlp4j.impl;
 
+import java.io.IOException;
+
 import nlp4j.AbstractDocumentImporter;
 import nlp4j.Document;
 import nlp4j.DocumentImporter;
@@ -19,13 +21,19 @@ public class DefaultDocumentImporter extends AbstractDocumentImporter implements
 	}
 
 	@Override
-	public void importDocument(Document doc) throws Exception {
+	public void importDocument(Document doc) throws IOException {
 		System.err.println("import: " + doc);
 	}
 
 	@Override
 	public void commit() {
 		System.err.println("Commit!");
+
+	}
+
+	@Override
+	public void close() {
+		// TODO Auto-generated method stub
 
 	}
 
