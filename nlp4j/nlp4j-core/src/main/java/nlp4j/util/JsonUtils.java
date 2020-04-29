@@ -6,6 +6,7 @@ import java.io.IOException;
 import org.apache.commons.io.FileUtils;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 
 /**
@@ -16,7 +17,7 @@ import com.google.gson.JsonObject;
 public class JsonUtils {
 
 	/**
-	 * @param outFile     the file to write
+	 * @param outFile  the file to write
 	 * @param jsonData the JSON content write to the file
 	 * @throws IOException in case of an I/O error
 	 */
@@ -37,6 +38,15 @@ public class JsonUtils {
 
 		FileUtils.write(outFile, json.toString() + "\n", encoding, append);
 
+	}
+
+	/**
+	 * @param json
+	 * @return String in Pretty Print
+	 */
+	static public String prettyPrint(JsonObject json) {
+		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+		return gson.toJson(json);
 	}
 
 }

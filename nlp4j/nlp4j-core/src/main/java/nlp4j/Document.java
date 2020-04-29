@@ -1,5 +1,6 @@
 package nlp4j;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -40,6 +41,26 @@ public interface Document {
 	 * @since 1.0
 	 */
 	Object getAttribute(String key);
+
+	/**
+	 * 属性を返します。<br>
+	 * Return Attribute value.
+	 * 
+	 * @param key 属性のキー
+	 * @return 属性の値
+	 * @since 1.3
+	 */
+	Number getAttributeAsNumber(String key);
+
+	/**
+	 * 属性を返します。<br>
+	 * Return Attribute value.
+	 * 
+	 * @param key 属性のキー
+	 * @return 属性の値
+	 * @since 1.3
+	 */
+	Date getAttributeAsDate(String key);
 
 	/**
 	 * 属性のキーを返します。<br>
@@ -95,6 +116,26 @@ public interface Document {
 	 * @since 1.0
 	 */
 	void putAttribute(String key, String value);
+
+	/**
+	 * この文書の属性をセットします。<br>
+	 * Set Attribute of this document.
+	 * 
+	 * @param key   属性名
+	 * @param value 属性の値
+	 * @since 1.3
+	 */
+	void putAttribute(String key, Number value);
+
+	/**
+	 * この文書の属性をセットします。<br>
+	 * Set Attribute of this document.
+	 * 
+	 * @param key   属性名
+	 * @param value 属性の値
+	 * @since 1.3
+	 */
+	void putAttribute(String key, Date value);
 
 	/**
 	 * この文書のIDをセットします。<br>

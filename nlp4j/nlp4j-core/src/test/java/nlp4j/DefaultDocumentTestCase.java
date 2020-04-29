@@ -11,13 +11,29 @@ public class DefaultDocumentTestCase extends TestCase {
 
 	Class target = DefaultDocument.class;
 
-	public void testGetAttribute() {
+	public void testGetAttribute001() {
 		String key = "item";
 		String value = "value";
 		DefaultDocument doc = new DefaultDocument();
 		doc.putAttribute(key, value);
 
 		assertEquals(value, doc.getAttribute(key));
+	}
+
+	public void testGetAttributeAsNumber001() {
+		DefaultDocument doc = new DefaultDocument();
+		doc.putAttribute("field1", 100);
+
+		System.err.println(doc.getAttribute("field1").getClass().getName());
+
+		assertEquals(100, doc.getAttributeAsNumber("field1"));
+	}
+
+	public void testGetAttributeAsNumber501() {
+		DefaultDocument doc = new DefaultDocument();
+		doc.putAttribute("field1", "xxx");
+
+		assertEquals(100, doc.getAttributeAsNumber("field1"));
 	}
 
 	public void testGetId001() {

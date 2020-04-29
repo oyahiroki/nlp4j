@@ -2,7 +2,11 @@ package nlp4j.util;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
@@ -137,7 +141,19 @@ public class DocumentUtil {
 	 * @return Json String of Document
 	 */
 	static public String toJsonString(Document doc) {
+		JsonObject jsonObj = toJsonObject(doc);
+		Gson gson = new Gson();
+		return gson.toJson(jsonObj);
+	}
+
+	/**
+	 * @since 1.3
+	 * @param doc target Document
+	 * @return Json String of Document
+	 */
+	static public JsonObject toJsonObject(Document doc) {
 		JsonObject jsonObj = new JsonObject();
+		copyAttributes(doc, jsonObj);
 
 		{
 			JsonArray arr = new JsonArray();
@@ -146,11 +162,58 @@ public class DocumentUtil {
 			}
 			jsonObj.add("keywords", arr);
 		}
+		return jsonObj;
+	}
+
+	private static void copyAttributes(Document doc, JsonObject jsonObj) {
 		for (String key : doc.getAttributeKeys()) {
-			jsonObj.addProperty(key, "" + doc.getAttribute(key));
+			if (doc.getAttribute(key) instanceof Number) {
+				jsonObj.addProperty(key, doc.getAttributeAsNumber(key));
+			} else if (doc.getAttribute(key) instanceof Date) {
+				Date dd = doc.getAttributeAsDate(key);
+				jsonObj.addProperty(key, sdf.format(dd));
+			} else {
+				jsonObj.addProperty(key, doc.getAttribute(key).toString());
+			}
 		}
-		Gson gson = new Gson();
-		return gson.toJson(jsonObj);
+	}
+
+	static private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
+
+	/**
+	 * @since 1.3
+	 * @param doc target Document
+	 * @return Json String of Document
+	 */
+	static public JsonObject toJsonObjectForIndex(Document doc) {
+		JsonObject jsonObj = new JsonObject();
+
+		copyAttributes(doc, jsonObj);
+
+		HashMap<String, ArrayList<String>> kwMap = new LinkedHashMap<String, ArrayList<String>>();
+
+		{
+			for (Keyword kwd : doc.getKeywords()) {
+				String facet = kwd.getFacet();
+
+				if (kwMap.containsKey(facet)) {
+					kwMap.get(facet).add(kwd.getLex());
+				} else {
+					ArrayList<String> list = new ArrayList<String>();
+					list.add(kwd.getLex());
+					kwMap.put(facet, list);
+				}
+			}
+			for (String key : kwMap.keySet()) {
+				String facet2 = key.toLowerCase().replace(".", "_");
+				JsonArray arr = new JsonArray();
+				for (String lex : kwMap.get(key)) {
+					arr.add(lex);
+				}
+				jsonObj.add(facet2, arr);
+			}
+		}
+		return jsonObj;
 	}
 
 	/**

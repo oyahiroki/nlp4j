@@ -1,6 +1,8 @@
 package nlp4j.impl;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -61,6 +63,16 @@ public class DefaultDocument implements Document {
 	}
 
 	@Override
+	public Number getAttributeAsNumber(String key) {
+		return (Number) this.attributes.get(key);
+	}
+
+	@Override
+	public Date getAttributeAsDate(String key) {
+		return (Date) this.attributes.get(key);
+	}
+
+	@Override
 	public String getId() {
 
 		if (attributes.get(KEY_ID) != null) {
@@ -83,6 +95,16 @@ public class DefaultDocument implements Document {
 
 	@Override
 	public void putAttribute(String key, String value) {
+		this.attributes.put(key, value);
+	}
+
+	@Override
+	public void putAttribute(String key, Number value) {
+		this.attributes.put(key, value);
+	}
+
+	@Override
+	public void putAttribute(String key, Date value) {
 		this.attributes.put(key, value);
 	}
 
