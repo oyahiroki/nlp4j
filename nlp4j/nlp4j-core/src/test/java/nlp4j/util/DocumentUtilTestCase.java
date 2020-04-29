@@ -1,5 +1,6 @@
 package nlp4j.util;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import com.google.gson.JsonObject;
@@ -45,7 +46,7 @@ public class DocumentUtilTestCase extends TestCase {
 	/**
 	 * @since 1.3
 	 */
-	public void testToJsonOjbect001() {
+	public void testToJsonOjbect001() throws Exception {
 		DefaultDocument doc = new DefaultDocument();
 		{
 			DefaultKeyword kwd = new DefaultKeyword();
@@ -57,16 +58,37 @@ public class DocumentUtilTestCase extends TestCase {
 		{
 			doc.putAttribute("field1", "TEST");
 			doc.putAttribute("field2", 100);
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			doc.putAttribute("date", sdf.parse("2020-04-01"));
 			doc.setText("This is test.");
 		}
 
 		JsonObject json = DocumentUtil.toJsonObject(doc);
-		System.err.println(json);
+
 		System.err.println(JsonUtils.prettyPrint(json));
 
-		String expected = "{\"keywords\":[{\"facet\":\"word.NN\",\"lex\":\"test\",\"str\":\"TEST\",\"count\":-1,\"begin\":-1,\"end\":-1,\"correlation\":0.0,\"sequence\":-1}],\"field1\":\"TEST\",\"field2\":100,\"text\":\"This is test.\"}";
+		String expected = "{\n" + //
+				"  \"field1\": \"TEST\",\n" + //
+				"  \"field2\": 100,\n" + //
+				"  \"date\": \"2020-04-01T00:00:00+0900\",\n" + //
+				"  \"text\": \"This is test.\",\n" + //
+				"  \"keywords\": [\n" + //
+				"    {\n" + //
+				"      \"facet\": \"word.NN\",\n" + //
+				"      \"lex\": \"test\",\n" + //
+				"      \"str\": \"TEST\",\n" + //
+				"      \"count\": -1,\n" + //
+				"      \"begin\": -1,\n" + //
+				"      \"end\": -1,\n" + //
+				"      \"correlation\": 0.0,\n" + //
+				"      \"sequence\": -1\n" + //
+				"    }\n" + //
+				"  ]\n" + //
+				"}"; //
 
-		assertEquals(expected, json);
+		System.err.println(JsonUtils.prettyPrint(json).length());
+		System.err.println(expected.length());
+		assertEquals(expected, JsonUtils.prettyPrint(json));
 
 	}
 
