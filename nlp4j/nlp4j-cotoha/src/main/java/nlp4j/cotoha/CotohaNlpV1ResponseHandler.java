@@ -3,6 +3,7 @@ package nlp4j.cotoha;
 import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -41,6 +42,9 @@ public class CotohaNlpV1ResponseHandler {
 	 */
 	ArrayList<Keyword> chunkLinkKeywords = new ArrayList<>();
 
+	/**
+	 * @return 文節掛かり元キーワード
+	 */
 	public ArrayList<Keyword> getChunkLinkKeywords() {
 		return chunkLinkKeywords;
 	}
@@ -58,17 +62,17 @@ public class CotohaNlpV1ResponseHandler {
 	/**
 	 * Map: token_id --> Keyword
 	 */
-	HashMap<String, DefaultKeywordWithDependency> mapTokenidKwd = new HashMap<>();
+	LinkedHashMap<String, DefaultKeywordWithDependency> mapTokenidKwd = new LinkedHashMap<>();
 
 	/**
 	 * Map: id --> Keyword
 	 */
-	HashMap<String, DefaultKeywordWithDependency> mapIdKwd = new HashMap<>();
+	LinkedHashMap<String, DefaultKeywordWithDependency> mapIdKwd = new LinkedHashMap<>();
 
 	/**
 	 * token id --> sentence
 	 */
-	HashMap<Integer, Integer> idSentenceMap = new HashMap<>();
+	LinkedHashMap<Integer, Integer> idSentenceMap = new LinkedHashMap<>();
 
 	/**
 	 * 係り受けキーワード
@@ -275,28 +279,34 @@ public class CotohaNlpV1ResponseHandler {
 
 				keywords.add(kw);
 
-				// dependency labels 依存先情報の配列
-				if (token.get("dependency_labels") != null) {
-
-					// 依存先情報の配列
-					JsonArray arrDependency = token.get("dependency_labels").getAsJsonArray();
-
-					for (int n = 0; n < arrDependency.size(); n++) {
-
-						// 依存先情報
-						JsonObject objDependency = arrDependency.get(n).getAsJsonObject();
-
-						String dependency_token_id = "" + objDependency.get("token_id").getAsInt();
+//				// dependency labels 依存先情報の配列
+//				if (token.get("dependency_labels") != null) {
+//
+//					// 依存先情報の配列
+//					JsonArray arrDependency = token.get("dependency_labels").getAsJsonArray();
+//
+//					for (int n = 0; n < arrDependency.size(); n++) {
+//
+//						// 依存先情報
+//						JsonObject objDependency = arrDependency.get(n).getAsJsonObject();
+//
+//						String dependency_token_id = "" + objDependency.get("token_id").getAsInt();
 //						String dependency_label = objDependency.get("label").getAsString();
-
-						// キーワードに依存先情報をセット
-						kw.setDependencyKey(dependency_token_id);
-					}
-				}
-				// ELSE(dependency labels == NULL)
-				else {
-					// do noting
-				}
+//
+//						// キーワードに依存先情報をセット
+//						if (kw.getDependencyKey() != null) {
+//							throw new RuntimeException(
+//									"kw.getDependencyKey() != null: " + kw.getDependencyKey() + " to be overwrittern "
+//											+ dependency_token_id + ",dependency_label=" + dependency_label + "," + kw);
+//						}
+//						if (dependency_label.equals("conj") == false)
+//							kw.setDependencyKey(dependency_token_id);
+//					}
+//				}
+//				// ELSE(dependency labels == NULL)
+//				else {
+//					// do noting
+//				}
 
 			} // END OF FOR EACH TOKENS
 
@@ -306,24 +316,10 @@ public class CotohaNlpV1ResponseHandler {
 
 		// <ツリーの組み立て>
 
-//		for (String key : idMapKwd.keySet()) {
-//			DefaultKeywordWithDependency kwd = idMapKwd.get(key);
-//			System.err.println("DependencyKey=" + kwd.getDependencyKey());
-//		}
-
 		// FOR EACH(chunk_tokens)
 		for (int idxChunkTokens = 0; idxChunkTokens < arrChunkTokens.size(); idxChunkTokens++) {
 
 			JsonObject chunk_token = arrChunkTokens.get(idxChunkTokens).getAsJsonObject();
-
-			// 1. chunk_info
-//			JsonObject chunk_info = chunk_token.get("chunk_info").getAsJsonObject();
-//			int chunk_head = -1;
-//
-//			{
-//				logger.debug("chunk_info: " + chunk_info);
-//				chunk_head = chunk_info.get("head").getAsInt();
-//			}
 
 			// 2. tokens
 			JsonArray tokens = chunk_token.get("tokens").getAsJsonArray();
@@ -346,9 +342,6 @@ public class CotohaNlpV1ResponseHandler {
 
 						JsonObject dependency_label = arr_dependency_labels.get(n).getAsJsonObject();
 
-//						logger.debug(dependency_label.get("token_id").getAsInt());
-//						logger.debug(dependency_label.get("label").getAsString());
-
 						String childID = "" + dependency_label.get("token_id").getAsInt();
 						String labelDependency = dependency_label.get("label").getAsString();
 
@@ -356,10 +349,12 @@ public class CotohaNlpV1ResponseHandler {
 						int sentence1 = idSentenceMap.get(token.get("id").getAsInt());
 						int sentence2 = idSentenceMap.get(dependency_label.get("token_id").getAsInt());
 
-//						System.err.println("debug:sentence1=" + sentence1 + ",sentence2=" + sentence2);
-
 						// 文をまたいでない
 						if (mapIdKwd.get(childID) != null && (sentence1 == sentence2)) {
+
+//							if (labelDependency.equals("conj")) {
+//								continue;
+//							}
 
 							// 日本語と英語では ParentとChild が逆
 							DefaultKeywordWithDependency kw1Child = mapIdKwd.get(childID);
@@ -404,21 +399,9 @@ public class CotohaNlpV1ResponseHandler {
 
 		for (String link : chunkLinks) {
 
-//			System.err.println("link:" + link);
-
 			String id1 = link.split("/")[0];
 			String relation = link.split("/")[1];
 			String id2 = link.split("/")[2];
-
-//			for (String key : mapTokenidKwd.keySet()) {
-//				System.err.println("key=" + key + ",kw=" + mapTokenidKwd.get(key).getLex());
-//			}
-//			System.err.println("---");
-//
-//			System.err.println("id1=" + id1);
-//			System.err.println("id2=" + id2);
-//
-//			System.err.println(mapIdKwd.get(id1).getLex() + " ??? " + mapIdKwd.get(id2).getLex());
 
 			Keyword kwd1 = mapTokenidKwd.get(id1 + "-0");
 			Keyword kwd2 = mapTokenidKwd.get(id2 + "-0");
@@ -445,9 +428,7 @@ public class CotohaNlpV1ResponseHandler {
 
 			DefaultKeywordWithDependency kw = mapIdKwd.get(key);
 
-			// 係り受け先のキー
-			String depKey = kw.getDependencyKey();
-
+			// IF(ルートキーワードであれば)
 			if (kw.getParent() == null) {
 				roots.add(kw);
 			}

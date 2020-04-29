@@ -1,0 +1,18 @@
+{  
+     "count": true | false (default),  
+     "facets": [ "facet_expression_1", "facet_expression_2", ... ],  
+     "filter": "odata_filter_expression",  
+     "highlight": "highlight_field_1, highlight_field_2, ...",  
+     "highlightPreTag": "pre_tag",  
+     "highlightPostTag": "post_tag",  
+     "minimumCoverage": # (% of index that must be covered to declare query successful; default 100),  
+     "orderby": "orderby_expression",  
+     "scoringParameters": [ "scoring_parameter_1", "scoring_parameter_2", ... ],  
+     "scoringProfile": "scoring_profile_name",  
+     "search": "simple_query_expression",  
+     "searchFields": "field_name_1, field_name_2, ...",  
+     "searchMode": "any" (default) | "all",  
+     "select": "field_name_1, field_name_2, ...",  
+     "skip": # (default 0),  
+     "top": #  
+   }  

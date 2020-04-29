@@ -60,17 +60,10 @@ public class CotohaNlpV1ResponseHandlerTestCase extends TestCase {
 		CotohaNlpV1ResponseHandler handler = new CotohaNlpV1ResponseHandler();
 		handler.parse(json);
 
-		List<DefaultKeywordWithDependency> roots = handler.getRoots();
+		printResult(handler);
 
-		for (DefaultKeywordWithDependency root : roots) {
-			System.err.println(root.toStringAsDependencyTree());
-		}
-
-		System.err.println("---");
-
-		for (Keyword kwd : handler.getKeywords()) {
-			System.err.println(kwd.toString());
-		}
+		assertEquals(1, handler.getRoots().size());
+		assertEquals("今日", handler.getKeywords().get(0).getLex());
 
 	}
 
@@ -88,6 +81,9 @@ public class CotohaNlpV1ResponseHandlerTestCase extends TestCase {
 		handler.parse(json);
 
 		printResult(handler);
+
+		assertEquals(2, handler.getRoots().size());
+		assertEquals("今日", handler.getKeywords().get(0).getLex());
 	}
 
 	/**
@@ -105,6 +101,8 @@ public class CotohaNlpV1ResponseHandlerTestCase extends TestCase {
 
 		printResult(handler);
 
+		assertEquals(1, handler.getRoots().size());
+		assertEquals("高速道路", handler.getKeywords().get(0).getLex());
 	}
 
 	/**
@@ -121,6 +119,9 @@ public class CotohaNlpV1ResponseHandlerTestCase extends TestCase {
 		handler.parse(json);
 
 		printResult(handler);
+
+		assertEquals(1, handler.getRoots().size());
+		assertEquals("私", handler.getKeywords().get(0).getLex());
 	}
 
 	/**
@@ -137,6 +138,47 @@ public class CotohaNlpV1ResponseHandlerTestCase extends TestCase {
 		handler.parse(json);
 
 		printResult(handler);
+
+		assertEquals(2, handler.getRoots().size());
+		assertEquals("嫁", handler.getKeywords().get(0).getLex());
+	}
+
+	/**
+	 * 「嫁と娘は旅行に行った。」の解析結果をパースするテスト
+	 * 
+	 * @throws Exception 例外発生時
+	 */
+	public void testParse005a() throws Exception {
+
+		File file = new File("src/test/resources/nlp_v1_parse_005a.json");
+		String json = FileUtils.readFileToString(file, "UTF-8");
+
+		CotohaNlpV1ResponseHandler handler = new CotohaNlpV1ResponseHandler();
+		handler.parse(json);
+
+		printResult(handler);
+
+		assertEquals(1, handler.getRoots().size());
+		assertEquals("嫁", handler.getKeywords().get(0).getLex());
+	}
+
+	/**
+	 * 「私と息子は焼き肉を食べた。」の解析結果をパースするテスト
+	 * 
+	 * @throws Exception 例外発生時
+	 */
+	public void testParse005b() throws Exception {
+
+		File file = new File("src/test/resources/nlp_v1_parse_005b.json");
+		String json = FileUtils.readFileToString(file, "UTF-8");
+
+		CotohaNlpV1ResponseHandler handler = new CotohaNlpV1ResponseHandler();
+		handler.parse(json);
+
+		printResult(handler);
+
+		assertEquals(2, handler.getRoots().size());
+		assertEquals("嫁", handler.getKeywords().get(0).getLex());
 	}
 
 	/**

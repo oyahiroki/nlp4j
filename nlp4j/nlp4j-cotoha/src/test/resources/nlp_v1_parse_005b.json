@@ -1,0 +1,182 @@
+{
+  "result" : [ {
+    "chunk_info" : {
+      "id" : 0,
+      "head" : 3,
+      "dep" : "D",
+      "chunk_head" : 0,
+      "chunk_func" : 1,
+      "links" : [ ]
+    },
+    "tokens" : [ {
+      "id" : 0,
+      "form" : "私",
+      "kana" : "ワタシ",
+      "lemma" : "私",
+      "pos" : "名詞",
+      "features" : [ "代名詞" ],
+      "common_noun_semantic" : [ 37, 8 ],
+      "proper_noun_semantic" : [ ],
+      "declinable_word_semantic" : [ ],
+      "dependency_labels" : [ {
+        "token_id" : 1,
+        "label" : "cc"
+      } ],
+      "attributes" : { }
+    }, {
+      "id" : 1,
+      "form" : "と",
+      "kana" : "ト",
+      "lemma" : "と",
+      "pos" : "格助詞",
+      "features" : [ "連用" ],
+      "common_noun_semantic" : [ ],
+      "proper_noun_semantic" : [ ],
+      "declinable_word_semantic" : [ ],
+      "attributes" : { }
+    } ]
+  }, {
+    "chunk_info" : {
+      "id" : 1,
+      "head" : 3,
+      "dep" : "D",
+      "chunk_head" : 0,
+      "chunk_func" : 1,
+      "links" : [ ]
+    },
+    "tokens" : [ {
+      "id" : 2,
+      "form" : "息子",
+      "kana" : "ムスコ",
+      "lemma" : "息子",
+      "pos" : "名詞",
+      "features" : [ ],
+      "common_noun_semantic" : [ 48, 58, 87 ],
+      "proper_noun_semantic" : [ ],
+      "declinable_word_semantic" : [ ],
+      "dependency_labels" : [ {
+        "token_id" : 3,
+        "label" : "case"
+      } ],
+      "attributes" : { }
+    }, {
+      "id" : 3,
+      "form" : "は",
+      "kana" : "ハ",
+      "lemma" : "は",
+      "pos" : "連用助詞",
+      "features" : [ ],
+      "common_noun_semantic" : [ ],
+      "proper_noun_semantic" : [ ],
+      "declinable_word_semantic" : [ ],
+      "attributes" : { }
+    } ]
+  }, {
+    "chunk_info" : {
+      "id" : 2,
+      "head" : 3,
+      "dep" : "D",
+      "chunk_head" : 0,
+      "chunk_func" : 1,
+      "links" : [ ]
+    },
+    "tokens" : [ {
+      "id" : 4,
+      "form" : "焼き肉",
+      "kana" : "ヤキニク",
+      "lemma" : "焼き肉",
+      "pos" : "名詞",
+      "features" : [ ],
+      "common_noun_semantic" : [ 843, 852 ],
+      "proper_noun_semantic" : [ ],
+      "declinable_word_semantic" : [ ],
+      "dependency_labels" : [ {
+        "token_id" : 5,
+        "label" : "case"
+      } ],
+      "attributes" : { }
+    }, {
+      "id" : 5,
+      "form" : "を",
+      "kana" : "ヲ",
+      "lemma" : "を",
+      "pos" : "格助詞",
+      "features" : [ "連用" ],
+      "common_noun_semantic" : [ ],
+      "proper_noun_semantic" : [ ],
+      "declinable_word_semantic" : [ ],
+      "attributes" : { }
+    } ]
+  }, {
+    "chunk_info" : {
+      "id" : 3,
+      "head" : -1,
+      "dep" : "O",
+      "chunk_head" : 0,
+      "chunk_func" : 1,
+      "links" : [ {
+        "link" : 0,
+        "label" : "coagent"
+      }, {
+        "link" : 1,
+        "label" : "agent"
+      }, {
+        "link" : 2,
+        "label" : "object"
+      } ],
+      "predicate" : [ "past" ]
+    },
+    "tokens" : [ {
+      "id" : 6,
+      "form" : "食べ",
+      "kana" : "タベ",
+      "lemma" : "食べる",
+      "pos" : "動詞語幹",
+      "features" : [ "A" ],
+      "common_noun_semantic" : [ 1581, 1590 ],
+      "proper_noun_semantic" : [ ],
+      "declinable_word_semantic" : [ 2, 23 ],
+      "dependency_labels" : [ {
+        "token_id" : 0,
+        "label" : "nmod"
+      }, {
+        "token_id" : 2,
+        "label" : "nsubj"
+      }, {
+        "token_id" : 4,
+        "label" : "dobj"
+      }, {
+        "token_id" : 7,
+        "label" : "aux"
+      }, {
+        "token_id" : 8,
+        "label" : "punct"
+      } ],
+      "attributes" : { }
+    }, {
+      "id" : 7,
+      "form" : "た",
+      "kana" : "タ",
+      "lemma" : "た",
+      "pos" : "動詞接尾辞",
+      "features" : [ "終止" ],
+      "common_noun_semantic" : [ ],
+      "proper_noun_semantic" : [ ],
+      "declinable_word_semantic" : [ ],
+      "attributes" : { }
+    }, {
+      "id" : 8,
+      "form" : "。",
+      "kana" : "",
+      "lemma" : "。",
+      "pos" : "句点",
+      "features" : [ ],
+      "common_noun_semantic" : [ ],
+      "proper_noun_semantic" : [ ],
+      "declinable_word_semantic" : [ ],
+      "attributes" : { }
+    } ]
+  } ],
+  "status" : 0,
+  "message" : ""
+}

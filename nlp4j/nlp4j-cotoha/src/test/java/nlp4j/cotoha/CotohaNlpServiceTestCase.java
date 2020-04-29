@@ -54,6 +54,18 @@ public class CotohaNlpServiceTestCase extends TestCase {
 		System.err.println(response.getOriginalResponseBody());
 	}
 
+	public void testNlpV1ParseString005a() throws Exception {
+		CotohaNlpService service = new CotohaNlpService();
+		DefaultNlpServiceResponse response = service.nlpV1Parse("嫁と娘は旅行に行った。");
+		System.err.println(response.getOriginalResponseBody());
+	}
+
+	public void testNlpV1ParseString005b() throws Exception {
+		CotohaNlpService service = new CotohaNlpService();
+		DefaultNlpServiceResponse response = service.nlpV1Parse("私と息子は焼き肉を食べた。");
+		System.err.println(response.getOriginalResponseBody());
+	}
+
 	public void testNlpV1ParseString006() throws Exception {
 		CotohaNlpService service = new CotohaNlpService();
 		DefaultNlpServiceResponse response = service.nlpV1Parse("私と息子は３時に公園で弁当を食べた。");

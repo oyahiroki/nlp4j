@@ -30,16 +30,6 @@ public class DefaultKeywordWithDependency extends DefaultKeyword implements Keyw
 	String relation;
 
 	@Override
-	public String getRelation() {
-		return relation;
-	}
-
-	@Override
-	public void setRelation(String relation) {
-		this.relation = relation;
-	}
-
-	@Override
 	public void addChild(KeywordWithDependency keyword) {
 		this.children.add(keyword);
 		keyword.setParentOnly(this);
@@ -58,6 +48,11 @@ public class DefaultKeywordWithDependency extends DefaultKeyword implements Keyw
 			ret.addAll(c.asList());
 		}
 		return ret;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		return super.equals(obj);
 	}
 
 	@Override
@@ -100,6 +95,11 @@ public class DefaultKeywordWithDependency extends DefaultKeyword implements Keyw
 			}
 		}
 
+	}
+
+	@Override
+	public String getRelation() {
+		return relation;
 	}
 
 	@Override
@@ -147,6 +147,11 @@ public class DefaultKeywordWithDependency extends DefaultKeyword implements Keyw
 	@Override
 	public void setParentOnly(KeywordWithDependency parent) {
 		this.parent = parent;
+	}
+
+	@Override
+	public void setRelation(String relation) {
+		this.relation = relation;
 	}
 
 	@Override
@@ -241,11 +246,6 @@ public class DefaultKeywordWithDependency extends DefaultKeyword implements Keyw
 		}
 
 		return sb.toString();
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		return super.equals(obj);
 	}
 
 }

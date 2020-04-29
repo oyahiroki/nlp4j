@@ -13,7 +13,7 @@ import okhttp3.Response;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Main1AddDocument {
+public class Main1DeleteDocument {
 
 	private static final String ENDPOINT = Configuration.getGlobalConfiguration()
 			.get("AZURE_COGNITIVE_SEARCH_ENDPOINT");
@@ -42,12 +42,9 @@ public class Main1AddDocument {
 
 		String json = "{" //
 				+ "'value':[" + "{" //
-				+ "'@search.action':'upload'," //
+				+ "'@search.action':'delete'," //
 				// + "'key_field_name':'id'," //
-				+ "'id':'1'," //
-				+ "'field1':'Nissan'," //
-//				+ "'field_xxx':'xxx'," //  The property 'field_xxx' does not exist on type 'search.documentFields'
-				+ "'text':'This is test'" //
+				+ "'id':'1'" //
 				+ "}" //
 				+ "]" //
 				+ "}" //
@@ -65,7 +62,7 @@ public class Main1AddDocument {
 		Request request = new Request.Builder() //
 				.url(url) //
 				.addHeader("api-key", ADMIN_KEY) // 忘れると403
-				.post(body) //
+				.post(body)//
 				.build();
 
 		Response response = client.newCall(request).execute();

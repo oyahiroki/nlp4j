@@ -13,7 +13,7 @@ import okhttp3.Response;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Main1AddDocument {
+public class Main1SearchDocument {
 
 	private static final String ENDPOINT = Configuration.getGlobalConfiguration()
 			.get("AZURE_COGNITIVE_SEARCH_ENDPOINT");
@@ -40,18 +40,24 @@ public class Main1AddDocument {
 
 		String url = ENDPOINT;
 
-		String json = "{" //
-				+ "'value':[" + "{" //
-				+ "'@search.action':'upload'," //
-				// + "'key_field_name':'id'," //
-				+ "'id':'1'," //
-				+ "'field1':'Nissan'," //
-//				+ "'field_xxx':'xxx'," //  The property 'field_xxx' does not exist on type 'search.documentFields'
-				+ "'text':'This is test'" //
-				+ "}" //
-				+ "]" //
-				+ "}" //
-		;
+		String json = "{  \r\n" + 
+				"     \"count\": true,  \r\n" + 
+//				"     \"facets\": [ \"facet_expression_1\", \"facet_expression_2\", ... ],  \r\n" + 
+//				"     \"filter\": \"odata_filter_expression\",  \r\n" + 
+//				"     \"highlight\": \"highlight_field_1, highlight_field_2, ...\",  \r\n" + 
+//				"     \"highlightPreTag\": \"pre_tag\",  \r\n" + 
+//				"     \"highlightPostTag\": \"post_tag\",  \r\n" + 
+//				"     \"minimumCoverage\": # (% of index that must be covered to declare query successful; default 100),  \r\n" + 
+//				"     \"orderby\": \"orderby_expression\",  \r\n" + 
+//				"     \"scoringParameters\": [ \"scoring_parameter_1\", \"scoring_parameter_2\", ... ],  \r\n" + 
+//				"     \"scoringProfile\": \"scoring_profile_name\",  \r\n" + 
+				"     \"search\": \"*\"  \r\n" + 
+//				"     \"searchFields\": \"field_name_1, field_name_2, ...\",  \r\n" + 
+//				"     \"searchMode\": \"any\" (default) | \"all\",  \r\n" + 
+//				"     \"select\": \"field_name_1, field_name_2, ...\",  \r\n" + 
+//				"     \"skip\": # (default 0),  \r\n" + 
+//				"     \"top\": #  \r\n" + 
+				"   }  ";
 
 		System.err.println(json);
 
