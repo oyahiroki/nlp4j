@@ -2,12 +2,19 @@ package nlp4j.azure.search.importer;
 
 import java.util.Date;
 
+import com.azure.core.util.Configuration;
+
 import junit.framework.TestCase;
 import nlp4j.Document;
 import nlp4j.impl.DefaultDocument;
 import nlp4j.impl.DefaultKeyword;
 
 public class AzureSearchDocumentImporterTest extends TestCase {
+
+	private static final String ENDPOINT = Configuration.getGlobalConfiguration()
+			.get("AZURE_COGNITIVE_SEARCH_ENDPOINT");
+	private static final String ADMIN_KEY = Configuration.getGlobalConfiguration()
+			.get("AZURE_COGNITIVE_SEARCH_ADMIN_KEY");
 
 	public void testImportDocument001() throws Exception {
 
@@ -42,6 +49,9 @@ public class AzureSearchDocumentImporterTest extends TestCase {
 		}
 
 		AzureSearchDocumentImporter importer = new AzureSearchDocumentImporter();
+
+		importer.setProperty("endpoint", ENDPOINT);
+		importer.setProperty("admin_key", ADMIN_KEY);
 
 		importer.importDocument(doc);
 
