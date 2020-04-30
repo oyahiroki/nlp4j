@@ -38,7 +38,7 @@ public interface DocumentImporter {
 	 * 
 	 * @param doc インポート対象のドキュメント
 	 * @throws IOException 例外発生時にスローされる
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	public void importDocument(Document doc) throws IOException;
 

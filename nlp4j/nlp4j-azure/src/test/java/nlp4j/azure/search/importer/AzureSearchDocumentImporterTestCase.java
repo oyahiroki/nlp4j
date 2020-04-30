@@ -2,20 +2,23 @@ package nlp4j.azure.search.importer;
 
 import java.util.Date;
 
-import com.azure.core.util.Configuration;
-
 import junit.framework.TestCase;
 import nlp4j.Document;
+import nlp4j.azure.search.TestEnv;
 import nlp4j.impl.DefaultDocument;
 import nlp4j.impl.DefaultKeyword;
 
-public class AzureSearchDocumentImporterTest extends TestCase {
+/**
+ * @author Hiroki Oya
+ * @since 1.3
+ */
+public class AzureSearchDocumentImporterTestCase extends TestCase {
 
-	private static final String ENDPOINT = Configuration.getGlobalConfiguration()
-			.get("AZURE_COGNITIVE_SEARCH_ENDPOINT");
-	private static final String ADMIN_KEY = Configuration.getGlobalConfiguration()
-			.get("AZURE_COGNITIVE_SEARCH_ADMIN_KEY");
-
+	/**
+	 * ドキュメント追加正常時
+	 * 
+	 * @throws Exception 例外発生時
+	 */
 	public void testImportDocument001() throws Exception {
 
 		Document doc = new DefaultDocument();
@@ -49,22 +52,14 @@ public class AzureSearchDocumentImporterTest extends TestCase {
 		}
 
 		AzureSearchDocumentImporter importer = new AzureSearchDocumentImporter();
-
-		importer.setProperty("endpoint", ENDPOINT);
-		importer.setProperty("admin_key", ADMIN_KEY);
+		importer.setProperty("service_name", TestEnv.SERVICE_NAME);
+		importer.setProperty("index_name", TestEnv.INDEX_NAME);
+		importer.setProperty("admin_key", TestEnv.ADMIN_KEY);
 
 		importer.importDocument(doc);
 
 		importer.commit();
 
-	}
-
-	public void testCommit() {
-		fail("Not yet implemented");
-	}
-
-	public void testClose() {
-		fail("Not yet implemented");
 	}
 
 }

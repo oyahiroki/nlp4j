@@ -24,10 +24,10 @@ public class AzureSearchIndexAdmin {
 	/**
 	 * Azure Search のインデックス定義を削除する
 	 * 
-	 * @param adminKey
-	 * @param serviceName
-	 * @param indexName
-	 * @throws IOException
+	 * @param adminKey    admin-key
+	 * @param serviceName service name
+	 * @param indexName   index name
+	 * @throws IOException 例外発生時
 	 */
 	public void delete(String adminKey, String serviceName, String indexName) throws IOException {
 

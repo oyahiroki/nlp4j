@@ -38,6 +38,9 @@ public abstract class AbstractDocumentImporter implements DocumentImporter {
 
 	@Override
 	public void setProperty(String key, String value) {
+		if (value == null) {
+			throw new InvalidPropertyException(key, value);
+		}
 		props.put(key, value);
 	}
 

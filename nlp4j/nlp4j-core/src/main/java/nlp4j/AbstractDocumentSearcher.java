@@ -2,6 +2,8 @@ package nlp4j;
 
 import java.util.Properties;
 
+import com.google.gson.JsonObject;
+
 /**
  * @author Hiroki Oya
  * @since 1.3
@@ -20,7 +22,24 @@ public abstract class AbstractDocumentSearcher implements DocumentSearcher {
 
 	@Override
 	public void setProperty(String key, String value) {
+		if (value == null) {
+			throw new InvalidPropertyException(key, value);
+		}
 		props.put(key, value);
+	}
+
+	/**
+	 * デフォルトの検索クエリー
+	 * 
+	 * @return {"count":true,"search":"*"}
+	 */
+	static public JsonObject createDefaultSearchRequest() {
+		JsonObject requestObj = new JsonObject();
+		{
+			requestObj.addProperty("count", true);
+			requestObj.addProperty("search", "*");
+		}
+		return requestObj;
 	}
 
 }

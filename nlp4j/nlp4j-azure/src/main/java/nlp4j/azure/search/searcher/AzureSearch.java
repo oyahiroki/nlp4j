@@ -18,13 +18,17 @@ public class AzureSearch extends AbstractDocumentSearcher implements DocumentSea
 
 	/**
 	 * @param requestObj リクエストオブジェクト
+	 * @return response from Azure Search
 	 * @throws IOException 例外発生時
 	 */
 	public JsonObject search(JsonObject requestObj) throws IOException {
 
+		System.err.println("search");
+		System.err.println(JsonUtils.prettyPrint(requestObj));
+
 		AzureSearchClient az = new AzureSearchClient(props);
 
-		JsonObject res = az.post(requestObj);
+		JsonObject res = az.post("search", requestObj);
 
 		System.err.println(JsonUtils.prettyPrint(res));
 

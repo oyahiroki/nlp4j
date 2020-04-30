@@ -84,4 +84,12 @@ public class DefaultNlpServiceResponse implements NlpServiceResponse {
 				+ originalResponseBody + "]";
 	}
 
+	/**
+	 * @since 1.3
+	 */
+	@Override
+	public String getMessage() {
+		return null;
+	}
+
 }

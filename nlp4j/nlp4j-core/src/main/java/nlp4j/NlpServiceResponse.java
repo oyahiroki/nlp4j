@@ -10,7 +10,7 @@ import java.util.List;
  * @version 1.0
  *
  */
-public interface NlpServiceResponse {
+public interface NlpServiceResponse extends Response {
 
 	/**
 	 * 自然言語処理サービスが返したレスポンスを返します。

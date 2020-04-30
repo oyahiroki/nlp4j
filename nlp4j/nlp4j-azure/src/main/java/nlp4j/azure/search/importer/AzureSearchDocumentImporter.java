@@ -9,6 +9,7 @@ import nlp4j.AbstractDocumentImporter;
 import nlp4j.Document;
 import nlp4j.DocumentImporter;
 import nlp4j.azure.search.AzureSearchClient;
+import nlp4j.impl.DefaultResponse;
 import nlp4j.util.DocumentUtil;
 import nlp4j.util.JsonUtils;
 
@@ -42,8 +43,16 @@ public class AzureSearchDocumentImporter extends AbstractDocumentImporter implem
 		System.err.println("To be imported.");
 		System.err.println(JsonUtils.prettyPrint(requestDocs));
 
-		JsonObject res = az.post(requestDocs);
-		System.err.println(JsonUtils.prettyPrint(res));
+		JsonObject res = az.post("index", requestDocs);
+
+		DefaultResponse r = new DefaultResponse();
+		r.setMessage(res.get("@message").getAsString());
+		r.setResponseCode(res.get("@code").getAsInt());
+		r.setOriginalResponseBody(res.toString());
+
+		if (r.getResponseCode() != 200) {
+			throw new IOException("" + r.getResponseCode() + "," + r.getMessage());
+		}
 
 	}
 
