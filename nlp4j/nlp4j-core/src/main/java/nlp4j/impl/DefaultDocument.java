@@ -38,16 +38,6 @@ public class DefaultDocument implements Document {
 	}
 
 	@Override
-	public List<String> getAttributeKeys() {
-		if (attributes == null) {
-			return new ArrayList<String>();
-		} else {
-			List<String> list = new ArrayList<>(attributes.keySet());
-			return list;
-		}
-	}
-
-	@Override
 	public void addKeyword(Keyword keyword) {
 		keywords.add(keyword);
 	}
@@ -63,13 +53,23 @@ public class DefaultDocument implements Document {
 	}
 
 	@Override
+	public Date getAttributeAsDate(String key) {
+		return (Date) this.attributes.get(key);
+	}
+
+	@Override
 	public Number getAttributeAsNumber(String key) {
 		return (Number) this.attributes.get(key);
 	}
 
 	@Override
-	public Date getAttributeAsDate(String key) {
-		return (Date) this.attributes.get(key);
+	public List<String> getAttributeKeys() {
+		if (attributes == null) {
+			return new ArrayList<String>();
+		} else {
+			List<String> list = new ArrayList<>(attributes.keySet());
+			return list;
+		}
 	}
 
 	@Override
@@ -89,12 +89,26 @@ public class DefaultDocument implements Document {
 	}
 
 	@Override
+	public List<Keyword> getKeywords(String facet) {
+
+		ArrayList<Keyword> ret = new ArrayList<Keyword>();
+
+		for (Keyword kwd : this.keywords) {
+			if (kwd.getFacet() != null && kwd.getFacet().equals(facet)) {
+				ret.add(kwd);
+			}
+		}
+
+		return ret;
+	}
+
+	@Override
 	public String getText() {
 		return (String) attributes.get(KEY_TEXT);
 	}
 
 	@Override
-	public void putAttribute(String key, String value) {
+	public void putAttribute(String key, Date value) {
 		this.attributes.put(key, value);
 	}
 
@@ -104,8 +118,19 @@ public class DefaultDocument implements Document {
 	}
 
 	@Override
-	public void putAttribute(String key, Date value) {
+	public void putAttribute(String key, Object object) {
+		this.attributes.put(key, object);
+	}
+
+	@Override
+	public void putAttribute(String key, String value) {
 		this.attributes.put(key, value);
+	}
+
+	@Override
+	public void remove(String key) {
+		this.attributes.remove(key);
+
 	}
 
 	@Override
@@ -129,17 +154,9 @@ public class DefaultDocument implements Document {
 	}
 
 	@Override
-	public List<Keyword> getKeywords(String facet) {
-
-		ArrayList<Keyword> ret = new ArrayList<Keyword>();
-
-		for (Keyword kwd : this.keywords) {
-			if (kwd.getFacet() != null && kwd.getFacet().equals(facet)) {
-				ret.add(kwd);
-			}
-		}
-
-		return ret;
+	public boolean removeKeyword(Keyword kwd) {
+		return this.keywords.remove(kwd);
+		
 	}
 
 }

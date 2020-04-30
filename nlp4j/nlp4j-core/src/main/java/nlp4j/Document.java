@@ -50,7 +50,7 @@ public interface Document {
 	 * @return 属性の値
 	 * @since 1.3
 	 */
-	Number getAttributeAsNumber(String key);
+	Date getAttributeAsDate(String key);
 
 	/**
 	 * 属性を返します。<br>
@@ -60,7 +60,7 @@ public interface Document {
 	 * @return 属性の値
 	 * @since 1.3
 	 */
-	Date getAttributeAsDate(String key);
+	Number getAttributeAsNumber(String key);
 
 	/**
 	 * 属性のキーを返します。<br>
@@ -113,9 +113,9 @@ public interface Document {
 	 * 
 	 * @param key   属性名
 	 * @param value 属性の値
-	 * @since 1.0
+	 * @since 1.3
 	 */
-	void putAttribute(String key, String value);
+	void putAttribute(String key, Date value);
 
 	/**
 	 * この文書の属性をセットします。<br>
@@ -131,11 +131,30 @@ public interface Document {
 	 * この文書の属性をセットします。<br>
 	 * Set Attribute of this document.
 	 * 
-	 * @param key   属性名
-	 * @param value 属性の値
+	 * @param key    属性名
+	 * @param object 属性の値
 	 * @since 1.3
 	 */
-	void putAttribute(String key, Date value);
+	void putAttribute(String key, Object object);
+
+	/**
+	 * この文書の属性をセットします。<br>
+	 * Set Attribute of this document.
+	 * 
+	 * @param key   属性名
+	 * @param value 属性の値
+	 * @since 1.0
+	 */
+	void putAttribute(String key, String value);
+
+	/**
+	 * この文書の属性を削除します。<br>
+	 * Remove attribute of this document.
+	 * 
+	 * @param key キー
+	 * @since 1.3
+	 */
+	void remove(String key);
 
 	/**
 	 * この文書のIDをセットします。<br>
@@ -163,5 +182,14 @@ public interface Document {
 	 * @since 1.0
 	 */
 	void setText(String text);
+
+	/**
+	 * キーワードを除去します。<br>
+	 * Remove keyword
+	 * 
+	 * @param kwd 除去するキーワード
+	 * @since 1.3
+	 */
+	boolean removeKeyword(Keyword kwd);
 
 }

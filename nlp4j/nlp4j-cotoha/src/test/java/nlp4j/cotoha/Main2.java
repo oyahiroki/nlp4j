@@ -11,48 +11,47 @@ import okhttp3.Response;
 
 public class Main2 {
 
-	public static void main(String[] args) throws Exception{
-		
-	String url = "https://api.ce-cotoha.com/api/dev" + "/nlp/v1/parse";
-	String sentence = "今日はいい天気です。";
-	String type = "default";
-	
-	String access_token = "";
+	public static void main(String[] args) throws Exception {
 
-	Gson gson = new Gson();
+		String url = "https://api.ce-cotoha.com/api/dev" + "/nlp/v1/parse";
+		String sentence = "日産自動車の車を買いました。";
+		String type = "default";
 
-	JsonObject jsonObj = new JsonObject();
+		String access_token = "";
 
-	jsonObj.addProperty("sentence", sentence);
-	jsonObj.addProperty("type", type);
+		Gson gson = new Gson();
 
-	OkHttpClient client = new OkHttpClient();
+		JsonObject jsonObj = new JsonObject();
 
-	MediaType JSON = MediaType.get("application/json; charset=utf-8");
-	
-	RequestBody body = RequestBody.create(JSON, jsonObj.toString());
+		jsonObj.addProperty("sentence", sentence);
+		jsonObj.addProperty("type", type);
 
-	Request request = new Request.Builder() //
-			.addHeader("Content-Type", "application/json;charset=UTF-8") //
-			.addHeader("Authorization", "Bearer " + access_token) //
-			.url(url) //
-			.post(body) //
-			.build();
+		OkHttpClient client = new OkHttpClient();
 
-	try (Response response = client.newCall(request).execute()) {
+		MediaType JSON = MediaType.get("application/json; charset=utf-8");
 
-		int responseCode = response.code();
+		RequestBody body = RequestBody.create(JSON, jsonObj.toString());
 
-		String originalResponseBody = response.body().string();
+		Request request = new Request.Builder() //
+				.addHeader("Content-Type", "application/json;charset=UTF-8") //
+				.addHeader("Authorization", "Bearer " + access_token) //
+				.url(url) //
+				.post(body) //
+				.build();
 
-		System.err.println(responseCode);
+		try (Response response = client.newCall(request).execute()) {
 
-		System.err.println(response.headers().toString());
+			int responseCode = response.code();
 
-		System.err.println(originalResponseBody);
+			String originalResponseBody = response.body().string();
 
-	}
-		
+			System.err.println(responseCode);
+
+			System.err.println(response.headers().toString());
+
+			System.err.println(originalResponseBody);
+
+		}
 
 	}
 

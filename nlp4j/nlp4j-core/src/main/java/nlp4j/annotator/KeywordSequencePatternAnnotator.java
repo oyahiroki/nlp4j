@@ -165,7 +165,8 @@ public class KeywordSequencePatternAnnotator extends AbstractDocumentAnnotator i
 	}
 
 	/**
-	 * Match
+	 * Match<br>
+	 * 正規表現に対応(1.3)
 	 * 
 	 * @param kwd     キーワード
 	 * @param jsonObj JSONで指定した値
@@ -177,9 +178,20 @@ public class KeywordSequencePatternAnnotator extends AbstractDocumentAnnotator i
 			String value1 = jsonObj.get(key).getAsString();
 			String value2 = kwd.get(key);
 
-			if (value2 == null || value1.equals(value2) == false) {
-				return false;
+			// 正規表現として扱う
+			if (value1 != null && value1.startsWith("/") && value1.endsWith("/") && value1.length() > 2) {
+				String regex = value1.substring(1, value1.length() - 1);
+				if (value2 == null || value2.matches(regex) == false) {
+					return false;
+				}
 			}
+			// 文字列として扱う
+			else {
+				if (value2 == null || value1.equals(value2) == false) {
+					return false;
+				}
+			}
+
 		}
 		return true;
 	}
