@@ -9,6 +9,7 @@ import nlp4j.AbstractDocumentAnnotator;
 import nlp4j.Document;
 import nlp4j.DocumentAnnotator;
 import nlp4j.Keyword;
+import nlp4j.KeywordAnnotator;
 import nlp4j.impl.DefaultKeyword;
 
 /**
@@ -16,7 +17,7 @@ import nlp4j.impl.DefaultKeyword;
  * @since 1.3
  *
  */
-public class CompoundAnnotator extends AbstractDocumentAnnotator implements DocumentAnnotator {
+public class CompoundAnnotator extends AbstractDocumentAnnotator implements DocumentAnnotator, KeywordAnnotator {
 
 	String facetTarget = "word.NN";
 	String facet = "pattern.NN";
@@ -50,8 +51,8 @@ public class CompoundAnnotator extends AbstractDocumentAnnotator implements Docu
 			} else {
 				if (kwds.size() > 1) {
 					extractKeyword(kwds2);
-					kwds = new ArrayList<>();
 				}
+				kwds = new ArrayList<>();
 			}
 
 		}

@@ -12,6 +12,7 @@ import nlp4j.AbstractDocumentAnnotator;
 import nlp4j.Document;
 import nlp4j.DocumentAnnotator;
 import nlp4j.Keyword;
+import nlp4j.KeywordAnnotator;
 
 /**
  * 
@@ -22,7 +23,8 @@ import nlp4j.Keyword;
  * @since 1.3
  *
  */
-public class KeywordFacetMappingAnnotator extends AbstractDocumentAnnotator implements DocumentAnnotator {
+public class KeywordFacetMappingAnnotator extends AbstractDocumentAnnotator
+		implements DocumentAnnotator, KeywordAnnotator {
 
 	HashMap<String, String> facetMap = new LinkedHashMap<String, String>();
 

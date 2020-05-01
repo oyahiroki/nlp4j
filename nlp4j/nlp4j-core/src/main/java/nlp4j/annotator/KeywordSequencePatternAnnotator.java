@@ -19,6 +19,7 @@ import nlp4j.AbstractDocumentAnnotator;
 import nlp4j.Document;
 import nlp4j.DocumentAnnotator;
 import nlp4j.Keyword;
+import nlp4j.KeywordAnnotator;
 import nlp4j.impl.DefaultKeyword;
 
 /**
@@ -28,7 +29,8 @@ import nlp4j.impl.DefaultKeyword;
  * @since 1.2
  *
  */
-public class KeywordSequencePatternAnnotator extends AbstractDocumentAnnotator implements DocumentAnnotator {
+public class KeywordSequencePatternAnnotator extends AbstractDocumentAnnotator
+		implements DocumentAnnotator, KeywordAnnotator {
 
 	static private Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 

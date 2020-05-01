@@ -5,8 +5,15 @@ import nlp4j.Document;
 import nlp4j.impl.DefaultDocument;
 import nlp4j.impl.DefaultKeyword;
 
+/**
+ * @author Hiroki Oya
+ * @since 1.2
+ */
 public class WakachiAnnotatorTestCase extends TestCase {
 
+	/**
+	 * @throws Exception 例外発生時
+	 */
 	public void testAnnotateDocument001() throws Exception {
 
 		// 今日はいい天気です。

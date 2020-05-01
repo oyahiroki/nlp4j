@@ -12,11 +12,17 @@ import nlp4j.crawler.TextFileLineSeparatedCrawler;
 import nlp4j.impl.DefaultDocument;
 import nlp4j.impl.DefaultDocumentAnnotatorPipeline;
 import nlp4j.impl.DefaultKeyword;
-import nlp4j.indexer.SimpleDocumentIndex;
 import nlp4j.yhoo_jp.YJpMaAnnotator;
 
+/**
+ * @author Hiroki Oya
+ * @since 1.0
+ */
 public class KeywordSequencePatternAnnotatorTestCase extends TestCase {
 
+	/**
+	 * @throws Exception 例外発生時
+	 */
 	public void testAnnotateDocument001() throws Exception {
 		String rule = "[{facet:'名詞'},{lex:'の'},{facet:'名詞'}]";
 		String facet = "word_nn_no_nn";
@@ -59,6 +65,9 @@ public class KeywordSequencePatternAnnotatorTestCase extends TestCase {
 		annotator.annotate(doc);
 	}
 
+	/**
+	 * @throws Exception 例外発生時
+	 */
 	public void testAnnotateDocument002() throws Exception {
 
 		String rule = "[{facet:'名詞'},{lex:'の'},{facet:'名詞'}]";
@@ -101,6 +110,9 @@ public class KeywordSequencePatternAnnotatorTestCase extends TestCase {
 		System.err.println("</抽出されたキーワード>");
 	}
 
+	/**
+	 * @throws Exception 例外発生時
+	 */
 	public void testAnnotateDocument003() throws Exception {
 
 		String rule = "[{facet:'名詞'},{lex:'の'},{facet:'名詞'}]";
@@ -141,10 +153,6 @@ public class KeywordSequencePatternAnnotatorTestCase extends TestCase {
 		}
 		System.err.println("</抽出されたキーワード>");
 
-	}
-
-	public void testMatch001() {
-		// TODO
 	}
 
 }

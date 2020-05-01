@@ -28,6 +28,15 @@ public class DefaultDocumentAnnotatorPipeline extends AbstractDocumentAnnotator 
 	}
 
 	@Override
+	public void annotate(List<Document> docs) throws Exception {
+		for (DocumentAnnotator ann : annotators) {
+			for (Document doc : docs) {
+				ann.annotate(doc);
+			}
+		}
+	}
+
+	@Override
 	public void add(DocumentAnnotator annotator) {
 		annotators.add(annotator);
 	}

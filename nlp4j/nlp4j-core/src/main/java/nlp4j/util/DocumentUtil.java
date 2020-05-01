@@ -37,6 +37,155 @@ public class DocumentUtil {
 		sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
 	}
 
+	private static void copyAttributes(Document doc, JsonObject jsonObj) {
+		for (String key : doc.getAttributeKeys()) {
+			if (doc.getAttribute(key) instanceof Number) {
+				jsonObj.addProperty(key, doc.getAttributeAsNumber(key));
+			} else if (doc.getAttribute(key) instanceof Date) {
+				Date dd = doc.getAttributeAsDate(key);
+				jsonObj.addProperty(key, sdf.format(dd));
+			} else {
+				jsonObj.addProperty(key, doc.getAttribute(key).toString());
+			}
+		}
+	}
+
+	/**
+	 * read documents from line separated json
+	 * 
+	 * @param file UTF-8 Line Separated Json File
+	 * @return documents parsed from file
+	 * @throws IOException on Error
+	 * @since 1.2.1.0
+	 */
+	static public List<Document> readFromLineSeparatedJson(File file) throws IOException {
+		ArrayList<Document> docs = new ArrayList<>();
+		List<String> lines = FileUtils.readLines(file, "UTF-8");
+
+		for (String line : lines) {
+			Document doc = toDocument(line);
+			docs.add(doc);
+		}
+		return docs;
+
+	}
+
+	/**
+	 * Parse Document Object from Json
+	 * 
+	 * @param json JSON String
+	 * @return Instance of DefaultDocument
+	 */
+	static public Document toDocument(String json) {
+		Document doc = new DefaultDocument();
+		Gson gson = new Gson();
+		JsonObject jsonObj = gson.fromJson(json, JsonObject.class);
+		if (jsonObj.get("keywords") != null) {
+			JsonArray arr = jsonObj.get("keywords").getAsJsonArray();
+			for (int n = 0; n < arr.size(); n++) {
+				JsonElement elm = arr.get(n);
+				Keyword kwd = gson.fromJson(elm, DefaultKeyword.class);
+				doc.addKeyword(kwd);
+			}
+		}
+		for (String key : jsonObj.keySet()) {
+			if (key.equals("keywords")) {
+				continue;
+			} else {
+				String value = jsonObj.get(key).getAsString();
+				doc.putAttribute(key, value);
+			}
+		}
+		return doc;
+	}
+
+	/**
+	 * @since 1.3
+	 * @param doc target Document
+	 * @return Json String of Document
+	 */
+	static public JsonObject toJsonObject(Document doc) {
+		JsonObject jsonObj = new JsonObject();
+		copyAttributes(doc, jsonObj);
+
+		{
+			JsonArray arr = new JsonArray();
+			for (Keyword kwd : doc.getKeywords()) {
+				arr.add(toJsonObject(kwd));
+			}
+			jsonObj.add("keywords", arr);
+		}
+		return jsonObj;
+	}
+
+	/**
+	 * @since 1.1
+	 * @param kwd target Keyword
+	 * @return JsonObject of Keyword
+	 */
+	static public JsonObject toJsonObject(Keyword kwd) {
+		Gson gson = new Gson();
+		String json = toJsonString(kwd);
+		return gson.fromJson(json, JsonObject.class);
+	}
+
+	/**
+	 * @since 1.3
+	 * @param doc target Document
+	 * @return Json String of Document
+	 */
+	static public JsonObject toJsonObjectForIndex(Document doc) {
+		JsonObject jsonObj = new JsonObject();
+
+		copyAttributes(doc, jsonObj);
+
+		HashMap<String, ArrayList<String>> kwMap = new LinkedHashMap<String, ArrayList<String>>();
+
+		{
+			for (Keyword kwd : doc.getKeywords()) {
+				String facet = kwd.getFacet();
+
+				if (kwMap.containsKey(facet)) {
+					kwMap.get(facet).add(kwd.getLex());
+				} else {
+					ArrayList<String> list = new ArrayList<String>();
+					list.add(kwd.getLex());
+					kwMap.put(facet, list);
+				}
+			}
+			for (String key : kwMap.keySet()) {
+				String facet2 = key.toLowerCase().replace(".", "_");
+				JsonArray arr = new JsonArray();
+				for (String lex : kwMap.get(key)) {
+					arr.add(lex);
+				}
+				jsonObj.add(facet2, arr);
+			}
+		}
+		return jsonObj;
+	}
+
+	/**
+	 * @since 1.1
+	 * @param doc target Document
+	 * @return Json String of Document
+	 */
+	static public String toJsonString(Document doc) {
+		JsonObject jsonObj = toJsonObject(doc);
+		Gson gson = new Gson();
+		return gson.toJson(jsonObj);
+	}
+
+	/**
+	 * @since 1.1
+	 * @param kwd target Keyword
+	 * @return Json String of Keyword
+	 */
+	static public String toJsonString(Keyword kwd) {
+		Gson gson = new Gson();
+		return gson.toJson(kwd);
+	}
+
 	/**
 	 * Convert to XML
 	 * 
@@ -113,135 +262,6 @@ public class DocumentUtil {
 	}
 
 	/**
-	 * Parse Document Object from Json
-	 * 
-	 * @param json JSON String
-	 * @return Instance of DefaultDocument
-	 */
-	static public Document toDocument(String json) {
-		Document doc = new DefaultDocument();
-		Gson gson = new Gson();
-		JsonObject jsonObj = gson.fromJson(json, JsonObject.class);
-		if (jsonObj.get("keywords") != null) {
-			JsonArray arr = jsonObj.get("keywords").getAsJsonArray();
-			for (int n = 0; n < arr.size(); n++) {
-				JsonElement elm = arr.get(n);
-				Keyword kwd = gson.fromJson(elm, DefaultKeyword.class);
-				doc.addKeyword(kwd);
-			}
-		}
-		for (String key : jsonObj.keySet()) {
-			if (key.equals("keywords")) {
-				continue;
-			} else {
-				String value = jsonObj.get(key).getAsString();
-				doc.putAttribute(key, value);
-			}
-		}
-		return doc;
-	}
-
-	/**
-	 * @since 1.1
-	 * @param doc target Document
-	 * @return Json String of Document
-	 */
-	static public String toJsonString(Document doc) {
-		JsonObject jsonObj = toJsonObject(doc);
-		Gson gson = new Gson();
-		return gson.toJson(jsonObj);
-	}
-
-	/**
-	 * @since 1.3
-	 * @param doc target Document
-	 * @return Json String of Document
-	 */
-	static public JsonObject toJsonObject(Document doc) {
-		JsonObject jsonObj = new JsonObject();
-		copyAttributes(doc, jsonObj);
-
-		{
-			JsonArray arr = new JsonArray();
-			for (Keyword kwd : doc.getKeywords()) {
-				arr.add(toJsonObject(kwd));
-			}
-			jsonObj.add("keywords", arr);
-		}
-		return jsonObj;
-	}
-
-	private static void copyAttributes(Document doc, JsonObject jsonObj) {
-		for (String key : doc.getAttributeKeys()) {
-			if (doc.getAttribute(key) instanceof Number) {
-				jsonObj.addProperty(key, doc.getAttributeAsNumber(key));
-			} else if (doc.getAttribute(key) instanceof Date) {
-				Date dd = doc.getAttributeAsDate(key);
-				jsonObj.addProperty(key, sdf.format(dd));
-			} else {
-				jsonObj.addProperty(key, doc.getAttribute(key).toString());
-			}
-		}
-	}
-
-	/**
-	 * @since 1.3
-	 * @param doc target Document
-	 * @return Json String of Document
-	 */
-	static public JsonObject toJsonObjectForIndex(Document doc) {
-		JsonObject jsonObj = new JsonObject();
-
-		copyAttributes(doc, jsonObj);
-
-		HashMap<String, ArrayList<String>> kwMap = new LinkedHashMap<String, ArrayList<String>>();
-
-		{
-			for (Keyword kwd : doc.getKeywords()) {
-				String facet = kwd.getFacet();
-
-				if (kwMap.containsKey(facet)) {
-					kwMap.get(facet).add(kwd.getLex());
-				} else {
-					ArrayList<String> list = new ArrayList<String>();
-					list.add(kwd.getLex());
-					kwMap.put(facet, list);
-				}
-			}
-			for (String key : kwMap.keySet()) {
-				String facet2 = key.toLowerCase().replace(".", "_");
-				JsonArray arr = new JsonArray();
-				for (String lex : kwMap.get(key)) {
-					arr.add(lex);
-				}
-				jsonObj.add(facet2, arr);
-			}
-		}
-		return jsonObj;
-	}
-
-	/**
-	 * @since 1.1
-	 * @param kwd target Keyword
-	 * @return Json String of Keyword
-	 */
-	static public String toJsonString(Keyword kwd) {
-		Gson gson = new Gson();
-		return gson.toJson(kwd);
-	}
-
-	/**
-	 * @since 1.1
-	 * @param kwd target Keyword
-	 * @return JsonObject of Keyword
-	 */
-	static public JsonObject toJsonObject(Keyword kwd) {
-		Gson gson = new Gson();
-		String json = toJsonString(kwd);
-		return gson.fromJson(json, JsonObject.class);
-	}
-
-	/**
 	 * Write documents as Line Separated Json
 	 * 
 	 * @param docs Document to write to file
@@ -262,26 +282,6 @@ public class DocumentUtil {
 			boolean append = true;
 			FileUtils.write(file, json + "\n", encoding, append);
 		}
-
-	}
-
-	/**
-	 * read documents from line separated json
-	 * 
-	 * @param file UTF-8 Line Separated Json File
-	 * @return documents parsed from file
-	 * @throws IOException on Error
-	 * @since 1.2.1.0
-	 */
-	static public List<Document> readFromLineSeparatedJson(File file) throws IOException {
-		ArrayList<Document> docs = new ArrayList<>();
-		List<String> lines = FileUtils.readLines(file, "UTF-8");
-
-		for (String line : lines) {
-			Document doc = toDocument(line);
-			docs.add(doc);
-		}
-		return docs;
 
 	}
 

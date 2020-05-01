@@ -6,6 +6,7 @@ import nlp4j.AbstractDocumentAnnotator;
 import nlp4j.Document;
 import nlp4j.DocumentAnnotator;
 import nlp4j.Keyword;
+import nlp4j.KeywordAnnotator;
 import nlp4j.impl.DefaultKeyword;
 
 /**
@@ -14,7 +15,7 @@ import nlp4j.impl.DefaultKeyword;
  * @author Hiroki Oya
  *
  */
-public class Nokku34Annotator extends AbstractDocumentAnnotator implements DocumentAnnotator {
+public class Nokku34Annotator extends AbstractDocumentAnnotator implements DocumentAnnotator, KeywordAnnotator {
 
 	@Override
 	public void annotate(Document doc) throws Exception {

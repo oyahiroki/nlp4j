@@ -6,6 +6,7 @@ package nlp4j.annotator;
 import nlp4j.AbstractDocumentAnnotator;
 import nlp4j.Document;
 import nlp4j.DocumentAnnotator;
+import nlp4j.FieldAnnotator;
 import nlp4j.Keyword;
 
 /**
@@ -16,7 +17,7 @@ import nlp4j.Keyword;
  * @since 1.2.1.0
  *
  */
-public class WakachiAnnotator extends AbstractDocumentAnnotator implements DocumentAnnotator {
+public class WakachiAnnotator extends AbstractDocumentAnnotator implements DocumentAnnotator, FieldAnnotator {
 
 	/**
 	 * default Constructor. set default target as 'text_wakachi'

@@ -8,6 +8,7 @@ import java.text.Normalizer;
 import nlp4j.AbstractDocumentAnnotator;
 import nlp4j.Document;
 import nlp4j.DocumentAnnotator;
+import nlp4j.FieldAnnotator;
 
 /**
  * Normailze document value with Unicode NFKC
@@ -15,7 +16,7 @@ import nlp4j.DocumentAnnotator;
  * @author Hiroki Oya
  *
  */
-public class ValueNormalizeAnnotator extends AbstractDocumentAnnotator implements DocumentAnnotator {
+public class ValueNormalizeAnnotator extends AbstractDocumentAnnotator implements DocumentAnnotator, FieldAnnotator {
 
 	/**
 	 * 
