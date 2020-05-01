@@ -37,7 +37,8 @@ public class ParseIntAnnotator extends AbstractDocumentAnnotator implements Docu
 					int n = Integer.parseInt(val2);
 					doc.putAttribute(target, n);
 				} catch (NumberFormatException e) {
-					e.printStackTrace();
+//					e.printStackTrace();
+					System.err.println("info: value is not integer: " + val2);
 					doc.remove(target);
 				}
 			}

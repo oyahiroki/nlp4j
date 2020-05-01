@@ -6,10 +6,6 @@ package nlp4j.annotator;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
 
 import nlp4j.AbstractDocumentAnnotator;
 import nlp4j.Document;
@@ -64,7 +60,9 @@ public class DateAttributeConvertAnnotator extends AbstractDocumentAnnotator
 				Date d = sdf.parse(value);
 				doc.putAttribute(target, d);
 			} catch (ParseException e) {
+				System.err.println("info: value is not date: " + value);
 				e.printStackTrace();
+				doc.remove(target);
 			}
 
 		}

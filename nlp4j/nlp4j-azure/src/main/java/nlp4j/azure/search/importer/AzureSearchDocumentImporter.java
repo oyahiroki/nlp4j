@@ -42,6 +42,10 @@ public class AzureSearchDocumentImporter extends AbstractDocumentImporter implem
 
 		System.err.println("To be imported.");
 		System.err.println(JsonUtils.prettyPrint(requestDocs));
+		
+		if(super.debug == true) {
+			return;
+		}
 
 		JsonObject res = az.post("index", requestDocs);
 

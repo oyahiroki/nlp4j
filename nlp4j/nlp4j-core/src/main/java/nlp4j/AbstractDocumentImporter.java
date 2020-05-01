@@ -15,6 +15,7 @@ import java.util.Properties;
 public abstract class AbstractDocumentImporter implements DocumentImporter {
 
 	protected Properties props = new Properties();
+	protected boolean debug = false;
 
 	@Override
 	public void importDocumentAndCommit(Document doc) throws IOException {
@@ -40,6 +41,9 @@ public abstract class AbstractDocumentImporter implements DocumentImporter {
 	public void setProperty(String key, String value) {
 		if (value == null) {
 			throw new InvalidPropertyException(key, value);
+		}
+		if (key.equals("debug")) {
+			this.debug = Boolean.parseBoolean(value);
 		}
 		props.put(key, value);
 	}

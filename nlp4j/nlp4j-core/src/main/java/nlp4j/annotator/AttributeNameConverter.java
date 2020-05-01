@@ -31,7 +31,13 @@ public class AttributeNameConverter extends AbstractDocumentAnnotator implements
 			String[] maps = value.split(",");
 
 			for (String map : maps) {
+				if (map.isEmpty()) {
+					continue;
+				}
 				String[] ss = map.split("->");
+				if (ss.length != 2) {
+					continue;
+				}
 				String from = ss[0];
 				String to = ss[1];
 				fieldMap.put(from, to);
