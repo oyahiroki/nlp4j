@@ -7,7 +7,6 @@ import nlp4j.InvalidPropertyException;
 import nlp4j.crawler.AbstractCrawler;
 import nlp4j.crawler.Crawler;
 import nlp4j.impl.DefaultDocument;
-import nlp4j.util.JsonUtils;
 import twitter4j.Query;
 import twitter4j.QueryResult;
 import twitter4j.Status;
@@ -28,6 +27,7 @@ import twitter4j.conf.ConfigurationBuilder;
  * query 検索クエリー<br>
  * 
  * @author Hiroki Oya
+ * @since 1.0
  *
  */
 public class TwitterCrawler extends AbstractCrawler implements Crawler {
@@ -82,7 +82,7 @@ public class TwitterCrawler extends AbstractCrawler implements Crawler {
 		TwitterFactory tf = new TwitterFactory(cb.build());
 		Twitter twitter = tf.getInstance();
 
-		Query query = new Query("from:trumptrackerjp");
+		Query query = new Query(this.query);
 		query.setCount(100);
 
 		ArrayList<Document> docs = new ArrayList<>();

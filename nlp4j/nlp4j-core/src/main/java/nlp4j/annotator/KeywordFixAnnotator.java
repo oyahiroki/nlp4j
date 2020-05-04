@@ -7,7 +7,7 @@ import nlp4j.Keyword;
 import nlp4j.KeywordAnnotator;
 
 /**
- * COTOHA API が正規形にアスタリスクを返すのを修正する
+ * 正規形がアスタリスクになっているのを修正する
  * 
  * @author Hiroki Oya
  * @since 1.3

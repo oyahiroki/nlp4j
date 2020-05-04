@@ -11,7 +11,7 @@ import nlp4j.Keyword;
 import nlp4j.KeywordAnnotator;
 
 /**
- * 
+ * ファセット名を変換する<br>
  * reference: Stanford CoreNLP POSタグまとめ
  * https://qiita.com/syunyo/items/2c1ce1d765f46a5c1d72
  * 

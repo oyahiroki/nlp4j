@@ -23,6 +23,7 @@ import nlp4j.KeywordAnnotator;
 import nlp4j.impl.DefaultKeyword;
 
 /**
+ * 語の並びに対してパターンマッチを適用する<br>
  * Pattern Annotator for Keyword Sequence (語の並び)
  * 
  * @author Hiroki Oya

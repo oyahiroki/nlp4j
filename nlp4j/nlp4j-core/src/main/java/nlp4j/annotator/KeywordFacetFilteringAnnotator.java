@@ -1,14 +1,8 @@
-/**
- * 
- */
 package nlp4j.annotator;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 import nlp4j.AbstractDocumentAnnotator;
 import nlp4j.Document;
@@ -18,8 +12,9 @@ import nlp4j.KeywordAnnotator;
 
 /**
  * 
- * reference: Stanford CoreNLP POSタグまとめ
- * https://qiita.com/syunyo/items/2c1ce1d765f46a5c1d72
+ * キーワードをファセットでフィルタリングする<br>
+ * プロパティ<br>
+ * filter カンマ区切りの複数ファセット<br>
  * 
  * @author Hiroki Oya
  * @since 1.3
