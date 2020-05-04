@@ -1,6 +1,3 @@
-/**
- * 
- */
 package nlp4j.annotator;
 
 import java.util.ArrayList;
@@ -13,6 +10,11 @@ import nlp4j.KeywordAnnotator;
 import nlp4j.impl.DefaultKeyword;
 
 /**
+ * 複合名詞のアノテーションを処理する。例として連続する名詞を複合名詞として切り出す<br>
+ * プロパティ<br>
+ * facetTarget 複合を処理する対象のファセット<br>
+ * target 変換後のファセット<br>
+ * 
  * @author Hiroki Oya
  * @since 1.3
  *
@@ -31,9 +33,8 @@ public class CompoundAnnotator extends AbstractDocumentAnnotator implements Docu
 
 		if ("target".equals(key)) {
 			this.facetTarget = value;
-		}
-
-		if ("facet".equals(key)) {
+		} //
+		else if ("facet".equals(key)) {
 			this.facet = value;
 		}
 	}

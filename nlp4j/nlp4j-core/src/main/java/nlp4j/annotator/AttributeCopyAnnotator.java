@@ -3,14 +3,18 @@ package nlp4j.annotator;
 import nlp4j.AbstractDocumentAnnotator;
 import nlp4j.Document;
 import nlp4j.DocumentAnnotator;
+import nlp4j.FieldAnnotator;
 
 /**
- * 属性をコピーする
+ * 属性をコピーする<br>
+ * プロパティ<br>
+ * from コピー元<br>
+ * to コピー先<br>
  * 
  * @author Hiroki Oya
  *
  */
-public class AttributeCopyAnnotator extends AbstractDocumentAnnotator implements DocumentAnnotator {
+public class AttributeCopyAnnotator extends AbstractDocumentAnnotator implements DocumentAnnotator, FieldAnnotator {
 
 	String from = null;
 	String to = null;

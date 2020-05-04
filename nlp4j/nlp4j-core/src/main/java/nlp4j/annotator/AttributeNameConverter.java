@@ -1,6 +1,3 @@
-/**
- * 
- */
 package nlp4j.annotator;
 
 import java.util.HashMap;
@@ -14,6 +11,10 @@ import nlp4j.DocumentAnnotator;
 import nlp4j.FieldAnnotator;
 
 /**
+ * 属性名を変換する<br>
+ * プロパティ<br>
+ * mapping "変換前1-&gt;変換後1,変換前2-&gt;変換後2"<br>
+ * 
  * @author Hiroki Oya
  * @since 1.3
  *

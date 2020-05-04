@@ -1,6 +1,3 @@
-/**
- * 
- */
 package nlp4j.annotator;
 
 import java.text.ParseException;
@@ -13,7 +10,11 @@ import nlp4j.DocumentAnnotator;
 import nlp4j.FieldAnnotator;
 
 /**
- * 文字列形式の日付を java.util.Date に変換する
+ * 文字列形式の日付を java.util.Date に変換する<br>
+ * プロパティ<br>
+ * target: 対象のフィールド<br>
+ * format: SimpleDateFormat形式<br>
+ * 
  * @author Hiroki Oya
  * @since 1.3
  *
@@ -28,12 +29,12 @@ public class DateAttributeConvertAnnotator extends AbstractDocumentAnnotator
 	@Override
 	public void setProperty(String key, String value) {
 
-//		super.setProperty(key, value);
+		super.setProperty(key, value);
 
 		if (key.equals("target")) {
 			this.target = value;
-		}
-		if (key.equals("format")) {
+		} //
+		else if (key.equals("format")) {
 			this.format = value;
 		}
 

@@ -3,17 +3,23 @@ package nlp4j.annotator;
 import nlp4j.AbstractDocumentAnnotator;
 import nlp4j.Document;
 import nlp4j.DocumentAnnotator;
+import nlp4j.FieldAnnotator;
 
 /**
- * 属性を置換する
+ * 属性を置換する<br>
+ * プロパティ<br>
+ * target 処理対象フィールド<br>
+ * regex 置換前文字列の正規表現<br>
+ * replacement 置換後の文字列<br>
  * 
  * @author Hiroki Oya
  *
  */
-public class AttributeReplaceAllAnnotator extends AbstractDocumentAnnotator implements DocumentAnnotator {
+public class AttributeReplaceAllAnnotator extends AbstractDocumentAnnotator
+		implements DocumentAnnotator, FieldAnnotator {
 
-	String regex = null;
 	String target = null;
+	String regex = null;
 	String replacement = "";
 
 	/**

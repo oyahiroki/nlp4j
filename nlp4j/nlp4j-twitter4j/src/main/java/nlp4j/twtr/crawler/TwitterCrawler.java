@@ -18,6 +18,15 @@ import twitter4j.TwitterObjectFactory;
 import twitter4j.conf.ConfigurationBuilder;
 
 /**
+ * Twitter検索により文書をクロールします。<br>
+ * プロパティ<br>
+ * debugEnabled<br>
+ * oauth.consumerKey<br>
+ * oauth.consumerSecret<br>
+ * oauth.accessToken<br>
+ * oauth.accessTokenSecret<br>
+ * query 検索クエリー<br>
+ * 
  * @author Hiroki Oya
  *
  */
@@ -69,6 +78,7 @@ public class TwitterCrawler extends AbstractCrawler implements Crawler {
 				.setOAuthConsumerSecret(this.oAuthConsumerSecret) //
 				.setOAuthAccessToken(this.oAuthAccessToken) //
 				.setOAuthAccessTokenSecret(this.oAuthAccessTokenSecret);
+
 		TwitterFactory tf = new TwitterFactory(cb.build());
 		Twitter twitter = tf.getInstance();
 
@@ -86,7 +96,7 @@ public class TwitterCrawler extends AbstractCrawler implements Crawler {
 
 				String statusJSON = TwitterObjectFactory.getRawJSON(status);
 
-				System.err.println(JsonUtils.prettyPrint(statusJSON));
+//				System.err.println(JsonUtils.prettyPrint(statusJSON));
 				doc.putAttribute("rawjson", statusJSON);
 
 				doc.putAttribute("user_followercount", status.getUser().getFollowersCount());
@@ -106,7 +116,6 @@ public class TwitterCrawler extends AbstractCrawler implements Crawler {
 			}
 
 		} catch (TwitterException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return docs;

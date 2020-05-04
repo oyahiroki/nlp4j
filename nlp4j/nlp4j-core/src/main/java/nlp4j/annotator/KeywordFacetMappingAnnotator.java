@@ -1,12 +1,8 @@
-/**
- * 
- */
 package nlp4j.annotator;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 import nlp4j.AbstractDocumentAnnotator;
 import nlp4j.Document;
@@ -27,7 +23,21 @@ public class KeywordFacetMappingAnnotator extends AbstractDocumentAnnotator
 		implements DocumentAnnotator, KeywordAnnotator {
 
 	/**
-	 * デフォルトの変換マッピング
+	 * デフォルトの変換マッピング<br>
+	 * 名詞-&gt;word.NN,<br>
+	 * 数詞-&gt;word.CD,<br>
+	 * 動詞-&gt;word.VB,<br>
+	 * 助詞-&gt;word.RP,<br>
+	 * 助動詞-&gt;word.MD,<br>
+	 * 記号-&gt;word.SYM,<br>
+	 * 接続詞-&gt;word.CC,<br>
+	 * 副詞-&gt;word.RB,<br>
+	 * 形容詞-&gt;word.JJ,<br>
+	 * 接頭詞-&gt;word_ja.RENTOU,<br>
+	 * 連体詞-&gt;word_ja.RENTAI,<br>
+	 * フィラー-&gt;word_ja.FILLER,<br>
+	 * 感動詞-&gt;word.UH<br>
+	 * 
 	 */
 	static public final String DEFAULT_MAPPING = "" + //
 			"名詞->word.NN," + //

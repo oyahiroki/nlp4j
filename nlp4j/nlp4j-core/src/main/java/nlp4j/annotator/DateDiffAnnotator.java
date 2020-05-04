@@ -14,7 +14,11 @@ import nlp4j.DocumentAnnotator;
 import nlp4j.FieldAnnotator;
 
 /**
- * 日付の差分を計算して追加する
+ * 日付の差分を計算して追加する<br>
+ * プロパティ<br>
+ * target1 日付1（過去）のフィールド<br>
+ * target2 日付2（未来）のフィールド<br>
+ * target 日付2 - 日付1 をセットするフィールド<br>
  * 
  * @author Hiroki Oya
  * @since 1.3
