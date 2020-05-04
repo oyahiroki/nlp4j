@@ -13,6 +13,7 @@ import nlp4j.DocumentAnnotator;
 import nlp4j.FieldAnnotator;
 
 /**
+ * 文字列形式の日付を java.util.Date に変換する
  * @author Hiroki Oya
  * @since 1.3
  *

@@ -14,7 +14,7 @@ import nlp4j.DocumentAnnotator;
 import nlp4j.FieldAnnotator;
 
 /**
- * 日付の差分を計算して追加するAnnotator
+ * 日付の差分を計算して追加する
  * 
  * @author Hiroki Oya
  * @since 1.3

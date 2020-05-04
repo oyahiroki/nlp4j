@@ -97,7 +97,7 @@ public class TwitterCrawler extends AbstractCrawler implements Crawler {
 				doc.putAttribute("text", status.getText());
 				doc.putAttribute("id", status.getId());
 				doc.putAttribute("created_at", status.getCreatedAt());
-				doc.putAttribute("favorite_coun", status.getFavoriteCount());
+				doc.putAttribute("favorite_count", status.getFavoriteCount());
 				doc.putAttribute("retweet_count", status.getRetweetCount());
 				// System.out.println("@" + status.getUser().getScreenName() + ":" +
 				// status.getText());
