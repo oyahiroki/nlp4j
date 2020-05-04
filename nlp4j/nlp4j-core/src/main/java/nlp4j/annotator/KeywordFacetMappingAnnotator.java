@@ -26,6 +26,26 @@ import nlp4j.KeywordAnnotator;
 public class KeywordFacetMappingAnnotator extends AbstractDocumentAnnotator
 		implements DocumentAnnotator, KeywordAnnotator {
 
+	/**
+	 * デフォルトの変換マッピング
+	 */
+	static public final String DEFAULT_MAPPING = "" + //
+			"名詞->word.NN," + //
+			"数詞->word.CD," + //
+			"動詞->word.VB," + //
+			"助詞->word.RP," + //
+			"助動詞->word.MD," + //
+			"記号->word.SYM," + //
+			"接続詞->word.CC," + //
+			"副詞->word.RB," + //
+			"形容詞->word.JJ," + //
+			"接頭詞->word_ja.RENTOU," + //
+			"連体詞->word_ja.RENTAI," + //
+			"フィラー->word_ja.FILLER," + //
+			"感動詞->word.UH" + //
+			"" //
+	;
+
 	HashMap<String, String> facetMap = new LinkedHashMap<String, String>();
 
 	@Override

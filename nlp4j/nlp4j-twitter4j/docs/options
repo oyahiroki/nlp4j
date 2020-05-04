@@ -1,0 +1,31 @@
+-classpath
+'C:/Users/oyahi/git/nlp4j/nlp4j/nlp4j-twitter4j/target/classes'
+-encoding
+'UTF-8'
+-protected
+-sourcepath
+'C:/Users/oyahi/git/nlp4j/nlp4j/nlp4j-twitter4j/src/main/java'
+-Xdoclint:none
+-author
+-bottom
+'Copyright &#169; 2020. All rights reserved.'
+-charset
+'UTF-8'
+-d
+'C:/Users/oyahi/git/nlp4j/nlp4j/nlp4j-twitter4j/docs'
+-docencoding
+'UTF-8'
+-docfilessubdirs
+-doctitle
+'nlp4j-twitter4j 1.0.0-SNAPSHOT API'
+-group
+'NLP4J' 'nlp4j*'
+-link
+'https://docs.oracle.com/javase/jp/8/docs/api'
+-linkoffline
+'http://docs.oracle.com/javase/7/docs/api' 'C:/Users/oyahi/git/nlp4j/nlp4j/nlp4j-twitter4j/target/javadoc-bundle-options'
+-notimestamp
+-use
+-version
+-windowtitle
+'nlp4j-twitter4j 1.0.0-SNAPSHOT API'
