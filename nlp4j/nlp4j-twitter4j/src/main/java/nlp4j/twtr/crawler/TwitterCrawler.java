@@ -17,7 +17,7 @@ import twitter4j.TwitterObjectFactory;
 import twitter4j.conf.ConfigurationBuilder;
 
 /**
- * Twitter検索により文書をクロールします。<br>
+ * Twitter検索を利用して文書をクロールします。<br>
  * プロパティ<br>
  * debugEnabled<br>
  * oauth.consumerKey<br>

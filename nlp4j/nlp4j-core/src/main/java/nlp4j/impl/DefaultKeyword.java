@@ -26,6 +26,8 @@ public class DefaultKeyword implements Keyword, Cloneable {
 
 	int sequence = -1;
 
+	private boolean flag = false;
+
 	/**
 	 * Default constructor
 	 * 
@@ -49,6 +51,70 @@ public class DefaultKeyword implements Keyword, Cloneable {
 		this.facet = facet;
 		this.lex = lex;
 		this.str = str;
+	}
+
+	@Override
+	protected Object clone() throws CloneNotSupportedException {
+		return super.clone();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+
+		if (obj instanceof Keyword) {
+			Keyword kw = (Keyword) obj;
+			String facet = kw.getFacet();
+			String lex = kw.getLex();
+
+			if (this.facet == null && facet == null) {
+				return this.lex.equals(lex);
+			} else if (this.lex == null || lex == null || this.facet == null || facet == null) {
+				return false;
+			} else {
+				return this.facet.equals(facet) && this.lex.equals(lex);
+			}
+		} else {
+			return super.equals(obj);
+		}
+
+	}
+
+	@Override
+	public String get(String attribute) {
+
+		if (attribute == null) {
+			return null;
+		} //
+		else if ("facet".equals(attribute)) {
+			return facet;
+		} //
+		else if ("lex".equals(attribute)) {
+			return lex;
+		} //
+		else if ("str".equals(attribute)) {
+			return str;
+		} //
+		else if ("reading".equals(attribute)) {
+			return reading;
+		} //
+		else if ("count".equals(attribute)) {
+			return "" + count;
+		} //
+		else if ("begin".equals(attribute)) {
+			return "" + begin;
+		} //
+		else if ("end".equals(attribute)) {
+			return "" + end;
+		} //
+		else if ("correlation".equals(attribute)) {
+			return "" + correlation;
+		} //
+		else if ("sequence".equals(attribute)) {
+			return "" + sequence;
+		} //
+		else {
+			return null;
+		}
 	}
 
 	/*
@@ -91,6 +157,17 @@ public class DefaultKeyword implements Keyword, Cloneable {
 		return facet;
 	}
 
+	/**
+	 * フラグを返します。
+	 * 
+	 * @return フラグ
+	 * @since 1.3
+	 */
+	@Override
+	public boolean getFlag() {
+		return this.flag;
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -124,6 +201,15 @@ public class DefaultKeyword implements Keyword, Cloneable {
 	 */
 	public String getStr() {
 		return str;
+	}
+
+	@Override
+	public int hashCode() {
+		if (this.lex == null || lex == null || this.facet == null || facet == null) {
+			return super.hashCode();
+		} else {
+			return (facet + lex).hashCode();
+		}
 	}
 
 	/*
@@ -166,6 +252,18 @@ public class DefaultKeyword implements Keyword, Cloneable {
 		this.facet = facet;
 	}
 
+	/**
+	 * フラグをセットします。
+	 * 
+	 * @param b フラグ
+	 * @since 1.3
+	 */
+	@Override
+	public void setFlag(boolean b) {
+		this.flag = b;
+
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -204,83 +302,30 @@ public class DefaultKeyword implements Keyword, Cloneable {
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-
-		if (obj instanceof Keyword) {
-			Keyword kw = (Keyword) obj;
-			String facet = kw.getFacet();
-			String lex = kw.getLex();
-
-			if (this.facet == null && facet == null) {
-				return this.lex.equals(lex);
-			} else if (this.lex == null || lex == null || this.facet == null || facet == null) {
-				return false;
-			} else {
-				return this.facet.equals(facet) && this.lex.equals(lex);
-			}
-		} else {
-			return super.equals(obj);
-		}
-
-	}
-
-	@Override
-	public int hashCode() {
-		if (this.lex == null || lex == null || this.facet == null || facet == null) {
-			return super.hashCode();
-		} else {
-			return (facet + lex).hashCode();
-		}
-	}
-
-	@Override
 	public String toString() {
-		return this.lex + " [sequence=" + sequence + ", facet=" + facet + ", lex=" + lex + ", str=" + str + ", reading="
-				+ reading + ", count=" + count + ", begin=" + begin + ", end=" + end + ", correlation=" + correlation
+		return //
+		this.lex //
+				+ " [" //
+//				+ "sequence=" + sequence //
+				+ "facet=" + facet //
+//				+ ", lex=" + lex //
+				+ ", str=" + str //
+//				+ ", reading="+ reading  //
+//				+ ", count=" + count  //
+//				+ ", begin=" + begin  //
+//				+ ", end=" + end  //
+//				+ ", correlation=" + correlation //
 				+ "]";
 	}
 
-	@Override
-	protected Object clone() throws CloneNotSupportedException {
-		return super.clone();
-	}
-
-	@Override
-	public String get(String attribute) {
-
-		if (attribute == null) {
-			return null;
-		} //
-		else if ("facet".equals(attribute)) {
-			return facet;
-		} //
-		else if ("lex".equals(attribute)) {
-			return lex;
-		} //
-		else if ("str".equals(attribute)) {
-			return str;
-		} //
-		else if ("reading".equals(attribute)) {
-			return reading;
-		} //
-		else if ("count".equals(attribute)) {
-			return "" + count;
-		} //
-		else if ("begin".equals(attribute)) {
-			return "" + begin;
-		} //
-		else if ("end".equals(attribute)) {
-			return "" + end;
-		} //
-		else if ("correlation".equals(attribute)) {
-			return "" + correlation;
-		} //
-		else if ("sequence".equals(attribute)) {
-			return "" + sequence;
-		} //
-		else {
-			return null;
-		}
+	/**
+	 * @return キーワードの詳細情報文字列
+	 * @since 1.3
+	 */
+	public String toStringDetail() {
+		return this.lex + " [sequence=" + sequence + ", facet=" + facet + ", lex=" + lex + ", str=" + str + ", reading="
+				+ reading + ", count=" + count + ", begin=" + begin + ", end=" + end + ", correlation=" + correlation
+				+ "]";
 	}
 
 }

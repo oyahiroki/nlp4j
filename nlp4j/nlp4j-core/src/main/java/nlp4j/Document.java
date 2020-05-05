@@ -13,7 +13,6 @@ import java.util.List;
  *
  */
 public interface Document {
-
 	/**
 	 * キーワードを追加します。<br>
 	 * Add Keyword.
@@ -157,6 +156,22 @@ public interface Document {
 	void remove(String key);
 
 	/**
+	 * フラグが設定されたキーワードを削除する
+	 * 
+	 * @return 削除されたキーワードが存在するか
+	 */
+	public boolean removeFlaggedKeyword();
+
+	/**
+	 * キーワードを除去します。<br>
+	 * Remove keyword
+	 * 
+	 * @param kwd 除去するキーワード
+	 * @since 1.3
+	 */
+	public boolean removeKeyword(Keyword kwd);
+
+	/**
 	 * この文書のIDをセットします。<br>
 	 * Set ID of this document.
 	 * 
@@ -182,14 +197,5 @@ public interface Document {
 	 * @since 1.0
 	 */
 	void setText(String text);
-
-	/**
-	 * キーワードを除去します。<br>
-	 * Remove keyword
-	 * 
-	 * @param kwd 除去するキーワード
-	 * @since 1.3
-	 */
-	boolean removeKeyword(Keyword kwd);
 
 }

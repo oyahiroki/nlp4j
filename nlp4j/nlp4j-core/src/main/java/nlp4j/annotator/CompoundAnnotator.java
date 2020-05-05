@@ -74,6 +74,7 @@ public class CompoundAnnotator extends AbstractDocumentAnnotator implements Docu
 			String s = "";
 			for (int m = n; m < kwds.size(); m++) {
 				s += kwds.get(m).getLex();
+				kwds.get(m).setFlag(true);
 				if (m != n) {
 //					System.err.println(s);
 					Keyword k = new DefaultKeyword();

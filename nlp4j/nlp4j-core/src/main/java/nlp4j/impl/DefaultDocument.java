@@ -2,6 +2,7 @@ package nlp4j.impl;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -26,7 +27,7 @@ public class DefaultDocument implements Document {
 	// 1.1.0 HashMap to LinkedHashMap
 	Map<String, Object> attributes = new LinkedHashMap<String, Object>();
 
-	List<Keyword> keywords = new ArrayList<Keyword>();
+	List<Keyword> keywords = Collections.synchronizedList(new ArrayList<Keyword>());
 
 	/**
 	 * Default Constructor
@@ -156,7 +157,23 @@ public class DefaultDocument implements Document {
 	@Override
 	public boolean removeKeyword(Keyword kwd) {
 		return this.keywords.remove(kwd);
-		
+
+	}
+
+	/**
+	 * @return 削除されたキーワードが存在するか
+	 */
+	public boolean removeFlaggedKeyword() {
+		boolean b = false;
+		Keyword[] kwds = this.keywords.toArray(new Keyword[0]);
+
+		for (Keyword kwd : kwds) {
+			if (kwd.getFlag()) {
+				this.removeKeyword(kwd);
+				b = true;
+			}
+		}
+		return b;
 	}
 
 }

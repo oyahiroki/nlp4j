@@ -71,6 +71,12 @@ public interface Keyword extends Serializable {
 	String getFacet();
 
 	/**
+	 * @return フラグ
+	 * @since 1.3
+	 */
+	boolean getFlag();
+
+	/**
 	 * キーワードの正規形を返します。正規形は見出し語とも呼ばれます。<br>
 	 * Return normalized string.
 	 * 
@@ -141,6 +147,12 @@ public interface Keyword extends Serializable {
 	 * @since 1.0
 	 */
 	void setFacet(String facet);
+
+	/**
+	 * @param b フラグ
+	 * @since 1.3
+	 */
+	void setFlag(boolean b);
 
 	/**
 	 * キーワードの正規形をセットします。正規形は見出し語とも呼ばれます。<br>
