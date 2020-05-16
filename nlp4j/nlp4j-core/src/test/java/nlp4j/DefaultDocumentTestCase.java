@@ -33,7 +33,12 @@ public class DefaultDocumentTestCase extends TestCase {
 		DefaultDocument doc = new DefaultDocument();
 		doc.putAttribute("field1", "xxx");
 
-		assertEquals(100, doc.getAttributeAsNumber("field1"));
+		try {
+			doc.getAttributeAsNumber("field1");
+			fail();
+		} catch (ClassCastException e) {
+			System.err.println("OK. ClassCast Exception should be thrown.");
+		}
 	}
 
 	public void testGetId001() {

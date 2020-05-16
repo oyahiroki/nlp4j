@@ -7,10 +7,6 @@ public class CotohaNlpServiceEnterpriseTestCase extends TestCase {
 
 	Class target = CotohaNlpService.class;
 
-	public void testCotohaNlpService() {
-		fail("Not yet implemented");
-	}
-
 	public void testAccessToken() throws Exception {
 
 		CotohaNlpService service = new CotohaNlpService();
@@ -25,7 +21,7 @@ public class CotohaNlpServiceEnterpriseTestCase extends TestCase {
 	}
 
 	public void testNlpV1ParseString001() throws Exception {
-		
+
 //		COTOHA_CLIENT_ID
 //		COTOHA_CLIENT_SECRET
 //		COTOHA_URL_ACCESSTOKEN

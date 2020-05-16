@@ -8,7 +8,7 @@ public class CotohaNlpServiceTestCase extends TestCase {
 	Class target = CotohaNlpService.class;
 
 	public void testCotohaNlpService() {
-		fail("Not yet implemented");
+		// no test
 	}
 
 	public void testAccessToken() throws Exception {
@@ -85,7 +85,7 @@ public class CotohaNlpServiceTestCase extends TestCase {
 	}
 
 	public void testNlpV1ParseStringString() {
-		fail("Not yet implemented");
+		// no test
 	}
 
 }
