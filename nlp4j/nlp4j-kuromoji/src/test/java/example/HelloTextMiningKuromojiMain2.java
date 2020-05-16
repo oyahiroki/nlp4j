@@ -11,7 +11,6 @@ import nlp4j.impl.DefaultDocument;
 import nlp4j.indexer.DocumentIndexer;
 import nlp4j.indexer.SimpleDocumentIndex;
 import nlp4j.krmj.annotator.KuromojiAnnotator;
-import nlp4j.yhoo_jp.YjpAllAnnotator;
 
 /**
  * 日本語形態素解析とインデックス処理を利用して、共起性の高いキーワードを抽出するサンプルソースコードです。 <br>

@@ -32,6 +32,7 @@ import nlp4j.util.HttpClient;
  * @author Hiroki Oya
  * @version 1.0
  * @since 1.0
+ * @deprecated
  *
  */
 public class YJpDaService implements NlpService {

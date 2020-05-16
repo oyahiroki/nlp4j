@@ -187,5 +187,6 @@
 		<module>nlp4j-webcrawler</module>
 		<module>nlp4j-cotoha</module>
 		<module>nlp4j-twitter4j</module>
+		<module>nlp4j-yahoojp</module>
 	</modules>
 </project>

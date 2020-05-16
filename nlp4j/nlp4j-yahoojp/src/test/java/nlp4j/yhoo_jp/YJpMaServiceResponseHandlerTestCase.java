@@ -24,7 +24,7 @@ public class YJpMaServiceResponseHandlerTestCase extends TestCase {
 	public void test001() throws Exception {
 
 		String sentece = "庭には二羽ニワトリがいる。";
-		String inFileName = "src/test/resources/nlp4j/yhoo_jp/response_MAService.xml";
+		String inFileName = "src/test/resources/nlp4j.yhoo_jp/response_MAService.xml";
 
 		try {
 			SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();

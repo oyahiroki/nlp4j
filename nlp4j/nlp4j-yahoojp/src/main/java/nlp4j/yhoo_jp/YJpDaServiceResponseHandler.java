@@ -19,6 +19,7 @@ import nlp4j.xml.AbstractXmlHandler;
  * 
  * @author Hiroki Oya
  * @version 1.0
+ * @deprecated
  *
  */
 public class YJpDaServiceResponseHandler extends AbstractXmlHandler {

@@ -23,7 +23,7 @@ public class YJpDaServiceResponseHandlerTestCase extends TestCase {
 	public void test011() throws Exception {
 
 		String sentence = "庭には二羽ニワトリがいる。";
-		String inFileName = "src/test/resources/nlp4j/yhoo_jp/response_DAService.xml";
+		String inFileName = "src/test/resources/nlp4j.yhoo_jp/response_DAService.xml";
 
 		try {
 			SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
@@ -53,7 +53,7 @@ public class YJpDaServiceResponseHandlerTestCase extends TestCase {
 	public void test012() throws Exception {
 
 		String sentence = "今日はいい天気です。";
-		String inFileName = "src/test/resources/nlp4j/yhoo_jp/response_DAService2.xml";
+		String inFileName = "src/test/resources/nlp4j.yhoo_jp/response_DAService2.xml";
 
 		try {
 			SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
@@ -89,7 +89,7 @@ public class YJpDaServiceResponseHandlerTestCase extends TestCase {
 	public void test013() throws Exception {
 
 		String sentence = "今日は走って学校に行きました。明日も学校です。";
-		String inFileName = "src/test/resources/nlp4j/yhoo_jp/response_DAService5_multipule_sentences.xml";
+		String inFileName = "src/test/resources/nlp4j.yhoo_jp/response_DAService5_multipule_sentences.xml";
 
 		try {
 			SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
