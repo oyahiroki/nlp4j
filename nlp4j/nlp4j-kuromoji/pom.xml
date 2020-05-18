@@ -6,16 +6,16 @@
 	<parent>
 		<groupId>org.nlp4j</groupId>
 		<artifactId>nlp4j</artifactId>
-		<version>1.3.0.0-SNAPSHOT</version>
+		<version>1.3.0.0</version>
 	</parent>
 	<!-- ARTIFACT -->
 	<artifactId>nlp4j-kuromoji</artifactId>
-	<version>1.2.1.0</version>
+	<version>1.3.0.0</version>
 	<dependencies>
 		<dependency>
 			<groupId>org.nlp4j</groupId>
 			<artifactId>nlp4j-core</artifactId>
-			<version>1.3.0.0-SNAPSHOT</version>
+			<version>1.3.0.0</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/com.atilika.kuromoji/kuromoji -->
 		<dependency>

@@ -5,10 +5,10 @@
 	<parent>
 		<groupId>org.nlp4j</groupId>
 		<artifactId>nlp4j</artifactId>
-		<version>1.3.0.0-SNAPSHOT</version>
+		<version>1.3.0.0</version>
 	</parent>
 	<artifactId>nlp4j-deeplearning</artifactId>
-	<version>1.0.0.0</version>
+	<version>1.0.0.0.1-SNAPSHOT</version>
 	<name>deeplearning</name>
 	<dependencies>
 		<dependency>

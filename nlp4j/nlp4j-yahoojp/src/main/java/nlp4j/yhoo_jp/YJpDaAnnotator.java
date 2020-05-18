@@ -15,7 +15,7 @@ import nlp4j.impl.DefaultNlpServiceResponse;
  * 
  * @author Hiroki Oya
  * @since 1.0
- * @deprecated
+ * @deprecated V1が廃止された
  */
 public class YJpDaAnnotator extends AbstractDocumentAnnotator implements DocumentAnnotator {
 

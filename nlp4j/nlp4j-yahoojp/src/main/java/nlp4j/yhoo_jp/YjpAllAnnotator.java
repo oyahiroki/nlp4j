@@ -20,6 +20,7 @@ import nlp4j.impl.DefaultKeyword;
  * 
  * @author Hiroki Oya
  * @since 1.0
+ * @version 1.3
  *
  */
 public class YjpAllAnnotator extends AbstractDocumentAnnotator implements DocumentAnnotator {
@@ -27,7 +28,7 @@ public class YjpAllAnnotator extends AbstractDocumentAnnotator implements Docume
 	static private final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
 	// 係り受け解析
-	YJpDaService service1 = new YJpDaService();
+	YJpDaServiceV2 service1 = new YJpDaServiceV2();
 
 	// 日本語形態素解析
 	YJpMaService service2 = new YJpMaService();
