@@ -10,6 +10,7 @@ import org.apache.logging.log4j.Logger;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
+import nlp4j.KeywordWithDependency;
 import nlp4j.NlpService;
 import nlp4j.impl.DefaultNlpServiceResponse;
 import okhttp3.MediaType;
@@ -178,7 +179,7 @@ public class CotohaNlpService implements NlpService {
 
 //		default config
 //		OkHttpClient client = new OkHttpClient();
-		
+
 // connection timeout, read timeout
 		OkHttpClient client = new OkHttpClient.Builder() //
 				.connectTimeout(60, TimeUnit.SECONDS)//
@@ -226,6 +227,12 @@ public class CotohaNlpService implements NlpService {
 
 			CotohaNlpV1ResponseHandler handler = new CotohaNlpV1ResponseHandler();
 			handler.parse(originalResponseBody);
+
+			nlpResponse.setKeywords(handler.getKeywords());
+
+			for (KeywordWithDependency root : handler.getRoots()) {
+				System.err.println(root.toStringAsDependencyTree());
+			}
 
 			return nlpResponse;
 

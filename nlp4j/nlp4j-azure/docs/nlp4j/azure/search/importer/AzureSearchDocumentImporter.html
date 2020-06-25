@@ -100,7 +100,7 @@ var activeTableTab = "activeTableTab";
 <li><a href="https://docs.oracle.com/javase/jp/8/docs/api/java/lang/Object.html?is-external=true" title="java.lang内のクラスまたはインタフェース">java.lang.Object</a></li>
 <li>
 <ul class="inheritance">
-<li><a href="https://www.nlp4j.org/docs/nlp4j/AbstractDocumentImporter.html?is-external=true" title="nlp4j内のクラスまたはインタフェース">nlp4j.AbstractDocumentImporter</a></li>
+<li>nlp4j.AbstractDocumentImporter</li>
 <li>
 <ul class="inheritance">
 <li>nlp4j.azure.search.importer.AzureSearchDocumentImporter</li>
@@ -114,13 +114,13 @@ var activeTableTab = "activeTableTab";
 <li class="blockList">
 <dl>
 <dt>すべての実装されたインタフェース:</dt>
-<dd><a href="https://www.nlp4j.org/docs/nlp4j/DocumentImporter.html?is-external=true" title="nlp4j内のクラスまたはインタフェース">DocumentImporter</a></dd>
+<dd>nlp4j.DocumentImporter</dd>
 </dl>
 <hr>
 <br>
 <pre>public class <span class="typeNameLabel">AzureSearchDocumentImporter</span>
-extends <a href="https://www.nlp4j.org/docs/nlp4j/AbstractDocumentImporter.html?is-external=true" title="nlp4j内のクラスまたはインタフェース">AbstractDocumentImporter</a>
-implements <a href="https://www.nlp4j.org/docs/nlp4j/DocumentImporter.html?is-external=true" title="nlp4j内のクラスまたはインタフェース">DocumentImporter</a></pre>
+extends nlp4j.AbstractDocumentImporter
+implements nlp4j.DocumentImporter</pre>
 <dl>
 <dt><span class="simpleTagLabel">導入されたバージョン:</span></dt>
 <dd>1.3</dd>
@@ -143,8 +143,8 @@ implements <a href="https://www.nlp4j.org/docs/nlp4j/DocumentImporter.html?is-ex
 <li class="blockList"><a name="fields.inherited.from.class.nlp4j.AbstractDocumentImporter">
 <!--   -->
 </a>
-<h3>クラスから継承されたフィールド&nbsp;nlp4j.<a href="https://www.nlp4j.org/docs/nlp4j/AbstractDocumentImporter.html?is-external=true" title="nlp4j内のクラスまたはインタフェース">AbstractDocumentImporter</a></h3>
-<code><a href="https://www.nlp4j.org/docs/nlp4j/AbstractDocumentImporter.html?is-external=true#debug" title="nlp4j内のクラスまたはインタフェース">debug</a>, <a href="https://www.nlp4j.org/docs/nlp4j/AbstractDocumentImporter.html?is-external=true#props" title="nlp4j内のクラスまたはインタフェース">props</a></code></li>
+<h3>クラスから継承されたフィールド&nbsp;nlp4j.AbstractDocumentImporter</h3>
+<code>debug, props</code></li>
 </ul>
 </li>
 </ul>
@@ -187,7 +187,7 @@ implements <a href="https://www.nlp4j.org/docs/nlp4j/DocumentImporter.html?is-ex
 </tr>
 <tr id="i2" class="altColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../nlp4j/azure/search/importer/AzureSearchDocumentImporter.html#importDocument-nlp4j.Document-">importDocument</a></span>(<a href="https://www.nlp4j.org/docs/nlp4j/Document.html?is-external=true" title="nlp4j内のクラスまたはインタフェース">Document</a>&nbsp;doc)</code>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../nlp4j/azure/search/importer/AzureSearchDocumentImporter.html#importDocument-nlp4j.Document-">importDocument</a></span>(nlp4j.Document&nbsp;doc)</code>
 <div class="block">API Document :
  https://docs.microsoft.com/en-us/rest/api/searchservice/addupdate-or-delete-documents</div>
 </td>
@@ -197,8 +197,8 @@ implements <a href="https://www.nlp4j.org/docs/nlp4j/DocumentImporter.html?is-ex
 <li class="blockList"><a name="methods.inherited.from.class.nlp4j.AbstractDocumentImporter">
 <!--   -->
 </a>
-<h3>クラスから継承されたメソッド&nbsp;nlp4j.<a href="https://www.nlp4j.org/docs/nlp4j/AbstractDocumentImporter.html?is-external=true" title="nlp4j内のクラスまたはインタフェース">AbstractDocumentImporter</a></h3>
-<code><a href="https://www.nlp4j.org/docs/nlp4j/AbstractDocumentImporter.html?is-external=true#importDocumentAndCommit-nlp4j.Document-" title="nlp4j内のクラスまたはインタフェース">importDocumentAndCommit</a>, <a href="https://www.nlp4j.org/docs/nlp4j/AbstractDocumentImporter.html?is-external=true#importDocuments-java.util.List-" title="nlp4j内のクラスまたはインタフェース">importDocuments</a>, <a href="https://www.nlp4j.org/docs/nlp4j/AbstractDocumentImporter.html?is-external=true#setProperties-java.util.Properties-" title="nlp4j内のクラスまたはインタフェース">setProperties</a>, <a href="https://www.nlp4j.org/docs/nlp4j/AbstractDocumentImporter.html?is-external=true#setProperty-java.lang.String-java.lang.String-" title="nlp4j内のクラスまたはインタフェース">setProperty</a></code></li>
+<h3>クラスから継承されたメソッド&nbsp;nlp4j.AbstractDocumentImporter</h3>
+<code>importDocumentAndCommit, importDocuments, setProperties, setProperty</code></li>
 </ul>
 <ul class="blockList">
 <li class="blockList"><a name="methods.inherited.from.class.java.lang.Object">
@@ -211,8 +211,8 @@ implements <a href="https://www.nlp4j.org/docs/nlp4j/DocumentImporter.html?is-ex
 <li class="blockList"><a name="methods.inherited.from.class.nlp4j.DocumentImporter">
 <!--   -->
 </a>
-<h3>インタフェースから継承されたメソッド&nbsp;nlp4j.<a href="https://www.nlp4j.org/docs/nlp4j/DocumentImporter.html?is-external=true" title="nlp4j内のクラスまたはインタフェース">DocumentImporter</a></h3>
-<code><a href="https://www.nlp4j.org/docs/nlp4j/DocumentImporter.html?is-external=true#importDocumentAndCommit-nlp4j.Document-" title="nlp4j内のクラスまたはインタフェース">importDocumentAndCommit</a>, <a href="https://www.nlp4j.org/docs/nlp4j/DocumentImporter.html?is-external=true#importDocuments-java.util.List-" title="nlp4j内のクラスまたはインタフェース">importDocuments</a>, <a href="https://www.nlp4j.org/docs/nlp4j/DocumentImporter.html?is-external=true#setProperties-java.util.Properties-" title="nlp4j内のクラスまたはインタフェース">setProperties</a>, <a href="https://www.nlp4j.org/docs/nlp4j/DocumentImporter.html?is-external=true#setProperty-java.lang.String-java.lang.String-" title="nlp4j内のクラスまたはインタフェース">setProperty</a></code></li>
+<h3>インタフェースから継承されたメソッド&nbsp;nlp4j.DocumentImporter</h3>
+<code>importDocumentAndCommit, importDocuments, setProperties, setProperty</code></li>
 </ul>
 </li>
 </ul>
@@ -251,13 +251,13 @@ implements <a href="https://www.nlp4j.org/docs/nlp4j/DocumentImporter.html?is-ex
 <ul class="blockList">
 <li class="blockList">
 <h4>importDocument</h4>
-<pre>public&nbsp;void&nbsp;importDocument(<a href="https://www.nlp4j.org/docs/nlp4j/Document.html?is-external=true" title="nlp4j内のクラスまたはインタフェース">Document</a>&nbsp;doc)
+<pre>public&nbsp;void&nbsp;importDocument(nlp4j.Document&nbsp;doc)
                     throws <a href="https://docs.oracle.com/javase/jp/8/docs/api/java/io/IOException.html?is-external=true" title="java.io内のクラスまたはインタフェース">IOException</a></pre>
 <div class="block">API Document :
  https://docs.microsoft.com/en-us/rest/api/searchservice/addupdate-or-delete-documents</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">定義:</span></dt>
-<dd><code><a href="https://www.nlp4j.org/docs/nlp4j/DocumentImporter.html?is-external=true#importDocument-nlp4j.Document-" title="nlp4j内のクラスまたはインタフェース">importDocument</a></code>&nbsp;インタフェース内&nbsp;<code><a href="https://www.nlp4j.org/docs/nlp4j/DocumentImporter.html?is-external=true" title="nlp4j内のクラスまたはインタフェース">DocumentImporter</a></code></dd>
+<dd><code>importDocument</code>&nbsp;インタフェース内&nbsp;<code>nlp4j.DocumentImporter</code></dd>
 <dt><span class="throwsLabel">例外:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/jp/8/docs/api/java/io/IOException.html?is-external=true" title="java.io内のクラスまたはインタフェース">IOException</a></code></dd>
 </dl>
@@ -273,7 +273,7 @@ implements <a href="https://www.nlp4j.org/docs/nlp4j/DocumentImporter.html?is-ex
             throws <a href="https://docs.oracle.com/javase/jp/8/docs/api/java/io/IOException.html?is-external=true" title="java.io内のクラスまたはインタフェース">IOException</a></pre>
 <dl>
 <dt><span class="overrideSpecifyLabel">定義:</span></dt>
-<dd><code><a href="https://www.nlp4j.org/docs/nlp4j/DocumentImporter.html?is-external=true#commit--" title="nlp4j内のクラスまたはインタフェース">commit</a></code>&nbsp;インタフェース内&nbsp;<code><a href="https://www.nlp4j.org/docs/nlp4j/DocumentImporter.html?is-external=true" title="nlp4j内のクラスまたはインタフェース">DocumentImporter</a></code></dd>
+<dd><code>commit</code>&nbsp;インタフェース内&nbsp;<code>nlp4j.DocumentImporter</code></dd>
 <dt><span class="throwsLabel">例外:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/jp/8/docs/api/java/io/IOException.html?is-external=true" title="java.io内のクラスまたはインタフェース">IOException</a></code></dd>
 </dl>
@@ -288,7 +288,7 @@ implements <a href="https://www.nlp4j.org/docs/nlp4j/DocumentImporter.html?is-ex
 <pre>public&nbsp;void&nbsp;close()</pre>
 <dl>
 <dt><span class="overrideSpecifyLabel">定義:</span></dt>
-<dd><code><a href="https://www.nlp4j.org/docs/nlp4j/DocumentImporter.html?is-external=true#close--" title="nlp4j内のクラスまたはインタフェース">close</a></code>&nbsp;インタフェース内&nbsp;<code><a href="https://www.nlp4j.org/docs/nlp4j/DocumentImporter.html?is-external=true" title="nlp4j内のクラスまたはインタフェース">DocumentImporter</a></code></dd>
+<dd><code>close</code>&nbsp;インタフェース内&nbsp;<code>nlp4j.DocumentImporter</code></dd>
 </dl>
 </li>
 </ul>
