@@ -37,6 +37,16 @@ public class NodeTestCase extends TestCase {
 
 	}
 
+	/**
+	 * Test next node
+	 * 
+	 * <pre>
+	 *  [a] 
+	 *     [b/]
+	 *     [c/]
+	 *  [/a]
+	 * </pre>
+	 */
 	public void testNext001() {
 		Node n1 = new Node("a");
 		{
@@ -57,6 +67,23 @@ public class NodeTestCase extends TestCase {
 
 	}
 
+	/**
+	 * Test next node
+	 * 
+	 * <pre>
+	 *  [a] 
+	 *     [b]
+	 *         [c/]
+	 *         [d/]
+	 *     [/b]
+	 *     [e]
+	 *         [f/]
+	 *         [g/]
+	 *     [/e]
+	 *     [h/]
+	 *  [/a]
+	 * </pre>
+	 */
 	public void testNext002() {
 		Node n1 = new Node("a");
 		{
@@ -71,8 +98,8 @@ public class NodeTestCase extends TestCase {
 			Node n5 = new Node("g");
 			n3.addChildNode(n5);
 			n1.addChildNode(new Node("h"));
-			n1.print();
 		}
+		n1.print();
 
 		Node n = n1;
 		System.err.println(n);
