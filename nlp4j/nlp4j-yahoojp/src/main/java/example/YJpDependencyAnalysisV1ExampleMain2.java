@@ -20,7 +20,7 @@ import nlp4j.yhoo_jp.YJpDaService;
  * @author Hiroki Oya
  *
  */
-public class YJpDependencyAnalysisExampleMain2 {
+public class YJpDependencyAnalysisV1ExampleMain2 {
 
 	/**
 	 * メイン関数です。<br>
