@@ -11,6 +11,18 @@ public class DefaultDocumentTestCase extends TestCase {
 
 	Class target = DefaultDocument.class;
 
+	public void testAddKeyword() {
+		fail("Not yet implemented");
+	}
+
+	public void testAddKeywords() {
+		fail("Not yet implemented");
+	}
+
+	public void testGetAttribute() {
+		fail("Not yet implemented");
+	}
+
 	public void testGetAttribute001() {
 		String key = "item";
 		String value = "value";
@@ -18,6 +30,14 @@ public class DefaultDocumentTestCase extends TestCase {
 		doc.putAttribute(key, value);
 
 		assertEquals(value, doc.getAttribute(key));
+	}
+
+	public void testGetAttributeAsDate() {
+		fail("Not yet implemented");
+	}
+
+	public void testGetAttributeAsNumber() {
+		fail("Not yet implemented");
 	}
 
 	public void testGetAttributeAsNumber001() {
@@ -39,6 +59,14 @@ public class DefaultDocumentTestCase extends TestCase {
 		} catch (ClassCastException e) {
 			System.err.println("OK. ClassCast Exception should be thrown.");
 		}
+	}
+
+	public void testGetAttributeKeys() {
+		fail("Not yet implemented");
+	}
+
+	public void testGetId() {
+		fail("Not yet implemented");
 	}
 
 	public void testGetId001() {
@@ -67,6 +95,10 @@ public class DefaultDocumentTestCase extends TestCase {
 		assertEquals("test", kwds.get(0).getLex());
 	}
 
+	public void testGetKeywordsString() {
+		fail("Not yet implemented");
+	}
+
 	public void testGetText() {
 		DefaultDocument doc = new DefaultDocument();
 		doc.setText("text");
@@ -77,6 +109,34 @@ public class DefaultDocumentTestCase extends TestCase {
 		DefaultDocument doc = new DefaultDocument();
 		doc.putAttribute("key", "value");
 		assertEquals("value", doc.getAttribute("key"));
+	}
+
+	public void testPutAttributeStringDate() {
+		fail("Not yet implemented");
+	}
+
+	public void testPutAttributeStringNumber() {
+		fail("Not yet implemented");
+	}
+
+	public void testPutAttributeStringObject() {
+		fail("Not yet implemented");
+	}
+
+	public void testPutAttributeStringString() {
+		fail("Not yet implemented");
+	}
+
+	public void testRemove() {
+		fail("Not yet implemented");
+	}
+
+	public void testRemoveFlaggedKeyword() {
+		fail("Not yet implemented");
+	}
+
+	public void testRemoveKeyword() {
+		fail("Not yet implemented");
 	}
 
 	public void testSetId() {
