@@ -1,26 +1,204 @@
 package nlp4j;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import junit.framework.TestCase;
 import nlp4j.impl.DefaultDocument;
 import nlp4j.impl.DefaultKeyword;
 
+/**
+ * target:nlp4j.impl.DefaultDocument
+ * 
+ * @author Hiroki Oya
+ *
+ */
 public class DefaultDocumentTestCase extends TestCase {
 
 	Class target = DefaultDocument.class;
 
+	/**
+	 * test:add:keywords
+	 */
 	public void testAddKeyword() {
-		fail("Not yet implemented");
+		DefaultDocument doc = new DefaultDocument();
+
+		// 今日 [facet=名詞, str=今日]
+		// は [facet=助詞, str=は]
+		// いい [facet=形容詞, str=いい]
+		// 天気 [facet=名詞, str=天気]
+		// です [facet=助動詞, str=です]
+		// 。 [facet=特殊, str=。]
+		{
+			DefaultKeyword kw = new DefaultKeyword();
+			kw.setLex("今日");
+			kw.setStr("今日");
+			kw.setFacet("名詞");
+			kw.setBegin(0);
+			kw.setEnd(2);
+			doc.addKeyword(kw);
+		}
+		{
+			DefaultKeyword kw = new DefaultKeyword();
+			kw.setLex("は");
+			kw.setStr("は");
+			kw.setFacet("助詞");
+			kw.setBegin(2);
+			kw.setEnd(3);
+			doc.addKeyword(kw);
+		}
+		{
+			DefaultKeyword kw = new DefaultKeyword();
+			kw.setLex("いい");
+			kw.setStr("いい");
+			kw.setFacet("形容詞");
+			kw.setBegin(3);
+			kw.setEnd(5);
+			doc.addKeyword(kw);
+		}
+		{
+			DefaultKeyword kw = new DefaultKeyword();
+			kw.setLex("天気");
+			kw.setStr("天気");
+			kw.setFacet("名詞");
+			kw.setBegin(5);
+			kw.setEnd(7);
+			doc.addKeyword(kw);
+		}
+		{
+			DefaultKeyword kw = new DefaultKeyword();
+			kw.setLex("です");
+			kw.setStr("です");
+			kw.setFacet("助動詞");
+			kw.setBegin(7);
+			kw.setEnd(9);
+			doc.addKeyword(kw);
+		}
+		{
+			DefaultKeyword kw = new DefaultKeyword();
+			kw.setLex("。");
+			kw.setStr("。");
+			kw.setFacet("特殊");
+			kw.setBegin(9);
+			kw.setEnd(10);
+			doc.addKeyword(kw);
+		}
+
+		System.err.println(doc);
+		int expected = 6;
+		assertEquals(expected, doc.getKeywords().size());
 	}
 
+	/**
+	 * test:add:keywords
+	 */
 	public void testAddKeywords() {
-		fail("Not yet implemented");
+		DefaultDocument doc = new DefaultDocument();
+
+		ArrayList<Keyword> kwds = new ArrayList<Keyword>();
+
+		// 今日 [facet=名詞, str=今日]
+		// は [facet=助詞, str=は]
+		// いい [facet=形容詞, str=いい]
+		// 天気 [facet=名詞, str=天気]
+		// です [facet=助動詞, str=です]
+		// 。 [facet=特殊, str=。]
+		{
+			DefaultKeyword kw = new DefaultKeyword();
+			kw.setLex("今日");
+			kw.setStr("今日");
+			kw.setFacet("名詞");
+			kw.setBegin(0);
+			kw.setEnd(2);
+			kwds.add(kw);
+		}
+		{
+			DefaultKeyword kw = new DefaultKeyword();
+			kw.setLex("は");
+			kw.setStr("は");
+			kw.setFacet("助詞");
+			kw.setBegin(2);
+			kw.setEnd(3);
+			kwds.add(kw);
+		}
+		{
+			DefaultKeyword kw = new DefaultKeyword();
+			kw.setLex("いい");
+			kw.setStr("いい");
+			kw.setFacet("形容詞");
+			kw.setBegin(3);
+			kw.setEnd(5);
+			kwds.add(kw);
+		}
+		{
+			DefaultKeyword kw = new DefaultKeyword();
+			kw.setLex("天気");
+			kw.setStr("天気");
+			kw.setFacet("名詞");
+			kw.setBegin(5);
+			kw.setEnd(7);
+			kwds.add(kw);
+		}
+		{
+			DefaultKeyword kw = new DefaultKeyword();
+			kw.setLex("です");
+			kw.setStr("です");
+			kw.setFacet("助動詞");
+			kw.setBegin(7);
+			kw.setEnd(9);
+			kwds.add(kw);
+		}
+		{
+			DefaultKeyword kw = new DefaultKeyword();
+			kw.setLex("。");
+			kw.setStr("。");
+			kw.setFacet("特殊");
+			kw.setBegin(9);
+			kw.setEnd(10);
+			kwds.add(kw);
+		}
+
+		doc.addKeywords(kwds);
+
+		System.err.println(doc);
+
+		int expected = 6;
+		assertEquals(expected, doc.getKeywords().size());
 	}
 
-	public void testGetAttribute() {
-		fail("Not yet implemented");
+	/**
+	 * test:get:attribute:String
+	 */
+	public void testGetAttribute001String() {
+		DefaultDocument doc = new DefaultDocument();
+		doc.putAttribute("key", "value");
+		assertEquals("value", doc.getAttribute("key"));
+	}
+
+	/**
+	 * test:get:attribute:Date
+	 * 
+	 * @throws Exception ParseException
+	 */
+	public void testGetAttribute002Date() throws Exception {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+		Date date = sdf.parse("2020/08/01");
+		DefaultDocument doc = new DefaultDocument();
+		doc.putAttribute("key", date);
+		System.err.println(doc.getAttribute("key"));
+		assertEquals("2020-08-01T00:00:00+09:00", doc.getAttribute("key").toString());
+	}
+
+	/**
+	 * test:get:attribute:Number
+	 */
+	public void testGetAttribute003Number() {
+		DefaultDocument doc = new DefaultDocument();
+		doc.putAttribute("key", 1);
+		System.err.println(doc.getAttribute("key"));
+		assertEquals(1, doc.getAttribute("key"));
 	}
 
 	public void testGetAttribute001() {
@@ -32,12 +210,24 @@ public class DefaultDocumentTestCase extends TestCase {
 		assertEquals(value, doc.getAttribute(key));
 	}
 
-	public void testGetAttributeAsDate() {
-		fail("Not yet implemented");
+	/**
+	 * @throws Exception
+	 */
+	public void testGetAttributeAsDate() throws Exception {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+		Date date = sdf.parse("2020/08/01");
+		Date date2 = sdf.parse("2020/08/01");
+		DefaultDocument doc = new DefaultDocument();
+		doc.putAttribute("key", date);
+		System.err.println(doc.getAttribute("key"));
+		assertEquals(date2, doc.getAttributeAsDate("key"));
 	}
 
 	public void testGetAttributeAsNumber() {
-		fail("Not yet implemented");
+		DefaultDocument doc = new DefaultDocument();
+		doc.putAttribute("key", "1");
+		System.err.println(doc.getAttribute("key"));
+		assertEquals(1, doc.getAttributeAsNumber("key"));
 	}
 
 	public void testGetAttributeAsNumber001() {
@@ -62,11 +252,19 @@ public class DefaultDocumentTestCase extends TestCase {
 	}
 
 	public void testGetAttributeKeys() {
-		fail("Not yet implemented");
+		DefaultDocument doc = new DefaultDocument();
+		doc.putAttribute("key", "value");
+		List<String> keys = doc.getAttributeKeys();
+
+		assertEquals(1, keys.size());
+		assertEquals("key", keys.get(0));
+
 	}
 
 	public void testGetId() {
-		fail("Not yet implemented");
+		DefaultDocument doc = new DefaultDocument();
+		String id = doc.getId();
+		assertNotNull(id);
 	}
 
 	public void testGetId001() {
@@ -95,8 +293,14 @@ public class DefaultDocumentTestCase extends TestCase {
 		assertEquals("test", kwds.get(0).getLex());
 	}
 
-	public void testGetKeywordsString() {
-		fail("Not yet implemented");
+	public void testGetKeywordsString() throws Exception {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+		Date date = sdf.parse("2020/08/01");
+		Date date2 = sdf.parse("2020/08/01");
+		DefaultDocument doc = new DefaultDocument();
+		doc.putAttribute("key", date);
+		System.err.println(doc.getAttribute("key"));
+		assertEquals("2020-08-01T00:00:00+09:00", doc.getAttributeAsString("key"));
 	}
 
 	public void testGetText() {
@@ -111,32 +315,209 @@ public class DefaultDocumentTestCase extends TestCase {
 		assertEquals("value", doc.getAttribute("key"));
 	}
 
-	public void testPutAttributeStringDate() {
-		fail("Not yet implemented");
+	public void testPutAttributeStringDate() throws Exception {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+		Date date = sdf.parse("2020/08/01");
+		DefaultDocument doc = new DefaultDocument();
+		doc.putAttribute("key", date);
+		System.err.println(doc.getAttribute("key"));
+		assertEquals("2020-08-01T00:00:00+09:00", doc.getAttribute("key").toString());
 	}
 
 	public void testPutAttributeStringNumber() {
-		fail("Not yet implemented");
+		DefaultDocument doc = new DefaultDocument();
+		doc.putAttribute("key", 1);
+		System.err.println(doc.getAttribute("key"));
+		assertEquals(1, doc.getAttribute("key"));
 	}
 
 	public void testPutAttributeStringObject() {
-		fail("Not yet implemented");
+		Object o = new Object();
+		DefaultDocument doc = new DefaultDocument();
+		doc.putAttribute("key", o);
+		assertEquals(o, doc.getAttribute("key"));
 	}
 
 	public void testPutAttributeStringString() {
-		fail("Not yet implemented");
+		DefaultDocument doc = new DefaultDocument();
+		doc.putAttribute("key", "value");
+		assertEquals("value", doc.getAttribute("key"));
 	}
 
 	public void testRemove() {
-		fail("Not yet implemented");
+		DefaultDocument doc = new DefaultDocument();
+		doc.putAttribute("key", "value");
+		assertEquals("value", doc.getAttribute("key"));
+		doc.remove("key");
+		assertEquals(0, doc.getAttributeKeys().size());
 	}
 
 	public void testRemoveFlaggedKeyword() {
-		fail("Not yet implemented");
+		DefaultDocument doc = new DefaultDocument();
+
+		// 今日 [facet=名詞, str=今日]
+		// は [facet=助詞, str=は]
+		// いい [facet=形容詞, str=いい]
+		// 天気 [facet=名詞, str=天気]
+		// です [facet=助動詞, str=です]
+		// 。 [facet=特殊, str=。]
+		{
+			DefaultKeyword kw = new DefaultKeyword();
+			kw.setLex("今日");
+			kw.setStr("今日");
+			kw.setFacet("名詞");
+			kw.setBegin(0);
+			kw.setEnd(2);
+			doc.addKeyword(kw);
+		}
+		{
+			DefaultKeyword kw = new DefaultKeyword();
+			kw.setLex("は");
+			kw.setStr("は");
+			kw.setFacet("助詞");
+			kw.setBegin(2);
+			kw.setEnd(3);
+			kw.setFlag(true);
+			doc.addKeyword(kw);
+		}
+		{
+			DefaultKeyword kw = new DefaultKeyword();
+			kw.setLex("いい");
+			kw.setStr("いい");
+			kw.setFacet("形容詞");
+			kw.setBegin(3);
+			kw.setEnd(5);
+			kw.setFlag(true);
+			doc.addKeyword(kw);
+		}
+		{
+			DefaultKeyword kw = new DefaultKeyword();
+			kw.setLex("天気");
+			kw.setStr("天気");
+			kw.setFacet("名詞");
+			kw.setBegin(5);
+			kw.setEnd(7);
+			doc.addKeyword(kw);
+		}
+		{
+			DefaultKeyword kw = new DefaultKeyword();
+			kw.setLex("です");
+			kw.setStr("です");
+			kw.setFacet("助動詞");
+			kw.setBegin(7);
+			kw.setEnd(9);
+			kw.setFlag(true);
+			doc.addKeyword(kw);
+		}
+		{
+			DefaultKeyword kw = new DefaultKeyword();
+			kw.setLex("。");
+			kw.setStr("。");
+			kw.setFacet("特殊");
+			kw.setBegin(9);
+			kw.setEnd(10);
+			kw.setFlag(true);
+			doc.addKeyword(kw);
+		}
+
+		System.err.println(doc);
+		{
+			int expected = 6;
+			assertEquals(expected, doc.getKeywords().size());
+		}
+
+		doc.removeFlaggedKeyword();
+		{
+			int expected = 2;
+			assertEquals(expected, doc.getKeywords().size());
+		}
 	}
 
 	public void testRemoveKeyword() {
-		fail("Not yet implemented");
+		DefaultDocument doc = new DefaultDocument();
+
+		// 今日 [facet=名詞, str=今日]
+		// は [facet=助詞, str=は]
+		// いい [facet=形容詞, str=いい]
+		// 天気 [facet=名詞, str=天気]
+		// です [facet=助動詞, str=です]
+		// 。 [facet=特殊, str=。]
+		{
+			DefaultKeyword kw = new DefaultKeyword();
+			kw.setLex("今日");
+			kw.setStr("今日");
+			kw.setFacet("名詞");
+			kw.setBegin(0);
+			kw.setEnd(2);
+			doc.addKeyword(kw);
+		}
+		{
+			DefaultKeyword kw = new DefaultKeyword();
+			kw.setLex("は");
+			kw.setStr("は");
+			kw.setFacet("助詞");
+			kw.setBegin(2);
+			kw.setEnd(3);
+			doc.addKeyword(kw);
+		}
+		{
+			DefaultKeyword kw = new DefaultKeyword();
+			kw.setLex("いい");
+			kw.setStr("いい");
+			kw.setFacet("形容詞");
+			kw.setBegin(3);
+			kw.setEnd(5);
+			doc.addKeyword(kw);
+		}
+		{
+			DefaultKeyword kw = new DefaultKeyword();
+			kw.setLex("天気");
+			kw.setStr("天気");
+			kw.setFacet("名詞");
+			kw.setBegin(5);
+			kw.setEnd(7);
+			doc.addKeyword(kw);
+		}
+		{
+			DefaultKeyword kw = new DefaultKeyword();
+			kw.setLex("です");
+			kw.setStr("です");
+			kw.setFacet("助動詞");
+			kw.setBegin(7);
+			kw.setEnd(9);
+			doc.addKeyword(kw);
+		}
+		{
+			DefaultKeyword kw = new DefaultKeyword();
+			kw.setLex("。");
+			kw.setStr("。");
+			kw.setFacet("特殊");
+			kw.setBegin(9);
+			kw.setEnd(10);
+			doc.addKeyword(kw);
+		}
+
+		{
+			System.err.println(doc);
+			int expected = 6;
+			assertEquals(expected, doc.getKeywords().size());
+		}
+
+		{
+			DefaultKeyword kwRemoved = new DefaultKeyword();
+			kwRemoved.setLex("いい");
+			kwRemoved.setStr("いい");
+			kwRemoved.setFacet("形容詞");
+			kwRemoved.setBegin(3);
+			kwRemoved.setEnd(5);
+			doc.removeKeyword(kwRemoved);
+		}
+		{
+			System.err.println(doc);
+			int expected = 5;
+			assertEquals(expected, doc.getKeywords().size());
+		}
+
 	}
 
 	public void testSetId() {

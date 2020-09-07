@@ -1,6 +1,7 @@
 package nlp4j.impl;
 
-import java.text.SimpleDateFormat;
+import java.text.NumberFormat;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -10,6 +11,7 @@ import java.util.Map;
 
 import nlp4j.Document;
 import nlp4j.Keyword;
+import nlp4j.util.DateUtils;
 
 /**
  * 自然言語処理対象のドキュメントクラスです。<br>
@@ -50,17 +52,101 @@ public class DefaultDocument implements Document {
 
 	@Override
 	public Object getAttribute(String key) {
-		return this.attributes.get(key);
+		Object o = this.attributes.get(key);
+
+		// Date
+		if (o instanceof Date) {
+			return DateUtils.toISO8601((Date) o);
+		}
+		// Number
+		else if (o instanceof Number) {
+			return o;
+		}
+		// String
+		else if (o instanceof String) {
+			return o;
+		}
+		//
+		else {
+			return o;
+		}
+
+	}
+
+	/**
+	 * @param key of attribute
+	 * @return value
+	 */
+	public String getAttributeAsString(String key) {
+		Object o = this.attributes.get(key);
+
+		if (o == null) {
+			return null;
+		}
+		// Date
+		else if (o instanceof Date) {
+			return DateUtils.toISO8601((Date) o);
+		}
+		// Number
+		else if (o instanceof Number) {
+			return o.toString();
+		}
+		// String
+		else if (o instanceof String) {
+			return (String) o;
+		}
+		//
+		else {
+			return o.toString();
+		}
+
 	}
 
 	@Override
 	public Date getAttributeAsDate(String key) {
-		return (Date) this.attributes.get(key);
+		Object o = this.attributes.get(key);
+
+		if (o instanceof Date) {
+			return (Date) this.attributes.get(key);
+		} //
+		else if (o instanceof String) {
+			String s = (String) o;
+			return DateUtils.toDate(s);
+		} //
+		else {
+			return (Date) this.attributes.get(key);
+		}
+
 	}
 
 	@Override
 	public Number getAttributeAsNumber(String key) {
-		return (Number) this.attributes.get(key);
+		Object o = this.attributes.get(key);
+		if (o instanceof Number) {
+			return (Number) o;
+
+		}
+		//
+		else if (o instanceof String) {
+			String s = (String) o;
+
+			try {
+				return Integer.parseInt(s);
+			} catch (Exception e) {
+			}
+
+			try {
+				return Double.parseDouble(s);
+			} catch (Exception e) {
+
+			}
+			try {
+				return NumberFormat.getInstance().parse(s);
+			} catch (ParseException e) {
+			}
+		} //
+
+		throw new ClassCastException();
 	}
 
 	@Override
