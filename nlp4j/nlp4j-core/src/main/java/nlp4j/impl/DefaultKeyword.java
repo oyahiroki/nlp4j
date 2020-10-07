@@ -15,18 +15,20 @@ public class DefaultKeyword implements Keyword, Cloneable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	String facet;
-	String lex;
-	String str;
-	String reading;
-	long count = -1;
 	int begin = -1;
-	int end = -1;
 	double correlation;
+	long count = -1;
+	int end = -1;
+	String facet;
+	private boolean flag = false;
+	String lex;
+	String namespace;
+
+	String reading;
 
 	int sequence = -1;
 
-	private boolean flag = false;
+	String str;
 
 	/**
 	 * Default constructor
@@ -45,6 +47,24 @@ public class DefaultKeyword implements Keyword, Cloneable {
 	 * @param str   表出文字
 	 */
 	public DefaultKeyword(int begin, int end, String facet, String lex, String str) {
+		super();
+		this.begin = begin;
+		this.end = end;
+		this.facet = facet;
+		this.lex = lex;
+		this.str = str;
+	}
+
+	/**
+	 * @param namespace 名前空間
+	 * @param begin     開始位置
+	 * @param end       終了位置
+	 * @param facet     ファセット
+	 * @param lex       正規形
+	 * @param str       表出文字
+	 * @since 1.3.1
+	 */
+	public DefaultKeyword(String namespace, int begin, int end, String facet, String lex, String str) {
 		super();
 		this.begin = begin;
 		this.end = end;
@@ -178,6 +198,11 @@ public class DefaultKeyword implements Keyword, Cloneable {
 		return lex;
 	}
 
+	@Override
+	public String getNamespance() {
+		return this.namespace;
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -272,6 +297,11 @@ public class DefaultKeyword implements Keyword, Cloneable {
 	@Override
 	public void setLex(String lex) {
 		this.lex = lex;
+	}
+
+	@Override
+	public void setNamespace(String namespace) {
+		this.namespace = namespace;
 	}
 
 	/*

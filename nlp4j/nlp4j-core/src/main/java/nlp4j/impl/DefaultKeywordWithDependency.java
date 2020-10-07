@@ -20,14 +20,63 @@ public class DefaultKeywordWithDependency extends DefaultKeyword implements Keyw
 
 	private static final long serialVersionUID = 1L;
 
+	ArrayList<KeywordWithDependency> children = new ArrayList<KeywordWithDependency>();
+
 	String dependencyKey;
 
-	ArrayList<KeywordWithDependency> children = new ArrayList<KeywordWithDependency>();
 	KeywordWithDependency parent;
+
+	String relation;
 
 	int sequence = -1;
 
-	String relation;
+	/**
+	 * @since 1.3.1
+	 */
+	public DefaultKeywordWithDependency() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @param begin 開始位置
+	 * @param end   終了位置
+	 * @param facet ファセット
+	 * @param lex   正規形
+	 * @param str   表出文字
+	 */
+	public DefaultKeywordWithDependency(int begin, int end, String facet, String lex, String str) {
+		super(begin, end, facet, lex, str);
+	}
+
+	/**
+	 * @param namespace 名前空間
+	 * @param begin     開始位置
+	 * @param end       終了位置
+	 * @param facet     ファセット
+	 * @param lex       正規形
+	 * @param str       表出文字
+	 * @since 1.3.1
+	 */
+	public DefaultKeywordWithDependency(String namespace, int begin, int end, String facet, String lex, String str) {
+		super(namespace, begin, end, facet, lex, str);
+	}
+
+	/**
+	 * @param namespace 名前空間
+	 * @param begin     開始位置
+	 * @param end       終了位置
+	 * @param facet     ファセット
+	 * @param lex       正規形
+	 * @param str       表出文字
+	 * @param relation  係り受けの関係
+	 * @since 1.3.1
+	 */
+	public DefaultKeywordWithDependency(String namespace, int begin, int end, String facet, String lex, String str,
+			String relation) {
+		super(namespace, begin, end, facet, lex, str);
+		this.relation = relation;
+	}
 
 	@Override
 	public void addChild(KeywordWithDependency keyword) {

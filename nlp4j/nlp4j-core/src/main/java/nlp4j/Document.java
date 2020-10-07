@@ -47,6 +47,16 @@ public interface Document {
 	 * 
 	 * @param key 属性のキー
 	 * @return 属性の値
+	 * @since 1.4
+	 */
+	String getAttributeAsString(String key);
+
+	/**
+	 * 属性を返します。<br>
+	 * Return Attribute value.
+	 * 
+	 * @param key 属性のキー
+	 * @return 属性の値
 	 * @since 1.3
 	 */
 	Date getAttributeAsDate(String key);

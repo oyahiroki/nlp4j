@@ -86,6 +86,14 @@ public interface Keyword extends Serializable {
 	String getLex();
 
 	/**
+	 * キーワードの名前空間を取得します。<br>
+	 * Get namespace of keyword.
+	 * 
+	 * @since 1.3.1
+	 */
+	String getNamespance();
+
+	/**
 	 * キーワードの「読み」を返します。<br>
 	 * Return reading of keyword.
 	 * 
@@ -162,6 +170,15 @@ public interface Keyword extends Serializable {
 	 * @since 1.0
 	 */
 	void setLex(String lex);
+
+	/**
+	 * キーワードの名前空間をセットします。<br>
+	 * Set namespace of keyword.
+	 * 
+	 * @param namespace
+	 * @since 1.3.1
+	 */
+	void setNamespace(String namespace);
 
 	/**
 	 * キーワードの読みをセットします。<br>
