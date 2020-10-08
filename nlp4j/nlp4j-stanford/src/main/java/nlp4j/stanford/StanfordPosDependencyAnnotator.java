@@ -79,10 +79,10 @@ public class StanfordPosDependencyAnnotator extends AbstractDocumentAnnotator im
 	 */
 	public StanfordPosDependencyAnnotator() {
 		super();
-		Properties properties = new Properties();
-		properties.setProperty("annotators", CORENLP_ANNOTATORS_PROPERTY);
-//		properties.put("threads", "1");
-		coreNLP = new StanfordCoreNLP(properties);
+//		Properties properties = new Properties();
+//		properties.setProperty("annotators", CORENLP_ANNOTATORS_PROPERTY);
+////		properties.put("threads", "1");
+//		coreNLP = new StanfordCoreNLP(properties);
 
 		targets = new ArrayList<>();
 	}
@@ -116,7 +116,8 @@ public class StanfordPosDependencyAnnotator extends AbstractDocumentAnnotator im
 		pp.setProperty("annotators", CORENLP_ANNOTATORS_PROPERTY);
 //		pp.put("threads", "1");
 
-		if (properties.getProperty("type") != null && properties.getProperty("type").equals("server")) {
+		if (properties.getProperty("type") != null //
+				&& properties.getProperty("type").equals("server")) {
 			int port = Integer.parseInt(properties.getProperty("server.port", "9000"));
 			int threads = Integer.parseInt(properties.getProperty("server.threads", "2"));
 			String endpoint = properties.getProperty("server.endpoint", "http://localhost");
@@ -228,6 +229,23 @@ public class StanfordPosDependencyAnnotator extends AbstractDocumentAnnotator im
 		if (super.targets == null || super.targets.size() == 0) {
 //			logger.warn("target is not set.");
 			throw new RuntimeException("target is not set");
+		}
+
+		if (this.coreNLP == null) {
+			Properties pp = new Properties();
+			pp.setProperty("annotators", CORENLP_ANNOTATORS_PROPERTY);
+//			pp.put("threads", "1");
+
+			if (super.prop.getProperty("type") != null //
+					&& super.prop.getProperty("type").equals("server")) {
+				int port = Integer.parseInt(super.prop.getProperty("server.port", "9000"));
+				int threads = Integer.parseInt(super.prop.getProperty("server.threads", "2"));
+				String endpoint = super.prop.getProperty("server.endpoint", "http://localhost");
+				coreNLP = new StanfordCoreNLPClient(pp, endpoint, port, threads);
+			} //
+			else {
+				coreNLP = new StanfordCoreNLP(pp);
+			}
 		}
 
 		for (String target : super.targets) {
