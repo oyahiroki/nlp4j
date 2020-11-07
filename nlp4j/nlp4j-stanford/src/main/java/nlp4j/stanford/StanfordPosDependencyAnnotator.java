@@ -221,7 +221,6 @@ public class StanfordPosDependencyAnnotator extends AbstractDocumentAnnotator im
 	 * item.dependencyN_xml Nは数値.各文に対するAnnotation
 	 * </pre>
 	 * 
-	 * @see com.acms.analytics.annotator.Annotator#annotate(com.acms.analytics.nlp.Document)
 	 */
 	@Override
 	public void annotate(Document doc) {
