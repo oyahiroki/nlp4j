@@ -37,7 +37,7 @@
 				<role>architect</role>
 				<role>developer</role>
 			</roles>
-			<timezone>-9</timezone>
+			<timezone>Asia/Tokyo</timezone>
 		</developer>
 	</developers>
 
