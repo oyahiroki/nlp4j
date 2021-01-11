@@ -17,6 +17,42 @@ import nlp4j.impl.DefaultKeyword;
  */
 public class DocumentUtilTestCase extends TestCase {
 
+	public void testParseFromJson001() throws Exception {
+		String json = "{}";
+		Document doc = DocumentUtil.parseFromJson(json);
+		assertNotNull(doc);
+		System.err.println(doc);
+	}
+
+	public void testParseFromJson002() throws Exception {
+		String json = "{'text':'This is test.'}";
+		Document doc = DocumentUtil.parseFromJson(json);
+		assertNotNull(doc);
+		System.err.println(doc);
+		assertNotNull(doc.getAttribute("text"));
+		System.err.println("text=" + doc.getAttribute("text"));
+	}
+
+	public void testParseFromJson003() throws Exception {
+		String json = "{'text':'This is test.',keywords:[{'begin':0,'end':4,'facet':'noun','lex':'test','str':'test'}]}";
+		Document doc = DocumentUtil.parseFromJson(json);
+		assertNotNull(doc);
+		System.err.println(doc);
+		assertNotNull(doc.getAttribute("text"));
+		System.err.println("text=" + doc.getAttribute("text"));
+	}
+
+	public void testParseFromJson501() throws Exception {
+		String json = "invalid json syntax";
+		Document doc;
+		try {
+			doc = DocumentUtil.parseFromJson(json);
+			fail();
+		} catch (Exception e) {
+			System.err.println("success");
+		}
+	}
+
 	/**
 	 * @since 1.1
 	 */

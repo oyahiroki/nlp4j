@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+	<Appenders>
+		<Console name="STDERR">
+		</Console>
+	</Appenders>
+	<Loggers>
+		<Root>
+			<AppenderRef ref="STDERR" />
+		</Root>
+	</Loggers>
+</Configuration>

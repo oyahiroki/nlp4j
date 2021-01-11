@@ -17,6 +17,8 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
+import com.google.gson.JsonSyntaxException;
 
 import nlp4j.Document;
 import nlp4j.Keyword;
@@ -35,6 +37,92 @@ public class DocumentUtil {
 
 	static {
 		sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
+	}
+
+	/**
+	 * @since 1.3.1.0
+	 * @param json
+	 * @return
+	 * @throws Exception
+	 */
+	static public Document parseFromJson(String json) throws Exception {
+
+		Document doc = new DefaultDocument();
+
+		JsonObject jsonObj;
+
+		try {
+			jsonObj = (new Gson()).fromJson(json, JsonObject.class); // throws JsonSyntaxException
+		} catch (JsonSyntaxException e) {
+			throw new Exception("Syntax Exception", e);
+		}
+
+		for (String key : jsonObj.keySet()) {
+			// keywords
+			if (key.equals("keywords")) {
+				JsonArray kwds = jsonObj.get(key).getAsJsonArray();
+				for (int n = 0; n < kwds.size(); n++) {
+					JsonObject kwd = kwds.get(n).getAsJsonObject();
+					String facet = null;
+					if (kwd.get("facet") != null && kwd.get("facet").isJsonNull() == false) {
+						facet = kwd.get("facet").getAsString();
+					}
+					int begin = -1;
+					if (kwd.get("begin") != null && kwd.get("begin").isJsonNull() == false) {
+						begin = kwd.get("begin").getAsInt();
+					}
+					int end = -1;
+					if (kwd.get("end") != null && kwd.get("end").isJsonNull() == false) {
+						end = kwd.get("end").getAsInt();
+					}
+					String str = null;
+					if (kwd.get("str") != null && kwd.get("str").isJsonNull() == false) {
+						str = kwd.get("str").getAsString();
+					}
+					String lex = null;
+					if (kwd.get("lex") != null && kwd.get("lex").isJsonNull() == false) {
+						lex = kwd.get("lex").getAsString();
+					}
+					Keyword kw = new DefaultKeyword(begin, end, facet, lex, str);
+
+					doc.addKeyword(kw);
+				}
+			} //
+				// fields
+			else {
+				String fieldName = key;
+				JsonElement elm = jsonObj.get(key);
+				if (elm.isJsonNull()) {
+					// System.err.println("json null");
+				} //
+				else if (elm.isJsonArray()) {
+					String value = jsonObj.get(key).toString();
+					doc.putAttribute(fieldName, value);
+				} //
+				else if (elm.isJsonObject()) {
+					String value = jsonObj.get(key).toString();
+					doc.putAttribute(fieldName, value);
+				} //
+				else if (elm.isJsonPrimitive()) {
+					JsonPrimitive p = (JsonPrimitive) elm;
+					if (p.isString()) {
+						String value = jsonObj.get(key).getAsString();
+						doc.putAttribute(fieldName, value);
+					} else if (p.isNumber()) {
+						Number value = jsonObj.get(key).getAsNumber();
+						doc.putAttribute(fieldName, value);
+					} else {
+						String value = jsonObj.get(key).toString();
+						doc.putAttribute(fieldName, value);
+					}
+				} //
+				else {
+					String value = jsonObj.get(key).toString();
+					doc.putAttribute(fieldName, value);
+				}
+			}
+		}
+		return doc;
 	}
 
 	private static void copyAttributes(Document doc, JsonObject jsonObj) {
