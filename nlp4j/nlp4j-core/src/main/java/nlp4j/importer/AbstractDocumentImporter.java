@@ -1,9 +1,11 @@
 package nlp4j.importer;
 
 import java.io.IOException;
+import java.lang.invoke.MethodHandles;
 import java.util.List;
 import java.util.Properties;
-
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import nlp4j.Document;
 import nlp4j.DocumentImporter;
 
@@ -16,6 +18,8 @@ import nlp4j.DocumentImporter;
  *
  */
 public abstract class AbstractDocumentImporter implements DocumentImporter {
+
+	static private final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
 	protected Properties props = new Properties();
 
@@ -33,7 +37,7 @@ public abstract class AbstractDocumentImporter implements DocumentImporter {
 	}
 
 	@Override
-	public void setProperties(Properties prop) {
+	public final void setProperties(Properties prop) {
 		for (Object key : prop.keySet()) {
 			setProperty(key.toString(), prop.getProperty(key.toString()));
 		}
@@ -41,7 +45,10 @@ public abstract class AbstractDocumentImporter implements DocumentImporter {
 
 	@Override
 	public void setProperty(String key, String value) {
-		props.put(key, value);
+		logger.debug(key + "=" + value);
+		if (key != null) {
+			props.put(key, value);
+		}
 	}
 
 }

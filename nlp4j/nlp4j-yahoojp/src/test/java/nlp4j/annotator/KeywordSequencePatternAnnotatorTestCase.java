@@ -12,6 +12,8 @@ import nlp4j.crawler.TextFileLineSeparatedCrawler;
 import nlp4j.impl.DefaultDocument;
 import nlp4j.impl.DefaultDocumentAnnotatorPipeline;
 import nlp4j.impl.DefaultKeyword;
+import nlp4j.util.DocumentUtil;
+import nlp4j.util.JsonUtils;
 import nlp4j.yhoo_jp.YJpMaAnnotator;
 
 /**
@@ -63,6 +65,8 @@ public class KeywordSequencePatternAnnotatorTestCase extends TestCase {
 		annotator.setProperty("facet[0]", facet);
 		annotator.setProperty("value[0]", value);
 		annotator.annotate(doc);
+
+		System.err.println(JsonUtils.prettyPrint(DocumentUtil.toJsonObject(doc)));
 	}
 
 	/**
@@ -153,6 +157,35 @@ public class KeywordSequencePatternAnnotatorTestCase extends TestCase {
 		}
 		System.err.println("</抽出されたキーワード>");
 
+	}
+
+	/**
+	 * @throws Exception 例外発生時
+	 */
+	public void testAnnotateDocument004() throws Exception {
+		String rule = "[{facet:'名詞'},{lex:'する'}]";
+		String facet = "pattern.sahen";
+		String value = "${0.lex}${1.lex}";
+		Document doc = new DefaultDocument();
+		{
+			Keyword kwd = new DefaultKeyword();
+			kwd.setLex("発生");
+			kwd.setFacet("名詞");
+			doc.addKeyword(kwd);
+		}
+		{
+			Keyword kwd = new DefaultKeyword();
+			kwd.setLex("する");
+			kwd.setFacet("動詞");
+			doc.addKeyword(kwd);
+		}
+		KeywordSequencePatternAnnotator annotator = new KeywordSequencePatternAnnotator();
+		annotator.setProperty("rule[0]", rule);
+		annotator.setProperty("facet[0]", facet);
+		annotator.setProperty("value[0]", value);
+		annotator.annotate(doc);
+
+		System.err.println(JsonUtils.prettyPrint(DocumentUtil.toJsonObject(doc)));
 	}
 
 }

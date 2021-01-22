@@ -28,6 +28,8 @@ public class AttributeNameConverter extends AbstractDocumentAnnotator implements
 
 		super.setProperty(key, value);
 
+		System.err.println(key + "=" + value);
+
 		if (key.equals("mapping")) {
 			String[] maps = value.split(",");
 
