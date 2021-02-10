@@ -1,6 +1,7 @@
 package nlp4j.crawler;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 import nlp4j.Document;
@@ -37,6 +38,6 @@ public interface Crawler {
 	 * 
 	 * @return クロールされたドキュメント
 	 */
-	public ArrayList<Document> crawlDocuments();
+	public List<Document> crawlDocuments();
 
 }

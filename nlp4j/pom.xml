@@ -193,5 +193,6 @@
 		<module>nlp4j-twitter4j</module>
 		<module>nlp4j-yahoojp</module>
 		<module>nlp4j-stanford</module>
+		<module>nlp4j-solr</module>
 	</modules>
 </project>

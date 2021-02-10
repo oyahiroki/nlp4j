@@ -28,7 +28,7 @@ public class DefaultKeywordWithDependency extends DefaultKeyword implements Keyw
 
 	String relation;
 
-	int sequence = -1;
+//	int sequence = -1;
 
 	/**
 	 * @since 1.3.1

@@ -1,6 +1,7 @@
 package nlp4j.crawler;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 import nlp4j.Document;
@@ -18,7 +19,7 @@ public abstract class AbstractCrawler implements Crawler {
 	protected Properties prop = new Properties();
 
 	@Override
-	abstract public ArrayList<Document> crawlDocuments();
+	abstract public List<Document> crawlDocuments();
 
 	@Override
 	public void setProperties(Properties prop) {

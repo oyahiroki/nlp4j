@@ -22,6 +22,7 @@ import com.google.gson.JsonSyntaxException;
 
 import nlp4j.Document;
 import nlp4j.Keyword;
+import nlp4j.KeywordWithDependency;
 import nlp4j.impl.DefaultDocument;
 import nlp4j.impl.DefaultKeyword;
 
@@ -199,7 +200,9 @@ public class DocumentUtil {
 		{
 			JsonArray arr = new JsonArray();
 			for (Keyword kwd : doc.getKeywords()) {
-				arr.add(toJsonObject(kwd));
+				if (kwd instanceof KeywordWithDependency == false) {
+					arr.add(toJsonObject(kwd));
+				}
 			}
 			jsonObj.add("keywords", arr);
 		}
@@ -270,8 +273,18 @@ public class DocumentUtil {
 	 * @return Json String of Keyword
 	 */
 	static public String toJsonString(Keyword kwd) {
-		Gson gson = new Gson();
-		return gson.toJson(kwd);
+
+		JsonObject json = new JsonObject();
+
+		json.addProperty("facet", kwd.getFacet());
+		json.addProperty("lex", kwd.getLex());
+		json.addProperty("str", kwd.getStr());
+		json.addProperty("begin", kwd.getBegin());
+		json.addProperty("end", kwd.getEnd());
+
+		json.addProperty("@classname", kwd.getClass().getCanonicalName());
+
+		return json.toString();
 	}
 
 	/**
