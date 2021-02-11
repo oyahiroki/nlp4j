@@ -27,6 +27,11 @@ public class AzureSearchDocumentImporter extends AbstractDocumentImporter implem
 	@Override
 	public void importDocument(Document doc) throws IOException {
 
+		if (super.debug == true) {
+			super.debugPrint(doc);
+			return;
+		}
+
 		AzureSearchClient az = new AzureSearchClient(super.props);
 
 		JsonObject requestDocs = new JsonObject();
@@ -42,8 +47,8 @@ public class AzureSearchDocumentImporter extends AbstractDocumentImporter implem
 
 		System.err.println("To be imported.");
 		System.err.println(JsonUtils.prettyPrint(requestDocs));
-		
-		if(super.debug == true) {
+
+		if (super.debug == true) {
 			return;
 		}
 

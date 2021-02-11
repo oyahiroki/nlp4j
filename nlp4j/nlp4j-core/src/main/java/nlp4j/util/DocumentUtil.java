@@ -43,8 +43,8 @@ public class DocumentUtil {
 	/**
 	 * @since 1.3.1.0
 	 * @param json
-	 * @return
-	 * @throws Exception
+	 * @return Parsed Document
+	 * @throws Exception 例外発生時
 	 */
 	static public Document parseFromJson(String json) throws Exception {
 
@@ -265,6 +265,15 @@ public class DocumentUtil {
 		JsonObject jsonObj = toJsonObject(doc);
 		Gson gson = new Gson();
 		return gson.toJson(jsonObj);
+	}
+
+	/**
+	 * @since 1.3.1.0
+	 * @param doc target Document
+	 * @return Pretty Json String of Document
+	 */
+	static public String toPrettyJsonString(Document doc) {
+		return JsonUtils.prettyPrint(toJsonString(doc));
 	}
 
 	/**

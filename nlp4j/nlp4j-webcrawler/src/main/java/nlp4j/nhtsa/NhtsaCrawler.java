@@ -50,6 +50,8 @@ public class NhtsaCrawler extends AbstractCrawler implements Crawler {
 
 	String fileName = "FLAT_CMPL.txt";
 
+	boolean trim = true;
+
 	static List<String> makesFilterList;
 
 	@Override
@@ -91,6 +93,12 @@ public class NhtsaCrawler extends AbstractCrawler implements Crawler {
 		for (String line : lines) {
 			count++;
 			String[] data = line.split("\t");
+
+			for (int n = 0; n < data.length; n++) {
+				if (data[n] != null) {
+					data[n] = data[n].trim();
+				}
+			}
 
 			if (makesFilterList.contains(data[3])) {
 

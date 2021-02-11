@@ -126,12 +126,28 @@ public class AzureSearchIndexAdmin {
 	/**
 	 * Azure Search のインデックス定義をアップロードする
 	 * 
-	 * @param adminKey
-	 * @param serviceName
-	 * @param inFile
-	 * @throws IOException
+	 * @param adminKey    キー
+	 * @param serviceName サービス名
+	 * @param inFile      入力ファイル名
+	 * @throws IOException 例外発生時
+	 */
+	public void post(String adminKey, String serviceName, String inFile) throws IOException {
+		post(adminKey, serviceName, new File(inFile));
+	}
+
+	/**
+	 * Azure Search のインデックス定義をアップロードする
+	 * 
+	 * @param adminKey    キー
+	 * @param serviceName サービス名
+	 * @param inFile      入力ファイル
+	 * @throws IOException 例外発生時
 	 */
 	public void post(String adminKey, String serviceName, File inFile) throws IOException {
+
+		if (adminKey == null) {
+			throw new RuntimeException("adminKey is null");
+		}
 
 		String json = FileUtils.readFileToString(inFile, "UTF-8");
 

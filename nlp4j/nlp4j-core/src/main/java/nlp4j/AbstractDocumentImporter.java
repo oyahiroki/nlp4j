@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Properties;
 
+import nlp4j.util.DocumentUtil;
+import nlp4j.util.JsonUtils;
+
 /**
  * 文書をインデックスにインポートするドキュメントインポーターの抽象クラスです。<br>
  * Abstract class of document importer for indexing.
@@ -46,6 +49,16 @@ public abstract class AbstractDocumentImporter implements DocumentImporter {
 			this.debug = Boolean.parseBoolean(value);
 		}
 		props.put(key, value);
+	}
+
+	/**
+	 * Print document for debugging
+	 * 
+	 * @param doc target Document to print debug
+	 */
+	public void debugPrint(Document doc) {
+		System.err.println("debug ...");
+		System.err.println(JsonUtils.prettyPrint(DocumentUtil.toJsonObject(doc)));
 	}
 
 }
