@@ -395,4 +395,28 @@ public class DocumentUtil {
 
 	}
 
+	/**
+	 * Write documents as Line Separated Json
+	 * 
+	 * @param doc  Document to write to file
+	 * @param file to write
+	 * @throws IOException on error writing file
+	 * @since 1.2.1.0
+	 */
+	static public void writeAsLineSeparatedJson(Document doc, File file) throws IOException {
+
+		File parentDir = file.getParentFile();
+		if (parentDir.exists() == false) {
+			FileUtils.forceMkdir(parentDir);
+		}
+
+		{
+			String json = toJsonString(doc);
+			String encoding = "UTF-8";
+			boolean append = true;
+			FileUtils.write(file, json + "\n", encoding, append);
+		}
+
+	}
+
 }

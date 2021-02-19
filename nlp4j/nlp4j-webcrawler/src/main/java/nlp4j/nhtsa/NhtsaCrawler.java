@@ -26,7 +26,11 @@ import nlp4j.impl.DefaultDocument;
 
 public class NhtsaCrawler extends AbstractCrawler implements Crawler {
 
+//	private static final int minDate = 20000101;
+	private int minDate = Integer.MIN_VALUE;
+
 	static String[] headers;
+
 	static {
 		String header = "CMPLID,ODINO,MFR_NAME,MAKETXT,MODELTXT," //
 				+ "YEARTXT,CRASH,FAILDATE,FIRE,INJURED," //
@@ -41,8 +45,8 @@ public class NhtsaCrawler extends AbstractCrawler implements Crawler {
 
 		headers = header.split(",");
 
-		String makesFilter = "NISSAN,TESLA";
-		makesFilterList = Arrays.asList(makesFilter.split(","));
+//		String makesFilter = "NISSAN,TESLA";
+//		makesFilterList = Arrays.asList(makesFilter.split(","));
 	}
 
 	String charset = "UTF-8";
@@ -79,6 +83,28 @@ public class NhtsaCrawler extends AbstractCrawler implements Crawler {
 		return null;
 	}
 
+	@Override
+	public void setProperty(String key, String value) {
+
+		if (key == null || value == null) {
+			return;
+		}
+
+		super.setProperty(key, value);
+
+		if (key.equals("minDate")) {
+			try {
+				this.minDate = Integer.parseInt(value);
+			} catch (NumberFormatException e) {
+				e.printStackTrace();
+			}
+		} //
+		else if (key.equals("MAKETXT")) {
+			makesFilterList = Arrays.asList(value.split(","));
+		}
+
+	}
+
 	private List<Document> process(InputStream is, String encoding) throws IOException {
 
 		ArrayList<Document> docs = new ArrayList<>();
@@ -110,6 +136,16 @@ public class NhtsaCrawler extends AbstractCrawler implements Crawler {
 						String value = data[n];
 						doc.putAttribute(key, value);
 					}
+				}
+
+				try {
+					int dateAsInt = Integer.parseInt(doc.getAttributeAsString("DATEA"));
+					if (dateAsInt < minDate) {
+						continue;
+					}
+				} catch (NumberFormatException e) {
+					e.printStackTrace();
+					continue;
 				}
 
 				docs.add(doc);
@@ -166,22 +202,6 @@ public class NhtsaCrawler extends AbstractCrawler implements Crawler {
 			throw e;
 		}
 
-	}
-
-	public static void main(String[] args) {
-
-		NhtsaCrawler crawler = new NhtsaCrawler();
-
-//		crawler.setProperty("input", "C:/usr/local/nlp4j/collections/nhtsa/data/FLAT_CMPL.zip");
-//		crawler.setProperty("input", "C:/usr/local/nlp4j/collections/nhtsa/data/FLAT_CMPL_1000.txt");
-		crawler.setProperty("input", "C:/usr/local/nlp4j/collections/nhtsa/data/FLAT_CMPL_100.txt");
-
-		List<Document> docs = crawler.crawlDocuments();
-		for (Document doc : docs) {
-//			System.err.println(doc.getAttribute("COMPDESC"));
-			System.err.println(doc.getAttribute("CDESCR"));
-
-		}
 	}
 
 }

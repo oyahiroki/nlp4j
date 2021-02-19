@@ -1,8 +1,12 @@
 package nlp4j;
 
 import java.io.IOException;
+import java.lang.invoke.MethodHandles;
 import java.util.List;
 import java.util.Properties;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import nlp4j.util.DocumentUtil;
 import nlp4j.util.JsonUtils;
@@ -17,8 +21,12 @@ import nlp4j.util.JsonUtils;
  */
 public abstract class AbstractDocumentImporter implements DocumentImporter {
 
+	static private Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
+
 	protected Properties props = new Properties();
 	protected boolean debug = false;
+
+	int docCount = 0;
 
 	@Override
 	public void importDocumentAndCommit(Document doc) throws IOException {
@@ -29,7 +37,10 @@ public abstract class AbstractDocumentImporter implements DocumentImporter {
 	@Override
 	public void importDocuments(List<Document> docs) throws IOException {
 		for (Document doc : docs) {
+			docCount++;
+			logger.info("importing ... " + docCount);
 			importDocument(doc);
+			logger.info("importing ... " + docCount + " done");
 		}
 	}
 

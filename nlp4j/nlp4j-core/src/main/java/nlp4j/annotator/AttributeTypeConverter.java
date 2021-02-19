@@ -67,50 +67,23 @@ public class AttributeTypeConverter extends AbstractDocumentAnnotator implements
 	public void annotate(Document doc) throws Exception {
 
 		for (String key : fieldMap.keySet()) {
+
 			String fieldValue = doc.getAttributeAsString(key);
+
 			if (fieldValue != null) {
 
 				String rule = fieldMap.get(key);
 
-				String[] rr = rule.split(":");
-				String type = rr[0];
+				String type = rule.split(":")[0];
 
 				if (type.equals("Integer")) {
-					Integer v = Integer.parseInt(fieldValue);
-					doc.putAttribute(key, v);
-
+					processAsInteger(doc, key);
 				} //
 				else if (type.equals("Double")) {
-					Double v = Double.parseDouble(fieldValue);
-					doc.putAttribute(key, v);
+					processAsDouble(doc, key);
 				} //
 				else if (type.equals("Date")) {
-					if (rr.length < 2) {
-						logger.error("Invalid Rule description: " + rule);
-						continue;
-					} //
-					else if (rr.length == 2) {
-						String dateFormat = rr[1];
-						SimpleDateFormat sdf = new SimpleDateFormat(dateFormat);
-						try {
-							Date d = sdf.parse(fieldValue);
-							doc.putAttribute(key, d);
-						} catch (ParseException e) {
-							logger.error(e);
-						}
-					} //
-					else if (rr.length == 3) {
-						String dateFormat = rr[1];
-						String timeZone = rr[2];
-						SimpleDateFormat sdf = new SimpleDateFormat(dateFormat);
-						sdf.setTimeZone(TimeZone.getTimeZone(timeZone));
-						try {
-							Date d = sdf.parse(fieldValue);
-							doc.putAttribute(key, d);
-						} catch (ParseException e) {
-							logger.error(e);
-						}
-					}
+					processAsDate(doc, key, rule);
 				}
 
 			} else {
@@ -119,6 +92,76 @@ public class AttributeTypeConverter extends AbstractDocumentAnnotator implements
 
 		}
 
+	}
+
+	private void processAsDate(Document doc, String key, String rule) {
+		String fieldValue2 = doc.getAttributeAsString(key);
+		if (fieldValue2 == null || fieldValue2.trim().isEmpty() == true) {
+			doc.remove(key);
+			return;
+		}
+		String[] rr = rule.split(":");
+		if (rr.length < 2) {
+			logger.error("Invalid Rule description: " + rule);
+		} //
+		else if (rr.length == 2) {
+			String dateFormat = rr[1];
+			SimpleDateFormat sdf = new SimpleDateFormat(dateFormat);
+			try {
+				Date d = sdf.parse(fieldValue2);
+				doc.putAttribute(key, d);
+			} catch (ParseException e) {
+				logger.error(e.getMessage() + ",key=" + key + ",doc=" + doc);
+				logger.error(e);
+				doc.remove(key);
+			}
+		} //
+		else if (rr.length == 3) {
+			String dateFormat = rr[1];
+			String timeZone = rr[2];
+			SimpleDateFormat sdf = new SimpleDateFormat(dateFormat);
+			sdf.setTimeZone(TimeZone.getTimeZone(timeZone));
+			try {
+				Date d = sdf.parse(fieldValue2);
+				doc.putAttribute(key, d);
+			} catch (ParseException e) {
+				logger.error(e.getMessage() + ",key=" + key + ",doc=" + doc);
+				logger.error(e);
+				doc.remove(key);
+			}
+		}
+	}
+
+	private void processAsDouble(Document doc, String key) {
+		String fieldValue2 = doc.getAttributeAsString(key);
+		if (fieldValue2 == null || fieldValue2.trim().isEmpty() == true) {
+			doc.remove(key);
+			return;
+		}
+		try {
+			Double v = Double.parseDouble(fieldValue2);
+			doc.putAttribute(key, v);
+		} catch (NumberFormatException e) {
+			logger.error(e.getMessage() + ",key=" + key + ",doc=" + doc);
+			logger.error(e);
+			doc.remove(key);
+		}
+	}
+
+	private void processAsInteger(Document doc, String key) {
+		String fieldValue2 = doc.getAttributeAsString(key);
+		if (fieldValue2 == null || fieldValue2.trim().isEmpty() == true) {
+			doc.remove(key);
+			return;
+		}
+		try {
+			Integer v = Integer.parseInt(fieldValue2);
+			doc.putAttribute(key, v);
+		} catch (NumberFormatException e) {
+			logger.error(e.getMessage() + ",key=" + key + ",doc=" + doc);
+			logger.error(e);
+			doc.remove(key);
+		}
 	}
 
 }

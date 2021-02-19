@@ -172,15 +172,29 @@ public class DocumentProcessor {
 		} else {
 			// Documentごとに処理
 			for (int n = 0; n < docs.size(); n++) {
+				if (n % 10 == 1) {
+					logger.info("Processing ... " + (n + 1));
+				}
 				pipeline.annotate(docs.get(n));
 			}
 		}
 
+		int countDoc = 0;
+
 		for (Document doc : docs) {
+
+			countDoc++;
+
+			if (countDoc % 10 == 1) {
+				logger.info("Processing ... " + countDoc);
+			}
+
 			for (String key : doc.getAttributeKeys()) {
 				logger.debug(key + "=" + doc.getAttribute(key));
 			}
+
 			logger.debug(doc.getAttribute("description"));
+
 			for (Keyword kwd : doc.getKeywords()) {
 				logger.debug("Keyword=" + kwd);
 			}

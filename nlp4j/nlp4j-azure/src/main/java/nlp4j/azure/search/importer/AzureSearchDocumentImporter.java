@@ -1,6 +1,10 @@
 package nlp4j.azure.search.importer;
 
 import java.io.IOException;
+import java.lang.invoke.MethodHandles;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -19,6 +23,8 @@ import nlp4j.util.JsonUtils;
  *
  */
 public class AzureSearchDocumentImporter extends AbstractDocumentImporter implements DocumentImporter {
+
+	static private Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
 	/**
 	 * API Document :

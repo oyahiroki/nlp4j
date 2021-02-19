@@ -1,8 +1,12 @@
 package nlp4j;
 
+import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * ドキュメントアノテーターの抽象クラス。 <br>
@@ -13,6 +17,8 @@ import java.util.Properties;
  *
  */
 public abstract class AbstractDocumentAnnotator implements DocumentAnnotator {
+
+	static private Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
 	protected ArrayList<String> targets = new ArrayList<>();
 
@@ -48,7 +54,12 @@ public abstract class AbstractDocumentAnnotator implements DocumentAnnotator {
 
 	@Override
 	public void annotate(List<Document> docs) throws Exception {
+		int countDoc = 0;
 		for (Document doc : docs) {
+			countDoc++;
+			if (countDoc % 100 == 1) {
+				logger.info("Processing ... " + countDoc);
+			}
 			annotate(doc);
 		}
 	}
