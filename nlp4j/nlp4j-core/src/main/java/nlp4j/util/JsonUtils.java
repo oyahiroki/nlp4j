@@ -7,6 +7,7 @@ import org.apache.commons.io.FileUtils;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 /**
@@ -45,6 +46,16 @@ public class JsonUtils {
 	 * @return String in Pretty Print
 	 */
 	static public String prettyPrint(JsonObject json) {
+		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+		return gson.toJson(json);
+	}
+
+	/**
+	 * @param json of JsonElement
+	 * @return String in Pretty Print
+	 * @since 1.3.1.0
+	 */
+	static public String prettyPrint(JsonElement json) {
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
 		return gson.toJson(json);
 	}

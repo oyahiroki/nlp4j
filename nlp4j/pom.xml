@@ -194,5 +194,6 @@
 		<module>nlp4j-yahoojp</module>
 		<module>nlp4j-stanford</module>
 		<module>nlp4j-solr</module>
+		<module>nlp4j-word2vec</module>
 	</modules>
 </project>

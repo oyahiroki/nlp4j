@@ -1,10 +1,8 @@
 package nlp4j.nhtsa;
 
 import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
@@ -15,7 +13,6 @@ import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 
@@ -24,6 +21,12 @@ import nlp4j.crawler.AbstractCrawler;
 import nlp4j.crawler.Crawler;
 import nlp4j.impl.DefaultDocument;
 
+/**
+ * since 20210213
+ * 
+ * @author Hiroki Oya
+ * @since 1.0.0.0
+ */
 public class NhtsaCrawler extends AbstractCrawler implements Crawler {
 
 //	private static final int minDate = 20000101;

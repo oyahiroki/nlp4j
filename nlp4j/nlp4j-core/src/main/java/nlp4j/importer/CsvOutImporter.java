@@ -25,13 +25,13 @@ public class CsvOutImporter extends AbstractDocumentImporter {
 
 	static private final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
-	List<String> header = null;
+	private List<String> header = null;
 
-	File outFile = null;
+	private File outFile = null;
 
-	CSVPrinter printer;
+	private CSVPrinter printer;
 
-	String encoding = "UTF-8";
+	private String encoding = "UTF-8";
 
 	/**
 	 * @param key   file | encoding

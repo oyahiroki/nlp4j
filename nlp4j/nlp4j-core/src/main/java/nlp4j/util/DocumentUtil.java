@@ -40,9 +40,22 @@ public class DocumentUtil {
 		sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
 	}
 
+	private static void copyAttributes(Document doc, JsonObject jsonObj) {
+		for (String key : doc.getAttributeKeys()) {
+			if (doc.getAttribute(key) instanceof Number) {
+				jsonObj.addProperty(key, doc.getAttributeAsNumber(key));
+			} else if (doc.getAttribute(key) instanceof Date) {
+				Date dd = doc.getAttributeAsDate(key);
+				jsonObj.addProperty(key, sdf.format(dd));
+			} else {
+				jsonObj.addProperty(key, doc.getAttribute(key).toString());
+			}
+		}
+	}
+
 	/**
 	 * @since 1.3.1.0
-	 * @param json
+	 * @param json to parse
 	 * @return Parsed Document
 	 * @throws Exception 例外発生時
 	 */
@@ -124,19 +137,6 @@ public class DocumentUtil {
 			}
 		}
 		return doc;
-	}
-
-	private static void copyAttributes(Document doc, JsonObject jsonObj) {
-		for (String key : doc.getAttributeKeys()) {
-			if (doc.getAttribute(key) instanceof Number) {
-				jsonObj.addProperty(key, doc.getAttributeAsNumber(key));
-			} else if (doc.getAttribute(key) instanceof Date) {
-				Date dd = doc.getAttributeAsDate(key);
-				jsonObj.addProperty(key, sdf.format(dd));
-			} else {
-				jsonObj.addProperty(key, doc.getAttribute(key).toString());
-			}
-		}
 	}
 
 	/**
@@ -221,6 +221,23 @@ public class DocumentUtil {
 	}
 
 	/**
+	 * @since 1.3.1.0
+	 * @param docs target Documents
+	 * @return Json Array
+	 */
+	static public JsonArray toJsonObject(List<Document> docs) {
+
+		JsonArray jsonArray = new JsonArray();
+
+		for (Document doc : docs) {
+			JsonObject json = toJsonObject(doc);
+			jsonArray.add(json);
+		}
+
+		return jsonArray;
+	}
+
+	/**
 	 * @since 1.3
 	 * @param doc target Document
 	 * @return Json String of Document
@@ -257,6 +274,19 @@ public class DocumentUtil {
 	}
 
 	/**
+	 * @since 1.3.1.0
+	 * @param docs target Documents
+	 * @return Pretty JSON String of Documents
+	 */
+	static public String toJsonPrettyString(List<Document> docs) {
+
+		JsonElement jsonArray = toJsonObject(docs);
+
+		return JsonUtils.prettyPrint(jsonArray);
+
+	}
+
+	/**
 	 * @since 1.1
 	 * @param doc target Document
 	 * @return Json String of Document
@@ -265,15 +295,6 @@ public class DocumentUtil {
 		JsonObject jsonObj = toJsonObject(doc);
 		Gson gson = new Gson();
 		return gson.toJson(jsonObj);
-	}
-
-	/**
-	 * @since 1.3.1.0
-	 * @param doc target Document
-	 * @return Pretty Json String of Document
-	 */
-	static public String toPrettyJsonString(Document doc) {
-		return JsonUtils.prettyPrint(toJsonString(doc));
 	}
 
 	/**
@@ -294,6 +315,28 @@ public class DocumentUtil {
 		json.addProperty("@classname", kwd.getClass().getCanonicalName());
 
 		return json.toString();
+	}
+
+	/**
+	 * @since 1.3.1.0
+	 * @param docs target Documents
+	 * @return JSON String of Documents
+	 */
+	static public String toJsonString(List<Document> docs) {
+
+		JsonArray jsonArray = toJsonObject(docs);
+
+		return jsonArray.toString();
+
+	}
+
+	/**
+	 * @since 1.3.1.0
+	 * @param doc target Document
+	 * @return Pretty Json String of Document
+	 */
+	static public String toPrettyJsonString(Document doc) {
+		return JsonUtils.prettyPrint(toJsonString(doc));
 	}
 
 	/**
@@ -374,30 +417,6 @@ public class DocumentUtil {
 	/**
 	 * Write documents as Line Separated Json
 	 * 
-	 * @param docs Document to write to file
-	 * @param file to write
-	 * @throws IOException on error writing file
-	 * @since 1.2.1.0
-	 */
-	static public void writeAsLineSeparatedJson(List<Document> docs, File file) throws IOException {
-
-		File parentDir = file.getParentFile();
-		if (parentDir.exists() == false) {
-			FileUtils.forceMkdir(parentDir);
-		}
-
-		for (Document doc : docs) {
-			String json = toJsonString(doc);
-			String encoding = "UTF-8";
-			boolean append = true;
-			FileUtils.write(file, json + "\n", encoding, append);
-		}
-
-	}
-
-	/**
-	 * Write documents as Line Separated Json
-	 * 
 	 * @param doc  Document to write to file
 	 * @param file to write
 	 * @throws IOException on error writing file
@@ -411,6 +430,30 @@ public class DocumentUtil {
 		}
 
 		{
+			String json = toJsonString(doc);
+			String encoding = "UTF-8";
+			boolean append = true;
+			FileUtils.write(file, json + "\n", encoding, append);
+		}
+
+	}
+
+	/**
+	 * Write documents as Line Separated Json
+	 * 
+	 * @param docs Document to write to file
+	 * @param file to write
+	 * @throws IOException on error writing file
+	 * @since 1.2.1.0
+	 */
+	static public void writeAsLineSeparatedJson(List<Document> docs, File file) throws IOException {
+
+		File parentDir = file.getParentFile();
+		if (parentDir.exists() == false) {
+			FileUtils.forceMkdir(parentDir);
+		}
+
+		for (Document doc : docs) {
 			String json = toJsonString(doc);
 			String encoding = "UTF-8";
 			boolean append = true;
