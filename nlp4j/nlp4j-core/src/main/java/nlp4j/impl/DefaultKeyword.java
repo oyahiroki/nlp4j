@@ -1,6 +1,7 @@
 package nlp4j.impl;
 
 import nlp4j.Keyword;
+import nlp4j.UPOS20;
 
 /**
  * ドキュメントのキーワードとなるクラスです。<br>
@@ -23,12 +24,13 @@ public class DefaultKeyword implements Keyword, Cloneable {
 	private boolean flag = false;
 	String lex;
 	String namespace;
-
 	String reading;
 
 	int sequence = -1;
 
 	String str;
+
+	String upos;
 
 	/**
 	 * Default constructor
@@ -229,6 +231,11 @@ public class DefaultKeyword implements Keyword, Cloneable {
 	}
 
 	@Override
+	public String getUPos() {
+		return this.upos;
+	}
+
+	@Override
 	public int hashCode() {
 		if (this.lex == null || lex == null || this.facet == null || facet == null) {
 			return super.hashCode();
@@ -275,6 +282,7 @@ public class DefaultKeyword implements Keyword, Cloneable {
 	@Override
 	public void setFacet(String facet) {
 		this.facet = facet;
+		this.upos = UPOS20.fromPOSJA(facet);
 	}
 
 	/**
@@ -353,9 +361,9 @@ public class DefaultKeyword implements Keyword, Cloneable {
 	 * @since 1.3
 	 */
 	public String toStringDetail() {
-		return this.lex + " [sequence=" + sequence + ", facet=" + facet + ", lex=" + lex + ", str=" + str + ", reading="
-				+ reading + ", count=" + count + ", begin=" + begin + ", end=" + end + ", correlation=" + correlation
-				+ "]";
+		return this.lex + " [sequence=" + sequence + ", facet=" + facet + ", upos=" + upos + ", lex=" + lex + ", str="
+				+ str + ", reading=" + reading + ", count=" + count + ", begin=" + begin + ", end=" + end
+				+ ", correlation=" + correlation + "]";
 	}
 
 }

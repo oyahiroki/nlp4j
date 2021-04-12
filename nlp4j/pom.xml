@@ -195,5 +195,6 @@
 		<module>nlp4j-stanford</module>
 		<module>nlp4j-solr</module>
 		<module>nlp4j-word2vec</module>
+		<module>nlp4j-mecab</module>
 	</modules>
 </project>

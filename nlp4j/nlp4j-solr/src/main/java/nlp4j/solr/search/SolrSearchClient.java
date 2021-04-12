@@ -121,7 +121,7 @@ public class SolrSearchClient extends AbstractSearchClient implements SearchClie
 								if ("count".equals(key)) {
 //									queryParamMap.put("f.word_noun_ss.facet.limit", "100");
 									queryParamMap.put("f." + facetName + ".facet.limit", value);
-									queryParamMap.put("f." + facetName + ".facet.mincount", "" + 100);
+//									queryParamMap.put("f." + facetName + ".facet.mincount", "" + 100);
 								}
 							} else {
 

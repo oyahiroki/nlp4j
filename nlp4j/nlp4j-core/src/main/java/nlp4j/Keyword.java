@@ -71,6 +71,15 @@ public interface Keyword extends Serializable {
 	String getFacet();
 
 	/**
+	 * Universal POSを返します。<br>
+	 * Return Universal POS.
+	 * 
+	 * @return Universal POS
+	 * @since 1.3.1.0
+	 */
+	String getUPos();
+
+	/**
 	 * @return フラグ
 	 * @since 1.3
 	 */

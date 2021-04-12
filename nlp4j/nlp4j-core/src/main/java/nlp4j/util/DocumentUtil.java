@@ -307,6 +307,7 @@ public class DocumentUtil {
 		JsonObject json = new JsonObject();
 
 		json.addProperty("facet", kwd.getFacet());
+		json.addProperty("upos", kwd.getUPos()); // @since 1.3.1.0
 		json.addProperty("lex", kwd.getLex());
 		json.addProperty("str", kwd.getStr());
 		json.addProperty("begin", kwd.getBegin());

@@ -59,6 +59,53 @@ public class WordCounter {
 		}
 	}
 
+	public List<Keyword> getTopKeywords(int size) {
+
+		ArrayList<Keyword> kwds = new ArrayList<>();
+
+		String indexName = "sandbox";
+		String json = "{" //
+				+ "search:'*:*'," //
+				+ "facets:['word_noun_ss,count:" + size + "']," //
+				+ "top:0" //
+				+ "}" //
+		;
+
+		try {
+
+			JsonObject responseObject = client.search(indexName, json);
+
+//			System.err.println(new GsonBuilder().setPrettyPrinting().create().toJson(responseObject));
+
+			this.countAll = responseObject.get("@odata.count").getAsLong();
+
+			{
+				JsonObject facets = responseObject.get("@search.facets").getAsJsonObject();
+				{
+					JsonArray ff = facets.get("word_noun_ss").getAsJsonArray();
+					if (ff != null) {
+						for (int n = 0; n < ff.size(); n++) {
+							JsonObject f = ff.get(n).getAsJsonObject();
+							String s = f.get("value").getAsString();
+							long c = f.get("count").getAsLong();
+							Keyword kwd = new DefaultKeyword();
+							kwd.setLex(s);
+							kwd.setCount(c);
+							kwds.add(kwd);
+						}
+					}
+
+				}
+			}
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return kwds;
+
+	}
+
 	public WordCounter(SearchClient client) {
 
 		this.client = client;
@@ -103,19 +150,21 @@ public class WordCounter {
 
 	public double getIdf(String word) {
 
-		double idf = Math.log((this.countAll) / (getCount(word)));
+		System.err.println(word);
+
+		double idf = Math.log(((this.countAll) / (getCount(word))) + 1);
 
 		return idf;
 	}
 
-	public List<Keyword> getCooccurrence(String word, long count) {
+	public List<Keyword> getCooccurrence(String word, long facetCount) {
 
 		List<Keyword> kwds = new ArrayList<>();
 
 		String indexName = "sandbox";
 		String json = "{" //
 				+ "search:'word_noun_ss:" + word + "'," //
-				+ "facets:['word_noun_ss,count:" + count + "']," //
+				+ "facets:['word_noun_ss,count:" + facetCount + "']," //
 				+ "top:0" //
 				+ "}" //
 		;
@@ -153,9 +202,9 @@ public class WordCounter {
 
 	}
 
-	public List<Keyword> getCooccurrenceSortedByIDF(String word, int i) {
+	public List<Keyword> getCooccurrenceSortedByIDF(String word, int facetCount) {
 
-		List<Keyword> kwds = getCooccurrence(word, i);
+		List<Keyword> kwds = getCooccurrence(word, facetCount);
 
 		kwds.forEach(k -> k.setCorrelation(getIdf(k.getLex())));
 
@@ -163,11 +212,9 @@ public class WordCounter {
 
 			@Override
 			public int compare(Keyword o1, Keyword o2) {
-				if (o2.getCorrelation() - o1.getCorrelation() < 0) {
-					return -1;
-				} else {
-					return 1;
-				}
+
+				return (o2.getCorrelation() - o1.getCorrelation() < 0) ? -1 : 1;
+
 			}
 		});
 

@@ -46,4 +46,16 @@ public class WordCounterTestCase extends TestCase {
 
 	}
 
+	public void test002() throws Exception {
+		String endPoint = "http://localhost:8983/solr";
+
+		SolrSearchClient client = new SolrSearchClient.Builder(endPoint).build();
+
+		WordCounter wc = new WordCounter(client);
+
+		List<Keyword> kwds = wc.getTopKeywords(100);
+		kwds.stream().forEach(k -> System.err.println(k.getLex() + " " + k.getCount()));
+
+	}
+
 }
