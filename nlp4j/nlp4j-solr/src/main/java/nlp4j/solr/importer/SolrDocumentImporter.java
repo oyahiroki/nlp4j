@@ -19,15 +19,30 @@ import nlp4j.Keyword;
  *
  */
 public class SolrDocumentImporter extends AbstractDocumentImporter implements DocumentImporter {
-	HttpSolrClient solr;
+
+	HttpSolrClient solrClient;
+
+	private String endPoint = "http://localhost:8983/solr/";
+	private String collection = "sandbox";
+
+	@Override
+	public void setProperty(String key, String value) {
+		super.setProperty(key, value);
+
+		if ("endPoint".equals(key)) {
+			this.endPoint = value;
+		} //
+		else if ("collection".equals(key)) {
+			this.collection = value;
+		}
+	}
 
 	@Override
 	public void importDocument(Document doc) throws IOException {
 
-		if (this.solr == null) {
-			String urlString = "http://localhost:8983/solr/sandbox";
-			solr = new HttpSolrClient.Builder(urlString).build();
-			solr.setParser(new XMLResponseParser());
+		if (this.solrClient == null) {
+			solrClient = new HttpSolrClient.Builder(this.endPoint + this.collection).build();
+			solrClient.setParser(new XMLResponseParser());
 		}
 
 		SolrInputDocument inputDocument = new SolrInputDocument();
@@ -55,12 +70,13 @@ public class SolrDocumentImporter extends AbstractDocumentImporter implements Do
 			for (Keyword kwd : doc.getKeywords("word")) {
 				kwds.add(kwd.getLex());
 			}
-			inputDocument.addField("word_noun_ss", kwds);
+			inputDocument.addField("word_ss", kwds);
 		}
 
 		try {
-			solr.add(inputDocument);
-		} catch (SolrServerException | IOException e) {
+			solrClient.add(inputDocument);
+		} //
+		catch (SolrServerException | IOException e) {
 			e.printStackTrace();
 			throw new IOException(e);
 		}
@@ -70,7 +86,7 @@ public class SolrDocumentImporter extends AbstractDocumentImporter implements Do
 	public void commit() throws IOException {
 
 		try {
-			solr.commit();
+			solrClient.commit();
 		} catch (SolrServerException | IOException e) {
 			e.printStackTrace();
 			throw new IOException(e);
@@ -80,7 +96,6 @@ public class SolrDocumentImporter extends AbstractDocumentImporter implements Do
 
 	@Override
 	public void close() {
-		// TODO Auto-generated method stub
 
 	}
 
