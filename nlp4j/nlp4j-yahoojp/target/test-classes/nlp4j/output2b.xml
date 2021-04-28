@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<w lex="です" str="です">
+	<w lex="天気" str="天気">
+		<w lex="は" str="は">
+			<w lex="今日" str="今日" />
+		</w>
+		<w lex="いい" str="いい" />
+	</w>
+</w>

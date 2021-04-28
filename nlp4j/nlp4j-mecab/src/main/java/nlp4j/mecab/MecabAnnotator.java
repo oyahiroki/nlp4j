@@ -65,7 +65,7 @@ public class MecabAnnotator extends AbstractDocumentAnnotator implements Documen
 					continue;
 				}
 
-				logger.info(node.surface() + "\t" + node.feature());
+				logger.debug(node.surface() + "\t" + node.feature());
 
 				DefaultKeyword kwd = new DefaultKeyword();
 

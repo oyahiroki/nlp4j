@@ -10,35 +10,70 @@ import nlp4j.Keyword;
 public class WordCounterTestCase extends TestCase {
 
 	public void test001() throws Exception {
-
-		String endPoint = "http://localhost:8983/solr";
-
+		String endPoint = "http://localhost:8983/solr/";
+		String indexName = "wiki1";
 		SolrSearchClient client = new SolrSearchClient.Builder(endPoint).build();
-
-		WordCounter wc = new WordCounter(client);
-
+		WordCounter wc = new WordCounter(client, indexName);
 		System.err.println("全文書数:" + wc.getCountAll());
+	}
 
-		System.err.println("日本:" + wc.getCount("日本"));
+	public void test002() throws Exception {
+		String endPoint = "http://localhost:8983/solr/";
+		String indexName = "wiki1";
+		SolrSearchClient client = new SolrSearchClient.Builder(endPoint).build();
+		WordCounter wc = new WordCounter(client, indexName);
+		System.err.println("日本:" + wc.getCount("word_ss", "日本"));
+	}
 
-		System.err.println("日本xx:" + wc.getCount("日本xx"));
+	public void test003() throws Exception {
+		String endPoint = "http://localhost:8983/solr/";
+		String indexName = "wiki1";
+		SolrSearchClient client = new SolrSearchClient.Builder(endPoint).build();
+		WordCounter wc = new WordCounter(client, indexName);
+		System.err.println("東京オリンピック:" + wc.getCount("word_ss", "東京オリンピック"));
+	}
 
-		System.err.println("東京オリンピック:" + wc.getCount("東京オリンピック"));
+	public void test501() throws Exception {
+		String endPoint = "http://localhost:8983/solr/";
+		String indexName = "wiki1";
+		SolrSearchClient client = new SolrSearchClient.Builder(endPoint).build();
+		WordCounter wc = new WordCounter(client, indexName);
+		System.err.println("日本xx:" + wc.getCount("word_ss", "日本xx"));
+	}
 
-		System.err.println("idf(日本):" + wc.getIdf("日本"));
+	public void test101() throws Exception {
+		String endPoint = "http://localhost:8983/solr/";
+		String indexName = "wiki1";
+		SolrSearchClient client = new SolrSearchClient.Builder(endPoint).build();
+		WordCounter wc = new WordCounter(client, indexName);
+		System.err.println("idf(日本):" + wc.getIdf("word_ss", "日本"));
+		System.err.println("idf(関東地方):" + wc.getIdf("word_ss", "関東地方"));
+	}
 
-		System.err.println("idf(関東地方):" + wc.getIdf("関東地方"));
+	public void test102() throws Exception {
+		String endPoint = "http://localhost:8983/solr/";
+		String indexName = "wiki1";
+		SolrSearchClient client = new SolrSearchClient.Builder(endPoint).build();
+		WordCounter wc = new WordCounter(client, indexName);
 
-//		wc.getCooccurrence("日本", 300).forEach(k -> {
-//			System.err.println(k.getLex() + " " + k.getCount() + " " + wc.getIdf(k.getLex()));
-//		});
+//		System.err.println(wc.getCooccurrence("word_ss", "日本", 300));
 
-		System.err.println("医者:" + wc.getCount("医者"));
+		wc.getCooccurrence("word_ss", "日本", 10).forEach(k -> {
+			System.err.println(k.getLex() + " " + k.getCount() + " " + wc.getIdf("word_ss", k.getLex()));
+		});
+	}
+
+	public void test103() throws Exception {
+		String endPoint = "http://localhost:8983/solr/";
+		String indexName = "wiki1";
+		SolrSearchClient client = new SolrSearchClient.Builder(endPoint).build();
+		WordCounter wc = new WordCounter(client, indexName);
+		System.err.println("医者:" + wc.getCount("word_ss", "医者"));
 
 		System.err.println("---");
 
 		{
-			List<Keyword> kwds = wc.getCooccurrenceSortedByIDF("医者", 10000);
+			List<Keyword> kwds = wc.getCooccurrenceSortedByIDF("word_ss", "医者", 10000);
 			kwds.forEach(k -> {
 				System.err.println(k.getLex() + " " + k.getCount() + " " + k.getCorrelation());
 			});
@@ -46,14 +81,15 @@ public class WordCounterTestCase extends TestCase {
 
 	}
 
-	public void test002() throws Exception {
-		String endPoint = "http://localhost:8983/solr";
+	public void test002b() throws Exception {
+		String endPoint = "http://localhost:8983/solr/";
+		String indexName = "wiki1";
 
 		SolrSearchClient client = new SolrSearchClient.Builder(endPoint).build();
 
-		WordCounter wc = new WordCounter(client);
+		WordCounter wc = new WordCounter(client, indexName);
 
-		List<Keyword> kwds = wc.getTopKeywords(100);
+		List<Keyword> kwds = wc.getTopKeywords("word_ss", 100);
 		kwds.stream().forEach(k -> System.err.println(k.getLex() + " " + k.getCount()));
 
 	}

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<javadocOptions>
+  <groups>
+    <group>
+      <title>NLP4J</title>
+      <packages>nlp4j*</packages>
+    </group>
+  </groups>
+  <docletArtifacts>
+    <docletArtifact />
+  </docletArtifacts>
+  <tagletArtifacts>
+    <tagletArtifact />
+  </tagletArtifacts>
+  <links>
+    <link>https://docs.oracle.com/javase/jp/8/docs/api</link>
+  </links>
+  <docfilesSubdirsUsed>true</docfilesSubdirsUsed>
+  <javadocResourcesDirectory>src/main/javadoc</javadocResourcesDirectory>
+</javadocOptions>

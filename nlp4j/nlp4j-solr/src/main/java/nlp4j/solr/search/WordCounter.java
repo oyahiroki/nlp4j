@@ -21,96 +21,15 @@ public class WordCounter {
 
 	private long countAll;
 
+	String indexName = "sandbox";
+
 	HashMap<String, Long> wordCount = new HashMap<>();
 
-	public long getCountAll() {
-		return this.countAll;
-	}
-
-	public long getCount(String word) {
-		if (wordCount.containsKey(word)) {
-			return wordCount.get(word);
-		} //
-		else {
-			String indexName = "sandbox";
-			String json = "{" //
-					+ "search:'word_noun_ss:" + word + "'," //
-					+ "facets:null," //
-					+ "top:0" //
-					+ "}" //
-			;
-
-			try {
-
-				JsonObject responseObject = client.search(indexName, json);
-
-//				System.err.println(new GsonBuilder().setPrettyPrinting().create().toJson(responseObject));
-
-				long count = responseObject.get("@odata.count").getAsLong();
-
-				this.wordCount.put(word, count);
-
-				return count;
-
-			} catch (Exception e) {
-				e.printStackTrace();
-				return -1;
-			}
-		}
-	}
-
-	public List<Keyword> getTopKeywords(int size) {
-
-		ArrayList<Keyword> kwds = new ArrayList<>();
-
-		String indexName = "sandbox";
-		String json = "{" //
-				+ "search:'*:*'," //
-				+ "facets:['word_noun_ss,count:" + size + "']," //
-				+ "top:0" //
-				+ "}" //
-		;
-
-		try {
-
-			JsonObject responseObject = client.search(indexName, json);
-
-//			System.err.println(new GsonBuilder().setPrettyPrinting().create().toJson(responseObject));
-
-			this.countAll = responseObject.get("@odata.count").getAsLong();
-
-			{
-				JsonObject facets = responseObject.get("@search.facets").getAsJsonObject();
-				{
-					JsonArray ff = facets.get("word_noun_ss").getAsJsonArray();
-					if (ff != null) {
-						for (int n = 0; n < ff.size(); n++) {
-							JsonObject f = ff.get(n).getAsJsonObject();
-							String s = f.get("value").getAsString();
-							long c = f.get("count").getAsLong();
-							Keyword kwd = new DefaultKeyword();
-							kwd.setLex(s);
-							kwd.setCount(c);
-							kwds.add(kwd);
-						}
-					}
-
-				}
-			}
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		return kwds;
-
-	}
-
-	public WordCounter(SearchClient client) {
+	public WordCounter(SearchClient client, String collection) {
 
 		this.client = client;
+		this.indexName = collection;
 
-		String indexName = "sandbox";
 		String json = "{" //
 				+ "search:'*:*'," //
 				+ "facets:['word_noun_ss,count:10000']," //
@@ -148,23 +67,13 @@ public class WordCounter {
 
 	}
 
-	public double getIdf(String word) {
-
-		System.err.println(word);
-
-		double idf = Math.log(((this.countAll) / (getCount(word))) + 1);
-
-		return idf;
-	}
-
-	public List<Keyword> getCooccurrence(String word, long facetCount) {
+	public List<Keyword> getCooccurrence(String facet, String word, long facetCount) {
 
 		List<Keyword> kwds = new ArrayList<>();
 
-		String indexName = "sandbox";
 		String json = "{" //
-				+ "search:'word_noun_ss:" + word + "'," //
-				+ "facets:['word_noun_ss,count:" + facetCount + "']," //
+				+ "search:'" + facet + ":" + word + "'," //
+				+ "facets:['" + facet + ",count:" + facetCount + "']," //
 				+ "top:0" //
 				+ "}" //
 		;
@@ -175,7 +84,7 @@ public class WordCounter {
 			{
 				JsonObject facets = responseObject.get("@search.facets").getAsJsonObject();
 				{
-					JsonArray ff = facets.get("word_noun_ss").getAsJsonArray();
+					JsonArray ff = facets.get(facet).getAsJsonArray();
 					if (ff != null) {
 						for (int n = 0; n < ff.size(); n++) {
 							JsonObject f = ff.get(n).getAsJsonObject();
@@ -186,9 +95,7 @@ public class WordCounter {
 							Keyword kwd = new DefaultKeyword();
 							kwd.setLex(s);
 							kwd.setCount(c);
-
 							kwds.add(kwd);
-
 						}
 					}
 
@@ -202,11 +109,11 @@ public class WordCounter {
 
 	}
 
-	public List<Keyword> getCooccurrenceSortedByIDF(String word, int facetCount) {
+	public List<Keyword> getCooccurrenceSortedByIDF(String facet, String word, int facetCount) {
 
-		List<Keyword> kwds = getCooccurrence(word, facetCount);
+		List<Keyword> kwds = getCooccurrence(facet, word, facetCount);
 
-		kwds.forEach(k -> k.setCorrelation(getIdf(k.getLex())));
+		kwds.forEach(k -> k.setCorrelation(getIdf(facet, k.getLex())));
 
 		Collections.sort(kwds, new Comparator<Keyword>() {
 
@@ -219,6 +126,97 @@ public class WordCounter {
 		});
 
 		return kwds;
+	}
+
+	public long getCount(String facet, String word) {
+
+		if (wordCount.containsKey(word)) {
+			return wordCount.get(word);
+		} //
+		else {
+			String json = "{" //
+					+ "search:'" + facet + ":" + word + "'," //
+					+ "facets:null," //
+					+ "top:0" //
+					+ "}" //
+			;
+
+			try {
+
+				JsonObject responseObject = client.search(indexName, json);
+
+//				System.err.println(new GsonBuilder().setPrettyPrinting().create().toJson(responseObject));
+
+				long count = responseObject.get("@odata.count").getAsLong();
+
+				this.wordCount.put(word, count);
+
+				return count;
+
+			} catch (Exception e) {
+				e.printStackTrace();
+				return -1;
+			}
+		}
+	}
+
+	public long getCountAll() {
+		return this.countAll;
+	}
+
+	public double getIdf(String facet, String word) {
+
+//		System.err.println(word);
+
+		double idf = Math.log(((this.countAll) / (getCount(facet, word))) + 1);
+
+		return idf;
+	}
+
+	public List<Keyword> getTopKeywords(String facet, int size) {
+
+		ArrayList<Keyword> kwds = new ArrayList<>();
+
+		String json = "{" //
+				+ "search:'*:*'," //
+				+ "facets:['" + facet + ",count:" + size + "']," //
+				+ "top:0" //
+				+ "}" //
+		;
+
+		try {
+
+			JsonObject responseObject = client.search(indexName, json);
+
+//			System.err.println(new GsonBuilder().setPrettyPrinting().create().toJson(responseObject));
+
+			this.countAll = responseObject.get("@odata.count").getAsLong();
+
+			{
+				JsonObject facets = responseObject.get("@search.facets").getAsJsonObject();
+				{
+					JsonArray ff = facets.get(facet).getAsJsonArray();
+					if (ff != null) {
+						for (int n = 0; n < ff.size(); n++) {
+							JsonObject f = ff.get(n).getAsJsonObject();
+							String s = f.get("value").getAsString();
+							long c = f.get("count").getAsLong();
+							Keyword kwd = new DefaultKeyword();
+							kwd.setLex(s);
+							kwd.setCount(c);
+							kwds.add(kwd);
+						}
+					}
+
+				}
+			}
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return kwds;
+
 	}
 
 }

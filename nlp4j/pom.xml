@@ -196,5 +196,8 @@
 		<module>nlp4j-solr</module>
 		<module>nlp4j-word2vec</module>
 		<module>nlp4j-mecab</module>
+		<module>nlp4j-ginza</module>
+		<module>nlp4j-cabocha</module>
+		<module>nlp4j-test</module>
 	</modules>
 </project>

@@ -10,7 +10,7 @@ public class SolrSearchClientTestCase extends TestCase {
 
 	public void testSearch001() throws Exception {
 
-		String endPoint = "http://localhost:8983/solr";
+		String endPoint = "http://localhost:8983/";
 		String indexName = "sandbox";
 		String json = "{" //
 				+ "search:'*:*'," //

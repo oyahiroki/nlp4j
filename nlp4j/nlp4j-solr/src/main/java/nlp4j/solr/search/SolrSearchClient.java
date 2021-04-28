@@ -38,7 +38,7 @@ public class SolrSearchClient extends AbstractSearchClient implements SearchClie
 		private String endPoint;
 
 		/**
-		 * @param endPoint like http://localhost:8983/solr
+		 * @param endPoint like 'http://localhost:8983/'
 		 */
 		public Builder(String endPoint) {
 			this.endPoint = endPoint;
@@ -75,7 +75,8 @@ public class SolrSearchClient extends AbstractSearchClient implements SearchClie
 	 */
 	public JsonObject search(String collection, JsonObject request) throws IOException {
 
-		HttpSolrClient client = new HttpSolrClient.Builder(this.endPoint) //
+		String baseSolrUrl = this.endPoint;
+		HttpSolrClient client = new HttpSolrClient.Builder(baseSolrUrl) //
 				.withConnectionTimeout(10000)//
 				.withSocketTimeout(60000)//
 				.build();

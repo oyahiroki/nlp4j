@@ -1,0 +1,14 @@
+@startuml
+title NLP4J
+participant User_App
+participant "NLP4J" as NLP4J #lightblue
+User_App->NLP4J : set_params
+User_App->NLP4J : natural_text
+note left: [入力の例]\n日産自動車はEVを作ります
+NLP4J->NLP_Service_1 : call(text)
+NLP_Service_1->NLP4J : result
+NLP4J->NLP_Service_2 : call(text)
+NLP_Service_2->NLP4J : result
+NLP4J->User_App : return_result
+note left: [形態素解析の結果例]\n日産自動車 [facet=名詞, lex=日産自動車]\nは [facet=助詞, lex=は]\nEV [facet=名詞, lex=EV,]\nを [facet=助詞, lex=を,]\n作る [facet=動詞, lex=作る]\nます [facet=助動詞, lex=ます]\n。 [facet=特殊, lex=。]
+@enduml

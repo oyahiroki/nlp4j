@@ -23,7 +23,7 @@ public class SolrDocumentImporter extends AbstractDocumentImporter implements Do
 	HttpSolrClient solrClient;
 
 	private String endPoint = "http://localhost:8983/solr/";
-	private String collection = "sandbox";
+	private String collection = null;
 
 	@Override
 	public void setProperty(String key, String value) {
@@ -39,6 +39,10 @@ public class SolrDocumentImporter extends AbstractDocumentImporter implements Do
 
 	@Override
 	public void importDocument(Document doc) throws IOException {
+
+		if (collection == null) {
+			throw new NullPointerException("Parameter 'collection' is not set");
+		}
 
 		if (this.solrClient == null) {
 			solrClient = new HttpSolrClient.Builder(this.endPoint + this.collection).build();
