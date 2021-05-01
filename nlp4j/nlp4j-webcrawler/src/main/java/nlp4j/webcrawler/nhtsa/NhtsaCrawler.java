@@ -1,10 +1,11 @@
-package nlp4j.nhtsa;
+package nlp4j.webcrawler.nhtsa;
 
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.invoke.MethodHandles;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -15,11 +16,14 @@ import java.util.zip.ZipInputStream;
 
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import nlp4j.Document;
 import nlp4j.crawler.AbstractCrawler;
 import nlp4j.crawler.Crawler;
 import nlp4j.impl.DefaultDocument;
+import nlp4j.webcrawler.AbstractWebCrawler;
 
 /**
  * since 20210213
@@ -27,12 +31,13 @@ import nlp4j.impl.DefaultDocument;
  * @author Hiroki Oya
  * @since 1.0.0.0
  */
-public class NhtsaCrawler extends AbstractCrawler implements Crawler {
-
-//	private static final int minDate = 20000101;
-	private int minDate = Integer.MIN_VALUE;
+public class NhtsaCrawler extends AbstractWebCrawler implements Crawler {
 
 	static String[] headers;
+
+	static private Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
+
+	static List<String> makesFilterList;
 
 	static {
 		String header = "CMPLID,ODINO,MFR_NAME,MAKETXT,MODELTXT," //
@@ -52,14 +57,15 @@ public class NhtsaCrawler extends AbstractCrawler implements Crawler {
 //		makesFilterList = Arrays.asList(makesFilter.split(","));
 	}
 
-	String charset = "UTF-8";
-	String encoding = "UTF-8";
+	private String charset = "UTF-8";
+	private String encoding = "UTF-8";
 
-	String fileName = "FLAT_CMPL.txt";
+	// private static final int minDate = 20000101;
+	private int minDate = Integer.MIN_VALUE;
 
 	boolean trim = true;
 
-	static List<String> makesFilterList;
+	private final String zipEntryFileName = "FLAT_CMPL.txt";
 
 	@Override
 	public List<Document> crawlDocuments() {
@@ -70,45 +76,30 @@ public class NhtsaCrawler extends AbstractCrawler implements Crawler {
 
 		try {
 			if (inputFile.exists() == true) {
-
 				String ext = FilenameUtils.getExtension(inputFile.getAbsolutePath());
 				if (ext.equals("zip")) {
+					logger.info("Read ZIP: " + inputFile.getAbsolutePath());
 					return readAsZip(inputFile);
 				} //
 				else if (ext.equals("txt")) {
+					logger.info("Read TXT: " + inputFile.getAbsolutePath());
 					return readAsTxt(inputFile);
+				} //
+				else {
+					return null;
 				}
+			} //
+			else {
+				return null;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
-
-		return null;
-	}
-
-	@Override
-	public void setProperty(String key, String value) {
-
-		if (key == null || value == null) {
-			return;
-		}
-
-		super.setProperty(key, value);
-
-		if (key.equals("minDate")) {
-			try {
-				this.minDate = Integer.parseInt(value);
-			} catch (NumberFormatException e) {
-				e.printStackTrace();
-			}
-		} //
-		else if (key.equals("MAKETXT")) {
-			makesFilterList = Arrays.asList(value.split(","));
+			return null;
 		}
 
 	}
 
-	private List<Document> process(InputStream is, String encoding) throws IOException {
+	private List<Document> read(InputStream is, String encoding) throws IOException {
 
 		ArrayList<Document> docs = new ArrayList<>();
 
@@ -174,7 +165,7 @@ public class NhtsaCrawler extends AbstractCrawler implements Crawler {
 	private List<Document> readAsTxt(File inputFile) throws IOException {
 
 		try (FileInputStream fis = new FileInputStream(inputFile);) {
-			return process(fis, encoding);
+			return read(fis, encoding);
 		} catch (IOException e) {
 			throw e;
 		}
@@ -192,9 +183,9 @@ public class NhtsaCrawler extends AbstractCrawler implements Crawler {
 
 				System.err.println(zipentry.getName());
 
-				if (zipentry.getName().equals(fileName)) {
+				if (zipentry.getName().equals(zipEntryFileName)) {
 
-					return process(zis, encoding);
+					return read(zis, encoding);
 
 				}
 			}
@@ -203,6 +194,28 @@ public class NhtsaCrawler extends AbstractCrawler implements Crawler {
 
 		} catch (IOException e) {
 			throw e;
+		}
+
+	}
+
+	@Override
+	public void setProperty(String key, String value) {
+
+		if (key == null || value == null) {
+			return;
+		}
+
+		super.setProperty(key, value);
+
+		if (key.equals("minDate")) {
+			try {
+				this.minDate = Integer.parseInt(value);
+			} catch (NumberFormatException e) {
+				e.printStackTrace();
+			}
+		} //
+		else if (key.equals("MAKETXT")) {
+			makesFilterList = Arrays.asList(value.split(","));
 		}
 
 	}

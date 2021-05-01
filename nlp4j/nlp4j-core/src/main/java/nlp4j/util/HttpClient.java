@@ -1,10 +1,12 @@
 package nlp4j.util;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Map;
 
 import nlp4j.NlpServiceResponse;
 import nlp4j.impl.DefaultNlpServiceResponse;
+import okhttp3.Headers;
 import okhttp3.HttpUrl;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -29,6 +31,23 @@ public class HttpClient {
 	public static final MediaType JSON = MediaType.get("application/json; charset=utf-8");
 
 	OkHttpClient client = new OkHttpClient();
+
+	private long content_length = -1;
+
+	public long getContentLength() {
+		return content_length;
+	}
+
+	/**
+	 * @since 1.3.1.0
+	 */
+	public HttpClient() {
+		super();
+		client = new OkHttpClient().newBuilder() //
+				.followRedirects(false) //
+				.followSslRedirects(false) //
+				.build();
+	}
 
 	/**
 	 * @param url  APIのURL
@@ -84,6 +103,7 @@ public class HttpClient {
 	public DefaultNlpServiceResponse get(String url, Map<String, String> params) throws IOException {
 
 		HttpUrl.Builder builder = HttpUrl.parse(url).newBuilder();
+
 		if (params != null) {
 			params.forEach(builder::addQueryParameter);
 		}
@@ -97,6 +117,52 @@ public class HttpClient {
 					= new DefaultNlpServiceResponse(responseCode, originalResponseBody);
 			return res;
 		}
+	}
+
+	public InputStream getInputStream(String url, Map<String, String> params) throws IOException {
+
+		HttpUrl.Builder builder = HttpUrl.parse(url).newBuilder();
+
+		if (params != null) {
+			params.forEach(builder::addQueryParameter);
+		}
+
+		Request request = new Request.Builder().url(builder.build()).build();
+
+		{
+
+			Response response = client.newCall(request).execute();
+			Headers headers = response.headers();
+			for (String name : headers.names()) {
+				String value = headers.get(name);
+				System.err.println(name + "=" + value);
+				if ("Content-Length".equals(name)) {
+					long n = Long.parseLong(value);
+					this.content_length = n;
+				}
+			}
+
+			int responseCode = response.code();
+
+			if (responseCode == 200) {
+				return response.body().byteStream();
+			} else {
+				throw new IOException("responseCode:" + responseCode);
+			}
+		}
+
+	}
+
+	/**
+	 * @param url APIのURL
+	 * @return NLPの結果
+	 * @throws IOException 例外発生時にスローされる
+	 * @since 1.3.1.0
+	 * @created_at 2020-04-29
+	 */
+	public DefaultNlpServiceResponse get(String url) throws IOException {
+		Map<String, String> params = null;
+		return get(url, null);
 	}
 
 }

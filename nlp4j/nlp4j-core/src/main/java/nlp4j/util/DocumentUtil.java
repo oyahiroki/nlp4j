@@ -341,6 +341,28 @@ public class DocumentUtil {
 	}
 
 	/**
+	 * @since 1.3.1.0
+	 * @param doc target Document
+	 * @return Pretty Json String of Document in short length
+	 */
+	static public String toPrettyJsonStringShort(Document doc) {
+
+		StringBuilder sb = new StringBuilder();
+
+		String json = JsonUtils.prettyPrint(toJsonString(doc));
+
+		for (String js : json.split("\n")) {
+			js = js.trim();
+			if (js.length() > 80) {
+				js = js.substring(0, 80) + "...";
+			}
+			sb.append(js + "\n");
+		}
+
+		return sb.toString();
+	}
+
+	/**
 	 * Convert to XML
 	 * 
 	 * @param doc to be converted

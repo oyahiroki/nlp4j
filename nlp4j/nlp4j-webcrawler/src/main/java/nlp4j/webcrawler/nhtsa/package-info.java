@@ -1,4 +1,4 @@
 /**
  * Package for NHTSA data
  */
-package nlp4j.nhtsa;
+package nlp4j.webcrawler.nhtsa;

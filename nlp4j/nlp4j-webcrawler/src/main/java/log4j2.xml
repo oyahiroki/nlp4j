@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration>
+	<Properties>
+		<Property name="format1">%d{yyyy/MM/dd HH:mm:ss.SSS} [%t] %-6p %c{10} %m%n</Property>
+	</Properties>
 	<Appenders>
-		<Console name="STDERR">
+		<Console name="STDERR" target="SYSTEM_ERR" >
+			<PatternLayout>
+				<pattern>${format1}</pattern>
+			</PatternLayout>
 		</Console>
 	</Appenders>
 	<Loggers>
-		<Root>
+		<Root level="trace">
 			<AppenderRef ref="STDERR" />
 		</Root>
 	</Loggers>
