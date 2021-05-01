@@ -1,0 +1,9 @@
+# Data Process Steps
+
+1. Crawl Data from WEB
+	Crawler {options: date, id}
+	Example: nlp4j.someCrawler1 20200401-
+	Example: nlp4j.someCrawler2 12345-
+2. Data processing
+3. Data Indexing
+
