@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<patterns lang="ja">
+	<pattern facet="word" value="{0.lex}">
+		<w id="0">
+		</w>
+	</pattern>
+</patterns>
+

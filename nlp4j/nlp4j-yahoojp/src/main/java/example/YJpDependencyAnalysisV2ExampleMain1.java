@@ -1,5 +1,7 @@
 package example;
 
+import nlp4j.Keyword;
+import nlp4j.KeywordWithDependency;
 import nlp4j.NlpServiceResponse;
 import nlp4j.impl.DefaultNlpServiceResponse;
 import nlp4j.util.JsonUtils;
@@ -43,6 +45,11 @@ public class YJpDependencyAnalysisV2ExampleMain1 {
 		System.out.println(response.getKeywords());
 		// 係り受け解析の結果を出力する
 		System.out.println(JsonUtils.prettyPrint(response.getOriginalResponseBody()));
+		for (Keyword kwd : response.getKeywords()) {
+			if (kwd instanceof KeywordWithDependency) {
+				System.out.println(((KeywordWithDependency) kwd).toStringAsXml());
+			}
+		}
 	}
 
 }

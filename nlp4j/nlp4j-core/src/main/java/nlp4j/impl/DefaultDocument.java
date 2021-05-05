@@ -181,7 +181,9 @@ public class DefaultDocument implements Document {
 		ArrayList<Keyword> ret = new ArrayList<Keyword>();
 
 		for (Keyword kwd : this.keywords) {
-			if (kwd.getFacet() != null && kwd.getFacet().equals(facet)) {
+			if (kwd.getFacet() != null && (kwd.getFacet().equals(facet)
+					|| (kwd.getFacet().startsWith(facet) && kwd.getFacet().length() > facet.length()
+							&& kwd.getFacet().substring(facet.length()).startsWith(".")))) {
 				ret.add(kwd);
 			}
 		}

@@ -7,6 +7,7 @@ import nlp4j.AbstractDocumentAnnotator;
 import nlp4j.Document;
 import nlp4j.DocumentAnnotator;
 import nlp4j.Keyword;
+import nlp4j.annotator.DependencyAnnotator;
 import nlp4j.impl.DefaultNlpServiceResponse;
 
 /**
@@ -17,7 +18,7 @@ import nlp4j.impl.DefaultNlpServiceResponse;
  * @since 1.0
  * @deprecated V1が廃止された
  */
-public class YJpDaAnnotator extends AbstractDocumentAnnotator implements DocumentAnnotator {
+public class YJpDaAnnotator extends AbstractDocumentAnnotator implements DocumentAnnotator, DependencyAnnotator {
 
 	// 構文解析サービス
 	YJpDaService service = new YJpDaService();

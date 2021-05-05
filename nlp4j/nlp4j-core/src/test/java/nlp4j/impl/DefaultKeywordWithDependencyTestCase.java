@@ -2,44 +2,104 @@ package nlp4j.impl;
 
 import junit.framework.TestCase;
 import nlp4j.Keyword;
+import nlp4j.KeywordWithDependency;
+import nlp4j.test.NLP4JTestCase;
 import nlp4j.util.XmlUtils;
 
-public class DefaultKeywordWithDependencyTestCase extends TestCase {
+/**
+ * Test for DefaultKeywordWithDependency
+ * 
+ * @author Hiroki Oya
+ * @created_at 2021-05-04
+ */
+public class DefaultKeywordWithDependencyTestCase extends NLP4JTestCase {
 
-	@SuppressWarnings("rawtypes")
-	Class target = DefaultKeywordWithDependency.class;
+	/**
+	 * DefaultKeywordWithDependency()
+	 */
+	public DefaultKeywordWithDependencyTestCase() {
+		target = DefaultKeywordWithDependency.class;
+	}
 
 	public void testEqualsObject001() {
+		description = "Test for equals()";
 		Keyword kwd = new DefaultKeywordWithDependency();
-		kwd.setFacet("facet");
-		kwd.setLex("lex");
+		{
+			kwd.setFacet("facet");
+			kwd.setLex("lex");
+		}
 		assertTrue(kwd.equals(kwd));
 	}
 
 	public void testEqualsObject002() {
+		description = "Test for equals()";
 		Keyword kwd1 = new DefaultKeywordWithDependency();
-		kwd1.setFacet("facet");
-		kwd1.setLex("lex");
+		{
+			kwd1.setFacet("facet");
+			kwd1.setLex("lex");
+		}
 		Keyword kwd2 = new DefaultKeywordWithDependency();
-		kwd2.setFacet("facet");
-		kwd2.setLex("lex");
+		{
+			kwd2.setFacet("facet");
+			kwd2.setLex("lex");
+		}
 		assertTrue(kwd1.equals(kwd2));
 	}
 
-	public void testToString() {
+	public void testToString001() {
+		description = "Test for toString()";
 		DefaultKeywordWithDependency kwd1 = new DefaultKeywordWithDependency();
-		kwd1.setLex("aaa-1");
-		kwd1.setStr("aaa-2");
+		{
+			kwd1.setLex("aaa-1");
+			kwd1.setStr("aaa-2");
+		}
 		String s = kwd1.toString();
 		System.err.println(s);
 	}
 
-	public void testAddChild() {
+	public void testClone001() throws Exception {
+		
 		DefaultKeywordWithDependency kwd1 = new DefaultKeywordWithDependency();
-		kwd1.setLex("aaa");
+		{
+			kwd1.setLex("aaa");
+		}
+		DefaultKeywordWithDependency kwd2 = new DefaultKeywordWithDependency();
+		{
+			kwd2.setLex("bbb");
+		}
+		kwd1.addChild(kwd2);
+
+		System.err.println(kwd1.toStringAsXml());
+
+		assertEquals(1, kwd1.getChildren().size());
+
+		DefaultKeywordWithDependency kwdCloned = kwd1.clone();
+
+		assertEquals(1, kwd1.getChildren().size());
+
+		int size = kwd1.getChildren().size();
+
+		assertEquals(1, size);
+
+		for (int n = 0; n < size; n++) {
+			KeywordWithDependency c1 = kwd1.getChildren().get(n);
+			System.err.println(c1.toStringAsXml());
+			KeywordWithDependency c2 = kwdCloned.getChildren().get(n);
+			assertFalse(c1 == c2);
+		}
+
+	}
+
+	public void testAddChild001() {
+		DefaultKeywordWithDependency kwd1 = new DefaultKeywordWithDependency();
+		{
+			kwd1.setLex("aaa");
+		}
 
 		DefaultKeywordWithDependency kwd2 = new DefaultKeywordWithDependency();
-		kwd2.setLex("bbb");
+		{
+			kwd2.setLex("bbb");
+		}
 
 		kwd1.addChild(kwd2);
 
@@ -49,25 +109,29 @@ public class DefaultKeywordWithDependencyTestCase extends TestCase {
 		assertEquals(1, kwd1.getChildren().size());
 	}
 
-	public void testGetChildren() {
+	public void testGetChildren001() {
 		DefaultKeywordWithDependency kwd1 = new DefaultKeywordWithDependency();
-		kwd1.setLex("aaa");
+		{
+			kwd1.setLex("aaa");
+		}
 
 		DefaultKeywordWithDependency kwd2 = new DefaultKeywordWithDependency();
-		kwd2.setLex("bbb");
+		{
+			kwd2.setLex("bbb");
+		}
 
 		kwd1.addChild(kwd2);
-
 		System.err.println(kwd1.toString());
 		System.err.println(kwd1.toStringAsXml());
-
 		assertEquals(1, kwd1.getChildren().size());
 		assertEquals(0, kwd2.getChildren().size());
 	}
 
-	public void testGetDependencyKey() {
+	public void testGetDependencyKey001() {
 		DefaultKeywordWithDependency kwd1 = new DefaultKeywordWithDependency();
-		kwd1.setLex("aaa");
+		{
+			kwd1.setLex("aaa");
+		}
 		assertNull(kwd1.getDependencyKey());
 
 		kwd1.setDependencyKey("key1");
@@ -100,33 +164,33 @@ public class DefaultKeywordWithDependencyTestCase extends TestCase {
 		assertEquals(1, kwd2.getDepth());
 	}
 
-	public void testGetParent() {
+	public void testGetParent001() {
 		DefaultKeywordWithDependency kwd1 = new DefaultKeywordWithDependency();
-		kwd1.setLex("aaa");
-
+		{
+			kwd1.setLex("aaa");
+		}
 		DefaultKeywordWithDependency kwd2 = new DefaultKeywordWithDependency();
-		kwd2.setLex("bbb");
-
+		{
+			kwd2.setLex("bbb");
+		}
 		kwd2.setParent(kwd1);
-
 		assertEquals(kwd1, kwd2.getParent());
-
 	}
 
-	public void testGetParentInt() {
+	public void testGetParentInt001() {
 		DefaultKeywordWithDependency kwd1 = new DefaultKeywordWithDependency();
-		kwd1.setLex("aaa");
-
+		{
+			kwd1.setLex("aaa");
+		}
 		DefaultKeywordWithDependency kwd2 = new DefaultKeywordWithDependency();
-		kwd2.setLex("bbb");
-
-		kwd2.setParent(kwd1);
-
+		{
+			kwd2.setLex("bbb");
+			kwd2.setParent(kwd1);
+		}
 		System.err.println(kwd2.getParent(-1));
 		System.err.println(kwd2.getParent(0));
 		System.err.println(kwd2.getParent(1));
 		System.err.println(kwd2.getParent(2));
-
 	}
 
 	public void testGetRoot001() {
@@ -164,28 +228,30 @@ public class DefaultKeywordWithDependencyTestCase extends TestCase {
 		assertEquals(kwd1, kwd3.getRoot());
 	}
 
-	public void testHasChild() {
+	public void testHasChild001() {
 		DefaultKeywordWithDependency kwd1 = new DefaultKeywordWithDependency();
-		kwd1.setLex("aaa");
-
+		{
+			kwd1.setLex("aaa");
+		}
 		DefaultKeywordWithDependency kwd2 = new DefaultKeywordWithDependency();
-		kwd2.setLex("bbb");
-
-		kwd2.setParent(kwd1);
-
+		{
+			kwd2.setLex("bbb");
+			kwd2.setParent(kwd1);
+		}
 		assertEquals(true, kwd1.hasChild());
 		assertEquals(false, kwd2.hasChild());
 	}
 
-	public void testHasParent() {
+	public void testHasParent001() {
 		DefaultKeywordWithDependency kwd1 = new DefaultKeywordWithDependency();
-		kwd1.setLex("aaa");
-
+		{
+			kwd1.setLex("aaa");
+		}
 		DefaultKeywordWithDependency kwd2 = new DefaultKeywordWithDependency();
-		kwd2.setLex("bbb");
-
-		kwd2.setParent(kwd1);
-
+		{
+			kwd2.setLex("bbb");
+			kwd2.setParent(kwd1);
+		}
 		assertEquals(false, kwd1.hasParent());
 		assertEquals(true, kwd2.hasParent());
 	}
@@ -224,81 +290,98 @@ public class DefaultKeywordWithDependencyTestCase extends TestCase {
 		assertEquals(false, kwd2.isRoot());
 	}
 
-	public void testSetDependencyKey() {
+	public void testSetDependencyKey001() {
 		DefaultKeywordWithDependency kwd1 = new DefaultKeywordWithDependency();
-		kwd1.setLex("aaa");
-		kwd1.setDependencyKey("key1");
+		{
+			kwd1.setLex("aaa");
+			kwd1.setDependencyKey("key1");
+		}
 		assertEquals("key1", kwd1.getDependencyKey());
 	}
 
-	public void testSetParent() {
+	public void testSetParent001() {
 		DefaultKeywordWithDependency kwd1 = new DefaultKeywordWithDependency();
-		kwd1.setLex("aaa");
-
+		{
+			kwd1.setLex("aaa");
+		}
 		DefaultKeywordWithDependency kwd2 = new DefaultKeywordWithDependency();
-		kwd2.setLex("bbb");
-
-		kwd2.setParent(kwd1);
-
+		{
+			kwd2.setLex("bbb");
+			kwd2.setParent(kwd1);
+		}
 		assertEquals(kwd1, kwd2.getParent());
 		assertEquals(null, kwd1.getParent());
 	}
 
-	public void testToStringAsDependencyTree() {
+	public void testToStringAsDependencyTree001() {
 		DefaultKeywordWithDependency kwd1 = new DefaultKeywordWithDependency();
-		kwd1.setLex("aaa_lex");
-		kwd1.setStr("aaa_str");
+		{
+			kwd1.setLex("aaa_lex");
+			kwd1.setStr("aaa_str");
+		}
 		DefaultKeywordWithDependency kwd2 = new DefaultKeywordWithDependency();
-		kwd2.setLex("bbb_lex");
-		kwd2.setStr("bbb_str");
-
+		{
+			kwd2.setLex("bbb_lex");
+			kwd2.setStr("bbb_str");
+		}
 		kwd2.setParent(kwd1);
 		String s = kwd1.toStringAsDependencyTree();
 		System.err.println(s);
 	}
 
-	public void testToStringAsDependencyList() {
+	public void testToStringAsDependencyList001() {
 		DefaultKeywordWithDependency kwd1 = new DefaultKeywordWithDependency();
-		kwd1.setLex("aaa_lex");
-		kwd1.setStr("aaa_str");
+		{
+			kwd1.setLex("aaa_lex");
+			kwd1.setStr("aaa_str");
+		}
 		DefaultKeywordWithDependency kwd2 = new DefaultKeywordWithDependency();
-		kwd2.setLex("bbb_lex");
-		kwd2.setStr("bbb_str");
+		{
+			kwd2.setLex("bbb_lex");
+			kwd2.setStr("bbb_str");
+		}
 		DefaultKeywordWithDependency kwd3 = new DefaultKeywordWithDependency();
-		kwd3.setLex("ccc_lex");
-		kwd3.setStr("ccc_str");
-
+		{
+			kwd3.setLex("ccc_lex");
+			kwd3.setStr("ccc_str");
+		}
 		kwd2.setParent(kwd1);
 		kwd3.setParent(kwd2);
 		String s = kwd1.toStringAsDependencyList();
 		System.err.println(s);
 	}
 
-	public void testToStringAsXml() {
+	public void testToStringAsXml001() {
 		DefaultKeywordWithDependency kwd1 = new DefaultKeywordWithDependency();
-		kwd1.setLex("aaa_lex");
-		kwd1.setStr("aaa_str");
+		{
+			kwd1.setLex("aaa_lex");
+			kwd1.setStr("aaa_str");
+		}
 		DefaultKeywordWithDependency kwd2 = new DefaultKeywordWithDependency();
-		kwd2.setLex("bbb_lex");
-		kwd2.setStr("bbb_str");
+		{
+			kwd2.setLex("bbb_lex");
+			kwd2.setStr("bbb_str");
+		}
 
 		kwd2.setParent(kwd1);
 		String s = kwd1.toStringAsXml();
 		System.err.println(s);
 	}
 
-	public void testToStringAsXmlInt() {
+	public void testToStringAsXmlInt001() {
 		DefaultKeywordWithDependency kwd1 = new DefaultKeywordWithDependency();
-		kwd1.setLex("aaa_lex");
-		kwd1.setStr("aaa_str");
+		{
+			kwd1.setLex("aaa_lex");
+			kwd1.setStr("aaa_str");
+		}
 		DefaultKeywordWithDependency kwd2 = new DefaultKeywordWithDependency();
-		kwd2.setLex("bbb_lex");
-		kwd2.setStr("bbb_str");
-
+		{
+			kwd2.setLex("bbb_lex");
+			kwd2.setStr("bbb_str");
+		}
 		kwd2.setParent(kwd1);
 		String s = kwd1.toStringAsXml(0);
 		System.err.println(s);
-
 		System.err.println(XmlUtils.prettyFormatXml(s));
 	}
 

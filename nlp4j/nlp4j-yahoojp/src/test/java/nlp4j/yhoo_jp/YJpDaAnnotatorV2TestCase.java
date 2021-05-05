@@ -3,14 +3,35 @@ package nlp4j.yhoo_jp;
 import java.util.ArrayList;
 
 import junit.framework.TestCase;
+import nlp4j.Document;
 import nlp4j.Keyword;
 import nlp4j.KeywordWithDependency;
 import nlp4j.NlpServiceResponse;
-import nlp4j.yhoo_jp.YJpDaAnnotator;
-import nlp4j.yhoo_jp.YJpDaService;
-import nlp4j.yhoo_jp.YJpMaService;
+import nlp4j.impl.DefaultDocument;
 
 public class YJpDaAnnotatorV2TestCase extends TestCase {
+
+	/**
+	 * 単一文の構文解析テスト
+	 * 
+	 * @throws Exception 例外発生時
+	 */
+	public void testAnnotateDocument000() throws Exception {
+		YJpDaAnnotatorV2 ann = new YJpDaAnnotatorV2();
+
+		Document doc = new DefaultDocument();
+		doc.putAttribute("text", "今日はいい天気です。");
+		ann.setProperty("target", "text");
+
+		ann.annotate(doc);
+
+		for (Keyword kwd : doc.getKeywords()) {
+			if (kwd instanceof KeywordWithDependency) {
+				KeywordWithDependency kd = (KeywordWithDependency) kwd;
+				System.err.println(kd.toStringAsXml());
+			}
+		}
+	}
 
 	/**
 	 * 単一文の構文解析テスト

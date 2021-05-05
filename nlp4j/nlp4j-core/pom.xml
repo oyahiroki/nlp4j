@@ -184,6 +184,12 @@
 		</plugins>
 	</build>
 	<dependencies>
+		<dependency>
+			<groupId>org.nlp4j</groupId>
+			<artifactId>nlp4j-test</artifactId>
+			<version>[1.0.0.0,)</version>
+			<scope>test</scope>
+		</dependency>
 		<!-- https://mvnrepository.com/artifact/junit/junit -->
 		<dependency>
 			<groupId>junit</groupId>

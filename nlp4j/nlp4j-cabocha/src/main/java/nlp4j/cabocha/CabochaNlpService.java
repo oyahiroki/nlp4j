@@ -24,7 +24,7 @@ import nlp4j.impl.DefaultNlpServiceResponse;
 /**
  * 
  * @author Hiroki Oya
- * @since 0.1.0.0
+ * @since 1.0.0.0
  * @created_at 21-APR-2021
  *
  */
@@ -42,18 +42,22 @@ public class CabochaNlpService implements NlpService {
 	 * @param value Value of property
 	 */
 	public void setProperty(String key, String value) {
+
 		this.props.setProperty(key, value);
+
 		if ("tempDir".equals(key)) {
 
-			{
-				File dir = new File(value);
-				if (dir.exists() == false || dir.isDirectory() == false || dir.canRead() == false
-						|| dir.canWrite() == false) {
-					throw new RuntimeException("Invalid value for tempDir: " + value);
-				}
+			File dir = new File(value);
+			if (dir.exists() == false || dir.isDirectory() == false || dir.canRead() == false
+					|| dir.canWrite() == false) {
+				logger.warn("Invalid value for tempDir: " + value);
+				tempDir = System.getProperty("java.io.tmpdir");
+				logger.warn("Set tempDir: " + tempDir);
+			} //
+			else {
+				this.tempDir = value;
 			}
 
-			this.tempDir = value;
 		} //
 		else if ("encoding".equals(key)) {
 			this.encoding = value;
@@ -103,6 +107,8 @@ public class CabochaNlpService implements NlpService {
 
 			int kwdId = 0;
 
+			int sequence = 0;
+
 			DefaultKeywordWithDependency kwdPtr = null;
 
 			try {
@@ -138,13 +144,18 @@ public class CabochaNlpService implements NlpService {
 						String reading = ss[7];
 
 						DefaultKeywordWithDependency kwd = new DefaultKeywordWithDependency();
+						{
+							kwd.setSequence(sequence);
+							sequence++;
+						}
+
 						kwdPtr = kwd;
 
 						String depKey = bId + "-" + (kwdId + 1);
 						kwd.setDependencyKey(depKey);
 
 						kwd.setBegin(begin);
-						kwd.setEnd(str.length());
+						kwd.setEnd(begin + str.length());
 						{
 							begin += str.length();
 						}

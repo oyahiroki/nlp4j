@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<patterns lang="ja">
+	<!-- example: いい ... 天気 -->
+	<pattern facet="pattern.sample" value="{0.lex} ... {1.lex}">
+		<w id="1" upos="NOUN">
+			<w id="0" upos="ADJ" />
+		</w>
+	</pattern>
+	<pattern facet="pattern.sample" value="{0.lex} ... {1.lex}" disabled="true">
+		<w id="1" upos="NOUN">
+			<w id="0" upos="ADJ" />
+		</w>
+	</pattern>
+</patterns>
+

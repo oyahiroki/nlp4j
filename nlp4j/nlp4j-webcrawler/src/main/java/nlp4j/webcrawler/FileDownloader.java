@@ -32,7 +32,7 @@ public class FileDownloader {
 	 */
 	public void download(String url, File outFile) throws IOException {
 
-		if (outFile.exists()) {
+		if (outFile.canWrite() == false) {
 			logger.warn("Already exists: " + outFile.getAbsolutePath());
 			throw new IOException("Already exists: " + outFile.getAbsolutePath());
 		}

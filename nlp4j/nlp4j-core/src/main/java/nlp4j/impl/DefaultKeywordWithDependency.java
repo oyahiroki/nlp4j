@@ -20,13 +20,13 @@ public class DefaultKeywordWithDependency extends DefaultKeyword implements Keyw
 
 	private static final long serialVersionUID = 1L;
 
-	ArrayList<KeywordWithDependency> children = new ArrayList<KeywordWithDependency>();
+	protected ArrayList<KeywordWithDependency> children = new ArrayList<KeywordWithDependency>();
 
-	String dependencyKey;
+	protected String dependencyKey;
 
-	KeywordWithDependency parent;
+	protected KeywordWithDependency parent;
 
-	String relation;
+	protected String relation;
 
 //	int sequence = -1;
 
@@ -35,7 +35,41 @@ public class DefaultKeywordWithDependency extends DefaultKeyword implements Keyw
 	 */
 	public DefaultKeywordWithDependency() {
 		super();
-		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public void addBeginEnd(int n) {
+//		super.addBeginEnd(n);
+		this.begin += n;
+		this.end += n;
+
+		if (this.children != null) {
+			for (int x = 0; x < children.size(); x++) {
+				children.get(x).addBeginEnd(n);
+			}
+		}
+	}
+
+	@Override
+	protected DefaultKeywordWithDependency clone() {
+		DefaultKeywordWithDependency c = (DefaultKeywordWithDependency) super.clone();
+
+		// Initialize c.children becaues c.children copied already
+		c.children = new ArrayList<>();
+
+		c.parent = null;
+
+		{
+			ArrayList<DefaultKeywordWithDependency> list = (ArrayList<DefaultKeywordWithDependency>) this.children
+					.clone();
+			for (DefaultKeywordWithDependency obj : list) {
+				// add cloned object
+				c.children.add(obj.clone());
+			}
+		}
+		c.dependencyKey = this.dependencyKey;
+		c.relation = this.relation;
+		return c;
 	}
 
 	/**
@@ -215,7 +249,7 @@ public class DefaultKeywordWithDependency extends DefaultKeyword implements Keyw
 				+ "sequence=" + sequence + ", " //
 				+ "dependencyKey=" + dependencyKey + ", " //
 				+ "hasChildren=" + (children != null && children.size() > 0) + ", " //
-				+ "hasParent=" + (parent == null) + ", " //
+				+ "hasParent=" + !(parent == null) + ", " // fix @1.3.1.0
 				+ "facet=" + facet + ", " //
 				+ "lex=" + lex + ", " //
 				+ "str=" + str + ", " //
@@ -275,19 +309,39 @@ public class DefaultKeywordWithDependency extends DefaultKeyword implements Keyw
 		StringBuffer sb = new StringBuffer();
 
 		if (children == null || children.size() == 0) {
-			sb.append("<w " //
-					+ "str=\"" + StringEscapeUtils.escapeXml10(this.str) + "\" " //
-					+ "lex=\"" + StringEscapeUtils.escapeXml10(this.lex) + "\" " //
-					+ "depth=\"" + depth + "\" " //
-					+ "facet=\"" + StringEscapeUtils.escapeXml10(this.facet) + "\" " //
-					+ "/>");
-		} else {
-			sb.append("<w " //
-					+ "str=\"" + StringEscapeUtils.escapeXml10(this.str) + "\" " //
-					+ "lex=\"" + StringEscapeUtils.escapeXml10(this.lex) + "\" " //
-					+ "depth=\"" + depth + "\" " //
-					+ "facet=\"" + StringEscapeUtils.escapeXml10(this.facet) + "\" " //
-					+ ">");
+			sb.append("<w "); //
+			if (this.sequence != -1) {
+				sb.append("sequence=\"" + this.sequence + "\" "); //
+				sb.append("id=\"" + this.sequence + "\" "); //
+			}
+			sb.append("str=\"" + StringEscapeUtils.escapeXml10(this.str) + "\" "); //
+			sb.append("lex=\"" + StringEscapeUtils.escapeXml10(this.lex) + "\" "); //
+			sb.append("depth=\"" + depth + "\" "); //
+			sb.append("facet=\"" + StringEscapeUtils.escapeXml10(this.facet) + "\" "); //
+			if (this.upos != null) {
+				sb.append("upos=\"" + StringEscapeUtils.escapeXml10(this.upos) + "\" "); //
+			}
+			sb.append("begin=\"" + begin + "\" "); //
+			sb.append("end=\"" + end + "\" "); //
+			sb.append("/>");
+		} //
+		else {
+			sb.append("<w ");
+			if (this.sequence != -1) {
+				sb.append("sequence=\"" + this.sequence + "\" "); //
+				sb.append("id=\"" + this.sequence + "\" "); //
+			}
+			sb.append("str=\"" + StringEscapeUtils.escapeXml10(this.str) + "\" "); //
+			sb.append("lex=\"" + StringEscapeUtils.escapeXml10(this.lex) + "\" "); //
+			sb.append("depth=\"" + depth + "\" "); //
+			sb.append("facet=\"" + StringEscapeUtils.escapeXml10(this.facet) + "\" "); //
+			if (this.upos != null) {
+				sb.append("upos=\"" + StringEscapeUtils.escapeXml10(this.upos) + "\" "); //
+			}
+			sb.append("begin=\"" + begin + "\" "); //
+			sb.append("end=\"" + end + "\" "); //
+			sb.append(">");
+
 			for (KeywordWithDependency c : children) {
 				sb.append(c.toStringAsXml(depth + 1));
 			}

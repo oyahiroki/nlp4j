@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<patterns lang="en">
+	<!-- example: NN is JJ -->
+	<pattern facet="pattern.sample" value="{1.lex} ... {2.lex} ... {3.lex}">
+		<w id="0" pos="JJ">
+			<w id="1" pos="NN" relation="nsubj" />
+			<w id="2" lex="be" pos="VB" relation="cop" />
+		</w>
+	</pattern>
+</patterns>
+

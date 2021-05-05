@@ -1,97 +1,298 @@
 package nlp4j.node;
 
+import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
+import java.util.List;
 
-public class Node implements Cloneable {
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-	String value = null;
+/**
+ * @author Hiroki Oya
+ * @param <T> Value of this Node
+ * @created_at 2021-01-17
+ * @since 1.3.1.0
+ */
+public class Node<T> implements CloneablePublicly<Node<T>> {
 
-	Node parent = null;
+	static private final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
-	ArrayList<Node> children = new ArrayList<>();
+	protected ArrayList<Node<T>> childNodes = new ArrayList<>();
 
-	int idxChild = 0;
+	protected int childrenIndex = 0;
 
-	int depth = 0;
+	protected int depth = 0;
 
-	@Override
-	protected Node clone() {
-		Node c = new Node(this.value);
-		for (Node child : children) {
-			Node cc = child.clone();
-			c.addChildNode(cc);
-		}
-		return c;
-	}
+	protected Node<T> parent = null;
 
-	public Node(String value) {
+	protected T value = null;
+
+	/**
+	 * このNodeがChildの時のインデックス番号<br>
+	 * Index number when this node is a child
+	 */
+	int indexAsChild = -1;
+
+	/**
+	 * @param value of this node
+	 */
+	public Node(T value) {
 		this.value = value;
 	}
 
-	public Node nextChild() {
-		if (hasNextChild()) {
-			Node n = children.get(idxChild);
-			idxChild++;
-			return n;
-		} else {
+	public void addChildNode(Node<T> childNode) {
+		// Set Parent
+		childNode.parent = this;
+		this.childNodes.add(childNode);
+
+		childNode.indexAsChild = (this.childNodes.size() - 1);
+		childNode.depth++;
+	}
+
+	public Node<T> getChildNode(int idx) {
+		{ // FOR DEBUG
+			logger.debug("this.children != null: " + (this.childNodes != null));
+			if (this.childNodes != null) {
+				logger.debug(this.childNodes.size());
+			}
+			logger.debug("param idx: " + idx);
+		}
+
+		if (this.childNodes != null && this.childNodes.size() > 0 && this.childNodes.size() > idx) {
+			return this.childNodes.get(idx);
+		} //
+		else if (this.indexAsChild != -1 && this.parent != null) {
+			return parent.getChildNode(indexAsChild + 1);
+		} //
+		else {
 			return null;
 		}
 	}
 
-	public Node next() {
-		if (this.hasNextChild()) {
-			return this.nextChild();
+	@SuppressWarnings("unchecked")
+	@Override
+	public Node<T> clone() {
+		Node<T> c;
+		try {
+			c = (Node<T>) super.clone();
+		} //
+		catch (CloneNotSupportedException e) {
+			e.printStackTrace();
+			logger.error(e);
+			return null;
+		}
+
+		c.value = this.value;
+
+		ArrayList<Node<T>> nn = new ArrayList<>();
+
+		// Clone child nodes
+		for (int n = 0; n < childNodes.size(); n++) {
+			nn.add(childNodes.get(n).clone());
+		}
+
+		c.childNodes = nn;
+		return c;
+	}
+
+	/**
+	 * @return size of child nodes
+	 */
+	public int getChildNodesSize() {
+		if (this.childNodes == null) {
+			return 0;
 		} else {
-			if (parent != null) {
-				return parent.next();
-			} else {
-				return null;
-			}
+			return this.childNodes.size();
 		}
 	}
 
+	public List<Node<T>> clonePatterns() {
+
+		ArrayList<Node<T>> ret = new ArrayList<Node<T>>();
+
+		Node<T> ptr = this.clone();
+		ret.add(ptr);
+		if (ptr.getChildNodesSize() > 0) {
+			Node<T> cloned2 = ptr.clone();
+			for (int n = 0; n < cloned2.getChildNodesSize(); n++) {
+				cloned2.removeChild(n);
+				ret.add(cloned2.clone());
+			}
+		}
+
+		while ((ptr = ptr.next()) != null) {
+			Node<T> cloned = ptr.clone();
+			ret.add(cloned);
+
+			if (cloned.getChildNodesSize() > 0) {
+				Node<T> cloned2 = cloned.clone();
+				for (int n = 0; n < cloned2.getChildNodesSize(); n++) {
+					cloned2.removeChild(n);
+					ret.add(cloned2.clone());
+				}
+			}
+
+		}
+
+		return ret;
+	}
+
+	/**
+	 * @return value of this node
+	 */
+	public T getValue() {
+		return value;
+	}
+
 	protected boolean hasNextChild() {
-		if (idxChild == children.size()) {
+		if (this.childrenIndex == childNodes.size()) {
 			return false;
-		} else {
+		} //
+		else {
 			return true;
 		}
 	}
 
-	public void addChildNode(Node n) {
-		n.parent = this;
-		this.children.add(n);
-		n.depth++;
-	}
-
-	public boolean matchAll(Node cond) {
-
-		if (this.match(cond) == false) {
-			Node n1 = this.next();
-			if (n1 == null) {
-				return false;
-			} //
-			else {
-				return n1.matchAll(cond);
+	/**
+	 * @param index of child node
+	 * @return removed node or null
+	 */
+	public Node<T> removeChild(int index) {
+		if (this.childNodes == null || this.childNodes.size() == 0 || this.childNodes.size() < index) {
+			return null;
+		} //
+		else {
+			Node<T> removed = this.childNodes.remove(index);
+			for (int n = 0; n < this.childNodes.size(); n++) {
+				this.childNodes.get(n).indexAsChild = 0;
 			}
-		} else {
-			Node n1 = this.next();
-			Node n2 = cond.next();
-			if (n2 == null) {
-				return true;
-			} else {
-				if (n1 == null) {
-					return false;
-				} else {
-					return n1.matchAll(n2);
-				}
-			}
+			return removed;
 		}
 	}
 
-	public boolean match(Node n) {
-		System.err.println(this.value + "," + n.value);
-		return this.value.equals(n.value) & this.depth == n.depth;
+	/**
+	 * @param n : node to be matched
+	 * @return match result of node
+	 */
+	public boolean match(Node<T> n) {
+		if (n == null || n.value == null) {
+			return false;
+		} //
+		else {
+			logger.debug(this.value + "," + n.value);
+			return this.value.equals(n.value);
+		}
+	}
+
+	/**
+	 * @return child nodes of this node
+	 */
+	public ArrayList<Node<T>> getChildNodes() {
+		return this.childNodes;
+	}
+
+	public boolean matchAll(Node<T> cond) {
+
+		logger.debug("this.value=" + this.value);
+		logger.debug("cond.value=" + cond.value);
+
+		if (this.match(cond) == false) {
+// TO BE DELETED			Node<T> n1 = this.next();
+// TO BE DELETED			if (n1 == null) {
+// TO BE DELETED				return false;
+// TO BE DELETED			} //
+// TO BE DELETED			else {
+// TO BE DELETED				return n1.matchAll(cond);
+// TO BE DELETED			}
+			return false;
+		} //
+
+		// Check Child Nodes
+		else {
+// TO BE DELETED		Node<T> n1 = this.next();
+// TO BE DELETED		Node<T> n2 = cond.next();
+// TO BE DELETED			if (n2 == null) {
+// TO BE DELETED				logger.info("Mached All");
+// TO BE DELETED				return true;
+// TO BE DELETED			} //
+// TO BE DELETED			else {
+// TO BE DELETED				if (n1 == null) {
+// TO BE DELETED					return false;
+// TO BE DELETED				} //
+// TO BE DELETED				else {
+// TO BE DELETED					boolean b = n1.match(n2);
+// TO BE DELETED
+// TO BE DELETED					return n1.matchAll(n2);
+// TO BE DELETED				}
+// TO BE DELETED			}
+
+			ArrayList<Node<T>> cc1 = this.childNodes;
+			ArrayList<Node<T>> cc2 = cond.childNodes;
+
+			int cc1idx = 0;
+
+			for (int n = 0; n < cc2.size(); n++) {
+
+				if (cc1.size() <= cc1idx) {
+					return false;
+				}
+
+				Node<T> c1 = cc1.get(cc1idx);
+				Node<T> c2 = cc2.get(n);
+
+				if (c1.matchAll(c2) == true) {
+					continue;
+				} else {
+					cc1idx++;
+					n--;
+					continue;
+				}
+
+			} // END OF FOR
+
+			return true;
+		}
+	}
+
+	/**
+	 * @return Next Node or Next Leaf
+	 */
+	public Node<T> next() {
+		if (this.childNodes != null && this.childNodes.size() > 0) {
+			return childNodes.get(0);
+		} //
+		else if (this.indexAsChild != -1) {
+			return parent.getChildNode(this.indexAsChild + 1);
+		} //
+		else {
+			return null;
+		}
+	}
+
+	/**
+	 * @return whether this node has next node or next leaf
+	 */
+	public boolean hasNext() {
+		return (next() != null);
+//		if (this.hasNextChild()) {
+//			return this.nextChild() != null;
+//		} else {
+//			if (parent != null) {
+//				return parent.next() != null;
+//			} else {
+//				return false;
+//			}
+//		}
+	}
+
+	public Node<T> nextChild() {
+		if (hasNextChild()) {
+			Node<T> n = childNodes.get(childrenIndex);
+			this.childrenIndex++;
+			return n;
+		} else {
+			return null;
+		}
 	}
 
 	public void print() {
@@ -105,15 +306,22 @@ public class Node implements Cloneable {
 		}
 		System.err.println(sb.toString() + value + "[" + depth + "]");
 
-		for (Node n : children) {
+		for (Node n : childNodes) {
 			n.print(depth + 1);
 		}
 
 	}
 
+	public void resetIndex() {
+		this.childrenIndex = 0;
+		for (Node c : childNodes) {
+			c.resetIndex();
+		}
+	}
+
 	@Override
 	public String toString() {
-		return "N(" + value + "),depth=" + depth + "," + children + "";
+		return "N(" + value + "),depth=" + depth + "," + childNodes + "";
 	}
 
 }

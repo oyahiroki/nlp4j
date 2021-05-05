@@ -71,6 +71,8 @@ public class SemanticGraphUtils {
 
 		KeywordWithDependency kwd //
 				= new DefaultKeywordWithDependency("stanford.dependency", begin, end, facet, lex, str, relationValue);
+		
+		kwd.setSequence(id);
 
 		if (ptr == null) {
 			doc.addKeyword(kwd);

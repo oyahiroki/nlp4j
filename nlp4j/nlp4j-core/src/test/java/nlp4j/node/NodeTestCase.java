@@ -1,40 +1,349 @@
 package nlp4j.node;
 
-import junit.framework.TestCase;
+import java.lang.invoke.MethodHandles;
+import java.util.List;
 
-public class NodeTestCase extends TestCase {
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import nlp4j.test.NLP4JTestCase;
+
+/**
+ * @author Hiroki Oya
+ * @created_at 2021-01-17
+ * @since 1.3.1.0
+ */
+public class NodeTestCase extends NLP4JTestCase {
+
+	static private final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
+
+	@SuppressWarnings("javadoc")
+	public NodeTestCase() {
+		target = Node.class;
+	}
+
+	private void printNode(@SuppressWarnings("rawtypes") Node node, String id) {
+		System.err.println("<node id='" + id + "'>");
+		node.print();
+		System.err.println("</node>");
+	}
 
 	@Override
 	protected void setUp() throws Exception {
-
 		super.setUp();
-
-		System.err.println("--------");
+		logger.info("--- setup ---");
 	}
 
-	public void testNode() {
-		Node n1 = new Node("a");
-		Node n2 = new Node("b");
-		n1.addChildNode(n2);
-
-		System.err.println(n1);
-	}
-
-	public void testNextChild001() {
-		Node n1 = new Node("a");
-		Node n2 = new Node("b");
-		n1.addChildNode(n2);
-		Node n3 = new Node("c");
-		n1.addChildNode(n3);
-
-		while (n1.hasNextChild()) {
-			Node next = n1.nextChild();
-			System.err.println(next);
+	@SuppressWarnings("javadoc")
+	public void testClone001() {
+		Node<String> n1 = new Node<String>("a");
+		{
+			n1.addChildNode(new Node<String>("b"));
+			n1.addChildNode(new Node<String>("c"));
 		}
 
-		Node n = n1.nextChild();
-		assertNull(n);
+		printNode(n1, "original");
 
+		Node<String> n2 = (Node<String>) n1.clone();
+		printNode(n2, "clone");
+
+		logger.info("n1 == n2: " + (n1 == n2));
+		assertFalse(n1 == n2);
+
+	}
+
+	@SuppressWarnings("javadoc")
+	public void testClone002() {
+		Node<String> n1 = new Node<String>("a");
+		{
+			Node<String> n2 = new Node<String>("b");
+			n1.addChildNode(n2);
+
+			Node<String> n3 = new Node<String>("c");
+			n1.addChildNode(n3);
+			{
+				Node<String> n4 = new Node<String>("d");
+				Node<String> n5 = new Node<String>("e");
+				n3.addChildNode(n4);
+				n3.addChildNode(n5);
+
+				logger.info("[n1]");
+				printNode(n1, "original");
+
+				logger.info("[n3]");
+				Node<String> n3_clone = n3.clone();
+				printNode(n3_clone, "clone_1");
+				assertTrue(n3_clone != n3);
+
+				logger.info("[n5]");
+				Node<String> n5_clone = n5.clone();
+				printNode(n5_clone, "clone_2");
+				assertTrue(n5_clone != n5);
+			}
+
+		}
+
+	}
+
+	@SuppressWarnings("javadoc")
+	public void testClonePatterns001() throws Exception {
+		Node<String> n1 = new Node<String>("a");
+		{
+			n1.addChildNode(new Node<String>("b"));
+			{
+				Node<String> n2 = new Node<String>("c");
+				n1.addChildNode(n2);
+				n2.addChildNode(new Node<String>("d"));
+				n2.addChildNode(new Node<String>("e"));
+			}
+		}
+		printNode(n1, "original");
+		
+		List<Node<String>> list = n1.clonePatterns();
+
+		int idx = 0;
+		for (Node<String> o : list) {
+			printNode(o, "code_" + idx);
+			idx++;
+		}
+
+	}
+
+	public void testHasNext001() {
+		Node<String> n1 = new Node<String>("a");
+		{
+			Node<String> n2 = new Node<String>("b");
+			n2.addChildNode(new Node<String>("c"));
+			n2.addChildNode(new Node<String>("d"));
+			n1.addChildNode(n2);
+			Node<String> n3 = new Node<String>("e");
+			n1.addChildNode(n3);
+			Node<String> n4 = new Node<String>("f");
+			n3.addChildNode(n4);
+			Node<String> n5 = new Node<String>("g");
+			n3.addChildNode(n5);
+			n1.addChildNode(new Node<String>("h"));
+		}
+		n1.print();
+
+		Node<String> ptr = n1;
+
+		while (ptr.hasNext()) {
+			ptr = ptr.next();
+			System.err.println(ptr);
+			System.err.println(ptr.hasNext());
+		}
+
+	}
+
+	public void testMatch001() {
+		Node<String> n1 = new Node<String>("a");
+		Node<String> n2 = new Node<String>("b");
+		System.err.println(n1.match(n2));
+	}
+
+	public void testMatch002() {
+		Node<String> n1 = new Node<String>("a");
+		Node<String> n2 = new Node<String>("a");
+		System.err.println(n1.match(n2));
+	}
+
+	public void testMatchAll001() {
+		Node<String> n1 = new Node<String>("a");
+		{
+			n1.addChildNode(new Node<String>("b"));
+			n1.addChildNode(new Node<String>("c"));
+			n1.print();
+		}
+		Node<String> cond = new Node<String>("a");
+		{
+			cond.addChildNode(new Node<String>("b"));
+			cond.addChildNode(new Node<String>("c"));
+			cond.print();
+		}
+		boolean b = n1.matchAll(cond);
+		System.err.println(b);
+		assertEquals(true, b);
+	}
+
+	public void testMatchAll0010() {
+		Node<String> n1 = new Node<>("a");
+		Node<String> cond = new Node<>("a");
+		boolean b = n1.matchAll(cond);
+		System.err.println(b);
+		assertEquals(true, b);
+	}
+
+	public void testMatchAll0011() {
+		Node<String> n1 = new Node<String>("a");
+		Node<String> cond = new Node<String>("b");
+		boolean b = n1.matchAll(cond);
+		System.err.println(b);
+		assertEquals(false, b);
+	}
+
+	public void testMatchAll002() {
+		Node<String> n1 = new Node<String>("a");
+		{
+			n1.addChildNode(new Node<String>("b"));
+			n1.addChildNode(new Node<String>("x"));
+			n1.print();
+		}
+		Node<String> cond = new Node<String>("a");
+		{
+			cond.addChildNode(new Node<String>("b"));
+			cond.addChildNode(new Node<String>("c"));
+			cond.print();
+		}
+		boolean b = n1.matchAll(cond);
+		System.err.println(b);
+		assertEquals(false, b);
+	}
+
+	public void testMatchAll003() {
+		Node<String> n1 = new Node<String>("a");
+		{
+			n1.addChildNode(new Node<String>("b"));
+			n1.addChildNode(new Node<String>("x"));
+			n1.addChildNode(new Node<String>("c"));
+			n1.print();
+		}
+		Node<String> cond = new Node<String>("a");
+		{
+			cond.addChildNode(new Node<String>("b"));
+			cond.addChildNode(new Node<String>("c"));
+			cond.print();
+		}
+		boolean b = n1.matchAll(cond);
+		System.err.println(b);
+		assertEquals(true, b);
+	}
+
+	public void testMatchAll004() {
+		Node<String> n1 = new Node<String>("a");
+		{
+			n1.addChildNode(new Node<String>("b")); // 0
+			n1.addChildNode(new Node<String>("x")); // 1 <- NEED TO BE SKIPPED
+			n1.addChildNode(new Node<String>("x")); // 2 <- NEED TO BE SKIPPED
+			n1.addChildNode(new Node<String>("c")); // 3
+			n1.addChildNode(new Node<String>("x")); // 4
+			System.err.println("<object id='n1'>");
+			n1.print();
+			System.err.println("</object>");
+		}
+		Node<String> cond = new Node<String>("a");
+		{
+			cond.addChildNode(new Node<String>("b")); // 0
+			cond.addChildNode(new Node<String>("c")); // 1
+			System.err.println("<object id='cond'>");
+			cond.print();
+			System.err.println("</object>");
+		}
+		boolean b = n1.matchAll(cond);
+		System.err.println(b);
+		assertEquals(true, b);
+	}
+
+	public void testMatchAll005() {
+		Node<String> n1 = new Node<String>("a");
+		{
+			Node<String> n2 = new Node<String>("b");
+			n1.addChildNode(n2);
+			Node<String> n3 = new Node<String>("c");
+			n1.addChildNode(n3);
+			Node<String> n4 = new Node<String>("d");
+			n3.addChildNode(n4);
+			Node<String> n5 = new Node<String>("e");
+			n3.addChildNode(n5);
+			n1.print();
+		}
+		Node<String> cond = new Node<String>("a");
+		{
+			Node<String> n2 = new Node<String>("b");
+			cond.addChildNode(n2);
+			Node<String> n3 = new Node<String>("c");
+			cond.addChildNode(n3);
+			Node<String> n4 = new Node<String>("d");
+			n3.addChildNode(n4);
+			Node<String> n5 = new Node<String>("e");
+			n3.addChildNode(n5);
+			cond.print();
+		}
+		boolean b = n1.matchAll(cond);
+		System.err.println(b);
+		assertEquals(true, b);
+	}
+
+	public void testMatchAll006() {
+		Node<String> n1 = new Node<String>("a");
+		{
+			Node<String> n2 = new Node<String>("b");
+			n1.addChildNode(n2);
+			Node<String> n3 = new Node<String>("c");
+			n1.addChildNode(n3);
+			{
+				Node<String> n4 = new Node<String>("d");
+				n3.addChildNode(n4);
+				Node<String> n5 = new Node<String>("x"); // <- NEED TO BE SKIPPED
+				n3.addChildNode(n5);
+				Node<String> n6 = new Node<String>("e");
+				n3.addChildNode(n6);
+			}
+		}
+		Node<String> cond = new Node<String>("a");
+		{
+			Node<String> n2 = new Node<String>("b");
+			cond.addChildNode(n2);
+			Node<String> n3 = new Node<String>("c");
+			cond.addChildNode(n3);
+			{
+				Node<String> n4 = new Node<String>("d");
+				n3.addChildNode(n4);
+				Node<String> n6 = new Node<String>("e");
+				n3.addChildNode(n6);
+			}
+		}
+		boolean b = n1.matchAll(cond);
+		System.err.println(b);
+		assertEquals(true, b);
+	}
+
+	public void testMatchAll007() {
+		Node<String> n1 = new Node<String>("a");
+		{
+			Node<String> n2 = new Node<String>("b");
+			n1.addChildNode(n2);
+			Node<String> n3 = new Node<String>("c");
+			n1.addChildNode(n3);
+			Node<String> n4 = new Node<String>("d");
+			n3.addChildNode(n4);
+			Node<String> n5 = new Node<String>("e");
+			n3.addChildNode(n5);
+			n1.addChildNode(new Node<String>("f"));
+		}
+		System.err.println("<object id='n1'>");
+		n1.print();
+		System.err.println("</object>");
+		Node<String> cond = new Node<String>("a");
+		{
+			Node<String> n2 = new Node<String>("b");
+			cond.addChildNode(n2);
+			Node<String> n3 = new Node<String>("c");
+			cond.addChildNode(n3);
+			Node<String> n4 = new Node<String>("x");
+			n3.addChildNode(n4);
+			Node<String> n5 = new Node<String>("d");
+			n3.addChildNode(n5);
+			Node<String> n6 = new Node<String>("e");
+			n3.addChildNode(n6);
+		}
+		System.err.println("<object id='cond'>");
+		cond.print();
+		System.err.println("</object>");
+
+		boolean b = n1.matchAll(cond);
+		System.err.println(b);
+		assertEquals(false, b);
 	}
 
 	/**
@@ -48,23 +357,35 @@ public class NodeTestCase extends TestCase {
 	 * </pre>
 	 */
 	public void testNext001() {
-		Node n1 = new Node("a");
+		Node<String> n1 = new Node<String>("a");
 		{
-			n1.addChildNode(new Node("b"));
-			n1.addChildNode(new Node("c"));
+			n1.addChildNode(new Node<String>("b"));
+			{
+				Node<String> n2 = new Node<String>("c");
+				n1.addChildNode(n2);
+				n2.addChildNode(new Node<String>("d"));
+				n2.addChildNode(new Node<String>("e"));
+			}
+		}
+		Node<String> ptr = n1;
+		System.err.println(ptr);
+
+		while ((ptr = ptr.next()) != null) {
+			System.err.println(ptr);
 		}
 
-		Node n = n1;
-		System.err.println(n);
+		System.err.println("------");
+
+		ptr = n1;
+		ptr.resetIndex();
+
 		while (true) {
-			n = n.next();
-			if (n != null) {
-				System.err.println(n);
-			} else {
+			System.err.println(ptr);
+			ptr = ptr.next();
+			if (ptr == null) {
 				break;
 			}
 		}
-
 	}
 
 	/**
@@ -85,28 +406,28 @@ public class NodeTestCase extends TestCase {
 	 * </pre>
 	 */
 	public void testNext002() {
-		Node n1 = new Node("a");
+		Node<String> n1 = new Node<String>("a");
 		{
-			Node n2 = new Node("b");
-			n2.addChildNode(new Node("c"));
-			n2.addChildNode(new Node("d"));
+			Node<String> n2 = new Node<String>("b");
+			n2.addChildNode(new Node<String>("c"));
+			n2.addChildNode(new Node<String>("d"));
 			n1.addChildNode(n2);
-			Node n3 = new Node("e");
+			Node<String> n3 = new Node<String>("e");
 			n1.addChildNode(n3);
-			Node n4 = new Node("f");
+			Node<String> n4 = new Node<String>("f");
 			n3.addChildNode(n4);
-			Node n5 = new Node("g");
+			Node<String> n5 = new Node<String>("g");
 			n3.addChildNode(n5);
-			n1.addChildNode(new Node("h"));
+			n1.addChildNode(new Node<String>("h"));
 		}
 		n1.print();
 
-		Node n = n1;
-		System.err.println(n);
+		Node<String> ptr = n1;
+		System.err.println(ptr);
 		while (true) {
-			n = n.next();
-			if (n != null) {
-				System.err.println(n);
+			ptr = ptr.next();
+			if (ptr != null) {
+				System.err.println(ptr);
 			} else {
 				break;
 			}
@@ -114,250 +435,159 @@ public class NodeTestCase extends TestCase {
 
 	}
 
-	public void testMatchAll000a() {
-		Node n1 = new Node("a");
-		Node cond = new Node("a");
-		boolean b = n1.matchAll(cond);
-		System.err.println(b);
-		assertEquals(true, b);
-	}
-
-	public void testMatchAll000b() {
-		Node n1 = new Node("a");
-		Node cond = new Node("b");
-		boolean b = n1.matchAll(cond);
-		System.err.println(b);
-		assertEquals(false, b);
-	}
-
-	public void testMatchAll001() {
-		Node n1 = new Node("a");
+	/**
+	 * <pre>
+	 * [a]
+	 *     [b]
+	 *         [x/]
+	 *         [y/]
+	 *         [z/]
+	 *     [/b]
+	 *     [c/]
+	 * [/a]
+	 * </pre>
+	 * 
+	 */
+	public void testNextChild001() {
+		Node<String> n1 = new Node<>("a");
 		{
-			n1.addChildNode(new Node("b"));
-			n1.addChildNode(new Node("c"));
-			n1.print();
-		}
-		Node cond = new Node("a");
-		{
-			cond.addChildNode(new Node("b"));
-			cond.addChildNode(new Node("c"));
-			cond.print();
-		}
-		boolean b = n1.matchAll(cond);
-		System.err.println(b);
-		assertEquals(true, b);
-	}
-
-	public void testMatchAll002() {
-		Node n1 = new Node("a");
-		{
-			n1.addChildNode(new Node("b"));
-			n1.addChildNode(new Node("x"));
-			n1.print();
-		}
-		Node cond = new Node("a");
-		{
-			cond.addChildNode(new Node("b"));
-			cond.addChildNode(new Node("c"));
-			cond.print();
-		}
-		boolean b = n1.matchAll(cond);
-		System.err.println(b);
-		assertEquals(false, b);
-	}
-
-	public void testMatchAll003() {
-		Node n1 = new Node("a");
-		{
-			n1.addChildNode(new Node("b"));
-			n1.addChildNode(new Node("x"));
-			n1.addChildNode(new Node("c"));
-			n1.print();
-		}
-		Node cond = new Node("a");
-		{
-			cond.addChildNode(new Node("b"));
-			cond.addChildNode(new Node("c"));
-			cond.print();
-		}
-		boolean b = n1.matchAll(cond);
-		System.err.println(b);
-		assertEquals(true, b);
-	}
-
-	public void testMatchAll004() {
-		Node n1 = new Node("a");
-		{
-			n1.addChildNode(new Node("b"));
-			n1.addChildNode(new Node("x"));
-			n1.addChildNode(new Node("x"));
-			n1.addChildNode(new Node("c"));
-			n1.addChildNode(new Node("x"));
-			n1.print();
-		}
-		Node cond = new Node("a");
-		{
-			cond.addChildNode(new Node("b"));
-			cond.addChildNode(new Node("c"));
-			cond.print();
-		}
-		boolean b = n1.matchAll(cond);
-		System.err.println(b);
-		assertEquals(true, b);
-	}
-
-	public void testMatchAll005() {
-		Node n1 = new Node("a");
-		{
-			Node n2 = new Node("b");
+			Node<String> n2 = new Node<>("b");
 			n1.addChildNode(n2);
-			Node n3 = new Node("c");
+			{
+				Node<String> n2a = new Node<>("x");
+				n2.addChildNode(n2a);
+				Node<String> n2b = new Node<>("y");
+				n2.addChildNode(n2b);
+				Node<String> n2c = new Node<>("z");
+				n2.addChildNode(n2c);
+			}
+			Node<String> n3 = new Node<>("c");
 			n1.addChildNode(n3);
-			Node n4 = new Node("d");
-			n3.addChildNode(n4);
-			Node n5 = new Node("e");
-			n3.addChildNode(n5);
-			n1.print();
 		}
-		Node cond = new Node("a");
 		{
-			Node n2 = new Node("b");
-			cond.addChildNode(n2);
-			Node n3 = new Node("c");
-			cond.addChildNode(n3);
-			Node n4 = new Node("d");
-			n3.addChildNode(n4);
-			Node n5 = new Node("e");
-			n3.addChildNode(n5);
-			cond.print();
+			assertEquals(true, n1.getValue().equals("a"));
 		}
-		boolean b = n1.matchAll(cond);
-		System.err.println(b);
-		assertEquals(true, b);
+		{
+			Node<String> next = n1.nextChild();
+			assertEquals(true, next.getValue().equals("b"));
+		}
+		{
+			Node<String> next = n1.nextChild();
+			assertEquals(true, next.getValue().equals("c"));
+		}
+		{
+			Node<String> n = n1.nextChild();
+			assertNull(n);
+		}
+
 	}
 
-	public void testMatchAll006() {
-		Node n1 = new Node("a");
+	/**
+	 * Test Node
+	 * 
+	 * <pre>
+	 * [a]
+	 *     [b/]
+	 * [/a]
+	 * </pre>
+	 * 
+	 */
+	public void testNode001() {
+		Node<String> n1 = new Node<>("a");
 		{
-			Node n2 = new Node("b");
+			Node<String> n2 = new Node<>("b");
 			n1.addChildNode(n2);
-			Node n3 = new Node("c");
-			n1.addChildNode(n3);
-			Node n4 = new Node("d");
-			n3.addChildNode(n4);
-			Node n5 = new Node("x");
-			n3.addChildNode(n5);
-			Node n6 = new Node("e");
-			n3.addChildNode(n6);
 		}
-		Node cond = new Node("a");
-		{
-			Node n2 = new Node("b");
-			cond.addChildNode(n2);
-			Node n3 = new Node("c");
-			cond.addChildNode(n3);
-			Node n4 = new Node("d");
-			n3.addChildNode(n4);
-			Node n6 = new Node("e");
-			n3.addChildNode(n6);
-		}
-		boolean b = n1.matchAll(cond);
-		System.err.println(b);
-		assertEquals(true, b);
-	}
-
-	public void testMatchAll007() {
-		Node n1 = new Node("a");
-		{
-			Node n2 = new Node("b");
-			n1.addChildNode(n2);
-			Node n3 = new Node("c");
-			n1.addChildNode(n3);
-			Node n4 = new Node("d");
-			n3.addChildNode(n4);
-			Node n5 = new Node("e");
-			n3.addChildNode(n5);
-			n1.addChildNode(new Node("f"));
-			n1.print();
-		}
-		Node cond = new Node("a");
-		{
-			Node n2 = new Node("b");
-			cond.addChildNode(n2);
-			Node n3 = new Node("c");
-			cond.addChildNode(n3);
-			Node n4 = new Node("x");
-			n3.addChildNode(n4);
-			Node n5 = new Node("d");
-			n3.addChildNode(n5);
-			Node n6 = new Node("e");
-			n3.addChildNode(n6);
-			cond.print();
-		}
-		boolean b = n1.matchAll(cond);
-		System.err.println(b);
-		assertEquals(false, b);
+		printNode(n1, "n1");
+		assertEquals("a", n1.getValue());
+		assertEquals("b", n1.getChildNode(0).getValue());
 	}
 
 	public void testPrint001() {
-		Node n1 = new Node("a");
+		Node<String> n1 = new Node<String>("a");
 		{
-			n1.addChildNode(new Node("b"));
-			n1.addChildNode(new Node("c"));
+			n1.addChildNode(new Node<String>("b"));
+			n1.addChildNode(new Node<String>("c"));
 		}
 		n1.print();
 	}
 
-	public void testClone001() {
-		Node n1 = new Node("a");
+	public void testRemove001() {
+		Node<String> n1 = new Node<>("a");
 		{
-			n1.addChildNode(new Node("b"));
-			n1.addChildNode(new Node("c"));
+			Node<String> n2 = new Node<>("b");
+			n1.addChildNode(n2);
+			{
+				Node<String> n2a = new Node<>("x");
+				n2.addChildNode(n2a);
+				Node<String> n2b = new Node<>("y");
+				n2.addChildNode(n2b);
+				Node<String> n2c = new Node<>("z");
+				n2.addChildNode(n2c);
+			}
 		}
-		Node n2 = (Node) n1.clone();
-		assertFalse(n1 == n2);
-		n1.print();
-		n2.print();
+		{
+			Node<String> clone = n1.clone();
+			Node<String> removed = clone.removeChild(0);
+			System.err.println("<removed>");
+			removed.print();
+			System.err.println("</removed>");
+			System.err.println("<object>");
+			clone.print();
+			System.err.println("</object>");
+		}
+	}
+
+	public void testRemove002() {
+		Node<String> n1 = new Node<>("a");
+		{
+			Node<String> n2 = new Node<>("b");
+			n1.addChildNode(n2);
+			{
+				Node<String> n2a = new Node<>("x");
+				n2.addChildNode(n2a);
+				Node<String> n2b = new Node<>("y");
+				n2.addChildNode(n2b);
+				Node<String> n2c = new Node<>("z");
+				n2.addChildNode(n2c);
+			}
+		}
+		{
+			Node<String> clone = n1.clone();
+			System.err.println("<object>");
+			clone.print();
+			System.err.println("</object>");
+			Node<String> ptr = clone.getChildNode(0);
+			Node<String> removed = ptr.removeChild(0);
+			System.err.println("<removed>");
+			removed.print();
+			System.err.println("</removed>");
+			System.err.println("<object>");
+			clone.print();
+			System.err.println("</object>");
+
+			removed = ptr.removeChild(0);
+			System.err.println("<removed>");
+			removed.print();
+			System.err.println("</removed>");
+			System.err.println("<object>");
+			clone.print();
+			System.err.println("</object>");
+
+			removed = ptr.removeChild(0);
+			System.err.println("<removed>");
+			removed.print();
+			System.err.println("</removed>");
+			System.err.println("<object>");
+			clone.print();
+			System.err.println("</object>");
+		}
 
 	}
 
-	public void testClone002() {
-		Node n1 = new Node("a");
-		Node n2 = new Node("b");
-		Node n3 = new Node("c");
-		Node n4 = new Node("d");
-		Node n5 = new Node("e");
-
-		n1.addChildNode(n2);
-		n1.addChildNode(n3);
-		n3.addChildNode(n4);
-		n3.addChildNode(n5);
-
-		n1.print();
-
-		Node n = n3.clone();
-		n.print();
-
-		Node nn = n5.clone();
-		nn.print();
-
-	}
-
-	public void testMatch001() {
-		Node n1 = new Node("a");
-		Node n2 = new Node("b");
-		System.err.println(n1.match(n2));
-	}
-
-	public void testMatch002() {
-		Node n1 = new Node("a");
-		Node n2 = new Node("a");
-		System.err.println(n1.match(n2));
-	}
-
-	public void testToString() {
-		Node n1 = new Node("a");
-		Node n2 = new Node("b");
+	public void testToString001() {
+		Node<String> n1 = new Node<String>("a");
+		Node<String> n2 = new Node<String>("b");
 		n1.addChildNode(n2);
 
 		System.err.println(n1.toString());

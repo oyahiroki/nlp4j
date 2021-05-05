@@ -1,7 +1,7 @@
 package nlp4j.impl;
 
-import junit.framework.TestCase;
 import nlp4j.Keyword;
+import nlp4j.test.NLP4JTestCase;
 
 /**
  * test:nlp4j.impl.DefaultKeyword
@@ -9,18 +9,24 @@ import nlp4j.Keyword;
  * @author Hiroki Oya
  *
  */
-public class DefaultKeywordTestCase extends TestCase {
+public class DefaultKeywordTestCase extends NLP4JTestCase {
+
+	public DefaultKeywordTestCase() {
+		target = DefaultKeyword.class;
+	}
 
 	/**
 	 * test:get:キーワードの開始位置
 	 */
-	public void testGetBegin() {
+	public void testGetBegin001() {
 		DefaultKeyword kw = new DefaultKeyword();
-		kw.setLex("今日");
-		kw.setStr("今日");
-		kw.setFacet("名詞");
-		kw.setBegin(0);
-		kw.setEnd(2);
+		{
+			kw.setLex("今日");
+			kw.setStr("今日");
+			kw.setFacet("名詞");
+			kw.setBegin(0);
+			kw.setEnd(2);
+		}
 		System.err.println(kw);
 		assertEquals(0, kw.getBegin());
 	}
@@ -28,30 +34,59 @@ public class DefaultKeywordTestCase extends TestCase {
 	/**
 	 * test:get:キーワードの共起性
 	 */
-	public void testGetCorrelation() {
+	public void testGetCorrelation001() {
 		DefaultKeyword kw = new DefaultKeyword();
-		kw.setLex("今日");
-		kw.setStr("今日");
-		kw.setFacet("名詞");
-		kw.setBegin(0);
-		kw.setEnd(2);
-		kw.setCorrelation(1.5);
+		{
+			kw.setLex("今日");
+			kw.setStr("今日");
+			kw.setFacet("名詞");
+			kw.setBegin(0);
+			kw.setEnd(2);
+			kw.setCorrelation(1.5);
+		}
 		System.err.println(kw);
 		assertEquals(1.5, kw.getCorrelation());
 	}
 
 	/**
+	 * Test Method : clone()
+	 * 
+	 * @throws Exception
+	 */
+	public void testClone001() throws Exception {
+		DefaultKeyword kw = new DefaultKeyword();
+		{
+			kw.setLex("今日");
+			kw.setStr("今日");
+			kw.setFacet("名詞");
+			kw.setBegin(0);
+			kw.setEnd(2);
+			kw.setCorrelation(1.5);
+		}
+		DefaultKeyword c1_cloned = (DefaultKeyword) kw.clone();
+		System.err.println("Original: " + kw);
+		System.err.println("Clone:" + c1_cloned);
+		DefaultKeyword c2_not_cloned = kw;
+		assertTrue((kw == c1_cloned) == false);
+		assertTrue((kw == c2_not_cloned) == true);
+		assertEquals(1.5, kw.getCorrelation());
+		assertEquals(1.5, c1_cloned.getCorrelation());
+	}
+
+	/**
 	 * test:get:キーワードのカウント
 	 */
-	public void testGetCount() {
+	public void testGetCount001() {
 		DefaultKeyword kw = new DefaultKeyword();
-		kw.setLex("今日");
-		kw.setStr("今日");
-		kw.setFacet("名詞");
-		kw.setBegin(0);
-		kw.setEnd(2);
-		kw.setCorrelation(1.5);
-		kw.setCount(1);
+		{
+			kw.setLex("今日");
+			kw.setStr("今日");
+			kw.setFacet("名詞");
+			kw.setBegin(0);
+			kw.setEnd(2);
+			kw.setCorrelation(1.5);
+			kw.setCount(1);
+		}
 		System.err.println(kw);
 		assertEquals(1, kw.getCount());
 	}
@@ -59,13 +94,15 @@ public class DefaultKeywordTestCase extends TestCase {
 	/**
 	 * test:get:キーワードの終了位置
 	 */
-	public void testGetEnd() {
+	public void testGetEnd001() {
 		DefaultKeyword kw = new DefaultKeyword();
-		kw.setLex("今日");
-		kw.setStr("今日");
-		kw.setFacet("名詞");
-		kw.setBegin(0);
-		kw.setEnd(2);
+		{
+			kw.setLex("今日");
+			kw.setStr("今日");
+			kw.setFacet("名詞");
+			kw.setBegin(0);
+			kw.setEnd(2);
+		}
 		System.err.println(kw);
 		assertEquals(2, kw.getEnd());
 	}
@@ -73,13 +110,15 @@ public class DefaultKeywordTestCase extends TestCase {
 	/**
 	 * test:get:キーワードのファセット
 	 */
-	public void testGetFacet() {
+	public void testGetFacet001() {
 		DefaultKeyword kw = new DefaultKeyword();
-		kw.setLex("今日");
-		kw.setStr("今日");
-		kw.setFacet("名詞");
-		kw.setBegin(0);
-		kw.setEnd(2);
+		{
+			kw.setLex("今日");
+			kw.setStr("今日");
+			kw.setFacet("名詞");
+			kw.setBegin(0);
+			kw.setEnd(2);
+		}
 		System.err.println(kw);
 		assertEquals("名詞", kw.getFacet());
 	}
@@ -87,13 +126,15 @@ public class DefaultKeywordTestCase extends TestCase {
 	/**
 	 * test:get:キーワードの正規形
 	 */
-	public void testGetLex() {
+	public void testGetLex001() {
 		DefaultKeyword kw = new DefaultKeyword();
-		kw.setLex("今日");
-		kw.setStr("今日");
-		kw.setFacet("名詞");
-		kw.setBegin(0);
-		kw.setEnd(2);
+		{
+			kw.setLex("今日");
+			kw.setStr("今日");
+			kw.setFacet("名詞");
+			kw.setBegin(0);
+			kw.setEnd(2);
+		}
 		System.err.println(kw);
 		assertEquals("今日", kw.getLex());
 	}
@@ -101,14 +142,16 @@ public class DefaultKeywordTestCase extends TestCase {
 	/**
 	 * test:get:読み
 	 */
-	public void testGetReading() {
+	public void testGetReading001() {
 		DefaultKeyword kw = new DefaultKeyword();
-		kw.setLex("今日");
-		kw.setStr("今日");
-		kw.setFacet("名詞");
-		kw.setBegin(0);
-		kw.setEnd(2);
-		kw.setReading("きょう");
+		{
+			kw.setLex("今日");
+			kw.setStr("今日");
+			kw.setFacet("名詞");
+			kw.setBegin(0);
+			kw.setEnd(2);
+			kw.setReading("きょう");
+		}
 		System.err.println(kw);
 		assertEquals("きょう", kw.getReading());
 	}
@@ -116,54 +159,62 @@ public class DefaultKeywordTestCase extends TestCase {
 	/**
 	 * test:get:連番
 	 */
-	public void testGetSequence() {
+	public void testGetSequence001() {
 		DefaultKeyword kw = new DefaultKeyword();
-		kw.setLex("今日");
-		kw.setStr("今日");
-		kw.setFacet("名詞");
-		kw.setBegin(0);
-		kw.setEnd(2);
-		kw.setSequence(10);
+		{
+			kw.setLex("今日");
+			kw.setStr("今日");
+			kw.setFacet("名詞");
+			kw.setBegin(0);
+			kw.setEnd(2);
+			kw.setSequence(10);
+		}
 		assertEquals(10, kw.getSequence());
 	}
 
 	/**
 	 * test:get:キーワードの正規形
 	 */
-	public void testGetStr() {
+	public void testGetStr001() {
 		DefaultKeyword kw = new DefaultKeyword();
-		kw.setLex("今日");
-		kw.setStr("今日");
-		kw.setFacet("名詞");
-		kw.setBegin(0);
-		kw.setEnd(2);
+		{
+			kw.setLex("今日");
+			kw.setStr("今日");
+			kw.setFacet("名詞");
+			kw.setBegin(0);
+			kw.setEnd(2);
+		}
 		assertEquals("今日", kw.getStr());
 	}
 
 	/**
 	 * test:set:キーワードの開始位置
 	 */
-	public void testSetBegin() {
+	public void testSetBegin001() {
 		DefaultKeyword kw = new DefaultKeyword();
-		kw.setLex("今日");
-		kw.setStr("今日");
-		kw.setFacet("名詞");
-		kw.setBegin(0);
-		kw.setEnd(2);
+		{
+			kw.setLex("今日");
+			kw.setStr("今日");
+			kw.setFacet("名詞");
+			kw.setBegin(0);
+			kw.setEnd(2);
+		}
 		assertEquals(0, kw.getBegin());
 	}
 
 	/**
 	 * test:set:キーワードの共起性
 	 */
-	public void testSetCorrelation() {
+	public void testSetCorrelation001() {
 		DefaultKeyword kw = new DefaultKeyword();
-		kw.setLex("今日");
-		kw.setStr("今日");
-		kw.setFacet("名詞");
-		kw.setBegin(0);
-		kw.setEnd(2);
-		kw.setCorrelation(1.5);
+		{
+			kw.setLex("今日");
+			kw.setStr("今日");
+			kw.setFacet("名詞");
+			kw.setBegin(0);
+			kw.setEnd(2);
+			kw.setCorrelation(1.5);
+		}
 		System.err.println(kw);
 		assertEquals(1.5, kw.getCorrelation());
 	}
@@ -171,15 +222,17 @@ public class DefaultKeywordTestCase extends TestCase {
 	/**
 	 * test:set:キーワードのカウント
 	 */
-	public void testSetCount() {
+	public void testSetCount001() {
 		DefaultKeyword kw = new DefaultKeyword();
-		kw.setLex("今日");
-		kw.setStr("今日");
-		kw.setFacet("名詞");
-		kw.setBegin(0);
-		kw.setEnd(2);
-		kw.setCorrelation(1.5);
-		kw.setCount(1);
+		{
+			kw.setLex("今日");
+			kw.setStr("今日");
+			kw.setFacet("名詞");
+			kw.setBegin(0);
+			kw.setEnd(2);
+			kw.setCorrelation(1.5);
+			kw.setCount(1);
+		}
 		System.err.println(kw);
 		assertEquals(1, kw.getCount());
 	}
@@ -187,13 +240,15 @@ public class DefaultKeywordTestCase extends TestCase {
 	/**
 	 * test:set:キーワードの終了位置
 	 */
-	public void testSetEnd() {
+	public void testSetEnd001() {
 		DefaultKeyword kw = new DefaultKeyword();
-		kw.setLex("今日");
-		kw.setStr("今日");
-		kw.setFacet("名詞");
-		kw.setBegin(0);
-		kw.setEnd(2);
+		{
+			kw.setLex("今日");
+			kw.setStr("今日");
+			kw.setFacet("名詞");
+			kw.setBegin(0);
+			kw.setEnd(2);
+		}
 		System.err.println(kw);
 		assertEquals(2, kw.getEnd());
 	}
@@ -201,7 +256,7 @@ public class DefaultKeywordTestCase extends TestCase {
 	/**
 	 * test:set:キーワードのファセット
 	 */
-	public void testSetFacet() {
+	public void testSetFacet001() {
 		DefaultKeyword kw = new DefaultKeyword();
 		kw.setLex("今日");
 		kw.setStr("今日");
@@ -215,13 +270,15 @@ public class DefaultKeywordTestCase extends TestCase {
 	/**
 	 * test:set:キーワードの正規形
 	 */
-	public void testSetLex() {
+	public void testSetLex001() {
 		DefaultKeyword kw = new DefaultKeyword();
-		kw.setLex("今日");
-		kw.setStr("今日");
-		kw.setFacet("名詞");
-		kw.setBegin(0);
-		kw.setEnd(2);
+		{
+			kw.setLex("今日");
+			kw.setStr("今日");
+			kw.setFacet("名詞");
+			kw.setBegin(0);
+			kw.setEnd(2);
+		}
 		System.err.println(kw);
 		assertEquals("今日", kw.getLex());
 	}
@@ -229,14 +286,16 @@ public class DefaultKeywordTestCase extends TestCase {
 	/**
 	 * test:set:読み
 	 */
-	public void testSetReading() {
+	public void testSetReading001() {
 		DefaultKeyword kw = new DefaultKeyword();
-		kw.setLex("今日");
-		kw.setStr("今日");
-		kw.setFacet("名詞");
-		kw.setBegin(0);
-		kw.setEnd(2);
-		kw.setReading("きょう");
+		{
+			kw.setLex("今日");
+			kw.setStr("今日");
+			kw.setFacet("名詞");
+			kw.setBegin(0);
+			kw.setEnd(2);
+			kw.setReading("きょう");
+		}
 		System.err.println(kw);
 		assertEquals("きょう", kw.getReading());
 	}
@@ -244,27 +303,31 @@ public class DefaultKeywordTestCase extends TestCase {
 	/**
 	 * test:set:連番
 	 */
-	public void testSetSequence() {
+	public void testSetSequence001() {
 		DefaultKeyword kw = new DefaultKeyword();
-		kw.setLex("今日");
-		kw.setStr("今日");
-		kw.setFacet("名詞");
-		kw.setBegin(0);
-		kw.setEnd(2);
-		kw.setSequence(10);
+		{
+			kw.setLex("今日");
+			kw.setStr("今日");
+			kw.setFacet("名詞");
+			kw.setBegin(0);
+			kw.setEnd(2);
+			kw.setSequence(10);
+		}
 		assertEquals(10, kw.getSequence());
 	}
 
 	/**
 	 * test:set:キーワードの正規形
 	 */
-	public void testSetStr() {
+	public void testSetStr001() {
 		DefaultKeyword kw = new DefaultKeyword();
-		kw.setLex("今日");
-		kw.setStr("今日");
-		kw.setFacet("名詞");
-		kw.setBegin(0);
-		kw.setEnd(2);
+		{
+			kw.setLex("今日");
+			kw.setStr("今日");
+			kw.setFacet("名詞");
+			kw.setBegin(0);
+			kw.setEnd(2);
+		}
 		assertEquals("今日", kw.getStr());
 	}
 
@@ -273,8 +336,10 @@ public class DefaultKeywordTestCase extends TestCase {
 	 */
 	public void testEqualsObject001() {
 		Keyword kwd = new DefaultKeyword();
-		kwd.setFacet("facet");
-		kwd.setLex("lex");
+		{
+			kwd.setFacet("facet");
+			kwd.setLex("lex");
+		}
 		assertTrue(kwd.equals(kwd));
 	}
 
@@ -283,11 +348,15 @@ public class DefaultKeywordTestCase extends TestCase {
 	 */
 	public void testEqualsObject002() {
 		Keyword kwd1 = new DefaultKeyword();
-		kwd1.setFacet("facet");
-		kwd1.setLex("lex");
+		{
+			kwd1.setFacet("facet");
+			kwd1.setLex("lex");
+		}
 		Keyword kwd2 = new DefaultKeyword();
-		kwd2.setFacet("facet");
-		kwd2.setLex("lex");
+		{
+			kwd2.setFacet("facet");
+			kwd2.setLex("lex");
+		}
 		assertTrue(kwd1.equals(kwd2));
 	}
 
@@ -296,24 +365,170 @@ public class DefaultKeywordTestCase extends TestCase {
 	 */
 	public void testEqualsObject003() {
 		Keyword kwd1 = new DefaultKeyword();
-		kwd1.setFacet("facet");
-		kwd1.setLex("lex");
+		{
+			kwd1.setFacet("facet");
+			kwd1.setLex("lex");
+		}
 		Keyword kwd2 = new DefaultKeyword();
-		kwd2.setFacet("facet0");
-		kwd2.setLex("lex");
+		{
+			kwd2.setFacet("facet0");
+			kwd2.setLex("lex");
+		}
 		assertTrue(kwd1.equals(kwd2) == false);
+	}
+
+	/**
+	 * @created_at 2021-05-03
+	 */
+	public void testMatch001() {
+		DefaultKeyword kw = new DefaultKeyword();
+		{
+			kw.setLex("今日");
+			kw.setStr("今日");
+			kw.setFacet("名詞");
+			kw.setBegin(0);
+			kw.setEnd(2);
+		}
+		DefaultKeyword rule = new DefaultKeyword();
+		{
+			rule.setLex("今日");
+			rule.setStr("今日");
+			rule.setFacet("名詞");
+			rule.setBegin(0);
+			rule.setEnd(2);
+		}
+		boolean b = kw.match(rule);
+		assertEquals(true, b);
+	}
+
+	/**
+	 * @created_at 2021-05-03
+	 */
+	public void testMatch002() {
+		DefaultKeyword kw = new DefaultKeyword();
+		{
+			kw.setLex("今日");
+			kw.setStr("今日");
+			kw.setFacet("名詞");
+			kw.setBegin(0);
+			kw.setEnd(2);
+		}
+		DefaultKeyword rule = new DefaultKeyword();
+		{
+			rule.setFacet("名詞");
+			rule.setBegin(0);
+			rule.setEnd(2);
+		}
+		boolean b = kw.match(rule);
+		assertEquals(true, b);
+	}
+
+	/**
+	 * @created_at 2021-05-03
+	 */
+	public void testMatch003() {
+		DefaultKeyword kw = new DefaultKeyword();
+		{
+			kw.setLex("今日");
+			kw.setStr("今日");
+			kw.setFacet("名詞");
+			kw.setBegin(0);
+			kw.setEnd(2);
+		}
+		DefaultKeyword rule = new DefaultKeyword();
+		{
+			rule.setFacet("名詞");
+			rule.setBegin(0);
+			rule.setEnd(2);
+		}
+		boolean b = kw.match(rule);
+		assertEquals(true, b);
+	}
+
+	/**
+	 * @created_at 2021-05-03
+	 */
+	public void testMatch004() {
+		DefaultKeyword kw = new DefaultKeyword();
+		{
+			kw.setLex("今日");
+			kw.setStr("今日");
+			kw.setFacet("名詞");
+			kw.setBegin(0);
+			kw.setEnd(2);
+		}
+		DefaultKeyword rule = new DefaultKeyword();
+		{
+			rule.setLex("明日");
+			rule.setStr("明日");
+			rule.setFacet("名詞");
+			rule.setBegin(0);
+			rule.setEnd(2);
+		}
+		boolean b = kw.match(rule);
+		assertEquals(false, b);
+	}
+
+	/**
+	 * @created_at 2021-05-03
+	 */
+	public void testMatch005() {
+		DefaultKeyword kw = new DefaultKeyword();
+		{
+			kw.setLex("今日");
+			kw.setStr("今日");
+			kw.setFacet("名詞");
+			kw.setBegin(0);
+			kw.setEnd(2);
+		}
+		DefaultKeyword rule = new DefaultKeyword();
+		{
+			rule.setLex("明日");
+			rule.setStr("明日");
+			rule.setFacet("固有名詞");
+			rule.setBegin(0);
+			rule.setEnd(2);
+		}
+		boolean b = kw.match(rule);
+		assertEquals(false, b);
+	}
+
+	/**
+	 * @created_at 2021-05-04
+	 */
+	public void testMatch006() {
+		DefaultKeyword kw = new DefaultKeyword();
+		{
+			kw.setLex("今日");
+			kw.setStr("今日XX");
+			kw.setFacet("名詞");
+			kw.setBegin(0);
+			kw.setEnd(2);
+		}
+		DefaultKeyword rule = new DefaultKeyword();
+		{
+			rule.setLex("今日");
+			rule.setStr("今日YY");
+			rule.setFacet("名詞");
+			rule.setBegin(0);
+			rule.setEnd(2);
+		}
+		boolean b = kw.match(rule);
+		assertEquals(true, b);
 	}
 
 	/**
 	 * test:toString
 	 */
-	public void testToString() {
+	public void testToString001() {
 		DefaultKeyword kw = new DefaultKeyword();
-		kw.setLex("今日");
-		kw.setStr("今日");
-		kw.setFacet("名詞");
-		kw.setBegin(0);
-		kw.setEnd(2);
+		{
+			kw.setLex("今日");
+			kw.setStr("今日");
+			kw.setFacet("名詞");
+			kw.setBegin(0);
+			kw.setEnd(2);
+		}
 		System.err.println(kw);
 		assertNotNull(kw.toString());
 	}

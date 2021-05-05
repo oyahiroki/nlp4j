@@ -11,8 +11,8 @@ import java.util.List;
  * @version 1.0
  *
  */
-public interface KeywordWithDependency extends Keyword {
-
+public interface KeywordWithDependency extends Keyword, Cloneable {
+	
 	/**
 	 * 係り受けのラベル
 	 * 

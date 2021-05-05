@@ -1,5 +1,7 @@
 package nlp4j.impl;
 
+import java.lang.ref.WeakReference;
+
 import nlp4j.Keyword;
 import nlp4j.UPOS20;
 
@@ -16,21 +18,30 @@ public class DefaultKeyword implements Keyword, Cloneable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	int begin = -1;
-	double correlation;
-	long count = -1;
-	int end = -1;
-	String facet;
+
+	protected int begin = -1;
+
+	protected double correlation;
+
+	protected long count = -1;
+
+	protected int end = -1;
+
+	protected String facet;
+
 	private boolean flag = false;
-	String lex;
-	String namespace;
-	String reading;
 
-	int sequence = -1;
+	protected String lex;
 
-	String str;
+	protected String namespace;
 
-	String upos;
+	protected String reading;
+
+	protected int sequence = -1;
+
+	protected String str;
+
+	protected String upos;
 
 	/**
 	 * Default constructor
@@ -76,26 +87,64 @@ public class DefaultKeyword implements Keyword, Cloneable {
 	}
 
 	@Override
-	protected Object clone() throws CloneNotSupportedException {
-		return super.clone();
+	protected DefaultKeyword clone() {
+
+		try {
+			DefaultKeyword c = (DefaultKeyword) super.clone();
+			{
+				c.begin = this.begin;
+				c.correlation = this.correlation;
+				c.count = this.count;
+				if (this.facet != null) {
+					c.facet = new String(this.facet);
+				}
+				c.flag = this.flag;
+				if (this.lex != null) {
+					c.lex = new String(this.lex);
+				}
+				if (this.namespace != null) {
+					c.namespace = new String(this.namespace);
+				}
+				if (this.reading != null) {
+					c.reading = new String(this.reading);
+				}
+				c.sequence = this.sequence;
+				if (this.str != null) {
+					c.str = this.str;
+				}
+				if (this.upos != null) {
+					c.upos = this.upos;
+				}
+			}
+			return c;
+		} catch (CloneNotSupportedException e) {
+			return null;
+		}
 	}
 
-	@Override
+	/**
+	 * @return true (Check for lex, facet)
+	 */
 	public boolean equals(Object obj) {
+
+		if (this == obj) {
+			return true;
+		}
 
 		if (obj instanceof Keyword) {
 			Keyword kw = (Keyword) obj;
-			String facet = kw.getFacet();
-			String lex = kw.getLex();
 
-			if (this.facet == null && facet == null) {
-				return this.lex.equals(lex);
-			} else if (this.lex == null || lex == null || this.facet == null || facet == null) {
+			if (this.facet == null && kw.getFacet() == null) {
+				return this.lex.equals(kw.getLex());
+			} //
+			else if (this.lex == null || kw.getLex() == null || this.facet == null || kw.getFacet() == null) {
 				return false;
-			} else {
-				return this.facet.equals(facet) && this.lex.equals(lex);
+			} //
+			else {
+				return this.facet.equals(kw.getFacet()) && this.lex.equals(kw.getLex());
 			}
-		} else {
+		} //
+		else {
 			return super.equals(obj);
 		}
 
@@ -259,6 +308,11 @@ public class DefaultKeyword implements Keyword, Cloneable {
 		this.correlation = d;
 	}
 
+	public void addBeginEnd(int n) {
+		this.begin += n;
+		this.end += n;
+	}
+
 	@Override
 	public void setCount(long count) {
 		this.count = count;
@@ -340,6 +394,11 @@ public class DefaultKeyword implements Keyword, Cloneable {
 	}
 
 	@Override
+	public void setUPos(String upos) {
+		this.upos = upos;
+	}
+
+	@Override
 	public String toString() {
 		return //
 		this.lex //
@@ -364,6 +423,55 @@ public class DefaultKeyword implements Keyword, Cloneable {
 		return this.lex + " [sequence=" + sequence + ", facet=" + facet + ", upos=" + upos + ", lex=" + lex + ", str="
 				+ str + ", reading=" + reading + ", count=" + count + ", begin=" + begin + ", end=" + end
 				+ ", correlation=" + correlation + "]";
+	}
+
+	protected Keyword hitKeyword = null;
+
+	@Override
+	public boolean match(Keyword rule) {
+
+		if (rule == null) {
+			return true;
+		}
+
+		if (rule.getFacet() != null) {
+			if (this.getFacet() == null) {
+				return false;
+			} else {
+				if (this.getFacet().equals(rule.getFacet()) == false) {
+					return false;
+				}
+			}
+		}
+
+		if (rule.getLex() != null) {
+			if (this.getLex() == null) {
+				return false;
+			} else {
+				if (this.getLex().equals(rule.getLex()) == false) {
+					return false;
+				}
+
+			}
+		}
+
+		if (rule.getUPos() != null) {
+			if (this.getUPos() == null) {
+				return false;
+			} else {
+				if (this.getUPos().equals(rule.getUPos()) == false) {
+					return false;
+				}
+
+			}
+		}
+
+		if (rule instanceof DefaultKeyword) {
+			if (((DefaultKeyword) rule).hitKeyword == null) {
+				((DefaultKeyword) rule).hitKeyword = this;
+			}
+		}
+		return true;
 	}
 
 }

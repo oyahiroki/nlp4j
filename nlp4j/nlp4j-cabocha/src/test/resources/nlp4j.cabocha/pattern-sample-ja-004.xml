@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<patterns lang="ja">
+	<pattern facet="pattern.sample" value="{0.lex} ... {2.lex}">
+		<w id="2" upos="VERB">
+			<w id="1" upos="ADP">
+				<w id="0" upos="NOUN" />
+			</w>
+		</w>
+	</pattern>
+</patterns>
+

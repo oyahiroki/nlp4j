@@ -29,6 +29,7 @@ import nlp4j.AbstractDocumentAnnotator;
 import nlp4j.Document;
 import nlp4j.DocumentAnnotator;
 import nlp4j.Keyword;
+import nlp4j.annotator.DependencyAnnotator;
 import nlp4j.impl.DefaultKeyword;
 
 /**
@@ -45,7 +46,8 @@ import nlp4j.impl.DefaultKeyword;
  * @author Hiroki Oya
  *
  */
-public class StanfordPosDependencyAnnotator extends AbstractDocumentAnnotator implements DocumentAnnotator {
+public class StanfordPosDependencyAnnotator extends AbstractDocumentAnnotator
+		implements DocumentAnnotator, DependencyAnnotator {
 
 	/**
 	 * Property value for Stanford NLP.

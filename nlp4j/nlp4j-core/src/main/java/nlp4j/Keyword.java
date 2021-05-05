@@ -13,7 +13,15 @@ import java.io.Serializable;
  * @author Hiroki Oya
  * @version 1.0
  */
-public interface Keyword extends Serializable {
+public interface Keyword extends Serializable, Cloneable {
+
+	/**
+	 * Shift begin, end
+	 * 
+	 * @param n
+	 * @since 1.3.1.0
+	 */
+	void addBeginEnd(int n);
 
 	/**
 	 * キーワードの属性値を返します。<br>
@@ -78,6 +86,14 @@ public interface Keyword extends Serializable {
 	 * @since 1.3.1.0
 	 */
 	String getUPos();
+
+	/**
+	 * Universal POSをセットします。<br>
+	 * Set Universal POS.
+	 * 
+	 * @param upos
+	 */
+	void setUPos(String upos);
 
 	/**
 	 * @return フラグ
@@ -206,4 +222,13 @@ public interface Keyword extends Serializable {
 	 * @since 1.0
 	 */
 	void setStr(String str);
+
+	/**
+	 * Return match result of Keyword
+	 * 
+	 * @param rule
+	 * @return match result
+	 * @since 1.3.1.0
+	 */
+	boolean match(Keyword rule);
 }

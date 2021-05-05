@@ -30,6 +30,24 @@ public class NLP4JTestCase extends TestCase {
 		logger.info("set level debug");
 	}
 
+	protected static void setLevelInfo() {
+		LoggerContext ctx = (LoggerContext) LogManager.getContext(false);
+		Configuration config = ctx.getConfiguration();
+		LoggerConfig loggerConfig = config.getLoggerConfig(LogManager.ROOT_LOGGER_NAME);
+		loggerConfig.setLevel(Level.INFO);
+		ctx.updateLoggers();
+		logger.info("set level info");
+	}
+
+	protected static void setLevelDebug() {
+		LoggerContext ctx = (LoggerContext) LogManager.getContext(false);
+		Configuration config = ctx.getConfiguration();
+		LoggerConfig loggerConfig = config.getLoggerConfig(LogManager.ROOT_LOGGER_NAME);
+		loggerConfig.setLevel(Level.DEBUG);
+		ctx.updateLoggers();
+		logger.info("set level debug");
+	}
+
 	protected String description;
 
 	@SuppressWarnings("rawtypes")
@@ -53,7 +71,7 @@ public class NLP4JTestCase extends TestCase {
 		logger.info("Testing target:" + target.getName() + "...");
 
 		if (super.getName().matches(".*[0-9]{3}") == false) {
-			throw new RuntimeException("method name format is not : .*[0-9]{3}");
+			throw new RuntimeException("method name format is not : .*[0-9]{3} -> " + super.getName());
 		}
 	}
 

@@ -5,6 +5,7 @@ import nlp4j.Keyword;
 import nlp4j.KeywordWithDependency;
 import nlp4j.impl.DefaultNlpServiceResponse;
 
+@SuppressWarnings("javadoc")
 public class CabochaNlpServiceTestCase extends TestCase {
 
 	public void testProcess001() throws Exception {
@@ -15,6 +16,7 @@ public class CabochaNlpServiceTestCase extends TestCase {
 		DefaultNlpServiceResponse response = service.process(text);
 		for (Keyword kwd : response.getKeywords()) {
 			if (kwd instanceof KeywordWithDependency) {
+				System.err.println(((KeywordWithDependency) kwd).getSequence());
 				System.err.println(((KeywordWithDependency) kwd).toStringAsXml());
 			}
 		}
