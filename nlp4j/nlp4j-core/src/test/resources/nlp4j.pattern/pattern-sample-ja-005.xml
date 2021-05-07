@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<patterns lang="ja">
+	<!-- example: いい ... 天気 -->
+	<pattern facet="pattern.sample" value="{0.lex} ... {1.lex}">
+		<w id="1" upos="NOUN">
+			<w id="0" upos="ADJ" />
+		</w>
+	</pattern>
+	<!-- example: 今日 ... は ... 天気 -->
+	<pattern facet="pattern.sample" value="{0.lex} ... {1.lex} ... {2.lex}">
+		<w id="2" upos="NOUN">
+			<w id="1" upos="ADP">
+				<w id="0" upos="NOUN" />
+			</w>
+		</w>
+	</pattern>
+	<pattern facet="word.NOUN" value="{0.lex}">
+		<w id="0" upos="NOUN">
+		</w>
+	</pattern>
+</patterns>
+

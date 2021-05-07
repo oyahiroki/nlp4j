@@ -11,6 +11,7 @@ import java.util.Map;
 
 import nlp4j.Document;
 import nlp4j.Keyword;
+import nlp4j.KeywordWithDependency;
 import nlp4j.util.DateUtils;
 
 /**
@@ -188,6 +189,17 @@ public class DefaultDocument implements Document {
 			}
 		}
 
+		return ret;
+	}
+
+	@Override
+	public <T extends Keyword> List<T> getKeywords(Class<T> classOfT) {
+		List<T> ret = new ArrayList<T>();
+		for (Keyword kwd : this.keywords) {
+			if (classOfT.isInstance(kwd)) {
+				ret.add((T) kwd);
+			}
+		}
 		return ret;
 	}
 

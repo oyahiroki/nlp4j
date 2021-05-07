@@ -57,6 +57,8 @@ public class MlitCarInfoCrawler extends AbstractWebCrawler implements Crawler {
 
 	String txtToDat = "2019/12/31";
 
+	private String accessKey;
+
 	/**
 	 * 国土交通省「自動車のリコール・不具合情報」をダウンロードする<br>
 	 * http://carinf.mlit.go.jp/jidosha/carinf/opn/index.html<br>
@@ -68,10 +70,21 @@ public class MlitCarInfoCrawler extends AbstractWebCrawler implements Crawler {
 		super();
 	}
 
+	public String getAccessKey() throws IOException {
+		String url = "http://carinf.mlit.go.jp/jidosha/carinf/opn/index.html";
+		org.jsoup.nodes.Document document = Jsoup.parse(new URL(url), 1000 * 10); // throws IOException
+
+		String v = document.select("#inputForm").select("input[name=\"nccharset\"]").val();
+
+		return v;
+	}
+
 	/**
 	 * 国土交通省「自動車のリコール・不具合情報」をダウンロードする<br>
 	 * http://carinf.mlit.go.jp/jidosha/carinf/opn/index.html<br>
-	 * 電子計算機による情報解析（多数の著作物その他の大量の情報から， 当該情報を構成する言語，音，影像その他の要素に係る情報を抽出し，
+	 * <br>
+	 * 電子計算機による情報解析（多数の著作物その他の大量の情報から，<br>
+	 * 当該情報を構成する言語，音，影像その他の要素に係る情報を抽出し， <br>
 	 * 比較，分類その他の統計的な解析を行うことをいう。）を行うことを目的とする <br>
 	 */
 	@Override
@@ -83,10 +96,22 @@ public class MlitCarInfoCrawler extends AbstractWebCrawler implements Crawler {
 
 		int page = 1;
 
+		if (this.accessKey == null) {
+			try {
+				this.accessKey = getAccessKey();
+			} catch (IOException e) {
+				e.printStackTrace();
+				logger.error(e.getMessage());
+				logger.error(e);
+				return docs;
+			}
+		}
+
 		for (int count = 0; count < countMax; count++) {
 
 			String url = String.format("http://carinf.mlit.go.jp/jidosha/carinf/opn/search.html?" //
-					+ "selCarTp=1" //
+					+ "nccharset=%s" //
+					+ "&selCarTp=1" //
 					+ "&lstCarNo=000" //
 					+ "&txtFrDat=%s" //
 					+ "&txtToDat=%s" //
@@ -95,7 +120,7 @@ public class MlitCarInfoCrawler extends AbstractWebCrawler implements Crawler {
 					+ "&txtEgmNm=" //
 					+ "&chkDevCd=" //
 					+ "&page=%d" //
-					+ "", this.txtFrDat, this.txtToDat, page);
+					+ "", this.accessKey, this.txtFrDat, this.txtToDat, page);
 
 			logger.info("crawling: " + url);
 
@@ -168,6 +193,7 @@ public class MlitCarInfoCrawler extends AbstractWebCrawler implements Crawler {
 						}
 
 						docs.add(doc);
+						logger.info("crawled: 1 document");
 					}
 
 				} // end of for
@@ -203,6 +229,7 @@ public class MlitCarInfoCrawler extends AbstractWebCrawler implements Crawler {
 	 */
 	@Override
 	public void setProperty(String key, String value) {
+
 		super.setProperty(key, value);
 
 		if ("from_date".equals(key)) {
@@ -218,6 +245,9 @@ public class MlitCarInfoCrawler extends AbstractWebCrawler implements Crawler {
 			} else {
 				// warn
 			}
+		} //
+		else if ("accessKey".equals(key)) {
+			this.accessKey = value;
 		}
 
 	}

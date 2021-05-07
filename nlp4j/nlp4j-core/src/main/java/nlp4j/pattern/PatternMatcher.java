@@ -26,11 +26,6 @@ public class PatternMatcher {
 
 	static private java.util.regex.Pattern matchPattern = java.util.regex.Pattern.compile("\\{.*?\\}");
 
-	/**
-	 * @param targetKeyword
-	 * @param rulePattern   pattern for extract
-	 * @return Extracted Pattern Keywords
-	 */
 	static public List<Keyword> match(KeywordWithDependency targetKeyword, Pattern rulePatternX) {
 
 		logger.debug("---------------------------");
@@ -39,6 +34,7 @@ public class PatternMatcher {
 
 		NodeKeyword<KeywordWithDependency> targetKeywordNode = new NodeKeyword<>(targetKeyword);
 
+		// 検索対象のNodeをバラバラにする
 		List<Node<Object>> targetKeywordNodeCloned = targetKeywordNode.clonePatterns();
 
 		logger.info("target nodes: " + targetKeywordNodeCloned.size());
@@ -54,18 +50,28 @@ public class PatternMatcher {
 //			return null;
 //		}
 
-		Pattern rulePattern = rulePatternX.clone();
+//		Pattern rulePattern = rulePatternX.clone();
+//
+//		KeywordRule ruleKeyword = rulePattern.getKeywordRule();
 
-		KeywordRule ruleKeyword = rulePattern.getKeywordRule();
-
-		{
-			KeywordRule ruleKeywordClone = rulePattern.getKeywordRule().clone();
-
-			System.err.println(ruleKeywordClone);
-
-		}
+//		{
+//			KeywordRule ruleKeywordClone = rulePattern.getKeywordRule().clone();
+//
+//			System.err.println(ruleKeywordClone);
+//
+//		}
 
 		for (Node<Object> targetKwd : targetKeywordNodeCloned) {
+			
+			
+			Pattern rulePattern = rulePatternX.clone();
+
+			KeywordRule ruleKeyword = rulePattern.getKeywordRule();
+			
+			
+			
+			
+			
 
 //			System.err.println(((KeywordWithDependency) targetKwd.getValue()).toStringAsXml());
 

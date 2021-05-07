@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<w begin="9" depth="0" end="10" facet="記号" id="5" lex="。" sequence="5" str="。" upos="SYM">
+	<w begin="7" depth="1" end="9" facet="助動詞" id="4" lex="です" sequence="4" str="です" upos="AUX">
+		<w begin="5" depth="2" end="7" facet="名詞" id="3" lex="天気" sequence="3" str="天気" upos="NOUN">
+			<w begin="2" depth="3" end="3" facet="助詞" id="1" lex="は" sequence="1" str="は" upos="ADP">
+				<w begin="0" depth="4" end="2" facet="名詞" id="0" lex="今日" sequence="0" str="今日" upos="NOUN" />
+			</w>
+			<w begin="3" depth="3" end="5" facet="形容詞" id="2" lex="いい" sequence="2" str="いい" upos="ADJ" />
+		</w>
+	</w>
+</w>

@@ -3,6 +3,8 @@ package nlp4j;
 import java.util.Date;
 import java.util.List;
 
+import com.google.gson.JsonElement;
+
 /**
  * ドキュメントクラスです。<br>
  * Document Class.
@@ -96,6 +98,15 @@ public interface Document {
 	 * @since 1.0
 	 */
 	List<Keyword> getKeywords();
+
+	/**
+	 * @param <T>
+	 * @param classOfT
+	 * @return Keywords
+	 * @created_at 2021-05-06
+	 * @since 1.3.1.0
+	 */
+	<T extends Keyword> List<T> getKeywords(Class<T> classOfT);
 
 	/**
 	 * この文書のキーワードをファセットで指定して返します。<br>

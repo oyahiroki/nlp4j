@@ -64,6 +64,11 @@ public class CabochaNlpService implements NlpService {
 		}
 	}
 
+	/**
+	 * @param text for input
+	 * @return NLP Response
+	 * @throws IOException on ERROR
+	 */
 	public DefaultNlpServiceResponse process(String text) throws IOException {
 //		String s = "私は走って学校に行きます。";
 //		String encoding = "MS932";
@@ -141,8 +146,10 @@ public class CabochaNlpService implements NlpService {
 						String pos1 = ss[0];
 						String pos2 = ss[1];
 						String lex = ss[6];
-						String reading = ss[7];
-
+						String reading = null;
+						if (ss.length == 8) {
+							reading = ss[7];
+						}
 						DefaultKeywordWithDependency kwd = new DefaultKeywordWithDependency();
 						{
 							kwd.setSequence(sequence);
@@ -162,6 +169,9 @@ public class CabochaNlpService implements NlpService {
 						kwd.setFacet(pos1);
 						kwd.setLex(lex);
 						kwd.setStr(str);
+						if (reading != null) {
+							kwd.setReading(reading);
+						}
 
 						String kwdKey = bId + "-" + kwdId;
 						kwdMap.put(kwdKey, kwd);
@@ -188,7 +198,7 @@ public class CabochaNlpService implements NlpService {
 				}
 			}
 
-			logger.debug(root.toStringAsXml());
+//			logger.debug(root.toStringAsXml());
 
 //				out.println(getResultMessage(command, exitCode)); // コマンドの実行結果を表示
 
@@ -198,7 +208,7 @@ public class CabochaNlpService implements NlpService {
 			response.setKeywords(kwds);
 			response.setOriginalResponseBody(originalResponse.toString());
 
-			logger.debug(root.toStringAsXml());
+//			logger.debug(root.toStringAsXml());
 
 			return response;
 

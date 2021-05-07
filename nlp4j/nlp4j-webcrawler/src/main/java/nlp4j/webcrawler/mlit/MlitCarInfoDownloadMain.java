@@ -13,6 +13,16 @@ import nlp4j.util.DocumentUtil;
  */
 public class MlitCarInfoDownloadMain {
 
+	private static void printHowToUse() {
+		System.err
+				.println(MlitCarInfoDownloadMain.class.getCanonicalName() + " {from_date} {to_date} {output_filename}");
+		System.err.println("Example: " + MlitCarInfoDownloadMain.class.getCanonicalName() //
+				+ " 2020/01/01" //
+				+ " 2020/03/31" //
+				+ " /usr/local/nlp4j/collections/mlit/data/json1/milt_carinfo-20200101-20200331_json.txt" //
+		);
+	}
+
 	/**
 	 * @param args 利用しない
 	 * @throws Exception 例外発生時
@@ -20,23 +30,21 @@ public class MlitCarInfoDownloadMain {
 	public static void main(String[] args) throws Exception {
 
 		if (args == null || args.length != 3) {
-			System.err.println(
-					MlitCarInfoDownloadMain.class.getCanonicalName() + " {from_date} {to_date} {output_filename}");
-			System.err.println("Example: " + MlitCarInfoDownloadMain.class.getCanonicalName() //
-					+ " 2020/01/01" //
-					+ " 2020/03/31" //
-					+ " /usr/local/nlp4j/collections/mlit/data/json1/milt_carinfo-20200101-20200331_json.txt" //
-			);
+			printHowToUse();
 			return;
 		}
 
 		checkArgs(args);
 
-		String from_date = args[0];
-		String to_date = args[1];
-		String output_filename = args[2];
+		String from_date = args[0].trim();
+		String to_date = args[1].trim();
+		String output_filename = args[2].trim();
 
 		MlitCarInfoCrawler crawler = new MlitCarInfoCrawler();
+
+		String accessKey = crawler.getAccessKey();
+		crawler.setProperty("accessKey", accessKey);
+
 		crawler.setProperty("from_date", from_date);
 		crawler.setProperty("to_date", to_date);
 		// crawler.setProperty("debug", "true");

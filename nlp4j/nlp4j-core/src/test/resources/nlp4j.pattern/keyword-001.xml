@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<w begin="19" depth="0" end="20" facet="記号" id="6" lex="。" sequence="6" str="。" upos="SYM">
+	<w begin="18" depth="1" end="19" facet="助動詞" id="5" lex="た" sequence="5" str="た" upos="AUX">
+		<w begin="16" depth="2" end="18" facet="動詞" id="4" lex="漏れる" sequence="4" str="漏れ" upos="VERB">
+			<w begin="10" depth="3" end="12" facet="助詞" id="1" lex="から" sequence="1" str="から" upos="ADP">
+				<w begin="0" depth="4" end="10" facet="名詞" id="0" lex="ショックアブソーバー" sequence="0" str="ショックアブソーバー" upos="NOUN" />
+			</w>
+			<w begin="15" depth="3" end="16" facet="助詞" id="3" lex="が" sequence="3" str="が" upos="ADP">
+				<w begin="12" depth="4" end="15" facet="名詞" id="2" lex="オイル" sequence="2" str="オイル" upos="NOUN" />
+			</w>
+		</w>
+	</w>
+</w>

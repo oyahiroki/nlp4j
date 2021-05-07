@@ -30,6 +30,20 @@ public class NLP4JTestCase extends TestCase {
 		logger.info("set level debug");
 	}
 
+	/**
+	 * 
+	 */
+	public NLP4JTestCase() {
+		super();
+	}
+
+	/**
+	 * @param name
+	 */
+	public NLP4JTestCase(String name) {
+		super(name);
+	}
+
 	protected static void setLevelInfo() {
 		LoggerContext ctx = (LoggerContext) LogManager.getContext(false);
 		Configuration config = ctx.getConfiguration();

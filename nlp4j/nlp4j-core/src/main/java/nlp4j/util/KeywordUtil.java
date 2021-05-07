@@ -1,8 +1,18 @@
 package nlp4j.util;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
 
 import nlp4j.Keyword;
 import nlp4j.KeywordWithDependency;
@@ -19,6 +29,28 @@ public class KeywordUtil {
 	 */
 	static public String toXml(KeywordWithDependency kwd) {
 		return kwd.toStringAsXml();
+	}
+
+	static public List<KeywordWithDependency> fromXml(File xmlFile) throws IOException {
+		return fromXml(new FileInputStream(xmlFile));
+	}
+
+	static public List<KeywordWithDependency> fromXml(InputStream xmlFile) throws IOException {
+		try {
+			SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
+
+			SAXParser saxParser = saxParserFactory.newSAXParser();
+
+			KeywordHandler handler = new KeywordHandler();
+
+			saxParser.parse(xmlFile, handler);
+
+			List<KeywordWithDependency> kwds = handler.getKeywords();
+
+			return kwds;
+		} catch (Exception e) {
+			throw new IOException(e);
+		}
 	}
 
 	/**
@@ -112,6 +144,34 @@ public class KeywordUtil {
 			return (T) kwd;
 		}
 
+	}
+
+	/**
+	 * Convert KeywordWithDependency to List of Keyword
+	 * 
+	 * @param kw to be Listed
+	 * @return List of keyword
+	 */
+	static public List<Keyword> toKeywordList(KeywordWithDependency kw) {
+		ArrayList<Keyword> ret = new ArrayList<>();
+		ret.add(kw);
+		for (KeywordWithDependency k : kw.getChildren()) {
+			toKeywordList(k, ret);
+		}
+		ret.sort(new Comparator<Keyword>() {
+			@Override
+			public int compare(Keyword o1, Keyword o2) {
+				return (o1.getBegin() - o2.getBegin());
+			}
+		});
+		return ret;
+	}
+
+	static private void toKeywordList(KeywordWithDependency kw, ArrayList<Keyword> ret) {
+		ret.add(kw);
+		for (KeywordWithDependency k : kw.getChildren()) {
+			toKeywordList(k, ret);
+		}
 	}
 
 }

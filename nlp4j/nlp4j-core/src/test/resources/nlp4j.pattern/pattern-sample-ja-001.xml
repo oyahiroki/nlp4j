@@ -6,10 +6,5 @@
 			<w id="0" upos="ADJ" />
 		</w>
 	</pattern>
-	<pattern facet="pattern.sample" value="{0.lex} ... {1.lex}" disabled="true">
-		<w id="1" upos="NOUN">
-			<w id="0" upos="ADJ" />
-		</w>
-	</pattern>
 </patterns>
 

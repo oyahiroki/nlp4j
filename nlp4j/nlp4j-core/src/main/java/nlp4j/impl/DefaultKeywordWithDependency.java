@@ -305,47 +305,86 @@ public class DefaultKeywordWithDependency extends DefaultKeyword implements Keyw
 		return XmlUtils.prettyFormatXml(toStringAsXml(0));
 	}
 
+	private void appendAttributes(StringBuffer sb, int depth) {
+		if (this.sequence != -1) {
+			sb.append("sequence=\"" + this.sequence + "\" "); //
+			sb.append("id=\"" + this.sequence + "\" "); //
+		}
+		if (this.str != null) {
+			sb.append("str=\"" + StringEscapeUtils.escapeXml10(this.str) + "\" "); //
+		}
+		if (this.lex != null) {
+			sb.append("lex=\"" + StringEscapeUtils.escapeXml10(this.lex) + "\" "); //
+		}
+		sb.append("depth=\"" + depth + "\" "); //
+		if (this.facet != null) {
+			sb.append("facet=\"" + StringEscapeUtils.escapeXml10(this.facet) + "\" "); //
+		}
+		if (this.upos != null) {
+			sb.append("upos=\"" + StringEscapeUtils.escapeXml10(this.upos) + "\" "); //
+		}
+		if (this.begin != -1) {
+			sb.append("begin=\"" + this.begin + "\" "); //
+		}
+		if (this.end != -1) {
+			sb.append("end=\"" + end + "\" "); //
+		}
+		if (this.reading != null) {
+			sb.append("reading=\"" + StringEscapeUtils.escapeXml10(this.reading) + "\" "); //
+		}
+
+	}
+
 	public String toStringAsXml(int depth) {
 		StringBuffer sb = new StringBuffer();
 
 		if (children == null || children.size() == 0) {
 			sb.append("<w "); //
-			if (this.sequence != -1) {
-				sb.append("sequence=\"" + this.sequence + "\" "); //
-				sb.append("id=\"" + this.sequence + "\" "); //
-			}
-			sb.append("str=\"" + StringEscapeUtils.escapeXml10(this.str) + "\" "); //
-			sb.append("lex=\"" + StringEscapeUtils.escapeXml10(this.lex) + "\" "); //
-			sb.append("depth=\"" + depth + "\" "); //
-			sb.append("facet=\"" + StringEscapeUtils.escapeXml10(this.facet) + "\" "); //
-			if (this.upos != null) {
-				sb.append("upos=\"" + StringEscapeUtils.escapeXml10(this.upos) + "\" "); //
-			}
-			sb.append("begin=\"" + begin + "\" "); //
-			sb.append("end=\"" + end + "\" "); //
-			sb.append("/>");
+
+//			if (this.sequence != -1) {
+//				sb.append("sequence=\"" + this.sequence + "\" "); //
+//				sb.append("id=\"" + this.sequence + "\" "); //
+//			}
+//			sb.append("str=\"" + StringEscapeUtils.escapeXml10(this.str) + "\" "); //
+//			sb.append("lex=\"" + StringEscapeUtils.escapeXml10(this.lex) + "\" "); //
+//			sb.append("depth=\"" + depth + "\" "); //
+//			sb.append("facet=\"" + StringEscapeUtils.escapeXml10(this.facet) + "\" "); //
+//			if (this.upos != null) {
+//				sb.append("upos=\"" + StringEscapeUtils.escapeXml10(this.upos) + "\" "); //
+//			}
+//			sb.append("begin=\"" + begin + "\" "); //
+//			sb.append("end=\"" + end + "\" "); //
+//			sb.append("reading=\"" + StringEscapeUtils.escapeXml10(this.reading) + "\" "); //
+
+			appendAttributes(sb, depth);
+
+			sb.append("/>"); // <-
 		} //
 		else {
 			sb.append("<w ");
-			if (this.sequence != -1) {
-				sb.append("sequence=\"" + this.sequence + "\" "); //
-				sb.append("id=\"" + this.sequence + "\" "); //
-			}
-			sb.append("str=\"" + StringEscapeUtils.escapeXml10(this.str) + "\" "); //
-			sb.append("lex=\"" + StringEscapeUtils.escapeXml10(this.lex) + "\" "); //
-			sb.append("depth=\"" + depth + "\" "); //
-			sb.append("facet=\"" + StringEscapeUtils.escapeXml10(this.facet) + "\" "); //
-			if (this.upos != null) {
-				sb.append("upos=\"" + StringEscapeUtils.escapeXml10(this.upos) + "\" "); //
-			}
-			sb.append("begin=\"" + begin + "\" "); //
-			sb.append("end=\"" + end + "\" "); //
-			sb.append(">");
 
+//			if (this.sequence != -1) {
+//				sb.append("sequence=\"" + this.sequence + "\" "); //
+//				sb.append("id=\"" + this.sequence + "\" "); //
+//			}
+//			sb.append("str=\"" + StringEscapeUtils.escapeXml10(this.str) + "\" "); //
+//			sb.append("lex=\"" + StringEscapeUtils.escapeXml10(this.lex) + "\" "); //
+//			sb.append("depth=\"" + depth + "\" "); //
+//			sb.append("facet=\"" + StringEscapeUtils.escapeXml10(this.facet) + "\" "); //
+//			if (this.upos != null) {
+//				sb.append("upos=\"" + StringEscapeUtils.escapeXml10(this.upos) + "\" "); //
+//			}
+//			sb.append("begin=\"" + begin + "\" "); //
+//			sb.append("end=\"" + end + "\" "); //
+//			sb.append("reading=\"" + StringEscapeUtils.escapeXml10(this.reading) + "\" "); //
+
+			appendAttributes(sb, depth);
+
+			sb.append(">"); // <-
 			for (KeywordWithDependency c : children) {
 				sb.append(c.toStringAsXml(depth + 1));
 			}
-			sb.append("</w>");
+			sb.append("</w>"); // <-
 		}
 
 		return sb.toString();

@@ -1,10 +1,45 @@
 package nlp4j.util;
 
-import junit.framework.TestCase;
+import java.util.List;
 
-public class KeywordUtilTestCase extends TestCase {
+import nlp4j.Keyword;
+import nlp4j.impl.DefaultKeywordWithDependency;
+import nlp4j.test.NLP4JTestCase;
 
-	public void test() {
+@SuppressWarnings("javadoc")
+public class KeywordUtilTestCase extends NLP4JTestCase {
+
+	public KeywordUtilTestCase() {
+		target = KeywordUtil.class;
+	}
+
+	public void testToKeywordList001() {
+		DefaultKeywordWithDependency kwd1 = new DefaultKeywordWithDependency();
+		{
+			kwd1.setLex("aaa");
+			kwd1.setBegin(0);
+		}
+		DefaultKeywordWithDependency kwd2 = new DefaultKeywordWithDependency();
+		{
+			kwd2.setLex("bbb");
+			kwd2.setBegin(3);
+		}
+		DefaultKeywordWithDependency kwd3 = new DefaultKeywordWithDependency();
+		{
+			kwd3.setLex("ccc");
+			kwd3.setBegin(6);
+		}
+		kwd2.setParent(kwd1);
+		kwd3.setParent(kwd2);
+
+		List<Keyword> kwd = KeywordUtil.toKeywordList(kwd1);
+
+		assertEquals(0, kwd.get(0).getBegin());
+		assertEquals("aaa", kwd.get(0).getLex());
+		assertEquals(3, kwd.get(1).getBegin());
+		assertEquals("bbb", kwd.get(1).getLex());
+		assertEquals(6, kwd.get(2).getBegin());
+		assertEquals("ccc", kwd.get(2).getLex());
 
 	}
 

@@ -25,6 +25,8 @@ public class CabochaUserPatternAnnotatorTestCase extends NLP4JTestCase {
 	@SuppressWarnings("javadoc")
 	public void test001() throws Exception {
 
+		super.description = "Cabocha NLP + Pattern Matcher 001";
+
 		Document doc = new DefaultDocument();
 		String texts = "私は大学に歩いて行きました。車が道路を走る。風が強く吹く。";
 		doc.putAttribute("text", texts);
@@ -47,27 +49,6 @@ public class CabochaUserPatternAnnotatorTestCase extends NLP4JTestCase {
 		for (Keyword kwd : doc.getKeywords("pattern")) {
 			System.err.println("lex=" + kwd.getLex() + ",facet=" + kwd.getFacet() + ",begin=" + kwd.getBegin() + ",end="
 					+ kwd.getEnd());
-		}
-
-	}
-
-	public void test002() throws Exception {
-
-		Document doc = new DefaultDocument();
-		String texts = "私は大学に歩いて行きました。車が道路を走る。風が強く吹く。";
-		doc.putAttribute("text", texts);
-
-		CabochaAnnotator ann = new CabochaAnnotator();
-		ann.setProperty("tempDir", "R:/");
-		ann.setProperty("encoding", "MS932");
-		ann.setProperty("target", "text");
-
-		ann.annotate(doc);
-
-		for (Keyword kwd : doc.getKeywords()) {
-			if (kwd instanceof KeywordWithDependency) {
-				System.err.println(((KeywordWithDependency) kwd).toStringAsXml());
-			}
 		}
 
 	}
