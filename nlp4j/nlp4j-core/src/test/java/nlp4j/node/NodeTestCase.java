@@ -98,7 +98,7 @@ public class NodeTestCase extends NLP4JTestCase {
 			}
 		}
 		printNode(n1, "original");
-		
+
 		List<Node<String>> list = n1.clonePatterns();
 
 		int idx = 0;
@@ -149,12 +149,26 @@ public class NodeTestCase extends NLP4JTestCase {
 	}
 
 	public void testMatchAll001() {
+		/**
+		 * <pre>
+		 * a
+		 * └b
+		 * └c
+		 * </pre>
+		 */
 		Node<String> n1 = new Node<String>("a");
 		{
 			n1.addChildNode(new Node<String>("b"));
 			n1.addChildNode(new Node<String>("c"));
 			n1.print();
 		}
+		/**
+		 * <pre>
+		 * a
+		 * └b
+		 * └c
+		 * </pre>
+		 */
 		Node<String> cond = new Node<String>("a");
 		{
 			cond.addChildNode(new Node<String>("b"));
@@ -167,7 +181,17 @@ public class NodeTestCase extends NLP4JTestCase {
 	}
 
 	public void testMatchAll0010() {
+		/**
+		 * <pre>
+		 * a
+		 * </pre>
+		 */
 		Node<String> n1 = new Node<>("a");
+		/**
+		 * <pre>
+		 * a
+		 * </pre>
+		 */
 		Node<String> cond = new Node<>("a");
 		boolean b = n1.matchAll(cond);
 		System.err.println(b);
@@ -175,7 +199,17 @@ public class NodeTestCase extends NLP4JTestCase {
 	}
 
 	public void testMatchAll0011() {
+		/**
+		 * <pre>
+		 * a
+		 * </pre>
+		 */
 		Node<String> n1 = new Node<String>("a");
+		/**
+		 * <pre>
+		 * b
+		 * </pre>
+		 */
 		Node<String> cond = new Node<String>("b");
 		boolean b = n1.matchAll(cond);
 		System.err.println(b);
@@ -183,12 +217,26 @@ public class NodeTestCase extends NLP4JTestCase {
 	}
 
 	public void testMatchAll002() {
+		/**
+		 * <pre>
+		 * a
+		 * └b
+		 * └x
+		 * </pre>
+		 */
 		Node<String> n1 = new Node<String>("a");
 		{
 			n1.addChildNode(new Node<String>("b"));
 			n1.addChildNode(new Node<String>("x"));
 			n1.print();
 		}
+		/**
+		 * <pre>
+		 * a
+		 * └b
+		 * └c
+		 * </pre>
+		 */
 		Node<String> cond = new Node<String>("a");
 		{
 			cond.addChildNode(new Node<String>("b"));
@@ -201,13 +249,34 @@ public class NodeTestCase extends NLP4JTestCase {
 	}
 
 	public void testMatchAll003() {
+		/**
+		 * <pre>
+		 * a
+		 * └b
+		 * └x
+		 * └x
+		 * └x
+		 * └c
+		 * </pre>
+		 */
 		Node<String> n1 = new Node<String>("a");
 		{
+			n1.addChildNode(new Node<String>("x"));
 			n1.addChildNode(new Node<String>("b"));
 			n1.addChildNode(new Node<String>("x"));
+			n1.addChildNode(new Node<String>("x"));
+			n1.addChildNode(new Node<String>("x"));
 			n1.addChildNode(new Node<String>("c"));
+			n1.addChildNode(new Node<String>("x"));
 			n1.print();
 		}
+		/**
+		 * <pre>
+		 * a
+		 * └b
+		 * └c
+		 * </pre>
+		 */
 		Node<String> cond = new Node<String>("a");
 		{
 			cond.addChildNode(new Node<String>("b"));
@@ -220,6 +289,16 @@ public class NodeTestCase extends NLP4JTestCase {
 	}
 
 	public void testMatchAll004() {
+		/**
+		 * <pre>
+		 * a
+		 * └b
+		 * └x
+		 * └x
+		 * └c
+		 * └x
+		 * </pre>
+		 */
 		Node<String> n1 = new Node<String>("a");
 		{
 			n1.addChildNode(new Node<String>("b")); // 0
@@ -231,6 +310,13 @@ public class NodeTestCase extends NLP4JTestCase {
 			n1.print();
 			System.err.println("</object>");
 		}
+		/**
+		 * <pre>
+		 * a
+		 * └b
+		 * └c
+		 * </pre>
+		 */
 		Node<String> cond = new Node<String>("a");
 		{
 			cond.addChildNode(new Node<String>("b")); // 0
@@ -239,7 +325,10 @@ public class NodeTestCase extends NLP4JTestCase {
 			cond.print();
 			System.err.println("</object>");
 		}
+		System.err.println("cond: " + cond);
 		boolean b = n1.matchAll(cond);
+		System.err.println("cond: " + cond);
+		
 		System.err.println(b);
 		assertEquals(true, b);
 	}

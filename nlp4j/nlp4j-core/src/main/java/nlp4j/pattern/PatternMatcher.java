@@ -28,8 +28,6 @@ public class PatternMatcher {
 
 	static public List<Keyword> match(KeywordWithDependency targetKeyword, Pattern rulePatternX) {
 
-		logger.debug("---------------------------");
-
 //		Pattern rulePattern = rulePatternX.clone();
 
 		NodeKeyword<KeywordWithDependency> targetKeywordNode = new NodeKeyword<>(targetKeyword);
@@ -62,16 +60,10 @@ public class PatternMatcher {
 //		}
 
 		for (Node<Object> targetKwd : targetKeywordNodeCloned) {
-			
-			
+
 			Pattern rulePattern = rulePatternX.clone();
 
 			KeywordRule ruleKeyword = rulePattern.getKeywordRule();
-			
-			
-			
-			
-			
 
 //			System.err.println(((KeywordWithDependency) targetKwd.getValue()).toStringAsXml());
 

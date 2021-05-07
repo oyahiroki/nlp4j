@@ -33,6 +33,8 @@ public class Node<T> implements CloneablePublicly<Node<T>> {
 	 */
 	int indexAsChild = -1;
 
+	private Node<T> hitNode;
+
 	/**
 	 * @param value of this node
 	 */
@@ -171,16 +173,23 @@ public class Node<T> implements CloneablePublicly<Node<T>> {
 	}
 
 	/**
-	 * @param n : node to be matched
+	 * @param cond : node to be matched
 	 * @return match result of node
 	 */
-	public boolean match(Node<T> n) {
-		if (n == null || n.value == null) {
+	public boolean match(Node<T> cond) {
+		if (cond == null || cond.value == null) {
 			return false;
 		} //
 		else {
-			logger.debug(this.value + "," + n.value);
-			return this.value.equals(n.value);
+			logger.debug(this.value + "," + cond.value);
+			boolean matched = this.value.equals(cond.value);
+			if (matched) {
+				if (cond.hitNode != null) {
+					throw new RuntimeException("hitNode is not null");
+				}
+				cond.hitNode = this;
+			}
+			return matched;
 		}
 	}
 
@@ -196,55 +205,38 @@ public class Node<T> implements CloneablePublicly<Node<T>> {
 		logger.debug("this.value=" + this.value);
 		logger.debug("cond.value=" + cond.value);
 
+		// ルートNodeは必ずマッチしなければならない
+		// match した時点で cond に hitNode がセットされる
 		if (this.match(cond) == false) {
-// TO BE DELETED			Node<T> n1 = this.next();
-// TO BE DELETED			if (n1 == null) {
-// TO BE DELETED				return false;
-// TO BE DELETED			} //
-// TO BE DELETED			else {
-// TO BE DELETED				return n1.matchAll(cond);
-// TO BE DELETED			}
+			logger.debug("NOT hit: " + this.value + " >--< " + cond.value);
 			return false;
 		} //
 
+		// 子ノードは、マッチしない場合はスキップして次の子ノードをチェックする
 		// Check Child Nodes
 		else {
-// TO BE DELETED		Node<T> n1 = this.next();
-// TO BE DELETED		Node<T> n2 = cond.next();
-// TO BE DELETED			if (n2 == null) {
-// TO BE DELETED				logger.info("Mached All");
-// TO BE DELETED				return true;
-// TO BE DELETED			} //
-// TO BE DELETED			else {
-// TO BE DELETED				if (n1 == null) {
-// TO BE DELETED					return false;
-// TO BE DELETED				} //
-// TO BE DELETED				else {
-// TO BE DELETED					boolean b = n1.match(n2);
-// TO BE DELETED
-// TO BE DELETED					return n1.matchAll(n2);
-// TO BE DELETED				}
-// TO BE DELETED			}
+
+			logger.debug("hit: " + this.value + " <--> " + cond.value);
 
 			ArrayList<Node<T>> cc1 = this.childNodes;
 			ArrayList<Node<T>> cc2 = cond.childNodes;
-
 			int cc1idx = 0;
 
-			for (int n = 0; n < cc2.size(); n++) {
+			for (int idxCondChild = 0; idxCondChild < cc2.size(); idxCondChild++) {
 
 				if (cc1.size() <= cc1idx) {
 					return false;
 				}
 
 				Node<T> c1 = cc1.get(cc1idx);
-				Node<T> c2 = cc2.get(n);
+				Node<T> c2 = cc2.get(idxCondChild);
 
 				if (c1.matchAll(c2) == true) {
-					continue;
-				} else {
+					continue; // n++
+				} //
+				else {
 					cc1idx++;
-					n--;
+					idxCondChild--; // keep n
 					continue;
 				}
 
@@ -321,7 +313,17 @@ public class Node<T> implements CloneablePublicly<Node<T>> {
 
 	@Override
 	public String toString() {
-		return "N(" + value + "),depth=" + depth + "," + childNodes + "";
+
+		String hitNodeValue = null;
+
+		if (this.hitNode != null) {
+			hitNodeValue = this.hitNode.value.toString();
+		}
+
+		return "N(" + value + ")," //
+				+ "depth=" + depth + "," //
+				+ "hitNodeValue=" + hitNodeValue + ","//
+				+ "" + childNodes + "";
 	}
 
 }

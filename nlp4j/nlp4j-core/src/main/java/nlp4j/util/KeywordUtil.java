@@ -2,7 +2,6 @@ package nlp4j.util;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Constructor;
@@ -24,18 +23,32 @@ import nlp4j.KeywordWithDependency;
 public class KeywordUtil {
 
 	/**
-	 * @param kwd
+	 * @param kwd to be converted to XML
 	 * @return xml
 	 */
 	static public String toXml(KeywordWithDependency kwd) {
 		return kwd.toStringAsXml();
 	}
 
+	/**
+	 * Parse Keywords from XML file
+	 * 
+	 * @param xmlFile XML File
+	 * @return Parsed Keywords
+	 * @throws IOException on ERROR
+	 */
 	static public List<KeywordWithDependency> fromXml(File xmlFile) throws IOException {
 		return fromXml(new FileInputStream(xmlFile));
 	}
 
-	static public List<KeywordWithDependency> fromXml(InputStream xmlFile) throws IOException {
+	/**
+	 * Parse Keywords from XML file
+	 * 
+	 * @param xmlIs InputStream of XML File
+	 * @return Parsed Keywords
+	 * @throws IOException on ERROR
+	 */
+	static public List<KeywordWithDependency> fromXml(InputStream xmlIs) throws IOException {
 		try {
 			SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
 
@@ -43,7 +56,7 @@ public class KeywordUtil {
 
 			KeywordHandler handler = new KeywordHandler();
 
-			saxParser.parse(xmlFile, handler);
+			saxParser.parse(xmlIs, handler);
 
 			List<KeywordWithDependency> kwds = handler.getKeywords();
 
