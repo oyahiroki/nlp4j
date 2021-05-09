@@ -4,6 +4,7 @@ import java.lang.ref.WeakReference;
 
 import nlp4j.Keyword;
 import nlp4j.UPOS20;
+import nlp4j.pattern.KeywordRule;
 
 /**
  * ドキュメントのキーワードとなるクラスです。<br>
@@ -448,9 +449,21 @@ public class DefaultKeyword implements Keyword, Cloneable {
 			if (this.getLex() == null) {
 				return false;
 			} else {
-				if (this.getLex().equals(rule.getLex()) == false) {
-					return false;
+
+				// REGEX
+				if (rule instanceof KeywordRule) {
+					boolean b = ((KeywordRule) rule).matchLex(this.lex);
+					if (b == false) {
+						return false;
+					}
+				} //
+				else {
+					if (this.getLex().equals(rule.getLex()) == false) {
+						return false;
+					}
+					
 				}
+
 
 			}
 		}

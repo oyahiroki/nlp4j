@@ -71,6 +71,10 @@ public class PatternMatcher {
 
 			boolean b = targetKwd.matchAll(ruleNode);
 
+			boolean b2 = ruleNode.matchAll(targetKwd);
+
+			logger.debug("" + (b == b2));
+
 			logger.debug("matchAll=" + b);
 
 			if (b == true) {

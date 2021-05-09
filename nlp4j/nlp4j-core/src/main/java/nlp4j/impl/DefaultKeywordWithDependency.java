@@ -332,6 +332,9 @@ public class DefaultKeywordWithDependency extends DefaultKeyword implements Keyw
 		if (this.reading != null) {
 			sb.append("reading=\"" + StringEscapeUtils.escapeXml10(this.reading) + "\" "); //
 		}
+		if (this.relation != null) {
+			sb.append("relation=\"" + StringEscapeUtils.escapeXml10(this.relation) + "\" "); //
+		}
 
 	}
 

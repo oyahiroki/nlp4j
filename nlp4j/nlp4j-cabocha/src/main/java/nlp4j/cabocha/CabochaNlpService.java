@@ -146,6 +146,12 @@ public class CabochaNlpService implements NlpService {
 						String pos1 = ss[0];
 						String pos2 = ss[1];
 						String lex = ss[6];
+
+						if (lex.equals("*")) {
+							logger.debug("lex=" + lex);
+							lex = str;
+						}
+
 						String reading = null;
 						if (ss.length == 8) {
 							reading = ss[7];

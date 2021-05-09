@@ -129,7 +129,8 @@ public class UserPatternHandler extends DefaultHandler {
 					ptr.setUPos(value);
 				} //
 				else if (key.equals("lex")) {
-					ptr.setLexPattern(value);
+//					ptr.setLexPattern(value);
+					ptr.setLex(value);
 				} //
 
 			} // END OF FOR EACH Attributes

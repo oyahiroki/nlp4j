@@ -201,14 +201,20 @@ public class Node<T> implements CloneablePublicly<Node<T>> {
 	}
 
 	public boolean matchAll(Node<T> cond) {
+		
+//		Node<T> ts = this;
+//		Node<T> rule = cond;
+		
+		Node<T> ts = this;
+		Node<T> rule = cond;
 
-		logger.debug("this.value=" + this.value);
-		logger.debug("cond.value=" + cond.value);
+		logger.debug("this.value=" + ts.value);
+		logger.debug("cond.value=" + rule.value);
 
 		// ルートNodeは必ずマッチしなければならない
 		// match した時点で cond に hitNode がセットされる
-		if (this.match(cond) == false) {
-			logger.debug("NOT hit: " + this.value + " >--< " + cond.value);
+		if (ts.match(rule) == false) {
+			logger.debug("NOT hit: " + ts.value + " >--< " + rule.value);
 			return false;
 		} //
 
@@ -216,10 +222,10 @@ public class Node<T> implements CloneablePublicly<Node<T>> {
 		// Check Child Nodes
 		else {
 
-			logger.debug("hit: " + this.value + " <--> " + cond.value);
+			logger.debug("hit: " + ts.value + " <--> " + rule.value);
 
-			ArrayList<Node<T>> cc1 = this.childNodes;
-			ArrayList<Node<T>> cc2 = cond.childNodes;
+			ArrayList<Node<T>> cc1 = ts.childNodes;
+			ArrayList<Node<T>> cc2 = rule.childNodes;
 			int cc1idx = 0;
 
 			for (int idxCondChild = 0; idxCondChild < cc2.size(); idxCondChild++) {
@@ -232,6 +238,7 @@ public class Node<T> implements CloneablePublicly<Node<T>> {
 				Node<T> c2 = cc2.get(idxCondChild);
 
 				if (c1.matchAll(c2) == true) {
+//					if (c2.matchAll(c1) == true) {
 					continue; // n++
 				} //
 				else {

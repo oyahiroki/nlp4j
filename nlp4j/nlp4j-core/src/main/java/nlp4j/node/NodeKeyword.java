@@ -1,6 +1,12 @@
 package nlp4j.node;
 
+import java.lang.invoke.MethodHandles;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import nlp4j.KeywordWithDependency;
+import nlp4j.pattern.KeywordRule;
 
 /**
  * @author Hiroki Oya
@@ -8,6 +14,8 @@ import nlp4j.KeywordWithDependency;
  * @param <T>
  */
 public class NodeKeyword<T extends KeywordWithDependency> extends Node<Object> {
+
+	static private final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
 	T value;
 
@@ -27,7 +35,15 @@ public class NodeKeyword<T extends KeywordWithDependency> extends Node<Object> {
 		if (this.value == null) {
 			return false;
 		}
-		return this.value.match((T) n.getValue());
+
+		logger.debug("Class name: " + n.getClass().getName());
+
+		T v1 = this.value;
+		T v2 = (T) n.getValue();
+
+		logger.debug("v2 instanceof KeywordRule: " + (v2 instanceof KeywordRule));
+
+		return v1.match(v2);
 	}
 
 }

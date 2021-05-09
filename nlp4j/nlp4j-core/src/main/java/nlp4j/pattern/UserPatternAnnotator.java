@@ -27,7 +27,7 @@ public class UserPatternAnnotator extends AbstractDocumentAnnotator implements D
 	static private final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
 	File dir;
-	File file;
+	List<File> files = new ArrayList<File>();
 
 	PatternMatcher patternMatcher;
 
@@ -45,7 +45,7 @@ public class UserPatternAnnotator extends AbstractDocumentAnnotator implements D
 		else if ("file".equals(key)) {
 			File file = new File(value);
 			if (file.exists() == true) {
-				this.file = file;
+				this.files.add(file);
 			} else {
 				logger.warn("Not exists: " + file.getAbsolutePath());
 			}
@@ -58,28 +58,7 @@ public class UserPatternAnnotator extends AbstractDocumentAnnotator implements D
 	public void annotate(Document doc) throws Exception {
 
 		if (patterns == null) {
-			this.patterns = new ArrayList<>();
-
-			if (this.dir != null) {
-				File[] xmlFiles = dir.listFiles(new FilenameFilter() {
-					@Override
-					public boolean accept(File dir, String name) {
-						if (name.endsWith(".xml")) {
-							return true;
-						} else {
-							return false;
-						}
-					}
-				});
-				for (File xmlFile : xmlFiles) {
-					List<Pattern> patterns = PatternReader.readFromXml(xmlFile);
-					this.patterns.addAll(patterns);
-				}
-			}
-			if (this.file != null) {
-				List<Pattern> patterns = PatternReader.readFromXml(file);
-				this.patterns.addAll(patterns);
-			}
+			initialize();
 		}
 
 		ArrayList<Keyword> newKwds = new ArrayList<>();
@@ -89,8 +68,6 @@ public class UserPatternAnnotator extends AbstractDocumentAnnotator implements D
 				KeywordWithDependency kw = (KeywordWithDependency) kwd;
 
 				for (Pattern pattern : this.patterns) {
-
-//					pattern.getKeywordRule().setHitKeywordNull();
 
 					List<Keyword> kwds0 = PatternMatcher.match(kw, pattern);
 
@@ -103,6 +80,33 @@ public class UserPatternAnnotator extends AbstractDocumentAnnotator implements D
 
 		doc.addKeywords(newKwds);
 
+	}
+
+	private void initialize() {
+		this.patterns = new ArrayList<>();
+
+		if (this.dir != null) {
+			File[] xmlFiles = dir.listFiles(new FilenameFilter() {
+				@Override
+				public boolean accept(File dir, String name) {
+					if (name.endsWith(".xml")) {
+						return true;
+					} else {
+						return false;
+					}
+				}
+			});
+			for (File xmlFile : xmlFiles) {
+				List<Pattern> patterns = PatternReader.readFromXml(xmlFile);
+				this.patterns.addAll(patterns);
+			}
+		}
+		if (this.files != null) {
+			for (File file : files) {
+				List<Pattern> patterns = PatternReader.readFromXml(file);
+				this.patterns.addAll(patterns);
+			}
+		}
 	}
 
 }
