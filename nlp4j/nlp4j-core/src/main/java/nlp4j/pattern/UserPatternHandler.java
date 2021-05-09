@@ -12,6 +12,7 @@ import org.xml.sax.helpers.DefaultHandler;
 
 /**
  * Parse Patterns from Pattern XML
+ * 
  * <pre>
  * &lt;?xml version="1.0" encoding="UTF-8"?&gt;
  * &lt;patterns lang="ja"&gt;
@@ -53,6 +54,9 @@ public class UserPatternHandler extends DefaultHandler {
 
 	boolean skipPattern = false;
 
+	/**
+	 * @return parsed patterns
+	 */
 	public List<Pattern> getPatterns() {
 		return patterns;
 	}
@@ -110,7 +114,6 @@ public class UserPatternHandler extends DefaultHandler {
 			else {
 				KeywordRule keywordRule = new KeywordRule();
 				this.ptr.addChild(keywordRule);
-//				keywordRule.setParent(this.ptr);
 				this.ptr = keywordRule;
 			}
 
@@ -129,9 +132,17 @@ public class UserPatternHandler extends DefaultHandler {
 					ptr.setUPos(value);
 				} //
 				else if (key.equals("lex")) {
-//					ptr.setLexPattern(value);
 					ptr.setLex(value);
 				} //
+				else if (key.equals("facet")) {
+					ptr.setFacet(value);
+				} //
+				else if (key.equals("relation")) {
+					ptr.setRelation(value);
+				} //
+				else {
+					logger.warn("Unknown attribute: key=" + key + ",value=" + value);
+				}
 
 			} // END OF FOR EACH Attributes
 

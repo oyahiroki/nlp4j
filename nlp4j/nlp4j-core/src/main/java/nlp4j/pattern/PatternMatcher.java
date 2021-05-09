@@ -26,9 +26,12 @@ public class PatternMatcher {
 
 	static private java.util.regex.Pattern matchPattern = java.util.regex.Pattern.compile("\\{.*?\\}");
 
-	static public List<Keyword> match(KeywordWithDependency targetKeyword, Pattern rulePatternX) {
-
-//		Pattern rulePattern = rulePatternX.clone();
+	/**
+	 * @param targetKeyword
+	 * @param rulePattern
+	 * @return Hit Keywords
+	 */
+	static public List<Keyword> match(KeywordWithDependency targetKeyword, Pattern rulePattern) {
 
 		NodeKeyword<KeywordWithDependency> targetKeywordNode = new NodeKeyword<>(targetKeyword);
 
@@ -40,47 +43,22 @@ public class PatternMatcher {
 		List<Keyword> ret = new ArrayList<>();
 		ArrayList<String> values = new ArrayList<>();
 
-//		KeywordRule ruleKeywordCloned;
-//		try {
-//			ruleKeywordCloned = (KeywordRule) ruleKeyword.clone();
-//		} catch (CloneNotSupportedException e) {
-//			e.printStackTrace();
-//			return null;
-//		}
-
-//		Pattern rulePattern = rulePatternX.clone();
-//
-//		KeywordRule ruleKeyword = rulePattern.getKeywordRule();
-
-//		{
-//			KeywordRule ruleKeywordClone = rulePattern.getKeywordRule().clone();
-//
-//			System.err.println(ruleKeywordClone);
-//
-//		}
-
 		for (Node<Object> targetKwd : targetKeywordNodeCloned) {
 
-			Pattern rulePattern = rulePatternX.clone();
+			Pattern rulePatternCloned = rulePattern.clone();
 
-			KeywordRule ruleKeyword = rulePattern.getKeywordRule();
-
-//			System.err.println(((KeywordWithDependency) targetKwd.getValue()).toStringAsXml());
+			KeywordRule ruleKeyword = rulePatternCloned.getKeywordRule();
 
 			NodeKeyword<KeywordWithDependency> ruleNode = new NodeKeyword<>(ruleKeyword);
 
-			boolean b = targetKwd.matchAll(ruleNode);
-
-			boolean b2 = ruleNode.matchAll(targetKwd);
-
-			logger.debug("" + (b == b2));
+			boolean b = ruleNode.matchAll(targetKwd);
 
 			logger.debug("matchAll=" + b);
 
 			if (b == true) {
 
-				String ruleFacet = rulePattern.getFacet();
-				String rulePatternValue = rulePattern.getValue();
+				String ruleFacet = rulePatternCloned.getFacet();
+				String rulePatternValue = rulePatternCloned.getValue();
 				logger.debug("rulePatternValue=" + rulePatternValue);
 
 				Matcher matcher = matchPattern.matcher(rulePatternValue);
@@ -97,13 +75,13 @@ public class PatternMatcher {
 
 					logger.debug("id=" + id + ",att=" + att);
 
-					Keyword hitKeyword = rulePattern.getKeyword(id);
+					Keyword hitKeyword = rulePatternCloned.getKeyword(id);
 
 					logger.debug(hitKeyword);
 
 					if (hitKeyword != null) {
 
-						if (hitKeyword.getBegin() > 0) {
+						if (hitKeyword.getBegin() >= 0) {
 							if (begin == -1 || (begin > hitKeyword.getBegin())) {
 								begin = hitKeyword.getBegin();
 							}
@@ -137,10 +115,10 @@ public class PatternMatcher {
 					newKw.setBegin(begin);
 					newKw.setEnd(end);
 					ret.add(newKw);
-				}
-			}
+				} // END OF IF
+			} // END OF (MATCHALL == TRUE)
 
-		}
+		} // END OF FOR EACH TARGET NODE
 
 		return ret;
 	}

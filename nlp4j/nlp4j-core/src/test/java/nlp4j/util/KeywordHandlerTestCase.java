@@ -25,7 +25,8 @@ public class KeywordHandlerTestCase extends NLP4JTestCase {
 
 		KeywordHandler handler = new KeywordHandler();
 
-		saxParser.parse(new FileInputStream("src/test/resources/nlp4j.pattern/keyword-001.xml"), handler);
+		saxParser.parse(new FileInputStream("src/test/resources/nlp4j.pattern/pattern-test-ja-001-adj_noun.xml"),
+				handler);
 
 		List<KeywordWithDependency> kwds = handler.getKeywords();
 

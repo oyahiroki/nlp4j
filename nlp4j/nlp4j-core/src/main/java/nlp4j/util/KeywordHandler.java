@@ -101,6 +101,12 @@ public class KeywordHandler extends DefaultHandler {
 				else if (key.equals("upos")) {
 					ptr.setUPos(value);
 				} //
+				else if (key.equals("reading")) {
+					ptr.setReading(value);
+				} //
+				else if (key.equals("relation")) {
+					ptr.setRelation(value);
+				} //
 				else {
 					// do nothing
 				}

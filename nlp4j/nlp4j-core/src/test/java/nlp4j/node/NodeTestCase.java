@@ -13,11 +13,11 @@ import nlp4j.test.NLP4JTestCase;
  * @created_at 2021-01-17
  * @since 1.3.1.0
  */
+@SuppressWarnings("javadoc")
 public class NodeTestCase extends NLP4JTestCase {
 
 	static private final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
-	@SuppressWarnings("javadoc")
 	public NodeTestCase() {
 		target = Node.class;
 	}
@@ -34,7 +34,6 @@ public class NodeTestCase extends NLP4JTestCase {
 		logger.info("--- setup ---");
 	}
 
-	@SuppressWarnings("javadoc")
 	public void testClone001() {
 		Node<String> n1 = new Node<String>("a");
 		{
@@ -52,7 +51,6 @@ public class NodeTestCase extends NLP4JTestCase {
 
 	}
 
-	@SuppressWarnings("javadoc")
 	public void testClone002() {
 		Node<String> n1 = new Node<String>("a");
 		{
@@ -85,7 +83,6 @@ public class NodeTestCase extends NLP4JTestCase {
 
 	}
 
-	@SuppressWarnings("javadoc")
 	public void testClonePatterns001() throws Exception {
 		Node<String> n1 = new Node<String>("a");
 		{
@@ -283,7 +280,7 @@ public class NodeTestCase extends NLP4JTestCase {
 			cond.addChildNode(new Node<String>("c"));
 			cond.print();
 		}
-		boolean b = n1.matchAll(cond);
+		boolean b = cond.matchAll(n1);
 		System.err.println(b);
 		assertEquals(true, b);
 	}
@@ -326,14 +323,15 @@ public class NodeTestCase extends NLP4JTestCase {
 			System.err.println("</object>");
 		}
 		System.err.println("cond: " + cond);
-		boolean b = n1.matchAll(cond);
+		boolean b = cond.matchAll(n1);
 		System.err.println("cond: " + cond);
-		
+
 		System.err.println(b);
 		assertEquals(true, b);
 	}
 
 	public void testMatchAll005() {
+
 		Node<String> n1 = new Node<String>("a");
 		{
 			Node<String> n2 = new Node<String>("b");
@@ -364,6 +362,16 @@ public class NodeTestCase extends NLP4JTestCase {
 	}
 
 	public void testMatchAll006() {
+		/**
+		 * <pre>
+		 * a
+		 * └b
+		 * └c
+		 *   └d
+		 *   └x
+		 *   └e
+		 * </pre>
+		 */
 		Node<String> n1 = new Node<String>("a");
 		{
 			Node<String> n2 = new Node<String>("b");
@@ -392,7 +400,7 @@ public class NodeTestCase extends NLP4JTestCase {
 				n3.addChildNode(n6);
 			}
 		}
-		boolean b = n1.matchAll(cond);
+		boolean b = cond.matchAll(n1);
 		System.err.println(b);
 		assertEquals(true, b);
 	}

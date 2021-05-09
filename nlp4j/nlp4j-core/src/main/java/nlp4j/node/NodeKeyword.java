@@ -32,6 +32,7 @@ public class NodeKeyword<T extends KeywordWithDependency> extends Node<Object> {
 
 	@Override
 	public boolean match(Node n) {
+		
 		if (this.value == null) {
 			return false;
 		}
@@ -42,8 +43,13 @@ public class NodeKeyword<T extends KeywordWithDependency> extends Node<Object> {
 		T v2 = (T) n.getValue();
 
 		logger.debug("v2 instanceof KeywordRule: " + (v2 instanceof KeywordRule));
+		
+		boolean b = v1.match(v2);
+		return b;
 
-		return v1.match(v2);
+//		return v2.match(v1);
+		
+		
 	}
 
 }

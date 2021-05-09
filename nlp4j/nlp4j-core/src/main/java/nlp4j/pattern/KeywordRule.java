@@ -36,26 +36,26 @@ public class KeywordRule extends DefaultKeywordWithDependency {
 		return c;
 	}
 
-	public boolean matchLex(String lex) {
-
-		String ruleLex = this.lex;
-
-		// REGEX
-		if (ruleLex.startsWith("/") && ruleLex.endsWith("/") && ruleLex.length() > 2) {
-			String ruleRegex = ruleLex.substring(1, ruleLex.length() - 1);
-			return lex.matches(ruleRegex);
-		} //
-		else {
-			return lex.equals(ruleLex);
-		}
-	}
+//	public boolean matchLex(String lex) {
+//
+//		String ruleLex = this.lex;
+//
+//		// REGEX
+//		if (ruleLex.startsWith("/") && ruleLex.endsWith("/") && ruleLex.length() > 2) {
+//			String ruleRegex = ruleLex.substring(1, ruleLex.length() - 1);
+//			return lex.matches(ruleRegex);
+//		} //
+//		else {
+//			return lex.equals(ruleLex);
+//		}
+//	}
 
 	@Override
 	public boolean match(Keyword rule) {
 
-		boolean b = super.match(rule);
+//		boolean b = super.match(rule);
 
-		System.err.println(b);
+//		System.err.println(b);
 
 //		return super.match(rule);
 		if (rule == null) {
@@ -64,7 +64,7 @@ public class KeywordRule extends DefaultKeywordWithDependency {
 
 		if (rule.getFacet() != null) {
 			if (this.getFacet() == null) {
-				return false;
+//	20200509b			return false;
 			} else {
 				if (this.getFacet().equals(rule.getFacet()) == false) {
 					return false;
@@ -94,11 +94,13 @@ public class KeywordRule extends DefaultKeywordWithDependency {
 //
 //			}
 //		}
-		
+
 		if (this.lex != null) {
+
 			if (rule.getLex() == null) {
 				return false;
 			}
+
 			// ELSE(lex is not null)
 			else {
 
@@ -118,9 +120,15 @@ public class KeywordRule extends DefaultKeywordWithDependency {
 			}
 		}
 
+		if (this.facet != null) {
+			if (this.facet.equals(rule.getFacet()) == false) {
+				return false;
+			}
+		}
+
 		if (rule.getUPos() != null) {
 			if (this.getUPos() == null) {
-				return false;
+// 20200509b				return false;
 			} else {
 				if (this.getUPos().equals(rule.getUPos()) == false) {
 					return false;
@@ -135,10 +143,17 @@ public class KeywordRule extends DefaultKeywordWithDependency {
 //			}
 //		}
 
+		// hit is true
+
 		if (rule instanceof KeywordRule) {
 			if (((KeywordRule) rule).hitKeyword == null) {
 				((KeywordRule) rule).hitKeyword = this;
 			}
+		}
+
+		// 20210509
+		{
+			this.hitKeyword = rule;
 		}
 
 		return true;

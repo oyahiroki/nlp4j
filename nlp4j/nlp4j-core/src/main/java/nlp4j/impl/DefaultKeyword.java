@@ -337,7 +337,10 @@ public class DefaultKeyword implements Keyword, Cloneable {
 	@Override
 	public void setFacet(String facet) {
 		this.facet = facet;
-		this.upos = UPOS20.fromPOSJA(facet);
+
+		if (UPOS20.fromPOSJA(facet) != null) {
+			this.upos = UPOS20.fromPOSJA(facet);
+		}
 	}
 
 	/**
@@ -431,13 +434,21 @@ public class DefaultKeyword implements Keyword, Cloneable {
 	@Override
 	public boolean match(Keyword rule) {
 
+//		return rule.match(this);
+
 		if (rule == null) {
 			return true;
 		}
 
+		// ignore begin
+		// ignnore correlation
+		// ignore count
+		// ignore end
+
+		// FACET
 		if (rule.getFacet() != null) {
 			if (this.getFacet() == null) {
-				return false;
+//				return false;
 			} else {
 				if (this.getFacet().equals(rule.getFacet()) == false) {
 					return false;
@@ -445,45 +456,48 @@ public class DefaultKeyword implements Keyword, Cloneable {
 			}
 		}
 
+		// LEX
 		if (rule.getLex() != null) {
 			if (this.getLex() == null) {
-				return false;
+//				return false;
 			} else {
 
 				// REGEX
-				if (rule instanceof KeywordRule) {
-					boolean b = ((KeywordRule) rule).matchLex(this.lex);
-					if (b == false) {
-						return false;
-					}
-				} //
-				else {
-					if (this.getLex().equals(rule.getLex()) == false) {
-						return false;
-					}
-					
+//				if (rule instanceof KeywordRule) {
+//					throw new RuntimeException();
+//					boolean b = ((KeywordRule) rule).matchLex(this.lex);
+//					if (b == false) {
+//						return false;
+//					}
+//				} //
+//				else {
+				if (this.getLex().equals(rule.getLex()) == false) {
+					return false;
 				}
 
+//				}
 
 			}
 		}
 
+		// UPOS
 		if (rule.getUPos() != null) {
 			if (this.getUPos() == null) {
-				return false;
+//				return false;
 			} else {
 				if (this.getUPos().equals(rule.getUPos()) == false) {
 					return false;
 				}
-
 			}
 		}
 
-		if (rule instanceof DefaultKeyword) {
-			if (((DefaultKeyword) rule).hitKeyword == null) {
-				((DefaultKeyword) rule).hitKeyword = this;
-			}
-		}
+//		// RULE
+//		if (rule instanceof DefaultKeyword) {
+//			if (((DefaultKeyword) rule).hitKeyword == null) {
+//				((DefaultKeyword) rule).hitKeyword = this;
+//			}
+//		}
+
 		return true;
 	}
 

@@ -23,7 +23,8 @@ public class UserPatternHandlerTestCase extends NLP4JTestCase {
 
 		UserPatternHandler handler = new UserPatternHandler();
 
-		saxParser.parse(new FileInputStream("src/test/resources/nlp4j.pattern/pattern-sample-ja.xml"), handler);
+		saxParser.parse(new FileInputStream("src/test/resources/nlp4j.pattern/pattern-test-ja-001-adj_noun.xml"),
+				handler);
 
 		List<Pattern> patterns = handler.getPatterns();
 

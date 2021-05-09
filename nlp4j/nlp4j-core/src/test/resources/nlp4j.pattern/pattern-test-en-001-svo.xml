@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<patterns lang="en">
+	<pattern facet="pattern.svo" value="{0.lex} ... {1.lex} ... {2.lex}">
+		<w facet="VBP" id="1" relation="root">
+			<w facet="PRP" id="0" relation="nsubj" />
+			<w facet="NN" id="2" relation="obj" />
+		</w>
+	</pattern>
+</patterns>
+

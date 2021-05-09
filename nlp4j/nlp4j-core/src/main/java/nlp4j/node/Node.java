@@ -23,9 +23,7 @@ public class Node<T> implements CloneablePublicly<Node<T>> {
 
 	protected int depth = 0;
 
-	protected Node<T> parent = null;
-
-	protected T value = null;
+	private Node<T> hitNode;
 
 	/**
 	 * このNodeがChildの時のインデックス番号<br>
@@ -33,7 +31,9 @@ public class Node<T> implements CloneablePublicly<Node<T>> {
 	 */
 	int indexAsChild = -1;
 
-	private Node<T> hitNode;
+	protected Node<T> parent = null;
+
+	protected T value = null;
 
 	/**
 	 * @param value of this node
@@ -42,6 +42,9 @@ public class Node<T> implements CloneablePublicly<Node<T>> {
 		this.value = value;
 	}
 
+	/**
+	 * @param childNode for add
+	 */
 	public void addChildNode(Node<T> childNode) {
 		// Set Parent
 		childNode.parent = this;
@@ -49,26 +52,6 @@ public class Node<T> implements CloneablePublicly<Node<T>> {
 
 		childNode.indexAsChild = (this.childNodes.size() - 1);
 		childNode.depth++;
-	}
-
-	public Node<T> getChildNode(int idx) {
-		{ // FOR DEBUG
-			logger.debug("this.children != null: " + (this.childNodes != null));
-			if (this.childNodes != null) {
-				logger.debug(this.childNodes.size());
-			}
-			logger.debug("param idx: " + idx);
-		}
-
-		if (this.childNodes != null && this.childNodes.size() > 0 && this.childNodes.size() > idx) {
-			return this.childNodes.get(idx);
-		} //
-		else if (this.indexAsChild != -1 && this.parent != null) {
-			return parent.getChildNode(indexAsChild + 1);
-		} //
-		else {
-			return null;
-		}
 	}
 
 	@SuppressWarnings("unchecked")
@@ -98,22 +81,17 @@ public class Node<T> implements CloneablePublicly<Node<T>> {
 	}
 
 	/**
-	 * @return size of child nodes
+	 * Split Nodes for Pattern Matching
+	 * 
+	 * @return cloned Nodes
 	 */
-	public int getChildNodesSize() {
-		if (this.childNodes == null) {
-			return 0;
-		} else {
-			return this.childNodes.size();
-		}
-	}
-
 	public List<Node<T>> clonePatterns() {
 
 		ArrayList<Node<T>> ret = new ArrayList<Node<T>>();
 
 		Node<T> ptr = this.clone();
 		ret.add(ptr);
+
 		if (ptr.getChildNodesSize() > 0) {
 			Node<T> cloned2 = ptr.clone();
 			for (int n = 0; n < cloned2.getChildNodesSize(); n++) {
@@ -140,10 +118,59 @@ public class Node<T> implements CloneablePublicly<Node<T>> {
 	}
 
 	/**
+	 * @param idx of Child Node
+	 * @return Child Node
+	 */
+	public Node<T> getChildNode(int idx) {
+		if (logger.isDebugEnabled()) { // FOR DEBUG
+			logger.debug("this.children != null: " + (this.childNodes != null));
+			if (this.childNodes != null) {
+				logger.debug(this.childNodes.size());
+			}
+			logger.debug("param idx: " + idx);
+		}
+
+		if (this.childNodes != null && this.childNodes.size() > 0 && this.childNodes.size() > idx) {
+			return this.childNodes.get(idx);
+		} //
+		else if (this.indexAsChild != -1 && this.parent != null) {
+			return parent.getChildNode(indexAsChild + 1);
+		} //
+		else {
+			return null;
+		}
+	}
+
+	/**
+	 * @return child nodes of this node
+	 */
+	public ArrayList<Node<T>> getChildNodes() {
+		return this.childNodes;
+	}
+
+	/**
+	 * @return size of child nodes
+	 */
+	public int getChildNodesSize() {
+		if (this.childNodes == null) {
+			return 0;
+		} else {
+			return this.childNodes.size();
+		}
+	}
+
+	/**
 	 * @return value of this node
 	 */
 	public T getValue() {
 		return value;
+	}
+
+	/**
+	 * @return whether this node has next node or next leaf
+	 */
+	public boolean hasNext() {
+		return (next() != null);
 	}
 
 	protected boolean hasNextChild() {
@@ -156,65 +183,42 @@ public class Node<T> implements CloneablePublicly<Node<T>> {
 	}
 
 	/**
-	 * @param index of child node
-	 * @return removed node or null
-	 */
-	public Node<T> removeChild(int index) {
-		if (this.childNodes == null || this.childNodes.size() == 0 || this.childNodes.size() < index) {
-			return null;
-		} //
-		else {
-			Node<T> removed = this.childNodes.remove(index);
-			for (int n = 0; n < this.childNodes.size(); n++) {
-				this.childNodes.get(n).indexAsChild = 0;
-			}
-			return removed;
-		}
-	}
-
-	/**
-	 * @param cond : node to be matched
+	 * @param target : node to be matched
 	 * @return match result of node
 	 */
-	public boolean match(Node<T> cond) {
-		if (cond == null || cond.value == null) {
+	public boolean match(Node<T> target) {
+		if (target == null || target.value == null) {
 			return false;
 		} //
 		else {
-			logger.debug(this.value + "," + cond.value);
-			boolean matched = this.value.equals(cond.value);
+			logger.debug(this.value + "," + target.value);
+			boolean matched = this.value.equals(target.value);
 			if (matched) {
-				if (cond.hitNode != null) {
+				if (target.hitNode != null) {
 					throw new RuntimeException("hitNode is not null");
 				}
-				cond.hitNode = this;
+				target.hitNode = this;
 			}
 			return matched;
 		}
 	}
 
 	/**
-	 * @return child nodes of this node
+	 * @param target node for matching
+	 * @return match result of all nodes
 	 */
-	public ArrayList<Node<T>> getChildNodes() {
-		return this.childNodes;
-	}
+	public boolean matchAll(Node<T> target) {
 
-	public boolean matchAll(Node<T> cond) {
-		
-//		Node<T> ts = this;
-//		Node<T> rule = cond;
-		
-		Node<T> ts = this;
-		Node<T> rule = cond;
+		Node<T> ruleNode = this;
+		Node<T> targetNode = target;
 
-		logger.debug("this.value=" + ts.value);
-		logger.debug("cond.value=" + rule.value);
+		logger.debug("this.value=" + ruleNode.value);
+		logger.debug("cond.value=" + targetNode.value);
 
 		// ルートNodeは必ずマッチしなければならない
 		// match した時点で cond に hitNode がセットされる
-		if (ts.match(rule) == false) {
-			logger.debug("NOT hit: " + ts.value + " >--< " + rule.value);
+		if (ruleNode.match(targetNode) == false) {
+			logger.debug("NOT hit: " + ruleNode.value + " >--< " + targetNode.value);
 			return false;
 		} //
 
@@ -222,28 +226,27 @@ public class Node<T> implements CloneablePublicly<Node<T>> {
 		// Check Child Nodes
 		else {
 
-			logger.debug("hit: " + ts.value + " <--> " + rule.value);
+			logger.debug("hit: " + ruleNode.value + " <--> " + targetNode.value);
 
-			ArrayList<Node<T>> cc1 = ts.childNodes;
-			ArrayList<Node<T>> cc2 = rule.childNodes;
-			int cc1idx = 0;
+			ArrayList<Node<T>> childRule = ruleNode.childNodes;
+			ArrayList<Node<T>> childTarget = targetNode.childNodes;
+			int idxTarget = 0;
 
-			for (int idxCondChild = 0; idxCondChild < cc2.size(); idxCondChild++) {
+			for (int idxChildRule = 0; idxChildRule < childRule.size(); idxChildRule++) {
 
-				if (cc1.size() <= cc1idx) {
+				if (childTarget.size() <= idxTarget) {
 					return false;
 				}
 
-				Node<T> c1 = cc1.get(cc1idx);
-				Node<T> c2 = cc2.get(idxCondChild);
+				Node<T> childNodeRule = childRule.get(idxChildRule);
+				Node<T> childNodeTarget = childTarget.get(idxTarget);
 
-				if (c1.matchAll(c2) == true) {
-//					if (c2.matchAll(c1) == true) {
+				if (childNodeRule.matchAll(childNodeTarget) == true) {
 					continue; // n++
 				} //
 				else {
-					cc1idx++;
-					idxCondChild--; // keep n
+					idxTarget++;
+					idxChildRule--; // keep n
 					continue;
 				}
 
@@ -269,21 +272,8 @@ public class Node<T> implements CloneablePublicly<Node<T>> {
 	}
 
 	/**
-	 * @return whether this node has next node or next leaf
+	 * @return Next Child Node
 	 */
-	public boolean hasNext() {
-		return (next() != null);
-//		if (this.hasNextChild()) {
-//			return this.nextChild() != null;
-//		} else {
-//			if (parent != null) {
-//				return parent.next() != null;
-//			} else {
-//				return false;
-//			}
-//		}
-	}
-
 	public Node<T> nextChild() {
 		if (hasNextChild()) {
 			Node<T> n = childNodes.get(childrenIndex);
@@ -294,6 +284,9 @@ public class Node<T> implements CloneablePublicly<Node<T>> {
 		}
 	}
 
+	/**
+	 * Print Node to System.err
+	 */
 	public void print() {
 		print(0);
 	}
@@ -305,15 +298,35 @@ public class Node<T> implements CloneablePublicly<Node<T>> {
 		}
 		System.err.println(sb.toString() + value + "[" + depth + "]");
 
-		for (Node n : childNodes) {
+		for (Node<T> n : childNodes) {
 			n.print(depth + 1);
 		}
 
 	}
 
+	/**
+	 * @param index of child node
+	 * @return removed node or null
+	 */
+	public Node<T> removeChild(int index) {
+		if (this.childNodes == null || this.childNodes.size() == 0 || this.childNodes.size() < index) {
+			return null;
+		} //
+		else {
+			Node<T> removed = this.childNodes.remove(index);
+			for (int n = 0; n < this.childNodes.size(); n++) {
+				this.childNodes.get(n).indexAsChild = 0;
+			}
+			return removed;
+		}
+	}
+
+	/**
+	 * Reset Index Pointer
+	 */
 	public void resetIndex() {
 		this.childrenIndex = 0;
-		for (Node c : childNodes) {
+		for (Node<T> c : childNodes) {
 			c.resetIndex();
 		}
 	}
