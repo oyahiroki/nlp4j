@@ -107,12 +107,14 @@ public class UserPatternHandler extends DefaultHandler {
 			// IF ROOT
 			if (depth_of_w == 1) {
 				KeywordRule keywordRule = new KeywordRule();
+				keywordRule.setLang(this.lang);
 				this.pattern.setKeywordRule(keywordRule);
 				this.ptr = keywordRule;
 			} //
 				// ELSE( NOT ROOT)
 			else {
 				KeywordRule keywordRule = new KeywordRule();
+				keywordRule.setLang(this.lang);
 				this.ptr.addChild(keywordRule);
 				this.ptr = keywordRule;
 			}
@@ -123,7 +125,7 @@ public class UserPatternHandler extends DefaultHandler {
 				String key = attributes.getQName(i);
 				String value = attributes.getValue(i);
 
-				logger.info("key=" + key + ",value=" + value);
+				logger.debug("key=" + key + ",value=" + value);
 
 				if (key.equals("id")) {
 					ptr.setId(value);

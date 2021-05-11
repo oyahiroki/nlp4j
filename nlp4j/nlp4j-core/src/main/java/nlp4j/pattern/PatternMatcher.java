@@ -38,7 +38,7 @@ public class PatternMatcher {
 		// 検索対象のNodeをバラバラにする
 		List<Node<Object>> targetKeywordNodeCloned = targetKeywordNode.clonePatterns();
 
-		logger.info("target nodes: " + targetKeywordNodeCloned.size());
+		logger.debug("target nodes: " + targetKeywordNodeCloned.size());
 
 		List<Keyword> ret = new ArrayList<>();
 		ArrayList<String> values = new ArrayList<>();

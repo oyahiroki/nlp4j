@@ -120,7 +120,7 @@ public class NhtsaCrawler extends AbstractWebCrawler implements Crawler {
 				}
 			}
 
-			if (makesFilterList.contains(data[3])) {
+			if (makesFilterList == null || makesFilterList.contains(data[3])) {
 
 				Document doc = new DefaultDocument();
 

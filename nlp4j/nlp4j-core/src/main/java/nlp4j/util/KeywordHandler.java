@@ -75,7 +75,7 @@ public class KeywordHandler extends DefaultHandler {
 				String key = attributes.getQName(i);
 				String value = attributes.getValue(i);
 
-				logger.info("" + key + "=" + value);
+				logger.debug("" + key + "=" + value);
 
 				if (key.equals("begin")) {
 					ptr.setBegin(Integer.parseInt(value));
