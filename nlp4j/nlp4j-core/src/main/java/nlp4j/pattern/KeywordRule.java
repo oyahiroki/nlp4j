@@ -27,6 +27,10 @@ public class KeywordRule extends DefaultKeywordWithDependency {
 			c.id = new String(this.id);
 		}
 
+		if (this.lang != null) {
+			c.lang = new String(this.lang);
+		}
+
 		c.hitKeyword = null;
 
 		return c;
