@@ -199,5 +199,6 @@
 		<module>nlp4j-ginza</module>
 		<module>nlp4j-cabocha</module>
 		<module>nlp4j-test</module>
+		<module>nlp4j-wiki</module>
 	</modules>
 </project>

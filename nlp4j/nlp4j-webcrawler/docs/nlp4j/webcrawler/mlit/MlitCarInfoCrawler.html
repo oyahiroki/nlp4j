@@ -18,7 +18,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":10,"i1":10};
+var methods = {"i0":10,"i1":10,"i2":10};
 var tabs = {65535:["t0","すべてのメソッド"],2:["t2","インスタンス・メソッド"],8:["t4","concreteメソッド"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -100,7 +100,7 @@ var activeTableTab = "activeTableTab";
 <li><a href="https://docs.oracle.com/javase/jp/8/docs/api/java/lang/Object.html?is-external=true" title="java.lang内のクラスまたはインタフェース">java.lang.Object</a></li>
 <li>
 <ul class="inheritance">
-<li>nlp4j.crawler.AbstractCrawler</li>
+<li><a href="https://www.nlp4j.org/docs/nlp4j/crawler/AbstractCrawler.html?is-external=true" title="nlp4j.crawler内のクラスまたはインタフェース">nlp4j.crawler.AbstractCrawler</a></li>
 <li>
 <ul class="inheritance">
 <li><a href="../../../nlp4j/webcrawler/AbstractWebCrawler.html" title="nlp4j.webcrawler内のクラス">nlp4j.webcrawler.AbstractWebCrawler</a></li>
@@ -119,13 +119,13 @@ var activeTableTab = "activeTableTab";
 <li class="blockList">
 <dl>
 <dt>すべての実装されたインタフェース:</dt>
-<dd>nlp4j.crawler.Crawler</dd>
+<dd><a href="https://www.nlp4j.org/docs/nlp4j/crawler/Crawler.html?is-external=true" title="nlp4j.crawler内のクラスまたはインタフェース">Crawler</a></dd>
 </dl>
 <hr>
 <br>
 <pre>public class <span class="typeNameLabel">MlitCarInfoCrawler</span>
 extends <a href="../../../nlp4j/webcrawler/AbstractWebCrawler.html" title="nlp4j.webcrawler内のクラス">AbstractWebCrawler</a>
-implements nlp4j.crawler.Crawler</pre>
+implements <a href="https://www.nlp4j.org/docs/nlp4j/crawler/Crawler.html?is-external=true" title="nlp4j.crawler内のクラスまたはインタフェース">Crawler</a></pre>
 <div class="block">国土交通省「自動車のリコール・不具合情報」をダウンロードする<br>
  http://carinf.mlit.go.jp/jidosha/carinf/opn/index.html<br>
  電子計算機による情報解析（多数の著作物その他の大量の情報から， 当該情報を構成する言語，音，影像その他の要素に係る情報を抽出し，
@@ -152,8 +152,8 @@ implements nlp4j.crawler.Crawler</pre>
 <li class="blockList"><a name="fields.inherited.from.class.nlp4j.crawler.AbstractCrawler">
 <!--   -->
 </a>
-<h3>クラスから継承されたフィールド&nbsp;nlp4j.crawler.AbstractCrawler</h3>
-<code>prop</code></li>
+<h3>クラスから継承されたフィールド&nbsp;nlp4j.crawler.<a href="https://www.nlp4j.org/docs/nlp4j/crawler/AbstractCrawler.html?is-external=true" title="nlp4j.crawler内のクラスまたはインタフェース">AbstractCrawler</a></h3>
+<code><a href="https://www.nlp4j.org/docs/nlp4j/crawler/AbstractCrawler.html?is-external=true#prop" title="nlp4j.crawler内のクラスまたはインタフェース">prop</a></code></li>
 </ul>
 </li>
 </ul>
@@ -192,15 +192,21 @@ implements nlp4j.crawler.Crawler</pre>
 <th class="colLast" scope="col">メソッドと説明</th>
 </tr>
 <tr id="i0" class="altColor">
-<td class="colFirst"><code><a href="https://docs.oracle.com/javase/jp/8/docs/api/java/util/ArrayList.html?is-external=true" title="java.util内のクラスまたはインタフェース">ArrayList</a>&lt;nlp4j.Document&gt;</code></td>
+<td class="colFirst"><code><a href="https://docs.oracle.com/javase/jp/8/docs/api/java/util/ArrayList.html?is-external=true" title="java.util内のクラスまたはインタフェース">ArrayList</a>&lt;<a href="https://www.nlp4j.org/docs/nlp4j/Document.html?is-external=true" title="nlp4j内のクラスまたはインタフェース">Document</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../nlp4j/webcrawler/mlit/MlitCarInfoCrawler.html#crawlDocuments--">crawlDocuments</a></span>()</code>
 <div class="block">国土交通省「自動車のリコール・不具合情報」をダウンロードする<br>
  http://carinf.mlit.go.jp/jidosha/carinf/opn/index.html<br>
- 電子計算機による情報解析（多数の著作物その他の大量の情報から， 当該情報を構成する言語，音，影像その他の要素に係る情報を抽出し，
+ <br>
+ 電子計算機による情報解析（多数の著作物その他の大量の情報から，<br>
+ 当該情報を構成する言語，音，影像その他の要素に係る情報を抽出し， <br>
  比較，分類その他の統計的な解析を行うことをいう。）</div>
 </td>
 </tr>
 <tr id="i1" class="rowColor">
+<td class="colFirst"><code><a href="https://docs.oracle.com/javase/jp/8/docs/api/java/lang/String.html?is-external=true" title="java.lang内のクラスまたはインタフェース">String</a></code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../nlp4j/webcrawler/mlit/MlitCarInfoCrawler.html#getAccessKey--">getAccessKey</a></span>()</code>&nbsp;</td>
+</tr>
+<tr id="i2" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../nlp4j/webcrawler/mlit/MlitCarInfoCrawler.html#setProperty-java.lang.String-java.lang.String-">setProperty</a></span>(<a href="https://docs.oracle.com/javase/jp/8/docs/api/java/lang/String.html?is-external=true" title="java.lang内のクラスまたはインタフェース">String</a>&nbsp;key,
            <a href="https://docs.oracle.com/javase/jp/8/docs/api/java/lang/String.html?is-external=true" title="java.lang内のクラスまたはインタフェース">String</a>&nbsp;value)</code>
@@ -214,8 +220,8 @@ implements nlp4j.crawler.Crawler</pre>
 <li class="blockList"><a name="methods.inherited.from.class.nlp4j.crawler.AbstractCrawler">
 <!--   -->
 </a>
-<h3>クラスから継承されたメソッド&nbsp;nlp4j.crawler.AbstractCrawler</h3>
-<code>setProperties</code></li>
+<h3>クラスから継承されたメソッド&nbsp;nlp4j.crawler.<a href="https://www.nlp4j.org/docs/nlp4j/crawler/AbstractCrawler.html?is-external=true" title="nlp4j.crawler内のクラスまたはインタフェース">AbstractCrawler</a></h3>
+<code><a href="https://www.nlp4j.org/docs/nlp4j/crawler/AbstractCrawler.html?is-external=true#setProperties-java.util.Properties-" title="nlp4j.crawler内のクラスまたはインタフェース">setProperties</a></code></li>
 </ul>
 <ul class="blockList">
 <li class="blockList"><a name="methods.inherited.from.class.java.lang.Object">
@@ -228,8 +234,8 @@ implements nlp4j.crawler.Crawler</pre>
 <li class="blockList"><a name="methods.inherited.from.class.nlp4j.crawler.Crawler">
 <!--   -->
 </a>
-<h3>インタフェースから継承されたメソッド&nbsp;nlp4j.crawler.Crawler</h3>
-<code>setProperties</code></li>
+<h3>インタフェースから継承されたメソッド&nbsp;nlp4j.crawler.<a href="https://www.nlp4j.org/docs/nlp4j/crawler/Crawler.html?is-external=true" title="nlp4j.crawler内のクラスまたはインタフェース">Crawler</a></h3>
+<code><a href="https://www.nlp4j.org/docs/nlp4j/crawler/Crawler.html?is-external=true#setProperties-java.util.Properties-" title="nlp4j.crawler内のクラスまたはインタフェース">setProperties</a></code></li>
 </ul>
 </li>
 </ul>
@@ -267,22 +273,38 @@ implements nlp4j.crawler.Crawler</pre>
 <!--   -->
 </a>
 <h3>メソッドの詳細</h3>
+<a name="getAccessKey--">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getAccessKey</h4>
+<pre>public&nbsp;<a href="https://docs.oracle.com/javase/jp/8/docs/api/java/lang/String.html?is-external=true" title="java.lang内のクラスまたはインタフェース">String</a>&nbsp;getAccessKey()
+                    throws <a href="https://docs.oracle.com/javase/jp/8/docs/api/java/io/IOException.html?is-external=true" title="java.io内のクラスまたはインタフェース">IOException</a></pre>
+<dl>
+<dt><span class="throwsLabel">例外:</span></dt>
+<dd><code><a href="https://docs.oracle.com/javase/jp/8/docs/api/java/io/IOException.html?is-external=true" title="java.io内のクラスまたはインタフェース">IOException</a></code></dd>
+</dl>
+</li>
+</ul>
 <a name="crawlDocuments--">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>crawlDocuments</h4>
-<pre>public&nbsp;<a href="https://docs.oracle.com/javase/jp/8/docs/api/java/util/ArrayList.html?is-external=true" title="java.util内のクラスまたはインタフェース">ArrayList</a>&lt;nlp4j.Document&gt;&nbsp;crawlDocuments()</pre>
+<pre>public&nbsp;<a href="https://docs.oracle.com/javase/jp/8/docs/api/java/util/ArrayList.html?is-external=true" title="java.util内のクラスまたはインタフェース">ArrayList</a>&lt;<a href="https://www.nlp4j.org/docs/nlp4j/Document.html?is-external=true" title="nlp4j内のクラスまたはインタフェース">Document</a>&gt;&nbsp;crawlDocuments()</pre>
 <div class="block">国土交通省「自動車のリコール・不具合情報」をダウンロードする<br>
  http://carinf.mlit.go.jp/jidosha/carinf/opn/index.html<br>
- 電子計算機による情報解析（多数の著作物その他の大量の情報から， 当該情報を構成する言語，音，影像その他の要素に係る情報を抽出し，
+ <br>
+ 電子計算機による情報解析（多数の著作物その他の大量の情報から，<br>
+ 当該情報を構成する言語，音，影像その他の要素に係る情報を抽出し， <br>
  比較，分類その他の統計的な解析を行うことをいう。）を行うことを目的とする <br></div>
 <dl>
 <dt><span class="overrideSpecifyLabel">定義:</span></dt>
-<dd><code>crawlDocuments</code>&nbsp;インタフェース内&nbsp;<code>nlp4j.crawler.Crawler</code></dd>
+<dd><code><a href="https://www.nlp4j.org/docs/nlp4j/crawler/Crawler.html?is-external=true#crawlDocuments--" title="nlp4j.crawler内のクラスまたはインタフェース">crawlDocuments</a></code>&nbsp;インタフェース内&nbsp;<code><a href="https://www.nlp4j.org/docs/nlp4j/crawler/Crawler.html?is-external=true" title="nlp4j.crawler内のクラスまたはインタフェース">Crawler</a></code></dd>
 <dt><span class="overrideSpecifyLabel">定義:</span></dt>
-<dd><code>crawlDocuments</code>&nbsp;クラス内&nbsp;<code>nlp4j.crawler.AbstractCrawler</code></dd>
+<dd><code><a href="https://www.nlp4j.org/docs/nlp4j/crawler/AbstractCrawler.html?is-external=true#crawlDocuments--" title="nlp4j.crawler内のクラスまたはインタフェース">crawlDocuments</a></code>&nbsp;クラス内&nbsp;<code><a href="https://www.nlp4j.org/docs/nlp4j/crawler/AbstractCrawler.html?is-external=true" title="nlp4j.crawler内のクラスまたはインタフェース">AbstractCrawler</a></code></dd>
 </dl>
 </li>
 </ul>
@@ -299,9 +321,9 @@ implements nlp4j.crawler.Crawler</pre>
  to_date: 終了日(yyyy/MM/dd)<br></div>
 <dl>
 <dt><span class="overrideSpecifyLabel">定義:</span></dt>
-<dd><code>setProperty</code>&nbsp;インタフェース内&nbsp;<code>nlp4j.crawler.Crawler</code></dd>
+<dd><code><a href="https://www.nlp4j.org/docs/nlp4j/crawler/Crawler.html?is-external=true#setProperty-java.lang.String-java.lang.String-" title="nlp4j.crawler内のクラスまたはインタフェース">setProperty</a></code>&nbsp;インタフェース内&nbsp;<code><a href="https://www.nlp4j.org/docs/nlp4j/crawler/Crawler.html?is-external=true" title="nlp4j.crawler内のクラスまたはインタフェース">Crawler</a></code></dd>
 <dt><span class="overrideSpecifyLabel">オーバーライド:</span></dt>
-<dd><code>setProperty</code>&nbsp;クラス内&nbsp;<code>nlp4j.crawler.AbstractCrawler</code></dd>
+<dd><code><a href="https://www.nlp4j.org/docs/nlp4j/crawler/AbstractCrawler.html?is-external=true#setProperty-java.lang.String-java.lang.String-" title="nlp4j.crawler内のクラスまたはインタフェース">setProperty</a></code>&nbsp;クラス内&nbsp;<code><a href="https://www.nlp4j.org/docs/nlp4j/crawler/AbstractCrawler.html?is-external=true" title="nlp4j.crawler内のクラスまたはインタフェース">AbstractCrawler</a></code></dd>
 </dl>
 </li>
 </ul>

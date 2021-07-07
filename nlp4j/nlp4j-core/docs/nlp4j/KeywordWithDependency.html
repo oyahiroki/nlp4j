@@ -101,16 +101,16 @@ var activeTableTab = "activeTableTab";
 <li class="blockList">
 <dl>
 <dt>すべてのスーパーインタフェース:</dt>
-<dd><a href="../nlp4j/Keyword.html" title="nlp4j内のインタフェース">Keyword</a>, <a href="https://docs.oracle.com/javase/jp/8/docs/api/java/io/Serializable.html?is-external=true" title="java.io内のクラスまたはインタフェース">Serializable</a></dd>
+<dd><a href="https://docs.oracle.com/javase/jp/8/docs/api/java/lang/Cloneable.html?is-external=true" title="java.lang内のクラスまたはインタフェース">Cloneable</a>, <a href="../nlp4j/Keyword.html" title="nlp4j内のインタフェース">Keyword</a>, <a href="https://docs.oracle.com/javase/jp/8/docs/api/java/io/Serializable.html?is-external=true" title="java.io内のクラスまたはインタフェース">Serializable</a></dd>
 </dl>
 <dl>
 <dt>既知の実装クラスのリスト:</dt>
-<dd><a href="../nlp4j/impl/DefaultKeywordWithDependency.html" title="nlp4j.impl内のクラス">DefaultKeywordWithDependency</a></dd>
+<dd><a href="../nlp4j/impl/DefaultKeywordWithDependency.html" title="nlp4j.impl内のクラス">DefaultKeywordWithDependency</a>, <a href="../nlp4j/pattern/KeywordRule.html" title="nlp4j.pattern内のクラス">KeywordRule</a></dd>
 </dl>
 <hr>
 <br>
 <pre>public interface <span class="typeNameLabel">KeywordWithDependency</span>
-extends <a href="../nlp4j/Keyword.html" title="nlp4j内のインタフェース">Keyword</a></pre>
+extends <a href="../nlp4j/Keyword.html" title="nlp4j内のインタフェース">Keyword</a>, <a href="https://docs.oracle.com/javase/jp/8/docs/api/java/lang/Cloneable.html?is-external=true" title="java.lang内のクラスまたはインタフェース">Cloneable</a></pre>
 <div class="block">係り受けの依存関係をセットできるキーワードです。<br>
  Keyword with Dependency.</div>
 <dl>
@@ -269,7 +269,7 @@ extends <a href="../nlp4j/Keyword.html" title="nlp4j内のインタフェース"
 <!--   -->
 </a>
 <h3>インタフェースから継承されたメソッド&nbsp;nlp4j.<a href="../nlp4j/Keyword.html" title="nlp4j内のインタフェース">Keyword</a></h3>
-<code><a href="../nlp4j/Keyword.html#get-java.lang.String-">get</a>, <a href="../nlp4j/Keyword.html#getBegin--">getBegin</a>, <a href="../nlp4j/Keyword.html#getCorrelation--">getCorrelation</a>, <a href="../nlp4j/Keyword.html#getCount--">getCount</a>, <a href="../nlp4j/Keyword.html#getEnd--">getEnd</a>, <a href="../nlp4j/Keyword.html#getFacet--">getFacet</a>, <a href="../nlp4j/Keyword.html#getFlag--">getFlag</a>, <a href="../nlp4j/Keyword.html#getLex--">getLex</a>, <a href="../nlp4j/Keyword.html#getNamespance--">getNamespance</a>, <a href="../nlp4j/Keyword.html#getReading--">getReading</a>, <a href="../nlp4j/Keyword.html#getStr--">getStr</a>, <a href="../nlp4j/Keyword.html#getUPos--">getUPos</a>, <a href="../nlp4j/Keyword.html#setBegin-int-">setBegin</a>, <a href="../nlp4j/Keyword.html#setCorrelation-double-">setCorrelation</a>, <a href="../nlp4j/Keyword.html#setCount-long-">setCount</a>, <a href="../nlp4j/Keyword.html#setEnd-int-">setEnd</a>, <a href="../nlp4j/Keyword.html#setFacet-java.lang.String-">setFacet</a>, <a href="../nlp4j/Keyword.html#setFlag-boolean-">setFlag</a>, <a href="../nlp4j/Keyword.html#setLex-java.lang.String-">setLex</a>, <a href="../nlp4j/Keyword.html#setNamespace-java.lang.String-">setNamespace</a>, <a href="../nlp4j/Keyword.html#setReading-java.lang.String-">setReading</a>, <a href="../nlp4j/Keyword.html#setStr-java.lang.String-">setStr</a></code></li>
+<code><a href="../nlp4j/Keyword.html#addBeginEnd-int-">addBeginEnd</a>, <a href="../nlp4j/Keyword.html#get-java.lang.String-">get</a>, <a href="../nlp4j/Keyword.html#getBegin--">getBegin</a>, <a href="../nlp4j/Keyword.html#getCorrelation--">getCorrelation</a>, <a href="../nlp4j/Keyword.html#getCount--">getCount</a>, <a href="../nlp4j/Keyword.html#getEnd--">getEnd</a>, <a href="../nlp4j/Keyword.html#getFacet--">getFacet</a>, <a href="../nlp4j/Keyword.html#getFlag--">getFlag</a>, <a href="../nlp4j/Keyword.html#getLex--">getLex</a>, <a href="../nlp4j/Keyword.html#getNamespance--">getNamespance</a>, <a href="../nlp4j/Keyword.html#getReading--">getReading</a>, <a href="../nlp4j/Keyword.html#getStr--">getStr</a>, <a href="../nlp4j/Keyword.html#getUPos--">getUPos</a>, <a href="../nlp4j/Keyword.html#match-nlp4j.Keyword-">match</a>, <a href="../nlp4j/Keyword.html#setBegin-int-">setBegin</a>, <a href="../nlp4j/Keyword.html#setCorrelation-double-">setCorrelation</a>, <a href="../nlp4j/Keyword.html#setCount-long-">setCount</a>, <a href="../nlp4j/Keyword.html#setEnd-int-">setEnd</a>, <a href="../nlp4j/Keyword.html#setFacet-java.lang.String-">setFacet</a>, <a href="../nlp4j/Keyword.html#setFlag-boolean-">setFlag</a>, <a href="../nlp4j/Keyword.html#setLex-java.lang.String-">setLex</a>, <a href="../nlp4j/Keyword.html#setNamespace-java.lang.String-">setNamespace</a>, <a href="../nlp4j/Keyword.html#setReading-java.lang.String-">setReading</a>, <a href="../nlp4j/Keyword.html#setStr-java.lang.String-">setStr</a>, <a href="../nlp4j/Keyword.html#setUPos-java.lang.String-">setUPos</a></code></li>
 </ul>
 </li>
 </ul>

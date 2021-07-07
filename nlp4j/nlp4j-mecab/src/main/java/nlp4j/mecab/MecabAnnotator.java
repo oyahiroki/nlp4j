@@ -65,13 +65,22 @@ public class MecabAnnotator extends AbstractDocumentAnnotator implements Documen
 					continue;
 				}
 
+				if (features.length < 8) {
+					logger.warn("invalid");
+				}
+
 				logger.debug(node.surface() + "\t" + node.feature());
 
 				DefaultKeyword kwd = new DefaultKeyword();
 
 				kwd.setLex(features[6]);
 				kwd.setStr(surface);
-				kwd.setReading(features[7]);
+				if (features.length >= 8) {
+					kwd.setReading(features[7]);
+				} //
+				else {
+					kwd.setReading("*");
+				}
 
 				if (features[0].equals("動詞") && features[1].equals("接尾")) {
 					kwd.setFacet("動詞-接尾");

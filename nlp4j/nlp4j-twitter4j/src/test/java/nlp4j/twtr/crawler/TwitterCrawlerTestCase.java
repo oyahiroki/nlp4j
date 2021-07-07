@@ -44,26 +44,17 @@ public class TwitterCrawlerTestCase extends TestCase {
 
 		super.setUp();
 
-		System.err.println("target=" + this.target);
-
-		System.err.println(super.getName());
-
-		for (String key : keys) {
-			props.setProperty(key, System.getProperty(key));
-		}
+//		System.err.println("target=" + this.target);
+//
+//		System.err.println(super.getName());
+//
+//		for (String key : keys) {
+//			props.setProperty(key, System.getProperty(key));
+//		}
 	}
 
-	public void testSetPropertyStringString() {
-
-	}
-
-	public void testCrawlDocuments() {
-
-		System.err.println(props);
-
-		TwitterCrawler crawler = new TwitterCrawler();
-		crawler.setProperties(props);
-
+	public void test() {
+// no operation
 	}
 
 }

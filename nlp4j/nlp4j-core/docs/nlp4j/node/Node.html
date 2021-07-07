@@ -18,7 +18,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10};
+var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10,"i15":10,"i16":10};
 var tabs = {65535:["t0","すべてのメソッド"],2:["t2","インスタンス・メソッド"],8:["t4","concreteメソッド"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -50,7 +50,7 @@ var activeTableTab = "activeTableTab";
 <div class="subNav">
 <ul class="navList">
 <li>前のクラス</li>
-<li>次のクラス</li>
+<li><a href="../../nlp4j/node/NodeKeyword.html" title="nlp4j.node内のクラス"><span class="typeNameLink">次のクラス</span></a></li>
 </ul>
 <ul class="navList">
 <li><a href="../../index.html?nlp4j/node/Node.html" target="_top">フレーム</a></li>
@@ -75,13 +75,13 @@ var activeTableTab = "activeTableTab";
 <ul class="subNavList">
 <li>サマリー:&nbsp;</li>
 <li>ネスト&nbsp;|&nbsp;</li>
-<li>フィールド&nbsp;|&nbsp;</li>
+<li><a href="#field.summary">フィールド</a>&nbsp;|&nbsp;</li>
 <li><a href="#constructor.summary">コンストラクタ</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">メソッド</a></li>
 </ul>
 <ul class="subNavList">
 <li>詳細:&nbsp;</li>
-<li>フィールド&nbsp;|&nbsp;</li>
+<li><a href="#field.detail">フィールド</a>&nbsp;|&nbsp;</li>
 <li><a href="#constructor.detail">コンストラクタ</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.detail">メソッド</a></li>
 </ul>
@@ -93,14 +93,14 @@ var activeTableTab = "activeTableTab";
 <!-- ======== START OF CLASS DATA ======== -->
 <div class="header">
 <div class="subTitle">nlp4j.node</div>
-<h2 title="クラス Node" class="title">クラス Node</h2>
+<h2 title="クラス Node" class="title">クラス Node&lt;T&gt;</h2>
 </div>
 <div class="contentContainer">
 <ul class="inheritance">
 <li><a href="https://docs.oracle.com/javase/jp/8/docs/api/java/lang/Object.html?is-external=true" title="java.lang内のクラスまたはインタフェース">java.lang.Object</a></li>
 <li>
 <ul class="inheritance">
-<li>nlp4j.node.Node</li>
+<li>nlp4j.node.Node&lt;T&gt;</li>
 </ul>
 </li>
 </ul>
@@ -108,20 +108,64 @@ var activeTableTab = "activeTableTab";
 <ul class="blockList">
 <li class="blockList">
 <dl>
-<dt>すべての実装されたインタフェース:</dt>
-<dd><a href="https://docs.oracle.com/javase/jp/8/docs/api/java/lang/Cloneable.html?is-external=true" title="java.lang内のクラスまたはインタフェース">Cloneable</a></dd>
+<dt><span class="paramLabel">型パラメータ:</span></dt>
+<dd><code>T</code> - Value of this Node</dd>
+</dl>
+<dl>
+<dt>直系の既知のサブクラス:</dt>
+<dd><a href="../../nlp4j/node/NodeKeyword.html" title="nlp4j.node内のクラス">NodeKeyword</a></dd>
 </dl>
 <hr>
 <br>
-<pre>public class <span class="typeNameLabel">Node</span>
-extends <a href="https://docs.oracle.com/javase/jp/8/docs/api/java/lang/Object.html?is-external=true" title="java.lang内のクラスまたはインタフェース">Object</a>
-implements <a href="https://docs.oracle.com/javase/jp/8/docs/api/java/lang/Cloneable.html?is-external=true" title="java.lang内のクラスまたはインタフェース">Cloneable</a></pre>
+<pre>public class <span class="typeNameLabel">Node&lt;T&gt;</span>
+extends <a href="https://docs.oracle.com/javase/jp/8/docs/api/java/lang/Object.html?is-external=true" title="java.lang内のクラスまたはインタフェース">Object</a></pre>
+<dl>
+<dt><span class="simpleTagLabel">導入されたバージョン:</span></dt>
+<dd>1.3.1.0</dd>
+<dt><span class="simpleTagLabel">作成者:</span></dt>
+<dd>Hiroki Oya</dd>
+</dl>
 </li>
 </ul>
 </div>
 <div class="summary">
 <ul class="blockList">
 <li class="blockList">
+<!-- =========== FIELD SUMMARY =========== -->
+<ul class="blockList">
+<li class="blockList"><a name="field.summary">
+<!--   -->
+</a>
+<h3>フィールドのサマリー</h3>
+<table class="memberSummary" border="0" cellpadding="3" cellspacing="0" summary="フィールドのサマリー表、フィールドのリストおよび説明">
+<caption><span>フィールド</span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">修飾子とタイプ</th>
+<th class="colLast" scope="col">フィールドと説明</th>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>protected <a href="https://docs.oracle.com/javase/jp/8/docs/api/java/util/ArrayList.html?is-external=true" title="java.util内のクラスまたはインタフェース">ArrayList</a>&lt;<a href="../../nlp4j/node/Node.html" title="nlp4j.node内のクラス">Node</a>&lt;<a href="../../nlp4j/node/Node.html" title="Node内の型パラメータ">T</a>&gt;&gt;</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../nlp4j/node/Node.html#childNodes">childNodes</a></span></code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>protected int</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../nlp4j/node/Node.html#childrenIndex">childrenIndex</a></span></code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>protected int</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../nlp4j/node/Node.html#depth">depth</a></span></code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>protected <a href="../../nlp4j/node/Node.html" title="nlp4j.node内のクラス">Node</a>&lt;<a href="../../nlp4j/node/Node.html" title="Node内の型パラメータ">T</a>&gt;</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../nlp4j/node/Node.html#parent">parent</a></span></code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>protected <a href="../../nlp4j/node/Node.html" title="Node内の型パラメータ">T</a></code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../nlp4j/node/Node.html#value">value</a></span></code>&nbsp;</td>
+</tr>
+</table>
+</li>
+</ul>
 <!-- ======== CONSTRUCTOR SUMMARY ======== -->
 <ul class="blockList">
 <li class="blockList"><a name="constructor.summary">
@@ -134,7 +178,7 @@ implements <a href="https://docs.oracle.com/javase/jp/8/docs/api/java/lang/Clone
 <th class="colOne" scope="col">コンストラクタと説明</th>
 </tr>
 <tr class="altColor">
-<td class="colOne"><code><span class="memberNameLink"><a href="../../nlp4j/node/Node.html#Node-java.lang.String-">Node</a></span>(<a href="https://docs.oracle.com/javase/jp/8/docs/api/java/lang/String.html?is-external=true" title="java.lang内のクラスまたはインタフェース">String</a>&nbsp;value)</code>&nbsp;</td>
+<td class="colOne"><code><span class="memberNameLink"><a href="../../nlp4j/node/Node.html#Node-T-">Node</a></span>(<a href="../../nlp4j/node/Node.html" title="Node内の型パラメータ">T</a>&nbsp;value)</code>&nbsp;</td>
 </tr>
 </table>
 </li>
@@ -153,37 +197,75 @@ implements <a href="https://docs.oracle.com/javase/jp/8/docs/api/java/lang/Clone
 </tr>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../nlp4j/node/Node.html#addChildNode-nlp4j.node.Node-">addChildNode</a></span>(<a href="../../nlp4j/node/Node.html" title="nlp4j.node内のクラス">Node</a>&nbsp;n)</code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../nlp4j/node/Node.html#addChildNode-nlp4j.node.Node-">addChildNode</a></span>(<a href="../../nlp4j/node/Node.html" title="nlp4j.node内のクラス">Node</a>&lt;<a href="../../nlp4j/node/Node.html" title="Node内の型パラメータ">T</a>&gt;&nbsp;childNode)</code>&nbsp;</td>
 </tr>
 <tr id="i1" class="rowColor">
-<td class="colFirst"><code>protected <a href="../../nlp4j/node/Node.html" title="nlp4j.node内のクラス">Node</a></code></td>
+<td class="colFirst"><code><a href="../../nlp4j/node/Node.html" title="nlp4j.node内のクラス">Node</a>&lt;<a href="../../nlp4j/node/Node.html" title="Node内の型パラメータ">T</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../nlp4j/node/Node.html#clone--">clone</a></span>()</code>&nbsp;</td>
 </tr>
 <tr id="i2" class="altColor">
+<td class="colFirst"><code><a href="https://docs.oracle.com/javase/jp/8/docs/api/java/util/List.html?is-external=true" title="java.util内のクラスまたはインタフェース">List</a>&lt;<a href="../../nlp4j/node/Node.html" title="nlp4j.node内のクラス">Node</a>&lt;<a href="../../nlp4j/node/Node.html" title="Node内の型パラメータ">T</a>&gt;&gt;</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../nlp4j/node/Node.html#clonePatterns--">clonePatterns</a></span>()</code>
+<div class="block">Split Nodes for Pattern Matching</div>
+</td>
+</tr>
+<tr id="i3" class="rowColor">
+<td class="colFirst"><code><a href="../../nlp4j/node/Node.html" title="nlp4j.node内のクラス">Node</a>&lt;<a href="../../nlp4j/node/Node.html" title="Node内の型パラメータ">T</a>&gt;</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../nlp4j/node/Node.html#getChildNode-int-">getChildNode</a></span>(int&nbsp;idx)</code>&nbsp;</td>
+</tr>
+<tr id="i4" class="altColor">
+<td class="colFirst"><code><a href="https://docs.oracle.com/javase/jp/8/docs/api/java/util/ArrayList.html?is-external=true" title="java.util内のクラスまたはインタフェース">ArrayList</a>&lt;<a href="../../nlp4j/node/Node.html" title="nlp4j.node内のクラス">Node</a>&lt;<a href="../../nlp4j/node/Node.html" title="Node内の型パラメータ">T</a>&gt;&gt;</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../nlp4j/node/Node.html#getChildNodes--">getChildNodes</a></span>()</code>&nbsp;</td>
+</tr>
+<tr id="i5" class="rowColor">
+<td class="colFirst"><code>int</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../nlp4j/node/Node.html#getChildNodesSize--">getChildNodesSize</a></span>()</code>&nbsp;</td>
+</tr>
+<tr id="i6" class="altColor">
+<td class="colFirst"><code><a href="../../nlp4j/node/Node.html" title="Node内の型パラメータ">T</a></code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../nlp4j/node/Node.html#getValue--">getValue</a></span>()</code>&nbsp;</td>
+</tr>
+<tr id="i7" class="rowColor">
+<td class="colFirst"><code>boolean</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../nlp4j/node/Node.html#hasNext--">hasNext</a></span>()</code>&nbsp;</td>
+</tr>
+<tr id="i8" class="altColor">
 <td class="colFirst"><code>protected boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../nlp4j/node/Node.html#hasNextChild--">hasNextChild</a></span>()</code>&nbsp;</td>
 </tr>
-<tr id="i3" class="rowColor">
+<tr id="i9" class="rowColor">
 <td class="colFirst"><code>boolean</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../nlp4j/node/Node.html#match-nlp4j.node.Node-">match</a></span>(<a href="../../nlp4j/node/Node.html" title="nlp4j.node内のクラス">Node</a>&nbsp;n)</code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../nlp4j/node/Node.html#match-nlp4j.node.Node-">match</a></span>(<a href="../../nlp4j/node/Node.html" title="nlp4j.node内のクラス">Node</a>&lt;<a href="../../nlp4j/node/Node.html" title="Node内の型パラメータ">T</a>&gt;&nbsp;target)</code>&nbsp;</td>
 </tr>
-<tr id="i4" class="altColor">
+<tr id="i10" class="altColor">
 <td class="colFirst"><code>boolean</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../nlp4j/node/Node.html#matchAll-nlp4j.node.Node-">matchAll</a></span>(<a href="../../nlp4j/node/Node.html" title="nlp4j.node内のクラス">Node</a>&nbsp;cond)</code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../nlp4j/node/Node.html#matchAll-nlp4j.node.Node-">matchAll</a></span>(<a href="../../nlp4j/node/Node.html" title="nlp4j.node内のクラス">Node</a>&lt;<a href="../../nlp4j/node/Node.html" title="Node内の型パラメータ">T</a>&gt;&nbsp;target)</code>&nbsp;</td>
 </tr>
-<tr id="i5" class="rowColor">
-<td class="colFirst"><code><a href="../../nlp4j/node/Node.html" title="nlp4j.node内のクラス">Node</a></code></td>
+<tr id="i11" class="rowColor">
+<td class="colFirst"><code><a href="../../nlp4j/node/Node.html" title="nlp4j.node内のクラス">Node</a>&lt;<a href="../../nlp4j/node/Node.html" title="Node内の型パラメータ">T</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../nlp4j/node/Node.html#next--">next</a></span>()</code>&nbsp;</td>
 </tr>
-<tr id="i6" class="altColor">
-<td class="colFirst"><code><a href="../../nlp4j/node/Node.html" title="nlp4j.node内のクラス">Node</a></code></td>
+<tr id="i12" class="altColor">
+<td class="colFirst"><code><a href="../../nlp4j/node/Node.html" title="nlp4j.node内のクラス">Node</a>&lt;<a href="../../nlp4j/node/Node.html" title="Node内の型パラメータ">T</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../nlp4j/node/Node.html#nextChild--">nextChild</a></span>()</code>&nbsp;</td>
 </tr>
-<tr id="i7" class="rowColor">
+<tr id="i13" class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../nlp4j/node/Node.html#print--">print</a></span>()</code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../nlp4j/node/Node.html#print--">print</a></span>()</code>
+<div class="block">Print Node to System.err</div>
+</td>
 </tr>
-<tr id="i8" class="altColor">
+<tr id="i14" class="altColor">
+<td class="colFirst"><code><a href="../../nlp4j/node/Node.html" title="nlp4j.node内のクラス">Node</a>&lt;<a href="../../nlp4j/node/Node.html" title="Node内の型パラメータ">T</a>&gt;</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../nlp4j/node/Node.html#removeChild-int-">removeChild</a></span>(int&nbsp;index)</code>&nbsp;</td>
+</tr>
+<tr id="i15" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../nlp4j/node/Node.html#resetIndex--">resetIndex</a></span>()</code>
+<div class="block">Reset Index Pointer</div>
+</td>
+</tr>
+<tr id="i16" class="altColor">
 <td class="colFirst"><code><a href="https://docs.oracle.com/javase/jp/8/docs/api/java/lang/String.html?is-external=true" title="java.lang内のクラスまたはインタフェース">String</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../nlp4j/node/Node.html#toString--">toString</a></span>()</code>&nbsp;</td>
 </tr>
@@ -203,19 +285,78 @@ implements <a href="https://docs.oracle.com/javase/jp/8/docs/api/java/lang/Clone
 <div class="details">
 <ul class="blockList">
 <li class="blockList">
+<!-- ============ FIELD DETAIL =========== -->
+<ul class="blockList">
+<li class="blockList"><a name="field.detail">
+<!--   -->
+</a>
+<h3>フィールドの詳細</h3>
+<a name="childNodes">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>childNodes</h4>
+<pre>protected&nbsp;<a href="https://docs.oracle.com/javase/jp/8/docs/api/java/util/ArrayList.html?is-external=true" title="java.util内のクラスまたはインタフェース">ArrayList</a>&lt;<a href="../../nlp4j/node/Node.html" title="nlp4j.node内のクラス">Node</a>&lt;<a href="../../nlp4j/node/Node.html" title="Node内の型パラメータ">T</a>&gt;&gt; childNodes</pre>
+</li>
+</ul>
+<a name="childrenIndex">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>childrenIndex</h4>
+<pre>protected&nbsp;int childrenIndex</pre>
+</li>
+</ul>
+<a name="depth">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>depth</h4>
+<pre>protected&nbsp;int depth</pre>
+</li>
+</ul>
+<a name="parent">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>parent</h4>
+<pre>protected&nbsp;<a href="../../nlp4j/node/Node.html" title="nlp4j.node内のクラス">Node</a>&lt;<a href="../../nlp4j/node/Node.html" title="Node内の型パラメータ">T</a>&gt; parent</pre>
+</li>
+</ul>
+<a name="value">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>value</h4>
+<pre>protected&nbsp;<a href="../../nlp4j/node/Node.html" title="Node内の型パラメータ">T</a> value</pre>
+</li>
+</ul>
+</li>
+</ul>
 <!-- ========= CONSTRUCTOR DETAIL ======== -->
 <ul class="blockList">
 <li class="blockList"><a name="constructor.detail">
 <!--   -->
 </a>
 <h3>コンストラクタの詳細</h3>
-<a name="Node-java.lang.String-">
+<a name="Node-java.lang.Object-">
+<!--   -->
+</a><a name="Node-T-">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
 <h4>Node</h4>
-<pre>public&nbsp;Node(<a href="https://docs.oracle.com/javase/jp/8/docs/api/java/lang/String.html?is-external=true" title="java.lang内のクラスまたはインタフェース">String</a>&nbsp;value)</pre>
+<pre>public&nbsp;Node(<a href="../../nlp4j/node/Node.html" title="Node内の型パラメータ">T</a>&nbsp;value)</pre>
+<dl>
+<dt><span class="paramLabel">パラメータ:</span></dt>
+<dd><code>value</code> - of this node</dd>
+</dl>
 </li>
 </ul>
 </li>
@@ -226,35 +367,111 @@ implements <a href="https://docs.oracle.com/javase/jp/8/docs/api/java/lang/Clone
 <!--   -->
 </a>
 <h3>メソッドの詳細</h3>
+<a name="addChildNode-nlp4j.node.Node-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>addChildNode</h4>
+<pre>public&nbsp;void&nbsp;addChildNode(<a href="../../nlp4j/node/Node.html" title="nlp4j.node内のクラス">Node</a>&lt;<a href="../../nlp4j/node/Node.html" title="Node内の型パラメータ">T</a>&gt;&nbsp;childNode)</pre>
+<dl>
+<dt><span class="paramLabel">パラメータ:</span></dt>
+<dd><code>childNode</code> - for add</dd>
+</dl>
+</li>
+</ul>
 <a name="clone--">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>clone</h4>
-<pre>protected&nbsp;<a href="../../nlp4j/node/Node.html" title="nlp4j.node内のクラス">Node</a>&nbsp;clone()</pre>
+<pre>public&nbsp;<a href="../../nlp4j/node/Node.html" title="nlp4j.node内のクラス">Node</a>&lt;<a href="../../nlp4j/node/Node.html" title="Node内の型パラメータ">T</a>&gt;&nbsp;clone()</pre>
 <dl>
 <dt><span class="overrideSpecifyLabel">オーバーライド:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/jp/8/docs/api/java/lang/Object.html?is-external=true#clone--" title="java.lang内のクラスまたはインタフェース">clone</a></code>&nbsp;クラス内&nbsp;<code><a href="https://docs.oracle.com/javase/jp/8/docs/api/java/lang/Object.html?is-external=true" title="java.lang内のクラスまたはインタフェース">Object</a></code></dd>
 </dl>
 </li>
 </ul>
-<a name="nextChild--">
+<a name="clonePatterns--">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>nextChild</h4>
-<pre>public&nbsp;<a href="../../nlp4j/node/Node.html" title="nlp4j.node内のクラス">Node</a>&nbsp;nextChild()</pre>
+<h4>clonePatterns</h4>
+<pre>public&nbsp;<a href="https://docs.oracle.com/javase/jp/8/docs/api/java/util/List.html?is-external=true" title="java.util内のクラスまたはインタフェース">List</a>&lt;<a href="../../nlp4j/node/Node.html" title="nlp4j.node内のクラス">Node</a>&lt;<a href="../../nlp4j/node/Node.html" title="Node内の型パラメータ">T</a>&gt;&gt;&nbsp;clonePatterns()</pre>
+<div class="block">Split Nodes for Pattern Matching</div>
+<dl>
+<dt><span class="returnLabel">戻り値:</span></dt>
+<dd>cloned Nodes</dd>
+</dl>
 </li>
 </ul>
-<a name="next--">
+<a name="getChildNode-int-">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>next</h4>
-<pre>public&nbsp;<a href="../../nlp4j/node/Node.html" title="nlp4j.node内のクラス">Node</a>&nbsp;next()</pre>
+<h4>getChildNode</h4>
+<pre>public&nbsp;<a href="../../nlp4j/node/Node.html" title="nlp4j.node内のクラス">Node</a>&lt;<a href="../../nlp4j/node/Node.html" title="Node内の型パラメータ">T</a>&gt;&nbsp;getChildNode(int&nbsp;idx)</pre>
+<dl>
+<dt><span class="paramLabel">パラメータ:</span></dt>
+<dd><code>idx</code> - of Child Node</dd>
+<dt><span class="returnLabel">戻り値:</span></dt>
+<dd>Child Node</dd>
+</dl>
+</li>
+</ul>
+<a name="getChildNodes--">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getChildNodes</h4>
+<pre>public&nbsp;<a href="https://docs.oracle.com/javase/jp/8/docs/api/java/util/ArrayList.html?is-external=true" title="java.util内のクラスまたはインタフェース">ArrayList</a>&lt;<a href="../../nlp4j/node/Node.html" title="nlp4j.node内のクラス">Node</a>&lt;<a href="../../nlp4j/node/Node.html" title="Node内の型パラメータ">T</a>&gt;&gt;&nbsp;getChildNodes()</pre>
+<dl>
+<dt><span class="returnLabel">戻り値:</span></dt>
+<dd>child nodes of this node</dd>
+</dl>
+</li>
+</ul>
+<a name="getChildNodesSize--">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getChildNodesSize</h4>
+<pre>public&nbsp;int&nbsp;getChildNodesSize()</pre>
+<dl>
+<dt><span class="returnLabel">戻り値:</span></dt>
+<dd>size of child nodes</dd>
+</dl>
+</li>
+</ul>
+<a name="getValue--">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getValue</h4>
+<pre>public&nbsp;<a href="../../nlp4j/node/Node.html" title="Node内の型パラメータ">T</a>&nbsp;getValue()</pre>
+<dl>
+<dt><span class="returnLabel">戻り値:</span></dt>
+<dd>value of this node</dd>
+</dl>
+</li>
+</ul>
+<a name="hasNext--">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>hasNext</h4>
+<pre>public&nbsp;boolean&nbsp;hasNext()</pre>
+<dl>
+<dt><span class="returnLabel">戻り値:</span></dt>
+<dd>whether this node has next node or next leaf</dd>
+</dl>
 </li>
 </ul>
 <a name="hasNextChild--">
@@ -266,13 +483,19 @@ implements <a href="https://docs.oracle.com/javase/jp/8/docs/api/java/lang/Clone
 <pre>protected&nbsp;boolean&nbsp;hasNextChild()</pre>
 </li>
 </ul>
-<a name="addChildNode-nlp4j.node.Node-">
+<a name="match-nlp4j.node.Node-">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>addChildNode</h4>
-<pre>public&nbsp;void&nbsp;addChildNode(<a href="../../nlp4j/node/Node.html" title="nlp4j.node内のクラス">Node</a>&nbsp;n)</pre>
+<h4>match</h4>
+<pre>public&nbsp;boolean&nbsp;match(<a href="../../nlp4j/node/Node.html" title="nlp4j.node内のクラス">Node</a>&lt;<a href="../../nlp4j/node/Node.html" title="Node内の型パラメータ">T</a>&gt;&nbsp;target)</pre>
+<dl>
+<dt><span class="paramLabel">パラメータ:</span></dt>
+<dd><code>target</code> - : node to be matched</dd>
+<dt><span class="returnLabel">戻り値:</span></dt>
+<dd>match result of node</dd>
+</dl>
 </li>
 </ul>
 <a name="matchAll-nlp4j.node.Node-">
@@ -281,16 +504,39 @@ implements <a href="https://docs.oracle.com/javase/jp/8/docs/api/java/lang/Clone
 <ul class="blockList">
 <li class="blockList">
 <h4>matchAll</h4>
-<pre>public&nbsp;boolean&nbsp;matchAll(<a href="../../nlp4j/node/Node.html" title="nlp4j.node内のクラス">Node</a>&nbsp;cond)</pre>
+<pre>public&nbsp;boolean&nbsp;matchAll(<a href="../../nlp4j/node/Node.html" title="nlp4j.node内のクラス">Node</a>&lt;<a href="../../nlp4j/node/Node.html" title="Node内の型パラメータ">T</a>&gt;&nbsp;target)</pre>
+<dl>
+<dt><span class="paramLabel">パラメータ:</span></dt>
+<dd><code>target</code> - node for matching</dd>
+<dt><span class="returnLabel">戻り値:</span></dt>
+<dd>match result of all nodes</dd>
+</dl>
 </li>
 </ul>
-<a name="match-nlp4j.node.Node-">
+<a name="next--">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>match</h4>
-<pre>public&nbsp;boolean&nbsp;match(<a href="../../nlp4j/node/Node.html" title="nlp4j.node内のクラス">Node</a>&nbsp;n)</pre>
+<h4>next</h4>
+<pre>public&nbsp;<a href="../../nlp4j/node/Node.html" title="nlp4j.node内のクラス">Node</a>&lt;<a href="../../nlp4j/node/Node.html" title="Node内の型パラメータ">T</a>&gt;&nbsp;next()</pre>
+<dl>
+<dt><span class="returnLabel">戻り値:</span></dt>
+<dd>Next Node or Next Leaf</dd>
+</dl>
+</li>
+</ul>
+<a name="nextChild--">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>nextChild</h4>
+<pre>public&nbsp;<a href="../../nlp4j/node/Node.html" title="nlp4j.node内のクラス">Node</a>&lt;<a href="../../nlp4j/node/Node.html" title="Node内の型パラメータ">T</a>&gt;&nbsp;nextChild()</pre>
+<dl>
+<dt><span class="returnLabel">戻り値:</span></dt>
+<dd>Next Child Node</dd>
+</dl>
 </li>
 </ul>
 <a name="print--">
@@ -300,6 +546,32 @@ implements <a href="https://docs.oracle.com/javase/jp/8/docs/api/java/lang/Clone
 <li class="blockList">
 <h4>print</h4>
 <pre>public&nbsp;void&nbsp;print()</pre>
+<div class="block">Print Node to System.err</div>
+</li>
+</ul>
+<a name="removeChild-int-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>removeChild</h4>
+<pre>public&nbsp;<a href="../../nlp4j/node/Node.html" title="nlp4j.node内のクラス">Node</a>&lt;<a href="../../nlp4j/node/Node.html" title="Node内の型パラメータ">T</a>&gt;&nbsp;removeChild(int&nbsp;index)</pre>
+<dl>
+<dt><span class="paramLabel">パラメータ:</span></dt>
+<dd><code>index</code> - of child node</dd>
+<dt><span class="returnLabel">戻り値:</span></dt>
+<dd>removed node or null</dd>
+</dl>
+</li>
+</ul>
+<a name="resetIndex--">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>resetIndex</h4>
+<pre>public&nbsp;void&nbsp;resetIndex()</pre>
+<div class="block">Reset Index Pointer</div>
 </li>
 </ul>
 <a name="toString--">
@@ -344,7 +616,7 @@ implements <a href="https://docs.oracle.com/javase/jp/8/docs/api/java/lang/Clone
 <div class="subNav">
 <ul class="navList">
 <li>前のクラス</li>
-<li>次のクラス</li>
+<li><a href="../../nlp4j/node/NodeKeyword.html" title="nlp4j.node内のクラス"><span class="typeNameLink">次のクラス</span></a></li>
 </ul>
 <ul class="navList">
 <li><a href="../../index.html?nlp4j/node/Node.html" target="_top">フレーム</a></li>
@@ -369,13 +641,13 @@ implements <a href="https://docs.oracle.com/javase/jp/8/docs/api/java/lang/Clone
 <ul class="subNavList">
 <li>サマリー:&nbsp;</li>
 <li>ネスト&nbsp;|&nbsp;</li>
-<li>フィールド&nbsp;|&nbsp;</li>
+<li><a href="#field.summary">フィールド</a>&nbsp;|&nbsp;</li>
 <li><a href="#constructor.summary">コンストラクタ</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">メソッド</a></li>
 </ul>
 <ul class="subNavList">
 <li>詳細:&nbsp;</li>
-<li>フィールド&nbsp;|&nbsp;</li>
+<li><a href="#field.detail">フィールド</a>&nbsp;|&nbsp;</li>
 <li><a href="#constructor.detail">コンストラクタ</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.detail">メソッド</a></li>
 </ul>

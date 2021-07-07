@@ -18,7 +18,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":9};
+var methods = {"i0":9,"i1":9,"i2":9,"i3":9,"i4":9};
 var tabs = {65535:["t0","すべてのメソッド"],1:["t1","staticメソッド"],8:["t4","concreteメソッド"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -49,8 +49,8 @@ var activeTableTab = "activeTableTab";
 </div>
 <div class="subNav">
 <ul class="navList">
-<li><a href="../../nlp4j/util/JsonUtils.html" title="nlp4j.util内のクラス"><span class="typeNameLink">前のクラス</span></a></li>
-<li><a href="../../nlp4j/util/XmlUtils.html" title="nlp4j.util内のクラス"><span class="typeNameLink">次のクラス</span></a></li>
+<li><a href="../../nlp4j/util/KeywordHandler.html" title="nlp4j.util内のクラス"><span class="typeNameLink">前のクラス</span></a></li>
+<li><a href="../../nlp4j/util/KeywordUtil.Builder.html" title="nlp4j.util内のクラス"><span class="typeNameLink">次のクラス</span></a></li>
 </ul>
 <ul class="navList">
 <li><a href="../../index.html?nlp4j/util/KeywordUtil.html" target="_top">フレーム</a></li>
@@ -74,7 +74,7 @@ var activeTableTab = "activeTableTab";
 <div>
 <ul class="subNavList">
 <li>サマリー:&nbsp;</li>
-<li>ネスト&nbsp;|&nbsp;</li>
+<li><a href="#nested.class.summary">ネスト</a>&nbsp;|&nbsp;</li>
 <li>フィールド&nbsp;|&nbsp;</li>
 <li><a href="#constructor.summary">コンストラクタ</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">メソッド</a></li>
@@ -121,6 +121,25 @@ extends <a href="https://docs.oracle.com/javase/jp/8/docs/api/java/lang/Object.h
 <div class="summary">
 <ul class="blockList">
 <li class="blockList">
+<!-- ======== NESTED CLASS SUMMARY ======== -->
+<ul class="blockList">
+<li class="blockList"><a name="nested.class.summary">
+<!--   -->
+</a>
+<h3>ネストされたクラスのサマリー</h3>
+<table class="memberSummary" border="0" cellpadding="3" cellspacing="0" summary="ネストされたクラスのサマリー表、ネストされたクラスのリストおよび説明">
+<caption><span>ネストされたクラス</span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">修飾子とタイプ</th>
+<th class="colLast" scope="col">クラスと説明</th>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static class&nbsp;</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../nlp4j/util/KeywordUtil.Builder.html" title="nlp4j.util内のクラス">KeywordUtil.Builder</a>&lt;<a href="../../nlp4j/util/KeywordUtil.Builder.html" title="KeywordUtil.Builder内の型パラメータ">T</a> extends <a href="../../nlp4j/Keyword.html" title="nlp4j内のインタフェース">Keyword</a>&gt;</span></code>&nbsp;</td>
+</tr>
+</table>
+</li>
+</ul>
 <!-- ======== CONSTRUCTOR SUMMARY ======== -->
 <ul class="blockList">
 <li class="blockList"><a name="constructor.summary">
@@ -151,6 +170,31 @@ extends <a href="https://docs.oracle.com/javase/jp/8/docs/api/java/lang/Object.h
 <th class="colLast" scope="col">メソッドと説明</th>
 </tr>
 <tr id="i0" class="altColor">
+<td class="colFirst"><code>static <a href="https://docs.oracle.com/javase/jp/8/docs/api/java/util/List.html?is-external=true" title="java.util内のクラスまたはインタフェース">List</a>&lt;<a href="../../nlp4j/KeywordWithDependency.html" title="nlp4j内のインタフェース">KeywordWithDependency</a>&gt;</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../nlp4j/util/KeywordUtil.html#fromXml-java.io.File-">fromXml</a></span>(<a href="https://docs.oracle.com/javase/jp/8/docs/api/java/io/File.html?is-external=true" title="java.io内のクラスまたはインタフェース">File</a>&nbsp;xmlFile)</code>
+<div class="block">Parse Keywords from XML file</div>
+</td>
+</tr>
+<tr id="i1" class="rowColor">
+<td class="colFirst"><code>static <a href="https://docs.oracle.com/javase/jp/8/docs/api/java/util/List.html?is-external=true" title="java.util内のクラスまたはインタフェース">List</a>&lt;<a href="../../nlp4j/KeywordWithDependency.html" title="nlp4j内のインタフェース">KeywordWithDependency</a>&gt;</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../nlp4j/util/KeywordUtil.html#fromXml-java.io.InputStream-">fromXml</a></span>(<a href="https://docs.oracle.com/javase/jp/8/docs/api/java/io/InputStream.html?is-external=true" title="java.io内のクラスまたはインタフェース">InputStream</a>&nbsp;xmlIs)</code>
+<div class="block">Parse Keywords from XML file</div>
+</td>
+</tr>
+<tr id="i2" class="altColor">
+<td class="colFirst"><code>static &lt;T extends <a href="../../nlp4j/Keyword.html" title="nlp4j内のインタフェース">Keyword</a>&gt;<br><a href="https://docs.oracle.com/javase/jp/8/docs/api/java/util/List.html?is-external=true" title="java.util内のクラスまたはインタフェース">List</a>&lt;T&gt;</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../nlp4j/util/KeywordUtil.html#fromXml-java.lang.String-java.lang.Class-">fromXml</a></span>(<a href="https://docs.oracle.com/javase/jp/8/docs/api/java/lang/String.html?is-external=true" title="java.lang内のクラスまたはインタフェース">String</a>&nbsp;xml,
+       <a href="https://docs.oracle.com/javase/jp/8/docs/api/java/lang/Class.html?is-external=true" title="java.lang内のクラスまたはインタフェース">Class</a>&lt;T&gt;&nbsp;classofT)</code>
+<div class="block">TODO: implement Method</div>
+</td>
+</tr>
+<tr id="i3" class="rowColor">
+<td class="colFirst"><code>static <a href="https://docs.oracle.com/javase/jp/8/docs/api/java/util/List.html?is-external=true" title="java.util内のクラスまたはインタフェース">List</a>&lt;<a href="../../nlp4j/Keyword.html" title="nlp4j内のインタフェース">Keyword</a>&gt;</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../nlp4j/util/KeywordUtil.html#toKeywordList-nlp4j.KeywordWithDependency-">toKeywordList</a></span>(<a href="../../nlp4j/KeywordWithDependency.html" title="nlp4j内のインタフェース">KeywordWithDependency</a>&nbsp;kw)</code>
+<div class="block">Convert KeywordWithDependency to List of Keyword</div>
+</td>
+</tr>
+<tr id="i4" class="altColor">
 <td class="colFirst"><code>static <a href="https://docs.oracle.com/javase/jp/8/docs/api/java/lang/String.html?is-external=true" title="java.lang内のクラスまたはインタフェース">String</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../nlp4j/util/KeywordUtil.html#toXml-nlp4j.KeywordWithDependency-">toXml</a></span>(<a href="../../nlp4j/KeywordWithDependency.html" title="nlp4j内のインタフェース">KeywordWithDependency</a>&nbsp;kwd)</code>&nbsp;</td>
 </tr>
@@ -196,15 +240,88 @@ extends <a href="https://docs.oracle.com/javase/jp/8/docs/api/java/lang/Object.h
 <a name="toXml-nlp4j.KeywordWithDependency-">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>toXml</h4>
 <pre>public static&nbsp;<a href="https://docs.oracle.com/javase/jp/8/docs/api/java/lang/String.html?is-external=true" title="java.lang内のクラスまたはインタフェース">String</a>&nbsp;toXml(<a href="../../nlp4j/KeywordWithDependency.html" title="nlp4j内のインタフェース">KeywordWithDependency</a>&nbsp;kwd)</pre>
 <dl>
 <dt><span class="paramLabel">パラメータ:</span></dt>
-<dd><code>kwd</code> - </dd>
+<dd><code>kwd</code> - to be converted to XML</dd>
 <dt><span class="returnLabel">戻り値:</span></dt>
 <dd>xml</dd>
+</dl>
+</li>
+</ul>
+<a name="fromXml-java.io.File-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>fromXml</h4>
+<pre>public static&nbsp;<a href="https://docs.oracle.com/javase/jp/8/docs/api/java/util/List.html?is-external=true" title="java.util内のクラスまたはインタフェース">List</a>&lt;<a href="../../nlp4j/KeywordWithDependency.html" title="nlp4j内のインタフェース">KeywordWithDependency</a>&gt;&nbsp;fromXml(<a href="https://docs.oracle.com/javase/jp/8/docs/api/java/io/File.html?is-external=true" title="java.io内のクラスまたはインタフェース">File</a>&nbsp;xmlFile)
+                                           throws <a href="https://docs.oracle.com/javase/jp/8/docs/api/java/io/IOException.html?is-external=true" title="java.io内のクラスまたはインタフェース">IOException</a></pre>
+<div class="block">Parse Keywords from XML file</div>
+<dl>
+<dt><span class="paramLabel">パラメータ:</span></dt>
+<dd><code>xmlFile</code> - XML File</dd>
+<dt><span class="returnLabel">戻り値:</span></dt>
+<dd>Parsed Keywords</dd>
+<dt><span class="throwsLabel">例外:</span></dt>
+<dd><code><a href="https://docs.oracle.com/javase/jp/8/docs/api/java/io/IOException.html?is-external=true" title="java.io内のクラスまたはインタフェース">IOException</a></code> - on ERROR</dd>
+</dl>
+</li>
+</ul>
+<a name="fromXml-java.io.InputStream-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>fromXml</h4>
+<pre>public static&nbsp;<a href="https://docs.oracle.com/javase/jp/8/docs/api/java/util/List.html?is-external=true" title="java.util内のクラスまたはインタフェース">List</a>&lt;<a href="../../nlp4j/KeywordWithDependency.html" title="nlp4j内のインタフェース">KeywordWithDependency</a>&gt;&nbsp;fromXml(<a href="https://docs.oracle.com/javase/jp/8/docs/api/java/io/InputStream.html?is-external=true" title="java.io内のクラスまたはインタフェース">InputStream</a>&nbsp;xmlIs)
+                                           throws <a href="https://docs.oracle.com/javase/jp/8/docs/api/java/io/IOException.html?is-external=true" title="java.io内のクラスまたはインタフェース">IOException</a></pre>
+<div class="block">Parse Keywords from XML file</div>
+<dl>
+<dt><span class="paramLabel">パラメータ:</span></dt>
+<dd><code>xmlIs</code> - InputStream of XML File</dd>
+<dt><span class="returnLabel">戻り値:</span></dt>
+<dd>Parsed Keywords</dd>
+<dt><span class="throwsLabel">例外:</span></dt>
+<dd><code><a href="https://docs.oracle.com/javase/jp/8/docs/api/java/io/IOException.html?is-external=true" title="java.io内のクラスまたはインタフェース">IOException</a></code> - on ERROR</dd>
+</dl>
+</li>
+</ul>
+<a name="fromXml-java.lang.String-java.lang.Class-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>fromXml</h4>
+<pre>public static&nbsp;&lt;T extends <a href="../../nlp4j/Keyword.html" title="nlp4j内のインタフェース">Keyword</a>&gt;&nbsp;<a href="https://docs.oracle.com/javase/jp/8/docs/api/java/util/List.html?is-external=true" title="java.util内のクラスまたはインタフェース">List</a>&lt;T&gt;&nbsp;fromXml(<a href="https://docs.oracle.com/javase/jp/8/docs/api/java/lang/String.html?is-external=true" title="java.lang内のクラスまたはインタフェース">String</a>&nbsp;xml,
+                                                  <a href="https://docs.oracle.com/javase/jp/8/docs/api/java/lang/Class.html?is-external=true" title="java.lang内のクラスまたはインタフェース">Class</a>&lt;T&gt;&nbsp;classofT)</pre>
+<div class="block">TODO: implement Method</div>
+<dl>
+<dt><span class="paramLabel">型パラメータ:</span></dt>
+<dd><code>T</code> - </dd>
+<dt><span class="paramLabel">パラメータ:</span></dt>
+<dd><code>xml</code> - </dd>
+<dd><code>classofT</code> - </dd>
+<dt><span class="returnLabel">戻り値:</span></dt>
+</dl>
+</li>
+</ul>
+<a name="toKeywordList-nlp4j.KeywordWithDependency-">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>toKeywordList</h4>
+<pre>public static&nbsp;<a href="https://docs.oracle.com/javase/jp/8/docs/api/java/util/List.html?is-external=true" title="java.util内のクラスまたはインタフェース">List</a>&lt;<a href="../../nlp4j/Keyword.html" title="nlp4j内のインタフェース">Keyword</a>&gt;&nbsp;toKeywordList(<a href="../../nlp4j/KeywordWithDependency.html" title="nlp4j内のインタフェース">KeywordWithDependency</a>&nbsp;kw)</pre>
+<div class="block">Convert KeywordWithDependency to List of Keyword</div>
+<dl>
+<dt><span class="paramLabel">パラメータ:</span></dt>
+<dd><code>kw</code> - to be Listed</dd>
+<dt><span class="returnLabel">戻り値:</span></dt>
+<dd>List of keyword</dd>
 </dl>
 </li>
 </ul>
@@ -236,8 +353,8 @@ extends <a href="https://docs.oracle.com/javase/jp/8/docs/api/java/lang/Object.h
 </div>
 <div class="subNav">
 <ul class="navList">
-<li><a href="../../nlp4j/util/JsonUtils.html" title="nlp4j.util内のクラス"><span class="typeNameLink">前のクラス</span></a></li>
-<li><a href="../../nlp4j/util/XmlUtils.html" title="nlp4j.util内のクラス"><span class="typeNameLink">次のクラス</span></a></li>
+<li><a href="../../nlp4j/util/KeywordHandler.html" title="nlp4j.util内のクラス"><span class="typeNameLink">前のクラス</span></a></li>
+<li><a href="../../nlp4j/util/KeywordUtil.Builder.html" title="nlp4j.util内のクラス"><span class="typeNameLink">次のクラス</span></a></li>
 </ul>
 <ul class="navList">
 <li><a href="../../index.html?nlp4j/util/KeywordUtil.html" target="_top">フレーム</a></li>
@@ -261,7 +378,7 @@ extends <a href="https://docs.oracle.com/javase/jp/8/docs/api/java/lang/Object.h
 <div>
 <ul class="subNavList">
 <li>サマリー:&nbsp;</li>
-<li>ネスト&nbsp;|&nbsp;</li>
+<li><a href="#nested.class.summary">ネスト</a>&nbsp;|&nbsp;</li>
 <li>フィールド&nbsp;|&nbsp;</li>
 <li><a href="#constructor.summary">コンストラクタ</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">メソッド</a></li>

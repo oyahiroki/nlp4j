@@ -81,6 +81,7 @@
 <li><a href="nlp4j/importer/package-tree.html">nlp4j.importer</a>, </li>
 <li><a href="nlp4j/indexer/package-tree.html">nlp4j.indexer</a>, </li>
 <li><a href="nlp4j/node/package-tree.html">nlp4j.node</a>, </li>
+<li><a href="nlp4j/pattern/package-tree.html">nlp4j.pattern</a>, </li>
 <li><a href="nlp4j/search/package-tree.html">nlp4j.search</a>, </li>
 <li><a href="nlp4j/util/package-tree.html">nlp4j.util</a>, </li>
 <li><a href="nlp4j/w3c/package-tree.html">nlp4j.w3c</a>, </li>
@@ -129,6 +130,7 @@
 <li type="circle">nlp4j.annotator.<a href="nlp4j/annotator/Nokku34Annotator.html" title="nlp4j.annotator内のクラス"><span class="typeNameLink">Nokku34Annotator</span></a> (implements nlp4j.<a href="nlp4j/DocumentAnnotator.html" title="nlp4j内のインタフェース">DocumentAnnotator</a>, nlp4j.<a href="nlp4j/KeywordAnnotator.html" title="nlp4j内のインタフェース">KeywordAnnotator</a>)</li>
 <li type="circle">nlp4j.annotator.<a href="nlp4j/annotator/NumeralAnnotator.html" title="nlp4j.annotator内のクラス"><span class="typeNameLink">NumeralAnnotator</span></a> (implements nlp4j.<a href="nlp4j/DocumentAnnotator.html" title="nlp4j内のインタフェース">DocumentAnnotator</a>, nlp4j.<a href="nlp4j/KeywordAnnotator.html" title="nlp4j内のインタフェース">KeywordAnnotator</a>)</li>
 <li type="circle">nlp4j.annotator.<a href="nlp4j/annotator/ParseIntAnnotator.html" title="nlp4j.annotator内のクラス"><span class="typeNameLink">ParseIntAnnotator</span></a> (implements nlp4j.<a href="nlp4j/DocumentAnnotator.html" title="nlp4j内のインタフェース">DocumentAnnotator</a>, nlp4j.<a href="nlp4j/FieldAnnotator.html" title="nlp4j内のインタフェース">FieldAnnotator</a>)</li>
+<li type="circle">nlp4j.pattern.<a href="nlp4j/pattern/UserPatternAnnotator.html" title="nlp4j.pattern内のクラス"><span class="typeNameLink">UserPatternAnnotator</span></a> (implements nlp4j.<a href="nlp4j/DocumentAnnotator.html" title="nlp4j内のインタフェース">DocumentAnnotator</a>)</li>
 <li type="circle">nlp4j.annotator.<a href="nlp4j/annotator/ValueNormalizeAnnotator.html" title="nlp4j.annotator内のクラス"><span class="typeNameLink">ValueNormalizeAnnotator</span></a> (implements nlp4j.<a href="nlp4j/DocumentAnnotator.html" title="nlp4j内のインタフェース">DocumentAnnotator</a>, nlp4j.<a href="nlp4j/FieldAnnotator.html" title="nlp4j内のインタフェース">FieldAnnotator</a>)</li>
 <li type="circle">nlp4j.annotator.<a href="nlp4j/annotator/WakachiAnnotator.html" title="nlp4j.annotator内のクラス"><span class="typeNameLink">WakachiAnnotator</span></a> (implements nlp4j.<a href="nlp4j/DocumentAnnotator.html" title="nlp4j内のインタフェース">DocumentAnnotator</a>, nlp4j.<a href="nlp4j/FieldAnnotator.html" title="nlp4j内のインタフェース">FieldAnnotator</a>)</li>
 </ul>
@@ -159,11 +161,17 @@
 <li type="circle">org.xml.sax.helpers.<a href="https://docs.oracle.com/javase/jp/8/docs/api/org/xml/sax/helpers/DefaultHandler.html?is-external=true" title="org.xml.sax.helpers内のクラスまたはインタフェース"><span class="typeNameLink">DefaultHandler</span></a> (implements org.xml.sax.<a href="https://docs.oracle.com/javase/jp/8/docs/api/org/xml/sax/ContentHandler.html?is-external=true" title="org.xml.sax内のクラスまたはインタフェース">ContentHandler</a>, org.xml.sax.<a href="https://docs.oracle.com/javase/jp/8/docs/api/org/xml/sax/DTDHandler.html?is-external=true" title="org.xml.sax内のクラスまたはインタフェース">DTDHandler</a>, org.xml.sax.<a href="https://docs.oracle.com/javase/jp/8/docs/api/org/xml/sax/EntityResolver.html?is-external=true" title="org.xml.sax内のクラスまたはインタフェース">EntityResolver</a>, org.xml.sax.<a href="https://docs.oracle.com/javase/jp/8/docs/api/org/xml/sax/ErrorHandler.html?is-external=true" title="org.xml.sax内のクラスまたはインタフェース">ErrorHandler</a>)
 <ul>
 <li type="circle">nlp4j.xml.<a href="nlp4j/xml/AbstractXmlHandler.html" title="nlp4j.xml内のクラス"><span class="typeNameLink">AbstractXmlHandler</span></a></li>
+<li type="circle">nlp4j.util.<a href="nlp4j/util/KeywordHandler.html" title="nlp4j.util内のクラス"><span class="typeNameLink">KeywordHandler</span></a></li>
+<li type="circle">nlp4j.pattern.<a href="nlp4j/pattern/UserPatternHandler.html" title="nlp4j.pattern内のクラス"><span class="typeNameLink">UserPatternHandler</span></a></li>
 </ul>
 </li>
 <li type="circle">nlp4j.impl.<a href="nlp4j/impl/DefaultKeyword.html" title="nlp4j.impl内のクラス"><span class="typeNameLink">DefaultKeyword</span></a> (implements java.lang.<a href="https://docs.oracle.com/javase/jp/8/docs/api/java/lang/Cloneable.html?is-external=true" title="java.lang内のクラスまたはインタフェース">Cloneable</a>, nlp4j.<a href="nlp4j/Keyword.html" title="nlp4j内のインタフェース">Keyword</a>)
 <ul>
-<li type="circle">nlp4j.impl.<a href="nlp4j/impl/DefaultKeywordWithDependency.html" title="nlp4j.impl内のクラス"><span class="typeNameLink">DefaultKeywordWithDependency</span></a> (implements nlp4j.<a href="nlp4j/KeywordWithDependency.html" title="nlp4j内のインタフェース">KeywordWithDependency</a>)</li>
+<li type="circle">nlp4j.impl.<a href="nlp4j/impl/DefaultKeywordWithDependency.html" title="nlp4j.impl内のクラス"><span class="typeNameLink">DefaultKeywordWithDependency</span></a> (implements nlp4j.<a href="nlp4j/KeywordWithDependency.html" title="nlp4j内のインタフェース">KeywordWithDependency</a>)
+<ul>
+<li type="circle">nlp4j.pattern.<a href="nlp4j/pattern/KeywordRule.html" title="nlp4j.pattern内のクラス"><span class="typeNameLink">KeywordRule</span></a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li type="circle">nlp4j.impl.<a href="nlp4j/impl/DefaultNlpServiceResponse.html" title="nlp4j.impl内のクラス"><span class="typeNameLink">DefaultNlpServiceResponse</span></a> (implements nlp4j.<a href="nlp4j/NlpServiceResponse.html" title="nlp4j内のインタフェース">NlpServiceResponse</a>)</li>
@@ -175,10 +183,19 @@
 <li type="circle">nlp4j.util.<a href="nlp4j/util/JsonUtils.html" title="nlp4j.util内のクラス"><span class="typeNameLink">JsonUtils</span></a></li>
 <li type="circle">nlp4j.impl.<a href="nlp4j/impl/KeywordFormatter.html" title="nlp4j.impl内のクラス"><span class="typeNameLink">KeywordFormatter</span></a></li>
 <li type="circle">nlp4j.util.<a href="nlp4j/util/KeywordUtil.html" title="nlp4j.util内のクラス"><span class="typeNameLink">KeywordUtil</span></a></li>
-<li type="circle">nlp4j.node.<a href="nlp4j/node/Node.html" title="nlp4j.node内のクラス"><span class="typeNameLink">Node</span></a> (implements java.lang.<a href="https://docs.oracle.com/javase/jp/8/docs/api/java/lang/Cloneable.html?is-external=true" title="java.lang内のクラスまたはインタフェース">Cloneable</a>)</li>
+<li type="circle">nlp4j.util.<a href="nlp4j/util/KeywordUtil.Builder.html" title="nlp4j.util内のクラス"><span class="typeNameLink">KeywordUtil.Builder</span></a>&lt;T&gt;</li>
+<li type="circle">nlp4j.util.<a href="nlp4j/util/NlpCLI.html" title="nlp4j.util内のクラス"><span class="typeNameLink">NlpCLI</span></a></li>
+<li type="circle">nlp4j.node.<a href="nlp4j/node/Node.html" title="nlp4j.node内のクラス"><span class="typeNameLink">Node</span></a>&lt;T&gt;
+<ul>
+<li type="circle">nlp4j.node.<a href="nlp4j/node/NodeKeyword.html" title="nlp4j.node内のクラス"><span class="typeNameLink">NodeKeyword</span></a>&lt;T&gt;</li>
+</ul>
+</li>
 <li type="circle">nlp4j.w3c.<a href="nlp4j/w3c/NodeMatcher.html" title="nlp4j.w3c内のクラス"><span class="typeNameLink">NodeMatcher</span></a></li>
 <li type="circle">nlp4j.w3c.<a href="nlp4j/w3c/NodePrinter.html" title="nlp4j.w3c内のクラス"><span class="typeNameLink">NodePrinter</span></a></li>
 <li type="circle">nlp4j.w3c.<a href="nlp4j/w3c/NodeUtils.html" title="nlp4j.w3c内のクラス"><span class="typeNameLink">NodeUtils</span></a></li>
+<li type="circle">nlp4j.pattern.<a href="nlp4j/pattern/Pattern.html" title="nlp4j.pattern内のクラス"><span class="typeNameLink">Pattern</span></a> (implements java.lang.<a href="https://docs.oracle.com/javase/jp/8/docs/api/java/lang/Cloneable.html?is-external=true" title="java.lang内のクラスまたはインタフェース">Cloneable</a>)</li>
+<li type="circle">nlp4j.pattern.<a href="nlp4j/pattern/PatternMatcher.html" title="nlp4j.pattern内のクラス"><span class="typeNameLink">PatternMatcher</span></a></li>
+<li type="circle">nlp4j.pattern.<a href="nlp4j/pattern/PatternReader.html" title="nlp4j.pattern内のクラス"><span class="typeNameLink">PatternReader</span></a></li>
 <li type="circle">nlp4j.search.<a href="nlp4j/search/SearchClientBuilder.html" title="nlp4j.search内のクラス"><span class="typeNameLink">SearchClientBuilder</span></a>&lt;B&gt;</li>
 <li type="circle">java.lang.<a href="https://docs.oracle.com/javase/jp/8/docs/api/java/lang/Throwable.html?is-external=true" title="java.lang内のクラスまたはインタフェース"><span class="typeNameLink">Throwable</span></a> (implements java.io.<a href="https://docs.oracle.com/javase/jp/8/docs/api/java/io/Serializable.html?is-external=true" title="java.io内のクラスまたはインタフェース">Serializable</a>)
 <ul>
@@ -202,8 +219,19 @@
 </ul>
 <h2 title="インタフェース階層">インタフェース階層</h2>
 <ul>
+<li type="circle">java.lang.<a href="https://docs.oracle.com/javase/jp/8/docs/api/java/lang/Cloneable.html?is-external=true" title="java.lang内のクラスまたはインタフェース"><span class="typeNameLink">Cloneable</span></a>
+<ul>
+<li type="circle">nlp4j.<a href="nlp4j/Keyword.html" title="nlp4j内のインタフェース"><span class="typeNameLink">Keyword</span></a> (同様に extends java.io.<a href="https://docs.oracle.com/javase/jp/8/docs/api/java/io/Serializable.html?is-external=true" title="java.io内のクラスまたはインタフェース">Serializable</a>)
+<ul>
+<li type="circle">nlp4j.<a href="nlp4j/KeywordWithDependency.html" title="nlp4j内のインタフェース"><span class="typeNameLink">KeywordWithDependency</span></a> (同様に extends java.lang.<a href="https://docs.oracle.com/javase/jp/8/docs/api/java/lang/Cloneable.html?is-external=true" title="java.lang内のクラスまたはインタフェース">Cloneable</a>)</li>
+</ul>
+</li>
+<li type="circle">nlp4j.<a href="nlp4j/KeywordWithDependency.html" title="nlp4j内のインタフェース"><span class="typeNameLink">KeywordWithDependency</span></a> (同様に extends nlp4j.<a href="nlp4j/Keyword.html" title="nlp4j内のインタフェース">Keyword</a>)</li>
+</ul>
+</li>
 <li type="circle">nlp4j.crawler.<a href="nlp4j/crawler/Crawler.html" title="nlp4j.crawler内のインタフェース"><span class="typeNameLink">Crawler</span></a></li>
 <li type="circle">nlp4j.<a href="nlp4j/DefaultEnv.html" title="nlp4j内のインタフェース"><span class="typeNameLink">DefaultEnv</span></a></li>
+<li type="circle">nlp4j.annotator.<a href="nlp4j/annotator/DependencyAnnotator.html" title="nlp4j.annotator内のインタフェース"><span class="typeNameLink">DependencyAnnotator</span></a></li>
 <li type="circle">nlp4j.<a href="nlp4j/Document.html" title="nlp4j内のインタフェース"><span class="typeNameLink">Document</span></a></li>
 <li type="circle">nlp4j.<a href="nlp4j/DocumentAnnotator.html" title="nlp4j内のインタフェース"><span class="typeNameLink">DocumentAnnotator</span></a>
 <ul>
@@ -225,12 +253,12 @@
 <li type="circle">nlp4j.search.<a href="nlp4j/search/SearchClient.html" title="nlp4j.search内のインタフェース"><span class="typeNameLink">SearchClient</span></a></li>
 <li type="circle">java.io.<a href="https://docs.oracle.com/javase/jp/8/docs/api/java/io/Serializable.html?is-external=true" title="java.io内のクラスまたはインタフェース"><span class="typeNameLink">Serializable</span></a>
 <ul>
-<li type="circle">nlp4j.<a href="nlp4j/Keyword.html" title="nlp4j内のインタフェース"><span class="typeNameLink">Keyword</span></a>
+<li type="circle">nlp4j.<a href="nlp4j/Keyword.html" title="nlp4j内のインタフェース"><span class="typeNameLink">Keyword</span></a> (同様に extends java.lang.<a href="https://docs.oracle.com/javase/jp/8/docs/api/java/lang/Cloneable.html?is-external=true" title="java.lang内のクラスまたはインタフェース">Cloneable</a>)
 <ul>
-<li type="circle">nlp4j.<a href="nlp4j/KeywordWithDependency.html" title="nlp4j内のインタフェース"><span class="typeNameLink">KeywordWithDependency</span></a></li>
+<li type="circle">nlp4j.<a href="nlp4j/KeywordWithDependency.html" title="nlp4j内のインタフェース"><span class="typeNameLink">KeywordWithDependency</span></a> (同様に extends java.lang.<a href="https://docs.oracle.com/javase/jp/8/docs/api/java/lang/Cloneable.html?is-external=true" title="java.lang内のクラスまたはインタフェース">Cloneable</a>)</li>
 </ul>
 </li>
-<li type="circle">nlp4j.<a href="nlp4j/KeywordWithDependency.html" title="nlp4j内のインタフェース"><span class="typeNameLink">KeywordWithDependency</span></a></li>
+<li type="circle">nlp4j.<a href="nlp4j/KeywordWithDependency.html" title="nlp4j内のインタフェース"><span class="typeNameLink">KeywordWithDependency</span></a> (同様に extends java.lang.<a href="https://docs.oracle.com/javase/jp/8/docs/api/java/lang/Cloneable.html?is-external=true" title="java.lang内のクラスまたはインタフェース">Cloneable</a>, nlp4j.<a href="nlp4j/Keyword.html" title="nlp4j内のインタフェース">Keyword</a>)</li>
 </ul>
 </li>
 </ul>

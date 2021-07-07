@@ -18,8 +18,8 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":10,"i1":10};
-var tabs = {65535:["t0","すべてのメソッド"],2:["t2","インスタンス・メソッド"],8:["t4","concreteメソッド"]};
+var methods = {"i0":9,"i1":9,"i2":10,"i3":10};
+var tabs = {65535:["t0","すべてのメソッド"],1:["t1","staticメソッド"],2:["t2","インスタンス・メソッド"],8:["t4","concreteメソッド"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
 var tableTab = "tableTab";
@@ -173,6 +173,9 @@ extends junit.framework.TestCase</pre>
 <tr class="altColor">
 <td class="colOne"><code><span class="memberNameLink"><a href="../../nlp4j/test/NLP4JTestCase.html#NLP4JTestCase--">NLP4JTestCase</a></span>()</code>&nbsp;</td>
 </tr>
+<tr class="rowColor">
+<td class="colOne"><code><span class="memberNameLink"><a href="../../nlp4j/test/NLP4JTestCase.html#NLP4JTestCase-java.lang.String-">NLP4JTestCase</a></span>(<a href="https://docs.oracle.com/javase/jp/8/docs/api/java/lang/String.html?is-external=true" title="java.lang内のクラスまたはインタフェース">String</a>&nbsp;name)</code>&nbsp;</td>
+</tr>
 </table>
 </li>
 </ul>
@@ -183,16 +186,24 @@ extends junit.framework.TestCase</pre>
 </a>
 <h3>メソッドのサマリー</h3>
 <table class="memberSummary" border="0" cellpadding="3" cellspacing="0" summary="メソッドのサマリー表、メソッドのリストおよび説明">
-<caption><span id="t0" class="activeTableTab"><span>すべてのメソッド</span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">インスタンス・メソッド</a></span><span class="tabEnd">&nbsp;</span></span><span id="t4" class="tableTab"><span><a href="javascript:show(8);">concreteメソッド</a></span><span class="tabEnd">&nbsp;</span></span></caption>
+<caption><span id="t0" class="activeTableTab"><span>すべてのメソッド</span><span class="tabEnd">&nbsp;</span></span><span id="t1" class="tableTab"><span><a href="javascript:show(1);">staticメソッド</a></span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">インスタンス・メソッド</a></span><span class="tabEnd">&nbsp;</span></span><span id="t4" class="tableTab"><span><a href="javascript:show(8);">concreteメソッド</a></span><span class="tabEnd">&nbsp;</span></span></caption>
 <tr>
 <th class="colFirst" scope="col">修飾子とタイプ</th>
 <th class="colLast" scope="col">メソッドと説明</th>
 </tr>
 <tr id="i0" class="altColor">
+<td class="colFirst"><code>protected static void</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../nlp4j/test/NLP4JTestCase.html#setLevelDebug--">setLevelDebug</a></span>()</code>&nbsp;</td>
+</tr>
+<tr id="i1" class="rowColor">
+<td class="colFirst"><code>protected static void</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../nlp4j/test/NLP4JTestCase.html#setLevelInfo--">setLevelInfo</a></span>()</code>&nbsp;</td>
+</tr>
+<tr id="i2" class="altColor">
 <td class="colFirst"><code>protected void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../nlp4j/test/NLP4JTestCase.html#setUp--">setUp</a></span>()</code>&nbsp;</td>
 </tr>
-<tr id="i1" class="rowColor">
+<tr id="i3" class="rowColor">
 <td class="colFirst"><code>protected void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../nlp4j/test/NLP4JTestCase.html#tearDown--">tearDown</a></span>()</code>&nbsp;</td>
 </tr>
@@ -261,10 +272,23 @@ extends junit.framework.TestCase</pre>
 <a name="NLP4JTestCase--">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>NLP4JTestCase</h4>
 <pre>public&nbsp;NLP4JTestCase()</pre>
+</li>
+</ul>
+<a name="NLP4JTestCase-java.lang.String-">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>NLP4JTestCase</h4>
+<pre>public&nbsp;NLP4JTestCase(<a href="https://docs.oracle.com/javase/jp/8/docs/api/java/lang/String.html?is-external=true" title="java.lang内のクラスまたはインタフェース">String</a>&nbsp;name)</pre>
+<dl>
+<dt><span class="paramLabel">パラメータ:</span></dt>
+<dd><code>name</code> - </dd>
+</dl>
 </li>
 </ul>
 </li>
@@ -275,6 +299,24 @@ extends junit.framework.TestCase</pre>
 <!--   -->
 </a>
 <h3>メソッドの詳細</h3>
+<a name="setLevelInfo--">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setLevelInfo</h4>
+<pre>protected static&nbsp;void&nbsp;setLevelInfo()</pre>
+</li>
+</ul>
+<a name="setLevelDebug--">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setLevelDebug</h4>
+<pre>protected static&nbsp;void&nbsp;setLevelDebug()</pre>
+</li>
+</ul>
 <a name="setUp--">
 <!--   -->
 </a>

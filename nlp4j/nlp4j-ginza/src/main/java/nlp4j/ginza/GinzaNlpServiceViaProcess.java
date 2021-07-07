@@ -156,11 +156,14 @@ public class GinzaNlpServiceViaProcess implements NlpService {
 			response.setKeywords(kwds);
 			response.setOriginalResponseBody(originalResponse.toString());
 
-			logger.debug(root.toStringAsXml());
+			if (root != null) {
+				logger.debug(root.toStringAsXml());
+			}
 
 			return response;
 
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw new IOException(e);
 		}
 

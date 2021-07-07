@@ -18,7 +18,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10,"i15":10,"i16":10,"i17":10,"i18":10,"i19":10,"i20":10,"i21":10,"i22":10,"i23":10,"i24":10};
+var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10,"i15":10,"i16":10,"i17":10,"i18":10,"i19":10,"i20":10,"i21":10,"i22":10,"i23":10,"i24":10,"i25":10,"i26":10};
 var tabs = {65535:["t0","すべてのメソッド"],2:["t2","インスタンス・メソッド"],8:["t4","concreteメソッド"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -75,13 +75,13 @@ var activeTableTab = "activeTableTab";
 <ul class="subNavList">
 <li>サマリー:&nbsp;</li>
 <li>ネスト&nbsp;|&nbsp;</li>
-<li>フィールド&nbsp;|&nbsp;</li>
+<li><a href="#field.summary">フィールド</a>&nbsp;|&nbsp;</li>
 <li><a href="#constructor.summary">コンストラクタ</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">メソッド</a></li>
 </ul>
 <ul class="subNavList">
 <li>詳細:&nbsp;</li>
-<li>フィールド&nbsp;|&nbsp;</li>
+<li><a href="#field.detail">フィールド</a>&nbsp;|&nbsp;</li>
 <li><a href="#constructor.detail">コンストラクタ</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.detail">メソッド</a></li>
 </ul>
@@ -116,6 +116,10 @@ var activeTableTab = "activeTableTab";
 <dt>すべての実装されたインタフェース:</dt>
 <dd><a href="https://docs.oracle.com/javase/jp/8/docs/api/java/io/Serializable.html?is-external=true" title="java.io内のクラスまたはインタフェース">Serializable</a>, <a href="https://docs.oracle.com/javase/jp/8/docs/api/java/lang/Cloneable.html?is-external=true" title="java.lang内のクラスまたはインタフェース">Cloneable</a>, <a href="../../nlp4j/Keyword.html" title="nlp4j内のインタフェース">Keyword</a>, <a href="../../nlp4j/KeywordWithDependency.html" title="nlp4j内のインタフェース">KeywordWithDependency</a></dd>
 </dl>
+<dl>
+<dt>直系の既知のサブクラス:</dt>
+<dd><a href="../../nlp4j/pattern/KeywordRule.html" title="nlp4j.pattern内のクラス">KeywordRule</a></dd>
+</dl>
 <hr>
 <br>
 <pre>public class <span class="typeNameLabel">DefaultKeywordWithDependency</span>
@@ -137,6 +141,44 @@ implements <a href="../../nlp4j/KeywordWithDependency.html" title="nlp4j内の�
 <div class="summary">
 <ul class="blockList">
 <li class="blockList">
+<!-- =========== FIELD SUMMARY =========== -->
+<ul class="blockList">
+<li class="blockList"><a name="field.summary">
+<!--   -->
+</a>
+<h3>フィールドのサマリー</h3>
+<table class="memberSummary" border="0" cellpadding="3" cellspacing="0" summary="フィールドのサマリー表、フィールドのリストおよび説明">
+<caption><span>フィールド</span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">修飾子とタイプ</th>
+<th class="colLast" scope="col">フィールドと説明</th>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>protected <a href="https://docs.oracle.com/javase/jp/8/docs/api/java/util/ArrayList.html?is-external=true" title="java.util内のクラスまたはインタフェース">ArrayList</a>&lt;<a href="../../nlp4j/KeywordWithDependency.html" title="nlp4j内のインタフェース">KeywordWithDependency</a>&gt;</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../nlp4j/impl/DefaultKeywordWithDependency.html#children">children</a></span></code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>protected <a href="https://docs.oracle.com/javase/jp/8/docs/api/java/lang/String.html?is-external=true" title="java.lang内のクラスまたはインタフェース">String</a></code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../nlp4j/impl/DefaultKeywordWithDependency.html#dependencyKey">dependencyKey</a></span></code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>protected <a href="../../nlp4j/KeywordWithDependency.html" title="nlp4j内のインタフェース">KeywordWithDependency</a></code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../nlp4j/impl/DefaultKeywordWithDependency.html#parent">parent</a></span></code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>protected <a href="https://docs.oracle.com/javase/jp/8/docs/api/java/lang/String.html?is-external=true" title="java.lang内のクラスまたはインタフェース">String</a></code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../nlp4j/impl/DefaultKeywordWithDependency.html#relation">relation</a></span></code>&nbsp;</td>
+</tr>
+</table>
+<ul class="blockList">
+<li class="blockList"><a name="fields.inherited.from.class.nlp4j.impl.DefaultKeyword">
+<!--   -->
+</a>
+<h3>クラスから継承されたフィールド&nbsp;nlp4j.impl.<a href="../../nlp4j/impl/DefaultKeyword.html" title="nlp4j.impl内のクラス">DefaultKeyword</a></h3>
+<code><a href="../../nlp4j/impl/DefaultKeyword.html#begin">begin</a>, <a href="../../nlp4j/impl/DefaultKeyword.html#correlation">correlation</a>, <a href="../../nlp4j/impl/DefaultKeyword.html#count">count</a>, <a href="../../nlp4j/impl/DefaultKeyword.html#end">end</a>, <a href="../../nlp4j/impl/DefaultKeyword.html#facet">facet</a>, <a href="../../nlp4j/impl/DefaultKeyword.html#hitKeyword">hitKeyword</a>, <a href="../../nlp4j/impl/DefaultKeyword.html#lex">lex</a>, <a href="../../nlp4j/impl/DefaultKeyword.html#namespace">namespace</a>, <a href="../../nlp4j/impl/DefaultKeyword.html#reading">reading</a>, <a href="../../nlp4j/impl/DefaultKeyword.html#sequence">sequence</a>, <a href="../../nlp4j/impl/DefaultKeyword.html#str">str</a>, <a href="../../nlp4j/impl/DefaultKeyword.html#upos">upos</a></code></li>
+</ul>
+</li>
+</ul>
 <!-- ======== CONSTRUCTOR SUMMARY ======== -->
 <ul class="blockList">
 <li class="blockList"><a name="constructor.summary">
@@ -192,141 +234,151 @@ implements <a href="../../nlp4j/KeywordWithDependency.html" title="nlp4j内の�
 </tr>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../nlp4j/impl/DefaultKeywordWithDependency.html#addBeginEnd-int-">addBeginEnd</a></span>(int&nbsp;n)</code>
+<div class="block">Shift begin, end</div>
+</td>
+</tr>
+<tr id="i1" class="rowColor">
+<td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../nlp4j/impl/DefaultKeywordWithDependency.html#addChild-nlp4j.KeywordWithDependency-">addChild</a></span>(<a href="../../nlp4j/KeywordWithDependency.html" title="nlp4j内のインタフェース">KeywordWithDependency</a>&nbsp;keyword)</code>
 <div class="block">依存関係の子ノードを追加します。</div>
 </td>
 </tr>
-<tr id="i1" class="rowColor">
+<tr id="i2" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../nlp4j/impl/DefaultKeywordWithDependency.html#addChildOnly-nlp4j.KeywordWithDependency-">addChildOnly</a></span>(<a href="../../nlp4j/KeywordWithDependency.html" title="nlp4j内のインタフェース">KeywordWithDependency</a>&nbsp;keyword)</code>
 <div class="block">依存関係の子ノードを追加します。</div>
 </td>
 </tr>
-<tr id="i2" class="altColor">
+<tr id="i3" class="rowColor">
 <td class="colFirst"><code><a href="https://docs.oracle.com/javase/jp/8/docs/api/java/util/List.html?is-external=true" title="java.util内のクラスまたはインタフェース">List</a>&lt;<a href="../../nlp4j/KeywordWithDependency.html" title="nlp4j内のインタフェース">KeywordWithDependency</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../nlp4j/impl/DefaultKeywordWithDependency.html#asList--">asList</a></span>()</code>
 <div class="block">依存関係のあるキーワードをリストとして返します。</div>
 </td>
 </tr>
-<tr id="i3" class="rowColor">
+<tr id="i4" class="altColor">
+<td class="colFirst"><code>protected <a href="../../nlp4j/impl/DefaultKeywordWithDependency.html" title="nlp4j.impl内のクラス">DefaultKeywordWithDependency</a></code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../nlp4j/impl/DefaultKeywordWithDependency.html#clone--">clone</a></span>()</code>&nbsp;</td>
+</tr>
+<tr id="i5" class="rowColor">
 <td class="colFirst"><code>boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../nlp4j/impl/DefaultKeywordWithDependency.html#equals-java.lang.Object-">equals</a></span>(<a href="https://docs.oracle.com/javase/jp/8/docs/api/java/lang/Object.html?is-external=true" title="java.lang内のクラスまたはインタフェース">Object</a>&nbsp;obj)</code>&nbsp;</td>
 </tr>
-<tr id="i4" class="altColor">
+<tr id="i6" class="altColor">
 <td class="colFirst"><code><a href="https://docs.oracle.com/javase/jp/8/docs/api/java/util/ArrayList.html?is-external=true" title="java.util内のクラスまたはインタフェース">ArrayList</a>&lt;<a href="../../nlp4j/KeywordWithDependency.html" title="nlp4j内のインタフェース">KeywordWithDependency</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../nlp4j/impl/DefaultKeywordWithDependency.html#getChildren--">getChildren</a></span>()</code>
 <div class="block">依存関係のある子ノードのキーワードを返します。</div>
 </td>
 </tr>
-<tr id="i5" class="rowColor">
+<tr id="i7" class="rowColor">
 <td class="colFirst"><code><a href="https://docs.oracle.com/javase/jp/8/docs/api/java/lang/String.html?is-external=true" title="java.lang内のクラスまたはインタフェース">String</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../nlp4j/impl/DefaultKeywordWithDependency.html#getDependencyKey--">getDependencyKey</a></span>()</code>&nbsp;</td>
 </tr>
-<tr id="i6" class="altColor">
+<tr id="i8" class="altColor">
 <td class="colFirst"><code>int</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../nlp4j/impl/DefaultKeywordWithDependency.html#getDepth--">getDepth</a></span>()</code>
 <div class="block">もっとも親の位置にあるキーワード（ルートキーワード）からの深さの位置を返します。</div>
 </td>
 </tr>
-<tr id="i7" class="rowColor">
+<tr id="i9" class="rowColor">
 <td class="colFirst"><code><a href="../../nlp4j/KeywordWithDependency.html" title="nlp4j内のインタフェース">KeywordWithDependency</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../nlp4j/impl/DefaultKeywordWithDependency.html#getParent--">getParent</a></span>()</code>
 <div class="block">親の依存関係のあるキーワードを返します。</div>
 </td>
 </tr>
-<tr id="i8" class="altColor">
+<tr id="i10" class="altColor">
 <td class="colFirst"><code><a href="../../nlp4j/KeywordWithDependency.html" title="nlp4j内のインタフェース">KeywordWithDependency</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../nlp4j/impl/DefaultKeywordWithDependency.html#getParent-int-">getParent</a></span>(int&nbsp;depth)</code>
 <div class="block">階層の数を指定して親の依存関係のあるキーワードを返します。</div>
 </td>
 </tr>
-<tr id="i9" class="rowColor">
+<tr id="i11" class="rowColor">
 <td class="colFirst"><code><a href="https://docs.oracle.com/javase/jp/8/docs/api/java/lang/String.html?is-external=true" title="java.lang内のクラスまたはインタフェース">String</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../nlp4j/impl/DefaultKeywordWithDependency.html#getRelation--">getRelation</a></span>()</code>
 <div class="block">係り受けのラベル</div>
 </td>
 </tr>
-<tr id="i10" class="altColor">
+<tr id="i12" class="altColor">
 <td class="colFirst"><code><a href="../../nlp4j/KeywordWithDependency.html" title="nlp4j内のインタフェース">KeywordWithDependency</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../nlp4j/impl/DefaultKeywordWithDependency.html#getRoot--">getRoot</a></span>()</code>
 <div class="block">親の依存関係にあるキーワードで最も親（ルート）に位置するキーワードを返します。</div>
 </td>
 </tr>
-<tr id="i11" class="rowColor">
+<tr id="i13" class="rowColor">
 <td class="colFirst"><code>int</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../nlp4j/impl/DefaultKeywordWithDependency.html#getSequence--">getSequence</a></span>()</code>
 <div class="block">文の中での出現順（連番）を返します。</div>
 </td>
 </tr>
-<tr id="i12" class="altColor">
+<tr id="i14" class="altColor">
 <td class="colFirst"><code>boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../nlp4j/impl/DefaultKeywordWithDependency.html#hasChild--">hasChild</a></span>()</code>
 <div class="block">子の依存関係にあるキーワードがあるかどうかを返します。</div>
 </td>
 </tr>
-<tr id="i13" class="rowColor">
+<tr id="i15" class="rowColor">
 <td class="colFirst"><code>boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../nlp4j/impl/DefaultKeywordWithDependency.html#hasParent--">hasParent</a></span>()</code>
 <div class="block">親の依存関係にあるキーワードがあるかどうかを返します。</div>
 </td>
 </tr>
-<tr id="i14" class="altColor">
+<tr id="i16" class="altColor">
 <td class="colFirst"><code>boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../nlp4j/impl/DefaultKeywordWithDependency.html#isRoot--">isRoot</a></span>()</code>
 <div class="block">最も親の依存関係にあるキーワードを返します。</div>
 </td>
 </tr>
-<tr id="i15" class="rowColor">
+<tr id="i17" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../nlp4j/impl/DefaultKeywordWithDependency.html#setDependencyKey-java.lang.String-">setDependencyKey</a></span>(<a href="https://docs.oracle.com/javase/jp/8/docs/api/java/lang/String.html?is-external=true" title="java.lang内のクラスまたはインタフェース">String</a>&nbsp;dependencyKey)</code>&nbsp;</td>
 </tr>
-<tr id="i16" class="altColor">
+<tr id="i18" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../nlp4j/impl/DefaultKeywordWithDependency.html#setParent-nlp4j.KeywordWithDependency-">setParent</a></span>(<a href="../../nlp4j/KeywordWithDependency.html" title="nlp4j内のインタフェース">KeywordWithDependency</a>&nbsp;parent)</code>
 <div class="block">親の依存関係にあるキーワードをセットします。</div>
 </td>
 </tr>
-<tr id="i17" class="rowColor">
+<tr id="i19" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../nlp4j/impl/DefaultKeywordWithDependency.html#setParentOnly-nlp4j.KeywordWithDependency-">setParentOnly</a></span>(<a href="../../nlp4j/KeywordWithDependency.html" title="nlp4j内のインタフェース">KeywordWithDependency</a>&nbsp;parent)</code>
 <div class="block">親の依存関係にあるキーワードをセットします。</div>
 </td>
 </tr>
-<tr id="i18" class="altColor">
+<tr id="i20" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../nlp4j/impl/DefaultKeywordWithDependency.html#setRelation-java.lang.String-">setRelation</a></span>(<a href="https://docs.oracle.com/javase/jp/8/docs/api/java/lang/String.html?is-external=true" title="java.lang内のクラスまたはインタフェース">String</a>&nbsp;relation)</code>
 <div class="block">係り受けのラベル</div>
 </td>
 </tr>
-<tr id="i19" class="rowColor">
+<tr id="i21" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../nlp4j/impl/DefaultKeywordWithDependency.html#setSequence-int-">setSequence</a></span>(int&nbsp;sequence)</code>
 <div class="block">連番を返します。</div>
 </td>
 </tr>
-<tr id="i20" class="altColor">
+<tr id="i22" class="altColor">
 <td class="colFirst"><code><a href="https://docs.oracle.com/javase/jp/8/docs/api/java/lang/String.html?is-external=true" title="java.lang内のクラスまたはインタフェース">String</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../nlp4j/impl/DefaultKeywordWithDependency.html#toString--">toString</a></span>()</code>&nbsp;</td>
 </tr>
-<tr id="i21" class="rowColor">
+<tr id="i23" class="rowColor">
 <td class="colFirst"><code><a href="https://docs.oracle.com/javase/jp/8/docs/api/java/lang/String.html?is-external=true" title="java.lang内のクラスまたはインタフェース">String</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../nlp4j/impl/DefaultKeywordWithDependency.html#toStringAsDependencyList--">toStringAsDependencyList</a></span>()</code>
 <div class="block">キーワードの依存関係を文字列で表現します。</div>
 </td>
 </tr>
-<tr id="i22" class="altColor">
+<tr id="i24" class="altColor">
 <td class="colFirst"><code><a href="https://docs.oracle.com/javase/jp/8/docs/api/java/lang/String.html?is-external=true" title="java.lang内のクラスまたはインタフェース">String</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../nlp4j/impl/DefaultKeywordWithDependency.html#toStringAsDependencyTree--">toStringAsDependencyTree</a></span>()</code>
 <div class="block">キーワードの依存関係を文字列で表現します。</div>
 </td>
 </tr>
-<tr id="i23" class="rowColor">
+<tr id="i25" class="rowColor">
 <td class="colFirst"><code><a href="https://docs.oracle.com/javase/jp/8/docs/api/java/lang/String.html?is-external=true" title="java.lang内のクラスまたはインタフェース">String</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../nlp4j/impl/DefaultKeywordWithDependency.html#toStringAsXml--">toStringAsXml</a></span>()</code>
 <div class="block">キーワードの依存関係をXML形式の文字列で表現します。</div>
 </td>
 </tr>
-<tr id="i24" class="altColor">
+<tr id="i26" class="altColor">
 <td class="colFirst"><code><a href="https://docs.oracle.com/javase/jp/8/docs/api/java/lang/String.html?is-external=true" title="java.lang内のクラスまたはインタフェース">String</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../nlp4j/impl/DefaultKeywordWithDependency.html#toStringAsXml-int-">toStringAsXml</a></span>(int&nbsp;depth)</code>
 <div class="block">階層を指定してキーワードの依存関係をXML形式の文字列で表現します。</div>
@@ -338,7 +390,7 @@ implements <a href="../../nlp4j/KeywordWithDependency.html" title="nlp4j内の�
 <!--   -->
 </a>
 <h3>クラスから継承されたメソッド&nbsp;nlp4j.impl.<a href="../../nlp4j/impl/DefaultKeyword.html" title="nlp4j.impl内のクラス">DefaultKeyword</a></h3>
-<code><a href="../../nlp4j/impl/DefaultKeyword.html#clone--">clone</a>, <a href="../../nlp4j/impl/DefaultKeyword.html#get-java.lang.String-">get</a>, <a href="../../nlp4j/impl/DefaultKeyword.html#getBegin--">getBegin</a>, <a href="../../nlp4j/impl/DefaultKeyword.html#getCorrelation--">getCorrelation</a>, <a href="../../nlp4j/impl/DefaultKeyword.html#getCount--">getCount</a>, <a href="../../nlp4j/impl/DefaultKeyword.html#getEnd--">getEnd</a>, <a href="../../nlp4j/impl/DefaultKeyword.html#getFacet--">getFacet</a>, <a href="../../nlp4j/impl/DefaultKeyword.html#getFlag--">getFlag</a>, <a href="../../nlp4j/impl/DefaultKeyword.html#getLex--">getLex</a>, <a href="../../nlp4j/impl/DefaultKeyword.html#getNamespance--">getNamespance</a>, <a href="../../nlp4j/impl/DefaultKeyword.html#getReading--">getReading</a>, <a href="../../nlp4j/impl/DefaultKeyword.html#getStr--">getStr</a>, <a href="../../nlp4j/impl/DefaultKeyword.html#getUPos--">getUPos</a>, <a href="../../nlp4j/impl/DefaultKeyword.html#hashCode--">hashCode</a>, <a href="../../nlp4j/impl/DefaultKeyword.html#setBegin-int-">setBegin</a>, <a href="../../nlp4j/impl/DefaultKeyword.html#setCorrelation-double-">setCorrelation</a>, <a href="../../nlp4j/impl/DefaultKeyword.html#setCount-long-">setCount</a>, <a href="../../nlp4j/impl/DefaultKeyword.html#setEnd-int-">setEnd</a>, <a href="../../nlp4j/impl/DefaultKeyword.html#setFacet-java.lang.String-">setFacet</a>, <a href="../../nlp4j/impl/DefaultKeyword.html#setFlag-boolean-">setFlag</a>, <a href="../../nlp4j/impl/DefaultKeyword.html#setLex-java.lang.String-">setLex</a>, <a href="../../nlp4j/impl/DefaultKeyword.html#setNamespace-java.lang.String-">setNamespace</a>, <a href="../../nlp4j/impl/DefaultKeyword.html#setReading-java.lang.String-">setReading</a>, <a href="../../nlp4j/impl/DefaultKeyword.html#setStr-java.lang.String-">setStr</a>, <a href="../../nlp4j/impl/DefaultKeyword.html#toStringDetail--">toStringDetail</a></code></li>
+<code><a href="../../nlp4j/impl/DefaultKeyword.html#get-java.lang.String-">get</a>, <a href="../../nlp4j/impl/DefaultKeyword.html#getBegin--">getBegin</a>, <a href="../../nlp4j/impl/DefaultKeyword.html#getCorrelation--">getCorrelation</a>, <a href="../../nlp4j/impl/DefaultKeyword.html#getCount--">getCount</a>, <a href="../../nlp4j/impl/DefaultKeyword.html#getEnd--">getEnd</a>, <a href="../../nlp4j/impl/DefaultKeyword.html#getFacet--">getFacet</a>, <a href="../../nlp4j/impl/DefaultKeyword.html#getFlag--">getFlag</a>, <a href="../../nlp4j/impl/DefaultKeyword.html#getLex--">getLex</a>, <a href="../../nlp4j/impl/DefaultKeyword.html#getNamespance--">getNamespance</a>, <a href="../../nlp4j/impl/DefaultKeyword.html#getReading--">getReading</a>, <a href="../../nlp4j/impl/DefaultKeyword.html#getStr--">getStr</a>, <a href="../../nlp4j/impl/DefaultKeyword.html#getUPos--">getUPos</a>, <a href="../../nlp4j/impl/DefaultKeyword.html#hashCode--">hashCode</a>, <a href="../../nlp4j/impl/DefaultKeyword.html#match-nlp4j.Keyword-">match</a>, <a href="../../nlp4j/impl/DefaultKeyword.html#setBegin-int-">setBegin</a>, <a href="../../nlp4j/impl/DefaultKeyword.html#setCorrelation-double-">setCorrelation</a>, <a href="../../nlp4j/impl/DefaultKeyword.html#setCount-long-">setCount</a>, <a href="../../nlp4j/impl/DefaultKeyword.html#setEnd-int-">setEnd</a>, <a href="../../nlp4j/impl/DefaultKeyword.html#setFacet-java.lang.String-">setFacet</a>, <a href="../../nlp4j/impl/DefaultKeyword.html#setFlag-boolean-">setFlag</a>, <a href="../../nlp4j/impl/DefaultKeyword.html#setLex-java.lang.String-">setLex</a>, <a href="../../nlp4j/impl/DefaultKeyword.html#setNamespace-java.lang.String-">setNamespace</a>, <a href="../../nlp4j/impl/DefaultKeyword.html#setReading-java.lang.String-">setReading</a>, <a href="../../nlp4j/impl/DefaultKeyword.html#setStr-java.lang.String-">setStr</a>, <a href="../../nlp4j/impl/DefaultKeyword.html#setUPos-java.lang.String-">setUPos</a>, <a href="../../nlp4j/impl/DefaultKeyword.html#toStringDetail--">toStringDetail</a></code></li>
 </ul>
 <ul class="blockList">
 <li class="blockList"><a name="methods.inherited.from.class.java.lang.Object">
@@ -352,7 +404,7 @@ implements <a href="../../nlp4j/KeywordWithDependency.html" title="nlp4j内の�
 <!--   -->
 </a>
 <h3>インタフェースから継承されたメソッド&nbsp;nlp4j.<a href="../../nlp4j/Keyword.html" title="nlp4j内のインタフェース">Keyword</a></h3>
-<code><a href="../../nlp4j/Keyword.html#get-java.lang.String-">get</a>, <a href="../../nlp4j/Keyword.html#getBegin--">getBegin</a>, <a href="../../nlp4j/Keyword.html#getCorrelation--">getCorrelation</a>, <a href="../../nlp4j/Keyword.html#getCount--">getCount</a>, <a href="../../nlp4j/Keyword.html#getEnd--">getEnd</a>, <a href="../../nlp4j/Keyword.html#getFacet--">getFacet</a>, <a href="../../nlp4j/Keyword.html#getFlag--">getFlag</a>, <a href="../../nlp4j/Keyword.html#getLex--">getLex</a>, <a href="../../nlp4j/Keyword.html#getNamespance--">getNamespance</a>, <a href="../../nlp4j/Keyword.html#getReading--">getReading</a>, <a href="../../nlp4j/Keyword.html#getStr--">getStr</a>, <a href="../../nlp4j/Keyword.html#getUPos--">getUPos</a>, <a href="../../nlp4j/Keyword.html#setBegin-int-">setBegin</a>, <a href="../../nlp4j/Keyword.html#setCorrelation-double-">setCorrelation</a>, <a href="../../nlp4j/Keyword.html#setCount-long-">setCount</a>, <a href="../../nlp4j/Keyword.html#setEnd-int-">setEnd</a>, <a href="../../nlp4j/Keyword.html#setFacet-java.lang.String-">setFacet</a>, <a href="../../nlp4j/Keyword.html#setFlag-boolean-">setFlag</a>, <a href="../../nlp4j/Keyword.html#setLex-java.lang.String-">setLex</a>, <a href="../../nlp4j/Keyword.html#setNamespace-java.lang.String-">setNamespace</a>, <a href="../../nlp4j/Keyword.html#setReading-java.lang.String-">setReading</a>, <a href="../../nlp4j/Keyword.html#setStr-java.lang.String-">setStr</a></code></li>
+<code><a href="../../nlp4j/Keyword.html#get-java.lang.String-">get</a>, <a href="../../nlp4j/Keyword.html#getBegin--">getBegin</a>, <a href="../../nlp4j/Keyword.html#getCorrelation--">getCorrelation</a>, <a href="../../nlp4j/Keyword.html#getCount--">getCount</a>, <a href="../../nlp4j/Keyword.html#getEnd--">getEnd</a>, <a href="../../nlp4j/Keyword.html#getFacet--">getFacet</a>, <a href="../../nlp4j/Keyword.html#getFlag--">getFlag</a>, <a href="../../nlp4j/Keyword.html#getLex--">getLex</a>, <a href="../../nlp4j/Keyword.html#getNamespance--">getNamespance</a>, <a href="../../nlp4j/Keyword.html#getReading--">getReading</a>, <a href="../../nlp4j/Keyword.html#getStr--">getStr</a>, <a href="../../nlp4j/Keyword.html#getUPos--">getUPos</a>, <a href="../../nlp4j/Keyword.html#match-nlp4j.Keyword-">match</a>, <a href="../../nlp4j/Keyword.html#setBegin-int-">setBegin</a>, <a href="../../nlp4j/Keyword.html#setCorrelation-double-">setCorrelation</a>, <a href="../../nlp4j/Keyword.html#setCount-long-">setCount</a>, <a href="../../nlp4j/Keyword.html#setEnd-int-">setEnd</a>, <a href="../../nlp4j/Keyword.html#setFacet-java.lang.String-">setFacet</a>, <a href="../../nlp4j/Keyword.html#setFlag-boolean-">setFlag</a>, <a href="../../nlp4j/Keyword.html#setLex-java.lang.String-">setLex</a>, <a href="../../nlp4j/Keyword.html#setNamespace-java.lang.String-">setNamespace</a>, <a href="../../nlp4j/Keyword.html#setReading-java.lang.String-">setReading</a>, <a href="../../nlp4j/Keyword.html#setStr-java.lang.String-">setStr</a>, <a href="../../nlp4j/Keyword.html#setUPos-java.lang.String-">setUPos</a></code></li>
 </ul>
 </li>
 </ul>
@@ -362,6 +414,50 @@ implements <a href="../../nlp4j/KeywordWithDependency.html" title="nlp4j内の�
 <div class="details">
 <ul class="blockList">
 <li class="blockList">
+<!-- ============ FIELD DETAIL =========== -->
+<ul class="blockList">
+<li class="blockList"><a name="field.detail">
+<!--   -->
+</a>
+<h3>フィールドの詳細</h3>
+<a name="children">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>children</h4>
+<pre>protected&nbsp;<a href="https://docs.oracle.com/javase/jp/8/docs/api/java/util/ArrayList.html?is-external=true" title="java.util内のクラスまたはインタフェース">ArrayList</a>&lt;<a href="../../nlp4j/KeywordWithDependency.html" title="nlp4j内のインタフェース">KeywordWithDependency</a>&gt; children</pre>
+</li>
+</ul>
+<a name="dependencyKey">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>dependencyKey</h4>
+<pre>protected&nbsp;<a href="https://docs.oracle.com/javase/jp/8/docs/api/java/lang/String.html?is-external=true" title="java.lang内のクラスまたはインタフェース">String</a> dependencyKey</pre>
+</li>
+</ul>
+<a name="parent">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>parent</h4>
+<pre>protected&nbsp;<a href="../../nlp4j/KeywordWithDependency.html" title="nlp4j内のインタフェース">KeywordWithDependency</a> parent</pre>
+</li>
+</ul>
+<a name="relation">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>relation</h4>
+<pre>protected&nbsp;<a href="https://docs.oracle.com/javase/jp/8/docs/api/java/lang/String.html?is-external=true" title="java.lang内のクラスまたはインタフェース">String</a> relation</pre>
+</li>
+</ul>
+</li>
+</ul>
 <!-- ========= CONSTRUCTOR DETAIL ======== -->
 <ul class="blockList">
 <li class="blockList"><a name="constructor.detail">
@@ -462,6 +558,36 @@ implements <a href="../../nlp4j/KeywordWithDependency.html" title="nlp4j内の�
 <!--   -->
 </a>
 <h3>メソッドの詳細</h3>
+<a name="addBeginEnd-int-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>addBeginEnd</h4>
+<pre>public&nbsp;void&nbsp;addBeginEnd(int&nbsp;n)</pre>
+<div class="block"><span class="descfrmTypeLabel">インタフェースからコピーされた説明:&nbsp;<code><a href="../../nlp4j/Keyword.html#addBeginEnd-int-">Keyword</a></code></span></div>
+<div class="block">Shift begin, end</div>
+<dl>
+<dt><span class="overrideSpecifyLabel">定義:</span></dt>
+<dd><code><a href="../../nlp4j/Keyword.html#addBeginEnd-int-">addBeginEnd</a></code>&nbsp;インタフェース内&nbsp;<code><a href="../../nlp4j/Keyword.html" title="nlp4j内のインタフェース">Keyword</a></code></dd>
+<dt><span class="overrideSpecifyLabel">オーバーライド:</span></dt>
+<dd><code><a href="../../nlp4j/impl/DefaultKeyword.html#addBeginEnd-int-">addBeginEnd</a></code>&nbsp;クラス内&nbsp;<code><a href="../../nlp4j/impl/DefaultKeyword.html" title="nlp4j.impl内のクラス">DefaultKeyword</a></code></dd>
+</dl>
+</li>
+</ul>
+<a name="clone--">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>clone</h4>
+<pre>protected&nbsp;<a href="../../nlp4j/impl/DefaultKeywordWithDependency.html" title="nlp4j.impl内のクラス">DefaultKeywordWithDependency</a>&nbsp;clone()</pre>
+<dl>
+<dt><span class="overrideSpecifyLabel">オーバーライド:</span></dt>
+<dd><code><a href="../../nlp4j/impl/DefaultKeyword.html#clone--">clone</a></code>&nbsp;クラス内&nbsp;<code><a href="../../nlp4j/impl/DefaultKeyword.html" title="nlp4j.impl内のクラス">DefaultKeyword</a></code></dd>
+</dl>
+</li>
+</ul>
 <a name="addChild-nlp4j.KeywordWithDependency-">
 <!--   -->
 </a>
@@ -526,6 +652,8 @@ implements <a href="../../nlp4j/KeywordWithDependency.html" title="nlp4j内の�
 <dl>
 <dt><span class="overrideSpecifyLabel">オーバーライド:</span></dt>
 <dd><code><a href="../../nlp4j/impl/DefaultKeyword.html#equals-java.lang.Object-">equals</a></code>&nbsp;クラス内&nbsp;<code><a href="../../nlp4j/impl/DefaultKeyword.html" title="nlp4j.impl内のクラス">DefaultKeyword</a></code></dd>
+<dt><span class="returnLabel">戻り値:</span></dt>
+<dd>true (Check for lex, facet)</dd>
 </dl>
 </li>
 </ul>
@@ -936,13 +1064,13 @@ implements <a href="../../nlp4j/KeywordWithDependency.html" title="nlp4j内の�
 <ul class="subNavList">
 <li>サマリー:&nbsp;</li>
 <li>ネスト&nbsp;|&nbsp;</li>
-<li>フィールド&nbsp;|&nbsp;</li>
+<li><a href="#field.summary">フィールド</a>&nbsp;|&nbsp;</li>
 <li><a href="#constructor.summary">コンストラクタ</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">メソッド</a></li>
 </ul>
 <ul class="subNavList">
 <li>詳細:&nbsp;</li>
-<li>フィールド&nbsp;|&nbsp;</li>
+<li><a href="#field.detail">フィールド</a>&nbsp;|&nbsp;</li>
 <li><a href="#constructor.detail">コンストラクタ</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.detail">メソッド</a></li>
 </ul>

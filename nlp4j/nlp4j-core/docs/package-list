@@ -6,6 +6,7 @@ nlp4j.impl
 nlp4j.importer
 nlp4j.indexer
 nlp4j.node
+nlp4j.pattern
 nlp4j.search
 nlp4j.util
 nlp4j.w3c
