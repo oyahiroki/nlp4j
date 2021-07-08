@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="5" failures="0" name="nlp4j.yhoo_jp.YJpMaAnnotatorTestCase" time="1.23" errors="0" skipped="0">
+<testsuite tests="5" failures="0" name="nlp4j.yhoo_jp.YJpMaAnnotatorTestCase" time="1.254" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk1.8.0_211\jre\bin"/>
@@ -66,9 +66,9 @@
     <property name="sun.cpu.isalist" value="amd64"/>
     <property name="performRelease" value="true"/>
   </properties>
-  <testcase classname="nlp4j.yhoo_jp.YJpMaAnnotatorTestCase" name="testAnnotateDocument005" time="0.211"/>
-  <testcase classname="nlp4j.yhoo_jp.YJpMaAnnotatorTestCase" name="testAnnotateDocument001" time="0.436"/>
-  <testcase classname="nlp4j.yhoo_jp.YJpMaAnnotatorTestCase" name="testAnnotateDocument002" time="0.198"/>
-  <testcase classname="nlp4j.yhoo_jp.YJpMaAnnotatorTestCase" name="testAnnotateDocument003" time="0.194"/>
-  <testcase classname="nlp4j.yhoo_jp.YJpMaAnnotatorTestCase" name="testAnnotateDocument004" time="0.191"/>
+  <testcase classname="nlp4j.yhoo_jp.YJpMaAnnotatorTestCase" name="testAnnotateDocument003" time="0.373"/>
+  <testcase classname="nlp4j.yhoo_jp.YJpMaAnnotatorTestCase" name="testAnnotateDocument004" time="0.225"/>
+  <testcase classname="nlp4j.yhoo_jp.YJpMaAnnotatorTestCase" name="testAnnotateDocument001" time="0.219"/>
+  <testcase classname="nlp4j.yhoo_jp.YJpMaAnnotatorTestCase" name="testAnnotateDocument002" time="0.213"/>
+  <testcase classname="nlp4j.yhoo_jp.YJpMaAnnotatorTestCase" name="testAnnotateDocument005" time="0.224"/>
 </testsuite>

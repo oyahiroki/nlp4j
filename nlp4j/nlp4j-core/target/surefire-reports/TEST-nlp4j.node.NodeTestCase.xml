@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="23" failures="0" name="nlp4j.node.NodeTestCase" time="0.067" errors="0" skipped="0">
+<testsuite tests="23" failures="0" name="nlp4j.node.NodeTestCase" time="0.072" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk1.8.0_211\jre\bin"/>
     <property name="java.vm.version" value="25.211-b12"/>
     <property name="java.vm.vendor" value="Oracle Corporation"/>
-    <property name="maven.multiModuleProjectDirectory" value="C:\Users\oyahi\git\nlp4j\nlp4j"/>
+    <property name="maven.multiModuleProjectDirectory" value="C:\Users\oyahi\git\nlp4j\nlp4j\nlp4j-core"/>
     <property name="java.vendor.url" value="http://java.oracle.com/"/>
     <property name="path.separator" value=";"/>
     <property name="guice.disable.misplaced.annotation.check" value="true"/>
@@ -16,7 +16,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="sun.os.patch.level" value=""/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
-    <property name="user.dir" value="C:\Users\oyahi\git\nlp4j\nlp4j"/>
+    <property name="user.dir" value="C:\Users\oyahi\git\nlp4j\nlp4j\nlp4j-core"/>
     <property name="java.runtime.version" value="1.8.0_211-b12"/>
     <property name="java.awt.graphicsenv" value="sun.awt.Win32GraphicsEnvironment"/>
     <property name="java.endorsed.dirs" value="C:\Program Files\Java\jdk1.8.0_211\jre\lib\endorsed"/>
@@ -66,27 +66,27 @@
     <property name="sun.cpu.isalist" value="amd64"/>
     <property name="performRelease" value="true"/>
   </properties>
-  <testcase classname="nlp4j.node.NodeTestCase" name="testToString001" time="0.001"/>
+  <testcase classname="nlp4j.node.NodeTestCase" name="testClonePatterns001" time="0.011"/>
   <testcase classname="nlp4j.node.NodeTestCase" name="testClone001" time="0.001"/>
   <testcase classname="nlp4j.node.NodeTestCase" name="testMatch001" time="0"/>
-  <testcase classname="nlp4j.node.NodeTestCase" name="testMatch002" time="0.001"/>
-  <testcase classname="nlp4j.node.NodeTestCase" name="testMatchAll006" time="0.006"/>
-  <testcase classname="nlp4j.node.NodeTestCase" name="testRemove001" time="0.001"/>
-  <testcase classname="nlp4j.node.NodeTestCase" name="testNextChild001" time="0.001"/>
-  <testcase classname="nlp4j.node.NodeTestCase" name="testClone002" time="0.006"/>
-  <testcase classname="nlp4j.node.NodeTestCase" name="testHasNext001" time="0.014"/>
-  <testcase classname="nlp4j.node.NodeTestCase" name="testMatchAll007" time="0.003"/>
+  <testcase classname="nlp4j.node.NodeTestCase" name="testToString001" time="0.001"/>
+  <testcase classname="nlp4j.node.NodeTestCase" name="testMatch002" time="0"/>
+  <testcase classname="nlp4j.node.NodeTestCase" name="testNode001" time="0.001"/>
+  <testcase classname="nlp4j.node.NodeTestCase" name="testMatchAll002" time="0.002"/>
+  <testcase classname="nlp4j.node.NodeTestCase" name="testClone002" time="0.002"/>
+  <testcase classname="nlp4j.node.NodeTestCase" name="testMatchAll007" time="0.01"/>
+  <testcase classname="nlp4j.node.NodeTestCase" name="testMatchAll006" time="0.002"/>
+  <testcase classname="nlp4j.node.NodeTestCase" name="testRemove002" time="0.002"/>
+  <testcase classname="nlp4j.node.NodeTestCase" name="testMatchAll004" time="0.009"/>
+  <testcase classname="nlp4j.node.NodeTestCase" name="testNext001" time="0.003"/>
+  <testcase classname="nlp4j.node.NodeTestCase" name="testMatchAll001" time="0.002"/>
+  <testcase classname="nlp4j.node.NodeTestCase" name="testNextChild001" time="0"/>
   <testcase classname="nlp4j.node.NodeTestCase" name="testMatchAll0011" time="0.001"/>
-  <testcase classname="nlp4j.node.NodeTestCase" name="testMatchAll0010" time="0.001"/>
-  <testcase classname="nlp4j.node.NodeTestCase" name="testMatchAll001" time="0.001"/>
   <testcase classname="nlp4j.node.NodeTestCase" name="testMatchAll005" time="0.003"/>
-  <testcase classname="nlp4j.node.NodeTestCase" name="testNext001" time="0.008"/>
-  <testcase classname="nlp4j.node.NodeTestCase" name="testNode001" time="0"/>
+  <testcase classname="nlp4j.node.NodeTestCase" name="testHasNext001" time="0.009"/>
+  <testcase classname="nlp4j.node.NodeTestCase" name="testRemove001" time="0.001"/>
+  <testcase classname="nlp4j.node.NodeTestCase" name="testNext002" time="0.003"/>
   <testcase classname="nlp4j.node.NodeTestCase" name="testMatchAll003" time="0.003"/>
-  <testcase classname="nlp4j.node.NodeTestCase" name="testMatchAll004" time="0.002"/>
-  <testcase classname="nlp4j.node.NodeTestCase" name="testNext002" time="0.002"/>
-  <testcase classname="nlp4j.node.NodeTestCase" name="testPrint001" time="0.001"/>
-  <testcase classname="nlp4j.node.NodeTestCase" name="testMatchAll002" time="0.001"/>
-  <testcase classname="nlp4j.node.NodeTestCase" name="testRemove002" time="0.007"/>
-  <testcase classname="nlp4j.node.NodeTestCase" name="testClonePatterns001" time="0.003"/>
+  <testcase classname="nlp4j.node.NodeTestCase" name="testPrint001" time="0.005"/>
+  <testcase classname="nlp4j.node.NodeTestCase" name="testMatchAll0010" time="0.001"/>
 </testsuite>

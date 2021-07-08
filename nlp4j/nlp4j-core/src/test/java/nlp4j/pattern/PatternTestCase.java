@@ -9,8 +9,7 @@ import nlp4j.test.NLP4JTestCase;
 @SuppressWarnings("javadoc")
 public class PatternTestCase extends NLP4JTestCase {
 
-	public PatternTestCase(String name) {
-		super(name);
+	public PatternTestCase() {
 		target = Pattern.class;
 	}
 

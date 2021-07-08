@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="3" failures="0" name="nlp4j.yhoo_jp.YJpDaServiceResponseHandlerTestCase" time="0.013" errors="0" skipped="0">
+<testsuite tests="3" failures="0" name="nlp4j.yhoo_jp.YJpDaServiceResponseHandlerTestCase" time="0.012" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk1.8.0_211\jre\bin"/>
@@ -66,7 +66,7 @@
     <property name="sun.cpu.isalist" value="amd64"/>
     <property name="performRelease" value="true"/>
   </properties>
-  <testcase classname="nlp4j.yhoo_jp.YJpDaServiceResponseHandlerTestCase" name="test013" time="0.004"/>
-  <testcase classname="nlp4j.yhoo_jp.YJpDaServiceResponseHandlerTestCase" name="test012" time="0.006"/>
   <testcase classname="nlp4j.yhoo_jp.YJpDaServiceResponseHandlerTestCase" name="test011" time="0.003"/>
+  <testcase classname="nlp4j.yhoo_jp.YJpDaServiceResponseHandlerTestCase" name="test012" time="0.002"/>
+  <testcase classname="nlp4j.yhoo_jp.YJpDaServiceResponseHandlerTestCase" name="test013" time="0.007"/>
 </testsuite>

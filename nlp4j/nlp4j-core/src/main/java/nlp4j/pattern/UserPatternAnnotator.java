@@ -99,6 +99,7 @@ public class UserPatternAnnotator extends AbstractDocumentAnnotator implements D
 			for (File xmlFile : xmlFiles) {
 				List<Pattern> patterns = PatternReader.readFromXml(xmlFile);
 				this.patterns.addAll(patterns);
+				logger.info("Patterns loaded: " + patterns.size());
 			}
 		}
 		if (this.files != null) {

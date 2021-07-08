@@ -200,5 +200,6 @@
 		<module>nlp4j-cabocha</module>
 		<module>nlp4j-test</module>
 		<module>nlp4j-wiki</module>
+		<module>nlp4j-examples</module>
 	</modules>
 </project>

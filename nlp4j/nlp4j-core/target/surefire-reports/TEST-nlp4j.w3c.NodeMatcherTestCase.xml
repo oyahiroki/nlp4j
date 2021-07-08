@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="14" failures="0" name="nlp4j.w3c.NodeMatcherTestCase" time="0.018" errors="0" skipped="0">
+<testsuite tests="14" failures="0" name="nlp4j.w3c.NodeMatcherTestCase" time="0.012" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk1.8.0_211\jre\bin"/>
     <property name="java.vm.version" value="25.211-b12"/>
     <property name="java.vm.vendor" value="Oracle Corporation"/>
-    <property name="maven.multiModuleProjectDirectory" value="C:\Users\oyahi\git\nlp4j\nlp4j"/>
+    <property name="maven.multiModuleProjectDirectory" value="C:\Users\oyahi\git\nlp4j\nlp4j\nlp4j-core"/>
     <property name="java.vendor.url" value="http://java.oracle.com/"/>
     <property name="path.separator" value=";"/>
     <property name="guice.disable.misplaced.annotation.check" value="true"/>
@@ -16,7 +16,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="sun.os.patch.level" value=""/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
-    <property name="user.dir" value="C:\Users\oyahi\git\nlp4j\nlp4j"/>
+    <property name="user.dir" value="C:\Users\oyahi\git\nlp4j\nlp4j\nlp4j-core"/>
     <property name="java.runtime.version" value="1.8.0_211-b12"/>
     <property name="java.awt.graphicsenv" value="sun.awt.Win32GraphicsEnvironment"/>
     <property name="java.endorsed.dirs" value="C:\Program Files\Java\jdk1.8.0_211\jre\lib\endorsed"/>
@@ -66,18 +66,18 @@
     <property name="sun.cpu.isalist" value="amd64"/>
     <property name="performRelease" value="true"/>
   </properties>
+  <testcase classname="nlp4j.w3c.NodeMatcherTestCase" name="testGetHitNodes101" time="0.005"/>
+  <testcase classname="nlp4j.w3c.NodeMatcherTestCase" name="testGetHitNodes003" time="0.001"/>
+  <testcase classname="nlp4j.w3c.NodeMatcherTestCase" name="testGetHitNodes005" time="0.001"/>
+  <testcase classname="nlp4j.w3c.NodeMatcherTestCase" name="testGetHitNodes004" time="0.001"/>
+  <testcase classname="nlp4j.w3c.NodeMatcherTestCase" name="testGetHitNodes006" time="0"/>
+  <testcase classname="nlp4j.w3c.NodeMatcherTestCase" name="testMatchAsSingleNode001" time="0.001"/>
+  <testcase classname="nlp4j.w3c.NodeMatcherTestCase" name="testGetHitNodes001" time="0"/>
+  <testcase classname="nlp4j.w3c.NodeMatcherTestCase" name="testGetHitNodes000f2" time="0"/>
+  <testcase classname="nlp4j.w3c.NodeMatcherTestCase" name="testGetHitNodes002" time="0.001"/>
+  <testcase classname="nlp4j.w3c.NodeMatcherTestCase" name="testGetHitNodes000g" time="0.001"/>
+  <testcase classname="nlp4j.w3c.NodeMatcherTestCase" name="testGetHitNodes000f" time="0"/>
+  <testcase classname="nlp4j.w3c.NodeMatcherTestCase" name="testGetHitNodes100" time="0.001"/>
   <testcase classname="nlp4j.w3c.NodeMatcherTestCase" name="testMatch001" time="0"/>
   <testcase classname="nlp4j.w3c.NodeMatcherTestCase" name="testMatch002" time="0"/>
-  <testcase classname="nlp4j.w3c.NodeMatcherTestCase" name="testMatchAsSingleNode001" time="0.001"/>
-  <testcase classname="nlp4j.w3c.NodeMatcherTestCase" name="testGetHitNodes000f" time="0"/>
-  <testcase classname="nlp4j.w3c.NodeMatcherTestCase" name="testGetHitNodes000f2" time="0"/>
-  <testcase classname="nlp4j.w3c.NodeMatcherTestCase" name="testGetHitNodes101" time="0.002"/>
-  <testcase classname="nlp4j.w3c.NodeMatcherTestCase" name="testGetHitNodes100" time="0.007"/>
-  <testcase classname="nlp4j.w3c.NodeMatcherTestCase" name="testGetHitNodes000g" time="0.002"/>
-  <testcase classname="nlp4j.w3c.NodeMatcherTestCase" name="testGetHitNodes002" time="0.001"/>
-  <testcase classname="nlp4j.w3c.NodeMatcherTestCase" name="testGetHitNodes003" time="0.001"/>
-  <testcase classname="nlp4j.w3c.NodeMatcherTestCase" name="testGetHitNodes006" time="0"/>
-  <testcase classname="nlp4j.w3c.NodeMatcherTestCase" name="testGetHitNodes004" time="0.002"/>
-  <testcase classname="nlp4j.w3c.NodeMatcherTestCase" name="testGetHitNodes005" time="0.001"/>
-  <testcase classname="nlp4j.w3c.NodeMatcherTestCase" name="testGetHitNodes001" time="0.001"/>
 </testsuite>

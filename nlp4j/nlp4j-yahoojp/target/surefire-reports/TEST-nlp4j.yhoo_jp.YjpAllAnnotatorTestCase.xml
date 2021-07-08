@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="10" failures="0" name="nlp4j.yhoo_jp.YjpAllAnnotatorTestCase" time="3.776" errors="0" skipped="0">
+<testsuite tests="10" failures="0" name="nlp4j.yhoo_jp.YjpAllAnnotatorTestCase" time="4.363" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk1.8.0_211\jre\bin"/>
@@ -66,14 +66,14 @@
     <property name="sun.cpu.isalist" value="amd64"/>
     <property name="performRelease" value="true"/>
   </properties>
-  <testcase classname="nlp4j.yhoo_jp.YjpAllAnnotatorTestCase" name="testAnnotateDocument001" time="0.435"/>
-  <testcase classname="nlp4j.yhoo_jp.YjpAllAnnotatorTestCase" name="testAnnotateDocument002" time="0.475"/>
-  <testcase classname="nlp4j.yhoo_jp.YjpAllAnnotatorTestCase" name="testAnnotateDocument003" time="0.435"/>
-  <testcase classname="nlp4j.yhoo_jp.YjpAllAnnotatorTestCase" name="testAnnotateDocument102" time="0.392"/>
-  <testcase classname="nlp4j.yhoo_jp.YjpAllAnnotatorTestCase" name="testAnnotateDocument101" time="0.399"/>
-  <testcase classname="nlp4j.yhoo_jp.YjpAllAnnotatorTestCase" name="testAnnotateDocument104" time="0.418"/>
-  <testcase classname="nlp4j.yhoo_jp.YjpAllAnnotatorTestCase" name="testAnnotateDocument105" time="0.41"/>
-  <testcase classname="nlp4j.yhoo_jp.YjpAllAnnotatorTestCase" name="testAnnotateDocument103" time="0.396"/>
+  <testcase classname="nlp4j.yhoo_jp.YjpAllAnnotatorTestCase" name="testAnnotateDocument003" time="0.593"/>
+  <testcase classname="nlp4j.yhoo_jp.YjpAllAnnotatorTestCase" name="testAnnotateDocument001" time="0.513"/>
+  <testcase classname="nlp4j.yhoo_jp.YjpAllAnnotatorTestCase" name="testAnnotateDocument002" time="0.414"/>
+  <testcase classname="nlp4j.yhoo_jp.YjpAllAnnotatorTestCase" name="testAnnotateDocument103" time="0.421"/>
+  <testcase classname="nlp4j.yhoo_jp.YjpAllAnnotatorTestCase" name="testAnnotateDocument104" time="0.474"/>
+  <testcase classname="nlp4j.yhoo_jp.YjpAllAnnotatorTestCase" name="testAnnotateDocument105" time="0.634"/>
+  <testcase classname="nlp4j.yhoo_jp.YjpAllAnnotatorTestCase" name="testAnnotateDocument102" time="0.483"/>
+  <testcase classname="nlp4j.yhoo_jp.YjpAllAnnotatorTestCase" name="testAnnotateDocument500" time="0.432"/>
   <testcase classname="nlp4j.yhoo_jp.YjpAllAnnotatorTestCase" name="testAnnotateListOfDocument" time="0"/>
-  <testcase classname="nlp4j.yhoo_jp.YjpAllAnnotatorTestCase" name="testAnnotateDocument500" time="0.416"/>
+  <testcase classname="nlp4j.yhoo_jp.YjpAllAnnotatorTestCase" name="testAnnotateDocument101" time="0.399"/>
 </testsuite>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="2" failures="0" name="nlp4j.annotator.NumeralAnnotatorTestCase" time="0.209" errors="0" skipped="0">
+<testsuite tests="2" failures="0" name="nlp4j.annotator.NumeralAnnotatorTestCase" time="0.249" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk1.8.0_211\jre\bin"/>
@@ -66,6 +66,6 @@
     <property name="sun.cpu.isalist" value="amd64"/>
     <property name="performRelease" value="true"/>
   </properties>
-  <testcase classname="nlp4j.annotator.NumeralAnnotatorTestCase" name="testAnnotateDocument001" time="0.204"/>
-  <testcase classname="nlp4j.annotator.NumeralAnnotatorTestCase" name="testAnnotateDocument002" time="0.005"/>
+  <testcase classname="nlp4j.annotator.NumeralAnnotatorTestCase" name="testAnnotateDocument001" time="0.243"/>
+  <testcase classname="nlp4j.annotator.NumeralAnnotatorTestCase" name="testAnnotateDocument002" time="0.006"/>
 </testsuite>

@@ -39,7 +39,6 @@ import nlp4j.impl.DefaultKeyword;
  * </pre>
  * 
  * <pre>
- * $ cd /usr/local/stanford-corenlp-full-2018-10-05/ 
  * $ java -mx4g -cp "*" edu.stanford.nlp.pipeline.StanfordCoreNLPServer -port 9000 -timeout 15000
  * </pre>
  * 
@@ -167,7 +166,7 @@ public class StanfordPosDependencyAnnotator extends AbstractDocumentAnnotator
 
 					doc.addKeyword(kwdPOS);
 
-					System.err.println(kwdPOS);
+//					System.err.println(kwdPOS);
 
 				} // for each labels
 			}
@@ -192,7 +191,7 @@ public class StanfordPosDependencyAnnotator extends AbstractDocumentAnnotator
 						StringBuilder sbHtml = new StringBuilder();
 						SemanticGraphUtils.extractKeywords(doc, root, graph, 0, used, null);
 
-						System.err.println(sbHtml);
+//						System.err.println(sbHtml);
 
 					}
 				}
@@ -210,32 +209,16 @@ public class StanfordPosDependencyAnnotator extends AbstractDocumentAnnotator
 
 	}
 
-	/**
-	 * このAnnotatorが付けるAnnotation
-	 * 
-	 * <pre>
-	 * word.[POS]
-	 * word.nsubj
-	 * word.compound
-	 * item.dependencyxml 全文に対するAnnotation mode=all の時にセットする [20191108]
-	 * item.dependency.size 文の数
-	 * item.dependencyN_html
-	 * item.dependencyN_xml Nは数値.各文に対するAnnotation
-	 * </pre>
-	 * 
-	 */
 	@Override
 	public void annotate(Document doc) {
 
 		if (super.targets == null || super.targets.size() == 0) {
-//			logger.warn("target is not set.");
 			throw new RuntimeException("target is not set");
 		}
 
 		if (this.coreNLP == null) {
 			Properties pp = new Properties();
 			pp.setProperty("annotators", CORENLP_ANNOTATORS_PROPERTY);
-//			pp.put("threads", "1");
 
 			if (super.prop.getProperty("type") != null //
 					&& super.prop.getProperty("type").equals("server")) {

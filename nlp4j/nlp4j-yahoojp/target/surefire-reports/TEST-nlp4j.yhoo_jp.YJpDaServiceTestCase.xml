@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="7" failures="0" name="nlp4j.yhoo_jp.YJpDaServiceTestCase" time="0.493" errors="0" skipped="0">
+<testsuite tests="7" failures="0" name="nlp4j.yhoo_jp.YJpDaServiceTestCase" time="0.527" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk1.8.0_211\jre\bin"/>
@@ -66,11 +66,11 @@
     <property name="sun.cpu.isalist" value="amd64"/>
     <property name="performRelease" value="true"/>
   </properties>
-  <testcase classname="nlp4j.yhoo_jp.YJpDaServiceTestCase" name="testDaService" time="0"/>
-  <testcase classname="nlp4j.yhoo_jp.YJpDaServiceTestCase" name="testGetKeywords003" time="0.203"/>
+  <testcase classname="nlp4j.yhoo_jp.YJpDaServiceTestCase" name="testGetKeywords502" time="0"/>
+  <testcase classname="nlp4j.yhoo_jp.YJpDaServiceTestCase" name="testGetKeywords503" time="0"/>
+  <testcase classname="nlp4j.yhoo_jp.YJpDaServiceTestCase" name="testGetKeywords001" time="0.191"/>
+  <testcase classname="nlp4j.yhoo_jp.YJpDaServiceTestCase" name="testGetKeywords002" time="0.168"/>
+  <testcase classname="nlp4j.yhoo_jp.YJpDaServiceTestCase" name="testGetKeywords003" time="0.167"/>
   <testcase classname="nlp4j.yhoo_jp.YJpDaServiceTestCase" name="testGetKeywords501" time="0"/>
-  <testcase classname="nlp4j.yhoo_jp.YJpDaServiceTestCase" name="testGetKeywords001" time="0.137"/>
-  <testcase classname="nlp4j.yhoo_jp.YJpDaServiceTestCase" name="testGetKeywords503" time="0.004"/>
-  <testcase classname="nlp4j.yhoo_jp.YJpDaServiceTestCase" name="testGetKeywords002" time="0.145"/>
-  <testcase classname="nlp4j.yhoo_jp.YJpDaServiceTestCase" name="testGetKeywords502" time="0.004"/>
+  <testcase classname="nlp4j.yhoo_jp.YJpDaServiceTestCase" name="testDaService" time="0.001"/>
 </testsuite>
