@@ -3,7 +3,7 @@ Natural Language Processing Library for Java
 
 ## Maven
 
-'''xml
+```xml
 <!-- https://mvnrepository.com/artifact/org.nlp4j/nlp4j-stanford -->
 <dependency>
     <groupId>org.nlp4j</groupId>
@@ -30,4 +30,41 @@ Natural Language Processing Library for Java
     <classifier>models</classifier>
     <scope>provided</scope>
 </dependency>
-'''
+```
+
+## Code
+
+```java
+import nlp4j.Document;
+import nlp4j.Keyword;
+import nlp4j.impl.DefaultDocument;
+import nlp4j.stanford.StanfordPosAnnotator;
+public class StanfordPosAnnotatorExample0 {
+    public static void main(String[] args) throws Exception {
+        Document doc = new DefaultDocument();
+        {
+            doc.putAttribute("text", "I eat sushi with chopsticks.");
+        }
+        StanfordPosAnnotator ann = new StanfordPosAnnotator();
+        {
+            ann.setProperty("target", "text");
+        }
+        ann.annotate(doc); // do annotation
+        for (Keyword kwd : doc.getKeywords()) {
+            System.err.println(kwd);
+        }
+    }
+}
+```
+
+## Output
+
+```
+I [facet=word.PRP, str=I]
+eat [facet=word.VBP, str=eat]
+sushi [facet=word.NN, str=sushi]
+with [facet=word.IN, str=with]
+chopstick [facet=word.NNS, str=chopsticks]
+. [facet=word.., str=.]
+```
+
