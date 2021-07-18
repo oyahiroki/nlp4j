@@ -20,6 +20,11 @@
 		</dependency>
 		<dependency>
 			<groupId>org.nlp4j</groupId>
+			<artifactId>nlp4j-cabocha</artifactId>
+			<version>[1.0.0.0,)</version>
+		</dependency>
+		<dependency>
+			<groupId>org.nlp4j</groupId>
 			<artifactId>nlp4j-stanford</artifactId>
 			<version>[1.0.0.0,)</version>
 		</dependency>

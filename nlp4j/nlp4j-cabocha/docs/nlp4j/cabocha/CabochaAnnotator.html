@@ -99,7 +99,7 @@ var activeTableTab = "activeTableTab";
 <li><a href="https://docs.oracle.com/javase/jp/8/docs/api/java/lang/Object.html?is-external=true" title="java.lang内のクラスまたはインタフェース">java.lang.Object</a></li>
 <li>
 <ul class="inheritance">
-<li><a href="https://www.nlp4j.org/docs/nlp4j/AbstractDocumentAnnotator.html?is-external=true" title="nlp4j内のクラスまたはインタフェース">nlp4j.AbstractDocumentAnnotator</a></li>
+<li>nlp4j.AbstractDocumentAnnotator</li>
 <li>
 <ul class="inheritance">
 <li>nlp4j.cabocha.CabochaAnnotator</li>
@@ -113,13 +113,13 @@ var activeTableTab = "activeTableTab";
 <li class="blockList">
 <dl>
 <dt>すべての実装されたインタフェース:</dt>
-<dd><a href="https://www.nlp4j.org/docs/nlp4j/annotator/DependencyAnnotator.html?is-external=true" title="nlp4j.annotator内のクラスまたはインタフェース">DependencyAnnotator</a>, <a href="https://www.nlp4j.org/docs/nlp4j/DocumentAnnotator.html?is-external=true" title="nlp4j内のクラスまたはインタフェース">DocumentAnnotator</a></dd>
+<dd>nlp4j.annotator.DependencyAnnotator, nlp4j.DocumentAnnotator</dd>
 </dl>
 <hr>
 <br>
 <pre>public class <span class="typeNameLabel">CabochaAnnotator</span>
-extends <a href="https://www.nlp4j.org/docs/nlp4j/AbstractDocumentAnnotator.html?is-external=true" title="nlp4j内のクラスまたはインタフェース">AbstractDocumentAnnotator</a>
-implements <a href="https://www.nlp4j.org/docs/nlp4j/DocumentAnnotator.html?is-external=true" title="nlp4j内のクラスまたはインタフェース">DocumentAnnotator</a>, <a href="https://www.nlp4j.org/docs/nlp4j/annotator/DependencyAnnotator.html?is-external=true" title="nlp4j.annotator内のクラスまたはインタフェース">DependencyAnnotator</a></pre>
+extends nlp4j.AbstractDocumentAnnotator
+implements nlp4j.DocumentAnnotator, nlp4j.annotator.DependencyAnnotator</pre>
 <dl>
 <dt><span class="simpleTagLabel">導入されたバージョン:</span></dt>
 <dd>1.0.0.0</dd>
@@ -142,8 +142,8 @@ implements <a href="https://www.nlp4j.org/docs/nlp4j/DocumentAnnotator.html?is-e
 <li class="blockList"><a name="fields.inherited.from.class.nlp4j.AbstractDocumentAnnotator">
 <!--   -->
 </a>
-<h3>クラスから継承されたフィールド&nbsp;nlp4j.<a href="https://www.nlp4j.org/docs/nlp4j/AbstractDocumentAnnotator.html?is-external=true" title="nlp4j内のクラスまたはインタフェース">AbstractDocumentAnnotator</a></h3>
-<code><a href="https://www.nlp4j.org/docs/nlp4j/AbstractDocumentAnnotator.html?is-external=true#prop" title="nlp4j内のクラスまたはインタフェース">prop</a>, <a href="https://www.nlp4j.org/docs/nlp4j/AbstractDocumentAnnotator.html?is-external=true#targets" title="nlp4j内のクラスまたはインタフェース">targets</a></code></li>
+<h3>クラスから継承されたフィールド&nbsp;nlp4j.AbstractDocumentAnnotator</h3>
+<code>prop, targets</code></li>
 </ul>
 </li>
 </ul>
@@ -178,7 +178,7 @@ implements <a href="https://www.nlp4j.org/docs/nlp4j/DocumentAnnotator.html?is-e
 </tr>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../nlp4j/cabocha/CabochaAnnotator.html#annotate-nlp4j.Document-">annotate</a></span>(<a href="https://www.nlp4j.org/docs/nlp4j/Document.html?is-external=true" title="nlp4j内のクラスまたはインタフェース">Document</a>&nbsp;doc)</code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../nlp4j/cabocha/CabochaAnnotator.html#annotate-nlp4j.Document-">annotate</a></span>(nlp4j.Document&nbsp;doc)</code>&nbsp;</td>
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>void</code></td>
@@ -190,8 +190,8 @@ implements <a href="https://www.nlp4j.org/docs/nlp4j/DocumentAnnotator.html?is-e
 <li class="blockList"><a name="methods.inherited.from.class.nlp4j.AbstractDocumentAnnotator">
 <!--   -->
 </a>
-<h3>クラスから継承されたメソッド&nbsp;nlp4j.<a href="https://www.nlp4j.org/docs/nlp4j/AbstractDocumentAnnotator.html?is-external=true" title="nlp4j内のクラスまたはインタフェース">AbstractDocumentAnnotator</a></h3>
-<code><a href="https://www.nlp4j.org/docs/nlp4j/AbstractDocumentAnnotator.html?is-external=true#annotate-java.util.List-" title="nlp4j内のクラスまたはインタフェース">annotate</a>, <a href="https://www.nlp4j.org/docs/nlp4j/AbstractDocumentAnnotator.html?is-external=true#setProperties-java.util.Properties-" title="nlp4j内のクラスまたはインタフェース">setProperties</a></code></li>
+<h3>クラスから継承されたメソッド&nbsp;nlp4j.AbstractDocumentAnnotator</h3>
+<code>annotate, setProperties</code></li>
 </ul>
 <ul class="blockList">
 <li class="blockList"><a name="methods.inherited.from.class.java.lang.Object">
@@ -204,8 +204,8 @@ implements <a href="https://www.nlp4j.org/docs/nlp4j/DocumentAnnotator.html?is-e
 <li class="blockList"><a name="methods.inherited.from.class.nlp4j.DocumentAnnotator">
 <!--   -->
 </a>
-<h3>インタフェースから継承されたメソッド&nbsp;nlp4j.<a href="https://www.nlp4j.org/docs/nlp4j/DocumentAnnotator.html?is-external=true" title="nlp4j内のクラスまたはインタフェース">DocumentAnnotator</a></h3>
-<code><a href="https://www.nlp4j.org/docs/nlp4j/DocumentAnnotator.html?is-external=true#annotate-java.util.List-" title="nlp4j内のクラスまたはインタフェース">annotate</a>, <a href="https://www.nlp4j.org/docs/nlp4j/DocumentAnnotator.html?is-external=true#setProperties-java.util.Properties-" title="nlp4j内のクラスまたはインタフェース">setProperties</a></code></li>
+<h3>インタフェースから継承されたメソッド&nbsp;nlp4j.DocumentAnnotator</h3>
+<code>annotate, setProperties</code></li>
 </ul>
 </li>
 </ul>
@@ -244,11 +244,11 @@ implements <a href="https://www.nlp4j.org/docs/nlp4j/DocumentAnnotator.html?is-e
 <ul class="blockList">
 <li class="blockList">
 <h4>annotate</h4>
-<pre>public&nbsp;void&nbsp;annotate(<a href="https://www.nlp4j.org/docs/nlp4j/Document.html?is-external=true" title="nlp4j内のクラスまたはインタフェース">Document</a>&nbsp;doc)
+<pre>public&nbsp;void&nbsp;annotate(nlp4j.Document&nbsp;doc)
               throws <a href="https://docs.oracle.com/javase/jp/8/docs/api/java/lang/Exception.html?is-external=true" title="java.lang内のクラスまたはインタフェース">Exception</a></pre>
 <dl>
 <dt><span class="overrideSpecifyLabel">定義:</span></dt>
-<dd><code><a href="https://www.nlp4j.org/docs/nlp4j/DocumentAnnotator.html?is-external=true#annotate-nlp4j.Document-" title="nlp4j内のクラスまたはインタフェース">annotate</a></code>&nbsp;インタフェース内&nbsp;<code><a href="https://www.nlp4j.org/docs/nlp4j/DocumentAnnotator.html?is-external=true" title="nlp4j内のクラスまたはインタフェース">DocumentAnnotator</a></code></dd>
+<dd><code>annotate</code>&nbsp;インタフェース内&nbsp;<code>nlp4j.DocumentAnnotator</code></dd>
 <dt><span class="throwsLabel">例外:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/jp/8/docs/api/java/lang/Exception.html?is-external=true" title="java.lang内のクラスまたはインタフェース">Exception</a></code></dd>
 </dl>
@@ -264,9 +264,9 @@ implements <a href="https://www.nlp4j.org/docs/nlp4j/DocumentAnnotator.html?is-e
                         <a href="https://docs.oracle.com/javase/jp/8/docs/api/java/lang/String.html?is-external=true" title="java.lang内のクラスまたはインタフェース">String</a>&nbsp;value)</pre>
 <dl>
 <dt><span class="overrideSpecifyLabel">定義:</span></dt>
-<dd><code><a href="https://www.nlp4j.org/docs/nlp4j/DocumentAnnotator.html?is-external=true#setProperty-java.lang.String-java.lang.String-" title="nlp4j内のクラスまたはインタフェース">setProperty</a></code>&nbsp;インタフェース内&nbsp;<code><a href="https://www.nlp4j.org/docs/nlp4j/DocumentAnnotator.html?is-external=true" title="nlp4j内のクラスまたはインタフェース">DocumentAnnotator</a></code></dd>
+<dd><code>setProperty</code>&nbsp;インタフェース内&nbsp;<code>nlp4j.DocumentAnnotator</code></dd>
 <dt><span class="overrideSpecifyLabel">オーバーライド:</span></dt>
-<dd><code><a href="https://www.nlp4j.org/docs/nlp4j/AbstractDocumentAnnotator.html?is-external=true#setProperty-java.lang.String-java.lang.String-" title="nlp4j内のクラスまたはインタフェース">setProperty</a></code>&nbsp;クラス内&nbsp;<code><a href="https://www.nlp4j.org/docs/nlp4j/AbstractDocumentAnnotator.html?is-external=true" title="nlp4j内のクラスまたはインタフェース">AbstractDocumentAnnotator</a></code></dd>
+<dd><code>setProperty</code>&nbsp;クラス内&nbsp;<code>nlp4j.AbstractDocumentAnnotator</code></dd>
 </dl>
 </li>
 </ul>
