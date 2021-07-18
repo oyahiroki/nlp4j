@@ -15,6 +15,11 @@
 		</dependency>
 		<dependency>
 			<groupId>org.nlp4j</groupId>
+			<artifactId>nlp4j-mecab</artifactId>
+			<version>[0.1.0.0,)</version>
+		</dependency>
+		<dependency>
+			<groupId>org.nlp4j</groupId>
 			<artifactId>nlp4j-stanford</artifactId>
 			<version>[1.0.0.0,)</version>
 		</dependency>
