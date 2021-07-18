@@ -1,6 +1,8 @@
 # nlp4j
 Natural Language Processing Library for Java
 
+Following is a simple example for using Stanford NLP via NLP4J
+
 ## Maven
 
 ```xml
