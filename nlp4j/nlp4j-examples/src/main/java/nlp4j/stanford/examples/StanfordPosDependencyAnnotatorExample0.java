@@ -6,8 +6,13 @@ import nlp4j.KeywordWithDependency;
 import nlp4j.impl.DefaultDocument;
 import nlp4j.stanford.StanfordPosDependencyAnnotator;
 
-public class StanfordPosDependencyAnnotatorSample0 {
+/**
+ * @author Hiroki Oya
+ * @created_at 2021-07-18
+ */
+public class StanfordPosDependencyAnnotatorExample0 {
 
+	@SuppressWarnings("javadoc")
 	public static void main(String[] args) throws Exception {
 
 		StanfordPosDependencyAnnotator ann = new StanfordPosDependencyAnnotator();

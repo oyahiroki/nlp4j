@@ -16,6 +16,77 @@ public class DefaultKeywordTestCase extends NLP4JTestCase {
 	}
 
 	/**
+	 * Test Method : clone()
+	 * 
+	 * @throws Exception
+	 */
+	public void testClone001() throws Exception {
+		DefaultKeyword kw = new DefaultKeyword();
+		{
+			kw.setLex("今日");
+			kw.setStr("今日");
+			kw.setFacet("名詞");
+			kw.setBegin(0);
+			kw.setEnd(2);
+			kw.setCorrelation(1.5);
+		}
+		DefaultKeyword c1_cloned = (DefaultKeyword) kw.clone();
+		System.err.println("Original: " + kw);
+		System.err.println("Clone:" + c1_cloned);
+		DefaultKeyword c2_not_cloned = kw;
+		assertTrue((kw == c1_cloned) == false);
+		assertTrue((kw == c2_not_cloned) == true);
+		assertEquals(1.5, kw.getCorrelation());
+		assertEquals(1.5, c1_cloned.getCorrelation());
+	}
+
+	/**
+	 * test:equals:001
+	 */
+	public void testEqualsObject001() {
+		Keyword kwd = new DefaultKeyword();
+		{
+			kwd.setFacet("facet");
+			kwd.setLex("lex");
+		}
+		assertTrue(kwd.equals(kwd));
+	}
+
+	/**
+	 * test:equals:002
+	 */
+	public void testEqualsObject002() {
+		Keyword kwd1 = new DefaultKeyword();
+		{
+			kwd1.setFacet("facet");
+			kwd1.setLex("lex");
+		}
+		Keyword kwd2 = new DefaultKeyword();
+		{
+			kwd2.setFacet("facet");
+			kwd2.setLex("lex");
+		}
+		assertTrue(kwd1.equals(kwd2));
+	}
+
+	/**
+	 * test:equals:003
+	 */
+	public void testEqualsObject003() {
+		Keyword kwd1 = new DefaultKeyword();
+		{
+			kwd1.setFacet("facet");
+			kwd1.setLex("lex");
+		}
+		Keyword kwd2 = new DefaultKeyword();
+		{
+			kwd2.setFacet("facet0");
+			kwd2.setLex("lex");
+		}
+		assertTrue(kwd1.equals(kwd2) == false);
+	}
+
+	/**
 	 * test:get:キーワードの開始位置
 	 */
 	public void testGetBegin001() {
@@ -46,31 +117,6 @@ public class DefaultKeywordTestCase extends NLP4JTestCase {
 		}
 		System.err.println(kw);
 		assertEquals(1.5, kw.getCorrelation());
-	}
-
-	/**
-	 * Test Method : clone()
-	 * 
-	 * @throws Exception
-	 */
-	public void testClone001() throws Exception {
-		DefaultKeyword kw = new DefaultKeyword();
-		{
-			kw.setLex("今日");
-			kw.setStr("今日");
-			kw.setFacet("名詞");
-			kw.setBegin(0);
-			kw.setEnd(2);
-			kw.setCorrelation(1.5);
-		}
-		DefaultKeyword c1_cloned = (DefaultKeyword) kw.clone();
-		System.err.println("Original: " + kw);
-		System.err.println("Clone:" + c1_cloned);
-		DefaultKeyword c2_not_cloned = kw;
-		assertTrue((kw == c1_cloned) == false);
-		assertTrue((kw == c2_not_cloned) == true);
-		assertEquals(1.5, kw.getCorrelation());
-		assertEquals(1.5, c1_cloned.getCorrelation());
 	}
 
 	/**
@@ -185,6 +231,146 @@ public class DefaultKeywordTestCase extends NLP4JTestCase {
 			kw.setEnd(2);
 		}
 		assertEquals("今日", kw.getStr());
+	}
+
+	/**
+	 * @created_at 2021-05-03
+	 */
+	public void testMatch001() {
+		DefaultKeyword kw = new DefaultKeyword();
+		{
+			kw.setLex("今日");
+			kw.setStr("今日");
+			kw.setFacet("名詞");
+			kw.setBegin(0);
+			kw.setEnd(2);
+		}
+		DefaultKeyword rule = new DefaultKeyword();
+		{
+			rule.setLex("今日");
+			rule.setStr("今日");
+			rule.setFacet("名詞");
+			rule.setBegin(0);
+			rule.setEnd(2);
+		}
+		boolean b = kw.match(rule);
+		assertEquals(true, b);
+	}
+
+	/**
+	 * @created_at 2021-05-03
+	 */
+	public void testMatch002() {
+		DefaultKeyword kw = new DefaultKeyword();
+		{
+			kw.setLex("今日");
+			kw.setStr("今日");
+			kw.setFacet("名詞");
+			kw.setBegin(0);
+			kw.setEnd(2);
+		}
+		DefaultKeyword rule = new DefaultKeyword();
+		{
+			rule.setFacet("名詞");
+			rule.setBegin(0);
+			rule.setEnd(2);
+		}
+		boolean b = kw.match(rule);
+		assertEquals(true, b);
+	}
+
+	/**
+	 * @created_at 2021-05-03
+	 */
+	public void testMatch003() {
+		DefaultKeyword kw = new DefaultKeyword();
+		{
+			kw.setLex("今日");
+			kw.setStr("今日");
+			kw.setFacet("名詞");
+			kw.setBegin(0);
+			kw.setEnd(2);
+		}
+		DefaultKeyword rule = new DefaultKeyword();
+		{
+			rule.setFacet("名詞");
+			rule.setBegin(0);
+			rule.setEnd(2);
+		}
+		boolean b = kw.match(rule);
+		assertEquals(true, b);
+	}
+
+	/**
+	 * @created_at 2021-05-03
+	 */
+	public void testMatch004() {
+		DefaultKeyword kw = new DefaultKeyword();
+		{
+			kw.setLex("今日");
+			kw.setStr("今日");
+			kw.setFacet("名詞");
+			kw.setBegin(0);
+			kw.setEnd(2);
+		}
+		DefaultKeyword rule = new DefaultKeyword();
+		{
+			rule.setLex("明日");
+			rule.setStr("明日");
+			rule.setFacet("名詞");
+			rule.setBegin(0);
+			rule.setEnd(2);
+		}
+		boolean b = kw.match(rule);
+		assertEquals(false, b);
+	}
+
+	/**
+	 * @created_at 2021-05-03
+	 */
+	public void testMatch005() {
+		DefaultKeyword kw = new DefaultKeyword();
+		{
+			kw.setLex("今日");
+			kw.setStr("今日");
+			kw.setFacet("名詞");
+			kw.setBegin(0);
+			kw.setEnd(2);
+		}
+		DefaultKeyword rule = new DefaultKeyword();
+		{
+			rule.setLex("明日");
+			rule.setStr("明日");
+			rule.setFacet("固有名詞");
+			rule.setBegin(0);
+			rule.setEnd(2);
+		}
+		boolean b = kw.match(rule);
+		assertEquals(false, b);
+	}
+
+	/**
+	 * @created_at 2021-05-04
+	 */
+	public void testMatch006() {
+		DefaultKeyword kw = new DefaultKeyword();
+		{
+			kw.setLex("今日");
+			kw.setStr("今日XX");
+			kw.setFacet("名詞");
+			kw.setBegin(0);
+			kw.setEnd(2);
+		}
+		DefaultKeyword rule = new DefaultKeyword();
+		{
+			rule.setLex("今日");
+			rule.setStr("今日YY");
+			rule.setFacet("名詞");
+			rule.setBegin(0);
+			rule.setEnd(2);
+		}
+		boolean b = kw.match(rule);
+		assertEquals(true, b);
 	}
 
 	/**
@@ -329,192 +515,6 @@ public class DefaultKeywordTestCase extends NLP4JTestCase {
 			kw.setEnd(2);
 		}
 		assertEquals("今日", kw.getStr());
-	}
-
-	/**
-	 * test:equals:001
-	 */
-	public void testEqualsObject001() {
-		Keyword kwd = new DefaultKeyword();
-		{
-			kwd.setFacet("facet");
-			kwd.setLex("lex");
-		}
-		assertTrue(kwd.equals(kwd));
-	}
-
-	/**
-	 * test:equals:002
-	 */
-	public void testEqualsObject002() {
-		Keyword kwd1 = new DefaultKeyword();
-		{
-			kwd1.setFacet("facet");
-			kwd1.setLex("lex");
-		}
-		Keyword kwd2 = new DefaultKeyword();
-		{
-			kwd2.setFacet("facet");
-			kwd2.setLex("lex");
-		}
-		assertTrue(kwd1.equals(kwd2));
-	}
-
-	/**
-	 * test:equals:003
-	 */
-	public void testEqualsObject003() {
-		Keyword kwd1 = new DefaultKeyword();
-		{
-			kwd1.setFacet("facet");
-			kwd1.setLex("lex");
-		}
-		Keyword kwd2 = new DefaultKeyword();
-		{
-			kwd2.setFacet("facet0");
-			kwd2.setLex("lex");
-		}
-		assertTrue(kwd1.equals(kwd2) == false);
-	}
-
-	/**
-	 * @created_at 2021-05-03
-	 */
-	public void testMatch001() {
-		DefaultKeyword kw = new DefaultKeyword();
-		{
-			kw.setLex("今日");
-			kw.setStr("今日");
-			kw.setFacet("名詞");
-			kw.setBegin(0);
-			kw.setEnd(2);
-		}
-		DefaultKeyword rule = new DefaultKeyword();
-		{
-			rule.setLex("今日");
-			rule.setStr("今日");
-			rule.setFacet("名詞");
-			rule.setBegin(0);
-			rule.setEnd(2);
-		}
-		boolean b = kw.match(rule);
-		assertEquals(true, b);
-	}
-
-	/**
-	 * @created_at 2021-05-03
-	 */
-	public void testMatch002() {
-		DefaultKeyword kw = new DefaultKeyword();
-		{
-			kw.setLex("今日");
-			kw.setStr("今日");
-			kw.setFacet("名詞");
-			kw.setBegin(0);
-			kw.setEnd(2);
-		}
-		DefaultKeyword rule = new DefaultKeyword();
-		{
-			rule.setFacet("名詞");
-			rule.setBegin(0);
-			rule.setEnd(2);
-		}
-		boolean b = kw.match(rule);
-		assertEquals(true, b);
-	}
-
-	/**
-	 * @created_at 2021-05-03
-	 */
-	public void testMatch003() {
-		DefaultKeyword kw = new DefaultKeyword();
-		{
-			kw.setLex("今日");
-			kw.setStr("今日");
-			kw.setFacet("名詞");
-			kw.setBegin(0);
-			kw.setEnd(2);
-		}
-		DefaultKeyword rule = new DefaultKeyword();
-		{
-			rule.setFacet("名詞");
-			rule.setBegin(0);
-			rule.setEnd(2);
-		}
-		boolean b = kw.match(rule);
-		assertEquals(true, b);
-	}
-
-	/**
-	 * @created_at 2021-05-03
-	 */
-	public void testMatch004() {
-		DefaultKeyword kw = new DefaultKeyword();
-		{
-			kw.setLex("今日");
-			kw.setStr("今日");
-			kw.setFacet("名詞");
-			kw.setBegin(0);
-			kw.setEnd(2);
-		}
-		DefaultKeyword rule = new DefaultKeyword();
-		{
-			rule.setLex("明日");
-			rule.setStr("明日");
-			rule.setFacet("名詞");
-			rule.setBegin(0);
-			rule.setEnd(2);
-		}
-		boolean b = kw.match(rule);
-		assertEquals(false, b);
-	}
-
-	/**
-	 * @created_at 2021-05-03
-	 */
-	public void testMatch005() {
-		DefaultKeyword kw = new DefaultKeyword();
-		{
-			kw.setLex("今日");
-			kw.setStr("今日");
-			kw.setFacet("名詞");
-			kw.setBegin(0);
-			kw.setEnd(2);
-		}
-		DefaultKeyword rule = new DefaultKeyword();
-		{
-			rule.setLex("明日");
-			rule.setStr("明日");
-			rule.setFacet("固有名詞");
-			rule.setBegin(0);
-			rule.setEnd(2);
-		}
-		boolean b = kw.match(rule);
-		assertEquals(false, b);
-	}
-
-	/**
-	 * @created_at 2021-05-04
-	 */
-	public void testMatch006() {
-		DefaultKeyword kw = new DefaultKeyword();
-		{
-			kw.setLex("今日");
-			kw.setStr("今日XX");
-			kw.setFacet("名詞");
-			kw.setBegin(0);
-			kw.setEnd(2);
-		}
-		DefaultKeyword rule = new DefaultKeyword();
-		{
-			rule.setLex("今日");
-			rule.setStr("今日YY");
-			rule.setFacet("名詞");
-			rule.setBegin(0);
-			rule.setEnd(2);
-		}
-		boolean b = kw.match(rule);
-		assertEquals(true, b);
 	}
 
 	/**

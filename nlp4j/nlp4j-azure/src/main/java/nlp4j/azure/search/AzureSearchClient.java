@@ -1,7 +1,11 @@
 package nlp4j.azure.search;
 
 import java.io.IOException;
+import java.lang.invoke.MethodHandles;
 import java.util.Properties;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -19,6 +23,8 @@ import okhttp3.Response;
  * @since 1.3
  */
 public class AzureSearchClient {
+
+	static private Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
 //	private String endPoint;
 	private String service_name;
@@ -79,13 +85,13 @@ public class AzureSearchClient {
 
 		Response response = client.newCall(request).execute();
 
-		System.err.println("Response");
-		System.err.println(response.code());
-		System.err.println(response.message());
+		logger.info("Response");
+		logger.info(response.code());
+		logger.debug(response.message());
 
 		String responsebody = response.body().string();
 
-		System.err.println(JsonUtils.prettyPrint(responsebody));
+		logger.debug(JsonUtils.prettyPrint(responsebody));
 
 		Gson gson = new Gson();
 

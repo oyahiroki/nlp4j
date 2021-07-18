@@ -15,6 +15,7 @@ import nlp4j.DocumentAnnotator;
  * </pre>
  * 
  * @author Hiroki Oya
+ * @created_at 2021-02-12
  *
  */
 public class StanfordPosAnnotator extends AbstractStanfordAnnotator implements DocumentAnnotator {
@@ -31,10 +32,6 @@ public class StanfordPosAnnotator extends AbstractStanfordAnnotator implements D
 	 * </pre>
 	 */
 	static public final String CORENLP_ANNOTATORS_PROPERTY = "tokenize,ssplit,pos,lemma";
-
-//	static final String wordConnector = "-";
-
-//	private String mode;
 
 	/**
 	 * 
@@ -59,26 +56,12 @@ public class StanfordPosAnnotator extends AbstractStanfordAnnotator implements D
 			return;
 		}
 
-		int sentenceCount = processAnnotation(doc, text);
+		int sentenceCount = super.processAnnotation(doc, text);
 
 		doc.putAttribute("item.dependency.size", "" + sentenceCount);
 
 	}
 
-	/**
-	 * このAnnotatorが付けるAnnotation
-	 * 
-	 * <pre>
-	 * word.[POS]
-	 * word.nsubj
-	 * word.compound
-	 * item.dependencyxml 全文に対するAnnotation mode=all の時にセットする [20191108]
-	 * item.dependency.size 文の数
-	 * item.dependencyN_html
-	 * item.dependencyN_xml Nは数値.各文に対するAnnotation
-	 * </pre>
-	 * 
-	 */
 	@Override
 	public void annotate(Document doc) {
 
@@ -95,23 +78,5 @@ public class StanfordPosAnnotator extends AbstractStanfordAnnotator implements D
 		}
 
 	}
-
-//	@Override
-//	public void setProperty(String key, String value) {
-//
-//		super.setProperty(key, value);
-//
-//		if ("annotators".equals(key)) {
-//			Properties properties = new Properties();
-//			properties.setProperty(key, value);
-//			this.coreNLP = new StanfordCoreNLP(properties);
-//		} //
-//			// 20200110 else if ("target".equals(key)) {
-//			// 20200110 this.target = value;
-//			// 20200110 } //
-//		else if ("mode".equals(key)) {
-//			this.mode = value;
-//		}
-//	}
 
 }

@@ -1,6 +1,7 @@
 package nlp4j.impl;
 
 import java.lang.ref.WeakReference;
+import java.util.Objects;
 
 import nlp4j.Keyword;
 import nlp4j.UPOS20;
@@ -67,6 +68,18 @@ public class DefaultKeyword implements Keyword, Cloneable {
 		this.facet = facet;
 		this.lex = lex;
 		this.str = str;
+	}
+
+	/**
+	 * @param facet ファセット
+	 * @param lex   正規形
+	 * @since 1.3.2
+	 */
+	public DefaultKeyword(String facet, String lex) {
+		super();
+		this.facet = facet;
+		this.lex = lex;
+		this.str = lex;
 	}
 
 	/**
@@ -290,7 +303,8 @@ public class DefaultKeyword implements Keyword, Cloneable {
 		if (this.lex == null || lex == null || this.facet == null || facet == null) {
 			return super.hashCode();
 		} else {
-			return (facet + lex).hashCode();
+//			return (facet + lex).hashCode();
+			return Objects.hash(facet, lex); // since 1.3.1
 		}
 	}
 

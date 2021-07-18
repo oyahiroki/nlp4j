@@ -30,6 +30,10 @@ import nlp4j.Document;
 import nlp4j.Keyword;
 import nlp4j.impl.DefaultKeyword;
 
+/**
+ * @author Hiroki Oya
+ * @created_at 2021-02-12
+ */
 public abstract class AbstractStanfordAnnotator extends AbstractDocumentAnnotator {
 
 	static private Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
@@ -39,6 +43,9 @@ public abstract class AbstractStanfordAnnotator extends AbstractDocumentAnnotato
 
 	boolean runDepParse = false;
 
+	/**
+	 * @param annotators to initialize Stranford NLP
+	 */
 	public void init(String annotators) {
 
 		if (annotators.contains("depparse")) {
@@ -118,10 +125,10 @@ public abstract class AbstractStanfordAnnotator extends AbstractDocumentAnnotato
 						{
 							Set<IndexedWord> used = new HashSet<IndexedWord>();
 
-							StringBuilder sbHtml = new StringBuilder();
+//							StringBuilder sbHtml = new StringBuilder();
 							SemanticGraphUtils.extractKeywords(doc, root, graph, 0, used, null);
 
-							System.err.println(sbHtml);
+//							System.err.println(sbHtml);
 
 						}
 					}
@@ -142,25 +149,26 @@ public abstract class AbstractStanfordAnnotator extends AbstractDocumentAnnotato
 
 		if (relationName != null) {
 
-			String posChild = word.getString(PartOfSpeechAnnotation.class);
-			IndexedWord wordParent = graph.getParent(word);
+//			String posChild = word.getString(PartOfSpeechAnnotation.class);
+//			IndexedWord wordParent = graph.getParent(word);
 
-			String lemmaChild = word.getString(LemmaAnnotation.class);
-			String lemmaParent = null;
-			if (wordParent != null) {
-				lemmaParent = wordParent.getString(LemmaAnnotation.class);
-			}
+//			String lemmaChild = word.getString(LemmaAnnotation.class);
+//			String lemmaParent = null;
+//			
+//			if (wordParent != null) {
+//				lemmaParent = wordParent.getString(LemmaAnnotation.class);
+//			}
 
-			if (wordParent != null) {
+//			if (wordParent != null) {
 
-				String posParent = wordParent.getString(PartOfSpeechAnnotation.class);
-				String valueParent = wordParent.getString(ValueAnnotation.class);
-				String valueChild = word.get(ValueAnnotation.class);
+//				String posParent = wordParent.getString(PartOfSpeechAnnotation.class);
+//				String valueParent = wordParent.getString(ValueAnnotation.class);
+//				String valueChild = word.get(ValueAnnotation.class);
 
 //				logger.debug("posParent=" + posParent + ",posChild=" + posChild);
 //				logger.debug("valueParent=" + valueParent + ",valueChild=" + valueChild);
 
-			}
+//			}
 
 		}
 
