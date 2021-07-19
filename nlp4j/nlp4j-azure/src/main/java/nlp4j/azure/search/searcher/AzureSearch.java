@@ -65,47 +65,94 @@ public class AzureSearch extends AbstractDocumentSearcher implements DocumentSea
 		}
 	}
 
+	/**
+	 * @param json1date '@@view':'deviations'
+	 * @return deviations view
+	 * @throws IOException on Error
+	 */
+	public JsonObject searchDeviation(String json1date) throws IOException {
+		Gson gson = new Gson();
+		try {
+			JsonObject json1 = gson.fromJson(json1date, JsonObject.class);
+
+			if (json1.get("@@view") == null || json1.get("@@view").getAsString().equals("deviations") == false) {
+				throw new IOException("invalid parameters");
+			}
+
+			JsonObject json2 = gson.fromJson(json1date, JsonObject.class);
+
+			json1.remove("@@view");
+			json2.remove("@@view");
+
+			return searchDeviation(json1, json2);
+		} catch (JsonSyntaxException e) {
+			throw new IOException(e);
+		}
+	}
+
 	public JsonObject searchDeviation(JsonObject jsonObj1, JsonObject jsonObj2) throws IOException {
 
 		JsonObject res = new JsonObject();
 
 		System.err.println(JsonUtils.prettyPrint(jsonObj1));
+
 		{
 			String facet1 = jsonObj1.get("facets").getAsJsonArray().get(0).getAsString();
+
 			if (facet1.contains(",")) {
 				facet1 = facet1.substring(0, facet1.indexOf(","));
 			}
 			System.err.println(facet1);
 
-			logger.info("search");
-			logger.debug(JsonUtils.prettyPrint(jsonObj1));
+//			logger.info("search");
+//			logger.debug(JsonUtils.prettyPrint(jsonObj1));
 
 			AzureSearchClient az = new AzureSearchClient(super.props);
 			JsonObject res1 = az.post("search", jsonObj1);
 
-			System.err.println(JsonUtils.prettyPrint(res1));
+//			System.err.println(JsonUtils.prettyPrint(res1));
+
+			res = res1;
+
+			JsonArray resDeviaions = new JsonArray();
+			JsonArray resDeviaionsValues = new JsonArray();
 
 			JsonArray facetValues = res1.get("@search.facets").getAsJsonObject().get(facet1).getAsJsonArray();
 
 			for (int n = 0; n < facetValues.size(); n++) {
 				String v1 = facetValues.get(n).getAsJsonObject().get("value").getAsString();
 
-				if (n < (facetValues.size() - 1)) {
-					String v2 = facetValues.get(n + 1).getAsJsonObject().get("value").getAsString();
-					System.err.println(v1 + " - " + v2);
-				} else {
-					System.err.println(v1);
+				String filterDate;
+				{
+					if (n < (facetValues.size() - 1)) {
+						String v2 = facetValues.get(n + 1).getAsJsonObject().get("value").getAsString();
+						filterDate = "(" + facet1 + " ge " + v1 + ") and (" + facet1 + " lt " + v2 + ")";
+					} else {
+						filterDate = "(" + facet1 + " ge " + v1 + ")";
+					}
+				}
+
+				jsonObj2.addProperty("filter", filterDate);
+
+				{
+					logger.info("search");
+					logger.debug(JsonUtils.prettyPrint(jsonObj2));
+//					AzureSearchClient az = new AzureSearchClient(super.props);
+					JsonObject res2 = az.post("search", jsonObj2);
+//					System.err.println("@search.facets---");
+//					System.err.println(JsonUtils.prettyPrint(res2.get("@search.facets").getAsJsonObject()));
+					JsonObject deviation = res2.get("@search.facets").getAsJsonObject();
+					deviation.addProperty("filter", filterDate);
+					resDeviaions.add(deviation);
+
+					resDeviaionsValues.add(res2.get("@search.facets").getAsJsonObject().get(facet1).getAsJsonArray()
+							.get(0).getAsJsonObject().get("value"));
 				}
 			}
 
-		}
+			res.add("@@deviations", resDeviaions);
+			res.add("@@deviations.values", resDeviaionsValues);
 
-		{
-			logger.info("search");
-			logger.debug(JsonUtils.prettyPrint(jsonObj2));
-			AzureSearchClient az = new AzureSearchClient(super.props);
-			JsonObject res2 = az.post("search", jsonObj2);
-			System.err.println(JsonUtils.prettyPrint(res2));
 		}
 
 		return res;

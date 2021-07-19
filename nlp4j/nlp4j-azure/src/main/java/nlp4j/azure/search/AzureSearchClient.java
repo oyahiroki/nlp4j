@@ -70,6 +70,14 @@ public class AzureSearchClient {
 	 * @throws IOException 例外発生時
 	 */
 	public JsonObject post(String action, JsonObject requestObj) throws IOException {
+
+//		System.err.println("request");
+//		System.err.println(JsonUtils.prettyPrint(requestObj));
+		logger.info("query: " + requestObj.get("search"));
+		logger.info("filter: " + requestObj.get("filter"));
+//		System.err.println("query: " + requestObj.get("search"));
+//		System.err.println("filter: " + requestObj.get("filter"));
+
 		OkHttpClient client = new OkHttpClient();
 		String url = String.format(baseURL, this.service_name, this.index_name, action);
 
