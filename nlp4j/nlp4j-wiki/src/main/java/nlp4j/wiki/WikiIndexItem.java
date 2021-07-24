@@ -4,20 +4,28 @@ public class WikiIndexItem {
 
 	private long blockNum;
 	private long itemID;
-	private String item;
+	private String title;
+
+	private String namespace;
 
 	private long nextBlock = -1;
 
 	/**
 	 * @param blockNum
 	 * @param itemID
-	 * @param item
+	 * @param title
 	 */
-	public WikiIndexItem(long blockNum, long itemID, String item) {
+	public WikiIndexItem(long blockNum, long itemID, String title) {
 		super();
 		this.blockNum = blockNum;
 		this.itemID = itemID;
-		this.item = item;
+		this.title = title;
+
+		int idxOfNamespace = title.indexOf(":");
+
+		if (idxOfNamespace != -1) {
+			this.namespace = title.substring(0, idxOfNamespace);
+		}
 	}
 
 	public long getBlockNum() {
@@ -28,8 +36,8 @@ public class WikiIndexItem {
 		return itemID;
 	}
 
-	public String getItem() {
-		return item;
+	public String getTitle() {
+		return title;
 	}
 
 	public void setNextBlock(long nextBlock) {
@@ -51,8 +59,12 @@ public class WikiIndexItem {
 
 	@Override
 	public String toString() {
-		return "WikiIndexItem [blockNum=" + blockNum + ", itemID=" + itemID + ", item=" + item + ", nextBlock="
-				+ nextBlock + "]";
+		return "WikiIndexItem [blockNum=" + blockNum + ", itemID=" + itemID + ", title=" + title + ", namespace="
+				+ namespace + ", nextBlock=" + nextBlock + "]";
+	}
+
+	public String getNamespace() {
+		return namespace;
 	}
 
 }

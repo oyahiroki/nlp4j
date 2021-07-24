@@ -3,6 +3,7 @@
 2. Annotator として
 
 Maven
+mvn test
 mvn javadoc:javadoc
 mvn -DperformRelease=true clean deploy
 

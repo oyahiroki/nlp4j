@@ -2,6 +2,9 @@ package nlp4j.azure.search.searcher;
 
 import java.io.IOException;
 import java.lang.invoke.MethodHandles;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -90,45 +93,98 @@ public class AzureSearch extends AbstractDocumentSearcher implements DocumentSea
 		}
 	}
 
+	DecimalFormat df = new DecimalFormat("#.####");
+
 	public JsonObject searchDeviation(JsonObject jsonObj1, JsonObject jsonObj2) throws IOException {
 
 		JsonObject res = new JsonObject();
 
 		System.err.println(JsonUtils.prettyPrint(jsonObj1));
 
-		{
-			String facet1 = jsonObj1.get("facets").getAsJsonArray().get(0).getAsString();
+		if (jsonObj1.get("facets").getAsJsonArray().size() < 2) {
+			throw new IOException("at least 2 facets need to be set for deviation view");
+		}
 
-			if (facet1.contains(",")) {
-				facet1 = facet1.substring(0, facet1.indexOf(","));
+		{
+			// date facet
+			String facet1Date = jsonObj1.get("facets").getAsJsonArray().get(0).getAsString();
+			String facet2 = jsonObj1.get("facets").getAsJsonArray().get(1).getAsString();
+			HashMap<String, ArrayList<Integer>> facet2CountMap = new HashMap<>();
+
+			ArrayList<String> facet2Values = new ArrayList<>();
+
+			if (facet1Date.contains(",")) {
+				facet1Date = facet1Date.substring(0, facet1Date.indexOf(","));
 			}
-			System.err.println(facet1);
+			if (facet2.contains(",")) {
+				facet2 = facet2.substring(0, facet2.indexOf(","));
+			}
+
+			System.err.println("facet1: " + facet1Date);
+			System.err.println("facet2: " + facet2);
 
 //			logger.info("search");
 //			logger.debug(JsonUtils.prettyPrint(jsonObj1));
 
 			AzureSearchClient az = new AzureSearchClient(super.props);
+
 			JsonObject res1 = az.post("search", jsonObj1);
 
-//			System.err.println(JsonUtils.prettyPrint(res1));
+			System.err.println(JsonUtils.prettyPrint(res1));
 
-			res = res1;
+			res = res1.deepCopy();
+
+			{ // get countTotal and calculate ratio
+				long countTotal = res.get("@odata.count").getAsLong();
+
+				JsonObject search_facets = res.get("@search.facets").getAsJsonObject();
+
+				// facet1Date
+				if (search_facets.get(facet1Date) != null) {
+					JsonArray arr1 = search_facets.get(facet1Date).getAsJsonArray();
+					for (int n = 0; n < arr1.size(); n++) {
+						JsonObject o = arr1.get(n).getAsJsonObject();
+						long c = o.get("count").getAsLong();
+						double r = Math.round(((double) c / (double) countTotal) * 1000000) / 1000000.0;
+						if (r < 0.001) {
+							r = 0.001;
+						}
+						o.addProperty("ratio", r);
+					}
+				}
+
+				// facet2
+				if (search_facets.get(facet2) != null) {
+					JsonArray arr1 = search_facets.get(facet2).getAsJsonArray();
+					for (int n = 0; n < arr1.size(); n++) {
+						JsonObject o = arr1.get(n).getAsJsonObject();
+						String v = o.get("value").getAsString();
+						facet2Values.add(v);
+						facet2CountMap.put(v, new ArrayList<Integer>());
+					}
+				}
+
+			}
 
 			JsonArray resDeviaions = new JsonArray();
 			JsonArray resDeviaionsValues = new JsonArray();
 
-			JsonArray facetValues = res1.get("@search.facets").getAsJsonObject().get(facet1).getAsJsonArray();
+			JsonArray facetValues = res1.get("@search.facets").getAsJsonObject().get(facet1Date).getAsJsonArray();
 
+			// for each date value
 			for (int n = 0; n < facetValues.size(); n++) {
-				String v1 = facetValues.get(n).getAsJsonObject().get("value").getAsString();
 
+				String v1 = facetValues.get(n).getAsJsonObject().get("value").getAsString();
+				long count = facetValues.get(n).getAsJsonObject().get("count").getAsLong();
+
+				// date filter should be set as filter, not in search parameter
 				String filterDate;
 				{
 					if (n < (facetValues.size() - 1)) {
 						String v2 = facetValues.get(n + 1).getAsJsonObject().get("value").getAsString();
-						filterDate = "(" + facet1 + " ge " + v1 + ") and (" + facet1 + " lt " + v2 + ")";
+						filterDate = "(" + facet1Date + " ge " + v1 + ") and (" + facet1Date + " lt " + v2 + ")";
 					} else {
-						filterDate = "(" + facet1 + " ge " + v1 + ")";
+						filterDate = "(" + facet1Date + " ge " + v1 + ")";
 					}
 				}
 
@@ -137,21 +193,68 @@ public class AzureSearch extends AbstractDocumentSearcher implements DocumentSea
 				{
 					logger.info("search");
 					logger.debug(JsonUtils.prettyPrint(jsonObj2));
-//					AzureSearchClient az = new AzureSearchClient(super.props);
+
+					// search
 					JsonObject res2 = az.post("search", jsonObj2);
+
 //					System.err.println("@search.facets---");
 //					System.err.println(JsonUtils.prettyPrint(res2.get("@search.facets").getAsJsonObject()));
 					JsonObject deviation = res2.get("@search.facets").getAsJsonObject();
 					deviation.addProperty("filter", filterDate);
 					resDeviaions.add(deviation);
 
-					resDeviaionsValues.add(res2.get("@search.facets").getAsJsonObject().get(facet1).getAsJsonArray()
+					resDeviaionsValues.add(res2.get("@search.facets").getAsJsonObject().get(facet1Date).getAsJsonArray()
 							.get(0).getAsJsonObject().get("value"));
+
+					HashMap<String, Integer> facet2Map = new HashMap<String, Integer>();
+
+					JsonArray facet2Counts = res2.get("@search.facets").getAsJsonObject().get(facet2).getAsJsonArray();
+					for (int x = 0; x < facet2Counts.size(); x++) {
+						JsonObject o = facet2Counts.get(x).getAsJsonObject();
+						facet2Map.put(o.get("value").getAsString(), o.get("count").getAsInt());
+					}
+
+					for (String facet2Value : facet2Values) {
+						if (facet2Map.containsKey(facet2Value)) {
+							facet2CountMap.get(facet2Value).add(facet2Map.get(facet2Value));
+						} else {
+							facet2CountMap.get(facet2Value).add(0);
+						}
+					}
+
 				}
 			}
 
 			res.add("@@deviations", resDeviaions);
 			res.add("@@deviations.values", resDeviaionsValues);
+
+			JsonObject data = new JsonObject();
+			{
+				data.add("labels", resDeviaionsValues);
+
+				JsonArray datasets = new JsonArray();
+
+				for (String key : facet2CountMap.keySet()) {
+					JsonObject dataset = new JsonObject();
+
+					{ // label
+						dataset.addProperty("label", key);
+					}
+
+					{ // data
+						ArrayList<Integer> ii = facet2CountMap.get(key);
+						JsonArray arr = new JsonArray();
+						for (int i : ii) {
+							arr.add(i);
+						}
+						dataset.add("data", arr);
+					}
+
+					datasets.add(dataset);
+				}
+				data.add("datasets", datasets);
+			}
+			res.add("@@deviations.data", data);
 
 		}
 

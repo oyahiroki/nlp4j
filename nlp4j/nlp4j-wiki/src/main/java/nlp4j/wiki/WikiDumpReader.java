@@ -20,7 +20,7 @@ import org.apache.logging.log4j.Logger;
  * @author Hiroki Oya
  * @created_at 2021-06-25
  */
-public class WikiDumpReader {
+public class WikiDumpReader implements AutoCloseable {
 
 	private static final String ENCODING = "utf-8";
 
@@ -43,6 +43,18 @@ public class WikiDumpReader {
 		}
 		this.wikiIndex = WikiIndexReader.readIndexFile(indexFile); // throws IOException
 		randomfile1 = new RandomAccessFile(dumpFile, "r");
+	}
+
+	/**
+	 * Close Wiki Dump file
+	 */
+	public void close() {
+		if (this.randomfile1 != null) {
+			try {
+				this.randomfile1.close();
+			} catch (IOException e) {
+			}
+		}
 	}
 
 	/**
@@ -89,7 +101,7 @@ public class WikiDumpReader {
 				+ org.apache.commons.io.IOUtils.toString(bz2cis, ENCODING) //
 				+ "</mediawiki>";
 
-		logger.debug(xml);
+//		logger.debug(xml);
 
 		try {
 			SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
@@ -116,16 +128,8 @@ public class WikiDumpReader {
 
 	}
 
-	/**
-	 * Close Wiki Dump file
-	 */
-	public void close() {
-		if (this.randomfile1 != null) {
-			try {
-				this.randomfile1.close();
-			} catch (IOException e) {
-			}
-		}
+	public WikiIndex getWikiIndex() {
+		return wikiIndex;
 	}
 
 }

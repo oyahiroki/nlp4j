@@ -102,7 +102,10 @@ public class AzureSearchTestCase extends TestCase {
 		// '@@view':'deviations'
 		// facets[0] -> 'date,interval:month'
 		// facets[1] -> 'field1,count:100,sort:count'
-		String json1 = "{'@@view':'deviations','count':true,'search':'*','top':0,'facets':['date,interval:month','field1,count:100,sort:count'],'queryType':'full','searchMode':'all'}";
+		String json1 = "{" //
+				+ "'@@view':'deviations',"//
+				+ "'count':true,'search':'*','top':0,"//
+				+ "'facets':['date,interval:month','field1,count:100,sort:value'],'queryType':'full','searchMode':'all'}";
 
 		AzureSearch searcher = new AzureSearch();
 		searcher.setProperty("service_name", TestEnv.SERVICE_NAME);

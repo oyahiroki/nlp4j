@@ -11,6 +11,7 @@ import java.lang.invoke.MethodHandles;
 import org.apache.commons.compress.compressors.CompressorException;
 import org.apache.commons.compress.compressors.CompressorInputStream;
 import org.apache.commons.compress.compressors.CompressorStreamFactory;
+import org.apache.commons.text.StringEscapeUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -31,6 +32,22 @@ public class WikiIndexReader {
 	}
 
 	/**
+	 * Read index file of wiki
+	 * 
+	 * <pre>
+	 * Example of line
+	 * 382308:2239:水素
+	 * ^ blockNum
+	 * 382308:2239:水素
+	 * &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;^ idx1
+	 * 382308:2239:水素
+	 * &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;^ itemID
+	 * 382308:2239:水素
+	 * &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;^ idx2
+	 * 382308:2239:水素
+	 * &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;^ title
+	 * </pre>
+	 * 
 	 * @param indexFile wiki index file
 	 * @return wiki index
 	 * @throws IOException on error
@@ -49,19 +66,29 @@ public class WikiIndexReader {
 		try (FileInputStream fis = new FileInputStream(indexFile)) {
 
 			BufferedInputStream bis = new BufferedInputStream(fis);
-			CompressorInputStream input = new CompressorStreamFactory().createCompressorInputStream(bis);
-			BufferedReader br = new BufferedReader(new InputStreamReader(input, encoding));
+			CompressorInputStream cis = new CompressorStreamFactory() //
+					.createCompressorInputStream(bis);
+			BufferedReader br = new BufferedReader(new InputStreamReader(cis, encoding));
 
 			String line;
 
+			// Example of line
+			// 382308:2239:水素
 			while ((line = br.readLine()) != null) {
-				int n1 = line.indexOf(':');
-				int n2 = line.indexOf(':', n1 + 1);
-				long blockNum = Long.parseLong(line.substring(0, n1));
-				long itemID = Long.parseLong(line.substring(n1 + 1, n2));
-				String item = line.substring(n2 + 1);
-				WikiIndexItem wikiIndexItem = new WikiIndexItem(blockNum, itemID, item);
+
+				int idx1block = line.indexOf(':');
+				int idx2id = line.indexOf(':', idx1block + 1);
+
+				long blockNum = Long.parseLong(line.substring(0, idx1block));
+				long itemID = Long.parseLong(line.substring(idx1block + 1, idx2id));
+
+				String title = line.substring(idx2id + 1).trim();
+
+				title = StringEscapeUtils.unescapeHtml4(title);
+
+				WikiIndexItem wikiIndexItem = new WikiIndexItem(blockNum, itemID, title);
 				wikiIndex.add(wikiIndexItem);
+
 			}
 
 		} catch (CompressorException e) {
