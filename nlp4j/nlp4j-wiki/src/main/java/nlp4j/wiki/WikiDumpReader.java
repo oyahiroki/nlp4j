@@ -97,6 +97,7 @@ public class WikiDumpReader implements AutoCloseable {
 
 		ByteArrayInputStream bis = new ByteArrayInputStream(b);
 		BZip2CompressorInputStream bz2cis = new BZip2CompressorInputStream(bis);
+
 		String xml = "<mediawiki>" //
 				+ org.apache.commons.io.IOUtils.toString(bz2cis, ENCODING) //
 				+ "</mediawiki>";
@@ -104,8 +105,10 @@ public class WikiDumpReader implements AutoCloseable {
 //		logger.debug(xml);
 
 		try {
+
 			SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
 			SAXParser saxParser = saxParserFactory.newSAXParser();
+
 			// XML Handler
 			MediawikiXmlHandler handler = new MediawikiXmlHandler();
 
@@ -119,6 +122,11 @@ public class WikiDumpReader implements AutoCloseable {
 //			System.err.println(pages.get(itemString).getText());
 
 			WikiPage page = pages.get("" + item.getItemID());
+			page.setXml(xml);
+
+			System.err.println("<xml>");
+			System.err.println(xml);
+			System.err.println("</xml>");
 
 			return page;
 

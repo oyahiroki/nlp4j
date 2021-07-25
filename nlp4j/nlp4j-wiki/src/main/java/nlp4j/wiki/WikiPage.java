@@ -115,4 +115,9 @@ public class WikiPage {
 		return title;
 	}
 
+	public void setXml(String xml) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

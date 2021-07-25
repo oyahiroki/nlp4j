@@ -19,3 +19,31 @@ mvn test
 mvn javadoc:javadoc
 mvn -DperformRelease=true clean deploy
 
+=={{ja}}==
+日本語
+==={{noun}}===
+名詞
+==={{adj}}===
+形容詞
+===={{pron|jpn}}====
+活用
+===={{rel}}====
+関連語
+→リンクを取得
+===={{etym}}====
+語源
+===={{trans}}====
+翻訳
+=={{zho}}==
+中国語
+==={{noun}}===
+名詞
+
+===={{syn}}====
+類義語
+===={{ant}}====
+対義語
+
+==={{adj}}：醜い===
+==={{adj}}：見難い===
+
