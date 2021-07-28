@@ -19,6 +19,8 @@ mvn test
 mvn javadoc:javadoc
 mvn -DperformRelease=true clean deploy
 
+mvn assembly:assembly -DdescriptorId=jar-with-dependencies
+
 =={{ja}}==
 日本語
 ==={{noun}}===
@@ -47,3 +49,8 @@ mvn -DperformRelease=true clean deploy
 ==={{adj}}：醜い===
 ==={{adj}}：見難い===
 
+ISO 639-1コード一覧 - Wikipedia
+https://ja.wikipedia.org/wiki/ISO_639-1%E3%82%B3%E3%83%BC%E3%83%89%E4%B8%80%E8%A6%A7
+
+テンプレート:言語コード - ウィクショナリー日本語版
+https://ja.wiktionary.org/wiki/%E3%83%86%E3%83%B3%E3%83%97%E3%83%AC%E3%83%BC%E3%83%88:%E8%A8%80%E8%AA%9E%E3%82%B3%E3%83%BC%E3%83%89

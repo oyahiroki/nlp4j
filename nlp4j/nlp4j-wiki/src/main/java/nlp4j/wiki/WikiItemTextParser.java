@@ -4,13 +4,21 @@ import java.util.ArrayList;
 
 import nlp4j.node.Node;
 
+/**
+ * @author Hiroki Oya
+ * @created_at 2021-07-26
+ */
 public class WikiItemTextParser {
 
 	ArrayList<WikiPageNode> list = new ArrayList<>();
-
+	WikiPageNode root = null;
 	WikiPageNode ptr = null;
 
 	int level = 0;
+
+	public WikiPageNode getRoot() {
+		return root;
+	}
 
 	/**
 	 * 
@@ -19,6 +27,7 @@ public class WikiItemTextParser {
 		super();
 		WikiPageNode wpd = new WikiPageNode();
 		wpd.setLevel(0);
+		this.root = wpd;
 		this.ptr = wpd;
 	}
 
@@ -63,7 +72,7 @@ public class WikiItemTextParser {
 				System.err.println("<h" + lvl + ">" + line);
 
 				WikiPageNode wpd = new WikiPageNode();
-				wpd.setHeader(line);
+				wpd.setHeader(WikiUtils.normailzeHeader(line));
 				wpd.setLevel(lvl);
 				list.add(wpd);
 

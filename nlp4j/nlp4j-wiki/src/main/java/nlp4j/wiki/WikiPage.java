@@ -28,6 +28,8 @@ public class WikiPage {
 	String format = null;
 	String text = null;
 
+	private String xml;
+
 	/**
 	 * @param title  : title of wiki entry
 	 * @param id     : id of wiki entry
@@ -115,9 +117,12 @@ public class WikiPage {
 		return title;
 	}
 
+	public String getXml() {
+		return this.xml;
+	}
+
 	public void setXml(String xml) {
-		// TODO Auto-generated method stub
-		
+		this.xml = xml;
 	}
 
 }

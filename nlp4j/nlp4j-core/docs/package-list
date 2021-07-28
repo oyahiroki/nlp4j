@@ -1,6 +1,7 @@
 example
 nlp4j
 nlp4j.annotator
+nlp4j.counter
 nlp4j.crawler
 nlp4j.impl
 nlp4j.importer

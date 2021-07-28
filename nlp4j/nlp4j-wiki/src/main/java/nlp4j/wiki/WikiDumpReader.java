@@ -124,9 +124,15 @@ public class WikiDumpReader implements AutoCloseable {
 			WikiPage page = pages.get("" + item.getItemID());
 			page.setXml(xml);
 
-			System.err.println("<xml>");
-			System.err.println(xml);
-			System.err.println("</xml>");
+			{
+				int idxTitle = xml.indexOf("<title>" + itemString + "</title>");
+				if (idxTitle != -1) {
+					int idx2 = xml.indexOf("</page>", idxTitle);
+					if (idx2 != -1) {
+						page.setXml("<page>\n" + xml.substring(idxTitle, idx2) + "\n</page>");
+					}
+				}
+			}
 
 			return page;
 
