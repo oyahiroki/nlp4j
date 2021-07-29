@@ -20,6 +20,10 @@ mvn javadoc:javadoc
 mvn -DperformRelease=true clean deploy
 
 mvn assembly:assembly -DdescriptorId=jar-with-dependencies
+java -Dfile.encoding=UTF-8 -jar target\nlp4j-wiki-0.1.1.0-jar-with-dependencies.jar
+java -Dfile.encoding=UTF-8 -jar target\nlp4j-wiki-0.1.1.0-jar-with-dependencies.jar
+java -Dsun.stdout.encoding=UTF-8 -Dsun.stderr.encoding=UTF-8 -Dsun.stdin.encoding=UTF-8 -cp target\nlp4j-wiki-0.1.1.0-jar-with-dependencies.jar nlp4j.wiki.WikiMain
+java -cp target\nlp4j-wiki-0.1.1.0-jar-with-dependencies.jar nlp4j.wiki.WikiMain
 
 =={{ja}}==
 日本語

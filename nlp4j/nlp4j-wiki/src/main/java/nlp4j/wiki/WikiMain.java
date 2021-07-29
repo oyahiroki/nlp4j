@@ -1,7 +1,7 @@
 package nlp4j.wiki;
 
 import java.io.File;
-import java.nio.charset.StandardCharsets;
+//import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Scanner;
 
@@ -28,9 +28,8 @@ public class WikiMain {
 
 	public static void main(String[] args) throws Exception {
 
-		Class c = javax.xml.bind.PropertyException.class;
-		System.err.println(EnvUtil.get("NLP4J_WIKI_DUMP"));
-		System.err.println(EnvUtil.get("NLP4J_WIKI_INDEX"));
+//		System.err.println(EnvUtil.get("NLP4J_WIKI_DUMP"));
+//		System.err.println(EnvUtil.get("NLP4J_WIKI_INDEX"));
 
 		if (EnvUtil.get("NLP4J_WIKI_INDEX") == null) {
 			System.err.println("SET System ENV or Java Property: NLP4J_WIKI_INDEX={File path of WikiIndex}");
@@ -45,11 +44,11 @@ public class WikiMain {
 
 			String s = scanner.nextLine();
 
-			System.err.println(StringUtils.toHexUnicode(s));
+//			System.err.println(StringUtils.toHexUnicode(s));
 
 //			s = new String(s.getBytes(), StandardCharsets.UTF_8);
 
-			System.err.println(s);
+//			System.err.println(s);
 
 			print(s);
 		}
