@@ -41,16 +41,28 @@ public class DocumentUtil {
 	}
 
 	private static void copyAttributes(Document doc, JsonObject jsonObj) {
+		// FOR EACH DOCUMENT ATTRIBUTE
 		for (String key : doc.getAttributeKeys()) {
-			if (doc.getAttribute(key) instanceof Number) {
+			Object obj = doc.getAttribute(key);
+			// NUMBER
+			if (obj instanceof Number) {
 				jsonObj.addProperty(key, doc.getAttributeAsNumber(key));
-			} else if (doc.getAttribute(key) instanceof Date) {
+			}
+			// DATE
+			else if (obj instanceof Date) {
 				Date dd = doc.getAttributeAsDate(key);
 				jsonObj.addProperty(key, sdf.format(dd));
-			} else {
+			}
+			// JSON ELEMENT
+			else if (obj instanceof JsonElement) {
+				JsonElement je = (JsonElement) obj;
+				jsonObj.add(key, je);
+			}
+			// ELSE
+			else {
 				jsonObj.addProperty(key, doc.getAttribute(key).toString());
 			}
-		}
+		} // END OF FOR EACH DOCUMENT ATTRIBUTE
 	}
 
 	/**
@@ -169,6 +181,8 @@ public class DocumentUtil {
 		Document doc = new DefaultDocument();
 		Gson gson = new Gson();
 		JsonObject jsonObj = gson.fromJson(json, JsonObject.class);
+
+		// FOR EACH KEYWORD
 		if (jsonObj.get("keywords") != null) {
 			JsonArray arr = jsonObj.get("keywords").getAsJsonArray();
 			for (int n = 0; n < arr.size(); n++) {
@@ -176,15 +190,34 @@ public class DocumentUtil {
 				Keyword kwd = gson.fromJson(elm, DefaultKeyword.class);
 				doc.addKeyword(kwd);
 			}
-		}
+		} // END OF FOR EACH KEYWORD
+
+		// FOR EACH MEMBER
 		for (String key : jsonObj.keySet()) {
 			if (key.equals("keywords")) {
 				continue;
-			} else {
-				String value = jsonObj.get(key).getAsString();
-				doc.putAttribute(key, value);
+			} //
+			else {
+				JsonElement elm = jsonObj.get(key);
+				if (elm.isJsonPrimitive() == true) {
+					JsonPrimitive jp = elm.getAsJsonPrimitive();
+					if (jp.isBoolean()) {
+						boolean b = jp.getAsBoolean();
+						doc.putAttribute(key, b);
+					} //
+					else if (jp.isString()) {
+						String s = jp.getAsString();
+						doc.putAttribute(key, s);
+					} else if (jp.isNumber()) {
+						Number n = jp.getAsNumber();
+						doc.putAttribute(key, n);
+					}
+				} //
+				else {
+					doc.putAttribute(key, elm);
+				}
 			}
-		}
+		} // END OF FOR EACH MEMBER
 		return doc;
 	}
 

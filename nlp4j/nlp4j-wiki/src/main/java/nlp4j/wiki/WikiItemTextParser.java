@@ -20,6 +20,26 @@ public class WikiItemTextParser {
 		return root;
 	}
 
+	public String toWikiPageNodeTree() {
+		StringBuilder sb = new StringBuilder();
+		toWikiPageNodeTree(sb, this.root, 0);
+		return sb.toString();
+	}
+
+	private void toWikiPageNodeTree(StringBuilder sb, WikiPageNode node, int depth) {
+		for (int n = 0; n < depth; n++) {
+			sb.append("\t");
+		}
+		if (depth != 0) {
+			sb.append(node.getHeader() + "\n");
+		}
+
+		for (WikiPageNode c : node.getChildren()) {
+			toWikiPageNodeTree(sb, c, depth + 1);
+		}
+
+	}
+
 	/**
 	 * 
 	 */
@@ -69,7 +89,7 @@ public class WikiItemTextParser {
 //				int lvl = line.indexOf("{") - 1;
 				int lvl = getLevel(line);
 
-				System.err.println("<h" + lvl + ">" + line);
+//				System.err.println("<h" + lvl + ">" + line);
 
 				WikiPageNode wpd = new WikiPageNode();
 				wpd.setHeader(WikiUtils.normailzeHeader(line));
@@ -152,31 +172,31 @@ public class WikiItemTextParser {
 
 		} // END OF FOR EACH LINE
 
-		System.err.println("done----------------------");
+//		System.err.println("done----------------------");
 
-		for (WikiPageNode node : list) {
-			System.err.println("<node>");
-			System.err.println("<this>" + node.toString() + "</this>");
-			System.err.println("<hasparent>" + (node.getParent() != null) + "</hasparent>");
-			if ((node.getParent() != null)) {
-				System.err.println("<parent>" + node.getParent().toString() + "</parent>");
-				System.err.println("<parent_level>" + node.getParent().getLevel() + "</parent_level>");
-				System.err.println("<parent_header>" + node.getParent().getHeader() + "</parent_header>");
-			}
-			System.err.println("<level>" + node.getLevel() + "</level>");
-			System.err.println("<header>" + node.getHeader() + "</header>");
-			// System.err.println("<text>\n" + node.getText() + "\n</text>");
-			System.err.println("<text>length=" + node.getText().length() + "</text>");
-			if (node.getChildren() != null && node.getChildren().size() > 0) {
-				System.err.println("<children>");
-				for (WikiPageNode n : node.getChildren()) {
-					System.err.println("<child>" + n.toString() + "</child>");
-					System.err.println("<child_header>" + n.getHeader() + "</child_header>");
-				}
-				System.err.println("</children>");
-			}
-			System.err.println("</node>\n");
-		}
+//		for (WikiPageNode node : list) {
+//			System.err.println("<node>");
+//			System.err.println("<this>" + node.toString() + "</this>");
+//			System.err.println("<hasparent>" + (node.getParent() != null) + "</hasparent>");
+//			if ((node.getParent() != null)) {
+//				System.err.println("<parent>" + node.getParent().toString() + "</parent>");
+//				System.err.println("<parent_level>" + node.getParent().getLevel() + "</parent_level>");
+//				System.err.println("<parent_header>" + node.getParent().getHeader() + "</parent_header>");
+//			}
+//			System.err.println("<level>" + node.getLevel() + "</level>");
+//			System.err.println("<header>" + node.getHeader() + "</header>");
+//			// System.err.println("<text>\n" + node.getText() + "\n</text>");
+//			System.err.println("<text>length=" + node.getText().length() + "</text>");
+//			if (node.getChildren() != null && node.getChildren().size() > 0) {
+//				System.err.println("<children>");
+//				for (WikiPageNode n : node.getChildren()) {
+//					System.err.println("<child>" + n.toString() + "</child>");
+//					System.err.println("<child_header>" + n.getHeader() + "</child_header>");
+//				}
+//				System.err.println("</children>");
+//			}
+//			System.err.println("</node>\n");
+//		}
 
 	}
 
