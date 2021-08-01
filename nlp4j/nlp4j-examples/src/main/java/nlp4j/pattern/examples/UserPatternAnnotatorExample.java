@@ -42,6 +42,9 @@ public class UserPatternAnnotatorExample {
 //			}
 //		}
 
+		// Expected Result
+		// 車 ... 停止
+		// 煙 ... 出る
 		for (Keyword kwd : doc.getKeywords("pattern")) {
 			System.err.println(kwd.getLex());
 		}
