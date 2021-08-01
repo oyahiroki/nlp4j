@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<patterns lang="ja">
+	<!-- facet : 抽出したキーワードをどのファセットに割り当てるか -->
+	<!-- value : 抽出したパターンからキーワードの正規形を定義する -->
+	<!-- {0.lex} : id=0 のキーワードの正規形 -->
+	<!-- {2.lex} : id=2 のキーワードの正規形 -->
+	<!-- <w /> : 単語を表す -->
+	<!-- <w lex="/(が|は)/" /> : 正規形が「が」または「は」である単語 -->
+	<!-- <w upos="ADP" /> : Universal POSが ADP(助詞) である単語 -->
+	<!-- <w upos="NOUN" /> : Universal POSが NOUN(名詞) である単語 -->
+	<pattern facet="pattern.sv" value="{0.lex} ... {2.lex}">
+		<w id="2" upos="VERB">
+			<w id="1" lex="/(が|は)/" upos="ADP">
+				<w id="0" upos="NOUN" />
+			</w>
+		</w>
+	</pattern>
+	<pattern facet="pattern.sv" value="{0.lex} ... {2.lex}">
+		<w id="3" lex="する">
+			<w id="2" upos="NOUN">
+				<w id="1" lex="/(が|は)/" upos="ADP">
+					<w id="0" upos="NOUN" />
+				</w>
+			</w>
+		</w>
+	</pattern>
+</patterns>
+
