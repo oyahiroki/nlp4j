@@ -13,7 +13,7 @@ public class UserPatternAnnotatorExample {
 	@SuppressWarnings("javadoc")
 	public static void main(String[] args) throws Exception {
 
-		String text = "車が高速道路で急に停止した。エンジンから煙が出た。";
+		String text = "車が高速道路で急に停止した。エンジンから煙がもくもくと出た。";
 
 		Document doc = new DefaultDocument();
 		{
