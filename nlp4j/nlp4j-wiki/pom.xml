@@ -79,7 +79,7 @@
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-compress</artifactId>
-			<version>1.20</version>
+			<version>1.21</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.sweble.wikitext/swc-parser-lazy -->
 		<dependency>
