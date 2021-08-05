@@ -1,4 +1,4 @@
-package nlp4j.stanford.examples;
+package hello.stanford;
 
 import java.util.List;
 import java.util.Properties;

@@ -43,5 +43,17 @@
 			<classifier>models</classifier>
 			<scope>provided</scope>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.atilika.kuromoji/kuromoji -->
+		<dependency>
+			<groupId>com.atilika.kuromoji</groupId>
+			<artifactId>kuromoji</artifactId>
+			<version>0.9.0</version>
+			<type>pom</type>
+		</dependency>
+		<dependency>
+			<groupId>com.atilika.kuromoji</groupId>
+			<artifactId>kuromoji-ipadic</artifactId>
+			<version>0.9.0</version>
+		</dependency>
 	</dependencies>
 </project>

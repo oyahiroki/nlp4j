@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<w begin="7" depth="0" end="13" facet="VBG" id="0" lex="try" relation="root" sequence="0" str="trying">
+	<w begin="0" depth="1" end="2" facet="PRP" id="1" lex="we" relation="nsubj" sequence="1" str="We" />
+	<w begin="3" depth="1" end="6" facet="VBP" id="2" lex="be" relation="aux" sequence="2" str="are" />
+	<w begin="17" depth="1" end="27" facet="VB" id="3" lex="understand" relation="xcomp" sequence="3" str="understand">
+		<w begin="14" depth="2" end="16" facet="TO" id="4" lex="to" relation="mark" sequence="4" str="to" />
+		<w begin="32" depth="2" end="42" facet="NN" id="5" lex="difference" relation="obj" sequence="5" str="difference">
+			<w begin="28" depth="3" end="31" facet="DT" id="6" lex="the" relation="det" sequence="6" str="the" />
+		</w>
+	</w>
+	<w begin="42" depth="1" end="43" facet="." id="7" lex="." relation="punct" sequence="7" str="." />
+</w>
+
