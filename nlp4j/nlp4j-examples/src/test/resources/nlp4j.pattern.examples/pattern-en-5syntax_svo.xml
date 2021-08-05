@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<patterns lang="en">
+
+	<pattern facet='pattern.svo' value='{1.lex} ... {0.lex} ... {2.lex}'>
+		<w id='0' pos="VB">
+			<w id='1' relation="nsubj" />
+			<w id='2' relation="dobj" />
+		</w>
+	</pattern>
+
+	<pattern facet='pattern.svo' value='{0.lex} ... {1.lex} ... {3.lex}'>
+		<w id='0' pos="NN" relation="nsubj">
+			<w id='1' pos="VB">
+				<w id='2' lex="that" relation="nsubj" />
+				<w id='3' pos="NN" relation="dobj" />
+			</w>
+		</w>
+	</pattern>
+
+	<pattern facet='pattern.svo'
+		value='{1.lex} {0.lex} {2.lex} ... {3.lex}'>
+		<w id='0' pos="VB">
+			<w id='1' relation="nsubj">
+				<w id='2' pos="NN" relation="compound" />
+			</w>
+			<w id='3' pos="NN" />
+		</w>
+	</pattern>
+
+	<!-- I look at a picture -->
+	<!-- lookは自動詞であるため正確にはSV、とのこと -->
+	<pattern facet='pattern.svo'
+		value='{1.lex} {0.lex} ... {3.lex} {2.lex}'>
+		<!-- look -->
+		<w id="0" pos="VB">
+			<!-- I -->
+			<w id="1" relation="nsubj" relationLong="nominal subject" />
+			<!-- picture -->
+			<w id="2" pos="NN" relation="nmod" relationLong="nominal modifier">
+				<!-- at -->
+				<w id="3" pos="IN" />
+			</w>
+		</w>
+	</pattern>
+	<!-- I enjoyed singing a song -->
+	<pattern facet='pattern.svo'
+		value='{1.lex} {0.lex} {2.str} ... {3.lex}'>
+		<!-- enjoy -->
+		<w id="0" pos="VB">
+			<!-- I -->
+			<w id="1" relation="nsubj" />
+			<!-- sing -->
+			<w id="2" pos="VB" relation="xcomp"
+				relationLong="xclausal complement">
+				<!-- song -->
+				<w id="3" pos="NN" relation="dobj">
+				</w>
+			</w>
+		</w>
+	</pattern>
+	<!-- I know what you want -->
+	<pattern facet='pattern.svo'
+		value='{1.lex} {0.lex} {3.lex} ... {4.lex} ... {2.lex}'>
+		<!-- know -->
+		<w id="0" pos="VB">
+			<!-- I -->
+			<w id="1" relation="nsubj" />
+			<!-- want -->
+			<w id="2" pos="VB" relation="ccomp"
+				relationLong="clausal complement">
+				<!-- what -->
+				<w id="3" relation="dobj" relationLong="direct object" />
+				<!-- you -->
+				<w id="4" relation="nsubj" relationLong="nominal subject" />
+			</w>
+		</w>
+	</pattern>
+
+	<!-- user shall be able to send a message -->
+	<pattern facet='pattern.svo' value='{1.lex} ... {4.lex} ... {6.lex}'>
+		<!-- able -->
+		<w id="0" lex="able">
+			<!-- user -->
+			<w id="1" relation="nsubj" />
+			<!-- shall -->
+			<w id="2" lex="shall" />
+			<!-- be -->
+			<w id="3" lex="be" />
+			<!-- send -->
+			<w id="4" pos="VB" relation="xcomp"
+				relationLong="xclausal complement">
+				<!-- to -->
+				<w id="5" lex="to" />
+				<!-- message -->
+				<w id="6" pos="NN" relation="dobj" relationLong="direct object">
+					<!-- a -->
+
+				</w>
+			</w>
+		</w>
+	</pattern>
+
+</patterns>

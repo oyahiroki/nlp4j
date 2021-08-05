@@ -1,4 +1,4 @@
-package nlp4j.stanford;
+package nlp4j.stanford.examples;
 
 import java.util.List;
 import java.util.Properties;
@@ -11,7 +11,8 @@ import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.pipeline.StanfordCoreNLPClient;
 
-public class StanfordCoreNLPClientSample1 {
+@SuppressWarnings("javadoc")
+public class StanfordCoreNLPClientExample1 {
 
 	public static void main(String[] args) throws Exception {
 
@@ -19,7 +20,9 @@ public class StanfordCoreNLPClientSample1 {
 		Properties props = new Properties();
 		props.setProperty("annotators", "tokenize, ssplit, pos, lemma");
 
-		StanfordCoreNLPClient pipeline = new StanfordCoreNLPClient(props, "http://localhost", 9000, 2);
+		// edu.stanford.nlp.pipeline.StanfordCoreNLPClient
+		StanfordCoreNLPClient pipeline //
+				= new StanfordCoreNLPClient(props, "http://localhost", 9000, 2);
 
 		// read some text in the text variable
 		String text = "This is sample text for NLP.";

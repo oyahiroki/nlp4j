@@ -220,6 +220,10 @@ public class StanfordPosDependencyAnnotator extends AbstractDocumentAnnotator
 			Properties pp = new Properties();
 			pp.setProperty("annotators", CORENLP_ANNOTATORS_PROPERTY);
 
+			// type=server
+			// server.port=9000
+			// server.threads=2
+			// server.endpoint=http://localhost
 			if (super.prop.getProperty("type") != null //
 					&& super.prop.getProperty("type").equals("server")) {
 				int port = Integer.parseInt(super.prop.getProperty("server.port", "9000"));

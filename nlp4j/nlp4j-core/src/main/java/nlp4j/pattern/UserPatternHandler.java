@@ -130,6 +130,9 @@ public class UserPatternHandler extends DefaultHandler {
 				if (key.equals("id")) {
 					ptr.setId(value);
 				} //
+				else if (key.equals("str")) {
+					ptr.setStr(value);
+				} //
 				else if (key.equals("upos")) {
 					ptr.setUPos(value);
 				} //

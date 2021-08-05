@@ -1,25 +1,29 @@
-package nlp4j.stanford;
+package nlp4j.stanford.examples;
 
-import edu.stanford.nlp.pipeline.StanfordCoreNLPClient;
 import nlp4j.Document;
 import nlp4j.Keyword;
 import nlp4j.KeywordWithDependency;
 import nlp4j.impl.DefaultDocument;
+import nlp4j.stanford.StanfordPosDependencyAnnotator;
 
-public class StanfordPosDependencyAnnotatorSample2 {
+@SuppressWarnings("javadoc")
+public class StanfordPosDependencyAnnotatorSeverExample1 {
 
 	public static void main(String[] args) throws Exception {
 
+		String text = "We are trying to understand the difference.";
+
 		Document doc = new DefaultDocument();
-		doc.putAttribute("text", "We are trying to understand the difference.");
+		doc.putAttribute("text", text);
 
 		StanfordPosDependencyAnnotator ann = new StanfordPosDependencyAnnotator();
-		ann.setProperty("target", "text");
-
-		ann.setProperty("type", "server");
-		ann.setProperty("server.port", "9000");
-		ann.setProperty("server.threads", "2");
-		ann.setProperty("server.endpoint", "http://localhost");
+		{
+			ann.setProperty("target", "text");
+			ann.setProperty("type", "server");
+			ann.setProperty("server.port", "9000");
+			ann.setProperty("server.threads", "2");
+			ann.setProperty("server.endpoint", "http://localhost");
+		}
 
 		ann.annotate(doc);
 

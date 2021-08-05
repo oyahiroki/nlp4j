@@ -8,12 +8,12 @@ import nlp4j.impl.DefaultDocument;
 import nlp4j.pattern.UserPatternAnnotator;
 
 @SuppressWarnings("javadoc")
-public class UserPatternAnnotatorExample {
+public class UserPatternAnnotatorJaExample2 {
 
 	@SuppressWarnings("javadoc")
 	public static void main(String[] args) throws Exception {
 
-		String text = "車が高速道路で急に停止した。エンジンから煙がもくもくと出た。";
+		String text = "観葉植物が安い。犬が可愛い。肉安い。";
 
 		Document doc = new DefaultDocument();
 		{
@@ -29,18 +29,18 @@ public class UserPatternAnnotatorExample {
 
 		{ // 係り受けパターン抽出
 			UserPatternAnnotator ann = new UserPatternAnnotator();
-			ann.setProperty("file", "src/test/resources/nlp4j.pattern.examples/pattern-ja-sv.xml");
+			ann.setProperty("file", "src/test/resources/nlp4j.pattern.examples/pattern-ja-nounadj.xml");
 			ann.annotate(doc);
 		}
 
-//		for (Keyword kwd : doc.getKeywords()) {
-//			// 係り受け
-//			if (kwd instanceof KeywordWithDependency) {
-//				System.err.println(((KeywordWithDependency) kwd).toStringAsXml());
-//			} else {
+		for (Keyword kwd : doc.getKeywords()) {
+			// 係り受け
+			if (kwd instanceof KeywordWithDependency) {
+				System.err.println(((KeywordWithDependency) kwd).toStringAsXml());
+			} else {
 //				System.err.println(kwd.toString());
-//			}
-//		}
+			}
+		}
 
 		// Expected Result
 		// 車 ... 停止

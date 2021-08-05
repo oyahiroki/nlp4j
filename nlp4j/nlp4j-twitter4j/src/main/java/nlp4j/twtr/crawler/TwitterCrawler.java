@@ -1,6 +1,16 @@
 package nlp4j.twtr.crawler;
 
+import java.io.File;
+import java.io.IOException;
+import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
+
+import org.apache.commons.io.FileUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 import nlp4j.Document;
 import nlp4j.InvalidPropertyException;
@@ -32,6 +42,8 @@ import twitter4j.conf.ConfigurationBuilder;
  */
 public class TwitterCrawler extends AbstractCrawler implements Crawler {
 
+	static private final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
+
 	private boolean debugEnabled = false;
 	private String oAuthConsumerKey = null;
 	private String oAuthConsumerSecret = null;
@@ -39,22 +51,43 @@ public class TwitterCrawler extends AbstractCrawler implements Crawler {
 	private String oAuthAccessTokenSecret = null;
 	private String query = null;
 
+	File outFile = null;
+
 	@Override
 	public void setProperty(String key, String value) {
 		super.setProperty(key, value);
 
 		if (key.equals("debugEnabled")) {
 			this.debugEnabled = Boolean.parseBoolean(value);
-		} else if (key.equals("oauth.consumerKey")) {
+		} //
+		else if (key.equals("oauth.consumerKey")) {
 			this.oAuthConsumerKey = value;
-		} else if (key.equals("oauth.consumerSecret")) {
+		} //
+		else if (key.equals("oauth.consumerSecret")) {
 			this.oAuthConsumerSecret = value;
-		} else if (key.equals("oauth.accessToken")) {
+		} //
+		else if (key.equals("oauth.accessToken")) {
 			this.oAuthAccessToken = value;
-		} else if (key.equals("oauth.accessTokenSecret")) {
+		} //
+		else if (key.equals("oauth.accessTokenSecret")) {
 			this.oAuthAccessTokenSecret = value;
-		} else if (key.equals("query")) {
+		} //
+		else if (key.equals("query")) {
 			this.query = value;
+		} //
+		else if (key.equals("outfile")) {
+			File file = new File(value);
+			if (file.exists() == false) {
+				File parentDir = file.getParentFile();
+				if (parentDir.exists() == false) {
+					try {
+						FileUtils.forceMkdir(parentDir);
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+			this.outFile = file;
 		}
 
 	}
@@ -87,6 +120,8 @@ public class TwitterCrawler extends AbstractCrawler implements Crawler {
 
 		ArrayList<Document> docs = new ArrayList<>();
 
+		Gson gson = new Gson();
+
 		try {
 			QueryResult result = twitter.search(query);
 
@@ -94,10 +129,21 @@ public class TwitterCrawler extends AbstractCrawler implements Crawler {
 
 				Document doc = new DefaultDocument();
 
-				String statusJSON = TwitterObjectFactory.getRawJSON(status);
+				{
+					String statusJSON = TwitterObjectFactory.getRawJSON(status);
+//					System.err.println(JsonUtils.prettyPrint(statusJSON));
+//					doc.putAttribute("rawjson", statusJSON); // 1.0
+					doc.putAttribute("rawjson", gson.fromJson(statusJSON, JsonObject.class)); // 1.1
+					if (this.outFile != null) {
+						try {
+							FileUtils.write(outFile, statusJSON + "\n", "UTF-8", true);
+						} catch (IOException e) {
+							logger.error(e.getMessage(), e);
+						}
+					}
+				}
 
-//				System.err.println(JsonUtils.prettyPrint(statusJSON));
-				doc.putAttribute("rawjson", statusJSON);
+				doc.putAttribute("source", status.getSource());
 
 				doc.putAttribute("user_followercount", status.getUser().getFollowersCount());
 				doc.putAttribute("user_location", status.getUser().getLocation());

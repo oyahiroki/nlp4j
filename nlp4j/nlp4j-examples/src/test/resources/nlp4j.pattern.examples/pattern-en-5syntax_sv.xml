@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<patterns lang="en">
+
+	<!-- [1] -->
+	<pattern facet='pattern.sv' value='{1.lex} ... {0.lex}'>
+		<w id='0' facet="VB">
+			<w id='1' relation="nsubj" />
+		</w>
+	</pattern>
+
+	<pattern facet='pattern.sv' value='{1.lex} ... {4.lex}'>
+		<w id="0" lex="able">
+			<w id="1" relation="nsubj" />
+			<w id="2" lex="shall" facet="MD" />
+			<w id="3" lex="be" facet="VB" />
+			<w id="4" lex="use" facet="VB">
+				<w id="5" lex="to" facet="TO" />
+			</w>
+		</w>
+	</pattern>
+
+	<pattern facet='pattern.sv' value='{2.lex} ... {4.lex}'>
+		<w id='0'>
+			<w id='1' facet="VB">
+				<w id='2' relation="nsubj" />
+			</w>
+			<w id='3' lex="and" />
+			<w id='4' facet="VB" />
+		</w>
+	</pattern>
+
+	<pattern facet='pattern.sv' value='{0.lex} ... {1.lex}'>
+		<w id='0' relation="nsubj">
+			<w id='1' facet="VB">
+				<w id='2' lex="that" relation="nsubj" />
+			</w>
+		</w>
+	</pattern>
+
+	<!-- user shall be able to stop -->
+	<pattern facet='pattern.sv' value='{1.lex} ... {4.lex}'>
+		<!-- able -->
+		<w id="0" lex="able">
+			<!-- user -->
+			<w id="1" relation="nsubj" />
+			<!-- shall -->
+			<w id="2" lex="shall" />
+			<!-- be -->
+			<w id="3" lex="be" />
+			<!-- stop -->
+			<!-- xclausal complement -->
+			<w id="4" facet="VB" relation="xcomp">
+				<!-- to -->
+				<w id="5" lex="to" />
+			</w>
+		</w>
+	</pattern>
+
+	<!-- [/1] -->
+
+	<!-- [1+compound] -->
+	<pattern facet='pattern.sv' value='{2.lex} {1.lex} ... {0.lex}'>
+		<w id='0' facet="VB">
+			<w id='1' relation="nsubj">
+				<!-- compound modifier -->
+				<w id="2" facet="NN" relation="compound" />
+			</w>
+		</w>
+	</pattern>
+
+	<pattern facet='pattern.sv' value='{1b.lex} {1.lex} ... {4.lex}'>
+		<w id="0" lex="able">
+			<w id='1' relation="nsubj">
+				<!-- compound modifier -->
+				<w id="1b" facet="NN" relation="compound" />
+			</w>
+			<w id="2" lex="shall" facet="MD" />
+			<w id="3" lex="be" facet="VB" />
+			<w id="4" lex="use" facet="VB">
+				<w id="5" lex="to" facet="TO" />
+			</w>
+		</w>
+	</pattern>
+
+	<pattern facet='pattern.sv' value='{2b.lex} {2.lex} ... {4.lex}'>
+		<w id='0'>
+			<w id='1' facet="VB">
+				<w id='2' relation="nsubj">
+					<!-- compound modifier -->
+					<w id="2b" facet="NN" relation="compound" />
+				</w>
+			</w>
+			<w id='3' lex="and" />
+			<w id='4' facet="VB" />
+		</w>
+	</pattern>
+
+	<pattern facet='pattern.sv' value='{0b.lex} {0.lex} ... {1.lex}'>
+		<w id='0' relation="nsubj">
+			<w id="0b" facet="NN" relation="compound" />
+			<w id='1' facet="VB">
+				<w id='2' lex="that" relation="nsubj" />
+			</w>
+		</w>
+	</pattern>
+
+	<!-- user shall be able to stop -->
+	<pattern facet='pattern.sv' value='{1b.lex} {1.lex} ... {4.lex}'>
+		<!-- able -->
+		<w id="0" lex="able">
+			<!-- user -->
+			<w id="1" relation="nsubj">
+				<w id="1b" facet="NN" relation="compound" />
+			</w>
+			<!-- shall -->
+			<w id="2" lex="shall" />
+			<!-- be -->
+			<w id="3" lex="be" />
+			<!-- stop -->
+			<!-- xclausal complement -->
+			<w id="4" facet="VB" relation="xcomp">
+				<!-- to -->
+				<w id="5" lex="to" />
+			</w>
+		</w>
+	</pattern>
+
+	<!-- [/1+compound] -->
+
+</patterns>

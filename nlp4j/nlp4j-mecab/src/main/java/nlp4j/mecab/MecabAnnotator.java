@@ -67,6 +67,7 @@ public class MecabAnnotator extends AbstractDocumentAnnotator implements Documen
 
 				if (features.length < 8) {
 					logger.warn("invalid");
+					logger.info(text);
 				}
 
 				logger.debug(node.surface() + "\t" + node.feature());
