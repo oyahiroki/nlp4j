@@ -10,6 +10,7 @@ import nlp4j.AbstractDocumentAnnotator;
 import nlp4j.Document;
 import nlp4j.DocumentAnnotator;
 import nlp4j.impl.DefaultKeyword;
+import nlp4j.util.RegexUtils;
 
 /**
  * Mecab Japanese Language Annotator
@@ -42,6 +43,10 @@ public class MecabAnnotator extends AbstractDocumentAnnotator implements Documen
 			}
 
 			String text = (String) obj;
+
+			text = nlp4j.util.StringUtils.filter(text, "MS932");
+
+			text = text.replaceAll(RegexUtils.REGEX_URL, "");
 
 			// 解析対象文字列をセット
 			lattice.setSentence(text);

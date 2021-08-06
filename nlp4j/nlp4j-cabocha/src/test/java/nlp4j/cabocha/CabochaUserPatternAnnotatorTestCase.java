@@ -12,7 +12,10 @@ import nlp4j.impl.DefaultDocument;
 import nlp4j.pattern.UserPatternAnnotator;
 import nlp4j.test.NLP4JTestCase;
 
-@SuppressWarnings("javadoc")
+/**
+ * @author Hiroki Oya
+ * @created_at 2021-05-05
+ */
 public class CabochaUserPatternAnnotatorTestCase extends NLP4JTestCase {
 
 	static private final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());

@@ -210,7 +210,9 @@ public class CabochaNlpService implements NlpService {
 
 			DefaultNlpServiceResponse response = new DefaultNlpServiceResponse();
 			ArrayList<Keyword> kwds = new ArrayList<>();
-			kwds.add(root);
+			if (root != null) {
+				kwds.add(root);
+			}
 			response.setKeywords(kwds);
 			response.setOriginalResponseBody(originalResponse.toString());
 

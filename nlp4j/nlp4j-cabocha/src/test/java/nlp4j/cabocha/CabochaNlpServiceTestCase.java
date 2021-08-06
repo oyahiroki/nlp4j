@@ -9,8 +9,20 @@ import nlp4j.impl.DefaultKeywordWithDependency;
 import nlp4j.impl.DefaultNlpServiceResponse;
 import nlp4j.util.KeywordUtil;
 
-@SuppressWarnings("javadoc")
+/**
+ * @author Hiroki Oya
+ * @created_at 2021-04-22
+ */
 public class CabochaNlpServiceTestCase extends TestCase {
+
+	private void assertKeyword(KeywordWithDependency kw) {
+		System.err
+				.println(kw.getSequence() + ",begin=" + kw.getBegin() + ",end=" + kw.getEnd() + ",lex=" + kw.getLex());
+
+		for (KeywordWithDependency k : kw.getChildren()) {
+			assertKeyword(k);
+		}
+	}
 
 	public void testProcess001() throws Exception {
 		String text = "今日はいい天気です。";
@@ -20,6 +32,7 @@ public class CabochaNlpServiceTestCase extends TestCase {
 		DefaultNlpServiceResponse response = service.process(text);
 		for (Keyword kwd : response.getKeywords()) {
 			if (kwd instanceof KeywordWithDependency) {
+				System.err.println("<KeywordWithDependency>");
 				System.err.println(((KeywordWithDependency) kwd).getSequence());
 				System.err.println(((KeywordWithDependency) kwd).toStringAsXml());
 
@@ -30,17 +43,12 @@ public class CabochaNlpServiceTestCase extends TestCase {
 				for (Keyword k : kk) {
 					System.err.println(k);
 				}
-
+				System.err.println("</KeywordWithDependency>");
+			} else {
+				System.err.println("<Keyword>");
+				System.err.println(kwd);
+				System.err.println("</Keyword>");
 			}
-		}
-	}
-
-	private void assertKeyword(KeywordWithDependency kw) {
-		System.err
-				.println(kw.getSequence() + ",begin=" + kw.getBegin() + ",end=" + kw.getEnd() + ",lex=" + kw.getLex());
-
-		for (KeywordWithDependency k : kw.getChildren()) {
-			assertKeyword(k);
 		}
 	}
 

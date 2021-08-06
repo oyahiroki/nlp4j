@@ -1,10 +1,15 @@
-package nlp4j.cabocha;
+package nlp4j.cabocha.examples;
 
 import nlp4j.Document;
 import nlp4j.Keyword;
+import nlp4j.cabocha.CabochaAnnotator;
 import nlp4j.impl.DefaultDocument;
 import nlp4j.pattern.UserPatternAnnotator;
 
+/**
+ * @author Hiroki Oya
+ * @created_at 2021-05-06
+ */
 public class CabochaUserPatternAnnotatorTestMain {
 
 	public static void main(String[] args) throws Exception {
