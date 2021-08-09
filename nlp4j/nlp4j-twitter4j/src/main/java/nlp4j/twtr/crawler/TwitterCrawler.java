@@ -136,7 +136,10 @@ public class TwitterCrawler extends AbstractCrawler implements Crawler {
 					doc.putAttribute("rawjson", gson.fromJson(statusJSON, JsonObject.class)); // 1.1
 					if (this.outFile != null) {
 						try {
-							FileUtils.write(outFile, statusJSON + "\n", "UTF-8", true);
+							boolean append = true;
+							String encoding = "UTF-8";
+							String data = statusJSON + "\n";
+							FileUtils.write(outFile, data, encoding, append);
 						} catch (IOException e) {
 							logger.error(e.getMessage(), e);
 						}

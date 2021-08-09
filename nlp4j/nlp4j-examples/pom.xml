@@ -55,5 +55,11 @@
 			<artifactId>kuromoji-ipadic</artifactId>
 			<version>0.9.0</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.nlp4j/nlp4j-wiki -->
+		<dependency>
+			<groupId>org.nlp4j</groupId>
+			<artifactId>nlp4j-wiki</artifactId>
+			<version>[0.1.1.0,)</version>
+		</dependency>
 	</dependencies>
 </project>

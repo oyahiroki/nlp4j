@@ -45,6 +45,14 @@ public class AzureSearchDocumentImporter extends AbstractDocumentImporter implem
 			JsonArray requestValue = new JsonArray();
 			{
 				JsonObject requestDoc = DocumentUtil.toJsonObjectForIndex(doc);
+
+				{ // Convert ID to String
+					Object idObj = requestDoc.get("id");
+					if (idObj != null && (idObj instanceof String) == false) {
+						requestDoc.addProperty("id", idObj.toString());
+					}
+				}
+
 				requestDoc.addProperty("@search.action", "upload");
 				requestValue.add(requestDoc);
 			}
@@ -67,6 +75,9 @@ public class AzureSearchDocumentImporter extends AbstractDocumentImporter implem
 		r.setOriginalResponseBody(res.toString());
 
 		if (r.getResponseCode() != 200) {
+			System.err.println("<response responsecode='" + r.getResponseCode() + "'>");
+			System.err.println(res);
+			System.err.println("</response>");
 			throw new IOException("" + r.getResponseCode() + "," + r.getMessage());
 		}
 

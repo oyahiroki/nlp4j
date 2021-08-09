@@ -40,6 +40,21 @@ public class DocumentProcessor {
 
 		this.props = props;
 
+//		java.net.URLClassLoader
+
+		{
+			String className = "java.net.URLClassLoader";
+
+			try {
+				Class<?> clazz = Class.forName(className);
+				logger.info("CLASS FOUND for crawler: " + clazz.getName());
+				System.err.println("Found");
+			} catch (ClassNotFoundException e) {
+				logger.info("CLASS NOT FOUND for crawler: " + className);
+				System.err.println("Not Found");
+			}
+		}
+
 		{
 			ClassLoader cl = ClassLoader.getSystemClassLoader();
 

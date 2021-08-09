@@ -164,7 +164,17 @@ public class DefaultDocument implements Document {
 	public String getId() {
 
 		if (attributes.get(KEY_ID) != null) {
-			return (String) attributes.get(KEY_ID);
+			Object o = attributes.get(KEY_ID);
+			if (o == null) {
+				return null;
+			} //
+			else if (o instanceof String) {
+				return (String) o;
+			} //
+			else {
+				return o.toString();
+			}
+//			return (String) ;
 		} else {
 			return super.toString();
 		}
