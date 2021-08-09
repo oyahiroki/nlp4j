@@ -42,10 +42,22 @@ public class DocumentProcessor {
 
 		{
 			ClassLoader cl = ClassLoader.getSystemClassLoader();
-			URL[] urls = ((URLClassLoader) cl).getURLs();
-			logger.info("class loader URLs:");
-			for (URL url : urls) {
-				logger.info(url.getFile());
+
+			System.err.println(cl.getClass().getCanonicalName());
+
+			try {
+				if (cl instanceof URLClassLoader) {
+					URL[] urls = ((URLClassLoader) cl).getURLs();
+					logger.info("class loader URLs:");
+					for (URL url : urls) {
+						logger.info(url.getFile());
+					}
+				} //
+				else {
+					System.err.println("classloader: " + cl.getClass().getCanonicalName());
+				}
+			} catch (ClassCastException ex) {
+
 			}
 		}
 

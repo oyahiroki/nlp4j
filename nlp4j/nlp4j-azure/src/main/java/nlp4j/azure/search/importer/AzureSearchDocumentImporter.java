@@ -33,10 +33,10 @@ public class AzureSearchDocumentImporter extends AbstractDocumentImporter implem
 	@Override
 	public void importDocument(Document doc) throws IOException {
 
-		if (super.debug == true) {
-			super.debugPrint(doc);
-			return;
-		}
+//		if (super.debug == true) {
+//			super.debugPrint(doc);
+//			return;
+//		}
 
 		AzureSearchClient az = new AzureSearchClient(super.props);
 
@@ -51,8 +51,9 @@ public class AzureSearchDocumentImporter extends AbstractDocumentImporter implem
 			requestDocs.add("value", requestValue);
 		}
 
-		System.err.println("To be imported.");
+		System.err.println("<request>");
 		System.err.println(JsonUtils.prettyPrint(requestDocs));
+		System.err.println("</request>");
 
 		if (super.debug == true) {
 			return;
@@ -73,12 +74,12 @@ public class AzureSearchDocumentImporter extends AbstractDocumentImporter implem
 
 	@Override
 	public void commit() throws IOException {
-
+		logger.info("commit");
 	}
 
 	@Override
 	public void close() {
-
+		logger.info("close");
 	}
 
 }

@@ -22,6 +22,11 @@ import nlp4j.util.StringUtils;
  */
 public class CabochaAnnotator extends AbstractDocumentAnnotator implements DocumentAnnotator, DependencyAnnotator {
 
+	/**
+	 * Name space for Cabocha
+	 */
+	public static final String NAMESPACE_CABOCHA = "nlp4j.cabocha";
+
 	static private final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
 	private static final String JA_SENTENCE_SPLITTER = "。";
@@ -38,6 +43,7 @@ public class CabochaAnnotator extends AbstractDocumentAnnotator implements Docum
 
 			text = text.replaceAll(RegexUtils.REGEX_URL, "");
 			text = text.replaceAll(RegexUtils.REGEX_HASHTAG, "");
+			text = text.replaceAll(RegexUtils.REGEX_ATTENTION, "");
 
 			int baseBegin = 0;
 
@@ -61,7 +67,7 @@ public class CabochaAnnotator extends AbstractDocumentAnnotator implements Docum
 
 					for (int x = 0; x < kwds.size(); x++) {
 						kwds.get(x).addBeginEnd(idx);
-						kwds.get(x).setNamespace("nlp4j.cabocha");
+						kwds.get(x).setNamespace(NAMESPACE_CABOCHA);
 					}
 
 					doc.addKeywords(kwds);

@@ -14,5 +14,10 @@ public class RegexUtils {
 	/**
 	 * Regext for Hash tag
 	 */
-	static public String REGEX_HASHTAG = "#[^#\s]*";
+	static public String REGEX_HASHTAG = "#[^#\\s]*";
+
+	/**
+	 * Regext for attention
+	 */
+	static public String REGEX_ATTENTION = "@[^#\\s]*";
 }

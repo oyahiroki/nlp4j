@@ -29,4 +29,9 @@ public class CharacterUtils {
 		}
 	}
 
+	static public String toChar(int cp) {
+		char[] chars = java.lang.Character.toChars(cp);
+		return new String(chars);
+	}
+
 }

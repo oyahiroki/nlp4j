@@ -23,7 +23,7 @@ public class DebugImporter extends AbstractDocumentImporter {
 
 	@Override
 	public void importDocument(Document doc) throws IOException {
-		System.err.println("import ... " + doc);
+		System.err.println("import ... " + doc.toString().replace("\n", "\\n"));
 		System.err.println(JsonUtils.prettyPrint(DocumentUtil.toJsonObject(doc)));
 	}
 

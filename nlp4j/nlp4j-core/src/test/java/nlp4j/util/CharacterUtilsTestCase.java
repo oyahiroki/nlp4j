@@ -71,6 +71,14 @@ public class CharacterUtilsTestCase extends TestCase {
 		System.err.println(Character.UnicodeBlock.of(cp));
 	}
 
+	// 🤗
+	public void testGetName104b() throws Exception {
+		int cp = 0x1F917;
+		String name = CharacterUtils.getName(cp);
+		System.err.println(name);
+		System.err.println(Character.UnicodeBlock.of(cp));
+	}
+
 	public void testGetName105() throws Exception {
 		String s = "漢あア";
 
