@@ -18,7 +18,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":9};
+var methods = {"i0":9,"i1":9,"i2":9,"i3":9};
 var tabs = {65535:["t0","すべてのメソッド"],1:["t1","staticメソッド"],8:["t4","concreteメソッド"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -146,8 +146,21 @@ extends <a href="https://docs.oracle.com/javase/jp/8/docs/api/java/lang/Object.h
 <th class="colLast" scope="col">メソッドと説明</th>
 </tr>
 <tr id="i0" class="altColor">
+<td class="colFirst"><code>static <a href="https://docs.oracle.com/javase/jp/8/docs/api/java/lang/String.html?is-external=true" title="java.lang内のクラスまたはインタフェース">String</a>[]</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../nlp4j/wiki/WikiUtils.html#extractSpells-java.lang.String-">extractSpells</a></span>(<a href="https://docs.oracle.com/javase/jp/8/docs/api/java/lang/String.html?is-external=true" title="java.lang内のクラスまたはインタフェース">String</a>&nbsp;header)</code>&nbsp;</td>
+</tr>
+<tr id="i1" class="rowColor">
 <td class="colFirst"><code>static <a href="https://docs.oracle.com/javase/jp/8/docs/api/java/lang/String.html?is-external=true" title="java.lang内のクラスまたはインタフェース">String</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../nlp4j/wiki/WikiUtils.html#normailzeHeader-java.lang.String-">normailzeHeader</a></span>(<a href="https://docs.oracle.com/javase/jp/8/docs/api/java/lang/String.html?is-external=true" title="java.lang内のクラスまたはインタフェース">String</a>&nbsp;header)</code>&nbsp;</td>
+</tr>
+<tr id="i2" class="altColor">
+<td class="colFirst"><code>static <a href="https://docs.oracle.com/javase/jp/8/docs/api/java/lang/String.html?is-external=true" title="java.lang内のクラスまたはインタフェース">String</a></code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../nlp4j/wiki/WikiUtils.html#toHtml-java.lang.String-">toHtml</a></span>(<a href="https://docs.oracle.com/javase/jp/8/docs/api/java/lang/String.html?is-external=true" title="java.lang内のクラスまたはインタフェース">String</a>&nbsp;wikiText)</code>&nbsp;</td>
+</tr>
+<tr id="i3" class="rowColor">
+<td class="colFirst"><code>static <a href="https://docs.oracle.com/javase/jp/8/docs/api/java/lang/String.html?is-external=true" title="java.lang内のクラスまたはインタフェース">String</a></code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../nlp4j/wiki/WikiUtils.html#toPlainText-java.lang.String-java.lang.String-">toPlainText</a></span>(<a href="https://docs.oracle.com/javase/jp/8/docs/api/java/lang/String.html?is-external=true" title="java.lang内のクラスまたはインタフェース">String</a>&nbsp;wikiPageTitle,
+           <a href="https://docs.oracle.com/javase/jp/8/docs/api/java/lang/String.html?is-external=true" title="java.lang内のクラスまたはインタフェース">String</a>&nbsp;wikiText)</code>&nbsp;</td>
 </tr>
 </table>
 <ul class="blockList">
@@ -188,13 +201,50 @@ extends <a href="https://docs.oracle.com/javase/jp/8/docs/api/java/lang/Object.h
 <!--   -->
 </a>
 <h3>メソッドの詳細</h3>
+<a name="extractSpells-java.lang.String-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>extractSpells</h4>
+<pre>public static&nbsp;<a href="https://docs.oracle.com/javase/jp/8/docs/api/java/lang/String.html?is-external=true" title="java.lang内のクラスまたはインタフェース">String</a>[]&nbsp;extractSpells(<a href="https://docs.oracle.com/javase/jp/8/docs/api/java/lang/String.html?is-external=true" title="java.lang内のクラスまたはインタフェース">String</a>&nbsp;header)</pre>
+</li>
+</ul>
 <a name="normailzeHeader-java.lang.String-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>normailzeHeader</h4>
+<pre>public static&nbsp;<a href="https://docs.oracle.com/javase/jp/8/docs/api/java/lang/String.html?is-external=true" title="java.lang内のクラスまたはインタフェース">String</a>&nbsp;normailzeHeader(<a href="https://docs.oracle.com/javase/jp/8/docs/api/java/lang/String.html?is-external=true" title="java.lang内のクラスまたはインタフェース">String</a>&nbsp;header)</pre>
+</li>
+</ul>
+<a name="toHtml-java.lang.String-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>toHtml</h4>
+<pre>public static&nbsp;<a href="https://docs.oracle.com/javase/jp/8/docs/api/java/lang/String.html?is-external=true" title="java.lang内のクラスまたはインタフェース">String</a>&nbsp;toHtml(<a href="https://docs.oracle.com/javase/jp/8/docs/api/java/lang/String.html?is-external=true" title="java.lang内のクラスまたはインタフェース">String</a>&nbsp;wikiText)
+                     throws <a href="https://docs.oracle.com/javase/jp/8/docs/api/java/lang/Exception.html?is-external=true" title="java.lang内のクラスまたはインタフェース">Exception</a></pre>
+<dl>
+<dt><span class="paramLabel">パラメータ:</span></dt>
+<dd><code>wikiText</code> - in Wiki Format</dd>
+<dt><span class="returnLabel">戻り値:</span></dt>
+<dd>HTML converted from Wiki Text</dd>
+<dt><span class="throwsLabel">例外:</span></dt>
+<dd><code><a href="https://docs.oracle.com/javase/jp/8/docs/api/java/lang/Exception.html?is-external=true" title="java.lang内のクラスまたはインタフェース">Exception</a></code> - on Error</dd>
+</dl>
+</li>
+</ul>
+<a name="toPlainText-java.lang.String-java.lang.String-">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
-<h4>normailzeHeader</h4>
-<pre>public static&nbsp;<a href="https://docs.oracle.com/javase/jp/8/docs/api/java/lang/String.html?is-external=true" title="java.lang内のクラスまたはインタフェース">String</a>&nbsp;normailzeHeader(<a href="https://docs.oracle.com/javase/jp/8/docs/api/java/lang/String.html?is-external=true" title="java.lang内のクラスまたはインタフェース">String</a>&nbsp;header)</pre>
+<h4>toPlainText</h4>
+<pre>public static&nbsp;<a href="https://docs.oracle.com/javase/jp/8/docs/api/java/lang/String.html?is-external=true" title="java.lang内のクラスまたはインタフェース">String</a>&nbsp;toPlainText(<a href="https://docs.oracle.com/javase/jp/8/docs/api/java/lang/String.html?is-external=true" title="java.lang内のクラスまたはインタフェース">String</a>&nbsp;wikiPageTitle,
+                                 <a href="https://docs.oracle.com/javase/jp/8/docs/api/java/lang/String.html?is-external=true" title="java.lang内のクラスまたはインタフェース">String</a>&nbsp;wikiText)</pre>
 </li>
 </ul>
 </li>

@@ -183,7 +183,12 @@ public class DefaultDocument implements Document {
 
 	@Override
 	public List<Keyword> getKeywords() {
-		return keywords;
+		if (keywords != null) {
+			return keywords;
+		} else {
+			// since 20210821
+			return new ArrayList<Keyword>();
+		}
 	}
 
 	@Override

@@ -63,7 +63,9 @@ public class WikiDumpReader implements AutoCloseable {
 	 * @throws IOException on Error
 	 */
 	public WikiPage getItem(String itemString) throws IOException {
+
 		WikiIndexItem item = wikiIndex.getItem(itemString);
+
 		if (item == null) {
 			logger.debug("Not found in index:" + itemString);
 			return null;
@@ -71,6 +73,10 @@ public class WikiDumpReader implements AutoCloseable {
 
 		long p1 = item.getBlockNum();
 		int size = (int) item.getSize();
+
+		if (size < 0) {
+			return null;
+		}
 
 		byte[] b = new byte[size];
 

@@ -32,19 +32,16 @@ public class WikiIndexReader {
 	}
 
 	/**
-	 * Read index file of wiki
+	 * Read all index file of wiki
 	 * 
 	 * <pre>
 	 * Example of line
+	 * 
 	 * 382308:2239:水素
 	 * ^ blockNum
-	 * 382308:2239:水素
 	 * &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;^ idx1
-	 * 382308:2239:水素
 	 * &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;^ itemID
-	 * 382308:2239:水素
 	 * &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;^ idx2
-	 * 382308:2239:水素
 	 * &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;^ title
 	 * </pre>
 	 * 

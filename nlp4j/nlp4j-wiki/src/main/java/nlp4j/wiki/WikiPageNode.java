@@ -15,6 +15,8 @@ public class WikiPageNode {
 
 	ArrayList<WikiPageNode> children = new ArrayList<WikiPageNode>();
 
+	private String[] spells;
+
 	public void addChild(WikiPageNode child) {
 		this.children.add(child);
 	}
@@ -27,6 +29,53 @@ public class WikiPageNode {
 			text.append("\n");
 		}
 		text.append(s);
+	}
+
+	public boolean containsHeader(String s) {
+		if (this.header == null) {
+			return false;
+		} //
+		else {
+			return this.header.contains(s);
+		}
+	}
+
+	public List<WikiPageNode> get(String path) {
+
+//		System.err.println("path=" + path);
+
+		List<WikiPageNode> list = new ArrayList<>();
+
+		String[] paths = path.split("/");
+
+		int idx = 0;
+
+		if (paths.length > 0) {
+			for (WikiPageNode c : this.children) {
+				if (c.getHeader() != null & c.getHeader().equals(paths[idx])) {
+//					System.err.println("OK " + c.toString());
+					if (paths.length > 1) {
+						String path2 = join(paths, 1);
+//						return c.get(path2);
+
+						List<WikiPageNode> list2 = c.get(path2);
+
+						if (list2 != null && list2.size() > 0) {
+							list.addAll(list2);
+						}
+
+					} //
+					else {
+//						System.err.println("HI " + c.toString());
+//						return c;
+						list.add(c);
+					}
+				}
+			}
+		}
+
+		return list;
+
 	}
 
 	public List<WikiPageNode> getChildren() {
@@ -74,8 +123,33 @@ public class WikiPageNode {
 		}
 	}
 
+	public String[] getSpells() {
+		return spells;
+	}
+
 	public String getText() {
 		return text.toString();
+	}
+
+	private String join(String[] paths, int idx) {
+		StringBuilder sb = new StringBuilder();
+		for (int n = idx; n < paths.length; n++) {
+			if (sb.length() > 0) {
+				sb.append("/");
+			}
+			sb.append(paths[n]);
+		}
+//		System.err.println(sb);
+		return sb.toString();
+	}
+
+	public boolean matchHeader(String pattern) {
+		if (this.header == null) {
+			return false;
+		} //
+		else {
+			return this.header.matches(pattern);
+		}
 	}
 
 	public void setHeader(String header) {
@@ -94,22 +168,8 @@ public class WikiPageNode {
 		}
 	}
 
-	public boolean matchHeader(String pattern) {
-		if (this.header == null) {
-			return false;
-		} //
-		else {
-			return this.header.matches(pattern);
-		}
-	}
-
-	public boolean containsHeader(String s) {
-		if (this.header == null) {
-			return false;
-		} //
-		else {
-			return this.header.contains(s);
-		}
+	public void setSpells(String[] spells) {
+		this.spells = spells;
 	}
 
 	@Override

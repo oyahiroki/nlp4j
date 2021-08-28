@@ -27,6 +27,8 @@ import nlp4j.search.SearchClientBuilder;
 
 public class SolrSearchClient extends AbstractSearchClient implements SearchClient {
 
+	private static final int CONNECTION_TIMEOUT_MILLIS = 10000;
+	private static final int SOCKET_TIMEOUT_MILLIS = 60000;
 	private String endPoint;
 
 	private SolrSearchClient(String endPoint) {
@@ -77,8 +79,8 @@ public class SolrSearchClient extends AbstractSearchClient implements SearchClie
 
 		String baseSolrUrl = this.endPoint;
 		HttpSolrClient client = new HttpSolrClient.Builder(baseSolrUrl) //
-				.withConnectionTimeout(10000)//
-				.withSocketTimeout(60000)//
+				.withConnectionTimeout(CONNECTION_TIMEOUT_MILLIS)//
+				.withSocketTimeout(SOCKET_TIMEOUT_MILLIS)//
 				.build();
 
 //		String facet = "word_noun_ss";
@@ -158,6 +160,11 @@ public class SolrSearchClient extends AbstractSearchClient implements SearchClie
 			{
 				responseObject.add("@requestbody", request);
 			}
+			{
+				Gson gson = new Gson();
+				JsonObject solrResponseJson = gson.fromJson(response.jsonStr(), JsonObject.class);
+				responseObject.add("@solrresponse", solrResponseJson);
+			}
 
 			final SolrDocumentList documents = response.getResults();
 
@@ -178,7 +185,7 @@ public class SolrSearchClient extends AbstractSearchClient implements SearchClie
 
 					value.add(v);
 
-					System.err.println(document);
+//					System.err.println(document);
 
 					document.forEach(d -> {
 
@@ -205,20 +212,21 @@ public class SolrSearchClient extends AbstractSearchClient implements SearchClie
 							v.add(k, arr);
 						}
 
-						System.err.println("key=" + d.getKey());
-						System.err.println("value=" + d.getValue());
-						System.err.println("class=" + d.getValue().getClass().getName());
+//						System.err.println("key=" + d.getKey());
+//						System.err.println("value=" + d.getValue());
+//						System.err.println("class=" + d.getValue().getClass().getName());
 					});
 
-					document.keySet().forEach(k -> {
-						System.err.println("fieldValue=" + document.getFieldValue(k));
-					});
+//					document.keySet().forEach(k -> {
+//						System.err.println("fieldValue=" + document.getFieldValue(k));
+//					});
 
-					System.err.println(document.getFieldValues("word_noun_ss"));
-					final String id = (String) document.getFirstValue("id");
-					final String name = (String) document.getFirstValue("name");
+//					System.err.println(document.getFieldValues("word_noun_ss"));
 
-					System.err.println("id: " + id + "; name: " + name);
+//					final String id = (String) document.getFirstValue("id");
+//					final String name = (String) document.getFirstValue("name");
+
+//					System.err.println("id: " + id + "; name: " + name);
 				}
 			}
 

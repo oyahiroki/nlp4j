@@ -36,13 +36,8 @@ public class WikiIndexItem {
 		return itemID;
 	}
 
-	public String getTitle() {
-		return title;
-	}
-
-	public void setNextBlock(long nextBlock) {
-		this.nextBlock = nextBlock;
-
+	public String getNamespace() {
+		return namespace;
 	}
 
 	public long getNextBlock() {
@@ -57,14 +52,19 @@ public class WikiIndexItem {
 		}
 	}
 
+	public String getTitle() {
+		return title;
+	}
+
+	public void setNextBlock(long nextBlock) {
+		this.nextBlock = nextBlock;
+
+	}
+
 	@Override
 	public String toString() {
 		return "WikiIndexItem [blockNum=" + blockNum + ", itemID=" + itemID + ", title=" + title + ", namespace="
 				+ namespace + ", nextBlock=" + nextBlock + "]";
-	}
-
-	public String getNamespace() {
-		return namespace;
 	}
 
 }

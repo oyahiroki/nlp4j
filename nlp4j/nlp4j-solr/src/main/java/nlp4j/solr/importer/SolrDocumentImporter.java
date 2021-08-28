@@ -2,6 +2,8 @@ package nlp4j.solr.importer;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.impl.HttpSolrClient;
@@ -18,12 +20,16 @@ import nlp4j.Keyword;
  * @since 1.3.1.0
  *
  */
-public class SolrDocumentImporter extends AbstractDocumentImporter implements DocumentImporter {
+public class SolrDocumentImporter extends AbstractDocumentImporter implements DocumentImporter, AutoCloseable {
 
 	HttpSolrClient solrClient;
 
 	private String endPoint = "http://localhost:8983/solr/";
 	private String collection = null;
+
+	private String keyword_facet_field_mapping = null;
+
+	private String attribute_field_mapping = null;
 
 	@Override
 	public void setProperty(String key, String value) {
@@ -34,6 +40,12 @@ public class SolrDocumentImporter extends AbstractDocumentImporter implements Do
 		} //
 		else if ("collection".equals(key)) {
 			this.collection = value;
+		} //
+		else if ("keyword_facet_field_mapping".equals(key)) {
+			this.keyword_facet_field_mapping = value;
+		} //
+		else if ("attribute_field_mapping".equals(key)) {
+			this.attribute_field_mapping = value;
 		}
 	}
 
@@ -64,17 +76,61 @@ public class SolrDocumentImporter extends AbstractDocumentImporter implements Do
 //		}
 
 		{
+			Map<String, String> map = new HashMap<>();
+			if (this.attribute_field_mapping != null) {
+				String[] att_field_maps = attribute_field_mapping.split(",");
+				for (String att_field_map : att_field_maps) {
+					String[] mp = att_field_map.split("->");
+					if (mp.length != 2) {
+						continue;
+					} //
+					else {
+						String att = mp[0];
+						String field = mp[1];
+						map.put(att, field);
+					}
+				}
+			}
+
 			for (String key : doc.getAttributeKeys()) {
-				inputDocument.addField(key, doc.getAttribute(key));
+
+				String field = key;
+
+				if (map.containsKey(key)) {
+					field = map.get(key);
+				}
+
+				inputDocument.addField(field, doc.getAttribute(key));
 			}
 		}
 
-		{
-			ArrayList<String> kwds = new ArrayList<>();
-			for (Keyword kwd : doc.getKeywords("word")) {
-				kwds.add(kwd.getLex());
+//		{
+//			ArrayList<String> kwds = new ArrayList<>();
+//			for (Keyword kwd : doc.getKeywords("word")) {
+//				kwds.add(kwd.getLex());
+//			}
+//			inputDocument.addField("word_ss", kwds);
+//		}
+
+		if (keyword_facet_field_mapping != null) {
+			String[] facet_field_maps = keyword_facet_field_mapping.split(",");
+			for (String facet_field_map : facet_field_maps) {
+				String[] map = facet_field_map.split("->");
+				if (map.length != 2) {
+					continue;
+				} //
+				else {
+					String facet = map[0];
+					String field = map[1];
+
+					ArrayList<String> kwds = new ArrayList<>();
+					for (Keyword kwd : doc.getKeywords(facet)) {
+						kwds.add(kwd.getLex());
+					}
+					inputDocument.addField(field, kwds);
+				}
+
 			}
-			inputDocument.addField("word_ss", kwds);
 		}
 
 		try {
@@ -89,11 +145,13 @@ public class SolrDocumentImporter extends AbstractDocumentImporter implements Do
 	@Override
 	public void commit() throws IOException {
 
-		try {
-			solrClient.commit();
-		} catch (SolrServerException | IOException e) {
-			e.printStackTrace();
-			throw new IOException(e);
+		if (solrClient != null) {
+			try {
+				solrClient.commit();
+			} catch (SolrServerException | IOException e) {
+				e.printStackTrace();
+				throw new IOException(e);
+			}
 		}
 
 	}

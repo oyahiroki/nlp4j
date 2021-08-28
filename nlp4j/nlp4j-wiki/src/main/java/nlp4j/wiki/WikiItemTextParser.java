@@ -51,6 +51,11 @@ public class WikiItemTextParser {
 		this.ptr = wpd;
 	}
 
+	/**
+	 * 
+	 * @param head like "=={{ja}}==","==={{noun}}==="
+	 * @return
+	 */
 	private int getLevel(String head) {
 		if (head.indexOf("{") != -1) {
 			return head.indexOf("{") - 1;
@@ -83,6 +88,10 @@ public class WikiItemTextParser {
 		for (String line : wikiItemText.split("\n")) {
 
 			// is header
+			// header
+			// === {{noun}}: 犬・狗 ===
+			// === {{noun}}: 戌 ===
+			// === {{verb}}・往 ===
 			if (line.startsWith("==")) {
 				line = line.replace(" ", "");
 
@@ -92,7 +101,21 @@ public class WikiItemTextParser {
 //				System.err.println("<h" + lvl + ">" + line);
 
 				WikiPageNode wpd = new WikiPageNode();
-				wpd.setHeader(WikiUtils.normailzeHeader(line));
+				{ // normalize header
+					String normailzedHeader = WikiUtils.normailzeHeader(line);
+					wpd.setHeader(normailzedHeader);
+				}
+
+				{ // TODO Extract spell
+					String[] ss = WikiUtils.extractSpells(line);
+					if (ss != null && ss.length > 0) {
+//						for (String s : ss) {
+//							System.err.println("spell: " + s);
+//						}
+						wpd.setSpells(ss);
+					}
+				}
+
 				wpd.setLevel(lvl);
 				list.add(wpd);
 

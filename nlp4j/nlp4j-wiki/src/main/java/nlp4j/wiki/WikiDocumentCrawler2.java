@@ -15,18 +15,16 @@ import nlp4j.impl.DefaultDocument;
  * Properties:
  * wikidumpfile: File path of wiki dump.
  * wikiindexfile: File path of wiki index.
- * entries: comma separated entries. For example: "学校,医者,鉄道"
+ * 
  * </pre>
  * 
  * @author Hiroki Oya
- * @created_at 2021-07-09
+ * @created_at 2021-08-19
  */
-public class WikiDocumentCrawler extends AbstractCrawler implements Crawler {
+public class WikiDocumentCrawler2 extends AbstractCrawler implements Crawler {
 
 	File wikidumpfile = null;
 	File wikiindexfile = null;
-
-	String[] entries = null;
 
 	/**
 	 * Document : "item","wikitetxt","wikiplaintext","wikihtml"
@@ -39,50 +37,35 @@ public class WikiDocumentCrawler extends AbstractCrawler implements Crawler {
 		if (this.wikidumpfile == null || this.wikidumpfile.exists() == false) {
 			return null;
 		}
+
 		if (this.wikiindexfile == null || this.wikiindexfile.exists() == false) {
-			return null;
-		}
-		if (this.entries == null) {
 			return null;
 		}
 
 		ArrayList<Document> docs = new ArrayList<>();
 
 		try {
+
 			WikiDumpReader dumpReader = new WikiDumpReader(wikidumpfile, wikiindexfile);
-			for (String entry : entries) {
 
-				WikiPage page = dumpReader.getItem(entry);
+			WikiIndex wikiIndex = WikiIndexReader.readIndexFile(wikiindexfile); // throws IOException
 
-				if (page == null) {
-					continue;
+			List<WikiIndexItem> items = wikiIndex.getWikiIndexItems();
+
+			for (WikiIndexItem item : items) {
+
+				WikiIndexDocument doc = new WikiIndexDocument();
+				{
+					doc.setDumpReader(dumpReader);
+					doc.putAttribute("item", item.getTitle());
 				}
-
-				Document doc = new DefaultDocument();
-
-				doc.putAttribute("item", entry);
-
-//				System.err.println("<plaintext>");
-//				System.err.println(page.getPlainText());
-//				System.err.println("</plaintext>");
-
-				doc.putAttribute("wikiplaintext", page.getPlainText());
-
-//				System.err.println("<text>");
-//				System.err.println(page.getText());
-//				System.err.println("</text>");
-				doc.putAttribute("wikitext", page.getText());
-
-//				System.err.println("<html>");
-//				System.err.println(page.getHtml());
-//				System.err.println("</html>");
-				doc.putAttribute("wikihtml", page.getHtml());
 
 				docs.add(doc);
 
 			}
 
-			dumpReader.close();
+//			dumpReader.close();
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -93,8 +76,7 @@ public class WikiDocumentCrawler extends AbstractCrawler implements Crawler {
 	/**
 	 * <pre>
 	 * wikidumpfile: Dump file of wiki
-	 * wikiindexfile: Index file of wiki 
-	 * entries: entries to fetch from wiki. example: 学校,病院,医者
+	 * wikiindexfile: Index file of wiki
 	 * </pre>
 	 * 
 	 * @param key   : key of properties
@@ -112,9 +94,6 @@ public class WikiDocumentCrawler extends AbstractCrawler implements Crawler {
 			} //
 			else if (key.equals("wikiindexfile")) {
 				this.wikiindexfile = new File(value);
-			} //
-			else if (key.equals("entries")) {
-				this.entries = value.split(",");
 			} //
 			else {
 

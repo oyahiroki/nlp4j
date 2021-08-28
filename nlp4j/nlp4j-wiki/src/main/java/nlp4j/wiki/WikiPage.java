@@ -86,7 +86,7 @@ public class WikiPage {
 		try {
 			final int wrapCol = 1000;
 			// Retrieve a page
-			PageTitle pageTitle = PageTitle.make(config, this.title);
+			PageTitle pageTitle = PageTitle.make(this.config, this.title);
 			PageId pageId = new PageId(pageTitle, -1);
 			// Instantiate a compiler for wiki pages
 			WtEngineImpl engine = new WtEngineImpl(config);
