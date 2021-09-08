@@ -19,42 +19,68 @@ public class WordCounter {
 
 	SearchClient client;
 
+	/**
+	 * 全文書数
+	 */
 	private long countAll;
 
 	String indexName = "sandbox";
 
-	HashMap<String, Long> wordCount = new HashMap<>();
+	HashMap<String, HashMap<String, Long>> facetWordCount = new HashMap<>();
 
-	public WordCounter(SearchClient client, String collection) {
+//	HashMap<String, Long> wordCount = new HashMap<>();
+
+	public WordCounter(SearchClient client, String indexName, String facets) {
 
 		this.client = client;
-		this.indexName = collection;
+		this.indexName = indexName;
 
-		String json = "{" //
-				+ "search:'*:*'," //
-				+ "facets:['word_noun_ss,count:10000']," //
-				+ "top:0" //
-				+ "}" //
-		;
+		JsonObject initialFacetSearchQueryObject = new JsonObject();
+
+//		String[] initialFacets = "word_noun_ss".split(",");
+		String[] initialFacets = facets.split(",");
+
+		long initialFaetCount = 10000;
+		{
+			initialFacetSearchQueryObject.addProperty("search", "*:*");
+			JsonArray queryFacets = new JsonArray();
+			for (String initialFacet : initialFacets) {
+				queryFacets.add(initialFacet + ",count:" + initialFaetCount);
+			}
+			initialFacetSearchQueryObject.add("facets", queryFacets);
+			initialFacetSearchQueryObject.addProperty("top", 0);
+		}
+
+//		String initialFacetSearchQuery = "{search:'*:*',facets:['word_noun_ss,count:10000'],top:0}";
+		String initialFacetSearchQuery = initialFacetSearchQueryObject.toString();
 
 		try {
 
-			JsonObject responseObject = client.search(indexName, json);
+			JsonObject responseObject = client.search(indexName, initialFacetSearchQuery);
 
 //			System.err.println(new GsonBuilder().setPrettyPrinting().create().toJson(responseObject));
 
+			// 全文書数
 			this.countAll = responseObject.get("@odata.count").getAsLong();
 
 			{
-				JsonObject facets = responseObject.get("@search.facets").getAsJsonObject();
-				{
-					JsonArray ff = facets.get("word_noun_ss").getAsJsonArray();
+				JsonObject resFacets = responseObject.get("@search.facets").getAsJsonObject();
+
+				for (String initialFacet : initialFacets) {
+
+					JsonArray ff = resFacets.get(initialFacet).getAsJsonArray();
+
+					HashMap<String, Long> wordCount = new HashMap<>();
+
+					// put
+					facetWordCount.put(initialFacet, wordCount);
+
 					if (ff != null) {
 						for (int n = 0; n < ff.size(); n++) {
 							JsonObject f = ff.get(n).getAsJsonObject();
 							String s = f.get("value").getAsString();
 							long c = f.get("count").getAsLong();
-							this.wordCount.put(s, c);
+							wordCount.put(s, c);
 						}
 					}
 
@@ -85,12 +111,20 @@ public class WordCounter {
 				JsonObject facets = responseObject.get("@search.facets").getAsJsonObject();
 				{
 					JsonArray ff = facets.get(facet).getAsJsonArray();
+
+					if (this.facetWordCount.get(facet) == null) {
+						this.facetWordCount.put(facet, new HashMap<>());
+					}
+
+					HashMap<String, Long> wordCount = this.facetWordCount.get(facet);
+
 					if (ff != null) {
 						for (int n = 0; n < ff.size(); n++) {
 							JsonObject f = ff.get(n).getAsJsonObject();
 							String s = f.get("value").getAsString();
 							long c = f.get("count").getAsLong();
-							this.wordCount.put(s, c);
+
+							wordCount.put(s, c);
 
 							Keyword kwd = new DefaultKeyword();
 							kwd.setLex(s);
@@ -130,8 +164,8 @@ public class WordCounter {
 
 	public long getCount(String facet, String word) {
 
-		if (wordCount.containsKey(word)) {
-			return wordCount.get(word);
+		if (this.facetWordCount.containsKey(facet) && this.facetWordCount.get(facet).containsKey(word)) {
+			return this.facetWordCount.get(facet).get(word);
 		} //
 		else {
 			String json = "{" //
@@ -141,6 +175,13 @@ public class WordCounter {
 					+ "}" //
 			;
 
+			HashMap<String, Long> wordCount = this.facetWordCount.get(facet);
+
+			if (wordCount == null) {
+				wordCount = new HashMap<String, Long>();
+				this.facetWordCount.put(facet, wordCount);
+			}
+
 			try {
 
 				JsonObject responseObject = client.search(indexName, json);
@@ -149,7 +190,7 @@ public class WordCounter {
 
 				long count = responseObject.get("@odata.count").getAsLong();
 
-				this.wordCount.put(word, count);
+				wordCount.put(word, count);
 
 				return count;
 
@@ -168,7 +209,17 @@ public class WordCounter {
 
 //		System.err.println(word);
 
-		double idf = Math.log(((this.countAll) / (getCount(facet, word))) + 1);
+		long count = getCount(facet, word);
+
+//		if (count == 0) {
+//			return 0.0;
+//		}
+
+//		System.err.println("word=" + word + ",count=" + count);
+
+		double idf = Math.log(((this.countAll) / (count + 1)));
+
+//		System.err.println(idf);
 
 		return idf;
 	}

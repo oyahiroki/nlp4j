@@ -18,6 +18,8 @@ import nlp4j.Keyword;
 import nlp4j.impl.DefaultKeyword;
 
 /**
+ * Document の "wikitext" から必要な部分を切り出して "text" にセットする。
+ * 
  * @author Hiroki Oya
  * @created_at 2021-08-10
  */
@@ -49,10 +51,13 @@ public class WikiDocumentAnnotator extends AbstractDocumentAnnotator implements 
 
 	}
 
-	@Override
+	/**
+	 * "wikitext" からWiki記事のテキストを取り出し、特定の部分を切り出して "text" にセットする.
+	 */
 	public void annotate(Document doc) throws Exception {
 
 		// Wiki形式のテキストを取得
+		// GET "wikitext"
 		String wikiText = doc.getAttributeAsString("wikitext");
 
 		if (wikiText == null || wikiText.isEmpty()) {
@@ -78,8 +83,10 @@ public class WikiDocumentAnnotator extends AbstractDocumentAnnotator implements 
 			for (String path : paths) {
 
 				List<WikiPageNode> pp = rootWikiPageNode.get(path);
+
 				// FOR EACH WIKINODE
 				for (WikiPageNode p : pp) {
+
 					// IF(WIKINODE IS NOT NULL) THEN
 					if (p != null) {
 						{
@@ -105,6 +112,7 @@ public class WikiDocumentAnnotator extends AbstractDocumentAnnotator implements 
 //								System.err.println(html);
 //								System.err.println("</html>");
 
+								// Wikiリンク情報からキーワードをセットする
 								List<Keyword> kwds = extractKeywordsFromWikiHtml(html);
 
 								// ADD KEYWORD TO DOC
@@ -157,17 +165,28 @@ public class WikiDocumentAnnotator extends AbstractDocumentAnnotator implements 
 
 //			System.out.println(document.text());
 
+		// ol > li
 		Elements elements = document.select("ol > li");
 
 //			for (Element element : elements) {
 //				System.out.println(element.text());
 //			}
 
+		logger.info("elements.size(): " + elements.size());
+
+		if (elements.size() > 1) {
+			logger.info("elements.size(): " + elements.size());
+		}
+
 		if (elements.size() > 0) {
+
 			String text = elements.get(0).text();
 
 			if (text.indexOf("。") != -1) {
+				String text0 = text;
 				text = text.substring(0, text.indexOf("。"));
+				logger.info("text0: " + text0);
+				logger.info("text1: " + text);
 			}
 
 //				System.err.println(doc.getAttribute("item") + " → " + text);

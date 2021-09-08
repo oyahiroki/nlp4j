@@ -47,6 +47,7 @@ public class HelloWord2VecJa1 {
 		{
 			Word2VecJaAnnotator ann = new Word2VecJaAnnotator();
 			ann.setProperty("target", "申告内容の要約");
+			ann.setProperty("annotator", "nlp4j.krmj.annotator.KuromojiAnnotator");
 			ann.annotate(docs);
 		}
 

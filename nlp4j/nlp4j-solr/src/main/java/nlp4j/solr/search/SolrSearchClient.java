@@ -1,5 +1,6 @@
 package nlp4j.solr.search;
 
+import java.io.Closeable;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,7 +26,7 @@ import nlp4j.search.AbstractSearchClient;
 import nlp4j.search.SearchClient;
 import nlp4j.search.SearchClientBuilder;
 
-public class SolrSearchClient extends AbstractSearchClient implements SearchClient {
+public class SolrSearchClient extends AbstractSearchClient implements SearchClient, Closeable {
 
 	private static final int CONNECTION_TIMEOUT_MILLIS = 10000;
 	private static final int SOCKET_TIMEOUT_MILLIS = 60000;
@@ -69,6 +70,8 @@ public class SolrSearchClient extends AbstractSearchClient implements SearchClie
 		return search(collection, requestObject);
 	}
 
+	HttpSolrClient client;
+
 	/**
 	 * @param collection of Solr
 	 * @param request    in Azure Style
@@ -78,10 +81,13 @@ public class SolrSearchClient extends AbstractSearchClient implements SearchClie
 	public JsonObject search(String collection, JsonObject request) throws IOException {
 
 		String baseSolrUrl = this.endPoint;
-		HttpSolrClient client = new HttpSolrClient.Builder(baseSolrUrl) //
-				.withConnectionTimeout(CONNECTION_TIMEOUT_MILLIS)//
-				.withSocketTimeout(SOCKET_TIMEOUT_MILLIS)//
-				.build();
+
+		if (this.client == null) {
+			this.client = new HttpSolrClient.Builder(baseSolrUrl) //
+					.withConnectionTimeout(CONNECTION_TIMEOUT_MILLIS)//
+					.withSocketTimeout(SOCKET_TIMEOUT_MILLIS)//
+					.build();
+		}
 
 //		String facet = "word_noun_ss";
 //		String word = "日本";
@@ -89,52 +95,7 @@ public class SolrSearchClient extends AbstractSearchClient implements SearchClie
 
 		final Map<String, String> queryParamMap = new HashMap<>();
 
-		// search -> q
-		{
-			String search = request.get("search").getAsString();
-			if (search != null) {
-				queryParamMap.put("q", search);
-			}
-		}
-		// facets
-		if (request.get("facets") != null && request.get("facets").isJsonNull() == false) {
-
-			JsonArray facets = request.get("facets").getAsJsonArray();
-
-			if (facets != null && facets.size() > 0) {
-				queryParamMap.put("facet", "on");
-			}
-
-			ArrayList<String> ff = new ArrayList<>();
-			if (facets != null && facets.size() > 0) {
-				for (int n = 0; n < facets.size(); n++) {
-					// word_noun,count:100
-					String facet = facets.get(n).getAsString();
-					String facetName = null;
-					String[] facetParams = facet.split(",");
-					for (int i = 0; i < facetParams.length; i++) {
-						String p = facetParams[i];
-						if (i == 0) {
-							ff.add(p);
-							facetName = p;
-						} else {
-							if (p.contains(":")) {
-								String key = p.split(":")[0];
-								String value = p.split(":")[1];
-								if ("count".equals(key)) {
-//									queryParamMap.put("f.word_noun_ss.facet.limit", "100");
-									queryParamMap.put("f." + facetName + ".facet.limit", value);
-//									queryParamMap.put("f." + facetName + ".facet.mincount", "" + 100);
-								}
-							} else {
-
-							}
-						}
-					}
-				}
-			}
-			queryParamMap.put("facet.field", StringUtils.join(ff, ","));
-		}
+		convertRequestParams(request, queryParamMap);
 		// top -> rows
 		{
 			String top = request.get("top").getAsString();
@@ -157,65 +118,78 @@ public class SolrSearchClient extends AbstractSearchClient implements SearchClie
 
 			JsonObject responseObject = new JsonObject();
 
-			{
-				responseObject.add("@requestbody", request);
-			}
-			{
-				Gson gson = new Gson();
-				JsonObject solrResponseJson = gson.fromJson(response.jsonStr(), JsonObject.class);
-				responseObject.add("@solrresponse", solrResponseJson);
-			}
+			convertResponse(request, response, responseObject);
 
-			final SolrDocumentList documents = response.getResults();
+			return responseObject;
 
-			{ // num found
-				responseObject.addProperty("@odata.count", documents.getNumFound());
+		} catch (SolrServerException e) {
+			throw new IOException(e);
+		} catch (IOException e) {
+			throw e;
+		} finally {
+		}
+	}
+
+	private void convertResponse(JsonObject requestAz, QueryResponse responseSolr, JsonObject responseAz) {
+		{
+			responseAz.add("@requestbody", requestAz);
+		}
+		{
+			Gson gson = new Gson();
+			JsonObject solrResponseJson = gson.fromJson(responseSolr.jsonStr(), JsonObject.class);
+			responseAz.add("@solrresponse", solrResponseJson);
+		}
+
+		final SolrDocumentList documents = responseSolr.getResults();
+
+		{ // num found
+			responseAz.addProperty("@odata.count", documents.getNumFound());
 //				System.err.println("Found " + documents.getNumFound() + " documents");
-			}
+		}
 
-			{ // documents
+		{ // documents
 
-				JsonArray value = new JsonArray();
+			JsonArray value = new JsonArray();
 
-				responseObject.add("value", value);
+			responseAz.add("value", value);
 
-				for (SolrDocument document : documents) {
+			for (SolrDocument document : documents) {
 
-					JsonObject v = new JsonObject();
+				JsonObject v = new JsonObject();
 
-					value.add(v);
+				value.add(v);
 
 //					System.err.println(document);
 
-					document.forEach(d -> {
+				document.forEach(d -> {
 
-						String k = d.getKey();
-						Object o = d.getValue();
+					String k = d.getKey();
+					Object o = d.getValue();
 
-						if (o instanceof String) {
-							v.addProperty(k, (String) o);
-						} //
-						else if (o instanceof Number) {
-							v.addProperty(k, (Number) o);
-						} //
-						else if (o instanceof List) {
-							JsonArray arr = new JsonArray();
-							List list = (List) o;
-							for (Object x : list) {
-								if (x instanceof String) {
-									arr.add((String) x);
-								} //
-								else if (x instanceof Number) {
-									arr.add((Number) x);
-								} //
-							}
-							v.add(k, arr);
+					if (o instanceof String) {
+						v.addProperty(k, (String) o);
+					} //
+					else if (o instanceof Number) {
+						v.addProperty(k, (Number) o);
+					} //
+					else if (o instanceof List) {
+						JsonArray arr = new JsonArray();
+						List list = (List) o;
+						for (Object x : list) {
+							if (x instanceof String) {
+								arr.add((String) x);
+							} //
+							else if (x instanceof Number) {
+								arr.add((Number) x);
+							} //
 						}
+						v.add(k, arr);
+					}
 
 //						System.err.println("key=" + d.getKey());
 //						System.err.println("value=" + d.getValue());
 //						System.err.println("class=" + d.getValue().getClass().getName());
-					});
+				});
 
 //					document.keySet().forEach(k -> {
 //						System.err.println("fieldValue=" + document.getFieldValue(k));
@@ -227,49 +201,102 @@ public class SolrSearchClient extends AbstractSearchClient implements SearchClie
 //					final String name = (String) document.getFirstValue("name");
 
 //					System.err.println("id: " + id + "; name: " + name);
-				}
 			}
+		}
 
-			{
-				JsonObject searchFacets = new JsonObject();
+		{
+			JsonObject searchFacets = new JsonObject();
 
-				responseObject.add("@search.facets", searchFacets);
+			responseAz.add("@search.facets", searchFacets);
 
-				List<FacetField> facets = response.getFacetFields();
+			List<FacetField> facets = responseSolr.getFacetFields();
 
-				if (facets != null) {
-					for (FacetField f : facets) {
+			if (facets != null) {
+				for (FacetField f : facets) {
 
-						String facetName = f.getName();
+					String facetName = f.getName();
 
-						JsonArray facetArray = new JsonArray();
+					JsonArray facetArray = new JsonArray();
 
-						searchFacets.add(facetName, facetArray);
+					searchFacets.add(facetName, facetArray);
 
 //						System.err.println(f.getName() + "," + f.getValueCount());
 
-						for (Count cnt : f.getValues()) {
+					for (Count cnt : f.getValues()) {
 
-							JsonObject facetValue = new JsonObject();
-							facetValue.addProperty("count", cnt.getCount());
-							facetValue.addProperty("value", cnt.getName());
-							facetArray.add(facetValue);
+						JsonObject facetValue = new JsonObject();
+						facetValue.addProperty("count", cnt.getCount());
+						facetValue.addProperty("value", cnt.getName());
+						facetArray.add(facetValue);
 
 //							System.err.println(cnt.getName() + "," + cnt.getCount());
-						}
 					}
-
 				}
 
 			}
 
-			return responseObject;
-
-		} catch (SolrServerException e) {
-			throw new IOException(e);
-		} catch (IOException e) {
-			throw e;
 		}
+	}
+
+	/**
+	 * @param requestAzureSearch
+	 * @param requestParamsSolr
+	 */
+	public void convertRequestParams(JsonObject requestAzureSearch, final Map<String, String> requestParamsSolr) {
+		// search -> q
+		{
+			String search = requestAzureSearch.get("search").getAsString();
+			if (search != null) {
+				requestParamsSolr.put("q", search);
+			}
+		}
+		// facets
+		if (requestAzureSearch.get("facets") != null && requestAzureSearch.get("facets").isJsonNull() == false) {
+
+			JsonArray facets = requestAzureSearch.get("facets").getAsJsonArray();
+
+			if (facets != null && facets.size() > 0) {
+				requestParamsSolr.put("facet", "on");
+			}
+
+			ArrayList<String> ff = new ArrayList<>();
+			if (facets != null && facets.size() > 0) {
+				for (int n = 0; n < facets.size(); n++) {
+					// word_noun,count:100
+					String facet = facets.get(n).getAsString();
+					String facetName = null;
+					String[] facetParams = facet.split(",");
+					for (int i = 0; i < facetParams.length; i++) {
+						String p = facetParams[i];
+						if (i == 0) {
+							ff.add(p);
+							facetName = p;
+						} else {
+							if (p.contains(":")) {
+								String key = p.split(":")[0];
+								String value = p.split(":")[1];
+								if ("count".equals(key)) {
+//									queryParamMap.put("f.word_noun_ss.facet.limit", "100");
+									requestParamsSolr.put("f." + facetName + ".facet.limit", value);
+									requestParamsSolr.put("f." + facetName + ".facet.mincount", "1");
+								}
+							} else {
+
+							}
+						}
+					}
+				}
+			}
+			requestParamsSolr.put("facet.field", StringUtils.join(ff, ","));
+		}
+	}
+
+	@Override
+	public void close() throws IOException {
+		if (this.client != null) {
+			this.client.close();
+		}
+
 	}
 
 }

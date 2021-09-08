@@ -1,5 +1,8 @@
 package nlp4j.mecab;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -22,6 +25,10 @@ import nlp4j.util.RegexUtils;
 public class MecabAnnotator extends AbstractDocumentAnnotator implements DocumentAnnotator {
 
 	static private final Logger logger = LogManager.getLogger(MecabAnnotator.class);
+
+	ArrayList<String> facetfilter = null;
+
+	String lexregexfilter = null;
 
 	@Override
 	public void annotate(Document doc) throws Exception {
@@ -106,7 +113,16 @@ public class MecabAnnotator extends AbstractDocumentAnnotator implements Documen
 				idx = idx + surface.length();
 				kwd.setSequence(sequence);
 
-				doc.addKeyword(kwd);
+				if ( //
+
+				(this.facetfilter == null || this.facetfilter.contains(kwd.getFacet())) //
+						&& //
+						(this.lexregexfilter == null || kwd.getLex().matches(this.lexregexfilter)) //
+
+				) //
+				{
+					doc.addKeyword(kwd);
+				}
 
 				sequence++;
 				node = node.next();
@@ -117,6 +133,22 @@ public class MecabAnnotator extends AbstractDocumentAnnotator implements Documen
 		// lattice, taggerを破壊
 		lattice.destroy();
 		tagger.destroy();
+
+	}
+
+	@Override
+	public void setProperty(String key, String value) {
+		super.setProperty(key, value);
+
+		if ("facetfilter".equals(key) && value != null) {
+			if (this.facetfilter == null) {
+				this.facetfilter = new ArrayList<>();
+			}
+			this.facetfilter.addAll(Arrays.asList(value.split(",")));
+		} //
+		else if ("lexregexfilter".equals(key) && value != null) {
+			this.lexregexfilter = value;
+		}
 
 	}
 }

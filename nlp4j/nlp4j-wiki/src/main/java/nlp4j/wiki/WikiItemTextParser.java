@@ -93,6 +93,20 @@ public class WikiItemTextParser {
 			// === {{noun}}: 戌 ===
 			// === {{verb}}・往 ===
 			if (line.startsWith("==")) {
+
+				// 「豚」で以下のような例があった。(20210905)
+				// ==={{noun}}=== <!--品詞 (名詞)-->
+				// {{see|ぶた}}
+				// [[Category:{{jpn}} {{noun}}|ふた ぶた]]
+				// [[Category:{{jpn}} 豚|*]]
+				// #ぶた。偶蹄目イノシシ科の動物で、家畜の一種。
+				{
+					int lastidx = line.lastIndexOf("==");
+					if (lastidx != -1 && (line.length() > lastidx + 2)) {
+						line = line.substring(0, lastidx + 2);
+					}
+				}
+
 				line = line.replace(" ", "");
 
 //				int lvl = line.indexOf("{") - 1;

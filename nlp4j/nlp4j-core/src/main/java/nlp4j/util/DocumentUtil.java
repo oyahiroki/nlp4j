@@ -2,6 +2,7 @@ package nlp4j.util;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.invoke.MethodHandles;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -12,6 +13,8 @@ import java.util.TimeZone;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.text.StringEscapeUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -32,6 +35,8 @@ import nlp4j.impl.DefaultKeyword;
  *
  */
 public class DocumentUtil {
+
+	static private Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
 	static private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
 	static String XML_HEADER = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
@@ -235,6 +240,9 @@ public class DocumentUtil {
 			for (Keyword kwd : doc.getKeywords()) {
 				if (kwd instanceof KeywordWithDependency == false) {
 					arr.add(toJsonObject(kwd));
+				} //
+				else {
+					logger.info("Skip this keyword: " + kwd.getClass().getCanonicalName() + ": " + kwd.getLex());
 				}
 			}
 			jsonObj.add("keywords", arr);

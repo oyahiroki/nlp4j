@@ -20,4 +20,8 @@ public class RegexUtils {
 	 * Regext for attention
 	 */
 	static public String REGEX_ATTENTION = "@[^#\\s]*";
+
+	static public String REGEX_NOT_ALPHABET_SYMBOLS = "^[^a-zA-Z0-9!-/:-@\\[-`{-~]*$";
+
+	static public String REGEX_JA_CHARS = "^[ぁ-んァ-ヶｱ-ﾝﾞﾟ一-龠]*$";
 }

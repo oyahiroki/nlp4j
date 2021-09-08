@@ -11,6 +11,8 @@ import nlp4j.crawler.Crawler;
 import nlp4j.impl.DefaultDocument;
 
 /**
+ * 文書の遅延読み込みを行う。Lazy loading Crawler for Wiki Index Files.
+ * 
  * <pre>
  * Properties:
  * wikidumpfile: File path of wiki dump.
