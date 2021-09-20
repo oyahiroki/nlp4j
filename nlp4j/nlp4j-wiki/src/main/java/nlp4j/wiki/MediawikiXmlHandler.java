@@ -1,48 +1,27 @@
 package nlp4j.wiki;
 
-import java.lang.invoke.MethodHandles;
 import java.util.HashMap;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 
 import nlp4j.xml.AbstractXmlHandler;
 
 /**
+ * XML Handler for Media Wiki
+ * 
  * @author Hiroki Oya
  * @created_at 2021-06-25
  */
 public class MediawikiXmlHandler extends AbstractXmlHandler {
 
-	static private final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
-
+	// pageID -> WikiPage Object
 	HashMap<String, WikiPage> pages = new HashMap<>();
-
-	public HashMap<String, WikiPage> getPages() {
-		return pages;
-	}
 
 	String pageTitle = null;
 	String pageId = null;
 	String pageFormat = null;
 	String pageText = null;
-
-	@Override
-	public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
-		super.startElement(uri, localName, qName, attributes);
-		if (qName.equals("page")) {
-
-			// 255425
-
-			this.pageTitle = null;
-			this.pageId = null;
-			this.pageFormat = null;
-			this.pageText = null;
-		}
-//		System.err.println(qName);
-	}
 
 	@Override
 	public void endElement(String uri, String localName, String qName) throws SAXException {
@@ -77,6 +56,28 @@ public class MediawikiXmlHandler extends AbstractXmlHandler {
 
 		// end of process
 		super.endElement(uri, localName, qName);
+	}
+
+	/**
+	 * @return WikiPage Map (ID -> Object)
+	 */
+	public HashMap<String, WikiPage> getPages() {
+		return pages;
+	}
+
+	@Override
+	public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
+		super.startElement(uri, localName, qName, attributes);
+		if (qName.equals("page")) {
+
+			// 255425
+
+			this.pageTitle = null;
+			this.pageId = null;
+			this.pageFormat = null;
+			this.pageText = null;
+		}
+//		System.err.println(qName);
 	}
 
 }

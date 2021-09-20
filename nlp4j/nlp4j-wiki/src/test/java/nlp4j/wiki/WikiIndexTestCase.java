@@ -2,13 +2,16 @@ package nlp4j.wiki;
 
 import java.io.File;
 
-import nlp4j.test.NLP4JTestCase;
+import junit.framework.TestCase;
 
 /**
  * @author Hiroki Oya
  * @created_at 2021-06-25
  */
-public class WikiIndexTestCase extends NLP4JTestCase {
+public class WikiIndexTestCase extends TestCase {
+
+	@SuppressWarnings("rawtypes")
+	Class target;
 
 	/**
 	 * 

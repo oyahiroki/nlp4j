@@ -2,10 +2,25 @@ package nlp4j.wiki;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.lang.invoke.MethodHandles;
 
-import nlp4j.test.NLP4JTestCase;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-public class WikiDumpReaderTestCase extends NLP4JTestCase {
+import junit.framework.TestCase;
+
+/**
+ * @author Hiroki Oya
+ * @created_at 2021-09-20
+ */
+public class WikiDumpReaderTestCase extends TestCase {
+
+	static private final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
+
+	@SuppressWarnings("rawtypes")
+	Class target;
+
+	@SuppressWarnings("javadoc")
 	public WikiDumpReaderTestCase() {
 		this.target = WikiDumpReader.class;
 	}
@@ -13,7 +28,11 @@ public class WikiDumpReaderTestCase extends NLP4JTestCase {
 	public void test001() throws Exception {
 
 		String dumpFileName = "C:/usr/local/data/wiki/" + "jawiktionary-20210401-pages-articles-multistream.xml.bz2";
+
 		File dumpFile = new File(dumpFileName);
+
+		logger.info("dumpFile: " + dumpFile.getAbsolutePath());
+		logger.info("dumpFile.exists(): " + dumpFile.exists());
 
 		if (dumpFile.exists() == false) {
 			FileNotFoundException e = new FileNotFoundException(dumpFile.getAbsolutePath());
@@ -27,53 +46,60 @@ public class WikiDumpReaderTestCase extends NLP4JTestCase {
 
 			File indexFile = new File(indexFileName);
 
-			WikiDumpReader dumpReader = new WikiDumpReader(dumpFile, indexFile);
+			logger.info("indexFile: " + indexFile.getAbsolutePath());
+			logger.info("indexFile.exists(): " + indexFile.exists());
 
-			{
-				String itemString = "ヨーロッパ";
-				WikiPage page = dumpReader.getItem(itemString);
-				System.err.println(page.getPlainText());
-			}
-
-			System.err.println("---------------------------------------------");
-
-			{
+			try (WikiDumpReader dumpReader = new WikiDumpReader(dumpFile, indexFile)) {
 				String itemString = "大学";
 				WikiPage page = dumpReader.getItem(itemString);
 				System.err.println(page.getPlainText());
 			}
 
-			System.err.println("#####");
+//			{
+//				String itemString = "ヨーロッパ";
+//				WikiPage page = dumpReader.getItem(itemString);
+//				System.err.println(page.getPlainText());
+//			}
+//
+//			System.err.println("---------------------------------------------");
+//
+//			{
+//				String itemString = "大学";
+//				WikiPage page = dumpReader.getItem(itemString);
+//				System.err.println(page.getPlainText());
+//			}
+//
+//			System.err.println("#####");
+//
+//			{
+//				String itemString = "東京";
+//				WikiPage page = dumpReader.getItem(itemString);
+//				System.err.println(page.getPlainText());
+//			}
+//			System.err.println("#####");
+//
+//			{
+//				String itemString = "財布";
+//				WikiPage page = dumpReader.getItem(itemString);
+//				System.err.println(page.getPlainText());
+//			}
+//
+//			System.err.println("#####");
+//
+//			{
+//				String itemString = "椅子";
+//				WikiPage page = dumpReader.getItem(itemString);
+//				System.err.println(page.getPlainText());
+//			}
+//
+//			// 覆水盆に返らず
+//			{
+//				String itemString = "酸素";
+//				WikiPage page = dumpReader.getItem(itemString);
+//				System.err.println(page.getPlainText());
+//			}
 
-			{
-				String itemString = "東京";
-				WikiPage page = dumpReader.getItem(itemString);
-				System.err.println(page.getPlainText());
-			}
-			System.err.println("#####");
-
-			{
-				String itemString = "財布";
-				WikiPage page = dumpReader.getItem(itemString);
-				System.err.println(page.getPlainText());
-			}
-
-			System.err.println("#####");
-
-			{
-				String itemString = "椅子";
-				WikiPage page = dumpReader.getItem(itemString);
-				System.err.println(page.getPlainText());
-			}
-
-			// 覆水盆に返らず
-			{
-				String itemString = "酸素";
-				WikiPage page = dumpReader.getItem(itemString);
-				System.err.println(page.getPlainText());
-			}
-
-			dumpReader.close();
+//			dumpReader.close();
 
 		}
 

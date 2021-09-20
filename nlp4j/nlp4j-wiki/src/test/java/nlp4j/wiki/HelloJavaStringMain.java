@@ -1,6 +1,7 @@
 package nlp4j.wiki;
 
-public class HelloString {
+@SuppressWarnings("javadoc")
+public class HelloJavaStringMain {
 
 	static public void main(String[] args) {
 

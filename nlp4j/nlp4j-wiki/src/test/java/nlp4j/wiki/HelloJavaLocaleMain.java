@@ -2,7 +2,8 @@ package nlp4j.wiki;
 
 import java.util.Locale;
 
-public class HelloLocale {
+@SuppressWarnings("javadoc")
+public class HelloJavaLocaleMain {
 
 	public static void main(String[] args) {
 		Locale loc1 = new Locale("ja");
