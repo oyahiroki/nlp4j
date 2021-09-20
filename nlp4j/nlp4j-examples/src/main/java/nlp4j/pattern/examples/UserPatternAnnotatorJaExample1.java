@@ -1,8 +1,10 @@
 package nlp4j.pattern.examples;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import nlp4j.Document;
 import nlp4j.Keyword;
-import nlp4j.KeywordWithDependency;
 import nlp4j.cabocha.CabochaAnnotator;
 import nlp4j.impl.DefaultDocument;
 import nlp4j.pattern.UserPatternAnnotator;
@@ -10,43 +12,37 @@ import nlp4j.pattern.UserPatternAnnotator;
 @SuppressWarnings("javadoc")
 public class UserPatternAnnotatorJaExample1 {
 
-	@SuppressWarnings("javadoc")
 	public static void main(String[] args) throws Exception {
 
-		String text = "車が高速道路で急に停止した。エンジンから煙がもくもくと出た。";
+		List<Document> docs = new ArrayList<>();
 
-		Document doc = new DefaultDocument();
-		{
-			doc.putAttribute("text", text);
-		}
+		docs.add(new DefaultDocument("私は歩く。"));
+		docs.add(new DefaultDocument("私が歩く。"));
+		docs.add(new DefaultDocument("私は急いで歩く。"));
+		docs.add(new DefaultDocument("私は急いで歩いた。"));
+		docs.add(new DefaultDocument("私は急いで学校まで歩いた。"));
+		docs.add(new DefaultDocument("昨日、私は急いで学校まで歩いた。"));
 
+		CabochaAnnotator ann1 = new CabochaAnnotator();
 		{ // 係り受け解析
-			CabochaAnnotator ann = new CabochaAnnotator();
-			ann.setProperty("encoding", "MS932");
-			ann.setProperty("target", "text");
-			ann.annotate(doc);
+			ann1.setProperty("encoding", "MS932");
+			ann1.setProperty("target", "text");
 		}
 
+		UserPatternAnnotator ann2 = new UserPatternAnnotator();
 		{ // 係り受けパターン抽出
-			UserPatternAnnotator ann = new UserPatternAnnotator();
-			ann.setProperty("file", "src/test/resources/nlp4j.pattern.examples/pattern-ja-sv.xml");
-			ann.annotate(doc);
+			ann2.setProperty("file", "src/test/resources/nlp4j.pattern.examples/pattern-ja-sv.xml");
 		}
 
-//		for (Keyword kwd : doc.getKeywords()) {
-//			// 係り受け
-//			if (kwd instanceof KeywordWithDependency) {
-//				System.err.println(((KeywordWithDependency) kwd).toStringAsXml());
-//			} else {
-//				System.err.println(kwd.toString());
-//			}
-//		}
-
-		// Expected Result
-		// 車 ... 停止
-		// 煙 ... 出る
-		for (Keyword kwd : doc.getKeywords("pattern")) {
-			System.err.println(kwd.getLex());
+		for (Document doc : docs) {
+			System.err.println("<doc>");
+			ann1.annotate(doc);
+			ann2.annotate(doc);
+			System.err.println(doc.getAttribute("text"));
+			for (Keyword kwd : doc.getKeywords("pattern")) {
+				System.err.println(kwd.getLex());
+			}
+			System.err.println("</doc>");
 		}
 
 	}

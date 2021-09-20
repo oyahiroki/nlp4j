@@ -13,8 +13,8 @@ import nlp4j.Document;
 import nlp4j.util.DocumentUtil;
 
 /**
- * テキストファイルを改行区切りでクロールします。<br>
- * Crawl documents from line separated plain text
+ * 改行区切りJSONのクローラー<br>
+ * Crawler for Line Separated JSON
  * 
  * @author Hiroki Oya
  * @since 1.1.1
@@ -24,8 +24,8 @@ public class JsonLineSeparatedCrawler extends AbstractFileCrawler implements Cra
 	static private final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
 	/**
-	 * コンストラクタ <br>
-	 * Default Constructor
+	 * 改行区切りJSONのクローラー コンストラクタ <br>
+	 * Default Constructor of Line Separated JSON Crawler
 	 */
 	public JsonLineSeparatedCrawler() {
 		super();

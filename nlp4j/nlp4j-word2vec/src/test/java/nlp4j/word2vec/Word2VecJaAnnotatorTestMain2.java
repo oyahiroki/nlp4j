@@ -15,7 +15,7 @@ public class Word2VecJaAnnotatorTestMain2 {
 
 		{
 			Document doc = new DefaultDocument();
-			doc.putAttribute("text", "今日はいい天気です。");
+			doc.putAttribute("text", "今日はいい天気です。歩いて学校に行く。");
 
 			docs.add(doc);
 
@@ -27,7 +27,9 @@ public class Word2VecJaAnnotatorTestMain2 {
 		{
 			Word2VecJaAnnotator ann = new Word2VecJaAnnotator();
 			ann.setProperty("target", "text");
+			ann.setProperty("target2", "text");
 			ann.setProperty("annotator", "nlp4j.mecab.MecabAnnotator");
+			ann.setProperty("upos", "NOUN,ADJ,VERB");
 			ann.annotate(docs);
 
 			System.err.println(DocumentUtil.toPrettyJsonString(docs.get(0)));

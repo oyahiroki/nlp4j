@@ -33,33 +33,11 @@ public class Word2VecOutImporter extends AbstractDocumentImporter {
 	private File outFile = null;
 	private String target = "text";
 
-	/**
-	 * @param key   file | encoding
-	 * @param value filepath | encoding name
-	 */
-	public void setProperty(String key, String value) {
-		super.setProperty(key, value);
-
-		if (key == null) {
-			return;
-		} else {
-			if (key.equals("outfile")) {
-				this.outFile = new File(value);
-			} //
-			else if (key.equals("target")) {
-				this.target = value;
-			} //
-		}
-	}
-
 	ArrayList<String> ss = new ArrayList<>();
 
 	@Override
-	public void importDocument(Document doc) throws IOException {
-		String s = doc.getAttributeAsString(target);
-		if (s != null && s.trim().isEmpty() == false) {
-			ss.add(s.trim());
-		}
+	public void close() {
+		logger.info("close");
 	}
 
 	@Override
@@ -113,8 +91,30 @@ public class Word2VecOutImporter extends AbstractDocumentImporter {
 	}
 
 	@Override
-	public void close() {
-		logger.info("close");
+	public void importDocument(Document doc) throws IOException {
+		String s = doc.getAttributeAsString(target);
+		if (s != null && s.trim().isEmpty() == false) {
+			ss.add(s.trim());
+		}
+	}
+
+	/**
+	 * @param key   file | encoding
+	 * @param value filepath | encoding name
+	 */
+	public void setProperty(String key, String value) {
+		super.setProperty(key, value);
+
+		if (key == null) {
+			return;
+		} else {
+			if (key.equals("outfile")) {
+				this.outFile = new File(value);
+			} //
+			else if (key.equals("target")) {
+				this.target = value;
+			} //
+		}
 	}
 
 }

@@ -41,6 +41,16 @@ public class DefaultDocument implements Document {
 		super();
 	}
 
+	/**
+	 * 
+	 * @param text Text of this document
+	 * @since 1.3.3.0
+	 */
+	public DefaultDocument(String text) {
+		super();
+		this.putAttribute("text", text);
+	}
+
 	@Override
 	public void addKeyword(Keyword keyword) {
 		keywords.add(keyword);

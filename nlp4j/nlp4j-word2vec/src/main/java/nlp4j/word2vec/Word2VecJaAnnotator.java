@@ -3,6 +3,8 @@ package nlp4j.word2vec;
 import java.lang.invoke.MethodHandles;
 import java.text.Normalizer;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -36,10 +38,12 @@ public class Word2VecJaAnnotator extends AbstractDocumentAnnotator implements Do
 	static private Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
 	String target = "text";
-	String att_to = "text2";
+	String target2 = "text2";
 
 	// 形態素解析アノテーター
 	DocumentAnnotator annotator = null;
+
+	List<String> uposFilter = null;
 
 	@Override
 	public void annotate(Document doc) throws Exception {
@@ -75,6 +79,21 @@ public class Word2VecJaAnnotator extends AbstractDocumentAnnotator implements Do
 
 		for (int n = 0; n < doc2.getKeywords().size(); n++) {
 			Keyword kwd = doc2.getKeywords().get(n);
+
+//			System.err.println(this.uposFilter);
+//			System.err.println(kwd.getUPos());
+
+			if (this.uposFilter != null && this.uposFilter.contains(kwd.getUPos()) == false) {
+//				System.err.println("xx");
+
+				if (n == doc2.getKeywords().size() - 1) {
+					ss.add(sb.toString());
+					sb = new StringBuilder();
+				}
+
+				continue;
+			}
+
 			String lex = kwd.getLex();
 
 			if (lex.equals("。") || lex.equals("．")) {
@@ -107,7 +126,7 @@ public class Word2VecJaAnnotator extends AbstractDocumentAnnotator implements Do
 			}
 		}
 
-		doc.putAttribute(att_to, String.join("\n", ss));
+		doc.putAttribute(target2, String.join("\n", ss));
 
 //		if (idx > 10) {
 //			break;
@@ -124,6 +143,9 @@ public class Word2VecJaAnnotator extends AbstractDocumentAnnotator implements Do
 		if ("target".equals(key)) {
 			this.target = value;
 		} //
+		else if ("target2".equals(key)) {
+			this.target2 = value;
+		} //
 		else if ("annotator".equals(key)) {
 			try {
 				this.annotator = (DocumentAnnotator) Class.forName(value).newInstance();
@@ -132,7 +154,12 @@ public class Word2VecJaAnnotator extends AbstractDocumentAnnotator implements Do
 				logger.error(e.getMessage(), e);
 				throw new RuntimeException(e);
 			}
-
+		} //
+		else if ("upos".equals(key)) {
+			if (this.uposFilter == null) {
+				this.uposFilter = new ArrayList<>();
+			}
+			this.uposFilter.addAll(Arrays.asList(value.split(",")));
 		}
 
 	}

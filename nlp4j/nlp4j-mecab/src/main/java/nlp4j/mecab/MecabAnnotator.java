@@ -33,7 +33,7 @@ public class MecabAnnotator extends AbstractDocumentAnnotator implements Documen
 	@Override
 	public void annotate(Document doc) throws Exception {
 
-		logger.info("processing document");
+		logger.debug("processing document");
 
 		// Taggerを構築。
 		// 引数には、MeCabのcreateTagger()関数に与える引数を与える。
@@ -78,8 +78,7 @@ public class MecabAnnotator extends AbstractDocumentAnnotator implements Documen
 				}
 
 				if (features.length < 8) {
-					logger.warn("invalid");
-					logger.info(text);
+					logger.warn("invalid: features.length:" + features.length + "," + text);
 				}
 
 				logger.debug(node.surface() + "\t" + node.feature());

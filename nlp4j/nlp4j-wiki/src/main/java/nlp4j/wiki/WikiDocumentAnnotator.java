@@ -172,10 +172,10 @@ public class WikiDocumentAnnotator extends AbstractDocumentAnnotator implements 
 //				System.out.println(element.text());
 //			}
 
-		logger.info("elements.size(): " + elements.size());
+		logger.debug("elements.size(): " + elements.size());
 
 		if (elements.size() > 1) {
-			logger.info("elements.size(): " + elements.size());
+			logger.debug("elements.size(): " + elements.size());
 		}
 
 		if (elements.size() > 0) {
@@ -185,8 +185,8 @@ public class WikiDocumentAnnotator extends AbstractDocumentAnnotator implements 
 			if (text.indexOf("。") != -1) {
 				String text0 = text;
 				text = text.substring(0, text.indexOf("。"));
-				logger.info("text0: " + text0);
-				logger.info("text1: " + text);
+				logger.debug("text0: " + text0);
+				logger.debug("text1: " + text);
 			}
 
 //				System.err.println(doc.getAttribute("item") + " → " + text);
