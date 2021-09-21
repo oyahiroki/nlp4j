@@ -32,3 +32,4 @@ Thumbs.db
 .DS_Store
 
 /target/
+/docs/
