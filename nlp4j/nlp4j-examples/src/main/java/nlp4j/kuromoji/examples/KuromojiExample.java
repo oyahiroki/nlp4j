@@ -1,4 +1,4 @@
-package hello.kuromoji;
+package nlp4j.kuromoji.examples;
 
 import com.atilika.kuromoji.ipadic.Token;
 import com.atilika.kuromoji.ipadic.Tokenizer;
