@@ -7,15 +7,12 @@ import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.jsoup.Jsoup;
-import org.jsoup.select.Elements;
 
 import nlp4j.AbstractDocumentAnnotator;
 import nlp4j.Document;
 import nlp4j.DocumentAnnotator;
 import nlp4j.FieldAnnotator;
 import nlp4j.Keyword;
-import nlp4j.impl.DefaultKeyword;
 
 /**
  * Document の "wikitext" から必要な部分を切り出して "text" にセットする。
@@ -34,8 +31,11 @@ public class WikiDocumentAnnotator extends AbstractDocumentAnnotator implements 
 
 	/**
 	 * <pre>
+	 * paths: 取得対象のヘッダーを指定する
+	 * 
 	 * Example
-	 * paths: "=={{ja}}==/==={{noun}}===,=={{ja}}==/==={{adj}}==="
+	 * paths 1: "=={{ja}}==/==={{noun}}===,=={{ja}}==/==={{adj}}==="
+	 * paths 2: "=={{ja}}==/==={{noun}}===,=={{ja}}==/==={{adj}}===,=={{ja}}==/===和語の漢字表記==="
 	 * </pre>
 	 * 
 	 * @param key   key of properties
@@ -113,13 +113,13 @@ public class WikiDocumentAnnotator extends AbstractDocumentAnnotator implements 
 //								System.err.println("</html>");
 
 								// Wikiリンク情報からキーワードをセットする
-								List<Keyword> kwds = extractKeywordsFromWikiHtml(html);
+								List<Keyword> kwds = WikiUtils.extractKeywordsFromWikiHtml(html);
 
 								// ADD KEYWORD TO DOC
 								doc.addKeywords(kwds);
 
 								{
-									String text = WikiUtils.toPlainText(line, "");
+									String text = WikiUtils.toPlainText(line);
 //									System.err.println("line: " + line);
 //									System.err.println("text: " + text);
 									if (tt.contains("# " + text) == false) {
@@ -154,62 +154,6 @@ public class WikiDocumentAnnotator extends AbstractDocumentAnnotator implements 
 			}
 
 		}
-
-	}
-
-	private static List<Keyword> extractKeywordsFromWikiHtml(String html) {
-
-		ArrayList<Keyword> keywords = new ArrayList<>();
-
-		org.jsoup.nodes.Document document = Jsoup.parse(html);
-
-//			System.out.println(document.text());
-
-		// ol > li
-		Elements elements = document.select("ol > li");
-
-//			for (Element element : elements) {
-//				System.out.println(element.text());
-//			}
-
-		logger.debug("elements.size(): " + elements.size());
-
-		if (elements.size() > 1) {
-			logger.debug("elements.size(): " + elements.size());
-		}
-
-		if (elements.size() > 0) {
-
-			String text = elements.get(0).text();
-
-			if (text.indexOf("。") != -1) {
-				String text0 = text;
-				text = text.substring(0, text.indexOf("。"));
-				logger.debug("text0: " + text0);
-				logger.debug("text1: " + text);
-			}
-
-//				System.err.println(doc.getAttribute("item") + " → " + text);
-//			System.err.println(text);
-
-			Elements els = elements.get(0).select("a[title]");
-			for (int n = 0; n < els.size(); n++) {
-				String title = els.get(n).attr("title");
-				String t = els.get(n).text();
-				if (title.startsWith("Template") == false) {
-//					System.err.println("\t" + title + " (" + t + ")");
-//					System.err.println("\t" + t);
-					Keyword kwd = new DefaultKeyword();
-					kwd.setLex(title);
-					kwd.setStr(t);
-					kwd.setFacet("wiki.link");
-					keywords.add(kwd);
-				}
-			}
-
-		}
-
-		return keywords;
 
 	}
 
