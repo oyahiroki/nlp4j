@@ -73,6 +73,10 @@ public class CabochaNlpService implements NlpService {
 //		String s = "私は走って学校に行きます。";
 //		String encoding = "MS932";
 
+		if (text != null) {
+			logger.info("text.length: " + text.length());
+		}
+
 		File dir = new File(tempDir);
 		File file1 = File.createTempFile("nlp", ".txt", dir);
 		file1.deleteOnExit();
@@ -95,9 +99,8 @@ public class CabochaNlpService implements NlpService {
 
 			InputStream is = proc.getInputStream();
 
-			int exitCode = proc.waitFor(); // コマンドの終了を待機する。
-
-			logger.debug("exitCode=" + exitCode);
+//			int exitCode = proc.waitFor(); // コマンドの終了を待機する。
+//			logger.debug("exitCode=" + exitCode);
 
 			HashMap<String, DefaultKeywordWithDependency> kwdMap = new HashMap<>();
 
@@ -221,7 +224,7 @@ public class CabochaNlpService implements NlpService {
 			return response;
 
 		} //
-		catch (IOException | InterruptedException e) {
+		catch (Exception e) {
 			throw new IOException(e);
 		}
 

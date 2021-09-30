@@ -53,6 +53,9 @@ public class TwitterCrawler extends AbstractCrawler implements Crawler {
 
 	File outFile = null;
 
+	private final int COUNT = 100;
+	private final int LOOP_MAX = 15;
+
 	@Override
 	public void setProperty(String key, String value) {
 		super.setProperty(key, value);
@@ -116,52 +119,69 @@ public class TwitterCrawler extends AbstractCrawler implements Crawler {
 		Twitter twitter = tf.getInstance();
 
 		Query query = new Query(this.query);
-		query.setCount(100);
+		query.setCount(COUNT);
 
 		ArrayList<Document> docs = new ArrayList<>();
 
 		Gson gson = new Gson();
 
 		try {
-			QueryResult result = twitter.search(query);
 
-			for (Status status : result.getTweets()) {
+			for (int count = 0; count < LOOP_MAX; count++) {
 
-				Document doc = new DefaultDocument();
+				logger.info("Search count: " + (count + 1));
 
-				{
-					String statusJSON = TwitterObjectFactory.getRawJSON(status);
-//					System.err.println(JsonUtils.prettyPrint(statusJSON));
-//					doc.putAttribute("rawjson", statusJSON); // 1.0
-					doc.putAttribute("rawjson", gson.fromJson(statusJSON, JsonObject.class)); // 1.1
-					if (this.outFile != null) {
-						try {
-							boolean append = true;
-							String encoding = "UTF-8";
-							String data = statusJSON + "\n";
-							FileUtils.write(outFile, data, encoding, append);
-						} catch (IOException e) {
-							logger.error(e.getMessage(), e);
+				QueryResult result = twitter.search(query);
+
+				logger.info("Tweets Count: " + result.getCount());
+
+				for (Status status : result.getTweets()) {
+
+					Document doc = new DefaultDocument();
+
+					{
+						String statusJSON = TwitterObjectFactory.getRawJSON(status);
+//						System.err.println(JsonUtils.prettyPrint(statusJSON));
+//						doc.putAttribute("rawjson", statusJSON); // 1.0
+						doc.putAttribute("rawjson", gson.fromJson(statusJSON, JsonObject.class)); // 1.1
+						if (this.outFile != null) {
+							try {
+								boolean append = true;
+								String encoding = "UTF-8";
+								String data = statusJSON + "\n";
+								FileUtils.write(outFile, data, encoding, append);
+							} catch (IOException e) {
+								logger.error(e.getMessage(), e);
+							}
 						}
 					}
+
+					doc.putAttribute("source", status.getSource());
+
+					doc.putAttribute("user_followercount", status.getUser().getFollowersCount());
+					doc.putAttribute("user_location", status.getUser().getLocation());
+					doc.putAttribute("user_screenname", status.getUser().getScreenName());
+					doc.putAttribute("user_id", status.getUser().getId());
+
+					doc.putAttribute("text", status.getText());
+					doc.putAttribute("id", status.getId());
+					doc.putAttribute("created_at", status.getCreatedAt());
+					doc.putAttribute("favorite_count", status.getFavoriteCount());
+					doc.putAttribute("retweet_count", status.getRetweetCount());
+					// System.out.println("@" + status.getUser().getScreenName() + ":" +
+					// status.getText());
+
+					docs.add(doc);
 				}
 
-				doc.putAttribute("source", status.getSource());
+				if (result.hasNext()) {
+					query = result.nextQuery();
+				}
+				//
+				else {
+					break;
+				}
 
-				doc.putAttribute("user_followercount", status.getUser().getFollowersCount());
-				doc.putAttribute("user_location", status.getUser().getLocation());
-				doc.putAttribute("user_screenname", status.getUser().getScreenName());
-				doc.putAttribute("user_id", status.getUser().getId());
-
-				doc.putAttribute("text", status.getText());
-				doc.putAttribute("id", status.getId());
-				doc.putAttribute("created_at", status.getCreatedAt());
-				doc.putAttribute("favorite_count", status.getFavoriteCount());
-				doc.putAttribute("retweet_count", status.getRetweetCount());
-				// System.out.println("@" + status.getUser().getScreenName() + ":" +
-				// status.getText());
-
-				docs.add(doc);
 			}
 
 		} catch (TwitterException e) {

@@ -15,11 +15,12 @@ public class StanfordPosDependencyAnnotatorExample0 {
 	@SuppressWarnings("javadoc")
 	public static void main(String[] args) throws Exception {
 
-		StanfordPosDependencyAnnotator ann = new StanfordPosDependencyAnnotator();
-
+		// Document
 		Document doc = new DefaultDocument();
 		doc.putAttribute("text", "I eat sushi with chopsticks.");
 
+		// Annotation
+		StanfordPosDependencyAnnotator ann = new StanfordPosDependencyAnnotator();
 		ann.setProperty("target", "text");
 
 		ann.annotate(doc);
