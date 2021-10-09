@@ -1,0 +1,3 @@
+{id:"doc001",field1:"AAA",field2:"BBB",field3:1,text:"This is test 001.",field100:{xxx:111,yyy:222}}
+{id:"doc002",field1:"AAA",field2:"BBB",field3:2,text:"This is test 002.",field100:{xxx:111,yyy:222}}
+{id:"doc003",field1:"AAA",field2:"BBB",field3:3,text:"This is test 003.",field100:{xxx:111,yyy:222}}
