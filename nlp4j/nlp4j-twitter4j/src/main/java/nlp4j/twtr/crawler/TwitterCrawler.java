@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
@@ -56,44 +57,7 @@ public class TwitterCrawler extends AbstractCrawler implements Crawler {
 	private final int COUNT = 100;
 	private final int LOOP_MAX = 15;
 
-	@Override
-	public void setProperty(String key, String value) {
-		super.setProperty(key, value);
-
-		if (key.equals("debugEnabled")) {
-			this.debugEnabled = Boolean.parseBoolean(value);
-		} //
-		else if (key.equals("oauth.consumerKey")) {
-			this.oAuthConsumerKey = value;
-		} //
-		else if (key.equals("oauth.consumerSecret")) {
-			this.oAuthConsumerSecret = value;
-		} //
-		else if (key.equals("oauth.accessToken")) {
-			this.oAuthAccessToken = value;
-		} //
-		else if (key.equals("oauth.accessTokenSecret")) {
-			this.oAuthAccessTokenSecret = value;
-		} //
-		else if (key.equals("query")) {
-			this.query = value;
-		} //
-		else if (key.equals("outfile")) {
-			File file = new File(value);
-			if (file.exists() == false) {
-				File parentDir = file.getParentFile();
-				if (parentDir.exists() == false) {
-					try {
-						FileUtils.forceMkdir(parentDir);
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-				}
-			}
-			this.outFile = file;
-		}
-
-	}
+	long maxId = -1;
 
 	@Override
 	public ArrayList<Document> crawlDocuments() {
@@ -119,7 +83,13 @@ public class TwitterCrawler extends AbstractCrawler implements Crawler {
 		Twitter twitter = tf.getInstance();
 
 		Query query = new Query(this.query);
-		query.setCount(COUNT);
+		{
+			query.setCount(COUNT);
+			if (this.maxId != -1) {
+				query.setSinceId(maxId);
+				logger.info("query_sinceid: " + this.maxId);
+			}
+		}
 
 		ArrayList<Document> docs = new ArrayList<>();
 
@@ -143,7 +113,14 @@ public class TwitterCrawler extends AbstractCrawler implements Crawler {
 						String statusJSON = TwitterObjectFactory.getRawJSON(status);
 //						System.err.println(JsonUtils.prettyPrint(statusJSON));
 //						doc.putAttribute("rawjson", statusJSON); // 1.0
-						doc.putAttribute("rawjson", gson.fromJson(statusJSON, JsonObject.class)); // 1.1
+						JsonObject tweet = gson.fromJson(statusJSON, JsonObject.class);
+						if (tweet.get("id") != null) {
+							long latestid = tweet.get("id").getAsLong();
+							if (latestid > this.maxId) {
+								this.maxId = latestid;
+							}
+						}
+						doc.putAttribute("rawjson", tweet); // 1.1
 						if (this.outFile != null) {
 							try {
 								boolean append = true;
@@ -188,6 +165,69 @@ public class TwitterCrawler extends AbstractCrawler implements Crawler {
 			e.printStackTrace();
 		}
 		return docs;
+	}
+
+	@Override
+	public void setProperty(String key, String value) {
+		super.setProperty(key, value);
+
+		if (key.equals("debugEnabled")) {
+			this.debugEnabled = Boolean.parseBoolean(value);
+		} //
+		else if (key.equals("oauth.consumerKey")) {
+			this.oAuthConsumerKey = value;
+		} //
+		else if (key.equals("oauth.consumerSecret")) {
+			this.oAuthConsumerSecret = value;
+		} //
+		else if (key.equals("oauth.accessToken")) {
+			this.oAuthAccessToken = value;
+		} //
+		else if (key.equals("oauth.accessTokenSecret")) {
+			this.oAuthAccessTokenSecret = value;
+		} //
+		else if (key.equals("query")) {
+			this.query = value;
+		} //
+		else if (key.equals("outfile")) {
+			File file = new File(value);
+			// IF(OUTFILE IS EXIST) THEN
+			if (file.exists() == false) {
+				File parentDir = file.getParentFile();
+				if (parentDir.exists() == false) {
+					try {
+						FileUtils.forceMkdir(parentDir);
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+			// ELSE
+			else {
+				// CHECK MAX ID OF TWEETS FOR NEXT QUERY
+				List<String> lines;
+				try {
+					lines = FileUtils.readLines(file, "UTF-8");
+					for (String line : lines) {
+						Gson gson = new Gson();
+						JsonObject tweet = gson.fromJson(line, JsonObject.class);
+						if (tweet == null) {
+							logger.warn("file may not be JSON");
+						} else {
+							long id = tweet.get("id").getAsLong();
+							if (id > this.maxId) {
+								this.maxId = id;
+							}
+						}
+					}
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				logger.info("maxId: " + this.maxId);
+			}
+			this.outFile = file;
+		}
+
 	}
 
 }
