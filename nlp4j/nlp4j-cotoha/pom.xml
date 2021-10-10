@@ -8,6 +8,13 @@
 	</parent>
 	<artifactId>nlp4j-cotoha</artifactId>
 	<version>1.0.0.0-SNAPSHOT</version>
+	<licenses>
+		<license>
+			<name>Apache License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
 	<dependencies>
 		<!-- https://mvnrepository.com/artifact/junit/junit -->
 		<dependency>

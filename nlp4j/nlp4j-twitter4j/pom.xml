@@ -8,6 +8,13 @@
 	</parent>
 	<artifactId>nlp4j-twtr</artifactId>
 	<version>1.1.0.0</version>
+	<licenses>
+		<license>
+			<name>Apache License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
 	<properties>
 		<!-- 変数 -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
