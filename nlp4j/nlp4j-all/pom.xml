@@ -1,13 +1,28 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+	<!-- PARENT -->
 	<parent>
 		<groupId>org.nlp4j</groupId>
 		<artifactId>nlp4j</artifactId>
 		<version>1.3.1.0</version>
 	</parent>
+	<!-- ARTIFACT ID -->
 	<artifactId>nlp4j-all</artifactId>
-	<version>1.0.0.0</version>
+	<!-- JAR -->
+	<packaging>jar</packaging>
+	<name>nlp4j-all</name>
+	<!-- VERSION -->
+	<version>1.0.0.20211011</version>
+	<description>NLP4J ALL IN ONE Module</description>
+	<url>https://nlp4j.org/</url>
+	<licenses>
+		<license>
+			<name>Apache License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
 	<dependencies>
 		<!-- https://mvnrepository.com/artifact/org.nlp4j/nlp4j-core -->
 		<dependency>
@@ -39,6 +54,21 @@
 			<artifactId>nlp4j-stanford</artifactId>
 			<version>1.3.1.1</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/edu.stanford.nlp/stanford-corenlp -->
+		<dependency>
+			<groupId>edu.stanford.nlp</groupId>
+			<artifactId>stanford-corenlp</artifactId>
+			<version>4.0.0</version>
+			<scope>provided</scope>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/edu.stanford.nlp/stanford-corenlp -->
+		<dependency>
+			<groupId>edu.stanford.nlp</groupId>
+			<artifactId>stanford-corenlp</artifactId>
+			<version>4.0.0</version>
+			<classifier>models</classifier>
+			<scope>provided</scope>
+		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.nlp4j/nlp4j-webcrawler -->
 		<dependency>
 			<groupId>org.nlp4j</groupId>
@@ -50,6 +80,24 @@
 			<groupId>org.nlp4j</groupId>
 			<artifactId>nlp4j-yahoojp</artifactId>
 			<version>1.3.0.0</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.nlp4j/nlp4j-mecab -->
+		<dependency>
+			<groupId>org.nlp4j</groupId>
+			<artifactId>nlp4j-mecab</artifactId>
+			<version>0.1.0.0</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.nlp4j/nlp4j-wiki -->
+		<dependency>
+			<groupId>org.nlp4j</groupId>
+			<artifactId>nlp4j-wiki</artifactId>
+			<version>0.2.0.1</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.nlp4j/nlp4j-twtr -->
+		<dependency>
+			<groupId>org.nlp4j</groupId>
+			<artifactId>nlp4j-twtr</artifactId>
+			<version>1.1.0.0</version>
 		</dependency>
 
 	</dependencies>

@@ -1,12 +1,27 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+	<!-- PARENT -->
 	<parent>
 		<groupId>org.nlp4j</groupId>
 		<artifactId>nlp4j</artifactId>
 		<version>1.3.1.0</version>
 	</parent>
+	<!-- ARTIFACT ID -->
 	<artifactId>nlp4j-word2vec</artifactId>
+	<!-- JAR -->
+	<packaging>jar</packaging>
+	<name>nlp4j-word2vec</name>
+	<version>1.0.0.0</version>
+	<description>NLP4J for Word2Vec</description>
+	<url>https://nlp4j.org/</url>
+	<licenses>
+		<license>
+			<name>Apache License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
 	<dependencies>
 		<dependency>
 			<groupId>org.nlp4j</groupId>
