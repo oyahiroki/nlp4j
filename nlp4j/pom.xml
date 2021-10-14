@@ -202,5 +202,6 @@
 		<module>nlp4j-examples</module>
 		<module>nlp4j-all</module>
     <module>nlp4j-web-api</module>
+    <module>nlp4j-web-app</module>
   </modules>
 </project>
