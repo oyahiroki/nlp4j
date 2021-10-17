@@ -1,17 +1,14 @@
+# Introduction 
 
-# NLP4J Solr
+NLP4J for Apache Solr
 
-# Solr Query Examples
+https://solr.apache.org/
 
-## Facet Counting
 
-https://solr.apache.org/guide/6_6/faceting.html
+# Features
 
-facet=true
-facet.field=field_name
-facet.mincount=1
+nlp4j-solr provides
+- Data Indexer for Solr
+- Search Client for Solr
 
-http://localhost:8983/solr/sandbox/select?facet.field=word_ss&facet=true&q=*%3A*&rows=0
-
-http://localhost:8983/solr/sandbox/select?facet.field=word_ss&facet.mincount=1&facet=true&q=item%3A*&rows=1
 

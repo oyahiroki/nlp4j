@@ -1,11 +1,13 @@
-# NLP4J for Stanford NLP
+# Introduction 
+
+NLP4J for Stanford NLP
 
 
-## Maven dependencies
+https://nlp.stanford.edu/
 
-...
+# Features
 
-## How to use
-
-...
+nlp4j-stanford provides
+- Easy use wrapper for Stanford NLP
+- Dependency extraction
 
