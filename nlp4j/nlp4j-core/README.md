@@ -11,3 +11,16 @@ nlp4j-core provides
 - Importer Framework for Text Index Services (Example: Apache Solr, Azure Search)
 
 
+# MAVEN Repository
+
+https://mvnrepository.com/search?q=org.nlp4j
+
+# Build for Release
+
+	mvn -DperformRelease=true clean deploy
+	
+# Maven Commands
+
+	mvn test
+	mvn javadoc:javadoc
+	

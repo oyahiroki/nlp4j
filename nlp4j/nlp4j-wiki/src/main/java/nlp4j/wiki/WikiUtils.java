@@ -165,7 +165,7 @@ public class WikiUtils {
 	 * HTMLからリンクを抽出し、表記をキーワードとして返す
 	 * 
 	 * @param html
-	 * @return
+	 * @return {facet:"wiki.link",lex:"title"}
 	 */
 	static public List<Keyword> extractKeywordsFromWikiHtml(String html) {
 

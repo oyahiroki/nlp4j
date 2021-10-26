@@ -52,7 +52,14 @@ public class WikiDocumentAnnotator extends AbstractDocumentAnnotator implements 
 	}
 
 	/**
-	 * "wikitext" からWiki記事のテキストを取り出し、特定の部分を切り出して "text" にセットする.
+	 * <pre>
+	 * 処理1
+	 * "wikitext" からWiki記事のテキストを取り出し、
+	 * 特定の部分を切り出して "text" にセットする.
+	 * 
+	 * 処理2
+	 * 
+	 * </pre>
 	 */
 	public void annotate(Document doc) throws Exception {
 
@@ -112,7 +119,7 @@ public class WikiDocumentAnnotator extends AbstractDocumentAnnotator implements 
 //								System.err.println(html);
 //								System.err.println("</html>");
 
-								// Wikiリンク情報からキーワードをセットする
+								// Wikiリンク情報からリンク先アイテムをキーワードとしてセットする
 								List<Keyword> kwds = WikiUtils.extractKeywordsFromWikiHtml(html);
 
 								// ADD KEYWORD TO DOC

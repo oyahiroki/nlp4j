@@ -8,10 +8,12 @@ import java.util.List;
 import nlp4j.Document;
 import nlp4j.crawler.AbstractCrawler;
 import nlp4j.crawler.Crawler;
-import nlp4j.impl.DefaultDocument;
 
 /**
- * 文書の遅延読み込みを行う。Lazy loading Crawler for Wiki Index Files.
+ * <pre>
+ * WikiIndex文書の遅延読み込みを行う。
+ * Lazy loading Crawler for Wiki Index Files.
+ * </pre>
  * 
  * <pre>
  * Properties:
@@ -21,6 +23,7 @@ import nlp4j.impl.DefaultDocument;
  * </pre>
  * 
  * @author Hiroki Oya
+ * @see nlp4j.wiki.WikiIndexDocument
  * @created_at 2021-08-19
  */
 public class WikiDocumentCrawler2 extends AbstractCrawler implements Crawler {
@@ -29,9 +32,16 @@ public class WikiDocumentCrawler2 extends AbstractCrawler implements Crawler {
 	File wikiindexfile = null;
 
 	/**
-	 * Document : "item","wikitetxt","wikiplaintext","wikihtml"
+	 * <pre>
+	 * Document
+	 *     "item" : Wiki Document Title
+	 *     "wikitetxt" : Wiki Markdown format text
+	 *     "wikiplaintext" : Wiki Plain text
+	 *     "wikihtml" : Wiki HTML format text
+	 * </pre>
 	 * 
-	 * @return List of Document
+	 * @return List of nlp4j.wiki.WikiIndexDocument
+	 * @see nlp4j.wiki.WikiIndexDocument
 	 */
 	@Override
 	public List<Document> crawlDocuments() {
@@ -100,9 +110,7 @@ public class WikiDocumentCrawler2 extends AbstractCrawler implements Crawler {
 			else {
 
 			}
-
 		}
-
 	}
 
 }

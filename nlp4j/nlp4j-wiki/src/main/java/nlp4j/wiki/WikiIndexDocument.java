@@ -9,6 +9,15 @@ import org.apache.logging.log4j.Logger;
 import nlp4j.impl.DefaultDocument;
 
 /**
+ * <pre>
+ * getAttributeAsString() 
+ *  が呼ばれたタイミングで
+ *  データがファイルから読みだされる。
+ * 
+ * getAttributeAsString(null) 
+ *  が呼ばれると
+ *  リソースが解放される。
+ * </pre>
  * @author Hiroki Oya
  * @created_at 2021-08-19
  */
@@ -26,7 +35,9 @@ public class WikiIndexDocument extends DefaultDocument {
 
 	private boolean loaded = false;
 
-	@Override
+	/**
+	 * @param key キー : null の時にリソースを解放する
+	 */
 	public String getAttributeAsString(String key) {
 
 //		System.err.println("WikiIndexDocument key=" + key);

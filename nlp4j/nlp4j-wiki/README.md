@@ -4,8 +4,21 @@
 
 ## Wiktionary Index Download
 
+Wikimedia Downloads
 https://dumps.wikimedia.org/
 
-Wiktionary Japanese Edition
-https://dumps.wikimedia.org/jawiktionary/latest/
+Japanese Language Version - Index of /jawiki/
+https://dumps.wikimedia.org/jawiki/
+
+Japanese Language Version - Index of /jawiktionary/
+https://dumps.wikimedia.org/jawiktionary/
+
+
+# Links
+
+Alternative parsers - MediaWiki
+https://www.mediawiki.org/wiki/Alternative_parsers
+
+
+
 

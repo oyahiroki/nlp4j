@@ -10,6 +10,7 @@ import java.util.Map;
 import org.apache.solr.client.solrj.SolrRequest.METHOD;
 import org.apache.commons.lang.StringUtils;
 import org.apache.solr.client.solrj.SolrServerException;
+import org.apache.solr.client.solrj.impl.BaseHttpSolrClient.RemoteSolrException;
 import org.apache.solr.client.solrj.impl.HttpSolrClient;
 import org.apache.solr.client.solrj.response.FacetField;
 import org.apache.solr.client.solrj.response.QueryResponse;
@@ -70,7 +71,7 @@ public class SolrSearchClient extends AbstractSearchClient implements SearchClie
 		return search(collection, requestObject);
 	}
 
-	HttpSolrClient client;
+	HttpSolrClient solrClient;
 
 	/**
 	 * @param collection of Solr
@@ -82,8 +83,8 @@ public class SolrSearchClient extends AbstractSearchClient implements SearchClie
 
 		String baseSolrUrl = this.endPoint;
 
-		if (this.client == null) {
-			this.client = new HttpSolrClient.Builder(baseSolrUrl) //
+		if (this.solrClient == null) {
+			this.solrClient = new HttpSolrClient.Builder(baseSolrUrl) //
 					.withConnectionTimeout(CONNECTION_TIMEOUT_MILLIS)//
 					.withSocketTimeout(SOCKET_TIMEOUT_MILLIS)//
 					.build();
@@ -114,7 +115,8 @@ public class SolrSearchClient extends AbstractSearchClient implements SearchClie
 
 		try {
 
-			response = client.query(collection, queryParams, METHOD.POST);
+			response = this.solrClient //
+					.query(collection, queryParams, METHOD.POST); // throws RemoteSolrException
 
 			JsonObject responseObject = new JsonObject();
 
@@ -123,6 +125,8 @@ public class SolrSearchClient extends AbstractSearchClient implements SearchClie
 			return responseObject;
 
 		} catch (SolrServerException e) {
+			throw new IOException(e);
+		} catch (RemoteSolrException e) {
 			throw new IOException(e);
 		} catch (IOException e) {
 			throw e;
@@ -293,8 +297,8 @@ public class SolrSearchClient extends AbstractSearchClient implements SearchClie
 
 	@Override
 	public void close() throws IOException {
-		if (this.client != null) {
-			this.client.close();
+		if (this.solrClient != null) {
+			this.solrClient.close();
 		}
 
 	}
