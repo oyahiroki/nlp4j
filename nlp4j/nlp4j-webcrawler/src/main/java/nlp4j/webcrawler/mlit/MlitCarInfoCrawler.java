@@ -9,7 +9,10 @@ import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -18,9 +21,6 @@ import nlp4j.Document;
 import nlp4j.crawler.Crawler;
 import nlp4j.impl.DefaultDocument;
 import nlp4j.webcrawler.AbstractWebCrawler;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 /**
  * 国土交通省「自動車のリコール・不具合情報」をダウンロードする<br>
@@ -53,11 +53,14 @@ public class MlitCarInfoCrawler extends AbstractWebCrawler implements Crawler {
 		}
 	}
 
-	String txtFrDat = "2019/01/01";
-
-	String txtToDat = "2019/12/31";
+	String txtFrDat = null; // "2019/01/01";
+	String txtToDat = null; // "2019/12/31";
 
 	private String accessKey;
+
+	int countCrawled = 0;
+
+	List<Integer> hashCodes = new ArrayList<>();
 
 	/**
 	 * 国土交通省「自動車のリコール・不具合情報」をダウンロードする<br>
@@ -98,16 +101,35 @@ public class MlitCarInfoCrawler extends AbstractWebCrawler implements Crawler {
 
 		if (this.accessKey == null) {
 			try {
-				this.accessKey = getAccessKey();
+				this.accessKey = getAccessKey(); // throws IOException
+				// Example: (java.net.UnknownHostException: carinf.mlit.go.jp)
 			} catch (IOException e) {
 				e.printStackTrace();
 				logger.error(e.getMessage());
 				logger.error(e);
-				return docs;
+				throw new RuntimeException(e);
+//				return docs;
 			}
 		}
 
+		if (this.txtFrDat == null || this.txtToDat == null) {
+			logger.warn("Parameter is not set: from_date=" + this.txtFrDat + ",to_date" + this.txtToDat);
+			throw new RuntimeException("Parameter is not set: from_date=" + this.txtFrDat + ",to_date" + this.txtToDat);
+		}
+
 		for (int count = 0; count < countMax; count++) {
+
+			// as of 2021/11/16
+			// http://carinf.mlit.go.jp/jidosha/carinf/opn/search.html?
+			// selCarTp=1
+			// &lstCarNo=000
+			// &txtFrDat=2021/04/01
+			// &txtToDat=2021/05/31
+			// &txtNamNm=
+			// &txtMdlNm=
+			// &txtEgmNm=
+			// &chkDevCd=
+			// &page=64
 
 			String url = String.format("http://carinf.mlit.go.jp/jidosha/carinf/opn/search.html?" //
 					+ "nccharset=%s" //
@@ -193,7 +215,18 @@ public class MlitCarInfoCrawler extends AbstractWebCrawler implements Crawler {
 						}
 
 						docs.add(doc);
-						logger.info("crawled: 1 document");
+
+						{
+							int hashCode = doc.toString().hashCode();
+							if (this.hashCodes.contains(hashCode)) {
+								logger.warn("Same content found: " + doc.toString());
+							} //
+							else {
+								this.hashCodes.add(hashCode);
+							}
+						}
+
+						logger.info("crawled=1,total=" + docs.size());
 					}
 
 				} // end of for

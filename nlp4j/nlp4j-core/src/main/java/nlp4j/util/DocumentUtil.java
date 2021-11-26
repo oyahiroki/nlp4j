@@ -328,6 +328,19 @@ public class DocumentUtil {
 	}
 
 	/**
+	 * @since 1.3.2.0
+	 * @param doc target Document
+	 * @return Pretty JSON String of Documents
+	 */
+	static public String toJsonPrettyString(Document doc) {
+
+		JsonElement el = toJsonObject(doc);
+
+		return JsonUtils.prettyPrint(el);
+
+	}
+
+	/**
 	 * @since 1.1
 	 * @param doc target Document
 	 * @return Json String of Document

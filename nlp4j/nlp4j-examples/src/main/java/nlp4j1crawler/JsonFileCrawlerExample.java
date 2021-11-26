@@ -4,7 +4,9 @@ import java.util.List;
 
 import nlp4j.Document;
 import nlp4j.crawler.JsonLineSeparatedCrawler;
+import nlp4j.util.DocumentUtil;
 
+@SuppressWarnings("javadoc")
 public class JsonFileCrawlerExample {
 
 	public static void main(String[] args) throws Exception {
@@ -14,6 +16,7 @@ public class JsonFileCrawlerExample {
 		for (Document doc : docs) {
 			System.err.println(doc.getAttribute("text"));
 		}
+		System.err.println(DocumentUtil.toJsonPrettyString(docs));
 	}
 
 }

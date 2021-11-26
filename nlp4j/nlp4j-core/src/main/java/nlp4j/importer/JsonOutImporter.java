@@ -1,15 +1,10 @@
 package nlp4j.importer;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
 import java.lang.invoke.MethodHandles;
-import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.csv.CSVFormat;
-import org.apache.commons.csv.CSVPrinter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -30,11 +25,15 @@ public class JsonOutImporter extends AbstractDocumentImporter {
 
 	File outFile = null;
 
-	final String encoding = "UTF-8";
-
 	/**
-	 * @param key   file | encoding
-	 * @param value filepath | encoding name
+	 * <pre>
+	 * Example:
+	 *  key=file
+	 *  file=/test_json.txt
+	 * </pre>
+	 * 
+	 * @param key   file
+	 * @param value filepath
 	 */
 	public void setProperty(String key, String value) {
 		super.setProperty(key, value);
@@ -56,7 +55,13 @@ public class JsonOutImporter extends AbstractDocumentImporter {
 
 	@Override
 	public void importDocument(Document doc) throws IOException {
-		DocumentUtil.writeAsLineSeparatedJson(doc, outFile);
+		if (outFile != null) { // since 1.3.0.2
+			DocumentUtil.writeAsLineSeparatedJson(doc, outFile);
+		} //
+		else { // since 1.3.0.2
+			logger.warn("file parameter is not set.");
+			System.err.println(DocumentUtil.toJsonPrettyString(doc));
+		}
 	}
 
 }

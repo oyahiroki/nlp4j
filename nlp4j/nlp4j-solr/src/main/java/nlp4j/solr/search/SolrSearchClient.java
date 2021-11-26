@@ -27,6 +27,11 @@ import nlp4j.search.AbstractSearchClient;
 import nlp4j.search.SearchClient;
 import nlp4j.search.SearchClientBuilder;
 
+/**
+ * created_at 2021-04-10
+ * 
+ * @author Hiroki Oya
+ */
 public class SolrSearchClient extends AbstractSearchClient implements SearchClient, Closeable {
 
 	private static final int CONNECTION_TIMEOUT_MILLIS = 10000;
@@ -37,8 +42,16 @@ public class SolrSearchClient extends AbstractSearchClient implements SearchClie
 		this.endPoint = endPoint;
 	}
 
+	/**
+	 * <pre>
+	 * Search Client Builder
+	 * </pre>
+	 * 
+	 * created_at 2021-04-10
+	 * 
+	 * @author Hiroki Oya
+	 */
 	public static class Builder extends SearchClientBuilder<Builder> {
-
 		private String endPoint;
 
 		/**
@@ -56,7 +69,6 @@ public class SolrSearchClient extends AbstractSearchClient implements SearchClie
 		public SolrSearchClient build() {
 			return new SolrSearchClient(this.endPoint);
 		}
-
 	}
 
 	/**
@@ -75,11 +87,11 @@ public class SolrSearchClient extends AbstractSearchClient implements SearchClie
 
 	/**
 	 * @param collection of Solr
-	 * @param request    in Azure Style
+	 * @param requestAz  in Azure Style
 	 * @return result
 	 * @throws IOException on Error
 	 */
-	public JsonObject search(String collection, JsonObject request) throws IOException {
+	public JsonObject search(String collection, JsonObject requestAz) throws IOException {
 
 		String baseSolrUrl = this.endPoint;
 
@@ -90,39 +102,19 @@ public class SolrSearchClient extends AbstractSearchClient implements SearchClie
 					.build();
 		}
 
-//		String facet = "word_noun_ss";
-//		String word = "日本";
-//		String q = facet + ":" + word;
-
-		final Map<String, String> queryParamMap = new HashMap<>();
-
-		convertRequestParams(request, queryParamMap);
-		// top -> rows
-		{
-			String top = request.get("top").getAsString();
-			if (top != null) {
-				queryParamMap.put("rows", top);
-			}
-		}
-
-//		queryParamMap.put("fl", "id,word_noun_ss");
-//		queryParamMap.put("sort", "id asc");
-//		queryParamMap.put("start", "0");
-
-		MapSolrParams queryParams = new MapSolrParams(queryParamMap);
-
-		QueryResponse response;
+		MapSolrParams solrQueryParams = convertRequestParams(requestAz);
 
 		try {
 
-			response = this.solrClient //
-					.query(collection, queryParams, METHOD.POST); // throws RemoteSolrException
+			QueryResponse solrResponse = this.solrClient //
+					.query(collection, solrQueryParams, METHOD.POST); // throws RemoteSolrException
 
-			JsonObject responseObject = new JsonObject();
+			JsonObject responseAz = convertResponse(solrResponse);
+			{
+				responseAz.add("@requestbody", requestAz);
+			}
 
-			convertResponse(request, response, responseObject);
-
-			return responseObject;
+			return responseAz;
 
 		} catch (SolrServerException e) {
 			throw new IOException(e);
@@ -134,10 +126,14 @@ public class SolrSearchClient extends AbstractSearchClient implements SearchClie
 		}
 	}
 
-	private void convertResponse(JsonObject requestAz, QueryResponse responseSolr, JsonObject responseAz) {
-		{
-			responseAz.add("@requestbody", requestAz);
-		}
+	/**
+	 * @param responseSolr Response
+	 * @return response in Azure Format
+	 */
+	public JsonObject convertResponse(QueryResponse responseSolr) {
+
+		JsonObject responseAz = new JsonObject();
+
 		{
 			Gson gson = new Gson();
 			JsonObject solrResponseJson = gson.fromJson(responseSolr.jsonStr(), JsonObject.class);
@@ -240,13 +236,22 @@ public class SolrSearchClient extends AbstractSearchClient implements SearchClie
 			}
 
 		}
+
+		return responseAz;
 	}
 
 	/**
-	 * @param requestAzureSearch
-	 * @param requestParamsSolr
+	 * Convert Azure Search Format Request to Solr Format Request
+	 * 
+	 * @param requestAzureSearch Azure Style Request
+	 * @return request Parameter for Solr
 	 */
-	public void convertRequestParams(JsonObject requestAzureSearch, final Map<String, String> requestParamsSolr) {
+	public MapSolrParams convertRequestParams(JsonObject requestAzureSearch
+//			, final Map<String, String> requestParamsSolr
+	) {
+
+		final Map<String, String> requestParamsSolr = new HashMap<>();
+
 		// search -> q
 		{
 			String search = requestAzureSearch.get("search").getAsString();
@@ -293,6 +298,20 @@ public class SolrSearchClient extends AbstractSearchClient implements SearchClie
 			}
 			requestParamsSolr.put("facet.field", StringUtils.join(ff, ","));
 		}
+
+		// top -> rows
+		{
+			String top = requestAzureSearch.get("top").getAsString();
+			if (top != null) {
+				requestParamsSolr.put("rows", top);
+			}
+		}
+
+//		requestParamsSolr.put("fl", "id,word_noun_ss");
+//		requestParamsSolr.put("sort", "id asc");
+//		requestParamsSolr.put("start", "0");
+
+		return new MapSolrParams(requestParamsSolr);
 	}
 
 	@Override

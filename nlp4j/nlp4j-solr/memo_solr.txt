@@ -1,3 +1,5 @@
+nlp4j-solr/memo_solr.txt
+
 # start
 
 ■起動

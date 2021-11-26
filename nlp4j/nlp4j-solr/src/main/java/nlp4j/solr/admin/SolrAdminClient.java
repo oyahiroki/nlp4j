@@ -11,6 +11,8 @@ import org.apache.http.util.EntityUtils;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
+import nlp4j.util.JsonUtils;
+
 /**
  * Solr Admin Client
  * 
@@ -47,14 +49,39 @@ public class SolrAdminClient {
 		System.err.println(responseObj);
 	}
 
+	public void listCollections() throws IOException {
+		CloseableHttpClient client = HttpClientBuilder.create().build();
+		String url = this.endPoint + "solr/admin/collections?action=LIST";
+		CloseableHttpResponse response = client.execute(new HttpGet(url));
+		String responseBodyString = EntityUtils.toString(response.getEntity());
+		Gson gson = new Gson();
+		JsonObject responseObj = gson.fromJson(responseBodyString, JsonObject.class);
+		System.err.println(JsonUtils.prettyPrint(responseObj));
+	}
+
+	public void listCores() throws IOException {
+		// http://localhost:8983/solr/admin/cores
+		CloseableHttpClient client = HttpClientBuilder.create().build();
+		String url = this.endPoint + "solr/admin/cores";
+		CloseableHttpResponse response = client.execute(new HttpGet(url));
+		String responseBodyString = EntityUtils.toString(response.getEntity());
+		Gson gson = new Gson();
+		JsonObject responseObj = gson.fromJson(responseBodyString, JsonObject.class);
+		System.err.println(JsonUtils.prettyPrint(responseObj));
+	}
+
 	@SuppressWarnings("javadoc")
 	public static void main(String[] args) throws Exception {
 
 		SolrAdminClient adminClient = new SolrAdminClient();
 
-		String coreName = "sandbox";
-
-		adminClient.replicationBackup(coreName);
+		{
+//			String coreName = "sandbox";
+//			adminClient.replicationBackup(coreName);
+		}
+		{
+			adminClient.listCollections();
+		}
 
 	}
 

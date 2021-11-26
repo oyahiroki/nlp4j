@@ -41,13 +41,13 @@ public class MlitCarInfoDownloadMain {
 		String output_filename = args[2].trim();
 
 		MlitCarInfoCrawler crawler = new MlitCarInfoCrawler();
-
-		String accessKey = crawler.getAccessKey();
-		crawler.setProperty("accessKey", accessKey);
-
-		crawler.setProperty("from_date", from_date);
-		crawler.setProperty("to_date", to_date);
-		// crawler.setProperty("debug", "true");
+		{
+			String accessKey = crawler.getAccessKey();
+			crawler.setProperty("accessKey", accessKey);
+			crawler.setProperty("from_date", from_date);
+			crawler.setProperty("to_date", to_date);
+			// crawler.setProperty("debug", "true");
+		}
 
 		List<Document> docs = crawler.crawlDocuments();
 

@@ -4,10 +4,12 @@ import java.util.ArrayList;
 
 import nlp4j.Document;
 import nlp4j.twtr.crawler.TwitterCrawler;
+import nlp4j.util.DocumentUtil;
 
+@SuppressWarnings("javadoc")
 public class TwitterCrawlerExample {
-	public static void main(String[] args) throws Exception {
 
+	public static void main(String[] args) throws Exception {
 		// Twitter検索を利用して文書をクロールします。
 		// https://developer.twitter.com
 		TwitterCrawler crawler = new TwitterCrawler();
@@ -19,6 +21,7 @@ public class TwitterCrawlerExample {
 			crawler.setProperty("query", "from:trumptrackerjp");
 		}
 		ArrayList<Document> docs = crawler.crawlDocuments();
+		System.err.println(DocumentUtil.toJsonPrettyString(docs));
 	}
 
 }

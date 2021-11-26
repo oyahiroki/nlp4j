@@ -40,25 +40,21 @@ public class DocumentProcessor {
 
 		this.props = props;
 
-//		java.net.URLClassLoader
-
-		{
+		{ // java.net.URLClassLoader
 			String className = "java.net.URLClassLoader";
 
 			try {
 				Class<?> clazz = Class.forName(className);
 				logger.info("CLASS FOUND for crawler: " + clazz.getName());
-				System.err.println("Found");
 			} catch (ClassNotFoundException e) {
 				logger.info("CLASS NOT FOUND for crawler: " + className);
-				System.err.println("Not Found");
 			}
 		}
 
 		{
 			ClassLoader cl = ClassLoader.getSystemClassLoader();
 
-			System.err.println(cl.getClass().getCanonicalName());
+			logger.info("ClassLoader:" + cl.getClass().getCanonicalName());
 
 			try {
 				if (cl instanceof URLClassLoader) {
@@ -69,7 +65,8 @@ public class DocumentProcessor {
 					}
 				} //
 				else {
-					System.err.println("classloader: " + cl.getClass().getCanonicalName());
+					logger.info("instanceof URLClassLoader: " + (cl instanceof URLClassLoader));
+					logger.info("classloader: " + cl.getClass().getCanonicalName());
 				}
 			} catch (ClassCastException ex) {
 
@@ -428,9 +425,11 @@ public class DocumentProcessor {
 		DocumentProcessor dc = new DocumentProcessor(props);
 
 		// crawl documents
-		dc.crawlDocuments();
+		dc.crawlDocuments(); // throws Exception
+
 		// annotate documents
 		dc.annotateDocuments();
+
 		// import documents
 		dc.importDocuments();
 

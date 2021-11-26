@@ -6,6 +6,7 @@ import nlp4j.Document;
 import nlp4j.crawler.CsvFileCrawler;
 import nlp4j.util.DocumentUtil;
 
+@SuppressWarnings("javadoc")
 public class CsvFileCrawlerExample {
 
 	public static void main(String[] args) throws Exception {

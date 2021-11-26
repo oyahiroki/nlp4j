@@ -1,5 +1,7 @@
 package nlp4j.solr;
 
+import org.apache.solr.common.params.MapSolrParams;
+
 import com.google.gson.JsonObject;
 
 import nlp4j.solr.search.SolrSearchClient;
