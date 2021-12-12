@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
@@ -8,6 +9,82 @@
 	</parent>
 	<artifactId>nlp4j-test</artifactId>
 	<version>1.0.0.0</version>
+	<build>
+		<plugins>
+			<!-- COMPILER -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3.2</version>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+			<!-- Javadoc -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+
+				<version>3.1.1</version>
+				<configuration>
+					<additionalparam>-Xdoclint:none</additionalparam>
+					<!-- javadocExecutable>${java.home}/../bin/javadoc</javadocExecutable -->
+					<javadocExecutable>${java.home}/bin/javadoc</javadocExecutable>
+					<author>true</author>
+					<source>${maven.compiler.source}</source>
+					<show>protected</show>
+					<encoding>UTF-8</encoding>
+					<charset>UTF-8</charset>
+					<docencoding>UTF-8</docencoding>
+					<aggregate>true</aggregate>
+					<notimestamp>true</notimestamp>
+
+					<doctitle>${javadoc.title}</doctitle>
+					<windowtitle>${javadoc.title}</windowtitle>
+					<jarOutputDirectory>jar</jarOutputDirectory>
+					<destDir>docs</destDir>
+					<links>
+						<link>https://docs.oracle.com/javase/jp/8/docs/api</link>
+					</links>
+
+					<groups>
+						<group>
+							<title>NLP4J</title>
+							<packages>nlp4j*</packages>
+						</group>
+					</groups>
+					<docfilessubdirs>true</docfilessubdirs>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>2.2.1</version>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar-no-fork</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.9.1</version>
+				<executions>
+					<execution>
+						<id>attach-javadocs</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
 	<dependencies>
 		<!-- https://mvnrepository.com/artifact/junit/junit -->
 		<dependency>
@@ -19,7 +96,13 @@
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-core</artifactId>
-			<version>[2.13.2,)</version>
+			<version>2.15.0</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-api -->
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-api</artifactId>
+			<version>2.15.0</version>
 		</dependency>
 	</dependencies>
 </project>

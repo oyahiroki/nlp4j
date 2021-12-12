@@ -26,7 +26,7 @@ public abstract class AbstractFileCrawler extends AbstractCrawler implements Cra
 
 	String filenameRegex = null; // = ".*\\.doc";
 
-	ArrayList<File> files = new ArrayList<>();
+	protected ArrayList<File> files = new ArrayList<>();
 
 	/**
 	 * @param key   キー "file" | "dir" | "filename_ext"

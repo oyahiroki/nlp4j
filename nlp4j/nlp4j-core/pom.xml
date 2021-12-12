@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<!-- PARENT -->
@@ -130,7 +131,8 @@
 				<version>3.1.1</version>
 				<configuration>
 					<additionalparam>-Xdoclint:none</additionalparam>
-					<javadocExecutable>${java.home}/../bin/javadoc</javadocExecutable>
+					<!-- javadocExecutable>${java.home}/../bin/javadoc</javadocExecutable -->
+					<javadocExecutable>${java.home}/bin/javadoc</javadocExecutable>
 					<author>true</author>
 					<source>${maven.compiler.source}</source>
 					<show>protected</show>
@@ -186,12 +188,6 @@
 		</plugins>
 	</build>
 	<dependencies>
-		<dependency>
-			<groupId>org.nlp4j</groupId>
-			<artifactId>nlp4j-test</artifactId>
-			<version>[1.0.0.0,)</version>
-			<scope>test</scope>
-		</dependency>
 		<!-- https://mvnrepository.com/artifact/junit/junit -->
 		<dependency>
 			<groupId>junit</groupId>
