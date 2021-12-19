@@ -64,7 +64,7 @@ public class DocumentUtil {
 				jsonObj.add(key, je);
 			}
 			// ELSE
-			else {
+			else if (doc.getAttribute(key) != null) {
 				jsonObj.addProperty(key, doc.getAttribute(key).toString());
 			}
 		} // END OF FOR EACH DOCUMENT ATTRIBUTE
