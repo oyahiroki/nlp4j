@@ -187,4 +187,18 @@ public class KeywordUtil {
 		}
 	}
 
+	/**
+	 * @param kwds
+	 * @return
+	 * @since 1.3.3.0.20211227
+	 */
+	static public String toLexString(List<Keyword> kwds) {
+		List<String> ss = new ArrayList<String>();
+		for (Keyword kwd : kwds) {
+			String lex = kwd.getLex();
+			ss.add("" + lex);
+		}
+		return String.join(",", ss);
+	}
+
 }

@@ -49,6 +49,11 @@ public class SolrAdminClient {
 		System.err.println(responseObj);
 	}
 
+	/**
+	 * List collections of Solr Cloud
+	 * 
+	 * @throws IOException
+	 */
 	public void listCollections() throws IOException {
 		CloseableHttpClient client = HttpClientBuilder.create().build();
 		String url = this.endPoint + "solr/admin/collections?action=LIST";
@@ -59,6 +64,11 @@ public class SolrAdminClient {
 		System.err.println(JsonUtils.prettyPrint(responseObj));
 	}
 
+	/**
+	 * List cores of Stand alone Solr
+	 * 
+	 * @throws IOException
+	 */
 	public void listCores() throws IOException {
 		// http://localhost:8983/solr/admin/cores
 		CloseableHttpClient client = HttpClientBuilder.create().build();
@@ -70,11 +80,8 @@ public class SolrAdminClient {
 		System.err.println(JsonUtils.prettyPrint(responseObj));
 	}
 
-	@SuppressWarnings("javadoc")
 	public static void main(String[] args) throws Exception {
-
 		SolrAdminClient adminClient = new SolrAdminClient();
-
 		{
 //			String coreName = "sandbox";
 //			adminClient.replicationBackup(coreName);
