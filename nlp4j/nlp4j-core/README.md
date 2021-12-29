@@ -18,6 +18,8 @@ https://mvnrepository.com/search?q=org.nlp4j
 # Build for Release
 
 	mvn -DperformRelease=true clean deploy
+
+	mvn -e -X -DperformRelease=true clean deploy
 	
 # Maven Commands
 
