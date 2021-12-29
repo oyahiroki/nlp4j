@@ -101,6 +101,11 @@
 							</execution>
 						</executions>
 					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-javadoc-plugin</artifactId>
+						<version>3.1.1</version>
+					</plugin>
 				</plugins>
 			</build>
 		</profile>
@@ -127,10 +132,12 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
-
 				<version>3.1.1</version>
 				<configuration>
+					<!-- avoid error -->
 					<additionalparam>-Xdoclint:none</additionalparam>
+					<additionalOptions>-Xdoclint:none</additionalOptions>
+					<additionalJOption>-Xdoclint:none</additionalJOption>
 					<!-- javadocExecutable>${java.home}/../bin/javadoc</javadocExecutable -->
 					<javadocExecutable>${java.home}/bin/javadoc</javadocExecutable>
 					<author>true</author>
@@ -141,7 +148,6 @@
 					<docencoding>UTF-8</docencoding>
 					<aggregate>true</aggregate>
 					<notimestamp>true</notimestamp>
-
 					<doctitle>${javadoc.title}</doctitle>
 					<windowtitle>${javadoc.title}</windowtitle>
 					<jarOutputDirectory>jar</jarOutputDirectory>
@@ -149,7 +155,6 @@
 					<links>
 						<link>https://docs.oracle.com/javase/jp/8/docs/api</link>
 					</links>
-
 					<groups>
 						<group>
 							<title>NLP4J</title>
@@ -158,6 +163,14 @@
 					</groups>
 					<docfilessubdirs>true</docfilessubdirs>
 				</configuration>
+				<executions>
+					<execution>
+						<id>attach-javadocs</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -168,19 +181,6 @@
 						<id>attach-sources</id>
 						<goals>
 							<goal>jar-no-fork</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>2.9.1</version>
-				<executions>
-					<execution>
-						<id>attach-javadocs</id>
-						<goals>
-							<goal>jar</goal>
 						</goals>
 					</execution>
 				</executions>

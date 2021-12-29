@@ -35,6 +35,7 @@ public class NLP4JTestCase extends TestCase {
 	 */
 	public NLP4JTestCase() {
 		super();
+		target = NLP4JTestCase.class;
 	}
 
 	protected static void setLevelInfo() {
@@ -89,6 +90,9 @@ public class NLP4JTestCase extends TestCase {
 		}
 		description = null;
 		super.tearDown();
+	}
+
+	public void testXXX001() {
 	}
 
 }
