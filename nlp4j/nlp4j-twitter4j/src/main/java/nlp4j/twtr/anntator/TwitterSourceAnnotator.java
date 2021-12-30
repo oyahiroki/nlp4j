@@ -7,9 +7,10 @@ import nlp4j.FieldAnnotator;
 
 /**
  * 
+ * created_at 2021-08-01
+ * 
  * @author Hiroki Oya
  * @since 1.1.0.0
- * @created_at 2021-08-01
  */
 public class TwitterSourceAnnotator extends AbstractDocumentAnnotator implements DocumentAnnotator, FieldAnnotator {
 

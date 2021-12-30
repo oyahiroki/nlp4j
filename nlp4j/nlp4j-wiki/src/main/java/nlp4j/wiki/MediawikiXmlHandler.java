@@ -8,10 +8,12 @@ import org.xml.sax.SAXException;
 import nlp4j.xml.AbstractXmlHandler;
 
 /**
+ * <pre>
  * XML Handler for Media Wiki
+ * created_at 2021-06-25
+ * </pre>
  * 
  * @author Hiroki Oya
- * @created_at 2021-06-25
  */
 public class MediawikiXmlHandler extends AbstractXmlHandler {
 
@@ -59,7 +61,7 @@ public class MediawikiXmlHandler extends AbstractXmlHandler {
 	}
 
 	/**
-	 * @return WikiPage Map (ID -> Object)
+	 * @return WikiPage Map (ID -&gt; Object)
 	 */
 	public HashMap<String, WikiPage> getPages() {
 		return pages;

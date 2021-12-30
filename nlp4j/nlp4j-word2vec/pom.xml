@@ -26,17 +26,17 @@
 		<dependency>
 			<groupId>org.nlp4j</groupId>
 			<artifactId>nlp4j-core</artifactId>
-			<version>[1.3.1.1,)</version>
+			<version>[1.3.4.0,)</version>
 		</dependency>
 		<dependency>
 			<groupId>org.nlp4j</groupId>
 			<artifactId>nlp4j-kuromoji</artifactId>
-			<version>1.3.1.0</version>
+			<version>[1.3.4.0,)</version>
 		</dependency>
 		<dependency>
 			<groupId>org.nlp4j</groupId>
 			<artifactId>nlp4j-mecab</artifactId>
-			<version>0.1.0.0</version>
+			<version>[0.1.0.0,)</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.deeplearning4j/deeplearning4j-core -->
 		<dependency>

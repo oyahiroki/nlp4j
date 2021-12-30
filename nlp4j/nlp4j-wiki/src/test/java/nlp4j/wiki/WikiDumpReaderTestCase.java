@@ -10,8 +10,11 @@ import org.apache.logging.log4j.Logger;
 import junit.framework.TestCase;
 
 /**
+ * <pre>
+ * created_at 2021-09-20
+ * </pre>
+ * 
  * @author Hiroki Oya
- * @created_at 2021-09-20
  */
 public class WikiDumpReaderTestCase extends TestCase {
 

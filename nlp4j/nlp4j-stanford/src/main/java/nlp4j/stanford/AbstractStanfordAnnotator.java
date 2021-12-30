@@ -31,8 +31,8 @@ import nlp4j.Keyword;
 import nlp4j.impl.DefaultKeyword;
 
 /**
+ * created_at 2021-02-12
  * @author Hiroki Oya
- * @created_at 2021-02-12
  */
 public abstract class AbstractStanfordAnnotator extends AbstractDocumentAnnotator {
 

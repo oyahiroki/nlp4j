@@ -2,11 +2,12 @@ package nlp4j.wiki;
 
 import java.util.ArrayList;
 
-import nlp4j.node.Node;
-
 /**
+ * <pre>
+ * created_at 2021-07-26
+ * </pre>
+ * 
  * @author Hiroki Oya
- * @created_at 2021-07-26
  */
 public class WikiItemTextParser {
 
@@ -15,30 +16,6 @@ public class WikiItemTextParser {
 	WikiPageNode ptr = null;
 
 	int level = 0;
-
-	public WikiPageNode getRoot() {
-		return root;
-	}
-
-	public String toWikiPageNodeTree() {
-		StringBuilder sb = new StringBuilder();
-		toWikiPageNodeTree(sb, this.root, 0);
-		return sb.toString();
-	}
-
-	private void toWikiPageNodeTree(StringBuilder sb, WikiPageNode node, int depth) {
-		for (int n = 0; n < depth; n++) {
-			sb.append("\t");
-		}
-		if (depth != 0) {
-			sb.append(node.getHeader() + "\n");
-		}
-
-		for (WikiPageNode c : node.getChildren()) {
-			toWikiPageNodeTree(sb, c, depth + 1);
-		}
-
-	}
 
 	/**
 	 * 
@@ -80,6 +57,10 @@ public class WikiItemTextParser {
 				return 0;
 			}
 		}
+	}
+
+	public WikiPageNode getRoot() {
+		return root;
 	}
 
 	public void parse(String wikiItemText) {
@@ -234,6 +215,26 @@ public class WikiItemTextParser {
 //			}
 //			System.err.println("</node>\n");
 //		}
+
+	}
+
+	public String toWikiPageNodeTree() {
+		StringBuilder sb = new StringBuilder();
+		toWikiPageNodeTree(sb, this.root, 0);
+		return sb.toString();
+	}
+
+	private void toWikiPageNodeTree(StringBuilder sb, WikiPageNode node, int depth) {
+		for (int n = 0; n < depth; n++) {
+			sb.append("\t");
+		}
+		if (depth != 0) {
+			sb.append(node.getHeader() + "\n");
+		}
+
+		for (WikiPageNode c : node.getChildren()) {
+			toWikiPageNodeTree(sb, c, depth + 1);
+		}
 
 	}
 

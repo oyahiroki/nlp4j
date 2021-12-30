@@ -3,8 +3,9 @@ package nlp4j.stanford;
 import java.util.ArrayList;
 
 /**
+ * created_at 2021-02-12
+ * 
  * @author Hiroki Oya
- * @created_at 2021-02-12
  */
 public class SemanticGraphInfo {
 

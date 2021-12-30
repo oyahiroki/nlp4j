@@ -4,8 +4,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
+ * <pre>
+ * created_at 2021-06-25
+ * </pre>
+ * 
  * @author Hiroki Oya
- * @created_at 2021-06-25
  */
 public class WikiIndex {
 

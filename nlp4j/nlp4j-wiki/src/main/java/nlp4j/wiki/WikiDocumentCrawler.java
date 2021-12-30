@@ -16,10 +16,11 @@ import nlp4j.impl.DefaultDocument;
  * wikidumpfile: File path of wiki dump.
  * wikiindexfile: File path of wiki index.
  * entries: comma separated entries. For example: "学校,医者,鉄道"
+ * 
+ * created_at 2021-07-09
  * </pre>
  * 
  * @author Hiroki Oya
- * @created_at 2021-07-09
  */
 public class WikiDocumentCrawler extends AbstractCrawler implements Crawler {
 

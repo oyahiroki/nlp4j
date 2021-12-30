@@ -1,7 +1,9 @@
 /**
+ * <pre>
  * Package for wiki
+ * created_at 2021-06-24
+ * </pre>
  * 
  * @author Hiroki Oya
- * @created_at 2021-06-24
  */
 package nlp4j.wiki;

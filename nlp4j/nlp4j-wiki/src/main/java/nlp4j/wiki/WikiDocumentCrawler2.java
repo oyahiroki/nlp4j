@@ -20,11 +20,11 @@ import nlp4j.crawler.Crawler;
  * wikidumpfile: File path of wiki dump.
  * wikiindexfile: File path of wiki index.
  * 
+ * created_at 2021-08-19
  * </pre>
  * 
  * @author Hiroki Oya
  * @see nlp4j.wiki.WikiIndexDocument
- * @created_at 2021-08-19
  */
 public class WikiDocumentCrawler2 extends AbstractCrawler implements Crawler {
 

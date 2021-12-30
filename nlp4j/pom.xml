@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.nlp4j</groupId>
 	<artifactId>nlp4j</artifactId>
@@ -94,6 +96,16 @@
 								<goals>
 									<goal>sign</goal>
 								</goals>
+								<!-- configuration -->
+								<!-- gpg - - list-secret-keys - - keyid-format LONG -->
+								<!-- gpg.keyname>xxx</gpg.keyname -->
+								<!-- gpg.passphrase>xxx</gpg.passphrase -->
+								<!-- /configuration -->
+								<!-- see https://maven.apache.org/plugins/maven-gpg-plugin/usage.html -->
+								<configuration>
+									<keyname>0xE4BE8EA1</keyname>
+									<passphraseServerId>0xE4BE8EA1</passphraseServerId>
+								</configuration>
 							</execution>
 						</executions>
 					</plugin>
@@ -127,7 +139,10 @@
 				<version>3.1.1</version>
 				<configuration>
 					<additionalparam>-Xdoclint:none</additionalparam>
-					<javadocExecutable>${java.home}/../bin/javadoc</javadocExecutable>
+					<additionalOptions>-Xdoclint:none</additionalOptions>
+					<additionalJOption>-Xdoclint:none</additionalJOption>
+					<!-- javadocExecutable>${java.home}/../bin/javadoc</javadocExecutable -->
+					<javadocExecutable>${java.home}/bin/javadoc</javadocExecutable>
 					<author>true</author>
 					<source>${maven.compiler.source}</source>
 					<show>protected</show>
@@ -188,9 +203,9 @@
 		<module>nlp4j-wiki</module>
 		<module>nlp4j-examples</module>
 		<module>nlp4j-all</module>
-    <module>nlp4j-web-api</module>
-    <module>nlp4j-web-app</module>
-    <module>nlp4j-wordnet</module>
-    <module>nlp4j-ibm</module>
+		<module>nlp4j-web-api</module>
+		<module>nlp4j-web-app</module>
+		<module>nlp4j-wordnet</module>
+		<module>nlp4j-ibm</module>
 	</modules>
 </project>

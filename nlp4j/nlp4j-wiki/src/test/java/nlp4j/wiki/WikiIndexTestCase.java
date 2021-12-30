@@ -5,8 +5,11 @@ import java.io.File;
 import junit.framework.TestCase;
 
 /**
+ * <pre>
+ * created_at 2021-06-25
+ * </pre>
+ * 
  * @author Hiroki Oya
- * @created_at 2021-06-25
  */
 public class WikiIndexTestCase extends TestCase {
 

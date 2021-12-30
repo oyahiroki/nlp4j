@@ -4,16 +4,17 @@ import junit.framework.TestCase;
 import nlp4j.Document;
 import nlp4j.Keyword;
 import nlp4j.KeywordWithDependency;
-import nlp4j.annotator.AttributeTypeConverter;
 import nlp4j.impl.DefaultDocument;
-import nlp4j.util.DocumentUtil;
 
 /**
+ * created_at 2021-08-03
+ * 
  * @author Hiroki Oya
- * @created_at 2021-08-03
+ * 
  */
 public class StanfordPosAnnotatorTestCase extends TestCase {
 
+	@SuppressWarnings("rawtypes")
 	Class target = StanfordPosAnnotator.class;
 
 	/**

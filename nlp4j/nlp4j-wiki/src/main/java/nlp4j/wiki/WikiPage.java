@@ -13,10 +13,13 @@ import org.sweble.wikitext.example.TextConverter;
 import info.bliki.wiki.model.WikiModel;
 
 /**
+ * <pre>
  * Wiki Page Entry
  * 
+ * created_at 2021-06-25
+ * </pre>
+ * 
  * @author Hiroki Oya
- * @created_at 2021-06-25
  */
 public class WikiPage {
 

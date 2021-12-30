@@ -13,8 +13,9 @@ import nlp4j.DocumentAnnotator;
  * $ java -mx4g -cp "*" edu.stanford.nlp.pipeline.StanfordCoreNLPServer -port 9000 -timeout 15000
  * </pre>
  * 
+ * created_at 2021-02-12
+ * 
  * @author Hiroki Oya
- * @created_at 2021-02-12
  *
  */
 public class StanfordPosAnnotator extends AbstractStanfordAnnotator implements DocumentAnnotator {

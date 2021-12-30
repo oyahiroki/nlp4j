@@ -87,6 +87,10 @@ public class AzureSearchTestCase extends TestCase {
 		String json2 = "{'count':true,'search':'*','top':0,'facets':['date,interval:month','field1,count:100,sort:count'],'queryType':'full','searchMode':'all'}";
 
 		AzureSearch searcher = new AzureSearch();
+		if (TestEnv.SERVICE_NAME == null) {
+			System.err.println("Skip this test");
+			return;
+		}
 		searcher.setProperty("service_name", TestEnv.SERVICE_NAME);
 		searcher.setProperty("index_name", TestEnv.INDEX_NAME);
 		searcher.setProperty("admin_key", TestEnv.ADMIN_KEY);
@@ -108,6 +112,10 @@ public class AzureSearchTestCase extends TestCase {
 				+ "'facets':['date,interval:month','field1,count:100,sort:value'],'queryType':'full','searchMode':'all'}";
 
 		AzureSearch searcher = new AzureSearch();
+		if (TestEnv.SERVICE_NAME == null) {
+			System.err.println("Skip this test");
+			return;
+		}
 		searcher.setProperty("service_name", TestEnv.SERVICE_NAME);
 		searcher.setProperty("index_name", TestEnv.INDEX_NAME);
 		searcher.setProperty("admin_key", TestEnv.ADMIN_KEY);

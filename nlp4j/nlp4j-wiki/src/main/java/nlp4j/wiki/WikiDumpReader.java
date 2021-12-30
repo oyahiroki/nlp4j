@@ -17,8 +17,11 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
+ * <pre>
+ * created_at 2021-06-25
+ * </pre>
+ * 
  * @author Hiroki Oya
- * @created_at 2021-06-25
  */
 public class WikiDumpReader implements AutoCloseable {
 

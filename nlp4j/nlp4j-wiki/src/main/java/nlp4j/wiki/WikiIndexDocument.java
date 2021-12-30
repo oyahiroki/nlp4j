@@ -17,9 +17,11 @@ import nlp4j.impl.DefaultDocument;
  * getAttributeAsString(null) 
  *  が呼ばれると
  *  リソースが解放される。
+ * 
+ * created_at 2021-08-19
  * </pre>
+ * 
  * @author Hiroki Oya
- * @created_at 2021-08-19
  */
 public class WikiIndexDocument extends DefaultDocument {
 
