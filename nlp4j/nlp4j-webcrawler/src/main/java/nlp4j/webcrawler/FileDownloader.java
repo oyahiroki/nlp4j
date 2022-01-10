@@ -32,7 +32,7 @@ public class FileDownloader {
 	 */
 	public void download(String url, File outFile) throws IOException {
 
-		if (outFile.canWrite() == false) {
+		if (outFile.exists() == true) {
 			logger.warn("Already exists: " + outFile.getAbsolutePath());
 			throw new IOException("Already exists: " + outFile.getAbsolutePath());
 		}
@@ -56,9 +56,14 @@ public class FileDownloader {
 
 			int pctInt0 = 0;
 
+			int totalSize0 = 0;
+			int diff = 1000 * 1000;
+
 			while ((readSize = bis.read(buff)) != -1) {
+
 				bos.write(buff, 0, readSize);
 				totalSize += readSize;
+
 				if (contentLength != -1) {
 					double pct = Math.floor(((double) totalSize / (double) contentLength) * 100 * 100) / 100;
 					int pctInt = (int) pct;
@@ -69,11 +74,15 @@ public class FileDownloader {
 					}
 				} //
 				else {
-					logger.info("Download status (Bytes): " + totalSize);
+					if ((totalSize - totalSize0) > diff) {
+						totalSize0 = totalSize;
+						logger.info("Download status (Bytes): " + String.format("%,d", totalSize));
+					}
 				}
 			}
 
 			bis.close();
+			bos.flush();
 			bos.close();
 
 		}
