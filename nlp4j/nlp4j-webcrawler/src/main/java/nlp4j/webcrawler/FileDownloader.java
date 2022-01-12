@@ -14,10 +14,14 @@ import org.apache.logging.log4j.Logger;
 import nlp4j.util.HttpClient;
 
 /**
+ * 
  * Data downloader
  * 
+ * <pre>
+ * created_at 2021-04-30
+ * </pre>
+ * 
  * @author Hiroki Oya
- * @created_at 2021-04-30
  * @since 1.3.1.0
  */
 public class FileDownloader {
@@ -26,7 +30,7 @@ public class FileDownloader {
 	static private Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
 	/**
-	 * @param url     for fetch data
+	 * @param url     to fetch data
 	 * @param outFile outputFile
 	 * @throws IOException on HTTP Response code not 200
 	 */
@@ -69,7 +73,7 @@ public class FileDownloader {
 					int pctInt = (int) pct;
 					if (pctInt != pctInt0) {
 						logger.info("Download status (%): " + pct);
-						System.err.println("Download status (%): " + pct);
+//						System.err.println("Download status (%): " + pct);
 						pctInt0 = pctInt;
 					}
 				} //
@@ -87,6 +91,15 @@ public class FileDownloader {
 
 		}
 
+	}
+
+	/**
+	 * @param url      to fetch data
+	 * @param fileName output file
+	 * @throws IOException on HTTP Response code not 200
+	 */
+	public void download(String url, String fileName) throws IOException {
+		download(url, new File(fileName));
 	}
 
 }

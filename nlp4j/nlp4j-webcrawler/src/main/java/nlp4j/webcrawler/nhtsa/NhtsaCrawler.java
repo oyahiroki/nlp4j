@@ -86,15 +86,16 @@ public class NhtsaCrawler extends AbstractWebCrawler implements Crawler {
 					return readAsTxt(inputFile);
 				} //
 				else {
-					return null;
+					return new ArrayList<Document>();
 				}
 			} //
 			else {
-				return null;
+				logger.warn("File Not Found: " + inputFile.getAbsolutePath());
+				return new ArrayList<Document>();
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			return null;
+			return new ArrayList<Document>();
 		}
 
 	}
@@ -144,7 +145,12 @@ public class NhtsaCrawler extends AbstractWebCrawler implements Crawler {
 
 				docs.add(doc);
 
-				System.err.println(data[3]);
+//				System.err.println(data[3]); // MAKES
+
+				if (docs.size() % 1000 == 0) {
+					logger.info("Reading docs: " + String.format("%,d", docs.size()));
+				}
+
 				count2++;
 			}
 
@@ -153,9 +159,12 @@ public class NhtsaCrawler extends AbstractWebCrawler implements Crawler {
 			}
 		}
 
-		System.err.println(count);
-		System.err.println(count2);
+//		System.err.println(count);
+//		System.err.println(count2);
+
 		Collections.sort(makes);
+
+		// PRINT MAKES
 		System.err.println(Arrays.toString(makes.toArray(new String[0])));
 
 		return docs;
