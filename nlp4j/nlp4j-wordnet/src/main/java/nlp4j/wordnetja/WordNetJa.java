@@ -17,6 +17,14 @@ import org.apache.logging.log4j.Logger;
 
 import nlp4j.xml.SAXParserUtils;
 
+/**
+ * <pre>
+ * created_at 2021-12-05 18:37
+ * </pre>
+ * 
+ * @author Hiroki Oya
+ *
+ */
 public class WordNetJa {
 
 	static private Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
@@ -25,6 +33,8 @@ public class WordNetJa {
 	Map<String, List<String>> writtenFormPosMap;
 
 	WordNetJaXmlHandler handler = new WordNetJaXmlHandler();
+
+	private List<String> WrittenFormList;
 
 	/**
 	 * Read LMF
@@ -160,6 +170,17 @@ public class WordNetJa {
 		return list;
 	}
 
+	public List<Synset> getLinkedSynsets(LexicalEntry entry) {
+		List<Synset> synsets = new ArrayList<>();
+		Map<String, Synset> synsetMap = handler.getSynsetIdObjMap();
+		for (String synsetId : entry.getSynset_ids()) {
+			if (synsetMap.containsKey(synsetId) == true) {
+				synsets.add(synsetMap.get(synsetId));
+			}
+		}
+		return synsets;
+	}
+
 	/**
 	 * <pre>
 	 * 語の品詞を返す
@@ -171,6 +192,17 @@ public class WordNetJa {
 	 */
 	public List<String> getPos(String string) {
 		return this.writtenFormPosMap.get(string);
+	}
+
+	/**
+	 * <pre>
+	 * created at 2022-01-12
+	 * </pre>
+	 * 
+	 * @return 見出しのリスト
+	 */
+	public List<String> getWrittenFormList() {
+		return WrittenFormList;
 	}
 
 	/**
@@ -187,6 +219,7 @@ public class WordNetJa {
 		) {
 			SAXParser saxParser = SAXParserUtils.getNewSAXParser();
 			saxParser.parse(gis, handler);
+			this.WrittenFormList = handler.getWrittenFormList();
 			this.writtenFormPosLexicalEntryMap = handler.getWrittenFormPosLexicalEntryMap();
 			this.writtenFormPosMap = handler.getWrittenFormPosMap();
 		} catch (Exception e) {
@@ -205,17 +238,6 @@ public class WordNetJa {
 	public List<LexicalEntry> searchEntriesByRegex(String regex) {
 		List<LexicalEntry> list = new ArrayList<>();
 		return list;
-	}
-
-	public List<Synset> getLinkedSynsets(LexicalEntry entry) {
-		List<Synset> synsets = new ArrayList<>();
-		Map<String, Synset> synsetMap = handler.getSynsetIdObjMap();
-		for (String synsetId : entry.getSynset_ids()) {
-			if (synsetMap.containsKey(synsetId) == true) {
-				synsets.add(synsetMap.get(synsetId));
-			}
-		}
-		return synsets;
 	}
 
 }

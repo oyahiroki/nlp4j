@@ -35,6 +35,18 @@ public class SimpleDocumentIndex extends AbstractDocumentIndexer implements Docu
 
 	ArrayList<Keyword> keywords = new ArrayList<>();
 
+	/**
+	 * @since 20220115
+	 * @return count of documents
+	 */
+	public int getDocumentSize() {
+		if (this.mapDocument == null) {
+			return 0;
+		} else {
+			return mapDocument.size();
+		}
+	}
+
 	@Override
 	public void addDocument(Document doc) {
 		mapDocument.put(doc.getId(), doc);
@@ -137,6 +149,10 @@ public class SimpleDocumentIndex extends AbstractDocumentIndexer implements Docu
 		for (String key : mapDocument.keySet()) {
 			Document doc = mapDocument.get(key);
 			dd.add(doc);
+		}
+
+		if (condition == null) {
+			return getKeywords(facet);
 		}
 
 		String[] cc = condition.split("=");

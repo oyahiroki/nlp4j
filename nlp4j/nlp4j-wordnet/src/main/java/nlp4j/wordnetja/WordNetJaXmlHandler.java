@@ -12,6 +12,14 @@ import nlp4j.Keyword;
 import nlp4j.impl.DefaultKeyword;
 import nlp4j.xml.AbstractXmlHandler;
 
+/**
+ * <pre>
+ * created_at 2021-12-05 16:24
+ * </pre>
+ * 
+ * @author Hiroki Oya
+ *
+ */
 public class WordNetJaXmlHandler extends AbstractXmlHandler {
 
 	private HashMap<String, List<String>> writtenFormSynsetMap = new HashMap<>();
@@ -61,6 +69,9 @@ public class WordNetJaXmlHandler extends AbstractXmlHandler {
 		return writtenFormPosLexicalEntryMap;
 	}
 
+	// writtenForm(見出し)のリスト
+	private List<String> writtenFormList = new ArrayList<String>();
+
 	// // "均質化" -> "n","v"
 	private HashMap<String, List<String>> writtenFormPosMap = new HashMap<>();
 
@@ -109,6 +120,10 @@ public class WordNetJaXmlHandler extends AbstractXmlHandler {
 //		return writtenFormSynsetMap;
 //	}
 
+	public List<String> getWrittenFormList() {
+		return writtenFormList;
+	}
+
 	@Override
 	public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
 
@@ -152,17 +167,25 @@ public class WordNetJaXmlHandler extends AbstractXmlHandler {
 //		   </Synset>
 
 		if (p.equals("LexicalResource/Lexicon/LexicalEntry")) {
+			// id is like 'w195566'
 			String id = attributes.getValue("id");
 			this.lexicalEntry = new LexicalEntry();
-			this.lexicalEntries.add(this.lexicalEntry);
 			{
-				this.lexicalEntry.setId(id);
+				this.lexicalEntry.setId(id); // id is like 'w195566'
 			}
+			this.lexicalEntries.add(this.lexicalEntry);
 			this.lexicalEntryIdMap.put(id, lexicalEntry);
 		} //
 		else if (p.equals("LexicalResource/Lexicon/LexicalEntry/Lemma")) {
+			// writtenForm is like '学校'
 			String writtenForm = attributes.getValue("writtenForm");
 			this.writtenForm = writtenForm;
+			{
+				if (this.writtenFormList.contains(writtenForm) == false) {
+					this.writtenFormList.add(writtenForm);
+				}
+			}
+			// pos is like 'n'
 			String pos = attributes.getValue("partOfSpeech");
 			this.lexicalEntry.setLemmaWrittenForm(writtenForm);
 			this.lexicalEntry.setPos(pos);
@@ -170,6 +193,7 @@ public class WordNetJaXmlHandler extends AbstractXmlHandler {
 			// "均質化.n" -> LexicalEntryObject
 			writtenFormPosLexicalEntryMap.put(writtenForm + "." + pos, this.lexicalEntry);
 
+			// some writtenForm is mapped to multiple POSs
 			// "均質化" -> "n","v"
 			if (this.writtenFormPosMap.containsKey(writtenForm)) {
 				this.writtenFormPosMap.get(writtenForm).add(pos);
@@ -180,7 +204,9 @@ public class WordNetJaXmlHandler extends AbstractXmlHandler {
 			}
 		} //
 		else if (p.equals("LexicalResource/Lexicon/LexicalEntry/Sense")) {
+			// id is like 'w195566_08276720-n'
 			String id = attributes.getValue("id");
+			// synset is like 'jpn-1.1-08276720-n'
 			String synset = attributes.getValue("synset");
 
 			if (this.writtenFormSynsetMap.containsKey(this.writtenForm) == false) {

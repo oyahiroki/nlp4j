@@ -1,5 +1,13 @@
 package nlp4j.wordnetja;
 
+/**
+ * <pre>
+ * created_at 2021-12-04 12:20
+ * </pre>
+ * 
+ * @author Hiroki Oya
+ *
+ */
 public class SynsetRelation {
 
 	String targets;

@@ -3,6 +3,14 @@ package nlp4j.wordnetja;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * <pre>
+ * created_at 2021-12-04 12:18
+ * </pre>
+ * 
+ * @author Hiroki Oya
+ *
+ */
 public class Synset {
 
 	String id;
