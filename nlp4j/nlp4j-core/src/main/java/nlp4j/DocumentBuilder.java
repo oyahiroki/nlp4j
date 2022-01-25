@@ -5,8 +5,11 @@ import java.util.Date;
 import nlp4j.impl.DefaultDocument;
 
 /**
+ * <pre>
+ * created_at 2021-11-16
+ * </pre>
+ * 
  * @author Hiroki Oya
- * @created_at 2021-11-16
  * @since 1.3.2
  */
 public class DocumentBuilder {

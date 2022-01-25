@@ -27,7 +27,7 @@
 		<dependency>
 			<groupId>org.nlp4j</groupId>
 			<artifactId>nlp4j-stanford</artifactId>
-			<version>[1.0.0.0,)</version>
+			<version>1.3.4.0</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/edu.stanford.nlp/stanford-corenlp -->
 		<dependency>

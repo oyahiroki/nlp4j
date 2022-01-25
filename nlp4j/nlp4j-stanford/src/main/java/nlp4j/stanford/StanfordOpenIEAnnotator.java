@@ -1,6 +1,7 @@
 package nlp4j.stanford;
 
 import java.lang.invoke.MethodHandles;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Properties;
@@ -16,8 +17,8 @@ import edu.stanford.nlp.naturalli.OpenIE;
 import edu.stanford.nlp.naturalli.SentenceFragment;
 import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
-import edu.stanford.nlp.semgraph.SemanticGraph;
-import edu.stanford.nlp.semgraph.SemanticGraphCoreAnnotations;
+//import edu.stanford.nlp.semgraph.SemanticGraph;
+//import edu.stanford.nlp.semgraph.SemanticGraphCoreAnnotations;
 import edu.stanford.nlp.util.CoreMap;
 import edu.stanford.nlp.util.PropertiesUtils;
 import nlp4j.AbstractDocumentAnnotator;
@@ -37,19 +38,21 @@ import nlp4j.impl.DefaultKeyword;
 public class StanfordOpenIEAnnotator extends AbstractDocumentAnnotator implements DocumentAnnotator {
 
 	/**
-	 * pattern.oie_clause
+	 * pattern.oie.clause
 	 */
-	public static final String FACET_PATTERN_OIE_CLAUSE = "pattern.oie_clause";
+	public static final String FACET_PATTERN_OIE_CLAUSE = "pattern.oie.clause";
 
 	/**
-	 * pattern.oie_triple_tabseparated
+	 * pattern.oie.triple_tabseparated
 	 */
-	public static final String FACET_PATTERN_OIE_TRIPLE_TABSEPARATED = "pattern.oie_triple_tabseparated";
+	public static final String FACET_PATTERN_OIE_TRIPLE_TABSEPARATED = "pattern.oie.triple_tabseparated";
 
 	/**
-	 * pattern.oie_triple
+	 * pattern.oie.triple
 	 */
-	public static final String FACET_PATTERN_OIE_TRIPLE = "pattern.oie_triple";
+	public static final String FACET_PATTERN_OIE_TRIPLE = "pattern.oie.triple";
+
+	private List<String> filter = new ArrayList<>();
 
 	static private final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
@@ -64,6 +67,12 @@ public class StanfordOpenIEAnnotator extends AbstractDocumentAnnotator implement
 	 */
 	public StanfordOpenIEAnnotator() {
 		super();
+		{
+			filter.add(FACET_PATTERN_OIE_CLAUSE);
+			filter.add(FACET_PATTERN_OIE_TRIPLE);
+			filter.add(FACET_PATTERN_OIE_TRIPLE_TABSEPARATED);
+
+		}
 		{
 			logger.info("initializing core NLP ...");
 			pipeline = new StanfordCoreNLP(props);
@@ -112,7 +121,8 @@ public class StanfordOpenIEAnnotator extends AbstractDocumentAnnotator implement
 							begin = label.beginPosition();
 						}
 					}
-					{
+
+					if (filter.contains(FACET_PATTERN_OIE_TRIPLE)) {
 						Keyword kwd = new DefaultKeyword();
 						kwd.setLex(lex.toLowerCase());
 						kwd.setBegin(begin);
@@ -128,17 +138,42 @@ public class StanfordOpenIEAnnotator extends AbstractDocumentAnnotator implement
 
 				// FOR EACH Clause
 				for (SentenceFragment clause : clauses) {
-
-					String s = clause.toString();
-					Keyword kwd = new DefaultKeyword();
-					kwd.setFacet(FACET_PATTERN_OIE_CLAUSE);
-					kwd.setLex(s);
-					kwd.setBegin(-1);
-					kwd.setEnd(-1);
-					doc.addKeyword(kwd);
+					if (filter.contains(FACET_PATTERN_OIE_CLAUSE)) {
+						String s = clause.toString();
+						Keyword kwd = new DefaultKeyword();
+						kwd.setFacet(FACET_PATTERN_OIE_CLAUSE);
+						kwd.setLex(s);
+						kwd.setBegin(-1);
+						kwd.setEnd(-1);
+						doc.addKeyword(kwd);
+					}
 				} // END OF FOR EACH Clause
 
 			}
 		}
+	}
+
+	@Override
+	public void setProperty(String key, String value) {
+
+		super.setProperty(key, value);
+
+		if ("filter".equals(key) == true) {
+			filter = new ArrayList<>();
+
+			String[] ff = value.split(",");
+			for (String f : ff) {
+				if (FACET_PATTERN_OIE_CLAUSE.equals(f)) {
+					filter.add(FACET_PATTERN_OIE_CLAUSE);
+				} //
+				else if (FACET_PATTERN_OIE_TRIPLE.equals(f)) {
+					filter.add(FACET_PATTERN_OIE_TRIPLE);
+				} //
+				else if (FACET_PATTERN_OIE_TRIPLE_TABSEPARATED.equals(f)) {
+					filter.add(FACET_PATTERN_OIE_TRIPLE_TABSEPARATED);
+				}
+			}
+		}
+
 	}
 }

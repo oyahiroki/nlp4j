@@ -42,4 +42,18 @@ public class CounterTestCase extends TestCase {
 
 	}
 
+	public void testCounter002() {
+
+		String s1 = "202001";
+		String s2 = "202002";
+		String s3 = "202012";
+
+		Counter<String> counter = new Counter<>();
+		counter.add(s1);
+		counter.add(s2);
+		counter.add(s3);
+
+		System.err.println(counter.getObjectList());
+	}
+
 }

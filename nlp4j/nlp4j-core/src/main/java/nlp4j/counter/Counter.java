@@ -7,9 +7,12 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
+ * <pre>
+ * created_at : 2021-07-13
+ * </pre>
+ * 
  * @author Hiroki Oya
  * @param <T> Class for counting
- * @created_at 2021-07-13
  * @since 1.3.2
  */
 public class Counter<T> {
@@ -84,7 +87,7 @@ public class Counter<T> {
 		});
 		ArrayList<Count<T>> counts = new ArrayList<Count<T>>();
 		for (T o : objList) {
-			counts.add(new Count(o, getCount(o)));
+			counts.add(new Count<T>(o, getCount(o)));
 		}
 		return counts;
 	}

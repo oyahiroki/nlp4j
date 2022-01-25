@@ -19,10 +19,10 @@ public class StanfordOpenIEAnnotatorSample1 {
 
 		ann.annotate(doc);
 
-		System.err.println("pattern.oie_triples");
+		System.err.println("pattern.oie.triple");
 
-		for (Keyword kwd : doc.getKeywords("pattern.oie_triple")) {
-			System.err.println(kwd.getLex());
+		for (Keyword kwd : doc.getKeywords("pattern.oie.triple")) {
+			System.err.println(kwd.getFacet() + "," + kwd.getLex());
 		}
 
 	}

@@ -8,7 +8,6 @@ import nlp4j.Document;
 import nlp4j.DocumentAnnotator;
 import nlp4j.Keyword;
 import nlp4j.impl.DefaultDocument;
-import nlp4j.indexer.DocumentIndexer;
 import nlp4j.indexer.SimpleDocumentIndex;
 import nlp4j.krmj.annotator.KuromojiAnnotator;
 import nlp4j.util.DocumentUtil;

@@ -20,7 +20,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import nlp4j.Document;
-import nlp4j.crawler.AbstractCrawler;
 import nlp4j.crawler.Crawler;
 import nlp4j.impl.DefaultDocument;
 import nlp4j.webcrawler.AbstractWebCrawler;
@@ -69,11 +68,8 @@ public class NhtsaCrawler extends AbstractWebCrawler implements Crawler {
 
 	@Override
 	public List<Document> crawlDocuments() {
-
 		String input = super.prop.getProperty("input");
-
 		File inputFile = new File(input);
-
 		try {
 			if (inputFile.exists() == true) {
 				String ext = FilenameUtils.getExtension(inputFile.getAbsolutePath());
@@ -94,25 +90,30 @@ public class NhtsaCrawler extends AbstractWebCrawler implements Crawler {
 				return new ArrayList<Document>();
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error(e.getMessage(), e);
 			return new ArrayList<Document>();
 		}
 
 	}
 
+	/**
+	 * Read InputStream
+	 * 
+	 * @param is       InputStream
+	 * @param encoding
+	 * @return
+	 * @throws IOException
+	 */
 	private List<Document> read(InputStream is, String encoding) throws IOException {
 
 		ArrayList<Document> docs = new ArrayList<>();
 
 		List<String> lines = IOUtils.readLines(is, encoding);
 
-		int count = 0;
-		int count2 = 0;
-
 		ArrayList<String> makes = new ArrayList<>();
 
 		for (String line : lines) {
-			count++;
+
 			String[] data = line.split("\t");
 
 			for (int n = 0; n < data.length; n++) {
@@ -122,9 +123,7 @@ public class NhtsaCrawler extends AbstractWebCrawler implements Crawler {
 			}
 
 			if (makesFilterList == null || makesFilterList.contains(data[3])) {
-
 				Document doc = new DefaultDocument();
-
 				for (int n = 0; n < headers.length; n++) {
 					if (data.length >= n + 1) {
 						String key = headers[n];
@@ -132,26 +131,21 @@ public class NhtsaCrawler extends AbstractWebCrawler implements Crawler {
 						doc.putAttribute(key, value);
 					}
 				}
-
 				try {
 					int dateAsInt = Integer.parseInt(doc.getAttributeAsString("DATEA"));
 					if (dateAsInt < minDate) {
+						// SKIP THIS RECORD
 						continue;
 					}
 				} catch (NumberFormatException e) {
-					e.printStackTrace();
+					logger.error(e.getMessage(), e);
 					continue;
 				}
-
+				// ADD
 				docs.add(doc);
-
-//				System.err.println(data[3]); // MAKES
-
 				if (docs.size() % 1000 == 0) {
 					logger.info("Reading docs: " + String.format("%,d", docs.size()));
 				}
-
-				count2++;
 			}
 
 			if (makes.contains(data[3]) == false) {
@@ -159,13 +153,12 @@ public class NhtsaCrawler extends AbstractWebCrawler implements Crawler {
 			}
 		}
 
-//		System.err.println(count);
-//		System.err.println(count2);
+		logger.info("Reading docs done: " + String.format("%,d", docs.size()));
 
 		Collections.sort(makes);
 
 		// PRINT MAKES
-		System.err.println(Arrays.toString(makes.toArray(new String[0])));
+		logger.debug("Data MAKES: " + Arrays.toString(makes.toArray(new String[0])));
 
 		return docs;
 
@@ -182,40 +175,46 @@ public class NhtsaCrawler extends AbstractWebCrawler implements Crawler {
 	}
 
 	private List<Document> readAsZip(File inputFile) throws IOException {
-
+		// Auto close
+		// FileInputStream fis
+		// BufferedInputStream bis
+		// ZipInputStream zis
 		try (FileInputStream fis = new FileInputStream(inputFile);
 				BufferedInputStream bis = new BufferedInputStream(fis);
 				ZipInputStream zis = new ZipInputStream(bis, Charset.forName(charset));) {
 
 			ZipEntry zipentry;
 			while ((zipentry = zis.getNextEntry()) != null) {
-
-				System.err.println(zipentry.getName());
-
+				logger.info("zip entry: " + zipentry.getName());
 				if (zipentry.getName().equals(zipEntryFileName)) {
-
 					return read(zis, encoding);
-
 				}
 			}
-
 			return null;
-
 		} catch (IOException e) {
 			throw e;
 		}
-
 	}
 
+	/**
+	 * <pre>
+	 * key:
+	 * minDate -- example:"20210101" SET Date filter to DATEA column for oldest record. 
+	 *            DATEAがこれ以降のデータのみを抽出
+	 * MAKETXT -- example:"TESLA,NISSAN" SET MAKETXT Filter. Comma Separated value.
+	 *            MAKETXTにフィルターを設定
+	 * </pre>
+	 * 
+	 * @param key
+	 * @param value
+	 */
 	@Override
 	public void setProperty(String key, String value) {
-
 		if (key == null || value == null) {
 			return;
 		}
-
 		super.setProperty(key, value);
-
+		// minDate
 		if (key.equals("minDate")) {
 			try {
 				this.minDate = Integer.parseInt(value);
@@ -223,6 +222,7 @@ public class NhtsaCrawler extends AbstractWebCrawler implements Crawler {
 				e.printStackTrace();
 			}
 		} //
+			// MAKETXT
 		else if (key.equals("MAKETXT")) {
 			makesFilterList = Arrays.asList(value.split(","));
 		}
