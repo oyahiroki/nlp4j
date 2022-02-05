@@ -3,6 +3,7 @@ package nlp4j;
 import java.util.Date;
 
 import nlp4j.impl.DefaultDocument;
+import nlp4j.impl.DefaultKeyword;
 
 /**
  * <pre>
@@ -143,6 +144,18 @@ public class DocumentBuilder {
 	 */
 	public DocumentBuilder v(String key, String s) {
 		put(key, s);
+		return this;
+	}
+
+	/**
+	 * @param facet of keyword
+	 * @param lex   of keyword
+	 * @since 1.3.4.0.20200203
+	 * @return this
+	 */
+	public DocumentBuilder kw(String facet, String lex) {
+		Keyword kw = new DefaultKeyword(facet, lex);
+		this.doc.addKeyword(kw);
 		return this;
 	}
 

@@ -2,8 +2,13 @@ package nlp4j.wiki;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import nlp4j.Document;
 import nlp4j.crawler.AbstractCrawler;
@@ -23,21 +28,32 @@ import nlp4j.crawler.Crawler;
  * created_at 2021-08-19
  * </pre>
  * 
+ * <pre>
+ * Document
+ *     "item": (String) Wiki Document Title
+ *     "wikitetxt": (String) Wiki Markdown format text
+ *     "wikiplaintext": (String) Wiki Plain text
+ *     "wikihtml": (String) Wiki HTML format text
+ * </pre>
+ * 
  * @author Hiroki Oya
  * @see nlp4j.wiki.WikiIndexDocument
  */
 public class WikiDocumentCrawler2 extends AbstractCrawler implements Crawler {
 
+	static private Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
+	
 	File wikidumpfile = null;
 	File wikiindexfile = null;
+	private List<String> entries;
 
 	/**
 	 * <pre>
 	 * Document
-	 *     "item" : Wiki Document Title
-	 *     "wikitetxt" : Wiki Markdown format text
-	 *     "wikiplaintext" : Wiki Plain text
-	 *     "wikihtml" : Wiki HTML format text
+	 *     "item": (String) Wiki Document Title
+	 *     "wikitetxt": (String) Wiki Markdown format text
+	 *     "wikiplaintext": (String) Wiki Plain text
+	 *     "wikihtml": (String) Wiki HTML format text
 	 * </pre>
 	 * 
 	 * @return List of nlp4j.wiki.WikiIndexDocument
@@ -71,9 +87,16 @@ public class WikiDocumentCrawler2 extends AbstractCrawler implements Crawler {
 					doc.setDumpReader(dumpReader);
 					doc.putAttribute("item", item.getTitle());
 				}
+				
+				logger.info(doc.getAttributeAsString("item"));
 
-				docs.add(doc);
-
+				if (this.entries == null) {
+					docs.add(doc);
+				} else {
+					if (this.entries.contains(item.getTitle())) {
+						docs.add(doc);
+					}
+				}
 			}
 
 //			dumpReader.close();
@@ -107,7 +130,10 @@ public class WikiDocumentCrawler2 extends AbstractCrawler implements Crawler {
 			else if (key.equals("wikiindexfile")) {
 				this.wikiindexfile = new File(value);
 			} //
-			else {
+			else if (key.equals("entries")) {
+				String[] ss = value.split(",");
+				this.entries = Arrays.asList(ss);
+			} else {
 
 			}
 		}
