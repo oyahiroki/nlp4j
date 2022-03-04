@@ -1,6 +1,11 @@
 package nlp4j.impl;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 import nlp4j.Keyword;
 import nlp4j.NlpServiceResponse;
@@ -18,6 +23,8 @@ public class DefaultNlpServiceResponse implements NlpServiceResponse {
 	String originalResponseBody;
 	int responseCode = -1;
 	private ArrayList<Keyword> keywords;
+	private Map<String, List<String>> headers;
+	private String headersOriginal;
 
 	/**
 	 * コンストラクタ
@@ -90,6 +97,62 @@ public class DefaultNlpServiceResponse implements NlpServiceResponse {
 	@Override
 	public String getMessage() {
 		return null;
+	}
+
+	/**
+	 * since 2022-03-02
+	 * 
+	 * @since 1.3.4.0
+	 */
+	public void setHeaders(Map<String, List<String>> multimap) {
+		this.headers = multimap;
+	}
+
+	/**
+	 * since 2022-03-02
+	 * 
+	 * @since 1.3.4.0
+	 */
+	public Map<String, List<String>> getHeadersAsMultiMap() {
+		return headers;
+	}
+
+	/**
+	 * since 2022-03-02
+	 * 
+	 * @since 1.3.4.0
+	 */
+	public String getHeaders() {
+		return this.headersOriginal;
+	}
+
+	/**
+	 * since 2022-03-02
+	 * 
+	 * @since 1.3.4.0
+	 */
+	public void setHeaders(String string) {
+		this.headersOriginal = string;
+
+	}
+
+	/**
+	 * since 2022-03-02
+	 * 
+	 * @since 1.3.4.0
+	 */
+	public JsonObject getAsJsonObject() {
+//		List<String> values = this.headers.get("content-type");
+//		System.err.println(values.toString().contains("json"));
+
+		if (this.headers != null && this.headers.get("content-type").toString().contains("json")) {
+			Gson gson = new Gson();
+			JsonObject jo = gson.fromJson(this.originalResponseBody, JsonObject.class);
+			return jo;
+		} else {
+			return null;
+		}
+
 	}
 
 }

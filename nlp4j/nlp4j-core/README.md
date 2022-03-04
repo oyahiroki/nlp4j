@@ -13,7 +13,7 @@ nlp4j-core provides
 
 # MAVEN Repository
 
-https://mvnrepository.com/search?q=org.nlp4j
+	https://mvnrepository.com/search?q=org.nlp4j
 
 # Build for Release
 
@@ -25,4 +25,11 @@ https://mvnrepository.com/search?q=org.nlp4j
 
 	mvn test
 	mvn javadoc:javadoc
-	
+
+# Maven Build Tips
+
+	mvn dependency:copy-dependencies
+		output dir is: ./target/dependency
+
+	mvn assembly:assembly -DdescriptorId=bin
+

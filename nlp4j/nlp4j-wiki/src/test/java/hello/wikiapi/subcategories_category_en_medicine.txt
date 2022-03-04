@@ -1,0 +1,110 @@
+Category:en:Alternative medicine
+	Category:en:Ayurveda
+	Category:en:Homeopathy
+	Category:en:Orgonomy
+	Category:en:Traditional Chinese medicine
+Category:en:Anatomy
+	Category:Thesaurus:Anatomy
+	Category:en:Neuroanatomy
+Category:en:Andrology
+Category:en:Medical body positions
+Category:en:Cardiology
+	Category:en:Electrocardiography
+Category:en:Dentistry
+Category:en:Dermatology
+Category:en:Embryology
+Category:en:Emergency medicine
+	Category:English phrasebook/Emergencies
+Category:en:Endocrinology
+Category:en:Epidemiology
+Category:en:Gastroenterology
+Category:en:Gerontology
+Category:en:Gynaecology
+	Category:en:Menstruation
+	Category:en:Pregnancy
+		Category:en:Abortion
+		Category:en:Birth control
+		Category:en:Obstetrics
+Category:en:Healthcare
+	Category:en:Healthcare occupations
+Category:en:Hematology
+Category:en:Hepatology
+Category:en:Immunology
+	Category:en:Immunochemistry
+Category:en:Medical equipment
+Category:en:Medical genetics
+	Category:en:Genetic disorders
+Category:en:Nephrology
+Category:en:Neurology
+	Category:en:Neuroanatomy
+	Category:en:Neurosurgery
+Category:en:Obstetrics
+Category:en:Oncology
+Category:en:Ophthalmology
+Category:en:Pathology
+	Category:en:Clinical psychology
+	Category:en:Disease
+		Category:en:Coronavirus
+		Category:en:Diseases
+			Category:en:Amoebozoal diseases
+			Category:en:Bacterial diseases
+			Category:en:Coccidial diseases
+			Category:en:Fungal diseases
+			Category:en:Genetic disorders
+			Category:en:Helminthic diseases
+			Category:en:Infestations
+			Category:en:Plant diseases
+			Category:en:Sexually transmitted diseases
+			Category:en:Trypanosomal diseases
+			Category:en:Vector-borne diseases
+				Category:en:Insect-borne diseases
+					Category:en:Mosquito-borne diseases
+				Category:en:Mosquito-borne diseases
+				Category:en:Tick-borne diseases
+			Category:en:Viral diseases
+		Category:en:Leprosy
+		Category:en:Motion sickness
+	Category:en:Medical signs and symptoms
+	Category:en:Oncology
+	Category:en:Phytopathology
+		Category:en:Plant diseases
+	Category:en:Syndromes
+	Category:en:Teratology
+	Category:en:Virology
+Category:en:Pharmacology
+	Category:en:Drugs
+		Category:en:Pharmaceutical drugs
+		Category:en:Recreational drugs
+			Category:en:Alcoholic beverages
+				Category:en:Beer
+				Category:en:Cocktails
+				Category:en:Distilled beverages
+				Category:en:Liqueurs
+				Category:en:Wine
+					Category:en:Grapevines
+					Category:en:Wine bottles
+					Category:en:Wines
+			Category:en:Daturas
+			Category:en:Marijuana
+			Category:en:Tobacco
+	Category:en:Pharmaceutical drugs
+	Category:en:Pharmaceutical effects
+	Category:en:Pharmacy
+	Category:en:Toxicology
+		Category:en:Teratology
+Category:en:Pharmacy
+Category:en:Physiology
+Category:en:Psychiatry
+Category:en:Pulmonology
+Category:en:Rheumatology
+Category:en:Surgery
+	Category:en:Amputation
+	Category:en:Circumcision
+	Category:en:Neurosurgery
+	Category:en:Plastic surgery
+Category:en:Teratology
+Category:en:Toxicology
+	Category:en:Teratology
+Category:en:Urology
+Category:en:Veterinary medicine
+Category:en:Virology
