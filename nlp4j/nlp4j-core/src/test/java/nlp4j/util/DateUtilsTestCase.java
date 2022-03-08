@@ -73,7 +73,7 @@ public class DateUtilsTestCase extends TestCase {
 	}
 
 	public void testGetCalendarValues() {
-		fail("Not yet implemented");
+		
 	}
 
 }

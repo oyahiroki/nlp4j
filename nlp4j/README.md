@@ -7,3 +7,7 @@ NLP4J provides
 - Text Annotator for Natural Language
 - Text Indexer for counting keywords
 
+# How to build
+
+	mvn --non-recursive -DperformRelease=true clean deploy
+

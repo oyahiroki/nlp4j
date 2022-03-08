@@ -1,4 +1,4 @@
-package hello.wikiapi;
+package nlp4j.wiki;
 
 import java.io.IOException;
 import java.lang.invoke.MethodHandles;
@@ -64,7 +64,7 @@ public class MediaWikiClient {
 					String type = pages.get(n).getAsJsonObject().get("type").getAsString();
 					logger.debug("type=" + type);
 					String title = pages.get(n).getAsJsonObject().get("title").getAsString();
-					if ("subcat".equals(type) && fetchSubCategory == true) {
+					if ("subcat".equals(type) && this.fetchSubCategory == true) {
 						List<String> ss = getPageTitlesByCategory(title);
 						titles.addAll(ss);
 					} //
@@ -91,38 +91,6 @@ public class MediaWikiClient {
 
 		}
 		return titles;
-	}
-
-	public static void main(String[] args) throws Exception {
-		{
-//			String host = "en.wiktionary.org";
-//			String category = "Category:en:Medicine";
-//			category = "Category:en:Medicinex";
-//			category = "Category:en:Auto_parts";
-//
-//			MediaWikiClient client = new MediaWikiClient(host);
-//
-//			List<String> titles = client.getPageTitlesByCategory(category);
-//
-//			for (String title : titles) {
-//				System.err.println(title);
-//			}
-//			System.err.println(titles.size());
-		}
-		{
-			String host = "en.wikipedia.org";
-			String category = "Category:Auto_parts";
-
-			MediaWikiClient client = new MediaWikiClient(host);
-
-			List<String> titles = client.getPageTitlesByCategory(category);
-
-			for (String title : titles) {
-				System.err.println(title);
-			}
-			System.err.println(titles.size());
-		}
-
 	}
 
 }
