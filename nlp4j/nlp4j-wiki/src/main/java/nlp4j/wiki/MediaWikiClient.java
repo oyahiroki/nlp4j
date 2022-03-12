@@ -3,7 +3,10 @@ package nlp4j.wiki;
 import java.io.IOException;
 import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -24,37 +27,47 @@ public class MediaWikiClient {
 
 	private boolean fetchSubCategory = false;
 
+	public void setFetchSubCategory(boolean fetchSubCategory) {
+		this.fetchSubCategory = fetchSubCategory;
+	}
+
 	public MediaWikiClient(String host) {
 		this.host = host;
 	}
 
 	public List<String> getPageTitlesByCategory(String category) throws IOException {
+
+		logger.info("category=" + category);
+
 		List<String> titles = new ArrayList<>();
 
 		String from = "";
 
 		for (int x = 0; x < 100; x++) {
-			logger.info("x=" + x);
-			String url = "https://" //
-//					+ "en.wiktionary.org"
-					+ host //
-					+ "/w/api.php" //
-					+ "?"//
-					+ "format=json"//
-					+ "&action=query"//
-					+ "&list=categorymembers"//
-					+ "&cmtitle=" + category//
-					+ "&cmlimit=500"// 1-500
-					+ "&cmsort=sortkey"//
-					+ "&cmprop=ids|title|sortkey|sortkeyprefix|type|timestamp" //
-					+ "&cmstarthexsortkey=" + from //
-			;//
+			logger.info("count=" + x);
+
+			// https://www.mediawiki.org/wiki/API:Categorymembers
+
+			String url = "https://" + host + "/w/api.php";
 
 			// action: query: query Fetch data from and about MediaWiki.
-			// format: One of the following values: json, jsonfm, none, php, phpfm, rawfm,
+			// format: One of the following values: json, jsonfm, none,
+			// php, phpfm, rawfm,
 			// xml, xmlfm
 
-			DefaultNlpServiceResponse res = client.get(url);
+			Map<String, String> params = new LinkedHashMap<>();
+			{
+				params.put("format", "json");
+				params.put("action", "query");
+				params.put("list", "categorymembers");// https://www.mediawiki.org/wiki/API:Categorymembers
+				params.put("cmtitle", category);
+				params.put("cmlimit", "500");
+				params.put("cmsort", "sortkey");
+				params.put("cmprop", "ids|title|sortkey|sortkeyprefix|type|timestamp");
+				params.put("cmstarthexsortkey", from);
+			}
+
+			DefaultNlpServiceResponse res = client.get(url, params);
 
 			// content-type
 			JsonObject jo = res.getAsJsonObject();
@@ -62,8 +75,10 @@ public class MediaWikiClient {
 				JsonArray pages = jo.get("query").getAsJsonObject().get("categorymembers").getAsJsonArray();
 				for (int n = 0; n < pages.size(); n++) {
 					String type = pages.get(n).getAsJsonObject().get("type").getAsString();
-					logger.debug("type=" + type);
 					String title = pages.get(n).getAsJsonObject().get("title").getAsString();
+					logger.info("type=" + type + ",title=" + title);
+
+					// fetchSubCategory??
 					if ("subcat".equals(type) && this.fetchSubCategory == true) {
 						List<String> ss = getPageTitlesByCategory(title);
 						titles.addAll(ss);

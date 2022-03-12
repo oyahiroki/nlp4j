@@ -1,4 +1,4 @@
-package hello.wikiapi;
+package nlp4j.wiki;
 
 import java.util.List;
 
@@ -29,13 +29,27 @@ public class MediaWikiClientTestCase extends TestCase {
 		System.err.println(titles.size());
 	}
 
-	public void testMediaWikiClient102() throws Exception {
+	public void testMediaWikiClient101() throws Exception {
 		String host = "ja.wiktionary.org";
 		String category = "カテゴリ:日本語_ことわざ";
 		MediaWikiClient client = new MediaWikiClient(host);
 		List<String> titles = client.getPageTitlesByCategory(category);
 		for (String title : titles) {
 			System.err.println(title);
+		}
+		System.err.println(titles.size());
+	}
+
+	public void testMediaWikiClient102() throws Exception {
+		String host = "ja.wikipedia.org";
+		String category = "Category:RNAウイルス";
+		MediaWikiClient client = new MediaWikiClient(host);
+		client.setFetchSubCategory(false);
+		List<String> titles = client.getPageTitlesByCategory(category);
+		for (String title : titles) {
+			if (title.contains("ウイルス")) {
+				System.err.println(title);
+			}
 		}
 		System.err.println(titles.size());
 	}

@@ -1,13 +1,11 @@
 
-# Introduction 
+# What is NLP4J?
 
-NLP4J provides
+- Data Crawler
+- Text Annotator
+- Text Indexer
 
-- Data Crawler for Text mining, NLP
-- Text Annotator for Natural Language
-- Text Indexer for counting keywords
-
-# How to build
+# How to build nlp4j pom.xml
 
 	mvn --non-recursive -DperformRelease=true clean deploy
 

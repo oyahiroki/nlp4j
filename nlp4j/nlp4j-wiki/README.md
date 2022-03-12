@@ -20,5 +20,8 @@ Alternative parsers - MediaWiki
 https://www.mediawiki.org/wiki/Alternative_parsers
 
 
+Wikidata/Wikidata-Toolkit: Java library to interact with Wikibase
+https://github.com/Wikidata/Wikidata-Toolkit
+
 
 
