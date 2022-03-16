@@ -60,7 +60,7 @@
 		<dependency>
 			<groupId>org.nlp4j</groupId>
 			<artifactId>nlp4j-wiki</artifactId>
-			<version>[0.1.1.0,)</version>
+			<version>0.2.0.3</version>
 		</dependency>
 		<dependency>
 			<groupId>org.nlp4j</groupId>
