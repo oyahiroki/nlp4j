@@ -2,6 +2,7 @@ package nlp4j.solr.search;
 
 import java.io.Closeable;
 import java.io.IOException;
+import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -10,6 +11,8 @@ import java.util.concurrent.TimeUnit;
 
 import org.apache.solr.client.solrj.SolrRequest.METHOD;
 import org.apache.commons.lang.StringUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.impl.BaseHttpSolrClient.RemoteSolrException;
 import org.apache.solr.client.solrj.impl.HttpSolrClient;
@@ -34,6 +37,8 @@ import nlp4j.search.SearchClientBuilder;
  * @author Hiroki Oya
  */
 public class SolrSearchClient extends AbstractSearchClient implements SearchClient, Closeable {
+
+	static private final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
 	private static final int CONNECTION_TIMEOUT_MILLIS = 10000;
 	private static final int SOCKET_TIMEOUT_MILLIS = 60000;
@@ -104,6 +109,7 @@ public class SolrSearchClient extends AbstractSearchClient implements SearchClie
 		}
 
 		MapSolrParams solrQueryParams = convertRequestParams(requestAz);
+		logger.info("query: " + solrQueryParams.toString());
 
 		try {
 

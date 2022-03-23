@@ -3,10 +3,14 @@ package nlp4j.wiki;
 import java.util.List;
 
 import junit.framework.TestCase;
-import nlp4j.wiki.MediaWikiClient;
 
 public class MediaWikiClientTestCase extends TestCase {
 
+	/**
+	 * Query "Category:Auto_parts"
+	 * 
+	 * @throws Exception
+	 */
 	public void testMediaWikiClient001() throws Exception {
 		String host = "en.wikipedia.org";
 		String category = "Category:Auto_parts";
@@ -18,6 +22,11 @@ public class MediaWikiClientTestCase extends TestCase {
 		System.err.println(titles.size());
 	}
 
+	/**
+	 * Query "Category:en:Medicine"
+	 * 
+	 * @throws Exception
+	 */
 	public void testMediaWikiClient002() throws Exception {
 		String host = "en.wikipedia.org";
 		String category = "Category:en:Medicine";
@@ -29,6 +38,11 @@ public class MediaWikiClientTestCase extends TestCase {
 		System.err.println(titles.size());
 	}
 
+	/**
+	 * Query "カテゴリ:日本語_ことわざ"
+	 * 
+	 * @throws Exception
+	 */
 	public void testMediaWikiClient101() throws Exception {
 		String host = "ja.wiktionary.org";
 		String category = "カテゴリ:日本語_ことわざ";
@@ -40,6 +54,11 @@ public class MediaWikiClientTestCase extends TestCase {
 		System.err.println(titles.size());
 	}
 
+	/**
+	 * "Category:RNAウイルス"
+	 * 
+	 * @throws Exception
+	 */
 	public void testMediaWikiClient102() throws Exception {
 		String host = "ja.wikipedia.org";
 		String category = "Category:RNAウイルス";

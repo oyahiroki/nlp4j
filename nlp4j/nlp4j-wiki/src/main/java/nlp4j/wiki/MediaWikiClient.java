@@ -3,7 +3,6 @@ package nlp4j.wiki;
 import java.io.IOException;
 import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,7 +16,15 @@ import com.google.gson.JsonObject;
 import nlp4j.impl.DefaultNlpServiceResponse;
 import nlp4j.util.HttpClient;
 
+/**
+ * created at: 2022-03-03
+ * 
+ * @author Hiroki Oya
+ *
+ */
 public class MediaWikiClient {
+
+	private static final int MAX_QUERY_COUNT = 100;
 
 	static private Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
@@ -27,14 +34,24 @@ public class MediaWikiClient {
 
 	private boolean fetchSubCategory = false;
 
-	public void setFetchSubCategory(boolean fetchSubCategory) {
-		this.fetchSubCategory = fetchSubCategory;
-	}
-
+	/**
+	 * @param host example: "en.wikipedia.org";
+	 */
 	public MediaWikiClient(String host) {
 		this.host = host;
 	}
 
+	/**
+	 * <pre>
+	 * Query page titles by Category
+	 * 
+	 * <pre>
+	 * 
+	 * @see https://www.mediawiki.org/wiki/API:Categorymembers
+	 * @param category example: "Category:Auto_parts"
+	 * @return
+	 * @throws IOException
+	 */
 	public List<String> getPageTitlesByCategory(String category) throws IOException {
 
 		logger.info("category=" + category);
@@ -43,7 +60,7 @@ public class MediaWikiClient {
 
 		String from = "";
 
-		for (int x = 0; x < 100; x++) {
+		for (int x = 0; x < MAX_QUERY_COUNT; x++) {
 			logger.info("count=" + x);
 
 			// https://www.mediawiki.org/wiki/API:Categorymembers
@@ -106,6 +123,10 @@ public class MediaWikiClient {
 
 		}
 		return titles;
+	}
+
+	public void setFetchSubCategory(boolean fetchSubCategory) {
+		this.fetchSubCategory = fetchSubCategory;
 	}
 
 }

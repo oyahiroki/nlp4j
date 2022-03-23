@@ -100,6 +100,7 @@ public class TwitterCrawler extends AbstractCrawler implements Crawler {
 			for (int count = 0; count < LOOP_MAX; count++) {
 
 				logger.info("Search count: " + (count + 1));
+				logger.info("query: " + query.toString());
 
 				QueryResult result = twitter.search(query);
 
@@ -167,7 +168,11 @@ public class TwitterCrawler extends AbstractCrawler implements Crawler {
 		return docs;
 	}
 
-	@Override
+	/**
+	 * @param key   debugEnabled | oauth.consumerKey | oauth.consumerSecret |
+	 *              oauth.accessToken | oauth.accessTokenSecret
+	 * @param value
+	 */
 	public void setProperty(String key, String value) {
 		super.setProperty(key, value);
 
@@ -191,7 +196,7 @@ public class TwitterCrawler extends AbstractCrawler implements Crawler {
 		} //
 		else if (key.equals("outfile")) {
 			File file = new File(value);
-			// IF(OUTFILE IS EXIST) THEN
+			// IF(OUTFILE NOT EXIST) THEN
 			if (file.exists() == false) {
 				File parentDir = file.getParentFile();
 				if (parentDir.exists() == false) {
@@ -202,7 +207,7 @@ public class TwitterCrawler extends AbstractCrawler implements Crawler {
 					}
 				}
 			}
-			// ELSE
+			// ELSE (OUTFILE EXIST)
 			else {
 				// CHECK MAX ID OF TWEETS FOR NEXT QUERY
 				List<String> lines;

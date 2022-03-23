@@ -35,10 +35,33 @@ public class FileDownloader {
 	 * @throws IOException on HTTP Response code not 200
 	 */
 	public void download(String url, File outFile) throws IOException {
+		download(url, outFile, false);
+	}
 
-		if (outFile.exists() == true) {
-			logger.warn("Already exists: " + outFile.getAbsolutePath());
-			throw new IOException("Already exists: " + outFile.getAbsolutePath());
+	/**
+	 * @param url       to fetch data
+	 * @param outFile   outputFile
+	 * @param overwrite file
+	 * @throws IOException on HTTP Response code not 200
+	 */
+	public void download(String url, File outFile, boolean overwirte) throws IOException {
+
+		// IF(overwirte == FALSE) THEN
+		if (overwirte == false) {
+			if (outFile.exists() == true) {
+				logger.info("Already exists: " + outFile.getAbsolutePath());
+//				throw new IOException("Already exists: " + outFile.getAbsolutePath());
+				return;
+			}
+		} //
+			// ELSE(overwirte == TRUE)
+		else {
+			if (outFile.exists() == true) {
+				logger.info("Already exists: " + outFile.getAbsolutePath());
+				outFile.delete();
+				logger.info("Deleted: " + outFile.getAbsolutePath());
+			}
+
 		}
 
 		HttpClient client = new HttpClient();
@@ -99,7 +122,17 @@ public class FileDownloader {
 	 * @throws IOException on HTTP Response code not 200
 	 */
 	public void download(String url, String fileName) throws IOException {
-		download(url, new File(fileName));
+		download(url, new File(fileName), false);
+	}
+
+	/**
+	 * @param url       to fetch data
+	 * @param fileName  output file
+	 * @param overwrite file
+	 * @throws IOException on HTTP Response code not 200
+	 */
+	public void download(String url, String fileName, boolean overwrite) throws IOException {
+		download(url, new File(fileName), overwrite);
 	}
 
 }

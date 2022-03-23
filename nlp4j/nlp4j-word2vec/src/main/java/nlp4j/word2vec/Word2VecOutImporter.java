@@ -78,7 +78,8 @@ public class Word2VecOutImporter extends AbstractDocumentImporter {
 				.negativeSample(10) //
 				.iterate(it) // 文章データクラス
 				.tokenizerFactory(tokenizer) // 単語分解クラス
-				.build();
+				.build(); // Exception in thread "main" java.lang.ExceptionInInitializerError
+			// Caused by: java.lang.RuntimeException: org.nd4j.linalg.factory.Nd4jBackend$NoAvailableBackendException: Please ensure that you have an nd4j backend on your classpath. Please see: http://nd4j.org/getstarted.html
 
 		// 5.
 		vec.fit();
