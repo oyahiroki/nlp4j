@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.lang.invoke.MethodHandles;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -73,6 +74,12 @@ public class FileDownloader {
 			// INPUT
 			BufferedInputStream bis = new BufferedInputStream(is);
 			// OUTPUT
+			if (outFile.getParentFile().exists() == false) {
+				File parentDir = FileUtils.createParentDirectories(outFile);
+				if (parentDir != null) {
+					logger.info("Created: " + parentDir.getAbsolutePath());
+				}
+			}
 			BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(outFile));
 
 			int readSize;

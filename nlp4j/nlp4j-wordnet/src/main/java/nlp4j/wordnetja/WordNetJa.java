@@ -213,8 +213,9 @@ public class WordNetJa {
 	 */
 	private void readLmf(InputStream is) throws IOException {
 		logger.info("loading: start");
+		logger.info("loading: loading GZIP ... it will take more than 30 seconds ... ");
 		long time1 = System.currentTimeMillis();
-		try (//
+		try ( // Auto Close
 				GZIPInputStream gis = new GZIPInputStream(is);//
 		) {
 			SAXParser saxParser = SAXParserUtils.getNewSAXParser();
