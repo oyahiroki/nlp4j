@@ -4,6 +4,8 @@ import java.io.File;
 import java.util.Comparator;
 import java.util.List;
 
+import org.apache.commons.io.FileUtils;
+
 import nlp4j.wordnetja.WordNetJa;
 
 /**
@@ -14,7 +16,7 @@ import nlp4j.wordnetja.WordNetJa;
  * @author Hiroki Oya
  *
  */
-public class WordNetJaExample3 {
+public class WordNetJaExample3Fileout {
 
 	public static void main(String[] args) throws Exception {
 
@@ -23,15 +25,14 @@ public class WordNetJaExample3 {
 
 		WordNetJa db = new WordNetJa(file);
 
+		File outFile = new File("files/files_items.txt");
+
 		List<String> ss = db.getWrittenFormList();
 
 		ss.sort(Comparator.naturalOrder());
 
-		int count = 1;
-
 		for (String item : ss) {
-			System.err.println(count + "," + item);
-			count++;
+			FileUtils.write(outFile, item + "\n", "UTF-8", true);
 		}
 
 	}

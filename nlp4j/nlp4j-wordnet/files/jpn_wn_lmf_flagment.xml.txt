@@ -1,0 +1,999 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE LexicalResource SYSTEM "WN-LMF.dtd">
+<LexicalResource>
+	<GlobalInformation label="Japanese WordNet 1.1 by NICT"/>
+        <!-- produced on 2010-10-22 -->
+<Lexicon languageCoding='ISO 639-3' label='Japanese Wordnet' language='jpn' owner='NICT' version='1.1'>
+   <LexicalEntry id ='w239520'>
+      <Lemma writtenForm='夜半' partOfSpeech='n'/>
+      <Sense id='w239520_15168185-n' synset='jpn-1.1-15168185-n'/>
+      <Sense id='w239520_15167027-n' synset='jpn-1.1-15167027-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w234731'>
+      <Lemma writtenForm='骨膜' partOfSpeech='n'/>
+      <Sense id='w234731_05327373-n' synset='jpn-1.1-05327373-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w230510'>
+      <Lemma writtenForm='応じる' partOfSpeech='v'/>
+      <Sense id='w230510_00668805-v' synset='jpn-1.1-00668805-v'/>
+      <Sense id='w230510_00718737-v' synset='jpn-1.1-00718737-v'/>
+      <Sense id='w230510_00717358-v' synset='jpn-1.1-00717358-v'/>
+      <Sense id='w230510_00719590-v' synset='jpn-1.1-00719590-v'/>
+      <Sense id='w230510_02210622-v' synset='jpn-1.1-02210622-v'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w198854'>
+      <Lemma writtenForm='フレグランス' partOfSpeech='n'/>
+      <Sense id='w198854_05714466-n' synset='jpn-1.1-05714466-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w246293'>
+      <Lemma writtenForm='職掌' partOfSpeech='n'/>
+      <Sense id='w246293_00722061-n' synset='jpn-1.1-00722061-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w185688'>
+      <Lemma writtenForm='終始一貫して' partOfSpeech='r'/>
+      <Sense id='w185688_00152286-r' synset='jpn-1.1-00152286-r'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w212224'>
+      <Lemma writtenForm='ノースカロライナ' partOfSpeech='n'/>
+      <Sense id='w212224_09126305-n' synset='jpn-1.1-09126305-n'/>
+      <Sense id='w212224_09126895-n' synset='jpn-1.1-09126895-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w210774'>
+      <Lemma writtenForm='メセン' partOfSpeech='n'/>
+      <Sense id='w210774_11820965-n' synset='jpn-1.1-11820965-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w228592'>
+      <Lemma writtenForm='奥ゆかしげ' partOfSpeech='a'/>
+      <Sense id='w228592_01139352-a' synset='jpn-1.1-01139352-a'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w217309'>
+      <Lemma writtenForm='雄勁' partOfSpeech='n'/>
+      <Sense id='w217309_04633197-n' synset='jpn-1.1-04633197-n'/>
+      <Sense id='w217309_07089024-n' synset='jpn-1.1-07089024-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w199864'>
+      <Lemma writtenForm='ゾーニング' partOfSpeech='n'/>
+      <Sense id='w199864_00928751-n' synset='jpn-1.1-00928751-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w175579'>
+      <Lemma writtenForm='立ち廻り' partOfSpeech='n'/>
+      <Sense id='w175579_01172441-n' synset='jpn-1.1-01172441-n'/>
+      <Sense id='w175579_00556313-n' synset='jpn-1.1-00556313-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w178946'>
+      <Lemma writtenForm='ミシシッピ州' partOfSpeech='n'/>
+      <Sense id='w178946_09103943-n' synset='jpn-1.1-09103943-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w233372'>
+      <Lemma writtenForm='山の手' partOfSpeech='n'/>
+      <Sense id='w233372_08554206-n' synset='jpn-1.1-08554206-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w233299'>
+      <Lemma writtenForm='卓犖' partOfSpeech='v'/>
+      <Sense id='w233299_02673965-v' synset='jpn-1.1-02673965-v'/>
+      <Sense id='w233299_01105639-v' synset='jpn-1.1-01105639-v'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w198359'>
+      <Lemma writtenForm='悪性' partOfSpeech='n'/>
+      <Sense id='w198359_04641447-n' synset='jpn-1.1-04641447-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w186367'>
+      <Lemma writtenForm='ジェット気流' partOfSpeech='n'/>
+      <Sense id='w186367_11470139-n' synset='jpn-1.1-11470139-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w242006'>
+      <Lemma writtenForm='下描' partOfSpeech='n'/>
+      <Sense id='w242006_03230785-n' synset='jpn-1.1-03230785-n'/>
+      <Sense id='w242006_04227144-n' synset='jpn-1.1-04227144-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w220912'>
+      <Lemma writtenForm='一続' partOfSpeech='n'/>
+      <Sense id='w220912_01010458-n' synset='jpn-1.1-01010458-n'/>
+      <Sense id='w220912_01017987-n' synset='jpn-1.1-01017987-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w169445'>
+      <Lemma writtenForm='チロキシン' partOfSpeech='n'/>
+      <Sense id='w169445_05413647-n' synset='jpn-1.1-05413647-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w195825'>
+      <Lemma writtenForm='摘要' partOfSpeech='n'/>
+      <Sense id='w195825_06467007-n' synset='jpn-1.1-06467007-n'/>
+      <Sense id='w195825_06468640-n' synset='jpn-1.1-06468640-n'/>
+      <Sense id='w195825_06468951-n' synset='jpn-1.1-06468951-n'/>
+      <Sense id='w195825_05891572-n' synset='jpn-1.1-05891572-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w229898'>
+      <Lemma writtenForm='適格' partOfSpeech='a'/>
+      <Sense id='w229898_00851744-a' synset='jpn-1.1-00851744-a'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w223159'>
+      <Lemma writtenForm='切片' partOfSpeech='n'/>
+      <Sense id='w223159_06011793-n' synset='jpn-1.1-06011793-n'/>
+      <Sense id='w223159_09428741-n' synset='jpn-1.1-09428741-n'/>
+      <Sense id='w223159_09437241-n' synset='jpn-1.1-09437241-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w238276'>
+      <Lemma writtenForm='蜜蝋' partOfSpeech='n'/>
+      <Sense id='w238276_15094824-n' synset='jpn-1.1-15094824-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w236591'>
+      <Lemma writtenForm='同一指示的な' partOfSpeech='a'/>
+      <Sense id='w236591_02704005-a' synset='jpn-1.1-02704005-a'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w215920'>
+      <Lemma writtenForm='窒息' partOfSpeech='n'/>
+      <Sense id='w215920_00225593-n' synset='jpn-1.1-00225593-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w155460'>
+      <Lemma writtenForm='利巧' partOfSpeech='n'/>
+      <Sense id='w155460_05159725-n' synset='jpn-1.1-05159725-n'/>
+      <Sense id='w155460_05159948-n' synset='jpn-1.1-05159948-n'/>
+      <Sense id='w155460_05617107-n' synset='jpn-1.1-05617107-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w185825'>
+      <Lemma writtenForm='妖術' partOfSpeech='n'/>
+      <Sense id='w185825_05967977-n' synset='jpn-1.1-05967977-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w156459'>
+      <Lemma writtenForm='怖恐れる' partOfSpeech='v'/>
+      <Sense id='w156459_01780202-v' synset='jpn-1.1-01780202-v'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w204552'>
+      <Lemma writtenForm='傷つける' partOfSpeech='v'/>
+      <Sense id='w204552_01792567-v' synset='jpn-1.1-01792567-v'/>
+      <Sense id='w204552_00069879-v' synset='jpn-1.1-00069879-v'/>
+      <Sense id='w204552_00258857-v' synset='jpn-1.1-00258857-v'/>
+      <Sense id='w204552_00102586-v' synset='jpn-1.1-00102586-v'/>
+      <Sense id='w204552_01793177-v' synset='jpn-1.1-01793177-v'/>
+      <Sense id='w204552_00260470-v' synset='jpn-1.1-00260470-v'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w174105'>
+      <Lemma writtenForm='ブレザー' partOfSpeech='n'/>
+      <Sense id='w174105_02850358-n' synset='jpn-1.1-02850358-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w162855'>
+      <Lemma writtenForm='壮烈' partOfSpeech='a'/>
+      <Sense id='w162855_00249721-a' synset='jpn-1.1-00249721-a'/>
+      <Sense id='w162855_00262792-a' synset='jpn-1.1-00262792-a'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w231949'>
+      <Lemma writtenForm='無痛性' partOfSpeech='a'/>
+      <Sense id='w231949_01713095-a' synset='jpn-1.1-01713095-a'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w211719'>
+      <Lemma writtenForm='鼓舞激励' partOfSpeech='n'/>
+      <Sense id='w211719_01211019-n' synset='jpn-1.1-01211019-n'/>
+      <Sense id='w211719_06691442-n' synset='jpn-1.1-06691442-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w158415'>
+      <Lemma writtenForm='懲役監' partOfSpeech='n'/>
+      <Sense id='w158415_04005630-n' synset='jpn-1.1-04005630-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w215101'>
+      <Lemma writtenForm='悪道者' partOfSpeech='n'/>
+      <Sense id='w215101_10257647-n' synset='jpn-1.1-10257647-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w193529'>
+      <Lemma writtenForm='ユニックスシステム' partOfSpeech='n'/>
+      <Sense id='w193529_06568706-n' synset='jpn-1.1-06568706-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w163934'>
+      <Lemma writtenForm='アメジストニシキヘビ' partOfSpeech='n'/>
+      <Sense id='w163934_01744555-n' synset='jpn-1.1-01744555-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w238990'>
+      <Lemma writtenForm='心弛' partOfSpeech='n'/>
+      <Sense id='w238990_14445749-n' synset='jpn-1.1-14445749-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w228132'>
+      <Lemma writtenForm='手丈夫' partOfSpeech='a'/>
+      <Sense id='w228132_02465519-a' synset='jpn-1.1-02465519-a'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w236427'>
+      <Lemma writtenForm='哀びん' partOfSpeech='n'/>
+      <Sense id='w236427_07553964-n' synset='jpn-1.1-07553964-n'/>
+      <Sense id='w236427_04829550-n' synset='jpn-1.1-04829550-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w168099'>
+      <Lemma writtenForm='疑しげ' partOfSpeech='a'/>
+      <Sense id='w168099_02464277-a' synset='jpn-1.1-02464277-a'/>
+      <Sense id='w168099_01917594-a' synset='jpn-1.1-01917594-a'/>
+      <Sense id='w168099_00338013-a' synset='jpn-1.1-00338013-a'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w167787'>
+      <Lemma writtenForm='空っぽにする' partOfSpeech='v'/>
+      <Sense id='w167787_00449295-v' synset='jpn-1.1-00449295-v'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w158534'>
+      <Lemma writtenForm='賛成' partOfSpeech='v'/>
+      <Sense id='w158534_00764222-v' synset='jpn-1.1-00764222-v'/>
+      <Sense id='w158534_00895304-v' synset='jpn-1.1-00895304-v'/>
+      <Sense id='w158534_02556817-v' synset='jpn-1.1-02556817-v'/>
+      <Sense id='w158534_00806502-v' synset='jpn-1.1-00806502-v'/>
+      <Sense id='w158534_00804139-v' synset='jpn-1.1-00804139-v'/>
+      <Sense id='w158534_00805376-v' synset='jpn-1.1-00805376-v'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w232106'>
+      <Lemma writtenForm='スパーテル' partOfSpeech='n'/>
+      <Sense id='w232106_04269944-n' synset='jpn-1.1-04269944-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w245305'>
+      <Lemma writtenForm='物差し' partOfSpeech='n'/>
+      <Sense id='w245305_03735637-n' synset='jpn-1.1-03735637-n'/>
+      <Sense id='w245305_05924920-n' synset='jpn-1.1-05924920-n'/>
+      <Sense id='w245305_07260623-n' synset='jpn-1.1-07260623-n'/>
+      <Sense id='w245305_04118776-n' synset='jpn-1.1-04118776-n'/>
+      <Sense id='w245305_13850304-n' synset='jpn-1.1-13850304-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w202852'>
+      <Lemma writtenForm='不凍剤' partOfSpeech='n'/>
+      <Sense id='w202852_14766364-n' synset='jpn-1.1-14766364-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w179732'>
+      <Lemma writtenForm='泣き虫' partOfSpeech='n'/>
+      <Sense id='w179732_10781817-n' synset='jpn-1.1-10781817-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w235132'>
+      <Lemma writtenForm='メナジオン' partOfSpeech='n'/>
+      <Sense id='w235132_15093049-n' synset='jpn-1.1-15093049-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w171064'>
+      <Lemma writtenForm='燦爛' partOfSpeech='r'/>
+      <Sense id='w171064_00077168-r' synset='jpn-1.1-00077168-r'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w165770'>
+      <Lemma writtenForm='声風' partOfSpeech='n'/>
+      <Sense id='w165770_04981941-n' synset='jpn-1.1-04981941-n'/>
+      <Sense id='w165770_07082573-n' synset='jpn-1.1-07082573-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w156910'>
+      <Lemma writtenForm='バンス' partOfSpeech='n'/>
+      <Sense id='w156910_13375891-n' synset='jpn-1.1-13375891-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w193727'>
+      <Lemma writtenForm='樹頭' partOfSpeech='n'/>
+      <Sense id='w193727_13128003-n' synset='jpn-1.1-13128003-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w204009'>
+      <Lemma writtenForm='アグレッシヴ' partOfSpeech='a'/>
+      <Sense id='w204009_00082241-a' synset='jpn-1.1-00082241-a'/>
+      <Sense id='w204009_01244846-a' synset='jpn-1.1-01244846-a'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w188632'>
+      <Lemma writtenForm='彩色' partOfSpeech='v'/>
+      <Sense id='w188632_00283911-v' synset='jpn-1.1-00283911-v'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w208657'>
+      <Lemma writtenForm='薄層クロマトグラフィー' partOfSpeech='n'/>
+      <Sense id='w208657_00665221-n' synset='jpn-1.1-00665221-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w207191'>
+      <Lemma writtenForm='仮足' partOfSpeech='n'/>
+      <Sense id='w207191_01427848-n' synset='jpn-1.1-01427848-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w191464'>
+      <Lemma writtenForm='トリポリリン酸ナトリウム' partOfSpeech='n'/>
+      <Sense id='w191464_15046421-n' synset='jpn-1.1-15046421-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w158497'>
+      <Lemma writtenForm='外の方' partOfSpeech='n'/>
+      <Sense id='w158497_08613593-n' synset='jpn-1.1-08613593-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w234460'>
+      <Lemma writtenForm='手強い' partOfSpeech='a'/>
+      <Sense id='w234460_00746451-a' synset='jpn-1.1-00746451-a'/>
+      <Sense id='w234460_02447344-a' synset='jpn-1.1-02447344-a'/>
+      <Sense id='w234460_02130272-a' synset='jpn-1.1-02130272-a'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w227255'>
+      <Lemma writtenForm='ワイシャツ' partOfSpeech='n'/>
+      <Sense id='w227255_04197391-n' synset='jpn-1.1-04197391-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w239884'>
+      <Lemma writtenForm='かばい立て' partOfSpeech='v'/>
+      <Sense id='w239884_00895304-v' synset='jpn-1.1-00895304-v'/>
+      <Sense id='w239884_01129876-v' synset='jpn-1.1-01129876-v'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w207983'>
+      <Lemma writtenForm='幸福感' partOfSpeech='n'/>
+      <Sense id='w207983_07526757-n' synset='jpn-1.1-07526757-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w190555'>
+      <Lemma writtenForm='顔を付き合わせて' partOfSpeech='r'/>
+      <Sense id='w190555_00044754-r' synset='jpn-1.1-00044754-r'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w198843'>
+      <Lemma writtenForm='室内管弦楽団' partOfSpeech='n'/>
+      <Sense id='w198843_08248411-n' synset='jpn-1.1-08248411-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w187147'>
+      <Lemma writtenForm='英雄' partOfSpeech='n'/>
+      <Sense id='w187147_10325013-n' synset='jpn-1.1-10325013-n'/>
+      <Sense id='w187147_10173086-n' synset='jpn-1.1-10173086-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w197664'>
+      <Lemma writtenForm='平滑筋肉腫' partOfSpeech='n'/>
+      <Sense id='w197664_14241088-n' synset='jpn-1.1-14241088-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w196715'>
+      <Lemma writtenForm='くすぐったい' partOfSpeech='a'/>
+      <Sense id='w196715_00922439-a' synset='jpn-1.1-00922439-a'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w190908'>
+      <Lemma writtenForm='剥ぎ取る' partOfSpeech='v'/>
+      <Sense id='w190908_00194534-v' synset='jpn-1.1-00194534-v'/>
+      <Sense id='w190908_02321391-v' synset='jpn-1.1-02321391-v'/>
+      <Sense id='w190908_00178898-v' synset='jpn-1.1-00178898-v'/>
+      <Sense id='w190908_01263479-v' synset='jpn-1.1-01263479-v'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w162203'>
+      <Lemma writtenForm='ボタンホールステッチ' partOfSpeech='n'/>
+      <Sense id='w162203_02929059-n' synset='jpn-1.1-02929059-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w172774'>
+      <Lemma writtenForm='持て囃す' partOfSpeech='v'/>
+      <Sense id='w172774_02398956-v' synset='jpn-1.1-02398956-v'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w212211'>
+      <Lemma writtenForm='とび上がり者' partOfSpeech='n'/>
+      <Sense id='w212211_09909060-n' synset='jpn-1.1-09909060-n'/>
+      <Sense id='w212211_09974496-n' synset='jpn-1.1-09974496-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w217623'>
+      <Lemma writtenForm='シューマンハインク' partOfSpeech='n'/>
+      <Sense id='w217623_11287437-n' synset='jpn-1.1-11287437-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w216971'>
+      <Lemma writtenForm='北寄りの' partOfSpeech='a'/>
+      <Sense id='w216971_01601069-a' synset='jpn-1.1-01601069-a'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w190044'>
+      <Lemma writtenForm='商店主' partOfSpeech='n'/>
+      <Sense id='w190044_10592152-n' synset='jpn-1.1-10592152-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w156684'>
+      <Lemma writtenForm='ハシーシ' partOfSpeech='n'/>
+      <Sense id='w156684_03497182-n' synset='jpn-1.1-03497182-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w176400'>
+      <Lemma writtenForm='通信技術' partOfSpeech='n'/>
+      <Sense id='w176400_00950356-n' synset='jpn-1.1-00950356-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w192593'>
+      <Lemma writtenForm='振動' partOfSpeech='n'/>
+      <Sense id='w192593_07345166-n' synset='jpn-1.1-07345166-n'/>
+      <Sense id='w192593_13527965-n' synset='jpn-1.1-13527965-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w238473'>
+      <Lemma writtenForm='イニシャライズ' partOfSpeech='v'/>
+      <Sense id='w238473_00563552-v' synset='jpn-1.1-00563552-v'/>
+      <Sense id='w238473_00700896-v' synset='jpn-1.1-00700896-v'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w206771'>
+      <Lemma writtenForm='キリスト教篤信地帯' partOfSpeech='n'/>
+      <Sense id='w206771_08510030-n' synset='jpn-1.1-08510030-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w247115'>
+      <Lemma writtenForm='ウィンストンセーレム' partOfSpeech='n'/>
+      <Sense id='w247115_09129324-n' synset='jpn-1.1-09129324-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w241252'>
+      <Lemma writtenForm='シャベル' partOfSpeech='n'/>
+      <Sense id='w241252_04208210-n' synset='jpn-1.1-04208210-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w215710'>
+      <Lemma writtenForm='合宿所' partOfSpeech='n'/>
+      <Sense id='w215710_02857477-n' synset='jpn-1.1-02857477-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w171562'>
+      <Lemma writtenForm='不作法さ' partOfSpeech='n'/>
+      <Sense id='w171562_04914292-n' synset='jpn-1.1-04914292-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w239116'>
+      <Lemma writtenForm='ジャグラー' partOfSpeech='n'/>
+      <Sense id='w239116_10226413-n' synset='jpn-1.1-10226413-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w214013'>
+      <Lemma writtenForm='取返す' partOfSpeech='v'/>
+      <Sense id='w214013_02249438-v' synset='jpn-1.1-02249438-v'/>
+      <Sense id='w214013_01111570-v' synset='jpn-1.1-01111570-v'/>
+      <Sense id='w214013_00350283-v' synset='jpn-1.1-00350283-v'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w198499'>
+      <Lemma writtenForm='稲孫' partOfSpeech='n'/>
+      <Sense id='w198499_07804323-n' synset='jpn-1.1-07804323-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w233216'>
+      <Lemma writtenForm='翁' partOfSpeech='n'/>
+      <Sense id='w233216_10375506-n' synset='jpn-1.1-10375506-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w222955'>
+      <Lemma writtenForm='多数決原理' partOfSpeech='n'/>
+      <Sense id='w222955_05964445-n' synset='jpn-1.1-05964445-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w224053'>
+      <Lemma writtenForm='書殴る' partOfSpeech='v'/>
+      <Sense id='w224053_01006239-v' synset='jpn-1.1-01006239-v'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w173573'>
+      <Lemma writtenForm='電波星' partOfSpeech='n'/>
+      <Sense id='w173573_09403333-n' synset='jpn-1.1-09403333-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w165879'>
+      <Lemma writtenForm='焚き附ける' partOfSpeech='v'/>
+      <Sense id='w165879_00851239-v' synset='jpn-1.1-00851239-v'/>
+      <Sense id='w165879_01761120-v' synset='jpn-1.1-01761120-v'/>
+      <Sense id='w165879_01230710-v' synset='jpn-1.1-01230710-v'/>
+      <Sense id='w165879_02759614-v' synset='jpn-1.1-02759614-v'/>
+      <Sense id='w165879_00771961-v' synset='jpn-1.1-00771961-v'/>
+      <Sense id='w165879_02585050-v' synset='jpn-1.1-02585050-v'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w245698'>
+      <Lemma writtenForm='アラビア海' partOfSpeech='n'/>
+      <Sense id='w245698_09202405-n' synset='jpn-1.1-09202405-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w216474'>
+      <Lemma writtenForm='思量' partOfSpeech='v'/>
+      <Sense id='w216474_00813044-v' synset='jpn-1.1-00813044-v'/>
+      <Sense id='w216474_02130300-v' synset='jpn-1.1-02130300-v'/>
+      <Sense id='w216474_00628491-v' synset='jpn-1.1-00628491-v'/>
+      <Sense id='w216474_02166460-v' synset='jpn-1.1-02166460-v'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w197163'>
+      <Lemma writtenForm='過塩素酸塩' partOfSpeech='n'/>
+      <Sense id='w197163_14684607-n' synset='jpn-1.1-14684607-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w240190'>
+      <Lemma writtenForm='チューリングマシン' partOfSpeech='n'/>
+      <Sense id='w240190_04499180-n' synset='jpn-1.1-04499180-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w204343'>
+      <Lemma writtenForm='総説' partOfSpeech='n'/>
+      <Sense id='w204343_06410391-n' synset='jpn-1.1-06410391-n'/>
+      <Sense id='w204343_06467007-n' synset='jpn-1.1-06467007-n'/>
+      <Sense id='w204343_06468951-n' synset='jpn-1.1-06468951-n'/>
+      <Sense id='w204343_05891572-n' synset='jpn-1.1-05891572-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w239691'>
+      <Lemma writtenForm='カモフラージ' partOfSpeech='v'/>
+      <Sense id='w239691_02158896-v' synset='jpn-1.1-02158896-v'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w175186'>
+      <Lemma writtenForm='メートル法' partOfSpeech='n'/>
+      <Sense id='w175186_13577934-n' synset='jpn-1.1-13577934-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w166059'>
+      <Lemma writtenForm='WC' partOfSpeech='n'/>
+      <Sense id='w166059_04446521-n' synset='jpn-1.1-04446521-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w227222'>
+      <Lemma writtenForm='観光旅行' partOfSpeech='n'/>
+      <Sense id='w227222_00311809-n' synset='jpn-1.1-00311809-n'/>
+      <Sense id='w227222_00879607-n' synset='jpn-1.1-00879607-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w244936'>
+      <Lemma writtenForm='指向性' partOfSpeech='n'/>
+      <Sense id='w244936_05066626-n' synset='jpn-1.1-05066626-n'/>
+      <Sense id='w244936_05066867-n' synset='jpn-1.1-05066867-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w178837'>
+      <Lemma writtenForm='綯まぜ' partOfSpeech='n'/>
+      <Sense id='w178837_07374756-n' synset='jpn-1.1-07374756-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w172742'>
+      <Lemma writtenForm='雄心' partOfSpeech='n'/>
+      <Sense id='w172742_07484547-n' synset='jpn-1.1-07484547-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w225595'>
+      <Lemma writtenForm='考慮外で' partOfSpeech='a'/>
+      <Sense id='w225595_01823948-a' synset='jpn-1.1-01823948-a'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w175592'>
+      <Lemma writtenForm='冠動脈' partOfSpeech='n'/>
+      <Sense id='w175592_05343718-n' synset='jpn-1.1-05343718-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w160378'>
+      <Lemma writtenForm='いとま乞い' partOfSpeech='n'/>
+      <Sense id='w160378_00053097-n' synset='jpn-1.1-00053097-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w211504'>
+      <Lemma writtenForm='ラシュディ' partOfSpeech='n'/>
+      <Sense id='w211504_11274454-n' synset='jpn-1.1-11274454-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w209831'>
+      <Lemma writtenForm='篩いにかける' partOfSpeech='v'/>
+      <Sense id='w209831_01460029-v' synset='jpn-1.1-01460029-v'/>
+      <Sense id='w209831_02400378-v' synset='jpn-1.1-02400378-v'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w198975'>
+      <Lemma writtenForm='横取り' partOfSpeech='v'/>
+      <Sense id='w198975_01439745-v' synset='jpn-1.1-01439745-v'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w194523'>
+      <Lemma writtenForm='篤実さ' partOfSpeech='n'/>
+      <Sense id='w194523_04867130-n' synset='jpn-1.1-04867130-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w225881'>
+      <Lemma writtenForm='トゥッティフルッティ' partOfSpeech='n'/>
+      <Sense id='w225881_07615569-n' synset='jpn-1.1-07615569-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w184326'>
+      <Lemma writtenForm='苦杯' partOfSpeech='n'/>
+      <Sense id='w184326_07287730-n' synset='jpn-1.1-07287730-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w183260'>
+      <Lemma writtenForm='刺し貫く' partOfSpeech='v'/>
+      <Sense id='w183260_01442361-v' synset='jpn-1.1-01442361-v'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w155888'>
+      <Lemma writtenForm='放射線感受性' partOfSpeech='a'/>
+      <Sense id='w155888_02104890-a' synset='jpn-1.1-02104890-a'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w213156'>
+      <Lemma writtenForm='コサギ' partOfSpeech='n'/>
+      <Sense id='w213156_02009508-n' synset='jpn-1.1-02009508-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w189193'>
+      <Lemma writtenForm='メガトン' partOfSpeech='n'/>
+      <Sense id='w189193_13647353-n' synset='jpn-1.1-13647353-n'/>
+      <Sense id='w189193_13721804-n' synset='jpn-1.1-13721804-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w207250'>
+      <Lemma writtenForm='ギボウシ' partOfSpeech='n'/>
+      <Sense id='w207250_12457771-n' synset='jpn-1.1-12457771-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w182021'>
+      <Lemma writtenForm='ジンク' partOfSpeech='n'/>
+      <Sense id='w182021_14661977-n' synset='jpn-1.1-14661977-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w162476'>
+      <Lemma writtenForm='歴史上' partOfSpeech='r'/>
+      <Sense id='w162476_00109687-r' synset='jpn-1.1-00109687-r'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w232955'>
+      <Lemma writtenForm='秩序立てる' partOfSpeech='v'/>
+      <Sense id='w232955_00480969-v' synset='jpn-1.1-00480969-v'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w207265'>
+      <Lemma writtenForm='篤厚' partOfSpeech='n'/>
+      <Sense id='w207265_04867130-n' synset='jpn-1.1-04867130-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w181906'>
+      <Lemma writtenForm='ツーロン' partOfSpeech='n'/>
+      <Sense id='w181906_08937995-n' synset='jpn-1.1-08937995-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w231210'>
+      <Lemma writtenForm='見込まれる' partOfSpeech='a'/>
+      <Sense id='w231210_01883898-a' synset='jpn-1.1-01883898-a'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w167883'>
+      <Lemma writtenForm='飛節' partOfSpeech='n'/>
+      <Sense id='w167883_03413684-n' synset='jpn-1.1-03413684-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w214951'>
+      <Lemma writtenForm='改新' partOfSpeech='n'/>
+      <Sense id='w214951_00260622-n' synset='jpn-1.1-00260622-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w218105'>
+      <Lemma writtenForm='クオーツ' partOfSpeech='n'/>
+      <Sense id='w218105_14693733-n' synset='jpn-1.1-14693733-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w186095'>
+      <Lemma writtenForm='取り賄う' partOfSpeech='v'/>
+      <Sense id='w186095_02675935-v' synset='jpn-1.1-02675935-v'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w164947'>
+      <Lemma writtenForm='見巡る' partOfSpeech='v'/>
+      <Sense id='w164947_02454939-v' synset='jpn-1.1-02454939-v'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w159922'>
+      <Lemma writtenForm='沿って進む' partOfSpeech='v'/>
+      <Sense id='w159922_01991931-v' synset='jpn-1.1-01991931-v'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w244280'>
+      <Lemma writtenForm='内部情報' partOfSpeech='n'/>
+      <Sense id='w244280_06635944-n' synset='jpn-1.1-06635944-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w186421'>
+      <Lemma writtenForm='順序付ける' partOfSpeech='r'/>
+      <Sense id='w186421_00172261-r' synset='jpn-1.1-00172261-r'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w156975'>
+      <Lemma writtenForm='カナムグラ' partOfSpeech='n'/>
+      <Sense id='w156975_12398526-n' synset='jpn-1.1-12398526-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w231479'>
+      <Lemma writtenForm='哀願' partOfSpeech='n'/>
+      <Sense id='w231479_07186828-n' synset='jpn-1.1-07186828-n'/>
+      <Sense id='w231479_07187638-n' synset='jpn-1.1-07187638-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w217651'>
+      <Lemma writtenForm='必竟' partOfSpeech='r'/>
+      <Sense id='w217651_00167447-r' synset='jpn-1.1-00167447-r'/>
+      <Sense id='w217651_00151149-r' synset='jpn-1.1-00151149-r'/>
+      <Sense id='w217651_00047903-r' synset='jpn-1.1-00047903-r'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w204353'>
+      <Lemma writtenForm='寛げる' partOfSpeech='v'/>
+      <Sense id='w204353_00025654-v' synset='jpn-1.1-00025654-v'/>
+      <Sense id='w204353_01815185-v' synset='jpn-1.1-01815185-v'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w195985'>
+      <Lemma writtenForm='遊歩' partOfSpeech='v'/>
+      <Sense id='w195985_01881180-v' synset='jpn-1.1-01881180-v'/>
+      <Sense id='w195985_01917980-v' synset='jpn-1.1-01917980-v'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w195646'>
+      <Lemma writtenForm='授業' partOfSpeech='n'/>
+      <Sense id='w195646_15203229-n' synset='jpn-1.1-15203229-n'/>
+      <Sense id='w195646_00889472-n' synset='jpn-1.1-00889472-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w202193'>
+      <Lemma writtenForm='無理解' partOfSpeech='a'/>
+      <Sense id='w202193_00772776-a' synset='jpn-1.1-00772776-a'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w205260'>
+      <Lemma writtenForm='業主' partOfSpeech='n'/>
+      <Sense id='w205260_10060352-n' synset='jpn-1.1-10060352-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w212137'>
+      <Lemma writtenForm='パルチザン' partOfSpeech='n'/>
+      <Sense id='w212137_10402086-n' synset='jpn-1.1-10402086-n'/>
+      <Sense id='w212137_10059582-n' synset='jpn-1.1-10059582-n'/>
+      <Sense id='w212137_03894217-n' synset='jpn-1.1-03894217-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w205157'>
+      <Lemma writtenForm='臥す' partOfSpeech='v'/>
+      <Sense id='w205157_01985029-v' synset='jpn-1.1-01985029-v'/>
+      <Sense id='w205157_01547001-v' synset='jpn-1.1-01547001-v'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w205003'>
+      <Lemma writtenForm='固定電話' partOfSpeech='n'/>
+      <Sense id='w205003_03639497-n' synset='jpn-1.1-03639497-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w160929'>
+      <Lemma writtenForm='巻毛' partOfSpeech='n'/>
+      <Sense id='w160929_05257737-n' synset='jpn-1.1-05257737-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w208151'>
+      <Lemma writtenForm='観察結果' partOfSpeech='n'/>
+      <Sense id='w208151_05818741-n' synset='jpn-1.1-05818741-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w182176'>
+      <Lemma writtenForm='ぶらぶら歩く' partOfSpeech='v'/>
+      <Sense id='w182176_01918183-v' synset='jpn-1.1-01918183-v'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w161162'>
+      <Lemma writtenForm='締めつける' partOfSpeech='v'/>
+      <Sense id='w161162_00420132-v' synset='jpn-1.1-00420132-v'/>
+      <Sense id='w161162_01387786-v' synset='jpn-1.1-01387786-v'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w212011'>
+      <Lemma writtenForm='通販' partOfSpeech='n'/>
+      <Sense id='w212011_06530703-n' synset='jpn-1.1-06530703-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w175262'>
+      <Lemma writtenForm='予防的' partOfSpeech='a'/>
+      <Sense id='w175262_01167269-a' synset='jpn-1.1-01167269-a'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w207600'>
+      <Lemma writtenForm='緑の指' partOfSpeech='n'/>
+      <Sense id='w207600_05159495-n' synset='jpn-1.1-05159495-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w161852'>
+      <Lemma writtenForm='だいだい色の' partOfSpeech='a'/>
+      <Sense id='w161852_00378892-a' synset='jpn-1.1-00378892-a'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w239185'>
+      <Lemma writtenForm='座標' partOfSpeech='n'/>
+      <Sense id='w239185_07260623-n' synset='jpn-1.1-07260623-n'/>
+      <Sense id='w239185_06010930-n' synset='jpn-1.1-06010930-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w161942'>
+      <Lemma writtenForm='附注' partOfSpeech='n'/>
+      <Sense id='w161942_06763273-n' synset='jpn-1.1-06763273-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w155635'>
+      <Lemma writtenForm='ポスト' partOfSpeech='n'/>
+      <Sense id='w155635_11243907-n' synset='jpn-1.1-11243907-n'/>
+      <Sense id='w155635_08463063-n' synset='jpn-1.1-08463063-n'/>
+      <Sense id='w155635_11243720-n' synset='jpn-1.1-11243720-n'/>
+      <Sense id='w155635_03710193-n' synset='jpn-1.1-03710193-n'/>
+      <Sense id='w155635_11243562-n' synset='jpn-1.1-11243562-n'/>
+      <Sense id='w155635_00586262-n' synset='jpn-1.1-00586262-n'/>
+      <Sense id='w155635_03989074-n' synset='jpn-1.1-03989074-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w210116'>
+      <Lemma writtenForm='御帰り' partOfSpeech='n'/>
+      <Sense id='w210116_00328015-n' synset='jpn-1.1-00328015-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w170192'>
+      <Lemma writtenForm='同性愛' partOfSpeech='n'/>
+      <Sense id='w170192_00857424-n' synset='jpn-1.1-00857424-n'/>
+      <Sense id='w170192_00856847-n' synset='jpn-1.1-00856847-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w167393'>
+      <Lemma writtenForm='知能年齢' partOfSpeech='n'/>
+      <Sense id='w167393_04925218-n' synset='jpn-1.1-04925218-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w161535'>
+      <Lemma writtenForm='ペルシア猫' partOfSpeech='n'/>
+      <Sense id='w161535_02123394-n' synset='jpn-1.1-02123394-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w181235'>
+      <Lemma writtenForm='酒石酸塩' partOfSpeech='n'/>
+      <Sense id='w181235_14955559-n' synset='jpn-1.1-14955559-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w195510'>
+      <Lemma writtenForm='ちょっと' partOfSpeech='r'/>
+      <Sense id='w195510_00033663-r' synset='jpn-1.1-00033663-r'/>
+      <Sense id='w195510_00018302-r' synset='jpn-1.1-00018302-r'/>
+      <Sense id='w195510_00144405-r' synset='jpn-1.1-00144405-r'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w242381'>
+      <Lemma writtenForm='嗅ぐ' partOfSpeech='v'/>
+      <Sense id='w242381_02125032-v' synset='jpn-1.1-02125032-v'/>
+      <Sense id='w242381_02124748-v' synset='jpn-1.1-02124748-v'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w162921'>
+      <Lemma writtenForm='ディラン' partOfSpeech='n'/>
+      <Sense id='w162921_09509119-n' synset='jpn-1.1-09509119-n'/>
+      <Sense id='w162921_10947108-n' synset='jpn-1.1-10947108-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w247316'>
+      <Lemma writtenForm='不見識' partOfSpeech='a'/>
+      <Sense id='w247316_02420530-a' synset='jpn-1.1-02420530-a'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w202300'>
+      <Lemma writtenForm='所作' partOfSpeech='n'/>
+      <Sense id='w202300_04887701-n' synset='jpn-1.1-04887701-n'/>
+      <Sense id='w202300_04897762-n' synset='jpn-1.1-04897762-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w228283'>
+      <Lemma writtenForm='声価' partOfSpeech='n'/>
+      <Sense id='w228283_06207029-n' synset='jpn-1.1-06207029-n'/>
+      <Sense id='w228283_14437386-n' synset='jpn-1.1-14437386-n'/>
+      <Sense id='w228283_14438125-n' synset='jpn-1.1-14438125-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w212527'>
+      <Lemma writtenForm='チューブ' partOfSpeech='n'/>
+      <Sense id='w212527_04493505-n' synset='jpn-1.1-04493505-n'/>
+      <Sense id='w212527_04494204-n' synset='jpn-1.1-04494204-n'/>
+      <Sense id='w212527_13901321-n' synset='jpn-1.1-13901321-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w204532'>
+      <Lemma writtenForm='ちょんぼり' partOfSpeech='r'/>
+      <Sense id='w204532_00033663-r' synset='jpn-1.1-00033663-r'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w191050'>
+      <Lemma writtenForm='ニュージャージー' partOfSpeech='n'/>
+      <Sense id='w191050_09112742-n' synset='jpn-1.1-09112742-n'/>
+      <Sense id='w191050_09112282-n' synset='jpn-1.1-09112282-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w167980'>
+      <Lemma writtenForm='硬質' partOfSpeech='a'/>
+      <Sense id='w167980_01023706-a' synset='jpn-1.1-01023706-a'/>
+      <Sense id='w167980_01150915-a' synset='jpn-1.1-01150915-a'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w202907'>
+      <Lemma writtenForm='キューバ共和国' partOfSpeech='n'/>
+      <Sense id='w202907_08750334-n' synset='jpn-1.1-08750334-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w213343'>
+      <Lemma writtenForm='けり' partOfSpeech='n'/>
+      <Sense id='w213343_07291312-n' synset='jpn-1.1-07291312-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w170092'>
+      <Lemma writtenForm='発散' partOfSpeech='n'/>
+      <Sense id='w170092_01004072-n' synset='jpn-1.1-01004072-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w188895'>
+      <Lemma writtenForm='含蓄' partOfSpeech='v'/>
+      <Sense id='w188895_00929839-v' synset='jpn-1.1-00929839-v'/>
+      <Sense id='w188895_02636132-v' synset='jpn-1.1-02636132-v'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w232174'>
+      <Lemma writtenForm='ミッチェナー' partOfSpeech='n'/>
+      <Sense id='w232174_11178631-n' synset='jpn-1.1-11178631-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w241855'>
+      <Lemma writtenForm='高体温' partOfSpeech='n'/>
+      <Sense id='w241855_14044174-n' synset='jpn-1.1-14044174-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w169648'>
+      <Lemma writtenForm='目上' partOfSpeech='n'/>
+      <Sense id='w169648_10675876-n' synset='jpn-1.1-10675876-n'/>
+      <Sense id='w169648_13949576-n' synset='jpn-1.1-13949576-n'/>
+      <Sense id='w169648_10048218-n' synset='jpn-1.1-10048218-n'/>
+      <Sense id='w169648_10676018-n' synset='jpn-1.1-10676018-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w217666'>
+      <Lemma writtenForm='キョウチクトウ' partOfSpeech='n'/>
+      <Sense id='w217666_11773987-n' synset='jpn-1.1-11773987-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w214357'>
+      <Lemma writtenForm='智嚢' partOfSpeech='n'/>
+      <Sense id='w214357_10126926-n' synset='jpn-1.1-10126926-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w233760'>
+      <Lemma writtenForm='資本化' partOfSpeech='v'/>
+      <Sense id='w233760_00162167-v' synset='jpn-1.1-00162167-v'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w197314'>
+      <Lemma writtenForm='未練' partOfSpeech='n'/>
+      <Sense id='w197314_00147595-n' synset='jpn-1.1-00147595-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w241732'>
+      <Lemma writtenForm='挫折' partOfSpeech='n'/>
+      <Sense id='w241732_07253637-n' synset='jpn-1.1-07253637-n'/>
+      <Sense id='w241732_07540866-n' synset='jpn-1.1-07540866-n'/>
+      <Sense id='w241732_14477877-n' synset='jpn-1.1-14477877-n'/>
+      <Sense id='w241732_07542675-n' synset='jpn-1.1-07542675-n'/>
+      <Sense id='w241732_07318133-n' synset='jpn-1.1-07318133-n'/>
+      <Sense id='w241732_07475870-n' synset='jpn-1.1-07475870-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w193078'>
+      <Lemma writtenForm='付き合い' partOfSpeech='n'/>
+      <Sense id='w193078_00040804-n' synset='jpn-1.1-00040804-n'/>
+      <Sense id='w193078_13930385-n' synset='jpn-1.1-13930385-n'/>
+      <Sense id='w193078_13929588-n' synset='jpn-1.1-13929588-n'/>
+      <Sense id='w193078_01081628-n' synset='jpn-1.1-01081628-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w168602'>
+      <Lemma writtenForm='ストーン' partOfSpeech='n'/>
+      <Sense id='w168602_09416076-n' synset='jpn-1.1-09416076-n'/>
+      <Sense id='w168602_13720600-n' synset='jpn-1.1-13720600-n'/>
+      <Sense id='w168602_14696793-n' synset='jpn-1.1-14696793-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w232613'>
+      <Lemma writtenForm='乙' partOfSpeech='n'/>
+      <Sense id='w232613_09664295-n' synset='jpn-1.1-09664295-n'/>
+      <Sense id='w232613_06909190-n' synset='jpn-1.1-06909190-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w228026'>
+      <Lemma writtenForm='テムズ川' partOfSpeech='n'/>
+      <Sense id='w228026_09457020-n' synset='jpn-1.1-09457020-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w178356'>
+      <Lemma writtenForm='相当な注意' partOfSpeech='n'/>
+      <Sense id='w178356_01131794-n' synset='jpn-1.1-01131794-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w189982'>
+      <Lemma writtenForm='楫取' partOfSpeech='n'/>
+      <Sense id='w189982_01256417-n' synset='jpn-1.1-01256417-n'/>
+      <Sense id='w189982_10546428-n' synset='jpn-1.1-10546428-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w185208'>
+      <Lemma writtenForm='電話' partOfSpeech='v'/>
+      <Sense id='w185208_00789448-v' synset='jpn-1.1-00789448-v'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w211151'>
+      <Lemma writtenForm='クーリッジ' partOfSpeech='n'/>
+      <Sense id='w211151_10908919-n' synset='jpn-1.1-10908919-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w180642'>
+      <Lemma writtenForm='インフリキシマブ' partOfSpeech='n'/>
+      <Sense id='w180642_03569657-n' synset='jpn-1.1-03569657-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w193454'>
+      <Lemma writtenForm='中耕機' partOfSpeech='n'/>
+      <Sense id='w193454_03146846-n' synset='jpn-1.1-03146846-n'/>
+      <Sense id='w193454_09779790-n' synset='jpn-1.1-09779790-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w211583'>
+      <Lemma writtenForm='護謨' partOfSpeech='n'/>
+      <Sense id='w211583_03294833-n' synset='jpn-1.1-03294833-n'/>
+      <Sense id='w211583_14898470-n' synset='jpn-1.1-14898470-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w201771'>
+      <Lemma writtenForm='化学式' partOfSpeech='n'/>
+      <Sense id='w201771_06816935-n' synset='jpn-1.1-06816935-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w188476'>
+      <Lemma writtenForm='時系列' partOfSpeech='n'/>
+      <Sense id='w188476_06029547-n' synset='jpn-1.1-06029547-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w158325'>
+      <Lemma writtenForm='ジョージ・ワシントン・ブリッジ' partOfSpeech='n'/>
+      <Sense id='w158325_03435825-n' synset='jpn-1.1-03435825-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w225299'>
+      <Lemma writtenForm='グー' partOfSpeech='a'/>
+      <Sense id='w225299_01333477-a' synset='jpn-1.1-01333477-a'/>
+      <Sense id='w225299_01123148-a' synset='jpn-1.1-01123148-a'/>
+      <Sense id='w225299_00064787-a' synset='jpn-1.1-00064787-a'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w235513'>
+      <Lemma writtenForm='順順に' partOfSpeech='r'/>
+      <Sense id='w235513_00180420-r' synset='jpn-1.1-00180420-r'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w231499'>
+      <Lemma writtenForm='打ち殺す' partOfSpeech='v'/>
+      <Sense id='w231499_01323958-v' synset='jpn-1.1-01323958-v'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w190973'>
+      <Lemma writtenForm='見境なく' partOfSpeech='r'/>
+      <Sense id='w190973_00184651-r' synset='jpn-1.1-00184651-r'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w184801'>
+      <Lemma writtenForm='破壊者' partOfSpeech='n'/>
+      <Sense id='w184801_10008716-n' synset='jpn-1.1-10008716-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w206345'>
+      <Lemma writtenForm='観想' partOfSpeech='n'/>
+      <Sense id='w206345_05785508-n' synset='jpn-1.1-05785508-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w212657'>
+      <Lemma writtenForm='月夜見' partOfSpeech='n'/>
+      <Sense id='w212657_09358358-n' synset='jpn-1.1-09358358-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w160808'>
+      <Lemma writtenForm='ホワイトハウス' partOfSpeech='n'/>
+      <Sense id='w160808_04580777-n' synset='jpn-1.1-04580777-n'/>
+      <Sense id='w160808_08128837-n' synset='jpn-1.1-08128837-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w170546'>
+      <Lemma writtenForm='ステロイド' partOfSpeech='n'/>
+      <Sense id='w170546_15057744-n' synset='jpn-1.1-15057744-n'/>
+      <Sense id='w170546_14745635-n' synset='jpn-1.1-14745635-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w223021'>
+      <Lemma writtenForm='快感' partOfSpeech='n'/>
+      <Sense id='w223021_07528470-n' synset='jpn-1.1-07528470-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w220025'>
+      <Lemma writtenForm='管理' partOfSpeech='v'/>
+      <Sense id='w220025_00663160-v' synset='jpn-1.1-00663160-v'/>
+      <Sense id='w220025_02511551-v' synset='jpn-1.1-02511551-v'/>
+      <Sense id='w220025_02603567-v' synset='jpn-1.1-02603567-v'/>
+      <Sense id='w220025_02202928-v' synset='jpn-1.1-02202928-v'/>
+      <Sense id='w220025_02280132-v' synset='jpn-1.1-02280132-v'/>
+      <Sense id='w220025_02431971-v' synset='jpn-1.1-02431971-v'/>
+      <Sense id='w220025_02443049-v' synset='jpn-1.1-02443049-v'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w246493'>
+      <Lemma writtenForm='両開き' partOfSpeech='n'/>
+      <Sense id='w246493_03226880-n' synset='jpn-1.1-03226880-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w195098'>
+      <Lemma writtenForm='ホルモン' partOfSpeech='n'/>
+      <Sense id='w195098_05407119-n' synset='jpn-1.1-05407119-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w183516'>
+      <Lemma writtenForm='僭越' partOfSpeech='n'/>
+      <Sense id='w183516_06721813-n' synset='jpn-1.1-06721813-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w176991'>
+      <Lemma writtenForm='免疫原' partOfSpeech='n'/>
+      <Sense id='w176991_03562739-n' synset='jpn-1.1-03562739-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w233652'>
+      <Lemma writtenForm='ディナードレス' partOfSpeech='n'/>
+      <Sense id='w233652_03201638-n' synset='jpn-1.1-03201638-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w190749'>
+      <Lemma writtenForm='赤赤と' partOfSpeech='r'/>
+      <Sense id='w190749_00077168-r' synset='jpn-1.1-00077168-r'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w199772'>
+      <Lemma writtenForm='ハツカネズミ' partOfSpeech='n'/>
+      <Sense id='w199772_02330245-n' synset='jpn-1.1-02330245-n'/>
+      <Sense id='w199772_02332156-n' synset='jpn-1.1-02332156-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w177628'>
+      <Lemma writtenForm='薄のろ' partOfSpeech='a'/>
+      <Sense id='w177628_02570282-a' synset='jpn-1.1-02570282-a'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w159117'>
+      <Lemma writtenForm='風動' partOfSpeech='n'/>
+      <Sense id='w159117_00157081-n' synset='jpn-1.1-00157081-n'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w156505'>
+      <Lemma writtenForm='律儀' partOfSpeech='a'/>
+      <Sense id='w156505_00958880-a' synset='jpn-1.1-00958880-a'/>
+      <Sense id='w156505_02465519-a' synset='jpn-1.1-02465519-a'/>
+   </LexicalEntry>
+   <LexicalEntry id ='w219560'>
+      <Lemma writtenForm='キャメル' partOfSpeech='n'/>
+      <Sense id='w219560_02437136-n' synset='jpn-1.1-02437136-n'/>
+   </LexicalEntry>

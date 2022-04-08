@@ -2,6 +2,8 @@ package examples;
 
 import java.io.File;
 
+import org.apache.commons.io.FileUtils;
+
 import nlp4j.wordnetja.LexicalEntry;
 import nlp4j.wordnetja.WordNetJa;
 
@@ -13,7 +15,7 @@ import nlp4j.wordnetja.WordNetJa;
  * @author Hiroki Oya
  *
  */
-public class WordNetJaExample2 {
+public class WordNetJaExample2Fileout {
 
 	public static void main(String[] args) throws Exception {
 
@@ -22,13 +24,12 @@ public class WordNetJaExample2 {
 
 		WordNetJa db = new WordNetJa(file);
 
-		int count = 1;
+		File outFile = new File("files/files_outLexicalEntries.txt");
 
-		// Lexical Entries
 		for (LexicalEntry e : db.getLexicalEntries()) {
-			String data = count + "," + e.getId() + "," + e.getLemmaWrittenForm() + "," + e.getPos();
-			System.err.println(data);
-			count++;
+			String data = e.getId() + "," + e.getLemmaWrittenForm() + "," + e.getPos();
+//			System.err.println(data);
+			FileUtils.write(outFile, data + "\n", "UTF-8", true);
 		}
 
 	}
