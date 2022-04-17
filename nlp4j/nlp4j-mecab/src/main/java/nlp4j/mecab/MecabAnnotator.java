@@ -26,9 +26,11 @@ public class MecabAnnotator extends AbstractDocumentAnnotator implements Documen
 
 	static private final Logger logger = LogManager.getLogger(MecabAnnotator.class);
 
-	ArrayList<String> facetfilter = null;
+	private ArrayList<String> facetfilter = null;
 
-	String lexregexfilter = null;
+	private String lexregexfilter = null;
+
+	private String option = "";
 
 	@Override
 	public void annotate(Document doc) throws Exception {
@@ -37,7 +39,12 @@ public class MecabAnnotator extends AbstractDocumentAnnotator implements Documen
 
 		// Taggerを構築。
 		// 引数には、MeCabのcreateTagger()関数に与える引数を与える。
-		StandardTagger tagger = new StandardTagger("");
+
+		if (this.option == null) {
+			this.option = "";
+		}
+
+		StandardTagger tagger = new StandardTagger(this.option);
 		// Lattice（形態素解析に必要な実行時情報が格納されるオブジェクト）を構築
 		Lattice lattice = tagger.createLattice();
 
@@ -135,7 +142,9 @@ public class MecabAnnotator extends AbstractDocumentAnnotator implements Documen
 
 	}
 
-	@Override
+	/**
+	 * @param key : facetfilter|lexregexfilter|option
+	 */
 	public void setProperty(String key, String value) {
 		super.setProperty(key, value);
 
@@ -147,6 +156,9 @@ public class MecabAnnotator extends AbstractDocumentAnnotator implements Documen
 		} //
 		else if ("lexregexfilter".equals(key) && value != null) {
 			this.lexregexfilter = value;
+		} //
+		else if ("option".equals(key) && value != null) {
+			this.option = value;
 		}
 
 	}

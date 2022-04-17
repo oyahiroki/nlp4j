@@ -38,7 +38,7 @@ public class WikiIndexDocument extends DefaultDocument {
 	private boolean loaded = false;
 
 	/**
-	 * @param key キー : null の時にリソースを解放する
+	 * @param key (wikiplaintext | wikitext | wikihtml | null) null の時にリソースを解放する
 	 */
 	public String getAttributeAsString(String key) {
 
@@ -126,8 +126,21 @@ public class WikiIndexDocument extends DefaultDocument {
 
 	@Override
 	public void putAttribute(String key, Object object) {
-//		System.err.println("WikiIndexDocument putAttribute key=" + key);
-		super.putAttribute(key, object);
+
+		logger.debug("WikiIndexDocument putAttribute key=" + key);
+
+		if (key != null) {
+			super.putAttribute(key, object);
+		}
+
+		if (key == null && object == null) {
+			this.wikitext = null;
+			this.wikiplaintext = null;
+			this.wikihtml = null;
+			logger.debug("data null set");
+			return;
+		}
+
 	}
 
 	@Override

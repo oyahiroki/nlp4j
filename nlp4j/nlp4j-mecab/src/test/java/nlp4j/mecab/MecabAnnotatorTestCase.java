@@ -1,5 +1,7 @@
 package nlp4j.mecab;
 
+import java.io.File;
+
 import junit.framework.TestCase;
 import nlp4j.Document;
 import nlp4j.Keyword;
@@ -167,6 +169,74 @@ public class MecabAnnotatorTestCase extends TestCase {
 		assertEquals("たい", doc.getKeywords().get(1).getLex());
 		assertEquals("と", doc.getKeywords().get(2).getLex());
 		assertEquals("思う", doc.getKeywords().get(3).getLex());
+
+	}
+
+	/**
+	 * 「彼女はペンパイナッポーアッポーペンと恋ダンスを踊った」の形態素解析結果をテスト
+	 * 
+	 * @throws Exception on Error
+	 */
+	public void testAnnotateDocument010() throws Exception {
+
+		// 自然文のテキスト
+		String text = "彼女はペンパイナッポーアッポーペンと恋ダンスを踊った";
+		Document doc = new DefaultDocument();
+		doc.putAttribute("text", text);
+		MecabAnnotator annotator = new MecabAnnotator();
+		annotator.setProperty("target", "text");
+		annotator.annotate(doc); // throws Exception
+		System.err.println("Finished : annotation");
+
+		assertNotNull(doc.getKeywords());
+		assertTrue(doc.getKeywords().size() > 0);
+
+		for (Keyword kwd : doc.getKeywords()) {
+			System.err.println(kwd.getLex() + "," + kwd.getFacet() + "," + kwd.getUPos());
+		}
+
+//		assertEquals("甘える", doc.getKeywords().get(0).getLex());
+//		assertEquals("たい", doc.getKeywords().get(1).getLex());
+//		assertEquals("と", doc.getKeywords().get(2).getLex());
+//		assertEquals("思う", doc.getKeywords().get(3).getLex());
+
+	}
+
+	/**
+	 * 「彼女はペンパイナッポーアッポーペンと恋ダンスを踊った」の形態素解析結果をテスト
+	 * 
+	 * @throws Exception on Error
+	 */
+	public void testAnnotateDocument011() throws Exception {
+
+		File dirNeologD = new File("C:\\Program Files\\MeCab\\dic\\neologd");
+
+		if (dirNeologD.exists() == false) {
+			System.err.println("Not exists: " + dirNeologD.getAbsolutePath());
+			return;
+		}
+
+		// 自然文のテキスト
+		String text = "彼女はペンパイナッポーアッポーペンと恋ダンスを踊った";
+		Document doc = new DefaultDocument();
+		doc.putAttribute("text", text);
+		MecabAnnotator annotator = new MecabAnnotator();
+		annotator.setProperty("target", "text");
+		annotator.setProperty("option", "-d \"" + dirNeologD.getAbsolutePath() + "\"");
+		annotator.annotate(doc); // throws Exception
+		System.err.println("Finished : annotation");
+
+		assertNotNull(doc.getKeywords());
+		assertTrue(doc.getKeywords().size() > 0);
+
+		for (Keyword kwd : doc.getKeywords()) {
+			System.err.println(kwd.getLex() + "," + kwd.getFacet() + "," + kwd.getUPos());
+		}
+
+//		assertEquals("甘える", doc.getKeywords().get(0).getLex());
+//		assertEquals("たい", doc.getKeywords().get(1).getLex());
+//		assertEquals("と", doc.getKeywords().get(2).getLex());
+//		assertEquals("思う", doc.getKeywords().get(3).getLex());
 
 	}
 

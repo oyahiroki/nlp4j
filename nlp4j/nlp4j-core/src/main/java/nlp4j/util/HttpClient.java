@@ -2,7 +2,11 @@ package nlp4j.util;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.invoke.MethodHandles;
 import java.util.Map;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import nlp4j.NlpServiceResponse;
 import nlp4j.impl.DefaultNlpServiceResponse;
@@ -24,13 +28,16 @@ import okhttp3.Response;
  *
  */
 public class HttpClient {
+
+	static private Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
+
 	/**
 	 * JSONのMediaTypeです。<br>
 	 * Media Type of JSON
 	 */
 	public static final MediaType JSON = MediaType.get("application/json; charset=utf-8");
 
-	OkHttpClient client = new OkHttpClient();
+	private OkHttpClient client = new OkHttpClient();
 
 	private long content_length = -1;
 
@@ -151,8 +158,15 @@ public class HttpClient {
 		}
 
 		Request request = builder.post(body).build();
+
 		try (Response response = client.newCall(request).execute()) {
 			int responseCode = response.code();
+			{
+				Headers headers = response.headers();
+				for (String key : headers.names()) {
+					logger.debug(key + "=" + headers.get(key));
+				}
+			}
 			String originalResponseBody = response.body().string();
 			DefaultNlpServiceResponse res //
 					= new DefaultNlpServiceResponse(responseCode, originalResponseBody);

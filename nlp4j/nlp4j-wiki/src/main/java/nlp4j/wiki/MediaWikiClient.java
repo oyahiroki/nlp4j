@@ -17,7 +17,12 @@ import nlp4j.impl.DefaultNlpServiceResponse;
 import nlp4j.util.HttpClient;
 
 /**
+ * <pre>
+ * Media Wiki API Client
+ * https://www.mediawiki.org/wiki/API:Tutorial/en
+ * 
  * created at: 2022-03-03
+ * </pre>
  * 
  * @author Hiroki Oya
  *

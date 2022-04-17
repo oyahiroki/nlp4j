@@ -7,7 +7,7 @@ import junit.framework.TestCase;
 public class MediaWikiClientTestCase extends TestCase {
 
 	/**
-	 * Query "Category:Auto_parts"
+	 * Query "Category:Auto_parts" 英語版 WikiPedia 自動車部品
 	 * 
 	 * @throws Exception
 	 */
@@ -23,7 +23,7 @@ public class MediaWikiClientTestCase extends TestCase {
 	}
 
 	/**
-	 * Query "Category:en:Medicine"
+	 * Query "Category:en:Medicine" 英語版 WikiPedia 医療用語
 	 * 
 	 * @throws Exception
 	 */
@@ -39,7 +39,7 @@ public class MediaWikiClientTestCase extends TestCase {
 	}
 
 	/**
-	 * Query "カテゴリ:日本語_ことわざ"
+	 * Query "カテゴリ:日本語_ことわざ" 日本語版 WikiPedia ことわざ
 	 * 
 	 * @throws Exception
 	 */
@@ -55,7 +55,7 @@ public class MediaWikiClientTestCase extends TestCase {
 	}
 
 	/**
-	 * "Category:RNAウイルス"
+	 * "Category:RNAウイルス" 日本語版 WikiPedia RNAウィルス
 	 * 
 	 * @throws Exception
 	 */

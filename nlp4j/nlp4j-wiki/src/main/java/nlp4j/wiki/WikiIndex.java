@@ -5,6 +5,8 @@ import java.util.HashMap;
 
 /**
  * <pre>
+ * Wiki Index
+ * Wiki のインデックス情報
  * created_at 2021-06-25
  * </pre>
  * 
@@ -17,10 +19,13 @@ public class WikiIndex {
 	long dataLength = -1;;
 	long lastBlockNum = -1;
 
+	// Item -> WikiIndexItem, 見出し -> WikiIndexItem
 	HashMap<String, WikiIndexItem> mapWikiIndexItem;
 
+	// List of Wiki Item Titles 見出し
 	ArrayList<String> wikiItemTitles;
 
+	// List of WikiIndexItem
 	ArrayList<WikiIndexItem> wikiIndexItems;
 
 	/**
@@ -33,12 +38,12 @@ public class WikiIndex {
 	}
 
 	/**
-	 * @param capasity : initial capasity of index
+	 * @param capacity : initial capacity of index
 	 */
-	public WikiIndex(int capasity) {
+	public WikiIndex(int capacity) {
 		this.mapWikiIndexItem = new HashMap<>();
-		wikiItemTitles = new ArrayList<>(capasity);
-		wikiIndexItems = new ArrayList<>(capasity);
+		wikiItemTitles = new ArrayList<>(capacity);
+		wikiIndexItems = new ArrayList<>(capacity);
 	}
 
 	/**
@@ -119,6 +124,11 @@ public class WikiIndex {
 	 */
 	public int size() {
 		return this.mapWikiIndexItem.size();
+	}
+
+	@Override
+	public String toString() {
+		return "WikiIndex [wikiItemTitles=" + ((wikiItemTitles == null) ? 0 : wikiItemTitles.size()) + "]";
 	}
 
 }

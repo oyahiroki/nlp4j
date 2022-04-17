@@ -1,4 +1,4 @@
-package nlp4j.wiki;
+package hello.java;
 
 @SuppressWarnings("javadoc")
 public class HelloJavaStringMain {

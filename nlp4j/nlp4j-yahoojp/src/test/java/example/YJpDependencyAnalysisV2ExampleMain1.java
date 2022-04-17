@@ -36,20 +36,28 @@ public class YJpDependencyAnalysisV2ExampleMain1 {
 	 */
 	public static void main(String[] args) throws Exception {
 		// 自然文のテキスト
-		String text = "今日は走って学校に行きました。明日も学校です。";
+		String text = "今日は走って学校に行きました。";
 		// 係り受け解析
 		YJpDaServiceV2 service = new YJpDaServiceV2();
 		// 係り受け解析の結果を取得する
 		NlpServiceResponse response = service.process(text);
-		System.out.println(response);
-		System.out.println(response.getKeywords());
+//		System.out.println(response);
+//		System.out.println(response.getKeywords());
+
 		// 係り受け解析の結果を出力する
-		System.out.println(JsonUtils.prettyPrint(response.getOriginalResponseBody()));
+		// <original_response>
+		System.err.println("<original_response>");
+		System.err.println(JsonUtils.prettyPrint(response.getOriginalResponseBody()));
+		System.err.println("</original_response>");
+		// </original_response>
+
+		System.err.println("---");
 		for (Keyword kwd : response.getKeywords()) {
 			if (kwd instanceof KeywordWithDependency) {
-				System.out.println(((KeywordWithDependency) kwd).toStringAsXml());
+				System.err.println(((KeywordWithDependency) kwd).toStringAsXml());
 			}
 		}
+		System.err.println("---");
 	}
 
 }

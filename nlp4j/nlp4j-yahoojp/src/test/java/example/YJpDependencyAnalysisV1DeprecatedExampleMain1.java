@@ -21,9 +21,9 @@ import nlp4j.yhoo_jp.YJpDaService;
  * </pre>
  * 
  * @author Hiroki Oya
- *
+ * @deprecated
  */
-public class YJpDependencyAnalysisV1ExampleMain1 {
+public class YJpDependencyAnalysisV1DeprecatedExampleMain1 {
 
 	/**
 	 * メイン関数です。<br>

@@ -22,6 +22,10 @@ public class WikiIndexReaderTestCase extends TestCase {
 	}
 
 	/**
+	 * <pre>
+	 * Read Wiki Index File
+	 * </pre>
+	 * 
 	 * @throws Exception on Error
 	 */
 	public void testReadIndexFile_File001() throws Exception {
@@ -31,10 +35,29 @@ public class WikiIndexReaderTestCase extends TestCase {
 
 		File indexFile = new File(indexFileName);
 
+		if (indexFile.exists() == false) {
+			System.err.println("Not exists: " + indexFile.getAbsolutePath());
+			return;
+		}
+
+		// Read Wiki Index File
 		WikiIndex wikiIndex = WikiIndexReader.readIndexFile(indexFile); // throws IOException
+		{
+			// 見出しの数
+			// titles: 296564
+			System.err.println("titles: " + wikiIndex.getWikiItemTitles().size());
+			// WikiIndex [wikiItemTitles=296564]
+			System.err.println(wikiIndex);
+
+//			for (String title : wikiIndex.getWikiItemTitles()) {
+//				System.err.println(title);
+//			}
+		}
 
 		WikiIndexItem item = wikiIndex.getItem(itemString);
 
+		// WikiIndexItem [blockNum=1227884, itemID=7613, title=ヨーロッパ, namespace=null,
+		// nextBlock=1263980]
 		System.err.println(item);
 	}
 
