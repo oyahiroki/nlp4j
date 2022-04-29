@@ -1,12 +1,8 @@
 package nlp4j.wiki;
 
-import java.io.File;
 import java.io.IOException;
 import java.lang.invoke.MethodHandles;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-import java.util.Properties;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -75,7 +71,6 @@ public class WikipediaDumpIndexDownloader extends AbstractWebCrawler implements 
 	 * @param key (version|outdir)
 	 */
 	public void setProperty(String key, String value) {
-		// TODO Auto-generated method stub
 		super.setProperty(key, value);
 		if ("version".equals(key)) {
 			this.version = value;
@@ -85,11 +80,11 @@ public class WikipediaDumpIndexDownloader extends AbstractWebCrawler implements 
 		}
 	}
 
-	static public void main(String[] args) throws Exception {
-		WikipediaDumpIndexDownloader wiktionaryDownloader = new WikipediaDumpIndexDownloader();
-		wiktionaryDownloader.setProperty("version", "20220201");
-		wiktionaryDownloader.setProperty("outdir", "C:\\usr\\local\\data\\wiki");
-		wiktionaryDownloader.crawlDocuments();
-	}
+//	static public void main(String[] args) throws Exception {
+//		WikipediaDumpIndexDownloader wiktionaryDownloader = new WikipediaDumpIndexDownloader();
+//		wiktionaryDownloader.setProperty("version", "20220201");
+//		wiktionaryDownloader.setProperty("outdir", "C:\\usr\\local\\data\\wiki");
+//		wiktionaryDownloader.crawlDocuments();
+//	}
 
 }

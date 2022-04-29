@@ -6,7 +6,7 @@ import nlp4j.wiki.WikiIndex;
 import nlp4j.wiki.WikiIndexItem;
 import nlp4j.wiki.WikiIndexReader;
 
-public class WiktionaryReadIndexExample {
+public class WiktionaryReadIndexExample1 {
 
 	public static void main(String[] args) throws Exception {
 
@@ -21,6 +21,8 @@ public class WiktionaryReadIndexExample {
 			System.err.println("Not exists: " + indexFile.getAbsolutePath());
 			return;
 		}
+
+		System.err.println(indexFile);
 
 		// Read Wiki Index File
 		WikiIndex wikiIndex = WikiIndexReader.readIndexFile(indexFile); // throws IOException

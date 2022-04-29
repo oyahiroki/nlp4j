@@ -2,6 +2,22 @@
 
 \[en\] \[[ja](README_ja.md)\]
 
+
+# MAVEN Repository
+
+	https://mvnrepository.com/artifact/org.nlp4j/nlp4j-wiki
+
+# Build for Release
+
+	mvn -DperformRelease=true clean deploy
+
+	mvn -e -X -DperformRelease=true clean deploy
+	
+# Maven Commands
+
+	mvn test
+	mvn javadoc:javadoc
+
 ## Wikimedia Index Download
 
 Wikimedia Downloads

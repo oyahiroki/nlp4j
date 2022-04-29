@@ -6,6 +6,10 @@ import java.io.IOException;
 
 import org.apache.commons.codec.digest.DigestUtils;
 
+/**
+ * @author Hiroki Oya
+ * @since 1.1.0.0
+ */
 public class MD5Utils {
 
 	/**
