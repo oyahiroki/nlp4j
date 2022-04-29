@@ -16,7 +16,7 @@ import nlp4j.crawler.Crawler;
 import nlp4j.webcrawler.AbstractWebCrawler;
 import nlp4j.webcrawler.FileDownloader;
 
-public class WiktionaryJaDownloader extends AbstractWebCrawler implements Crawler {
+public class WikipediaDumpIndexDownloader extends AbstractWebCrawler implements Crawler {
 
 	static private Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
@@ -71,7 +71,9 @@ public class WiktionaryJaDownloader extends AbstractWebCrawler implements Crawle
 		return null;
 	}
 
-	@Override
+	/**
+	 * @param key (version|outdir)
+	 */
 	public void setProperty(String key, String value) {
 		// TODO Auto-generated method stub
 		super.setProperty(key, value);
@@ -84,7 +86,7 @@ public class WiktionaryJaDownloader extends AbstractWebCrawler implements Crawle
 	}
 
 	static public void main(String[] args) throws Exception {
-		WiktionaryJaDownloader wiktionaryDownloader = new WiktionaryJaDownloader();
+		WikipediaDumpIndexDownloader wiktionaryDownloader = new WikipediaDumpIndexDownloader();
 		wiktionaryDownloader.setProperty("version", "20220201");
 		wiktionaryDownloader.setProperty("outdir", "C:\\usr\\local\\data\\wiki");
 		wiktionaryDownloader.crawlDocuments();

@@ -2,13 +2,17 @@
 
 \[en\] \[[ja](README_ja.md)\]
 
-## Wiktionary Index Download
+## Wikimedia Index Download
 
 Wikimedia Downloads
 https://dumps.wikimedia.org/
 
+### WikiPedia Japanese language version
+
 Japanese Language Version - Index of /jawiki/
 https://dumps.wikimedia.org/jawiki/
+
+### Wiktionary Japanese language version
 
 Japanese Language Version - Index of /jawiktionary/
 https://dumps.wikimedia.org/jawiktionary/
