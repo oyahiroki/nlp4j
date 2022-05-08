@@ -23,7 +23,7 @@ import nlp4j.util.HttpClient;
  * </pre>
  * 
  * @author Hiroki Oya
- * @since 1.3.1.0
+ * @since 1.0.0.0
  */
 public class FileDownloader {
 
@@ -83,15 +83,16 @@ public class FileDownloader {
 			BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(outFile));
 
 			int readSize;
-			int totalSize = 0;
+			long totalSize = 0; // fixed int -> long 1.1.1.0
 			long contentLength = client.getContentLength();
 
 			byte[] buff = new byte[DOWNLOAD_BUFF_SIZE];
 
 			int pctInt0 = 0;
 
-			int totalSize0 = 0;
-			int diff = 1000 * 1000;
+			long totalSize0 = 0; // fixed int -> long 1.1.1.0
+
+			int diff = 1024 * 1024;
 
 			while ((readSize = bis.read(buff)) != -1) {
 

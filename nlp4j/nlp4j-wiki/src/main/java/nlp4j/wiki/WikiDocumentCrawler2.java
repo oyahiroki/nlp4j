@@ -42,7 +42,7 @@ import nlp4j.crawler.Crawler;
 public class WikiDocumentCrawler2 extends AbstractCrawler implements Crawler {
 
 	static private Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
-	
+
 	File wikidumpfile = null;
 	File wikiindexfile = null;
 	private List<String> entries;
@@ -82,13 +82,13 @@ public class WikiDocumentCrawler2 extends AbstractCrawler implements Crawler {
 
 			for (WikiIndexItem item : items) {
 
+				logger.info("Reading index: " + item.getTitle());
+
 				WikiIndexDocument doc = new WikiIndexDocument();
 				{
 					doc.setDumpReader(dumpReader);
 					doc.putAttribute("item", item.getTitle());
 				}
-				
-				logger.info(doc.getAttributeAsString("item"));
 
 				if (this.entries == null) {
 					docs.add(doc);

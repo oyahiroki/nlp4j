@@ -33,3 +33,6 @@ nlp4j-core provides
 
 	mvn assembly:assembly -DdescriptorId=bin
 
+	mvn dependency:copy-dependencies -DoutputDirectory=lib
+	
+

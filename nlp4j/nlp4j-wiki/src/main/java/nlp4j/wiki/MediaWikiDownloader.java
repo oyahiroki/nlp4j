@@ -14,22 +14,29 @@ import nlp4j.webcrawler.AbstractWebCrawler;
 import nlp4j.webcrawler.FileDownloader;
 import nlp4j.wiki.util.MediaWikiMD5Util;
 
+/**
+ * @author Hiroki Oya
+ *
+ */
 public class MediaWikiDownloader extends AbstractWebCrawler implements Crawler {
 
 	static private Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
-	private String language = "en";
-
-	private String media = "wiktionary";
-
-	static private final String WIKTIONARY_INDEX_FILENAME_BASE //
+	/**
+	 * {language}{media}-{version}-md5sums.txt
+	 */
+	static public final String MD5_FILENAME //
 			= "%s" // language
 					+ "%s" // media
 					+ "-" //
-					+ "%s" // version
-					+ "-pages-articles-multistream-index.txt.bz2";
+					+ "%s"// version
+					+ "-md5sums.txt" //
+	;
 
-	static private final String WIKIMEDIA_URL_BASE //
+	/**
+	 * https://dumps.wikimedia.org/{language}{media}/{version}/{filename}
+	 */
+	static public final String WIKIMEDIA_URL_BASE //
 			= "https://dumps.wikimedia.org/" //
 					+ "%s" // language
 					+ "%s" // media
@@ -38,24 +45,45 @@ public class MediaWikiDownloader extends AbstractWebCrawler implements Crawler {
 					+ "/" //
 					+ "%s" // filename
 	;
-	static private final String WIKTIONARY_DUMP_FILENAME_BASE //
+
+	/**
+	 * {language}{media}-{version}-pages-articles-multistream.xml.bz2
+	 */
+	static public final String WIKTIONARY_DUMP_FILENAME_BASE //
 			= "%s" // language
 					+ "%s" // media
 					+ "-" //
 					+ "%s" // version
-					+ "-pages-articles-multistream.xml.bz2";
+					+ "-pages-articles-multistream.xml.bz2" //
+	;
 
-	static private final String MD5_FILENAME //
+	/**
+	 * {language}{media}-{version}-pages-articles-multistream-index.txt.bz2
+	 */
+	static public final String WIKTIONARY_INDEX_FILENAME_BASE //
 			= "%s" // language
 					+ "%s" // media
 					+ "-" //
-					+ "%s"// version
-					+ "-md5sums.txt";
+					+ "%s" // version
+					+ "-pages-articles-multistream-index.txt.bz2" //
+	;
 
-	private String version = null;
+	private String language = "en";
+
+	private String media = "wiktionary";
+
 	private String outdir = null;
+	private String version = null;
 
-	@Override
+	/**
+	 * <pre>
+	 * 1. DOWNLOAD MD5 FILE
+	 * 2. DOWNLOAD INDEX FILE
+	 * 3. CHECK INDEX MD5
+	 * 4. DOWNLOAD DUMP FILE
+	 * 5. CHECK DUMP MD5
+	 * </pre>
+	 */
 	public List<Document> crawlDocuments() {
 
 		if (this.version == null) {
@@ -75,7 +103,7 @@ public class MediaWikiDownloader extends AbstractWebCrawler implements Crawler {
 
 		FileDownloader downloader = new FileDownloader();
 
-		{
+		{ // DOWNLOAD MD5 FILE
 			String filename = String.format(MD5_FILENAME, this.language, this.media, this.version);
 			String outfilename = this.outdir + "/" + filename;
 			md5File = new File(outfilename);
@@ -88,13 +116,14 @@ public class MediaWikiDownloader extends AbstractWebCrawler implements Crawler {
 				return null;
 			}
 		}
-		{
+		{ // DOWNLOAD INDEX FILE
 			String filename = String.format(WIKTIONARY_INDEX_FILENAME_BASE, this.language, this.media, this.version);
 			String outfilename = this.outdir + "/" + filename;
 			indexFile = new File(outfilename);
 			String url = String.format(WIKIMEDIA_URL_BASE, this.language, this.media, this.version, filename);
 			try {
 				downloader.download(url, outfilename);
+				// CHECK INDEX MD5
 				logger.info("Checking MD5: " + indexFile.getAbsolutePath());
 				boolean md5check = MediaWikiMD5Util.checkMD5(md5File, indexFile);
 				if (md5check == false) {
@@ -108,7 +137,7 @@ public class MediaWikiDownloader extends AbstractWebCrawler implements Crawler {
 			}
 
 		}
-		{
+		{ // DOWNLOAD DUMP FILE
 			String filename = String.format(WIKTIONARY_DUMP_FILENAME_BASE, this.language, this.media, this.version);
 			String outfilename = this.outdir + "/" + filename;
 			dumpFile = new File(outfilename);
@@ -116,6 +145,7 @@ public class MediaWikiDownloader extends AbstractWebCrawler implements Crawler {
 			try {
 				downloader.download(url, outfilename);
 				logger.info("Checking MD5: " + dumpFile.getAbsolutePath());
+				// CHECK DUMP MD5
 				boolean md5check = MediaWikiMD5Util.checkMD5(md5File, dumpFile);
 				if (md5check == false) {
 					throw new IOException("Invalid MD5: " + dumpFile.getAbsolutePath());
@@ -148,6 +178,10 @@ public class MediaWikiDownloader extends AbstractWebCrawler implements Crawler {
 			this.language = value;
 		} //
 		else if ("media".equals(key)) {
+
+			if (value == null || (value.equals("wiktionary") == false && value.equals("wiki") == false)) {
+				throw new RuntimeException("Invalid value is set: key=" + key + ",value=" + value);
+			}
 
 			if (value.equals("wikipedia")) {
 				this.media = "wiki";

@@ -19,7 +19,7 @@ public class MlitCarInfoDownloadMain {
 		System.err.println("Example: " + MlitCarInfoDownloadMain.class.getCanonicalName() //
 				+ " 2020/01/01" //
 				+ " 2020/03/31" //
-				+ " /usr/local/nlp4j/collections/mlit/data/json1/milt_carinfo-20200101-20200331_json.txt" //
+				+ " /usr/local/nlp4j/data/mlit/mlit_carinfo-20200101-20200331_json.txt" //
 		);
 	}
 
