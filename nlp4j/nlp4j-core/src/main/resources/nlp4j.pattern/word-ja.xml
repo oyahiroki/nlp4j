@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<patterns lang="ja">
+
+	<pattern facet="word.noun" value="{0.lex}">
+				<w id="0" upos="NOUN" />
+	</pattern>
+	
+	<pattern facet="word.verb" value="{0.lex}">
+				<w id="0" upos="VERB" />
+	</pattern>
+	
+	<pattern facet="word.adj" value="{0.lex}">
+				<w id="0" upos="ADJ" />
+	</pattern>
+
+</patterns>
+

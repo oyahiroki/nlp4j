@@ -9,6 +9,7 @@ import junit.framework.TestCase;
 import nlp4j.Document;
 import nlp4j.impl.DefaultDocument;
 import nlp4j.impl.DefaultKeyword;
+import nlp4j.impl.DefaultKeywordWithDependency;
 
 /**
  * @author Hiroki Oya
@@ -117,6 +118,29 @@ public class DocumentUtilTestCase extends TestCase {
 		System.err.println(JsonUtils.prettyPrint(json).length());
 		System.err.println(expected.length());
 		assertNotNull(JsonUtils.prettyPrint(json));
+
+	}
+
+	/**
+	 * created at: 2022-05-14
+	 */
+	public void testToJsonOjbect002() {
+		DefaultDocument doc = new DefaultDocument();
+		DefaultKeywordWithDependency kwd1 = new DefaultKeywordWithDependency();
+		{
+			kwd1.setLex("aaa");
+		}
+		DefaultKeywordWithDependency kwd2 = new DefaultKeywordWithDependency();
+		{
+			kwd2.setLex("bbb");
+		}
+		kwd1.addChild(kwd2);
+
+		doc.addKeyword(kwd1);
+
+		JsonObject json = DocumentUtil.toJsonObject(doc);
+
+		System.err.println(JsonUtils.prettyPrint(json));
 
 	}
 

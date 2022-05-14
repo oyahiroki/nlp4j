@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<patterns lang="ja">
+	<!-- example: いい ... 天気 -->
+	<pattern facet="pattern.adjnoun" value="{0.lex} ... {1.lex}">
+		<w id="1" upos="NOUN">
+			<w id="0" upos="ADJ" />
+		</w>
+	</pattern>
+	<!-- example: 「鼻が長い」 → 鼻 ... 長い -->
+	<pattern facet="pattern.adjnoun" value="{0.lex} ... {2.lex}">
+		<w id="2" upos="ADJ">
+			<w id="1" lex="/(が|は)/" upos="ADP">
+				<w id="0" upos="NOUN" />
+			</w>
+		</w>
+	</pattern>
+	<!-- example: 「鼻が長い」 → 長い ...鼻 -->
+	<pattern facet="pattern.adjnoun" value="{2.lex} ... {0.lex}">
+		<w id="2" upos="ADJ">
+			<w id="1" lex="/(が)/" upos="ADP">
+				<w id="0" upos="NOUN" />
+			</w>
+		</w>
+	</pattern>
+</patterns>
+

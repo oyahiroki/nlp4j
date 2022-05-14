@@ -242,7 +242,9 @@ public class DocumentUtil {
 					arr.add(toJsonObject(kwd));
 				} //
 				else {
-					logger.info("Skip this keyword: " + kwd.getClass().getCanonicalName() + ": " + kwd.getLex());
+// 2022-05-14				logger.info("Skip this keyword: " + kwd.getClass().getCanonicalName() + ": " + kwd.getLex());
+					KeywordWithDependency kwdd = (KeywordWithDependency) kwd;
+					arr.add(toJsonObject(kwdd));
 				}
 			}
 			jsonObj.add("keywords", arr);
@@ -259,6 +261,31 @@ public class DocumentUtil {
 		Gson gson = new Gson();
 		String json = toJsonString(kwd);
 		return gson.fromJson(json, JsonObject.class);
+	}
+
+	/**
+	 * created at: 2022-05-14
+	 * 
+	 * @param kwd
+	 * @return
+	 */
+	static public JsonObject toJsonObject(KeywordWithDependency kwd) {
+		Gson gson = new Gson();
+		String json = toJsonString(kwd);
+
+		JsonObject obj = gson.fromJson(json, JsonObject.class);
+
+		List<KeywordWithDependency> cc = kwd.getChildren();
+		JsonArray children = new JsonArray();
+
+		for (KeywordWithDependency c : cc) {
+			JsonObject o = toJsonObject(c);
+			children.add(o);
+		}
+
+		obj.add("children", children);
+
+		return obj;
 	}
 
 	/**

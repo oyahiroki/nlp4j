@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<patterns lang="ja">
+
+	<pattern facet="word.compundnoun" value="{0.lex} {1.lex}">
+			<w id="1" upos="NOUN">
+				<w id="0" upos="NOUN" />
+			</w>
+	</pattern>
+
+</patterns>
+

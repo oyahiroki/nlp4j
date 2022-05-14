@@ -22,6 +22,7 @@ import nlp4j.impl.DefaultDocument;
 public class TextFileLineSeparatedCrawler extends AbstractFileCrawler implements Crawler {
 
 	static private final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
+	private boolean skipemptyline = false;
 
 	/**
 	 * コンストラクタ <br>
@@ -38,7 +39,7 @@ public class TextFileLineSeparatedCrawler extends AbstractFileCrawler implements
 		ArrayList<Document> docs = new ArrayList<>();
 
 		String target = prop.getProperty("target");
-		
+
 		if (target == null) {
 			logger.warn("target is not set.");
 			return docs;
@@ -48,6 +49,12 @@ public class TextFileLineSeparatedCrawler extends AbstractFileCrawler implements
 			try {
 
 				for (String text : FileUtils.readLines(file, encoding)) {
+
+					// 2022-05-11
+					if (text == null || text.trim().isEmpty() == true && this.skipemptyline == true) {
+						continue;
+					}
+
 					Document doc = new DefaultDocument();
 					doc.putAttribute(target, text);
 					docs.add(doc);
@@ -59,6 +66,14 @@ public class TextFileLineSeparatedCrawler extends AbstractFileCrawler implements
 		}
 
 		return docs;
+	}
+
+	@Override
+	public void setProperty(String key, String value) {
+		super.setProperty(key, value);
+		if ("skipemptyline".equals(key)) {
+			this.skipemptyline = Boolean.parseBoolean(value);
+		}
 	}
 
 }

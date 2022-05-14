@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<patterns lang="ja">
+
+	<pattern facet="pattern.sv" value="{0.lex} ... {2.lex}">
+		<w id="2" upos="VERB">
+			<w id="1" lex="/(が|は)/" upos="ADP">
+				<w id="0" upos="NOUN" />
+			</w>
+		</w>
+	</pattern>
+	<pattern facet="pattern.sv" value="{0.lex} ... {2.lex}">
+		<w id="3" lex="する">
+			<w id="2" upos="NOUN">
+				<w id="1" lex="/(が|は)/" upos="ADP">
+					<w id="0" upos="NOUN" />
+				</w>
+			</w>
+		</w>
+	</pattern>
+
+	<pattern facet="pattern.sv" value="{0.lex} ... {2.lex}">
+		<w id="2" upos="NOUN">
+			<w id="1" lex="/(が|は)/" upos="ADP">
+				<w id="0" upos="NOUN" />
+			</w>
+		</w>
+	</pattern>
+
+
+</patterns>
+
