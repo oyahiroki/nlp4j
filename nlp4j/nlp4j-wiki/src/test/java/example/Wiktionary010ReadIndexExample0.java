@@ -3,23 +3,19 @@ package example;
 import java.io.File;
 
 import nlp4j.wiki.WikiIndex;
-import nlp4j.wiki.WikiIndexItem;
 import nlp4j.wiki.WikiIndexReader;
 import nlp4j.wiki.util.MediaWikiFileUtils;
 
-public class WiktionaryReadIndexExample2 {
+public class Wiktionary010ReadIndexExample0 {
 
 	public static void main(String[] args) throws Exception {
 
-		String itemString = "ヨーロッパ";
-
 		File indexFile = MediaWikiFileUtils.getIndexFile( //
-				"src/test/resources/nlp4j.wiki/", //
+				"/usr/local/data/wiki", //
 				"ja", //
 				"wiktionary", //
 				"20210401"); //
-
-		System.err.println(indexFile);
+		System.err.println(indexFile.getAbsolutePath());
 
 		// Read Wiki Index File
 		WikiIndex wikiIndex = WikiIndexReader.readIndexFile(indexFile); // throws IOException
@@ -32,20 +28,36 @@ public class WiktionaryReadIndexExample2 {
 
 			System.err.println("---");
 
+			int count = 1;
+
+			// FOR EACH(WikiItemTitles) THEN print info
 			for (String title : wikiIndex.getWikiItemTitles()) {
-				System.err.println(title);
-			}
+				System.err.println(String.format("%012d %s", count, title));
+				count++;
+			} // END OF FOR EACH
+
+			// <ExpectedOutput>
+//			000000000001 MediaWiki:Mainpagetext
+//			000000000002 MediaWiki:Aboutpage
+//			000000000003 MediaWiki:Faqpage
+//			000000000004 MediaWiki:Edithelppage
+//			000000000005 MediaWiki:Wikipediapage
+//			...
+//			000000296556 てんぱん
+//			000000296557 てんしょく
+//			000000296558 osu
+//			000000296559 preferreds
+//			000000296560 せんとう
+//			000000296561 せんどう
+//			000000296562 preferred stock
+//			000000296563 preferred stocks
+//			000000296564 preferences
+			// </ExpectedOutput>
 
 			System.err.println("---");
 
 			System.err.println("titles: " + wikiIndex.getWikiItemTitles().size());
 		}
-
-		WikiIndexItem item = wikiIndex.getItem(itemString);
-
-		// WikiIndexItem [blockNum=1227884, itemID=7613, title=ヨーロッパ, namespace=null,
-		// nextBlock=1263980]
-		System.err.println(item);
 
 	}
 

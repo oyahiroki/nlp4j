@@ -3,8 +3,6 @@ package nlp4j.webcrawler.nhtsa;
 import java.io.File;
 import java.io.IOException;
 import java.lang.invoke.MethodHandles;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
@@ -19,14 +17,18 @@ public class NhtsaDownloader extends AbstractWebCrawler implements Crawler {
 
 	static private Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
-	static private final String url = "https://www-odi.nhtsa.dot.gov/downloads/folders/Complaints/FLAT_CMPL.zip";
+	static private final String url = "https://www-odi.nhtsa.dot.gov/downloads/folders/Complaints/" //
+			+ "FLAT_CMPL.zip";
 
 	private File fileName;
 
-	@Override
+	/**
+	 * Download a file from
+	 * https://www-odi.nhtsa.dot.gov/downloads/folders/Complaints/FLAT_CMPL.zip
+	 */
 	public List<Document> crawlDocuments() {
 
-		System.err.println(fileName.getAbsolutePath());
+		logger.info(fileName.getAbsolutePath());
 
 		if (fileName == null) {
 			logger.warn("File for output is invalid: fileName=" + fileName);
@@ -45,14 +47,14 @@ public class NhtsaDownloader extends AbstractWebCrawler implements Crawler {
 		return null;
 	}
 
-	@Override
+	/**
+	 * @param key (fileName for download)
+	 */
 	public void setProperty(String key, String value) {
-		// TODO Auto-generated method stub
 		super.setProperty(key, value);
 		if ("fileName".equals(key)) {
 			this.fileName = new File(value);
 		}
 	}
-
 
 }

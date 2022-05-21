@@ -2,7 +2,13 @@ package example;
 
 import nlp4j.wiki.MediaWikiDownloader;
 
-public class WikipediaDumpIndexDownloadExample {
+/**
+ * Download MediaWiki (MD5 AND Index AND Dump)
+ * 
+ * @author Hiroki Oya
+ *
+ */
+public class Wikipedia001DumpIndexDownloadExample {
 
 	static public void main(String[] args) throws Exception {
 		MediaWikiDownloader dl = new MediaWikiDownloader();

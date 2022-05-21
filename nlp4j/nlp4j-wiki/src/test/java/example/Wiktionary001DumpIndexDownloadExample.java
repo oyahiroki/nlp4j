@@ -2,7 +2,7 @@ package example;
 
 import nlp4j.wiki.MediaWikiDownloader;
 
-public class WiktionaryDumpIndexDownloadExample {
+public class Wiktionary001DumpIndexDownloadExample {
 
 	static public void main(String[] args) throws Exception {
 		MediaWikiDownloader dl = new MediaWikiDownloader();

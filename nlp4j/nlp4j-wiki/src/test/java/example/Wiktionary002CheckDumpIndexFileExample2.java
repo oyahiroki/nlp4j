@@ -4,7 +4,16 @@ import java.io.File;
 
 import nlp4j.wiki.util.MediaWikiFileUtils;
 
-public class WikipediaDumpIndexCheckExample {
+/**
+ * <pre>
+ * Get File of Index File and Dump File
+ * インデックスファイルとダンプファイルの取得
+ * </pre>
+ * 
+ * @author Hiroki Oya
+ *
+ */
+public class Wiktionary002CheckDumpIndexFileExample2 {
 
 	public static void main(String[] args) throws Exception {
 		{

@@ -2,15 +2,8 @@ package nlp4j.wiki;
 
 import java.io.IOException;
 
-import org.sweble.wikitext.engine.PageId;
-import org.sweble.wikitext.engine.PageTitle;
-import org.sweble.wikitext.engine.WtEngineImpl;
-import org.sweble.wikitext.engine.config.WikiConfig;
-import org.sweble.wikitext.engine.nodes.EngProcessedPage;
-import org.sweble.wikitext.engine.utils.DefaultConfigEnWp;
-import org.sweble.wikitext.example.TextConverter;
-
 import info.bliki.wiki.model.WikiModel;
+import nlp4j.wiki.util.MediaWikiTextUtils;
 
 /**
  * <pre>
@@ -23,15 +16,13 @@ import info.bliki.wiki.model.WikiModel;
  */
 public class WikiPage {
 
-	// Set-up a simple wiki configuration
-	WikiConfig config = DefaultConfigEnWp.generate();
-
 	String title = null;
 	String id = null;
 	String format = null;
 	String text = null;
 
 	private String xml;
+	private String timestamp;
 
 	/**
 	 * @param title  : title of wiki entry
@@ -86,22 +77,7 @@ public class WikiPage {
 	 * @return TEXT null on error
 	 */
 	public String getPlainText() {
-		try {
-			final int wrapCol = 1000;
-			// Retrieve a page
-			PageTitle pageTitle = PageTitle.make(this.config, this.title);
-			PageId pageId = new PageId(pageTitle, -1);
-			// Instantiate a compiler for wiki pages
-			WtEngineImpl engine = new WtEngineImpl(config);
-			// Compile the retrieved page
-			EngProcessedPage cp = engine.postprocess(pageId, this.text, null);
-			TextConverter p = new TextConverter(config, wrapCol);
-			String text = (String) p.go(cp.getPage());
-			return text;
-
-		} catch (Exception e) {
-			return null;
-		}
+		return MediaWikiTextUtils.toPlainText(this.title, this.text);
 	}
 
 	/**
@@ -126,6 +102,32 @@ public class WikiPage {
 
 	public void setXml(String xml) {
 		this.xml = xml;
+	}
+
+	@Override
+	public String toString() {
+
+		String t = (this.text != null && this.text.length() > 16) ? text.substring(0, 16).replace("\n", "") + "..."
+				: "" + text;
+		String x = (this.xml != null && this.xml.length() > 16) ? xml.substring(0, 16).replace("\n", "") + "..."
+				: "" + xml;
+
+		return "WikiPage [" //
+				+ "id=" + id + ", "//
+				+ "timestamp=" + timestamp + ", "//
+				+ "format=" + format + ", "//
+				+ "title=" + title + ", "//
+				+ "text=" + t + ", "//
+				+ "xml=" + x //
+				+ "]";
+	}
+
+	public void setTimestamp(String timestamp) {
+		this.timestamp = timestamp;
+	}
+
+	public String getTimestamp() {
+		return timestamp;
 	}
 
 }

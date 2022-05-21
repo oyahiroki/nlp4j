@@ -134,7 +134,8 @@ public class WikiDumpReader implements AutoCloseable {
 			SAXParser saxParser = saxParserFactory.newSAXParser();
 
 			// XML Handler for Media Wiki
-			MediawikiXmlHandler handler = new MediawikiXmlHandler();
+//			MediawikiXmlHandler handler = new MediawikiXmlHandler();
+			MediawikiXmlHandler2 handler = new MediawikiXmlHandler2();
 
 			InputStream bais = new ByteArrayInputStream(xml.getBytes(ENCODING_UTF8));
 

@@ -13,6 +13,12 @@ import org.apache.logging.log4j.Logger;
 
 import nlp4j.webcrawler.utils.MD5Utils;
 
+/**
+ * created at: 2022-04-29
+ * 
+ * @author Hiroki Oya
+ *
+ */
 public class MediaWikiMD5Util {
 
 	static private Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
@@ -23,6 +29,14 @@ public class MediaWikiMD5Util {
 
 	}
 
+	/**
+	 * @param md5sumsFile MD5Sums file like
+	 *                    https://dumps.wikimedia.org/jawiktionary/20220501/jawiktionary-20220501-md5sums.txt
+	 * @param targetFile  like
+	 *                    jawiktionary-20220501-pages-articles-multistream.xml.bz2
+	 * @return result of MD5 check
+	 * @throws IOException on IO Error
+	 */
 	static public boolean checkMD5(File md5sumsFile, File targetFile) throws IOException {
 
 		Map<String, String> md5map = new HashMap<String, String>();

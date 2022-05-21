@@ -14,25 +14,90 @@ import nlp4j.xml.AbstractXmlHandler;
  * </pre>
  * 
  * @author Hiroki Oya
+ * @deprecated
  */
 public class MediawikiXmlHandler extends AbstractXmlHandler {
 
 	// pageID -> WikiPage Object
 	HashMap<String, WikiPage> pages = new HashMap<>();
 
-	String pageTitle = null;
-	String pageId = null;
-	String pageFormat = null;
-	String pageText = null;
+	private String pageTitle = null;
+	private String pageNS = null;
+
+	private String pageId = null;
+	private String pageParentid = null;
+	private String pageTimestamp = null;
+	private String pageContributorUsername = null;
+	private String pageContributorId = null;
+	private String pageComment = null;
+	private String pageModel = null;
+	private String pageFormat = null;
+	private String pageTextXmlSpace = null;
+	private String pageText = null;
+
+	private void resetPage() {
+		this.pageTitle = null;
+		this.pageNS = null;
+
+		this.pageId = null;
+		this.pageParentid = null;
+		this.pageFormat = null;
+		this.pageTextXmlSpace = null;
+		this.pageText = null;
+	}
+
+	@Override
+	public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
+
+		super.startElement(uri, localName, qName, attributes);
+
+//		for (int idx = 0; idx < attributes.getLength(); idx++) {
+//			System.err.println(attributes.getLocalName(idx) + "=" + attributes.getValue(idx));
+//		}
+//		System.err.println("uri=" + uri + ",localName=" + localName + ",qName=" + qName + ",attributes=");
+
+		if (qName.equals("page")) {
+			// 255425
+			resetPage();
+		}
+		// System.err.println(qName);
+		else if (super.getPath().equals("mediawiki/page/revision/text")) {
+			this.pageTextXmlSpace = attributes.getValue("xml:space");
+		}
+	}
 
 	@Override
 	public void endElement(String uri, String localName, String qName) throws SAXException {
 
+		// mediawiki/page/title
 		if (super.getPath().equals("mediawiki/page/title")) {
 			this.pageTitle = super.getText();
 		} //
+			// mediawiki/page/ns
+		else if (super.getPath().equals("mediawiki/page/ns")) {
+			this.pageNS = super.getText();
+		} //
+			// mediawiki/page/id
 		else if (super.getPath().equals("mediawiki/page/id")) {
 			this.pageId = super.getText();
+		} //
+		else if (super.getPath().equals("mediawiki/page/parentid")) {
+			this.pageParentid = super.getText();
+		} //
+		else if (super.getPath().equals("mediawiki/page/timestamp")) {
+			this.pageTimestamp = super.getText();
+		} //
+		else if (super.getPath().equals("mediawiki/page/contributor/username")) {
+			this.pageContributorUsername = super.getText();
+		} //
+		else if (super.getPath().equals("mediawiki/page/contributor/id")) {
+			this.pageContributorId = super.getText();
+		} //
+		else if (super.getPath().equals("mediawiki/page/comment")) {
+			this.pageComment = super.getText();
+		} //
+		else if (super.getPath().equals("mediawiki/page/model")) {
+			this.pageModel = super.getText();
 		} //
 		else if (super.getPath().equals("mediawiki/page/revision/format")) {
 			this.pageFormat = super.getText();
@@ -65,21 +130,6 @@ public class MediawikiXmlHandler extends AbstractXmlHandler {
 	 */
 	public HashMap<String, WikiPage> getPages() {
 		return pages;
-	}
-
-	@Override
-	public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
-		super.startElement(uri, localName, qName, attributes);
-		if (qName.equals("page")) {
-
-			// 255425
-
-			this.pageTitle = null;
-			this.pageId = null;
-			this.pageFormat = null;
-			this.pageText = null;
-		}
-//		System.err.println(qName);
 	}
 
 }

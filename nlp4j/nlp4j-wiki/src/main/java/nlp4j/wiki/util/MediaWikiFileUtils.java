@@ -4,18 +4,54 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+/**
+ * created at: 2022-04-29
+ * 
+ * @author Hiroki Oya
+ *
+ */
 public class MediaWikiFileUtils {
 
+	static public final String fileNamePostFixIndex = "-pages-articles-multistream-index.txt.bz2";
+	static public final String fileNamePostFixDump = "-pages-articles-multistream.xml.bz2";
+
+	/**
+	 * Get index file of Media Wiki
+	 * 
+	 * @param dir      Directory of the file
+	 * @param language Language of MediaWiki like "en", "ja"
+	 * @param media    Media Type (wiktionary|wiki)
+	 * @param version  version in yyyyMMdd format like "20220501"
+	 * @return File of Index
+	 * @throws IOException
+	 */
 	static public File getIndexFile(String dir, String language, String media, String version) throws IOException {
-		String fileNamePostFix = "-pages-articles-multistream-index.txt.bz2";
-		return getMediaFile(dir, language, media, version, fileNamePostFix);
+		return getMediaFile(dir, language, media, version, fileNamePostFixIndex);
 	}
 
+	/**
+	 * Get dump file of Media Wiki
+	 * 
+	 * @param dir      Directory of the file
+	 * @param language Language of MediaWiki like "en", "ja"
+	 * @param media    Media Type (wiktionary|wiki)
+	 * @param version  version in yyyyMMdd format like "20220501"
+	 * @return File of Dump
+	 * @throws IOException
+	 */
 	static public File getDumpFile(String dir, String language, String media, String version) throws IOException {
-		String fileNamePostFix = "-pages-articles-multistream.xml.bz2";
-		return getMediaFile(dir, language, media, version, fileNamePostFix);
+		return getMediaFile(dir, language, media, version, fileNamePostFixDump);
 	}
 
+	/**
+	 * @param dir      Directory of the file
+	 * @param language Language of MediaWiki like "en", "ja"
+	 * @param media    Media Type (wiktionary|wiki)
+	 * @param version  version in yyyyMMdd format like "20220501"
+	 * @param type     File type (index|dump)
+	 * @return
+	 * @throws IOException
+	 */
 	static public File getFile(String dir, String language, String media, String version, String type)
 			throws IOException {
 		if (type == null) {
@@ -31,28 +67,37 @@ public class MediaWikiFileUtils {
 
 	private static File getMediaFile(String dir, String language, String media, String version, String fileNamePostFix)
 			throws IOException, FileNotFoundException {
+
+		// IF(dir is not directory) THEN throw IOException
 		if ((new File(dir)).isDirectory() == false) {
 			throw new IOException("Not directory: " + dir);
-		} else {
+		}
+		// ELSE(dir is directory) THEN
+		else {
 			if (dir.endsWith("/") == false && dir.endsWith("\\") == false) {
 				dir = dir + "/";
 			}
-		}
+		} // END OF IF
+
 		String indexFileName = //
 				String.format( //
 						"%s" // dir
-								+ "%s" // language;
+								+ "%s" // Language of MediaWiki like "en", "ja"
 								+ "%s" // media (wiktionary|wiki)
 								+ "-" + "%s" // version
 								+ fileNamePostFix,
 						dir, language, media, version);
 
 		File indexFile = new File(indexFileName);
-		if (indexFile.exists() == false) {
-			throw new FileNotFoundException("Not Found: " + indexFile.getAbsolutePath());
-		} else {
-			return indexFile;
-		}
+
+//		// IF(FILE NOT FOUND) THEN throw IOException
+//		if (indexFile.exists() == false) {
+//			throw new FileNotFoundException("Not Found: " + indexFile.getAbsolutePath());
+//		}
+//		// ELSE return file
+//		else {
+		return indexFile;
+//		} // END OF IF
 	}
 
 }
