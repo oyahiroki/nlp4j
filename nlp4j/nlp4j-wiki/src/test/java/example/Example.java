@@ -6,7 +6,7 @@ import nlp4j.wiki.WikiDumpReader;
 import nlp4j.wiki.WikiPage;
 import nlp4j.wiki.util.MediaWikiFileUtils;
 
-public class Wiktionary020ReadPageExample1 {
+public class Example {
 
 	public static void main(String[] args) throws Exception {
 
