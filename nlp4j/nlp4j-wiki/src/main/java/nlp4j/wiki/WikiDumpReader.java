@@ -61,7 +61,7 @@ public class WikiDumpReader implements AutoCloseable {
 	}
 
 	/**
-	 * Close Wiki Dump file
+	 * java.lang.AutoCloseable: Close Wiki Dump file
 	 */
 	public void close() {
 		if (this.randomfile1 != null) {

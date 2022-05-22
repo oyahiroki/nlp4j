@@ -5,11 +5,23 @@ import java.nio.charset.CharsetEncoder;
 import java.util.ArrayList;
 
 /**
+ * created_at 2021-07-24
+ * 
  * @author Hiroki Oya
- * @created_at 2021-07-24
  * @since 1.3.2.0
  */
 public class StringUtils {
+
+	static public String charAt(String s, int n) {
+		int len = s.length();
+		int x = 0;
+		for (int i = 0; i < len; i = s.offsetByCodePoints(i, 1), x++) {
+			if (x == n) {
+				return new String(Character.toChars(s.codePointAt(i)));
+			}
+		}
+		return null;
+	}
 
 	/**
 	 * Remove characters that is not covered in encoding from String<br>
@@ -41,22 +53,6 @@ public class StringUtils {
 	}
 
 	/**
-	 * Convert String to code point array.<br>
-	 * 文字列をコードポイントの配列に変換します.
-	 * 
-	 * @param str 文字列
-	 * @return コードポイントの配列
-	 */
-	static public int[] toCodePointArray(String str) {
-		int len = str.length(); // the length of str
-		int[] cpa = new int[str.codePointCount(0, len)];
-		for (int i = 0, j = 0; i < len; i = str.offsetByCodePoints(i, 1)) {
-			cpa[j++] = str.codePointAt(i);
-		}
-		return cpa;
-	}
-
-	/**
 	 * Return length of string in consideration of code point.<br>
 	 * コードポイントを考慮した文字列長さを返します.
 	 * 
@@ -65,6 +61,21 @@ public class StringUtils {
 	 */
 	static public int length(String s) {
 		return s.codePointCount(0, s.length());
+	}
+
+	/**
+	 * created at: 2022-05-22
+	 * 
+	 * @param s
+	 * @param startIndex index by codePointOffset
+	 * @param endIndex   index by codePointOffset
+	 * @return
+	 */
+	static public String substring(String s, int startIndex, int endIndex) {
+		int startIndexSurrogate = s.offsetByCodePoints(0, startIndex);
+		int endIndexSurrogate = s.offsetByCodePoints(0, endIndex);
+		String s2 = s.substring(startIndexSurrogate, endIndexSurrogate);
+		return s2;
 	}
 
 	/**
@@ -84,15 +95,20 @@ public class StringUtils {
 		return ss.toArray(new String[0]);
 	}
 
-	static public String charAt(String s, int n) {
-		int len = s.length();
-		int x = 0;
-		for (int i = 0; i < len; i = s.offsetByCodePoints(i, 1), x++) {
-			if (x == n) {
-				return new String(Character.toChars(s.codePointAt(i)));
-			}
+	/**
+	 * Convert String to code point array.<br>
+	 * 文字列をコードポイントの配列に変換します.
+	 * 
+	 * @param str 文字列
+	 * @return コードポイントの配列
+	 */
+	static public int[] toCodePointArray(String str) {
+		int len = str.length(); // the length of str
+		int[] cpa = new int[str.codePointCount(0, len)];
+		for (int i = 0, j = 0; i < len; i = str.offsetByCodePoints(i, 1)) {
+			cpa[j++] = str.codePointAt(i);
 		}
-		return null;
+		return cpa;
 	}
 
 	static private String toHexString(char c) {
