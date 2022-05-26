@@ -12,7 +12,7 @@
 	<packaging>jar</packaging>
 	<name>nlp4j-wiki</name>
 	<!-- VERSION -->
-	<version>0.9.0.0</version>
+	<version>0.3.0.0</version>
 	<description>NLP4J for Wikipedia / Wiktionary</description>
 	<url>https://nlp4j.org/</url>
 	<licenses>
@@ -27,12 +27,12 @@
 		<dependency>
 			<groupId>org.nlp4j</groupId>
 			<artifactId>nlp4j-core</artifactId>
-			<version>[1.3.4.0,)</version>
+			<version>1.3.6.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.nlp4j</groupId>
 			<artifactId>nlp4j-webcrawler</artifactId>
-			<version>[1.0.0.0,)</version>
+			<version>1.1.0.0</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-compress -->
 		<dependency>
@@ -62,7 +62,7 @@
 		<dependency>
 			<groupId>org.jsoup</groupId>
 			<artifactId>jsoup</artifactId>
-			<version>[1.14.2,)</version>
+			<version>[1.14.3,)</version>
 		</dependency>
 
 		<!-- for_jaxb -->
