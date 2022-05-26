@@ -16,10 +16,10 @@ import nlp4j.wiki.util.MediaWikiTextUtils;
  */
 public class WikiPage {
 
-	String title = null;
-	String id = null;
-	String format = null;
-	String text = null;
+	private String title = null;
+	private String id = null;
+	private String format = null;
+	private String text = null;
 
 	private String xml;
 	private String timestamp;
@@ -96,10 +96,16 @@ public class WikiPage {
 		return title;
 	}
 
+	/**
+	 * @return page XML data : &lt;page&gt;...&lt;/page&gt;
+	 */
 	public String getXml() {
 		return this.xml;
 	}
 
+	/**
+	 * @param xml XML data : &lt;page&gt;...&lt;/page&gt;
+	 */
 	public void setXml(String xml) {
 		this.xml = xml;
 	}

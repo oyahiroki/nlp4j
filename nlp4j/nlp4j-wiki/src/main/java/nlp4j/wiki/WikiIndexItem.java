@@ -63,8 +63,13 @@ public class WikiIndexItem {
 
 	@Override
 	public String toString() {
-		return "WikiIndexItem [blockNum=" + blockNum + ", itemID=" + itemID + ", title=" + title + ", namespace="
-				+ namespace + ", nextBlock=" + nextBlock + "]";
+		return "WikiIndexItem [" //
+				+ "blockNum=" + blockNum //
+				+ ", itemID=" + itemID //
+				+ ", title=" + title //
+				+ ", namespace=" + namespace //
+				+ ", nextBlock=" + nextBlock //
+				+ "]";
 	}
 
 }

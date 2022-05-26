@@ -17,6 +17,8 @@ import nlp4j.xml.AbstractXmlHandler;
  */
 public class MediawikiXmlHandler2 extends AbstractXmlHandler {
 
+	private static final String MEDIAWIKI_PAGE_REVISION_TIMESTAMP = "mediawiki/page/revision/timestamp";
+
 	private static final String PATH001_MEDIAWIKI_PAGE_TITLE = "mediawiki/page/title";
 
 	private static final String PATH003_MEDIAWIKI_PAGE_ID = "mediawiki/page/id";
@@ -66,7 +68,7 @@ public class MediawikiXmlHandler2 extends AbstractXmlHandler {
 
 			String pageTitle = pageInfo.get(PATH001_MEDIAWIKI_PAGE_TITLE);
 			String pageId = pageInfo.get(PATH003_MEDIAWIKI_PAGE_ID);
-			String pageTimestamp = pageInfo.get("mediawiki/page/revision/timestamp");
+			String pageTimestamp = pageInfo.get(MEDIAWIKI_PAGE_REVISION_TIMESTAMP);
 			String pageFormat = pageInfo.get(MEDIAWIKI_PAGE_REVISION_FORMAT);
 			String pageText = pageInfo.get(MEDIAWIKI_PAGE_REVISION_TEXT);
 

@@ -52,8 +52,8 @@ public class WikiIndexReader {
 	 */
 	static public WikiIndex readIndexFile(File indexFile) throws IOException {
 
-		logger.debug("Reading: " + indexFile.getAbsolutePath());
-		logger.debug("Reading File size: " + indexFile.length());
+		logger.info("Reading: " + indexFile.getAbsolutePath());
+		logger.info("Reading File size (bytes): " + String.format("%,d", indexFile.length()));
 
 		WikiIndex wikiIndex = new WikiIndex((int) indexFile.length() / 10);
 		wikiIndex.setDataLength(indexFile.length());
@@ -95,8 +95,8 @@ public class WikiIndexReader {
 
 		long time2 = System.currentTimeMillis();
 
-		logger.debug("Read done: " + (time2 - time1));
-		logger.debug("WikiIndex item size: " + wikiIndex.size());
+		logger.info("Read done (ms): " + String.format("%,d", (time2 - time1)));
+		logger.info("WikiIndex item size (bytes): " + wikiIndex.size());
 
 		return wikiIndex;
 	}

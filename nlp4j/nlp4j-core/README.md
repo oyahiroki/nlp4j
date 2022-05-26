@@ -21,6 +21,12 @@ nlp4j-core provides
 
 	mvn -e -X -DperformRelease=true clean deploy
 	
+	usage: mvn [options] [<goal(s)>] [<phase(s)>]
+	Options:
+	-D,--define <arg> Define a system property
+	-e,--errors Produce execution error messages
+	-X,--debug  Produce execution debug output
+	
 # Maven Commands
 
 	mvn test

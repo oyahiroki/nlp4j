@@ -17,12 +17,12 @@ public class Example {
 	public static void main(String[] args) throws Exception {
 
 		// Wiktionary Page Title
-		String itemString = "中学校";
+		String itemString = "sukiyaki";
 
-		String dir = "/usr/local/data/wiki";
-		String lang = "ja";
+		String dir = "/usr/local/data/wiki/20220501";
+		String lang = "en";
 		String media = "wiktionary";
-		String version = "20210401";
+		String version = "20220501";
 
 		// Index File
 		File indexFile = MediaWikiFileUtils.getIndexFile(dir, lang, media, version);
@@ -34,9 +34,11 @@ public class Example {
 				WikiPage page = dumpReader.getItem(itemString);
 				System.err.println("<text>");
 				System.err.println(page.getTimestamp());
-				System.err.println(page.getText()); // (1) Wiki 形式
+				System.err.println(page.getText()); // <text>...</text>
 				System.err.println("</text>");
-//				System.err.println(page.getXml());
+				System.err.println("<xml>");
+				System.err.println(page.getXml()); // <page>...</page>
+				System.err.println("</xml>");
 			}
 		}
 

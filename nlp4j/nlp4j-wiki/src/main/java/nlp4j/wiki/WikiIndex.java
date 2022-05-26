@@ -2,6 +2,7 @@ package nlp4j.wiki;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * <pre>
@@ -14,7 +15,7 @@ import java.util.HashMap;
  */
 public class WikiIndex {
 
-	ArrayList<Long> blockIndex = new ArrayList<>();
+	List<Long> blockIndex = new ArrayList<>();
 
 	long dataLength = -1;;
 	long lastBlockNum = -1;
@@ -23,10 +24,10 @@ public class WikiIndex {
 	HashMap<String, WikiIndexItem> mapWikiIndexItem;
 
 	// List of Wiki Item Titles 見出し
-	ArrayList<String> wikiItemTitles;
+	List<String> wikiItemTitles;
 
 	// List of WikiIndexItem
-	ArrayList<WikiIndexItem> wikiIndexItems;
+	List<WikiIndexItem> wikiIndexItems;
 
 	/**
 	 * Initialize : capacity is 1000 * 1000
@@ -63,7 +64,7 @@ public class WikiIndex {
 		}
 	}
 
-	public ArrayList<WikiIndexItem> getWikiIndexItems() {
+	public List<WikiIndexItem> getWikiIndexItems() {
 		return wikiIndexItems;
 	}
 
@@ -100,7 +101,7 @@ public class WikiIndex {
 
 	}
 
-	public ArrayList<String> getWikiItemTitles() {
+	public List<String> getWikiItemTitles() {
 		return wikiItemTitles;
 	}
 

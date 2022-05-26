@@ -16,8 +16,12 @@ import nlp4j.wiki.util.MediaWikiTextParser;
 
 public class Wikipedia021ReadPageXml4ParseKeyset {
 
-	static void parse2(String text) {
+	static void parseTemplate(String text) {
 		System.err.println(text);
+
+		if (text.startsWith("{{Infobox")) {
+			return;
+		}
 
 		if (text.startsWith("{{")) {
 			text = text.substring(2, text.length() - 2);
@@ -50,15 +54,20 @@ public class Wikipedia021ReadPageXml4ParseKeyset {
 		List<String> ss = MediaWikiTextParser.parse(wikiText, b1, b2);
 
 		for (String s : ss) {
-			s = s.replace("\n", "");
+//			s = s.replace("\n", "");
 
 			System.err.println(s);
-
+			System.err.println(s.contains("\n|"));
+			System.err.println("---");
 		}
 
 		System.err.println("---");
 
-		parse2(ss.get(0));
+		for (String s : ss) {
+			if (s.contains("\n|")) {
+				parseTemplate(s);
+			}
+		}
 
 	}
 
