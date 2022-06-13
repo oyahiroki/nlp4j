@@ -89,6 +89,10 @@ public class WikiPage {
 		return text;
 	}
 
+	public String getTimestamp() {
+		return timestamp;
+	}
+
 	/**
 	 * @return title of wiki entry
 	 */
@@ -103,6 +107,10 @@ public class WikiPage {
 		return this.xml;
 	}
 
+	public void setTimestamp(String timestamp) {
+		this.timestamp = timestamp;
+	}
+
 	/**
 	 * @param xml XML data : &lt;page&gt;...&lt;/page&gt;
 	 */
@@ -115,6 +123,9 @@ public class WikiPage {
 
 		String t = (this.text != null && this.text.length() > 16) ? text.substring(0, 16).replace("\n", "") + "..."
 				: "" + text;
+
+		int textlength = (this.text == null) ? -1 : this.text.length();
+
 		String x = (this.xml != null && this.xml.length() > 16) ? xml.substring(0, 16).replace("\n", "") + "..."
 				: "" + xml;
 
@@ -124,16 +135,9 @@ public class WikiPage {
 				+ "format=" + format + ", "//
 				+ "title=" + title + ", "//
 				+ "text=" + t + ", "//
+				+ "text.length=" + textlength + ", "//
 				+ "xml=" + x //
 				+ "]";
-	}
-
-	public void setTimestamp(String timestamp) {
-		this.timestamp = timestamp;
-	}
-
-	public String getTimestamp() {
-		return timestamp;
 	}
 
 }

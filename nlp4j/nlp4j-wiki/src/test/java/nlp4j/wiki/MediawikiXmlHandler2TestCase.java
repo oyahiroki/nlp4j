@@ -83,4 +83,64 @@ public class MediawikiXmlHandler2TestCase extends TestCase {
 
 	}
 
+	public void testGetPages201() throws Exception {
+
+		// Plain (Not compressed) XML file
+		String fileName = "src/test/resources/nlp4j.wiki/" //
+				+ "jawiki-20220501-pages-articles-multistream-255425.xml";
+
+		// XML Handler for Media Wiki
+		MediawikiXmlHandler2 handler = new MediawikiXmlHandler2();
+
+		SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
+		SAXParser saxParser = saxParserFactory.newSAXParser();
+
+		InputStream bais = new FileInputStream(new File(fileName));
+
+		saxParser.parse(bais, handler);
+
+		HashMap<String, WikiPage> pages = handler.getPages();
+
+//		System.err.println(pages.keySet());
+
+		// First Page
+		WikiPage p = pages.values().toArray(new WikiPage[0])[0];
+
+		System.err.println(p.getPlainText());
+
+//		for (WikiPage p : pages.values()) {
+//			System.err.println(p.getPlainText());
+//		}
+	}
+
+	public void testGetPages202() throws Exception {
+
+		// Plain (Not compressed) XML file
+		String fileName = "src/test/resources/nlp4j.wiki/" //
+				+ "jawiki-20220501-pages-articles-multistream-255425.xml";
+
+		// XML Handler for Media Wiki
+		MediawikiXmlHandler2 handler = new MediawikiXmlHandler2();
+
+		SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
+		SAXParser saxParser = saxParserFactory.newSAXParser();
+
+		InputStream bais = new FileInputStream(new File(fileName));
+
+		saxParser.parse(bais, handler);
+
+		HashMap<String, WikiPage> pages = handler.getPages();
+
+//		System.err.println(pages.keySet());
+
+		// First Page
+		WikiPage p = pages.values().toArray(new WikiPage[0])[0];
+
+		System.err.println(p.getText());
+
+//		for (WikiPage p : pages.values()) {
+//			System.err.println(p.getPlainText());
+//		}
+	}
+
 }

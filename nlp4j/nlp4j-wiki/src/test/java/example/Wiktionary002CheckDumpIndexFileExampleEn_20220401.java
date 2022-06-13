@@ -13,25 +13,25 @@ import nlp4j.wiki.util.MediaWikiFileUtils;
  * @author Hiroki Oya
  *
  */
-public class Wiktionary002CheckDumpIndexFileExample2 {
+public class Wiktionary002CheckDumpIndexFileExampleEn_20220401 {
 
 	public static void main(String[] args) throws Exception {
 		{
 			File indexFile = MediaWikiFileUtils.getIndexFile( //
-					"/usr/local/data/wiki", //
-					"ja", //
+					"/usr/local/data/wiki/20220401", //
+					"en", //
 					"wiktionary", //
-					"20210401"); //
+					"20220401"); //
 
 			System.err.println(indexFile.getAbsolutePath());
 			System.err.println(String.format("%,d", indexFile.length()));
 		}
 		{
 			File dumpFile = MediaWikiFileUtils.getDumpFile( //
-					"/usr/local/data/wiki", //
-					"ja", //
+					"/usr/local/data/wiki/20220401", //
+					"en", //
 					"wiktionary", //
-					"20210401"); //
+					"20220401"); //
 
 			System.err.println(dumpFile.getAbsolutePath());
 			System.err.println(String.format("%,d", dumpFile.length()));

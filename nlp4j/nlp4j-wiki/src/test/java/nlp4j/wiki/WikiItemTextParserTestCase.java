@@ -3,9 +3,8 @@ package nlp4j.wiki;
 import java.util.List;
 
 import junit.framework.TestCase;
-import nlp4j.wiki.util.MediaWikiTextUtils;
 
-public class WikiPageNodeTestCase extends TestCase {
+public class WikiItemTextParserTestCase extends TestCase {
 
 	private final String wikiText = "{{Wikipedia|学校}}\r\n" //
 			+ "{{ja-DEFAULTSORT|がっこう}}\r\n" //
@@ -42,33 +41,11 @@ public class WikiPageNodeTestCase extends TestCase {
 			+ "[[Category:HSKレベル1級|xue2xiao4]]\r\n" //
 			+ "[[Category:HSKレベル甲|xue2xiao4]]";
 
-	public void test001() throws Exception {
-		WikiPageNode pageNode = new WikiPageNode();
-		pageNode.setHeader("=={{ja}}==");
+	public void testWikiItemTextParser() {
+
 	}
 
-	public void testAddChild() {
-	}
-
-	public void testAddText() {
-	}
-
-	public void testGetChildren() {
-	}
-
-	public void testGetHeader() {
-	}
-
-	public void testGetLevel() {
-	}
-
-	public void testGetParent() {
-	}
-
-	public void testGetParentByLevel() {
-	}
-
-	public void testGetText001() {
+	public void testGetRoot001() {
 
 		WikiItemTextParser parser = new WikiItemTextParser();
 
@@ -82,76 +59,39 @@ public class WikiPageNodeTestCase extends TestCase {
 			System.err.println(rootNode.getTextDescendant());
 		}
 
-	}
 
-	public void testGetText002() {
-		WikiItemTextParser parser = new WikiItemTextParser();
-
-		parser.parse(wikiText);
-
-		WikiPageNode rootNode = parser.getRoot();
+		System.err.println("---");
 		{
 			List<WikiPageNode> nodes = rootNode.get("=={{ja}}==");
 			System.err.println(nodes.get(0).getText());
 			// [[Category:{{ja}}]]
 		}
-	}
-
-	public void testGetText003() {
-		WikiItemTextParser parser = new WikiItemTextParser();
-
-		parser.parse(wikiText);
-
-		WikiPageNode rootNode = parser.getRoot();
+		System.err.println("---");
 		{
 			List<WikiPageNode> nodes = rootNode.get("=={{ja}}==/==={{noun}}===");
 			System.err.println(nodes.get(0).getText());
 			// [[Category:{{ja}}]]
 		}
+		System.err.println("---");
+
 	}
 
-	public void testGetText004() {
+	public void testParse() {
+	}
+
+	public void testToWikiPageNodeTree() {
 		WikiItemTextParser parser = new WikiItemTextParser();
 
 		parser.parse(wikiText);
 
-		WikiPageNode rootNode = parser.getRoot();
-		{
-			List<WikiPageNode> nodes = rootNode.find("rel");
-			String text0 = nodes.get(0).getText();
-			System.err.println(text0);
-			// [[Category:{{ja}}]]
+		System.err.println(parser.toWikiPageNodeTree());
 
-			System.err.println(MediaWikiTextUtils.getWikiPageLinks(text0));
-		}
-	}
+		// &nbsp;&nbsp;=={{ja}}==
+		// &nbsp;&nbsp;&nbsp;&nbsp;==={{noun}}===
+		// &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;===={{rel}}====
+		// &nbsp;&nbsp;=={{zho}}==
+		// &nbsp;&nbsp;&nbsp;&nbsp;==={{noun}}===
 
-	public void testSetHeader() {
-	}
-
-	public void testSetLevel() {
-	}
-
-	public void testSetParent() {
-	}
-
-	public void testMatchHeader() {
-		WikiPageNode pageNode = new WikiPageNode();
-		pageNode.setHeader("=={{ja}}==");
-
-		boolean b = pageNode.matchHeader(".*\\{\\{ja\\}\\}.*");
-		System.err.println(b);
-	}
-
-	public void testContainsHeader() {
-		WikiPageNode pageNode = new WikiPageNode();
-		pageNode.setHeader("=={{ja}}==");
-
-		boolean b = pageNode.containsHeader("{{ja}}");
-		System.err.println(b);
-	}
-
-	public void testToString() {
 	}
 
 }

@@ -11,11 +11,17 @@ import java.util.ArrayList;
  */
 public class WikiItemTextParser {
 
-	ArrayList<WikiPageNode> list = new ArrayList<>();
-	WikiPageNode root = null;
-	WikiPageNode ptr = null;
+	private static final String LV1 = "==";
+	private static final String LV2 = "===";
+	private static final String LV3 = "====";
+	private static final String LV4 = "=====";
+	private static final String LV5 = "======";
 
-	int level = 0;
+	private ArrayList<WikiPageNode> list = new ArrayList<>();
+	private WikiPageNode root = null;
+	private WikiPageNode ptr = null;
+
+	private int level = 0;
 
 	/**
 	 * 
@@ -38,19 +44,19 @@ public class WikiItemTextParser {
 			return head.indexOf("{") - 1;
 		} //
 		else {
-			if (head.startsWith("======")) {
+			if (head.startsWith(LV5)) {
 				return 5;
 			} //
-			else if (head.startsWith("=====")) {
+			else if (head.startsWith(LV4)) {
 				return 4;
 			} //
-			else if (head.startsWith("====")) {
+			else if (head.startsWith(LV3)) {
 				return 3;
 			} //
-			else if (head.startsWith("===")) {
+			else if (head.startsWith(LV2)) {
 				return 2;
 			} //
-			else if (head.startsWith("==")) {
+			else if (head.startsWith(LV1)) {
 				return 1;
 			} //
 			else {
@@ -73,7 +79,7 @@ public class WikiItemTextParser {
 			// === {{noun}}: 犬・狗 ===
 			// === {{noun}}: 戌 ===
 			// === {{verb}}・往 ===
-			if (line.startsWith("==")) {
+			if (line.startsWith(LV1)) {
 
 				// 「豚」で以下のような例があった。(20210905)
 				// ==={{noun}}=== <!--品詞 (名詞)-->
@@ -82,7 +88,7 @@ public class WikiItemTextParser {
 				// [[Category:{{jpn}} 豚|*]]
 				// #ぶた。偶蹄目イノシシ科の動物で、家畜の一種。
 				{
-					int lastidx = line.lastIndexOf("==");
+					int lastidx = line.lastIndexOf(LV1);
 					if (lastidx != -1 && (line.length() > lastidx + 2)) {
 						line = line.substring(0, lastidx + 2);
 					}

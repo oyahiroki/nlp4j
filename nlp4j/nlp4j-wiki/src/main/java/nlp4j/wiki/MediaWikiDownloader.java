@@ -164,7 +164,7 @@ public class MediaWikiDownloader extends AbstractWebCrawler implements Crawler {
 	/**
 	 * @param key   (version|outdir|language|media)
 	 * @param value (version like 20200401) (outdir like /usr/local/data/wiki)
-	 *              (language like ja) (media (wikipedia|wiki)
+	 *              (language like ja) (media (wiki|wiktionary)
 	 */
 	public void setProperty(String key, String value) {
 		super.setProperty(key, value);

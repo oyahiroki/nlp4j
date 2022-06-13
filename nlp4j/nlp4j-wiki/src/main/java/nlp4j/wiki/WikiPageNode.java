@@ -193,4 +193,54 @@ public class WikiPageNode {
 				+ "]";
 	}
 
+	public String getTextDescendant() {
+		StringBuilder sb = new StringBuilder();
+
+		if (this.header != null) {
+			sb.append(this.header + "\n");
+		}
+		if (this.text != null) {
+			sb.append(this.text + "\n");
+		}
+
+		if (children != null) {
+			for (WikiPageNode p : children) {
+				sb.append(p.getTextDescendant());
+			}
+		}
+
+		return sb.toString();
+	}
+
+	/**
+	 * Find Descendant by header
+	 * 
+	 * @param s header name
+	 * @return
+	 */
+	public List<WikiPageNode> find(String s) {
+
+		List<WikiPageNode> list = new ArrayList<>();
+
+		find(s, list);
+
+		return list;
+	}
+
+	private void find(String string, List<WikiPageNode> list) {
+
+		if (this.header != null && this.header.contains(string)) {
+			list.add(this);
+		}
+
+		if (children != null) {
+			for (WikiPageNode p : children) {
+				p.find(string, list);
+			}
+		}
+
+		return;
+
+	}
+
 }

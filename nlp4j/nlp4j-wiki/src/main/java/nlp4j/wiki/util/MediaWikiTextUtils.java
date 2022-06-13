@@ -1,5 +1,10 @@
 package nlp4j.wiki.util;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import org.sweble.wikitext.engine.PageId;
 import org.sweble.wikitext.engine.PageTitle;
 import org.sweble.wikitext.engine.WtEngineImpl;
@@ -30,6 +35,27 @@ public class MediaWikiTextUtils {
 			return null;
 		}
 
+	}
+
+	static final Pattern p = Pattern.compile("\\[\\[(.*?)\\]\\]");
+
+	/**
+	 * @param wikiText in Wikipedia Markdown format
+	 * @return
+	 */
+	static public List<String> getWikiPageLinks(String wikiText) {
+		List<String> ss = new ArrayList<>();
+
+		Matcher m = p.matcher(wikiText);
+
+		while (m.find()) {
+			String g = m.group();
+			if (g.length() > 4) {
+				ss.add(g.substring(2, g.length() - 2));
+			}
+		}
+
+		return ss;
 	}
 
 }

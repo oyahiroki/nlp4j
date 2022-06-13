@@ -2,6 +2,7 @@ package nlp4j.wiki;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -16,6 +17,7 @@ import javax.xml.parsers.SAXParserFactory;
 import org.apache.commons.compress.compressors.bzip2.BZip2CompressorInputStream;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.xml.sax.SAXException;
 
 /**
  * <pre>
@@ -42,8 +44,11 @@ public class WikiDumpReader implements AutoCloseable {
 
 	private static final String TAG2_TITLE = "</title>";
 
+	File dumpFile;
 	RandomAccessFile randomfile1;
 	WikiIndex wikiIndex;
+
+//	private WikiPageHandler wikiPageHander;
 
 	/**
 	 * @param dumpFile  Wiki dump file (bz2)
@@ -58,7 +63,20 @@ public class WikiDumpReader implements AutoCloseable {
 			throw new FileNotFoundException("Index File Not Found: " + indexFile.getAbsolutePath());
 		}
 		this.wikiIndex = WikiIndexReader.readIndexFile(indexFile); // throws IOException
-		randomfile1 = new RandomAccessFile(dumpFile, "r");
+		this.dumpFile = dumpFile;
+		this.randomfile1 = new RandomAccessFile(dumpFile, "r");
+	}
+
+	/**
+	 * @param dumpFile Wiki dump file (bz2)
+	 * @throws IOException on Error File Not found
+	 */
+	public WikiDumpReader(File dumpFile) throws IOException {
+		if (dumpFile.exists() == false) {
+			throw new FileNotFoundException("Dump File Not Found: " + dumpFile.getAbsolutePath());
+		}
+		this.dumpFile = dumpFile;
+		this.randomfile1 = new RandomAccessFile(dumpFile, "r");
 	}
 
 	/**
@@ -281,5 +299,66 @@ public class WikiDumpReader implements AutoCloseable {
 	public WikiIndex getWikiIndex() {
 		return wikiIndex;
 	}
+
+	/**
+	 * <pre>
+	 * Read all pages from Dump File
+	 * すべてのページを読み込む
+	 * </pre>
+	 * 
+	 * @param wikiPageHander Wiki Page Handler
+	 * @throws IOException    on IO Error
+	 * @throws BreakException on Process was broken <b>Normally</b>
+	 */
+	public void read(WikiPageHandler wikiPageHander) throws IOException, BreakException {
+
+		try ( //
+				FileInputStream fis = new FileInputStream(this.dumpFile); //
+				// READ AS BZ2
+				// decompressConcatenated
+				// if true, decompress until the end of the input;
+				// if false, stop after the first .bz2 stream andleave the input position to
+				// point to the nextbyte after the .bz2 stream
+				// MEMO: decompressConcatenated をtrueにしないとエラーになる 2022-06-11
+				// 参考: https://github.com/lemire/IndexWikipedia/issues/4
+				BZip2CompressorInputStream bz2cis = new BZip2CompressorInputStream(fis, true);) {
+
+			SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
+			SAXParser saxParser = saxParserFactory.newSAXParser();
+
+			// XML Handler for Media Wiki
+			MediawikiXmlHandler3 handler = new MediawikiXmlHandler3();
+
+			if (wikiPageHander != null) {
+				handler.setWikiPageHander(wikiPageHander);
+			}
+
+			saxParser.parse(bz2cis, handler);
+
+//			HashMap<String, WikiPage> pages = handler.getPages();
+
+//			System.err.println(pages.get(itemString).getTitle());
+//			System.err.println(pages.get(itemString).getText());
+
+		} catch (SAXException e) {
+//			if (e.getCause() != null && e.getCause() instanceof BreakException) {
+////				System.err.println("break;");
+//			} else {
+//				throw new IOException(e);
+//			}
+			if (e.getCause() != null && e.getCause() instanceof BreakException) {
+				logger.info("break");
+				throw (BreakException) e.getCause();
+			}
+			throw new IOException(e);
+		} catch (Exception e) {
+			throw new IOException(e);
+		}
+
+	}
+
+//	public void setWikiPageHander(WikiPageHandler wikiPageHander) {
+//		this.wikiPageHander = wikiPageHander;
+//	}
 
 }
