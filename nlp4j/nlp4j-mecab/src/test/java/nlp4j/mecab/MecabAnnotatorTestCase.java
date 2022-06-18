@@ -26,7 +26,9 @@ public class MecabAnnotatorTestCase extends TestCase {
 		Document doc = new DefaultDocument();
 		doc.putAttribute("text", text);
 		MecabAnnotator annotator = new MecabAnnotator();
-		annotator.setProperty("target", "text");
+		{
+			annotator.setProperty("target", "text");
+		}
 		annotator.annotate(doc); // throws Exception
 		System.err.println("Finished : annotation");
 
@@ -34,7 +36,13 @@ public class MecabAnnotatorTestCase extends TestCase {
 		assertTrue(doc.getKeywords().size() > 0);
 
 		for (Keyword kwd : doc.getKeywords()) {
-			System.err.println(kwd.getLex() + "," + kwd.getFacet() + "," + kwd.getUPos());
+			System.err.println( //
+					"lex=" + kwd.getLex() //
+							+ ",facet=" + kwd.getFacet() //
+							+ ",upos=" + kwd.getUPos() //
+							+ ",reading=" + kwd.getReading() //
+
+			);
 		}
 
 		assertEquals("私", doc.getKeywords().get(0).getLex());
@@ -45,7 +53,7 @@ public class MecabAnnotatorTestCase extends TestCase {
 		assertEquals("ます", doc.getKeywords().get(5).getLex());
 		assertEquals("た", doc.getKeywords().get(6).getLex());
 		assertEquals("。", doc.getKeywords().get(7).getLex());
-
+		annotator.close();
 	}
 
 	/**
@@ -59,7 +67,9 @@ public class MecabAnnotatorTestCase extends TestCase {
 		// 自然文のテキスト
 		String text = "私はEVを買いました。";
 		Document doc = new DefaultDocument();
-		doc.putAttribute("text", text);
+		{
+			doc.putAttribute("text", text);
+		}
 		MecabAnnotator annotator = new MecabAnnotator();
 		annotator.setProperty("target", "text");
 		annotator.annotate(doc); // throws Exception
@@ -80,6 +90,7 @@ public class MecabAnnotatorTestCase extends TestCase {
 		assertEquals("ます", doc.getKeywords().get(5).getLex());
 		assertEquals("た", doc.getKeywords().get(6).getLex());
 		assertEquals("。", doc.getKeywords().get(7).getLex());
+		annotator.close();
 
 	}
 
@@ -93,10 +104,14 @@ public class MecabAnnotatorTestCase extends TestCase {
 		// 自然文のテキスト
 		String text = "空気が美味い。";
 		Document doc = new DefaultDocument();
-		doc.putAttribute("text", text);
+		{
+			doc.putAttribute("text", text);
+		}
 		MecabAnnotator annotator = new MecabAnnotator();
-		annotator.setProperty("target", "text");
-		annotator.annotate(doc); // throws Exception
+		{
+			annotator.setProperty("target", "text");
+			annotator.annotate(doc); // throws Exception
+		}
 		System.err.println("Finished : annotation");
 
 		assertNotNull(doc.getKeywords());
@@ -109,6 +124,7 @@ public class MecabAnnotatorTestCase extends TestCase {
 		assertEquals("空気", doc.getKeywords().get(0).getLex());
 		assertEquals("が", doc.getKeywords().get(1).getLex());
 		assertEquals("美味い", doc.getKeywords().get(2).getLex());
+		annotator.close();
 
 	}
 
@@ -122,9 +138,13 @@ public class MecabAnnotatorTestCase extends TestCase {
 		// 自然文のテキスト
 		String text = "希望が託される。";
 		Document doc = new DefaultDocument();
-		doc.putAttribute("text", text);
+		{
+			doc.putAttribute("text", text);
+		}
 		MecabAnnotator annotator = new MecabAnnotator();
-		annotator.setProperty("target", "text");
+		{
+			annotator.setProperty("target", "text");
+		}
 		annotator.annotate(doc); // throws Exception
 		System.err.println("Finished : annotation");
 
@@ -139,6 +159,7 @@ public class MecabAnnotatorTestCase extends TestCase {
 		assertEquals("が", doc.getKeywords().get(1).getLex());
 		assertEquals("託す", doc.getKeywords().get(2).getLex());
 		assertEquals("れる", doc.getKeywords().get(3).getLex());
+		annotator.close();
 
 	}
 
@@ -152,9 +173,13 @@ public class MecabAnnotatorTestCase extends TestCase {
 		// 自然文のテキスト
 		String text = "甘えたいと思う。";
 		Document doc = new DefaultDocument();
-		doc.putAttribute("text", text);
+		{
+			doc.putAttribute("text", text);
+		}
 		MecabAnnotator annotator = new MecabAnnotator();
-		annotator.setProperty("target", "text");
+		{
+			annotator.setProperty("target", "text");
+		}
 		annotator.annotate(doc); // throws Exception
 		System.err.println("Finished : annotation");
 
@@ -169,74 +194,7 @@ public class MecabAnnotatorTestCase extends TestCase {
 		assertEquals("たい", doc.getKeywords().get(1).getLex());
 		assertEquals("と", doc.getKeywords().get(2).getLex());
 		assertEquals("思う", doc.getKeywords().get(3).getLex());
-
-	}
-
-	/**
-	 * 「彼女はペンパイナッポーアッポーペンと恋ダンスを踊った」の形態素解析結果をテスト
-	 * 
-	 * @throws Exception on Error
-	 */
-	public void testAnnotateDocument010() throws Exception {
-
-		// 自然文のテキスト
-		String text = "彼女はペンパイナッポーアッポーペンと恋ダンスを踊った";
-		Document doc = new DefaultDocument();
-		doc.putAttribute("text", text);
-		MecabAnnotator annotator = new MecabAnnotator();
-		annotator.setProperty("target", "text");
-		annotator.annotate(doc); // throws Exception
-		System.err.println("Finished : annotation");
-
-		assertNotNull(doc.getKeywords());
-		assertTrue(doc.getKeywords().size() > 0);
-
-		for (Keyword kwd : doc.getKeywords()) {
-			System.err.println(kwd.getLex() + "," + kwd.getFacet() + "," + kwd.getUPos());
-		}
-
-//		assertEquals("甘える", doc.getKeywords().get(0).getLex());
-//		assertEquals("たい", doc.getKeywords().get(1).getLex());
-//		assertEquals("と", doc.getKeywords().get(2).getLex());
-//		assertEquals("思う", doc.getKeywords().get(3).getLex());
-
-	}
-
-	/**
-	 * 「彼女はペンパイナッポーアッポーペンと恋ダンスを踊った」の形態素解析結果をテスト
-	 * 
-	 * @throws Exception on Error
-	 */
-	public void testAnnotateDocument011() throws Exception {
-
-		File dirNeologD = new File("C:\\Program Files\\MeCab\\dic\\neologd");
-
-		if (dirNeologD.exists() == false) {
-			System.err.println("Not exists: " + dirNeologD.getAbsolutePath());
-			return;
-		}
-
-		// 自然文のテキスト
-		String text = "彼女はペンパイナッポーアッポーペンと恋ダンスを踊った";
-		Document doc = new DefaultDocument();
-		doc.putAttribute("text", text);
-		MecabAnnotator annotator = new MecabAnnotator();
-		annotator.setProperty("target", "text");
-		annotator.setProperty("option", "-d \"" + dirNeologD.getAbsolutePath() + "\"");
-		annotator.annotate(doc); // throws Exception
-		System.err.println("Finished : annotation");
-
-		assertNotNull(doc.getKeywords());
-		assertTrue(doc.getKeywords().size() > 0);
-
-		for (Keyword kwd : doc.getKeywords()) {
-			System.err.println(kwd.getLex() + "," + kwd.getFacet() + "," + kwd.getUPos());
-		}
-
-//		assertEquals("甘える", doc.getKeywords().get(0).getLex());
-//		assertEquals("たい", doc.getKeywords().get(1).getLex());
-//		assertEquals("と", doc.getKeywords().get(2).getLex());
-//		assertEquals("思う", doc.getKeywords().get(3).getLex());
+		annotator.close();
 
 	}
 
@@ -271,6 +229,7 @@ public class MecabAnnotatorTestCase extends TestCase {
 		assertEquals("ます", doc.getKeywords().get(5).getLex());
 		assertEquals("た", doc.getKeywords().get(6).getLex());
 		assertEquals("。", doc.getKeywords().get(7).getLex());
+		annotator.close();
 
 	}
 
@@ -311,6 +270,82 @@ public class MecabAnnotatorTestCase extends TestCase {
 //		assertEquals("ます", doc.getKeywords().get(5).getLex());
 //		assertEquals("た", doc.getKeywords().get(6).getLex());
 //		assertEquals("。", doc.getKeywords().get(7).getLex());
+		annotator.close();
+
+	}
+
+	/**
+	 * 「今年は令和４年です．」の形態素解析結果をテスト
+	 * 
+	 * @throws Exception on Error
+	 */
+	public void testAnnotateDocument200() throws Exception {
+
+		// 自然文のテキスト
+		String text = "今年は令和４年です．";
+		Document doc = new DefaultDocument();
+		{
+			doc.putAttribute("text", text);
+		}
+		MecabAnnotator annotator = new MecabAnnotator();
+		{
+			annotator.setProperty("target", "text");
+		}
+		annotator.annotate(doc); // throws Exception
+		System.err.println("Finished : annotation");
+
+		assertNotNull(doc.getKeywords());
+		assertTrue(doc.getKeywords().size() > 0);
+
+		for (Keyword kwd : doc.getKeywords()) {
+			System.err.println(kwd.getLex() + "," + kwd.getFacet() + "," + kwd.getUPos());
+		}
+
+//		assertEquals("甘える", doc.getKeywords().get(0).getLex());
+//		assertEquals("たい", doc.getKeywords().get(1).getLex());
+//		assertEquals("と", doc.getKeywords().get(2).getLex());
+//		assertEquals("思う", doc.getKeywords().get(3).getLex());
+		annotator.close();
+
+	}
+
+	/**
+	 * NEologdを使っての形態素解析結果をテスト
+	 * 
+	 * @throws Exception on Error
+	 */
+	public void testAnnotateDocument201() throws Exception {
+
+		// ■注意■ ファイル区切りはスラッシュ
+		File dirNeologD = new File("/usr/local/MeCab/dic/NEologd/NEologd.20200910.dic".replace("\\", "/"));
+
+		if (dirNeologD.exists() == false) {
+			System.err.println("Not exists: " + dirNeologD.getAbsolutePath());
+			return;
+		}
+
+		// 自然文のテキスト
+		String text = "今年は令和４年です．";
+		Document doc = new DefaultDocument();
+		doc.putAttribute("text", text);
+		MecabAnnotator annotator = new MecabAnnotator();
+		annotator.setProperty("target", "text");
+		annotator.setProperty("option", "-u " + dirNeologD.getAbsolutePath());
+		annotator.annotate(doc); // throws Exception
+		System.err.println("Finished : annotation");
+
+		assertNotNull(doc.getKeywords());
+		assertTrue(doc.getKeywords().size() > 0);
+
+		for (Keyword kwd : doc.getKeywords()) {
+			System.err.println(kwd.getLex() + "," + kwd.getFacet() + "," + kwd.getUPos());
+		}
+
+//		assertEquals("甘える", doc.getKeywords().get(0).getLex());
+//		assertEquals("たい", doc.getKeywords().get(1).getLex());
+//		assertEquals("と", doc.getKeywords().get(2).getLex());
+//		assertEquals("思う", doc.getKeywords().get(3).getLex());
+		annotator.close();
 
 	}
 

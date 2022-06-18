@@ -32,6 +32,13 @@ public class MecabAnnotator extends AbstractDocumentAnnotator implements Documen
 
 	private String option = "";
 
+	StandardTagger tagger;
+
+	public MecabAnnotator() {
+		super();
+		tagger = new StandardTagger(this.option);
+	}
+
 	@Override
 	public void annotate(Document doc) throws Exception {
 
@@ -44,7 +51,6 @@ public class MecabAnnotator extends AbstractDocumentAnnotator implements Documen
 			this.option = "";
 		}
 
-		StandardTagger tagger = new StandardTagger(this.option);
 		// Lattice（形態素解析に必要な実行時情報が格納されるオブジェクト）を構築
 		Lattice lattice = tagger.createLattice();
 
@@ -57,10 +63,12 @@ public class MecabAnnotator extends AbstractDocumentAnnotator implements Documen
 			}
 
 			String text = (String) obj;
-
-			text = nlp4j.util.StringUtils.filter(text, "MS932");
-
-			text = text.replaceAll(RegexUtils.REGEX_URL, "");
+			{
+				// MS932に無い文字を取り除く
+				text = nlp4j.util.StringUtils.filter(text, "MS932");
+				// URLを除去
+				text = text.replaceAll(RegexUtils.REGEX_URL, "");
+			}
 
 			// 解析対象文字列をセット
 			lattice.setSentence(text);
@@ -74,6 +82,16 @@ public class MecabAnnotator extends AbstractDocumentAnnotator implements Documen
 			int idx = 0;
 			int sequence = 1;
 
+			// 表層形\t品詞,品詞細分類1,品詞細分類2,品詞細分類3,活用形,活用型,原形,読み,発音
+			// features[0]: 品詞,
+			// features[1]: 品詞細分類1,
+			// features[2]: 品詞細分類2,
+			// features[3]: 品詞細分類3,
+			// features[4]: 活用形,
+			// features[5]: 活用型,
+			// features[6]: 原形,
+			// features[7]: 読み,
+			// features[8]: 発音
 			while (node != null) {
 
 				String surface = node.surface();
@@ -138,8 +156,11 @@ public class MecabAnnotator extends AbstractDocumentAnnotator implements Documen
 
 		// lattice, taggerを破壊
 		lattice.destroy();
-		tagger.destroy();
 
+	}
+
+	public void close() {
+		tagger.destroy();
 	}
 
 	/**

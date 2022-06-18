@@ -18,6 +18,7 @@ import org.sweble.wikitext.example.TextConverter;
 import info.bliki.wiki.model.WikiModel;
 import nlp4j.Keyword;
 import nlp4j.impl.DefaultKeyword;
+import nlp4j.wiki.util.WikiTemplateNormalizer;
 
 public class WikiUtils {
 
@@ -25,6 +26,7 @@ public class WikiUtils {
 
 	static {
 		// key: before normailze, value: after normalized
+		map.put("=={{L|ja}}==", "=={{ja}}==");
 		map.put("=={{jpn}}==", "=={{ja}}==");
 		map.put("== {{jpn}} ==", "=={{ja}}==");
 		map.put("== {{ja}} ==", "=={{ja}}==");
@@ -73,10 +75,6 @@ public class WikiUtils {
 
 		// "=== {{verb}}・往 ===" -> "==={{verb}}・往==="
 		header = header.replace(" ", "");
-
-		if (header.contains("犬")) {
-			System.err.println("debug");
-		}
 
 		{ // "==={{verb}}・往===" -> "==={{verb}}==="
 			int idx2 = header.indexOf("}}");
@@ -133,6 +131,9 @@ public class WikiUtils {
 	 * @return
 	 */
 	static public String toPlainText(String wikiText) {
+
+		// 20220618 テンプレートの正規化
+		wikiText = WikiTemplateNormalizer.normalize(wikiText);
 
 		// Set-up a simple wiki configuration
 		WikiConfig config = DefaultConfigEnWp.generate();

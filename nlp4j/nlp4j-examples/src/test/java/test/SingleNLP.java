@@ -1,38 +1,35 @@
 package test;
 
+import java.util.List;
+
 import nlp4j.Document;
-import nlp4j.Keyword;
-import nlp4j.impl.DefaultDocument;
+import nlp4j.crawler.TextFileLineSeparatedCrawler;
 import nlp4j.mecab.MecabAnnotator;
 
 public class SingleNLP {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
+
+		TextFileLineSeparatedCrawler crawler = new TextFileLineSeparatedCrawler();
+		crawler.setProperty("file", "file/train-v1.0-question-head1000.txt");
+
+		MecabAnnotator annMecab = new MecabAnnotator();
 
 		long time1 = System.currentTimeMillis();
 
-		for (int n = 0; n < 100; n++) {
-			try {
-				// 自然文のテキスト
-				String text = "私は" + n + "回" + "学校に行きました。";
-				Document doc = new DefaultDocument();
-				doc.putAttribute("text", text);
-				MecabAnnotator annotator = new MecabAnnotator();
-				annotator.setProperty("target", "text");
-				annotator.annotate(doc); // throws Exception
-				System.err.println("Finished : annotation");
+		List<Document> docs = crawler.crawlDocuments();
 
-				for (Keyword kwd : doc.getKeywords()) {
-//					System.err.println(kwd.getLex() + "," + kwd.getFacet() + "," + kwd.getUPos());
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+		for (Document doc : docs) {
+			annMecab.setProperty("target", "text");
+			annMecab.annotate(doc); // throws Exception
+//			System.err.println(doc.getKeywords().size());
 		}
 
 		long time2 = System.currentTimeMillis();
 
-		System.err.println(time2 - time1);
+		System.err.println("time in ms: " + (time2 - time1));
+
+		annMecab.close();
 
 	}
 

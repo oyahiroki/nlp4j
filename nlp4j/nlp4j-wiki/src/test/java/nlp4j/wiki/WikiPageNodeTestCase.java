@@ -126,6 +126,56 @@ public class WikiPageNodeTestCase extends TestCase {
 		}
 	}
 
+	public void testGetText005() {
+		String wikiText = "{{ja-DEFAULTSORT|こうとうがっこう}}\r\n" //
+				+ "=={{L|ja}}==\r\n" //
+				+ "{{wikipedia}}\r\n" //
+				+ "[[Category:{{ja}}]]\r\n" //
+				+ "\r\n" //
+				+ "==={{noun}}===\r\n" //
+				+ "[[Category:{{ja}} {{noun}}]]\r\n" //
+				+ "[[Category:{{ja}} 学校]]\r\n" //
+				+ "{{jachar|高|等|学|校}}（こうとうがっこう）\r\n" //
+				+ "# 現在の[[日本]]の[[学校教育法]]においては、後期[[中等教育]]を行う[[学校]]である。高度な普通教育及び専門教育を施すことを目的とする<ref>学校教育法第50条</ref>。修業年限は3年。ただし定時制や通信制など、4年以上の修業年限を持つ課程もある。「[[高校]]」と略されることが多い。\r\n" //
+				+ "# かつての日本における、[[男子]]に高等普通教育をおこなうための3年制の学校。[[中学校]]（旧制）4年修了、ないしは同等の学力が認められた者が進学、現在の大学教養課程に相当する。[[w:旧制高等学校]]。\r\n" //
+				+ "#*で[[大学予備門]]（今の'''高等学校'''）へ入るには[[変則]]の方だと英語を余計やって居たから容易に入れたけれど、[[正則]]の方では英語をやらなかったから卒業して後更に英語を勉強しなければ予備門へは入れなかったのである。（{{w|夏目漱石}} 『[http://www.aozora.gr.jp/cards/000148/files/2676_6502.html 落第]』）\r\n" //
+				+ "\r\n" //
+				+ "===={{pron|ja}}====\r\n" //
+				+ ";こ↗ーとーが↘っこー\r\n" //
+				+ "\r\n" //
+				+ "===={{trans}}====\r\n" //
+				+ "*{{en}}: [[high school]]\r\n" //
+				+ "*{{th}}: [[ไฮสกูล]]\r\n" //
+				+ "*{{ko}}: {{lang|ko|[[고등학교]]}}\r\n" //
+				+ "*{{zh}}: {{zh-ts|[[高級中學]]|[[高级中学]]}}\r\n" //
+				+ "*{{pt}}: [[escola secundária]]、[[ensino médio]]（ブラジル）\r\n" //
+				+ "[[カテゴリ:日中で意味が大きく異なる漢語|こうとうかつこう]]\r\n" //
+				+ "\r\n" //
+				+ "----\r\n" //
+				+ "\r\n" //
+				+ "=={{L|zh}}==\r\n" //
+				+ "{{wikipedia|lang=zh}}\r\n" //
+				+ "[[Category:{{zh}}|gao1deng3xue2xiao4]]\r\n" //
+				+ "\r\n" //
+				+ "==={{noun}}===\r\n" //
+				+ "[[Category:{{zh}}_{{noun}}|gao1deng3xue2xiao4]]\r\n" //
+				+ "[[Category:{{zh}}_学校|gao1deng3xue2xiao4]]\r\n" //
+				+ "{{zhchar|高|等|学|校}}（gāoděngxuéxiào　繁体字:{{zh-ts|'''[[高等學校]]'''}}）\r\n" //
+				+ "#[[大学]]、[[専門学院]]及び[[専科学校]]等[[高等教育]]を実施する学校の総称。[[高校]]と略称する。\r\n" //
+				+ "\r\n" //
+				+ "----\r\n" //
+				+ "\r\n" //
+				+ "==脚注==\r\n" //
+				+ "<references/>";
+		WikiItemTextParser parser = new WikiItemTextParser();
+		parser.parse(wikiText);
+
+		WikiPageNode rootNode = parser.getRoot();
+
+		System.err.println(rootNode.get("=={{L|ja}}==/==={{noun}}==="));
+
+	}
+
 	public void testSetHeader() {
 	}
 

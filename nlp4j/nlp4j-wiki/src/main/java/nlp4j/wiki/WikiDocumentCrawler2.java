@@ -80,9 +80,12 @@ public class WikiDocumentCrawler2 extends AbstractCrawler implements Crawler {
 
 			List<WikiIndexItem> items = wikiIndex.getWikiIndexItems();
 
+			long time1 = System.currentTimeMillis();
+			logger.info("Reading index: ...");
+
 			for (WikiIndexItem item : items) {
 
-				logger.info("Reading index: " + item.getTitle());
+				logger.debug("Reading index: " + item.getTitle());
 
 				WikiIndexDocument doc = new WikiIndexDocument();
 				{
@@ -98,6 +101,8 @@ public class WikiDocumentCrawler2 extends AbstractCrawler implements Crawler {
 					}
 				}
 			}
+			long time2 = System.currentTimeMillis();
+			logger.info("Reading index: done. " + (time2 - time1) + " ms");
 
 //			dumpReader.close();
 

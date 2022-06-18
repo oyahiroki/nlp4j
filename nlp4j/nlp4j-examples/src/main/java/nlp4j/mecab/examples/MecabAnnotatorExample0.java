@@ -6,12 +6,12 @@ import nlp4j.impl.DefaultDocument;
 import nlp4j.mecab.MecabAnnotator;
 
 /**
+ * created_at 2021-07-18
+ * 
  * @author Hiroki Oya
- * @created_at 2021-07-18
  */
 public class MecabAnnotatorExample0 {
 
-	@SuppressWarnings("javadoc")
 	public static void main(String[] args) throws Exception {
 		// 自然文のテキスト
 		String text = "私は学校に行きました。";
@@ -29,6 +29,8 @@ public class MecabAnnotatorExample0 {
 		for (Keyword kwd : doc.getKeywords()) {
 			System.err.println(kwd);
 		}
+
+		annotator.close();
 
 	}
 

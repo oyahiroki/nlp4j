@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
@@ -34,7 +35,7 @@ public class TextFileLineSeparatedCrawler extends AbstractFileCrawler implements
 	}
 
 	@Override
-	public ArrayList<Document> crawlDocuments() {
+	public List<Document> crawlDocuments() {
 
 		ArrayList<Document> docs = new ArrayList<>();
 

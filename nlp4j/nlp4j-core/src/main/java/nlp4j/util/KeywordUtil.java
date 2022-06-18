@@ -13,6 +13,7 @@ import java.util.List;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
+import nlp4j.Document;
 import nlp4j.Keyword;
 import nlp4j.KeywordWithDependency;
 
@@ -193,12 +194,35 @@ public class KeywordUtil {
 	 * @since 1.3.3.0.20211227
 	 */
 	static public String toLexString(List<Keyword> kwds) {
+		return String.join(",", toLexList(kwds));
+	}
+
+	/**
+	 * @param kwds
+	 * @return
+	 * @since 1.3.6.1
+	 */
+	static public List<String> toLexList(List<Keyword> kwds) {
 		List<String> ss = new ArrayList<String>();
 		for (Keyword kwd : kwds) {
 			String lex = kwd.getLex();
 			ss.add("" + lex);
 		}
-		return String.join(",", ss);
+		return ss;
+	}
+
+	/**
+	 * @param doc
+	 * @return
+	 * @since 1.3.6.1
+	 */
+	static List<String> toLexList(Document doc) {
+		if (doc == null || doc.getKeywords() == null) {
+			return new ArrayList<>();
+		} else {
+			return KeywordUtil.toLexList(doc.getKeywords());
+		}
+
 	}
 
 }

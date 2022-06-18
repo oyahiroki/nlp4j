@@ -109,7 +109,7 @@ public class SolrSearchClient extends AbstractSearchClient implements SearchClie
 		}
 
 		MapSolrParams solrQueryParams = convertRequestParams(requestAz);
-		logger.info("query: " + solrQueryParams.toString());
+		logger.debug("query: " + solrQueryParams.toString());
 
 		try {
 

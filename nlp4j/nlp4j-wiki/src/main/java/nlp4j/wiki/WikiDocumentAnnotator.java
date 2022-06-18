@@ -86,7 +86,7 @@ public class WikiDocumentAnnotator extends AbstractDocumentAnnotator implements 
 			// Wiki形式のページからNodeを取得する
 			WikiPageNode rootWikiPageNode = parser.getRoot();
 
-			List<String> tt = new ArrayList<>();
+			List<String> ttPlainText = new ArrayList<>();
 
 			// FOR EACH(PATH)
 			for (String path : paths) {
@@ -102,7 +102,7 @@ public class WikiDocumentAnnotator extends AbstractDocumentAnnotator implements 
 							String[] ss = p.getSpells();
 							if (ss != null && ss.length > 0) {
 //								System.err.println("spells: " + String.join(",", ss));
-								tt.add(String.join(",", ss));
+								ttPlainText.add(String.join(",", ss));
 							}
 						}
 
@@ -128,11 +128,15 @@ public class WikiDocumentAnnotator extends AbstractDocumentAnnotator implements 
 								doc.addKeywords(kwds);
 
 								{
+									// 
 									String text = WikiUtils.toPlainText(line);
 //									System.err.println("line: " + line);
 //									System.err.println("text: " + text);
-									if (tt.contains("# " + text) == false) {
-										tt.add("# " + text);
+									
+									
+									
+									if (ttPlainText.contains("# " + text) == false) {
+										ttPlainText.add("# " + text);
 									}
 								}
 
@@ -154,8 +158,8 @@ public class WikiDocumentAnnotator extends AbstractDocumentAnnotator implements 
 
 			} // END OF FOR EACH(PATH)
 
-			if (tt != null && tt.size() > 0) {
-				String t = String.join("\n", tt);
+			if (ttPlainText != null && ttPlainText.size() > 0) {
+				String t = String.join("\n", ttPlainText);
 //				System.err.println("<t>");
 //				System.err.println(t);
 //				System.err.println("</t>");

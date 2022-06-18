@@ -1,32 +1,50 @@
 package test;
 
+import java.io.Closeable;
+import java.io.IOException;
+import java.util.concurrent.Callable;
+
 import nlp4j.Document;
 import nlp4j.Keyword;
 import nlp4j.impl.DefaultDocument;
 import nlp4j.mecab.MecabAnnotator;
 
-public class RunnableNLP implements Runnable {
+public class RunnableNLP implements  Callable<Document>, Closeable {
+
+	MecabAnnotator annotator;
+
+	String text;
+
+	public RunnableNLP(String text) {
+		super();
+		annotator = new MecabAnnotator();
+		this.text = text;
+	}
+
 
 	@Override
-	public void run() {
-
+	public Document call() throws Exception {
 		try {
-			// 自然文のテキスト
-			String text = "私は学校に行きました。";
 			Document doc = new DefaultDocument();
 			doc.putAttribute("text", text);
-			MecabAnnotator annotator = new MecabAnnotator();
 			annotator.setProperty("target", "text");
 			annotator.annotate(doc); // throws Exception
 			System.err.println("Finished : annotation");
 
-			for (Keyword kwd : doc.getKeywords()) {
-				System.err.println(kwd.getLex() + "," + kwd.getFacet() + "," + kwd.getUPos());
-			}
+			System.err.println(doc.getKeywords().size());
+
+			return doc;
 		} catch (Exception e) {
 			e.printStackTrace();
+			return null;
 		}
+	}
 
+	@Override
+	public void close() throws IOException {
+		if (annotator != null) {
+			annotator.close();
+		}
 	}
 
 }

@@ -2,7 +2,6 @@ package nlp4j.util;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.invoke.MethodHandles;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -13,8 +12,6 @@ import java.util.TimeZone;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.text.StringEscapeUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -36,13 +33,50 @@ import nlp4j.impl.DefaultKeyword;
  */
 public class DocumentUtil {
 
-	static private Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
-
-	static private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
-	static String XML_HEADER = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
+	static private final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+	static public final String XML_HEADER = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
 
 	static {
 		sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
+	}
+
+	/**
+	 * <pre>
+	 * 名詞と動詞について「読み」をキーワードとして追加する
+	 * 2022-06-18
+	 * </pre>
+	 * 
+	 * @param doc
+	 * @since 1.3.6.1
+	 */
+	static public void extractReading(Document doc) {
+		{// よみがな展開
+			List<Keyword> kk = new ArrayList<>();
+			for (Keyword kwd : doc.getKeywords()) {
+				if (kwd == null) {
+					continue;
+				} else {
+					if (kwd.getLex() != null //
+
+							&& JaStringUtils.isAllHiragana(kwd.getLex()) == false //
+							&& kwd.getReading() != null //
+							&& JaStringUtils.isAllKatakana(kwd.getReading()) //
+							&& ("NOUN".equals(kwd.getUPos()) || "VERB".equals(kwd.getUPos())) //
+
+					) {
+						Keyword kwd1 = new DefaultKeyword();
+						kwd1.setFacet(kwd.getFacet());
+						kwd1.setLex(JaStringUtils.toHiragana(kwd.getReading()));
+						kwd1.setStr(kwd.getStr());
+						kwd1.setUPos(kwd.getUPos());
+						kwd1.setBegin(kwd.getBegin());
+						kwd1.setEnd(kwd.getEnd());
+						kk.add(kwd1);
+					}
+				}
+			}
+			doc.addKeywords(kk);
+		}
 	}
 
 	private static void copyAttributes(Document doc, JsonObject jsonObj) {
