@@ -79,23 +79,6 @@ public interface Keyword extends Serializable, Cloneable {
 	String getFacet();
 
 	/**
-	 * Universal POSを返します。<br>
-	 * Return Universal POS.
-	 * 
-	 * @return Universal POS
-	 * @since 1.3.1.0
-	 */
-	String getUPos();
-
-	/**
-	 * Universal POSをセットします。<br>
-	 * Set Universal POS.
-	 * 
-	 * @param upos
-	 */
-	void setUPos(String upos);
-
-	/**
 	 * @return フラグ
 	 * @since 1.3
 	 */
@@ -135,6 +118,24 @@ public interface Keyword extends Serializable, Cloneable {
 	 * @since 1.0
 	 */
 	String getStr();
+
+	/**
+	 * Universal POSを返します。<br>
+	 * Return Universal POS.
+	 * 
+	 * @return Universal POS
+	 * @since 1.3.1.0
+	 */
+	String getUPos();
+
+	/**
+	 * Return match result of Keyword
+	 * 
+	 * @param rule
+	 * @return match result
+	 * @since 1.3.1.0
+	 */
+	boolean match(Keyword rule);
 
 	/**
 	 * キーワードの開始位置をセットします。<br>
@@ -224,11 +225,10 @@ public interface Keyword extends Serializable, Cloneable {
 	void setStr(String str);
 
 	/**
-	 * Return match result of Keyword
+	 * Universal POSをセットします。<br>
+	 * Set Universal POS.
 	 * 
-	 * @param rule
-	 * @return match result
-	 * @since 1.3.1.0
+	 * @param upos
 	 */
-	boolean match(Keyword rule);
+	void setUPos(String upos);
 }

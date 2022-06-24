@@ -14,7 +14,7 @@ public class JaStringUtilsTestCase extends TestCase {
 
 	public void testIsAllKatakana() {
 		String s1 = "カメラ";
-		boolean b = JaStringUtils.isAllHiragana(s1);
+		boolean b = JaStringUtils.isAllKatakana(s1);
 		boolean expected = true;
 
 		System.err.println(b);

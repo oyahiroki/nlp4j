@@ -24,6 +24,31 @@ import nlp4j.util.RegexUtils;
  */
 public class MecabAnnotator extends AbstractDocumentAnnotator implements DocumentAnnotator {
 
+	/**
+	 * 固有名詞
+	 */
+	private static final String JA_KOYUU_MEISHI = "固有名詞";
+
+	/**
+	 * 名詞
+	 */
+	private static final String JA_MEISHI = "名詞";
+
+	/**
+	 * 動詞-接尾
+	 */
+	private static final String JA_DOUSHI_SETSUBI = "動詞-接尾";
+
+	/**
+	 * 接尾
+	 */
+	private static final String JA_SETSUBI = "接尾";
+
+	/**
+	 * 動詞
+	 */
+	private static final String JA_DOUSHI = "動詞";
+
 	static private final Logger logger = LogManager.getLogger(MecabAnnotator.class);
 
 	private ArrayList<String> facetfilter = null;
@@ -36,11 +61,14 @@ public class MecabAnnotator extends AbstractDocumentAnnotator implements Documen
 
 	public MecabAnnotator() {
 		super();
-		tagger = new StandardTagger(this.option);
 	}
 
 	@Override
 	public void annotate(Document doc) throws Exception {
+
+		if (this.tagger == null) {
+			tagger = new StandardTagger(this.option);
+		}
 
 		logger.debug("processing document");
 
@@ -95,7 +123,9 @@ public class MecabAnnotator extends AbstractDocumentAnnotator implements Documen
 			while (node != null) {
 
 				String surface = node.surface();
-				String[] features = node.feature().split(",");
+				String feature = node.feature();
+				logger.debug("feature=" + feature);
+				String[] features = feature.split(",");
 
 				if (features[0].equals("BOS/EOS")) {
 					node = node.next();
@@ -110,41 +140,63 @@ public class MecabAnnotator extends AbstractDocumentAnnotator implements Documen
 
 				DefaultKeyword kwd = new DefaultKeyword();
 
-				kwd.setLex(features[6]);
-				kwd.setStr(surface);
-				if (features.length >= 8) {
-					kwd.setReading(features[7]);
-				} //
-				else {
-					kwd.setReading("*");
+				// LEX
+				{
+					kwd.setLex(features[6]);
 				}
-
-				if (features[0].equals("動詞") && features[1].equals("接尾")) {
-					kwd.setFacet("動詞-接尾");
-				} else {
-					kwd.setFacet(features[0]);
-
+				// STR
+				{
+					kwd.setStr(surface);
 				}
-
+				// READING
+				{
+					if (features.length >= 8) {
+						kwd.setReading(features[7]);
+					} else {
+						kwd.setReading("*");
+					}
+				}
+				// FACET
+				{
+					// 動詞-接尾
+					if (features[0].equals(JA_DOUSHI) && features[1].equals(JA_SETSUBI)) {
+						kwd.setFacet(JA_DOUSHI_SETSUBI);
+					} //
+						// 固有名詞
+					else if (features[0].equals(JA_MEISHI) && features[1].equals(JA_KOYUU_MEISHI)) {
+						kwd.setFacet(JA_KOYUU_MEISHI);
+					} //
+					else {
+						kwd.setFacet(features[0]);
+					}
+				}
 				// 英字
 				// @since 1.2.0.1
 				if (kwd.getLex().equals("*") && kwd.getReading().equals("*")) {
 					kwd.setLex(kwd.getStr());
 				}
+				// BEGIN
+				{
+					kwd.setBegin(idx);
+				}
+				// END
+				{
+					kwd.setEnd(idx + surface.length());
+					idx += surface.length();
+				}
+				// SEQUENCE
+				{
+					kwd.setSequence(sequence);
+				}
 
-				kwd.setBegin(idx);
-				kwd.setEnd(idx + surface.length());
-				idx = idx + surface.length();
-				kwd.setSequence(sequence);
-
+				// facetfilter, lexregexfilter
 				if ( //
-
+						// facetFilter
 				(this.facetfilter == null || this.facetfilter.contains(kwd.getFacet())) //
 						&& //
+							// lexregexfilter
 						(this.lexregexfilter == null || kwd.getLex().matches(this.lexregexfilter)) //
-
-				) //
-				{
+				) {
 					doc.addKeyword(kwd);
 				}
 

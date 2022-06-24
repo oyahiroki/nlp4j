@@ -6,6 +6,7 @@ import junit.framework.TestCase;
 import nlp4j.Document;
 import nlp4j.Keyword;
 import nlp4j.impl.DefaultDocument;
+import nlp4j.test.TestUtils;
 
 /**
  * @author Hiroki Oya
@@ -317,11 +318,13 @@ public class MecabAnnotatorTestCase extends TestCase {
 	public void testAnnotateDocument201() throws Exception {
 
 		// ■注意■ ファイル区切りはスラッシュ
-		File dirNeologD = new File("/usr/local/MeCab/dic/NEologd/NEologd.20200910.dic".replace("\\", "/"));
-
-		if (dirNeologD.exists() == false) {
-			System.err.println("Not exists: " + dirNeologD.getAbsolutePath());
-			return;
+		String neologdFile = "/usr/local/MeCab/dic/NEologd/NEologd.20200910.dic";
+		{
+			File dirNeologD = new File(neologdFile.replace("\\", "/"));
+			if (dirNeologD.exists() == false) {
+				System.err.println("Not exists: " + dirNeologD.getAbsolutePath());
+				return;
+			}
 		}
 
 		// 自然文のテキスト
@@ -330,7 +333,7 @@ public class MecabAnnotatorTestCase extends TestCase {
 		doc.putAttribute("text", text);
 		MecabAnnotator annotator = new MecabAnnotator();
 		annotator.setProperty("target", "text");
-		annotator.setProperty("option", "-u " + dirNeologD.getAbsolutePath());
+		annotator.setProperty("option", "-u " + neologdFile);
 		annotator.annotate(doc); // throws Exception
 		System.err.println("Finished : annotation");
 
@@ -349,4 +352,47 @@ public class MecabAnnotatorTestCase extends TestCase {
 
 	}
 
+	/**
+	 * NEologdを使っての形態素解析結果をテスト
+	 * 
+	 * @throws Exception on Error
+	 */
+	public void testAnnotateDocument202() throws Exception {
+
+		TestUtils.setLevelDebug();
+
+		// ■注意■ ファイル区切りはスラッシュ
+		String neologdFile = "/usr/local/MeCab/dic/NEologd/NEologd.20200910.dic";
+		{
+			File dirNeologD = new File(neologdFile.replace("\\", "/"));
+			if (dirNeologD.exists() == false) {
+				System.err.println("Not exists: " + dirNeologD.getAbsolutePath());
+				return;
+			}
+		}
+
+		// 自然文のテキスト
+		String text = "Nintendo Switchで遊びます．Nintendo が好きです．";
+		Document doc = new DefaultDocument();
+		doc.putAttribute("text", text);
+		MecabAnnotator annotator = new MecabAnnotator();
+		annotator.setProperty("target", "text");
+		annotator.setProperty("option", "-u " + neologdFile);
+		annotator.annotate(doc); // throws Exception
+		System.err.println("Finished : annotation");
+
+		assertNotNull(doc.getKeywords());
+		assertTrue(doc.getKeywords().size() > 0);
+
+		for (Keyword kwd : doc.getKeywords()) {
+			System.err.println(kwd.getLex() + "," + kwd.getFacet() + "," + kwd.getUPos());
+		}
+
+//		assertEquals("甘える", doc.getKeywords().get(0).getLex());
+//		assertEquals("たい", doc.getKeywords().get(1).getLex());
+//		assertEquals("と", doc.getKeywords().get(2).getLex());
+//		assertEquals("思う", doc.getKeywords().get(3).getLex());
+		annotator.close();
+
+	}
 }

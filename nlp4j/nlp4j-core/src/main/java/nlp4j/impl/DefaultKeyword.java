@@ -1,11 +1,10 @@
 package nlp4j.impl;
 
-import java.lang.ref.WeakReference;
 import java.util.Objects;
 
+import nlp4j.AbstractKeyword;
 import nlp4j.Keyword;
 import nlp4j.UPOS20;
-import nlp4j.pattern.KeywordRule;
 
 /**
  * ドキュメントのキーワードとなるクラスです。<br>
@@ -15,35 +14,13 @@ import nlp4j.pattern.KeywordRule;
  * @version 1.0
  *
  */
-public class DefaultKeyword implements Keyword, Cloneable {
+public class DefaultKeyword extends AbstractKeyword implements Keyword, Cloneable {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	protected int begin = -1;
-
-	protected double correlation;
-
-	protected long count = -1;
-
-	protected int end = -1;
-
-	protected String facet;
-
 	private boolean flag = false;
-
-	protected String lex;
-
-	protected String namespace;
-
-	protected String reading;
-
-	protected int sequence = -1;
-
-	protected String str;
-
-	protected String upos;
 
 	/**
 	 * Default constructor
@@ -71,18 +48,6 @@ public class DefaultKeyword implements Keyword, Cloneable {
 	}
 
 	/**
-	 * @param facet ファセット
-	 * @param lex   正規形
-	 * @since 1.3.2
-	 */
-	public DefaultKeyword(String facet, String lex) {
-		super();
-		this.facet = facet;
-		this.lex = lex;
-		this.str = lex;
-	}
-
-	/**
 	 * @param namespace 名前空間
 	 * @param begin     開始位置
 	 * @param end       終了位置
@@ -98,6 +63,23 @@ public class DefaultKeyword implements Keyword, Cloneable {
 		this.facet = facet;
 		this.lex = lex;
 		this.str = str;
+	}
+
+	/**
+	 * @param facet ファセット
+	 * @param lex   正規形
+	 * @since 1.3.2
+	 */
+	public DefaultKeyword(String facet, String lex) {
+		super();
+		this.facet = facet;
+		this.lex = lex;
+		this.str = lex;
+	}
+
+	public void addBeginEnd(int n) {
+		this.begin += n;
+		this.end += n;
 	}
 
 	@Override
@@ -202,46 +184,6 @@ public class DefaultKeyword implements Keyword, Cloneable {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see nlp4j.impl.Keywd#getBegin()
-	 */
-	@Override
-	public int getBegin() {
-		return begin;
-	}
-
-	@Override
-	public double getCorrelation() {
-		return this.correlation;
-	}
-
-	@Override
-	public long getCount() {
-		return this.count;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see nlp4j.impl.Keywd#getEnd()
-	 */
-	@Override
-	public int getEnd() {
-		return end;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see nlp4j.impl.Keywd#getFacet()
-	 */
-	@Override
-	public String getFacet() {
-		return facet;
-	}
-
 	/**
 	 * フラグを返します。
 	 * 
@@ -253,51 +195,6 @@ public class DefaultKeyword implements Keyword, Cloneable {
 		return this.flag;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see nlp4j.impl.Keywd#getLex()
-	 */
-	@Override
-	public String getLex() {
-		return lex;
-	}
-
-	@Override
-	public String getNamespance() {
-		return this.namespace;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see nlp4j.Keyword#getReading()
-	 */
-	@Override
-	public String getReading() {
-
-		return this.reading;
-	}
-
-	/**
-	 * @return 連番
-	 */
-	public int getSequence() {
-		return sequence;
-	}
-
-	/**
-	 * @return the str
-	 */
-	public String getStr() {
-		return str;
-	}
-
-	@Override
-	public String getUPos() {
-		return this.upos;
-	}
-
 	@Override
 	public int hashCode() {
 		if (this.lex == null || lex == null || this.facet == null || facet == null) {
@@ -306,41 +203,6 @@ public class DefaultKeyword implements Keyword, Cloneable {
 //			return (facet + lex).hashCode();
 			return Objects.hash(facet, lex); // since 1.3.1
 		}
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see nlp4j.impl.Keywd#setBegin(int)
-	 */
-	@Override
-	public void setBegin(int begin) {
-		this.begin = begin;
-	}
-
-	@Override
-	public void setCorrelation(double d) {
-		this.correlation = d;
-	}
-
-	public void addBeginEnd(int n) {
-		this.begin += n;
-		this.end += n;
-	}
-
-	@Override
-	public void setCount(long count) {
-		this.count = count;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see nlp4j.impl.Keywd#setEnd(int)
-	 */
-	@Override
-	public void setEnd(int end) {
-		this.end = end;
 	}
 
 	/*
@@ -357,80 +219,10 @@ public class DefaultKeyword implements Keyword, Cloneable {
 		}
 	}
 
-	/**
-	 * フラグをセットします。
-	 * 
-	 * @param b フラグ
-	 * @since 1.3
-	 */
 	@Override
 	public void setFlag(boolean b) {
 		this.flag = b;
 
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see nlp4j.impl.Keywd#setLex(java.lang.String)
-	 */
-	@Override
-	public void setLex(String lex) {
-		this.lex = lex;
-	}
-
-	@Override
-	public void setNamespace(String namespace) {
-		this.namespace = namespace;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see nlp4j.Keyword#setReading(java.lang.String)
-	 */
-	@Override
-	public void setReading(String reading) {
-		this.reading = reading;
-	}
-
-	/**
-	 * 連番を返します。
-	 * 
-	 * @param sequence 連番
-	 */
-	public void setSequence(int sequence) {
-		this.sequence = sequence;
-
-	}
-
-	/**
-	 * @param str the str to set
-	 */
-	public void setStr(String str) {
-		this.str = str;
-	}
-
-	@Override
-	public void setUPos(String upos) {
-		this.upos = upos;
-	}
-
-	@Override
-	public String toString() {
-		return //
-		this.lex //
-				+ " [" //
-//				+ "sequence=" + sequence //
-				+ "facet=" + facet //
-//				+ ", lex=" + lex //
-				+ ", str=" + str //
-//				+ ", reading="+ reading  //
-//				+ ", count=" + count  //
-//				+ ", begin=" + begin  //
-//				+ ", end=" + end  //
-//				+ ", correlation=" + correlation //
-				+ "]";
 	}
 
 	/**
@@ -441,78 +233,6 @@ public class DefaultKeyword implements Keyword, Cloneable {
 		return this.lex + " [sequence=" + sequence + ", facet=" + facet + ", upos=" + upos + ", lex=" + lex + ", str="
 				+ str + ", reading=" + reading + ", count=" + count + ", begin=" + begin + ", end=" + end
 				+ ", correlation=" + correlation + "]";
-	}
-
-	protected Keyword hitKeyword = null;
-
-	@Override
-	public boolean match(Keyword rule) {
-
-//		return rule.match(this);
-
-		if (rule == null) {
-			return true;
-		}
-
-		// ignore begin
-		// ignnore correlation
-		// ignore count
-		// ignore end
-
-		// FACET
-		if (rule.getFacet() != null) {
-			if (this.getFacet() == null) {
-//				return false;
-			} else {
-				if (this.getFacet().equals(rule.getFacet()) == false) {
-					return false;
-				}
-			}
-		}
-
-		// LEX
-		if (rule.getLex() != null) {
-			if (this.getLex() == null) {
-//				return false;
-			} else {
-
-				// REGEX
-//				if (rule instanceof KeywordRule) {
-//					throw new RuntimeException();
-//					boolean b = ((KeywordRule) rule).matchLex(this.lex);
-//					if (b == false) {
-//						return false;
-//					}
-//				} //
-//				else {
-				if (this.getLex().equals(rule.getLex()) == false) {
-					return false;
-				}
-
-//				}
-
-			}
-		}
-
-		// UPOS
-		if (rule.getUPos() != null) {
-			if (this.getUPos() == null) {
-//				return false;
-			} else {
-				if (this.getUPos().equals(rule.getUPos()) == false) {
-					return false;
-				}
-			}
-		}
-
-//		// RULE
-//		if (rule instanceof DefaultKeyword) {
-//			if (((DefaultKeyword) rule).hitKeyword == null) {
-//				((DefaultKeyword) rule).hitKeyword = this;
-//			}
-//		}
-
-		return true;
 	}
 
 }

@@ -1,5 +1,7 @@
 package test;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -14,29 +16,46 @@ public class RunnableNLPMain {
 
 		long time1 = System.currentTimeMillis();
 
-		ExecutorService executor = Executors.newFixedThreadPool(3);
+		List<String> ss = new ArrayList<>();
 
-		RunnableNLP p1 = new RunnableNLP("今日はいい天気です");
-		RunnableNLP p2 = new RunnableNLP("明日は晴れるかな");
-		RunnableNLP p3 = new RunnableNLP("私は歩いて学校に行きます");
+		List<Document> docs = new ArrayList<>();
+
+		for (int n = 0; n < 1000; n++) {
+			ss.add("テスト " + n);
+		}
+
+		ExecutorService executor = Executors.newFixedThreadPool(5);
+		List<Future<Document>> taskList = new ArrayList<Future<Document>>();
 
 		try {
-			Future<Document> d1 = executor.submit(p1);
-			Future<Document> d2 = executor.submit(p2);
-			Future<Document> d3 = executor.submit(p3);
+			for (int n = 0; n < ss.size(); n++) {
+				String s = ss.get(n);
+				{
+					RunnableNLP p1 = new RunnableNLP();
+					p1.setText(s);
+
+					taskList.add(executor.submit(p1));
+
+					p1.close();
+				}
+
+			}
+
+			for (Future<Document> f : taskList) {
+				Document doc = f.get();
+				docs.add(doc);
+			}
 
 		} finally {
 			executor.shutdown();
 			executor.awaitTermination(1, TimeUnit.MINUTES);
 		}
 
-		p1.close();
-		p2.close();
-		p3.close();
-
 		long time2 = System.currentTimeMillis();
 
 		System.err.println(time2 - time1);
+
+		System.err.println(docs.size());
 	}
 
 }

@@ -5,22 +5,23 @@ import java.io.IOException;
 import java.util.concurrent.Callable;
 
 import nlp4j.Document;
-import nlp4j.Keyword;
 import nlp4j.impl.DefaultDocument;
 import nlp4j.mecab.MecabAnnotator;
 
-public class RunnableNLP implements  Callable<Document>, Closeable {
+public class RunnableNLP implements Callable<Document>, Closeable {
 
 	MecabAnnotator annotator;
 
 	String text;
 
-	public RunnableNLP(String text) {
+	public RunnableNLP() {
 		super();
 		annotator = new MecabAnnotator();
-		this.text = text;
 	}
 
+	public void setText(String text) {
+		this.text = text;
+	}
 
 	@Override
 	public Document call() throws Exception {
