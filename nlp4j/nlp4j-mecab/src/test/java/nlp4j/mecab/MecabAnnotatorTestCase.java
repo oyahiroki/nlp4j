@@ -15,6 +15,10 @@ import nlp4j.test.TestUtils;
  */
 public class MecabAnnotatorTestCase extends TestCase {
 
+	static {
+		TestUtils.setLevelDebug();
+	}
+
 	/**
 	 * 「私は学校に行きました」の形態素解析結果をテスト
 	 * 
@@ -283,7 +287,7 @@ public class MecabAnnotatorTestCase extends TestCase {
 	public void testAnnotateDocument200() throws Exception {
 
 		// 自然文のテキスト
-		String text = "今年は令和４年です．";
+		String text = "令和４年です．";
 		Document doc = new DefaultDocument();
 		{
 			doc.putAttribute("text", text);
@@ -302,10 +306,8 @@ public class MecabAnnotatorTestCase extends TestCase {
 			System.err.println(kwd.getLex() + "," + kwd.getFacet() + "," + kwd.getUPos());
 		}
 
-//		assertEquals("甘える", doc.getKeywords().get(0).getLex());
-//		assertEquals("たい", doc.getKeywords().get(1).getLex());
-//		assertEquals("と", doc.getKeywords().get(2).getLex());
-//		assertEquals("思う", doc.getKeywords().get(3).getLex());
+		assertEquals("令", doc.getKeywords().get(0).getLex());
+		assertEquals("和", doc.getKeywords().get(1).getLex());
 		annotator.close();
 
 	}
@@ -315,7 +317,7 @@ public class MecabAnnotatorTestCase extends TestCase {
 	 * 
 	 * @throws Exception on Error
 	 */
-	public void testAnnotateDocument201() throws Exception {
+	public void testAnnotateDocumentNEologd201() throws Exception {
 
 		// ■注意■ ファイル区切りはスラッシュ
 		String neologdFile = "/usr/local/MeCab/dic/NEologd/NEologd.20200910.dic";
@@ -328,7 +330,48 @@ public class MecabAnnotatorTestCase extends TestCase {
 		}
 
 		// 自然文のテキスト
-		String text = "今年は令和４年です．";
+		String text = "令和４年です．";
+		Document doc = new DefaultDocument();
+		doc.putAttribute("text", text);
+		MecabAnnotator annotator = new MecabAnnotator();
+		{
+			annotator.setProperty("target", "text");
+			annotator.setProperty("option", "-u " + neologdFile);
+		}
+		annotator.annotate(doc); // throws Exception
+		System.err.println("Finished : annotation");
+
+		assertNotNull(doc.getKeywords());
+		assertTrue(doc.getKeywords().size() > 0);
+
+		for (Keyword kwd : doc.getKeywords()) {
+			System.err.println(kwd.getLex() + "," + kwd.getFacet() + "," + kwd.getUPos());
+		}
+
+		assertEquals("令和", doc.getKeywords().get(0).getLex());
+
+		annotator.close();
+	}
+
+	/**
+	 * NEologdを使っての形態素解析結果をテスト
+	 * 
+	 * @throws Exception on Error
+	 */
+	public void testAnnotateDocumentNEologd202() throws Exception {
+
+		// ■注意■ ファイル区切りはスラッシュ
+		String neologdFile = "/usr/local/MeCab/dic/NEologd/NEologd.20200910.dic";
+		{
+			File dirNeologD = new File(neologdFile.replace("\\", "/"));
+			if (dirNeologD.exists() == false) {
+				System.err.println("Not exists: " + dirNeologD.getAbsolutePath());
+				return;
+			}
+		}
+
+		// 自然文のテキスト
+		String text = "Nintendo Switchです．";
 		Document doc = new DefaultDocument();
 		doc.putAttribute("text", text);
 		MecabAnnotator annotator = new MecabAnnotator();
@@ -344,54 +387,9 @@ public class MecabAnnotatorTestCase extends TestCase {
 			System.err.println(kwd.getLex() + "," + kwd.getFacet() + "," + kwd.getUPos());
 		}
 
-//		assertEquals("甘える", doc.getKeywords().get(0).getLex());
-//		assertEquals("たい", doc.getKeywords().get(1).getLex());
-//		assertEquals("と", doc.getKeywords().get(2).getLex());
-//		assertEquals("思う", doc.getKeywords().get(3).getLex());
-		annotator.close();
+		assertEquals("Nintendo Switch", doc.getKeywords().get(0).getLex());
+		assertEquals("固有名詞", doc.getKeywords().get(0).getFacet());
 
-	}
-
-	/**
-	 * NEologdを使っての形態素解析結果をテスト
-	 * 
-	 * @throws Exception on Error
-	 */
-	public void testAnnotateDocument202() throws Exception {
-
-		TestUtils.setLevelDebug();
-
-		// ■注意■ ファイル区切りはスラッシュ
-		String neologdFile = "/usr/local/MeCab/dic/NEologd/NEologd.20200910.dic";
-		{
-			File dirNeologD = new File(neologdFile.replace("\\", "/"));
-			if (dirNeologD.exists() == false) {
-				System.err.println("Not exists: " + dirNeologD.getAbsolutePath());
-				return;
-			}
-		}
-
-		// 自然文のテキスト
-		String text = "Nintendo Switchで遊びます．Nintendo が好きです．";
-		Document doc = new DefaultDocument();
-		doc.putAttribute("text", text);
-		MecabAnnotator annotator = new MecabAnnotator();
-		annotator.setProperty("target", "text");
-		annotator.setProperty("option", "-u " + neologdFile);
-		annotator.annotate(doc); // throws Exception
-		System.err.println("Finished : annotation");
-
-		assertNotNull(doc.getKeywords());
-		assertTrue(doc.getKeywords().size() > 0);
-
-		for (Keyword kwd : doc.getKeywords()) {
-			System.err.println(kwd.getLex() + "," + kwd.getFacet() + "," + kwd.getUPos());
-		}
-
-//		assertEquals("甘える", doc.getKeywords().get(0).getLex());
-//		assertEquals("たい", doc.getKeywords().get(1).getLex());
-//		assertEquals("と", doc.getKeywords().get(2).getLex());
-//		assertEquals("思う", doc.getKeywords().get(3).getLex());
 		annotator.close();
 
 	}

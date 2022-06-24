@@ -49,6 +49,9 @@ public class MecabAnnotator extends AbstractDocumentAnnotator implements Documen
 	 */
 	private static final String JA_DOUSHI = "動詞";
 
+	/**
+	 * Logger
+	 */
 	static private final Logger logger = LogManager.getLogger(MecabAnnotator.class);
 
 	private ArrayList<String> facetfilter = null;
