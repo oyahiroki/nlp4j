@@ -94,7 +94,7 @@ public class SolrSearchClient extends AbstractSearchClient implements SearchClie
 	/**
 	 * @param collection of Solr
 	 * @param requestAz  in Azure Style
-	 * @return result
+	 * @return result {'value':[{id:'123',text:'this is test'},{...},{...}]}
 	 * @throws IOException on Error
 	 */
 	public JsonObject search(String collection, JsonObject requestAz) throws IOException {
@@ -123,13 +123,13 @@ public class SolrSearchClient extends AbstractSearchClient implements SearchClie
 
 			return responseAz;
 
-		} catch (SolrServerException e) {
+		} catch (SolrServerException | RemoteSolrException e) {
 			throw new IOException(e);
-		} catch (RemoteSolrException e) {
-			throw new IOException(e);
-		} catch (IOException e) {
-			throw e;
-		} finally {
+		}
+//		catch (IOException e) {
+//			throw e;
+//		} 
+		finally {
 		}
 	}
 
@@ -181,7 +181,8 @@ public class SolrSearchClient extends AbstractSearchClient implements SearchClie
 					} //
 					else if (o instanceof List) {
 						JsonArray arr = new JsonArray();
-						List list = (List) o;
+						@SuppressWarnings("rawtypes")
+						List<Object> list = (List) o;
 						for (Object x : list) {
 							if (x instanceof String) {
 								arr.add((String) x);
@@ -297,7 +298,7 @@ public class SolrSearchClient extends AbstractSearchClient implements SearchClie
 									requestParamsSolr.put("f." + facetName + ".facet.mincount", "1");
 								}
 							} else {
-
+								// noop
 							}
 						}
 					}

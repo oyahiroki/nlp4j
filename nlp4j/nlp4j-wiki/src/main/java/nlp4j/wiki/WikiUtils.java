@@ -168,7 +168,7 @@ public class WikiUtils {
 	 * @param html
 	 * @return {facet:"wiki.link",lex:"title"}
 	 */
-	static public List<Keyword> extractKeywordsFromWikiHtml(String html) {
+	static public List<Keyword> extractKeywordsFromWikiHtml(String html, String keywordFacet) {
 
 		ArrayList<Keyword> keywords = new ArrayList<>();
 
@@ -177,47 +177,46 @@ public class WikiUtils {
 		// System.out.println(document.text());
 
 		// ol > li
-		Elements elements = document.select("ol > li");
-
-		// for (Element element : elements) {
-		// System.out.println(element.text());
-		// }
-
-//			logger.debug("elements.size(): " + elements.size());
-
-//			if (elements.size() > 1) {
-//				logger.debug("elements.size(): " + elements.size());
+//		{
+//			Elements elements = document.select("ol > li");
+//
+//			if (elements.size() > 0) {
+//				String text = elements.get(0).text();
+//				if (text.indexOf("。") != -1) {
+//					String text0 = text;
+//					text = text.substring(0, text.indexOf("。"));
+//				}
+//				Elements els = elements.get(0).select("a[title]");
+//				for (int n = 0; n < els.size(); n++) {
+//					String title = els.get(n).attr("title");
+//					String t = els.get(n).text();
+//					if (title.startsWith("Template") == false) {
+//						// System.err.println("\t" + title + " (" + t + ")");
+//						// System.err.println("\t" + t);
+//						Keyword kwd = new DefaultKeyword();
+//						kwd.setLex(title);
+//						kwd.setStr(t);
+//						kwd.setFacet(keywordFacet);
+//						keywords.add(kwd);
+//					}
+//				}
+//
 //			}
+//		}
 
-		if (elements.size() > 0) {
-
-			String text = elements.get(0).text();
-
-			if (text.indexOf("。") != -1) {
-				String text0 = text;
-				text = text.substring(0, text.indexOf("。"));
-//					logger.debug("text0: " + text0);
-//					logger.debug("text1: " + text);
-			}
-
-			// System.err.println(doc.getAttribute("item") + " → " + text);
-			// System.err.println(text);
-
-			Elements els = elements.get(0).select("a[title]");
-			for (int n = 0; n < els.size(); n++) {
-				String title = els.get(n).attr("title");
-				String t = els.get(n).text();
+		{
+			Elements elements = document.select("a");
+			for (int idx = 0; idx < elements.size(); idx++) {
+				org.jsoup.nodes.Element el = elements.get(idx);
+				String title = el.attr("title");
 				if (title.startsWith("Template") == false) {
-					// System.err.println("\t" + title + " (" + t + ")");
-					// System.err.println("\t" + t);
 					Keyword kwd = new DefaultKeyword();
 					kwd.setLex(title);
-					kwd.setStr(t);
-					kwd.setFacet("wiki.link");
+					kwd.setStr(title);
+					kwd.setFacet(keywordFacet);
 					keywords.add(kwd);
 				}
 			}
-
 		}
 
 		return keywords;

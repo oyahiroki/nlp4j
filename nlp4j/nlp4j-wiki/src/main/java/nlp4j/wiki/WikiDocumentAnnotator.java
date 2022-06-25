@@ -91,6 +91,8 @@ public class WikiDocumentAnnotator extends AbstractDocumentAnnotator implements 
 			// FOR EACH(PATH)
 			for (String path : paths) {
 
+				logger.debug("path=" + path);
+
 				List<WikiPageNode> pp = rootWikiPageNode.get(path);
 
 				// FOR EACH WIKINODE
@@ -109,39 +111,35 @@ public class WikiDocumentAnnotator extends AbstractDocumentAnnotator implements 
 						String[] lines = p.getText().split("\n");
 
 						for (String line : lines) {
+
+							logger.debug("line=" + line);
+
+							//
 							if (line.startsWith("#") && (line.startsWith("#*") == false)) {
-
-//								System.err.println("<line>");
-//								System.err.println(line);
-//								System.err.println("</line>");
-
 								String html = WikiUtils.toHtml(line);
-
-//								System.err.println("<html>");
-//								System.err.println(html);
-//								System.err.println("</html>");
-
+								logger.debug("html=" + html);
 								// Wikiリンク情報からリンク先アイテムをキーワードとしてセットする
-								List<Keyword> kwds = WikiUtils.extractKeywordsFromWikiHtml(html);
-
+								List<Keyword> kwds = WikiUtils.extractKeywordsFromWikiHtml(html, "wiki.link");
 								// ADD KEYWORD TO DOC
 								doc.addKeywords(kwds);
-
 								{
-									// 
 									String text = WikiUtils.toPlainText(line);
-//									System.err.println("line: " + line);
-//									System.err.println("text: " + text);
-									
-									
-									
+									logger.debug("text=" + text);
 									if (ttPlainText.contains("# " + text) == false) {
 										ttPlainText.add("# " + text);
 									}
 								}
-
 							}
 							//
+							else if (path.contains("{{rel}}")) {
+								logger.info("rel");
+								String html = WikiUtils.toHtml(line);
+								logger.debug("html=" + html);
+								// Wikiリンク情報からリンク先アイテムをキーワードとしてセットする
+								List<Keyword> kwds = WikiUtils.extractKeywordsFromWikiHtml(html, "wiki.rel");
+								// ADD KEYWORD TO DOC
+								doc.addKeywords(kwds);
+							} //
 							else if (line.startsWith("#*") == false) {
 //								System.err.println("例文?: " + line);
 							} //

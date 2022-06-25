@@ -57,15 +57,16 @@ public class DocumentUtil {
 					continue;
 				} else {
 					if (kwd.getLex() != null //
-
+							// LEX 全ひらがな以外
 							&& JaStringUtils.isAllHiragana(kwd.getLex()) == false //
 							&& kwd.getReading() != null //
+							// READING
 							&& JaStringUtils.isAllKatakana(kwd.getReading()) //
 							&& ("NOUN".equals(kwd.getUPos()) || "VERB".equals(kwd.getUPos())) //
 
 					) {
 						Keyword kwd1 = new DefaultKeyword();
-						kwd1.setFacet(kwd.getFacet());
+						kwd1.setFacet("wiki.yomi");
 						kwd1.setLex(JaStringUtils.toHiragana(kwd.getReading()));
 						kwd1.setStr(kwd.getStr());
 						kwd1.setUPos(kwd.getUPos());

@@ -51,7 +51,7 @@ public class WikiUtilsTestCase extends TestCase {
 						+ "<li><a href='gakkou.html' title='病院'>病院xx</a></li>"//
 						+ "</ol>"//
 						+ "</body></html>";
-		List<Keyword> kwds = WikiUtils.extractKeywordsFromWikiHtml(html);
+		List<Keyword> kwds = WikiUtils.extractKeywordsFromWikiHtml(html, "wiki.link");
 
 		for (Keyword kwd : kwds) {
 			System.err.println(kwd.getLex());
