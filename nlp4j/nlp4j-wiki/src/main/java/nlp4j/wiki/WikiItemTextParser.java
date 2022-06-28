@@ -1,6 +1,10 @@
 package nlp4j.wiki;
 
+import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * <pre>
@@ -10,6 +14,8 @@ import java.util.ArrayList;
  * @author Hiroki Oya
  */
 public class WikiItemTextParser {
+
+	static private final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
 	private static final String LV1 = "==";
 	private static final String LV2 = "===";
@@ -71,8 +77,26 @@ public class WikiItemTextParser {
 
 	public void parse(String wikiItemText) {
 
+		{ // normalize new line
+			int n1 = wikiItemText.length();
+			wikiItemText = wikiItemText.replace("\r\n", "\n");
+			int n2 = wikiItemText.length();
+			if (n1 != n2) {
+				logger.info("New Line Code Normalized: " + (n1 - n2));
+			}
+		}
+
 		// FOR EACH LINE
 		for (String line : wikiItemText.split("\n")) {
+
+			{
+				int n1 = line.length();
+				line = line.trim();
+				int n2 = line.length();
+				if (n2 != n1) {
+					logger.info("Line trimmed: " + line);
+				}
+			}
 
 			// is header
 			// header
@@ -96,12 +120,10 @@ public class WikiItemTextParser {
 
 				line = line.replace(" ", "");
 
-//				int lvl = line.indexOf("{") - 1;
 				int lvl = getLevel(line);
 
-//				System.err.println("<h" + lvl + ">" + line);
-
 				WikiPageNode wpd = new WikiPageNode();
+
 				{ // normalize header
 					String normailzedHeader = WikiUtils.normailzeHeader(line);
 					wpd.setHeader(normailzedHeader);
@@ -110,9 +132,6 @@ public class WikiItemTextParser {
 				{ // TODO Extract spell
 					String[] ss = WikiUtils.extractSpells(line);
 					if (ss != null && ss.length > 0) {
-//						for (String s : ss) {
-//							System.err.println("spell: " + s);
-//						}
 						wpd.setSpells(ss);
 					}
 				}
@@ -136,91 +155,7 @@ public class WikiItemTextParser {
 			else {
 				ptr.addText(line);
 			}
-
-//			if (line.startsWith("=={")) {
-//				System.err.println("<h1>" + line);
-//				int lvl = 1;
-//
-//				WikiPageNode wpd = new WikiPageNode();
-//				wpd.setHeader(line);
-//				wpd.setLevel(lvl);
-//
-//				this.level = lvl;
-//				continue;
-//			} //
-//			else if (line.startsWith("==={")) {
-//				System.err.println("<h2>" + line);
-//				int lvl = 2;
-//
-//				this.level = lvl;
-//				continue;
-//			} //
-//			else if (line.startsWith("===={")) {
-//				System.err.println("<h3>" + line);
-//				int lvl = 3;
-//
-//				this.level = lvl;
-//				continue;
-//			} //
-//			else if (line.startsWith("====={")) {
-//				System.err.println("<h4>" + line);
-//				int lvl = 4;
-//
-//				this.level = lvl;
-//				continue;
-//			} //
-//			else if (line.startsWith("======{")) {
-//				System.err.println("<h5>" + line);
-//				int lvl = 5;
-//
-//				this.level = lvl;
-//				continue;
-//			} //
-//			else if (line.equals("-----")) {
-//				System.err.println("<hr>");
-//				head = line;
-//				int lvl = 0;
-//
-//				this.level = lvl;
-//				continue;
-//			} //
-//			else {
-//			ptr.addText(line);
-//			}
-
-//			Node<String> n1 = new Node<String>("a");
-//			{
-//				n1.addChildNode(new Node<String>("b"));
-//				n1.addChildNode(new Node<String>("c"));
-//			}
-
 		} // END OF FOR EACH LINE
-
-//		System.err.println("done----------------------");
-
-//		for (WikiPageNode node : list) {
-//			System.err.println("<node>");
-//			System.err.println("<this>" + node.toString() + "</this>");
-//			System.err.println("<hasparent>" + (node.getParent() != null) + "</hasparent>");
-//			if ((node.getParent() != null)) {
-//				System.err.println("<parent>" + node.getParent().toString() + "</parent>");
-//				System.err.println("<parent_level>" + node.getParent().getLevel() + "</parent_level>");
-//				System.err.println("<parent_header>" + node.getParent().getHeader() + "</parent_header>");
-//			}
-//			System.err.println("<level>" + node.getLevel() + "</level>");
-//			System.err.println("<header>" + node.getHeader() + "</header>");
-//			// System.err.println("<text>\n" + node.getText() + "\n</text>");
-//			System.err.println("<text>length=" + node.getText().length() + "</text>");
-//			if (node.getChildren() != null && node.getChildren().size() > 0) {
-//				System.err.println("<children>");
-//				for (WikiPageNode n : node.getChildren()) {
-//					System.err.println("<child>" + n.toString() + "</child>");
-//					System.err.println("<child_header>" + n.getHeader() + "</child_header>");
-//				}
-//				System.err.println("</children>");
-//			}
-//			System.err.println("</node>\n");
-//		}
 
 	}
 

@@ -1,5 +1,6 @@
 package nlp4j.mecab;
 
+import java.io.Closeable;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -22,7 +23,7 @@ import nlp4j.util.RegexUtils;
  * @since 1.0.0.0
  *
  */
-public class MecabAnnotator extends AbstractDocumentAnnotator implements DocumentAnnotator {
+public class MecabAnnotator extends AbstractDocumentAnnotator implements DocumentAnnotator, Closeable {
 
 	/**
 	 * 固有名詞

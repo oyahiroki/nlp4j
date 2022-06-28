@@ -40,6 +40,14 @@ public class WikiUtilsTestCase extends TestCase {
 		System.err.println(plaintext);
 	}
 
+	public void testNormailzeHeader001() {
+		String s1 = "=={{L|ja}}==";
+		String s2 = WikiUtils.normailzeHeader(s1);
+		String expected = "=={{ja}}==";
+		System.err.println(s2);
+		assertEquals(expected, s2);
+	}
+
 	// # {{lb|en|US|Canada}} An [[institution]] dedicated to [[teaching]] and
 	// [[learning]]; an [[educational]] institution.
 

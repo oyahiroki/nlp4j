@@ -130,8 +130,8 @@ public class WikiDocumentAnnotator extends AbstractDocumentAnnotator implements 
 									}
 								}
 							}
-							//
-							else if (path.contains("{{rel}}")) {
+							// 同義語・関連語
+							else if (path.contains("{{rel}}") || path.contains("{{syn}}")) {
 								logger.info("rel");
 								String html = WikiUtils.toHtml(line);
 								logger.debug("html=" + html);
@@ -140,10 +140,19 @@ public class WikiDocumentAnnotator extends AbstractDocumentAnnotator implements 
 								// ADD KEYWORD TO DOC
 								doc.addKeywords(kwds);
 							} //
-							else if (line.startsWith("#*") == false) {
-//								System.err.println("例文?: " + line);
-							} //
+							else if ("{{wikipedia}}".equals(line)) {
+								doc.putAttribute("wikipedia", "true");
+							}
+							//
 							else {
+								String html = WikiUtils.toHtml(line);
+								logger.debug("html=" + html);
+								// Wikiリンク情報からリンク先アイテムをキーワードとしてセットする
+								List<Keyword> kwds = WikiUtils.extractKeywordsFromWikiHtml(html, "wiki.link");
+								// ADD KEYWORD TO DOC
+								if (kwds.size() > 0) {
+									doc.addKeywords(kwds);
+								}
 
 							}
 

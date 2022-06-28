@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.jsoup.Jsoup;
 import org.jsoup.select.Elements;
@@ -22,17 +23,23 @@ import nlp4j.wiki.util.WikiTemplateNormalizer;
 
 public class WikiUtils {
 
-	static private HashMap<String, String> map = new HashMap<String, String>();
+	/**
+	 * <pre>
+	 * セクションヘッダーの正規化に用いるマップ
+	 * 例:「=={{L|ja}}==」→「=={{ja}}==」
+	 * </pre>
+	 */
+	static private final Map<String, String> mapForNormalize = new HashMap<String, String>();
 
 	static {
 		// key: before normailze, value: after normalized
-		map.put("=={{L|ja}}==", "=={{ja}}==");
-		map.put("=={{jpn}}==", "=={{ja}}==");
-		map.put("== {{jpn}} ==", "=={{ja}}==");
-		map.put("== {{ja}} ==", "=={{ja}}==");
-		map.put("==日本語==", "=={{ja}}==");
-		map.put("== 日本語 ==", "=={{ja}}==");
-		map.put("===名詞===", "==={{noun}}===");
+		mapForNormalize.put("=={{L|ja}}==", "=={{ja}}==");
+		mapForNormalize.put("=={{jpn}}==", "=={{ja}}==");
+		mapForNormalize.put("== {{jpn}} ==", "=={{ja}}==");
+		mapForNormalize.put("== {{ja}} ==", "=={{ja}}==");
+		mapForNormalize.put("==日本語==", "=={{ja}}==");
+		mapForNormalize.put("== 日本語 ==", "=={{ja}}==");
+		mapForNormalize.put("===名詞===", "==={{noun}}===");
 	}
 
 	static String splitter = "(:|・)";
@@ -87,8 +94,8 @@ public class WikiUtils {
 
 		}
 
-		if (map.containsKey(header)) {
-			return map.get(header);
+		if (mapForNormalize.containsKey(header)) {
+			return mapForNormalize.get(header);
 		}
 
 		return header;

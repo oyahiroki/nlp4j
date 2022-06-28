@@ -393,4 +393,86 @@ public class MecabAnnotatorTestCase extends TestCase {
 		annotator.close();
 
 	}
+
+	/**
+	 * NEologdを使っての形態素解析結果をテスト
+	 * 
+	 * @throws Exception on Error
+	 */
+	public void testAnnotateDocumentNEologd203() throws Exception {
+
+		// ■注意■ ファイル区切りはスラッシュ
+		String neologdFile = "/usr/local/MeCab/dic/NEologd/NEologd.20200910.dic";
+		{
+			File dirNeologD = new File(neologdFile.replace("\\", "/"));
+			if (dirNeologD.exists() == false) {
+				System.err.println("Not exists: " + dirNeologD.getAbsolutePath());
+				return;
+			}
+		}
+
+		// 自然文のテキスト
+		String text = "サザエさんをテレビで見た．";
+		Document doc = new DefaultDocument();
+		doc.putAttribute("text", text);
+		MecabAnnotator annotator = new MecabAnnotator();
+		annotator.setProperty("target", "text");
+		annotator.setProperty("option", "-u " + neologdFile);
+		annotator.annotate(doc); // throws Exception
+		System.err.println("Finished : annotation");
+
+		assertNotNull(doc.getKeywords());
+		assertTrue(doc.getKeywords().size() > 0);
+
+		for (Keyword kwd : doc.getKeywords()) {
+			System.err.println(kwd.getLex() + "," + kwd.getFacet() + "," + kwd.getUPos());
+		}
+
+		assertEquals("サザエさん", doc.getKeywords().get(0).getLex());
+		assertEquals("固有名詞", doc.getKeywords().get(0).getFacet());
+
+		annotator.close();
+
+	}
+
+	/**
+	 * NEologdを使っての形態素解析結果をテスト
+	 * 
+	 * @throws Exception on Error
+	 */
+	public void testAnnotateDocumentNEologd204() throws Exception {
+
+		// ■注意■ ファイル区切りはスラッシュ
+		String neologdFile = "/usr/local/MeCab/dic/NEologd/NEologd.20200910.dic";
+		{
+			File dirNeologD = new File(neologdFile.replace("\\", "/"));
+			if (dirNeologD.exists() == false) {
+				System.err.println("Not exists: " + dirNeologD.getAbsolutePath());
+				return;
+			}
+		}
+
+		// 自然文のテキスト
+		String text = "こち亀を読んだ．";
+		Document doc = new DefaultDocument();
+		doc.putAttribute("text", text);
+		MecabAnnotator annotator = new MecabAnnotator();
+		annotator.setProperty("target", "text");
+		annotator.setProperty("option", "-u " + neologdFile);
+		annotator.annotate(doc); // throws Exception
+		System.err.println("Finished : annotation");
+
+		assertNotNull(doc.getKeywords());
+		assertTrue(doc.getKeywords().size() > 0);
+
+		for (Keyword kwd : doc.getKeywords()) {
+			System.err.println(kwd.getLex() + "," + kwd.getFacet() + "," + kwd.getUPos());
+		}
+
+		assertEquals("こち亀", doc.getKeywords().get(0).getLex());
+		assertEquals("固有名詞", doc.getKeywords().get(0).getFacet());
+
+		annotator.close();
+
+	}
 }
