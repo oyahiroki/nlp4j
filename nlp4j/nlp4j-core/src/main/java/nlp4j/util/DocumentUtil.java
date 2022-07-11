@@ -426,9 +426,15 @@ public class DocumentUtil {
 		json.addProperty("upos", kwd.getUPos()); // @since 1.3.1.0
 		json.addProperty("lex", kwd.getLex());
 		json.addProperty("str", kwd.getStr());
-		json.addProperty("begin", kwd.getBegin());
-		json.addProperty("end", kwd.getEnd());
-
+		if (kwd.getBegin() != Keyword.BEGIN_INIT) {
+			json.addProperty("begin", kwd.getBegin());
+		}
+		if (kwd.getEnd() != Keyword.END_INIT) {
+			json.addProperty("end", kwd.getEnd());
+		}
+		if (kwd.getCorrelation() != Keyword.CORRELATION_INIT) {
+			json.addProperty("correlation", kwd.getCorrelation());
+		}
 		json.addProperty("@classname", kwd.getClass().getCanonicalName());
 
 		return json.toString();

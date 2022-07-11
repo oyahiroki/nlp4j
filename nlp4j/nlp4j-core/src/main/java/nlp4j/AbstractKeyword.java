@@ -13,28 +13,17 @@ public abstract class AbstractKeyword implements Keyword {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	protected int begin = -1;
-
-	protected double correlation;
-
-	protected long count = -1;
-
-	protected int end = -1;
-
+	protected int begin = BEGIN_INIT;
+	protected double correlation = CORRELATION_INIT;
+	protected long count = COUNT_INIT;
+	protected int end = END_INIT;
 	protected String facet;
-
 	protected String lex;
-
 	protected String namespace;
-
 	protected String reading;
-
-	protected int sequence = -1;
-
+	protected int sequence = SEQUENCE_INIT;
 	protected String str;
-
 	protected String upos;
-
 	protected Keyword hitKeyword = null;
 
 	@Override

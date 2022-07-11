@@ -15,6 +15,12 @@ import java.io.Serializable;
  */
 public interface Keyword extends Serializable, Cloneable {
 
+	static public final int BEGIN_INIT = -1;
+	static public final double CORRELATION_INIT = -1;
+	static public final int COUNT_INIT = -1;
+	static public final int END_INIT = -1;
+	static public final int SEQUENCE_INIT = -1;
+
 	/**
 	 * Shift begin, end
 	 * 
