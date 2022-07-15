@@ -42,3 +42,22 @@ nlp4j-core provides
 	mvn dependency:copy-dependencies -DoutputDirectory=lib
 	
 
+	mvn dependency:tree
+	[INFO] --- maven-dependency-plugin:2.8:tree (default-cli) @ nlp4j-core ---
+	[WARNING] The artifact xml-apis:xml-apis:jar:2.0.2 has been relocated to xml-apis:xml-apis:jar:1.0.b2
+	[INFO] org.nlp4j:nlp4j-core:jar:1.3.7.0
+	[INFO] +- com.squareup.okhttp3:okhttp:jar:3.14.9:compile
+	[INFO] +- com.squareup.okio:okio:jar:2.2.2:compile
+	[INFO] |  \- org.jetbrains.kotlin:kotlin-stdlib:jar:1.2.60:runtime
+	[INFO] |     +- org.jetbrains.kotlin:kotlin-stdlib-common:jar:1.2.60:runtime
+	[INFO] |     \- org.jetbrains:annotations:jar:13.0:runtime
+	[INFO] +- org.apache.logging.log4j:log4j-core:jar:2.17.2:compile
+	[INFO] +- org.apache.logging.log4j:log4j-api:jar:2.17.2:compile
+	[INFO] +- commons-io:commons-io:jar:2.11.0:compile
+	[INFO] +- org.apache.commons:commons-text:jar:1.9:compile
+	[INFO] +- org.apache.commons:commons-lang3:jar:3.12.0:compile
+	[INFO] +- org.apache.commons:commons-collections4:jar:4.4:compile
+	[INFO] +- org.apache.commons:commons-csv:jar:1.9.0:compile
+	[INFO] +- com.google.code.gson:gson:jar:2.9.0:compile
+	[INFO] \- junit:junit:jar:3.8.2:test
+		
