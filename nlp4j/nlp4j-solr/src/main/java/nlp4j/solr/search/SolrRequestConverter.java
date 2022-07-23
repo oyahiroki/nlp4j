@@ -112,6 +112,14 @@ public class SolrRequestConverter {
 				requestParamsSolr.put("rows", pp);
 			}
 		}
+		// skip -> start
+		{
+			String skip = requestAzureSearch.get("skip").getAsString();
+			if (skip != null) {
+				String[] pp = { skip };
+				requestParamsSolr.put("start", pp);
+			}
+		}
 
 //		requestParamsSolr.put("fl", "id,word_noun_ss");
 //		requestParamsSolr.put("sort", "id asc");

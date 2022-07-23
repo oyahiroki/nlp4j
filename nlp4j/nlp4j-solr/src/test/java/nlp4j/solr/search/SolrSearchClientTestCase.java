@@ -2,14 +2,13 @@ package nlp4j.solr.search;
 
 import java.io.IOException;
 
-import org.apache.solr.client.solrj.impl.HttpSolrClient.RemoteSolrException;
+import org.apache.solr.client.solrj.impl.BaseHttpSolrClient.RemoteSolrException;
 
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 
 import junit.framework.TestCase;
 
-@SuppressWarnings("deprecation")
 public class SolrSearchClientTestCase extends TestCase {
 
 	public void testSearch001() throws Exception {
@@ -28,7 +27,7 @@ public class SolrSearchClientTestCase extends TestCase {
 			System.err.println(new GsonBuilder().setPrettyPrinting().create().toJson(responseObject));
 		} catch (IOException e) {
 			System.err.println("SKIP THIS TEST: " + e.getMessage());
-		} catch (@SuppressWarnings("deprecation") RemoteSolrException e) {
+		} catch (RemoteSolrException e) {
 			System.err.println("SKIP THIS TEST: " + e.getMessage());
 		}
 

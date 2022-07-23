@@ -110,6 +110,7 @@ public class WikiDocumentAnnotator extends AbstractDocumentAnnotator implements 
 
 						String[] lines = p.getText().split("\n");
 
+						// FOR EACH(LINE)
 						for (String line : lines) {
 
 							logger.debug("line=" + line);
@@ -118,10 +119,19 @@ public class WikiDocumentAnnotator extends AbstractDocumentAnnotator implements 
 							if (line.startsWith("#") && (line.startsWith("#*") == false)) {
 								String html = WikiUtils.toHtml(line);
 								logger.debug("html=" + html);
-								// Wikiリンク情報からリンク先アイテムをキーワードとしてセットする
-								List<Keyword> kwds = WikiUtils.extractKeywordsFromWikiHtml(html, "wiki.link");
-								// ADD KEYWORD TO DOC
-								doc.addKeywords(kwds);
+								{
+									// Wikiリンク情報からリンク先アイテムをキーワードとしてセットする
+									List<Keyword> kwds = WikiUtils.extractKeywordsFromWikiHtml(html, "wiki.link");
+									// ADD KEYWORD TO DOC
+									doc.addKeywords(kwds);
+								}
+								{
+									// Wikiリンク情報からリンク先アイテムをキーワードとしてセットする
+									List<Keyword> kwds = WikiUtils.extractKeywordsFromWikiText(line, "wiki.link");
+									if (kwds.size() > 0) {
+										doc.addKeywords(kwds);
+									}
+								}
 								{
 									String text = WikiUtils.toPlainText(line);
 									logger.debug("text=" + text);
@@ -137,8 +147,9 @@ public class WikiDocumentAnnotator extends AbstractDocumentAnnotator implements 
 								logger.debug("html=" + html);
 								// Wikiリンク情報からリンク先アイテムをキーワードとしてセットする
 								List<Keyword> kwds = WikiUtils.extractKeywordsFromWikiHtml(html, "wiki.rel");
-								// ADD KEYWORD TO DOC
-								doc.addKeywords(kwds);
+								if (kwds.size() > 0) {
+									doc.addKeywords(kwds);
+								}
 							} //
 							else if ("{{wikipedia}}".equals(line)) {
 								doc.putAttribute("wikipedia", "true");
@@ -149,15 +160,13 @@ public class WikiDocumentAnnotator extends AbstractDocumentAnnotator implements 
 								logger.debug("html=" + html);
 								// Wikiリンク情報からリンク先アイテムをキーワードとしてセットする
 								List<Keyword> kwds = WikiUtils.extractKeywordsFromWikiHtml(html, "wiki.link");
-								// ADD KEYWORD TO DOC
 								if (kwds.size() > 0) {
 									doc.addKeywords(kwds);
 								}
 
 							}
 
-						}
-//						System.err.println("</page>");
+						} // END OF FOR EACH(LINE)
 
 					} // END OF IF
 

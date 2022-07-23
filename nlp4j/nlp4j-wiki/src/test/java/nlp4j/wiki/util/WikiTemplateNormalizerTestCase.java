@@ -27,4 +27,15 @@ public class WikiTemplateNormalizerTestCase extends TestCase {
 		String expected = "吸う";
 		assertEquals(expected, s2);
 	}
+
+	/**
+	 * created at: 2022-07-17
+	 */
+	public void testNormalize104() {
+		String s1 = "{{ja-wagokanji|めだまやき}}";
+		String s2 = WikiTemplateNormalizer.normalize(s1);
+		System.err.println(s2);
+		String expected = "めだまやき";
+		assertEquals(expected, s2);
+	}
 }

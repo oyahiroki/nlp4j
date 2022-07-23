@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.jsoup.Jsoup;
 import org.jsoup.select.Elements;
@@ -44,6 +46,108 @@ public class WikiUtils {
 
 	static String splitter = "(:|・)";
 
+	static private String REGEX_JA_WAGOKANJI = "\\{\\{ja-wagokanji\\|(.*?)\\}\\}";
+	static private Pattern p_wagokanji = Pattern.compile(REGEX_JA_WAGOKANJI);
+
+	static private String REGEX_WAGOKANJI_OF = "\\{\\{wagokanji of\\|(.*?)\\}\\}";
+	static private Pattern p_wagokanji_of = Pattern.compile(REGEX_WAGOKANJI_OF);
+
+	static private String REGEX_ALTERNATIVE_FORM_OF = "\\{\\{alternative form of\\|ja\\|(.*?)\\}\\}";
+	static private Pattern p_alternative_form_of = Pattern.compile(REGEX_ALTERNATIVE_FORM_OF);
+
+	/**
+	 * HTMLからリンクを抽出し、表記をキーワードとして返す
+	 * 
+	 * @param html
+	 * @return {facet:"wiki.link",lex:"title"}
+	 */
+	static public List<Keyword> extractKeywordsFromWikiHtml(String html, String keywordFacet) {
+
+		ArrayList<Keyword> keywords = new ArrayList<>();
+
+		org.jsoup.nodes.Document document = Jsoup.parse(html);
+
+		// System.out.println(document.text());
+
+		// ol > li
+//		{
+//			Elements elements = document.select("ol > li");
+//
+//			if (elements.size() > 0) {
+//				String text = elements.get(0).text();
+//				if (text.indexOf("。") != -1) {
+//					String text0 = text;
+//					text = text.substring(0, text.indexOf("。"));
+//				}
+//				Elements els = elements.get(0).select("a[title]");
+//				for (int n = 0; n < els.size(); n++) {
+//					String title = els.get(n).attr("title");
+//					String t = els.get(n).text();
+//					if (title.startsWith("Template") == false) {
+//						// System.err.println("\t" + title + " (" + t + ")");
+//						// System.err.println("\t" + t);
+//						Keyword kwd = new DefaultKeyword();
+//						kwd.setLex(title);
+//						kwd.setStr(t);
+//						kwd.setFacet(keywordFacet);
+//						keywords.add(kwd);
+//					}
+//				}
+//
+//			}
+//		}
+
+		{
+			Elements elements = document.select("a");
+			for (int idx = 0; idx < elements.size(); idx++) {
+				org.jsoup.nodes.Element el = elements.get(idx);
+				String title = el.attr("title");
+				if (title.startsWith("Template") == false) {
+					Keyword kwd = new DefaultKeyword();
+					kwd.setLex(title);
+					kwd.setStr(title);
+					kwd.setFacet(keywordFacet);
+					keywords.add(kwd);
+				}
+			}
+		}
+
+		return keywords;
+
+	}
+
+	public static List<Keyword> extractKeywordsFromWikiText(String text, String keywordFacet) {
+		List<Keyword> kwds = new ArrayList<>();
+		{ // 「ja-wagokanji」テンプレート
+			Matcher m = p_wagokanji.matcher(text);
+			if (m.find()) {
+				String lex = m.group(1);
+				Keyword kwd = new DefaultKeyword(keywordFacet, lex);
+				kwds.add(kwd);
+			}
+
+		}
+		{ // 「ja-wagokanji of」テンプレート
+			Matcher m = p_wagokanji_of.matcher(text);
+			if (m.find()) {
+				String lex = m.group(1);
+				Keyword kwd = new DefaultKeyword(keywordFacet, lex);
+				kwds.add(kwd);
+			}
+
+		}
+		{ // p_alternative_form_of
+			Matcher m = p_alternative_form_of.matcher(text);
+			if (m.find()) {
+				String lex = m.group(1);
+				Keyword kwd = new DefaultKeyword(keywordFacet, lex);
+				kwds.add(kwd);
+			}
+		}
+
+		return kwds;
+	}
+
 	static public String[] extractSpells(String header) {
 
 		// "=== {{verb}}・往 ===" -> "==={{verb}}・往==="
@@ -76,6 +180,12 @@ public class WikiUtils {
 			return null;
 		}
 
+	}
+
+	static public void getTags(String wikiText) {
+		if (wikiText.contains("==[[漢字]]==")) {
+			System.err.println("漢字");
+		}
 	}
 
 	static public String normailzeHeader(String header) {
@@ -167,67 +277,6 @@ public class WikiUtils {
 		} catch (Exception e) {
 			return null;
 		}
-	}
-
-	/**
-	 * HTMLからリンクを抽出し、表記をキーワードとして返す
-	 * 
-	 * @param html
-	 * @return {facet:"wiki.link",lex:"title"}
-	 */
-	static public List<Keyword> extractKeywordsFromWikiHtml(String html, String keywordFacet) {
-
-		ArrayList<Keyword> keywords = new ArrayList<>();
-
-		org.jsoup.nodes.Document document = Jsoup.parse(html);
-
-		// System.out.println(document.text());
-
-		// ol > li
-//		{
-//			Elements elements = document.select("ol > li");
-//
-//			if (elements.size() > 0) {
-//				String text = elements.get(0).text();
-//				if (text.indexOf("。") != -1) {
-//					String text0 = text;
-//					text = text.substring(0, text.indexOf("。"));
-//				}
-//				Elements els = elements.get(0).select("a[title]");
-//				for (int n = 0; n < els.size(); n++) {
-//					String title = els.get(n).attr("title");
-//					String t = els.get(n).text();
-//					if (title.startsWith("Template") == false) {
-//						// System.err.println("\t" + title + " (" + t + ")");
-//						// System.err.println("\t" + t);
-//						Keyword kwd = new DefaultKeyword();
-//						kwd.setLex(title);
-//						kwd.setStr(t);
-//						kwd.setFacet(keywordFacet);
-//						keywords.add(kwd);
-//					}
-//				}
-//
-//			}
-//		}
-
-		{
-			Elements elements = document.select("a");
-			for (int idx = 0; idx < elements.size(); idx++) {
-				org.jsoup.nodes.Element el = elements.get(idx);
-				String title = el.attr("title");
-				if (title.startsWith("Template") == false) {
-					Keyword kwd = new DefaultKeyword();
-					kwd.setLex(title);
-					kwd.setStr(title);
-					kwd.setFacet(keywordFacet);
-					keywords.add(kwd);
-				}
-			}
-		}
-
-		return keywords;
-
 	}
 
 }

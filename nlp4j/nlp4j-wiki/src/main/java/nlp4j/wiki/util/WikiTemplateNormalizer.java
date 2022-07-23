@@ -5,6 +5,12 @@ import java.util.regex.Pattern;
 
 public class WikiTemplateNormalizer {
 
+	// ===和語の漢字表記===
+	// {{ja-wagokanji|めだまやき}}
+
+	static private String REGEX_JA_WAGOKANJI = "\\{\\{ja-wagokanji\\|(.*?)\\}\\}";
+	static private Pattern p_wagokanji = Pattern.compile(REGEX_JA_WAGOKANJI);
+
 	static private String REGEX_FURIGANA = "\\{\\{ふりがな\\|(.*?)\\|.*?\\}\\}";
 	static private Pattern p_furigana = Pattern.compile(REGEX_FURIGANA);
 
@@ -25,6 +31,13 @@ public class WikiTemplateNormalizer {
 				Matcher m = p_okurigana2.matcher(text);
 				if (m.find()) {
 					text = text.replaceAll(REGEX_OKURIGANA2, m.group(1) + m.group(3));
+				}
+
+			}
+			{ // 「ja-wagokanji」テンプレート
+				Matcher m = p_wagokanji.matcher(text);
+				if (m.find()) {
+					text = text.replaceAll(REGEX_JA_WAGOKANJI, m.group(1));
 				}
 
 			}

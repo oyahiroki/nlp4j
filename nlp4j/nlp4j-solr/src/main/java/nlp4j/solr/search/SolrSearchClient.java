@@ -16,6 +16,7 @@ import org.apache.solr.common.params.SolrParams;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonSyntaxException;
 
 import nlp4j.search.AbstractSearchClient;
 import nlp4j.search.SearchClient;
@@ -77,8 +78,13 @@ public class SolrSearchClient extends AbstractSearchClient implements SearchClie
 	 */
 	public JsonObject search(String collection, String json) throws IOException {
 		Gson gson = new Gson();
-		JsonObject requestObject = gson.fromJson(json, JsonObject.class);
-		return search(collection, requestObject);
+		try {
+			JsonObject requestObject = gson.fromJson(json, JsonObject.class);
+			return search(collection, requestObject);
+		} catch (JsonSyntaxException e) {
+			logger.error("Syntax error: " + json);
+			throw new IOException(e);
+		}
 	}
 
 	/**
