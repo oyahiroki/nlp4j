@@ -15,7 +15,7 @@ import nlp4j.wiki.util.MediaWikiFileUtils;
  * @author Hiroki Oya
  *
  */
-public class Wikipedia020ReadPageXml1Xml {
+public class Wikipedia020ReadWiktionaryPageXml1Xml {
 
 	public static void main(String[] args) throws Exception {
 

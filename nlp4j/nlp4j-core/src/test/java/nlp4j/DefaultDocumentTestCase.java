@@ -8,6 +8,7 @@ import java.util.List;
 import junit.framework.TestCase;
 import nlp4j.impl.DefaultDocument;
 import nlp4j.impl.DefaultKeyword;
+import nlp4j.util.DocumentUtil;
 
 /**
  * target:nlp4j.impl.DefaultDocument
@@ -336,6 +337,34 @@ public class DefaultDocumentTestCase extends TestCase {
 		DefaultDocument doc = new DefaultDocument();
 		doc.putAttribute("key", o);
 		assertEquals(o, doc.getAttribute("key"));
+	}
+
+	public void testPutAttributeStringObjectList001() {
+		List<String> o = new ArrayList<>();
+		{
+			o.add("a");
+			o.add("b");
+			o.add("c");
+		}
+		DefaultDocument doc = new DefaultDocument();
+		doc.putAttribute("key", o);
+		assertEquals(o, doc.getAttribute("key"));
+
+		System.err.println(DocumentUtil.toPrettyJsonString(doc));
+	}
+
+	public void testPutAttributeStringObjectList002() {
+		List<Integer> o = new ArrayList<>();
+		{
+			o.add(1);
+			o.add(2);
+			o.add(3);
+		}
+		DefaultDocument doc = new DefaultDocument();
+		doc.putAttribute("key", o);
+		assertEquals(o, doc.getAttribute("key"));
+
+		System.err.println(DocumentUtil.toPrettyJsonString(doc));
 	}
 
 	public void testPutAttributeStringString() {

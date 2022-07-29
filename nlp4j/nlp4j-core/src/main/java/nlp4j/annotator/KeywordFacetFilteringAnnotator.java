@@ -27,34 +27,23 @@ public class KeywordFacetFilteringAnnotator extends AbstractDocumentAnnotator
 
 	@Override
 	public void setProperty(String key, String value) {
-
 		super.setProperty(key, value);
-
 		if (key.equals("filter")) {
 			String[] ff = value.split(",");
 			filter.addAll(Arrays.asList(ff));
 		}
-
 	}
 
 	@Override
 	public void annotate(Document doc) throws Exception {
-
 		List<Keyword> kwds = doc.getKeywords();
-		ArrayList<Keyword> tobeRemoved = new ArrayList<>();
-
-		for (Keyword kwd : kwds) {
-			String facet = kwd.getFacet();
-
-			if (filter.contains(facet) == false) {
-				tobeRemoved.add(kwd);
-			}
+		{
+			kwds.removeIf(kwd -> match(kwd.getFacet()) == false);
 		}
+	}
 
-		for (Keyword kwd : tobeRemoved) {
-			doc.removeKeyword(kwd);
-		}
-
+	private boolean match(String facet) {
+		return (facet != null && this.filter.contains(facet));
 	}
 
 }

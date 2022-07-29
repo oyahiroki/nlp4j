@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -80,6 +81,13 @@ public class DocumentUtil {
 		}
 	}
 
+	/**
+	 * Copy attributes of document to JSON Object
+	 * 
+	 * @param doc
+	 * @param jsonObj
+	 */
+	@SuppressWarnings("unchecked")
 	private static void copyAttributes(Document doc, JsonObject jsonObj) {
 		// FOR EACH DOCUMENT ATTRIBUTE
 		for (String key : doc.getAttributeKeys()) {
@@ -97,6 +105,18 @@ public class DocumentUtil {
 			else if (obj instanceof JsonElement) {
 				JsonElement je = (JsonElement) obj;
 				jsonObj.add(key, je);
+			}
+			// JSON ARRAY
+			else if (obj instanceof Collection) {
+				JsonArray arr = new JsonArray();
+				for (Object o : (Collection<Object>) obj) {
+					if (o instanceof Number) {
+						arr.add((Number) o);
+					} else {
+						arr.add(o.toString());
+					}
+				}
+				jsonObj.add(key, arr);
 			}
 			// ELSE
 			else if (doc.getAttribute(key) != null) {
@@ -270,7 +290,7 @@ public class DocumentUtil {
 		JsonObject jsonObj = new JsonObject();
 		copyAttributes(doc, jsonObj);
 
-		{
+		{ // FOR EACH(KEYWORD)
 			JsonArray arr = new JsonArray();
 			for (Keyword kwd : doc.getKeywords()) {
 				if (kwd instanceof KeywordWithDependency == false) {
@@ -283,7 +303,8 @@ public class DocumentUtil {
 				}
 			}
 			jsonObj.add("keywords", arr);
-		}
+		} // END OF FOR EACH(KEYWORD)
+
 		return jsonObj;
 	}
 

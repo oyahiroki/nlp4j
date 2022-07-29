@@ -2,6 +2,7 @@ package nlp4j.impl;
 
 import junit.framework.TestCase;
 import nlp4j.Keyword;
+import nlp4j.util.DocumentUtil;
 
 public class DefaultDocumentTest extends TestCase {
 
@@ -48,7 +49,11 @@ public class DefaultDocumentTest extends TestCase {
 	public void testGetText() {
 	}
 
-	public void testPutAttribute() {
+	public void testPutAttribute001() {
+		DefaultDocument doc = new DefaultDocument();
+		doc.putAttribute("field1", "TEST");
+		System.err.println(DocumentUtil.toJsonPrettyString(doc));
+
 	}
 
 	public void testSetId() {

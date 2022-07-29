@@ -37,6 +37,7 @@ public class SolrDocumentImporter extends AbstractDocumentImporter implements Do
 	private String endPoint = "http://localhost:8983/solr/";
 	private String collection = null;
 
+	// キーワードのファセットをフィールドにマップする Map keyword facet to Document field
 	private String keyword_facet_field_mapping = null;
 	private String attribute_field_mapping = null;
 
@@ -49,6 +50,7 @@ public class SolrDocumentImporter extends AbstractDocumentImporter implements Do
 		else if ("collection".equals(key)) {
 			this.collection = value;
 		} //
+			// キーワードのファセットをフィールドにマップする Map keyword facet to Document field
 		else if ("keyword_facet_field_mapping".equals(key)) {
 			this.keyword_facet_field_mapping = value;
 		} //
@@ -123,6 +125,7 @@ public class SolrDocumentImporter extends AbstractDocumentImporter implements Do
 //			inputDocument.addField("word_ss", kwds);
 //		}
 
+		// キーワードのファセットをフィールドにマップする Map keyword facet to Document field
 		if (this.keyword_facet_field_mapping != null) {
 			String[] facet_field_maps = this.keyword_facet_field_mapping.split(",");
 			for (String facet_field_map : facet_field_maps) {

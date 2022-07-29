@@ -14,7 +14,7 @@ import nlp4j.wiki.MediawikiXmlHandler2;
 import nlp4j.wiki.WikiPage;
 import nlp4j.wiki.util.MediaWikiTextParser;
 
-public class Wikipedia021ReadPageXml4ParseKeyset {
+public class Wikipedia021ReadWiktionaryPageXml4ParseKeyset {
 
 	static void parseTemplate(String text) {
 		System.err.println(text);

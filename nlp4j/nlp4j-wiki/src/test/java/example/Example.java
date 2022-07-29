@@ -15,6 +15,9 @@ import nlp4j.wiki.util.MediaWikiFileUtils;
 public class Example {
 
 	public static void main(String[] args) throws Exception {
+		// Language: en
+		// Media: wiktionary
+		// Version: 20220501 (May 1 2022)
 
 		// Wiktionary Page Title
 		String itemString = "sukiyaki";
@@ -32,10 +35,12 @@ public class Example {
 		try (WikiDumpReader dumpReader = new WikiDumpReader(dumpFile, indexFile);) {
 			{
 				WikiPage page = dumpReader.getItem(itemString);
-				System.err.println("<text>");
+				System.err.println("---");
 				System.err.println(page.getTimestamp());
+				System.err.println("<text>");
 				System.err.println(page.getText()); // <text>...</text>
 				System.err.println("</text>");
+				System.err.println("---");
 				System.err.println("<xml>");
 				System.err.println(page.getXml()); // <page>...</page>
 				System.err.println("</xml>");
