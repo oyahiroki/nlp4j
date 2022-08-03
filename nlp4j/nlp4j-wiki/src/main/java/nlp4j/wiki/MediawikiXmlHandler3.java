@@ -20,13 +20,13 @@ import nlp4j.xml.AbstractXmlHandler;
  */
 public class MediawikiXmlHandler3 extends AbstractXmlHandler {
 
+	static private final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
+
 	private static final String ATT_XML_SPACE = "xml:space";
 
 	private static final String PATH_MEDIAWIKI_PAGE = "mediawiki/page";
 
 	private static final String QNAME_PAGE = "page";
-
-	static private final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
 	private static final String MEDIAWIKI_PAGE_REVISION_TIMESTAMP = "mediawiki/page/revision/timestamp";
 
@@ -39,11 +39,11 @@ public class MediawikiXmlHandler3 extends AbstractXmlHandler {
 	private static final String MEDIAWIKI_PAGE_REVISION_FORMAT = "mediawiki/page/revision/format";
 
 	// pageID -> WikiPage Object
-	private HashMap<String, WikiPage> pages = new HashMap<>();
+//	private HashMap<String, WikiPage> pages = new HashMap<>();
 
 	private HashMap<String, String> pageInfo = new HashMap<>();
 
-	private void resetPage() {
+	private void resetPageInfo() {
 		pageInfo = new HashMap<>();
 	}
 
@@ -73,7 +73,7 @@ public class MediawikiXmlHandler3 extends AbstractXmlHandler {
 
 		if (qName.equals(QNAME_PAGE)) {
 			// 255425
-			resetPage();
+			resetPageInfo();
 		}
 		// System.err.println(qName);
 		else if (super.getPath().equals(PATH_MEDIAWIKI_PAGE_REVISION_TEXT)) {
@@ -110,7 +110,9 @@ public class MediawikiXmlHandler3 extends AbstractXmlHandler {
 				}
 			}
 
-			pages.put(page.getId(), page);
+//			pages.put(page.getId(), page);
+			
+			
 		} //
 
 		// end of process
@@ -120,9 +122,9 @@ public class MediawikiXmlHandler3 extends AbstractXmlHandler {
 	/**
 	 * @return WikiPage Map (ID -&gt; Object)
 	 */
-	public HashMap<String, WikiPage> getPages() {
-		return pages;
-	}
+//	public HashMap<String, WikiPage> getPages() {
+//		return pages;
+//	}
 
 	public void setWikiPageHander(WikiPageHandler wikiPageHander) {
 		this.wikiPageHander = wikiPageHander;

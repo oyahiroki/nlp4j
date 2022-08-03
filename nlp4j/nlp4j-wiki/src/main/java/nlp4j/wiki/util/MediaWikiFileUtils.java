@@ -15,6 +15,9 @@ public class MediaWikiFileUtils {
 	static public final String fileNamePostFixIndex = "-pages-articles-multistream-index.txt.bz2";
 	static public final String fileNamePostFixDump = "-pages-articles-multistream.xml.bz2";
 
+	// jawiki-20220501-abstract.xml
+	static public final String fileNameAbstract = "%s%s-%s-abstract.xml.gz";
+
 	/**
 	 * Get index file of Media Wiki
 	 * 
@@ -63,6 +66,27 @@ public class MediaWikiFileUtils {
 		} else {
 			throw new FileNotFoundException("type is not set");
 		}
+	}
+
+	/**
+	 * <pre>
+	 * Get abstract file
+	 * Example: jawiki-20220501-abstract.xml.gz
+	 * </pre>
+	 * 
+	 * @param dir
+	 * @param language
+	 * @param media
+	 * @param version
+	 * @return
+	 * @throws IOException
+	 * @throws FileNotFoundException
+	 */
+	static public File getAbstarctFile(String dir, String language, String media, String version)
+			throws IOException, FileNotFoundException {
+		String fileName = String.format(fileNameAbstract, language, media, version);
+		File file = new File(dir, fileName);
+		return file;
 	}
 
 	private static File getMediaFile(String dir, String language, String media, String version, String fileNamePostFix)

@@ -94,7 +94,7 @@ public class WikiItemTextParser {
 				line = line.trim();
 				int n2 = line.length();
 				if (n2 != n1) {
-					logger.info("Line trimmed: " + line);
+					logger.debug("Line trimmed: " + line);
 				}
 			}
 

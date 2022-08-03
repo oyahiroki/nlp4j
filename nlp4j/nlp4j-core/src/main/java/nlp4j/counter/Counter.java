@@ -40,6 +40,22 @@ public class Counter<T> {
 		}
 	}
 
+	public void increment(T obj) {
+		add(obj);
+	}
+
+	public void decrement(T obj) {
+		Integer count = objCounter.get(obj);
+		// IF(COUNT != NULL) THEN
+		if (count != null && count > 1) {
+			objCounter.put(obj, count - 1);
+		}
+		// ELSE
+		else {
+			objCounter.put(obj, 0);
+		}
+	}
+
 	/**
 	 * @param obj for counting
 	 * @return Count of object

@@ -38,4 +38,26 @@ public class WikiTemplateNormalizerTestCase extends TestCase {
 		String expected = "めだまやき";
 		assertEquals(expected, s2);
 	}
+
+	/**
+	 * created at: 2022-07-31
+	 */
+	public void testNormalize105() {
+		String s1 = "{{読み仮名|漢字|よみがな}}";
+		String s2 = WikiTemplateNormalizer.normalize(s1);
+		System.err.println(s2);
+		String expected = "漢字";
+		assertEquals(expected, s2);
+	}
+
+	/**
+	 * created at: 2022-07-31
+	 */
+	public void testNormalize106() {
+		String s1 = "{{読み仮名_ruby不使用|'''地理学'''|ちりがく|{{Lang-en-short|geography}}";
+		String s2 = WikiTemplateNormalizer.normalize(s1);
+		System.err.println(s2);
+		String expected = "'''地理学'''";
+		assertEquals(expected, s2);
+	}
 }

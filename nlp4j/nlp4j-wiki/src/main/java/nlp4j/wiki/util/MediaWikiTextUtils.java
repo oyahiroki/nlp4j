@@ -15,16 +15,20 @@ import org.sweble.wikitext.example.TextConverter;
 
 public class MediaWikiTextUtils {
 
+	static private final WtEngineImpl engine;
+	static private WikiConfig config = DefaultConfigEnWp.generate();
+	static {
+		engine = new WtEngineImpl(config);
+	}
+
 	static public String toPlainText(String wikiTitle, String wikiText) {
 		// Set-up a simple wiki configuration
-		WikiConfig config = DefaultConfigEnWp.generate();
 		try {
 			final int wrapCol = 1000;
 			// Retrieve a page
 			PageTitle pageTitle = PageTitle.make(config, wikiTitle);
 			PageId pageId = new PageId(pageTitle, -1);
 			// Instantiate a compiler for wiki pages
-			WtEngineImpl engine = new WtEngineImpl(config);
 			// Compile the retrieved page
 			EngProcessedPage cp = engine.postprocess(pageId, wikiText, null);
 			TextConverter p = new TextConverter(config, wrapCol);
@@ -32,7 +36,8 @@ public class MediaWikiTextUtils {
 			return text;
 
 		} catch (Exception e) {
-			return null;
+			e.printStackTrace();
+			return "";
 		}
 
 	}
@@ -56,6 +61,24 @@ public class MediaWikiTextUtils {
 		}
 
 		return ss;
+	}
+
+	static public String processRedirect(String t) {
+
+		if (t == null) {
+			return t;
+		}
+		// けんか
+		// #redirect [[喧嘩]]
+		if (t.startsWith("#REDIRECT") || t.startsWith("#redirect")) {
+			int idx1 = t.indexOf("[[");
+			int idx2 = t.indexOf("]]");
+			if (idx1 != -1 && idx2 != -1) {
+				t = t.substring(idx1 + 2, idx2);
+			}
+		}
+
+		return t;
 	}
 
 }

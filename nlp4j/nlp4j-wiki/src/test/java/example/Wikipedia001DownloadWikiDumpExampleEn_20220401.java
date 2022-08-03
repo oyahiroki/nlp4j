@@ -11,14 +11,14 @@ import nlp4j.wiki.MediaWikiDownloader;
  * @author Hiroki Oya
  *
  */
-public class Wikipedia001DownloadWikiDumpExample_20220401 {
+public class Wikipedia001DownloadWikiDumpExampleEn_20220401 {
 
 	static public void main(String[] args) throws Exception {
 		MediaWikiDownloader dl = new MediaWikiDownloader();
 		dl.setProperty("version", "20220401");
 		dl.setProperty("outdir", "/usr/local/data/wiki/20220401");
-		dl.setProperty("language", "ja");
-		dl.setProperty("media", "wiktionary");
+		dl.setProperty("language", "en");
+		dl.setProperty("media", "wiki");
 		dl.crawlDocuments();
 	}
 }

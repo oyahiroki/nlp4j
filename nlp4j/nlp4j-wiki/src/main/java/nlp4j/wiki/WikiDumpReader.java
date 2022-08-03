@@ -11,6 +11,7 @@ import java.lang.invoke.MethodHandles;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.xml.XMLConstants;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
@@ -324,6 +325,13 @@ public class WikiDumpReader implements AutoCloseable {
 				BZip2CompressorInputStream bz2cis = new BZip2CompressorInputStream(fis, true);) {
 
 			SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
+			{ // 2022-08-01
+				// to prevent org.xml.sax.SAXParseException; lineNumber: 111758337;
+				// columnNumber: 66; JAXP00010004:
+				// エンティティの累積サイズ"50,000,001"は、"FEATURE_SECURE_PROCESSING"で設定された制限"50,000,000"を超えました。
+				saxParserFactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, false);
+			}
+
 			SAXParser saxParser = saxParserFactory.newSAXParser();
 
 			// XML Handler for Media Wiki

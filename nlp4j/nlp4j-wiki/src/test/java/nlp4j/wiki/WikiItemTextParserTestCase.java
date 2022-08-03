@@ -1,8 +1,13 @@
 package nlp4j.wiki;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
+import org.apache.commons.io.FileUtils;
+
 import junit.framework.TestCase;
+import nlp4j.wiki.util.MediaWikiTextUtils;
 
 public class WikiItemTextParserTestCase extends TestCase {
 
@@ -41,10 +46,6 @@ public class WikiItemTextParserTestCase extends TestCase {
 			+ "[[Category:HSKレベル1級|xue2xiao4]]\r\n" //
 			+ "[[Category:HSKレベル甲|xue2xiao4]]";
 
-	public void testWikiItemTextParser() {
-
-	}
-
 	public void testGetRoot001() {
 
 		WikiItemTextParser parser = new WikiItemTextParser();
@@ -53,12 +54,13 @@ public class WikiItemTextParserTestCase extends TestCase {
 
 		WikiPageNode rootNode = parser.getRoot();
 		{
+			System.err.println("<text>");
 			System.err.println(rootNode.getText());
+			System.err.println("</text>");
 			// {{Wikipedia|学校}}
 			// {{ja-DEFAULTSORT|がっこう}}
 			System.err.println(rootNode.getTextDescendant());
 		}
-
 
 		System.err.println("---");
 		{
@@ -76,7 +78,44 @@ public class WikiItemTextParserTestCase extends TestCase {
 
 	}
 
-	public void testParse() {
+	public void testGetRoot002() throws IOException {
+
+		String wikiText2 = FileUtils.readFileToString(new File("src/test/resources/nlp4j.wiki/wiki-example.txt"),
+				"UTF-8");
+		WikiItemTextParser parser = new WikiItemTextParser();
+
+		parser.parse(wikiText2);
+
+		WikiPageNode rootNode = parser.getRoot();
+		{
+			System.err.println("<text>");
+			System.err.println(rootNode.getText());
+			System.err.println("</text>");
+			// {{Wikipedia|学校}}
+			// {{ja-DEFAULTSORT|がっこう}}
+//			System.err.println(rootNode.getTextDescendant());
+			System.err.println("<text2>");
+			System.err.println(MediaWikiTextUtils.toPlainText("ヨーロッパ", rootNode.getText()));
+			System.err.println("</text2>");
+			System.err.println("<text2b>");
+			System.err.println(MediaWikiTextUtils.toPlainText("ヨーロッパ", rootNode.getText()).replace("**", ""));
+			System.err.println("</text2b>");
+		}
+
+//		System.err.println("---");
+//		{
+//			List<WikiPageNode> nodes = rootNode.get("=={{ja}}==");
+//			System.err.println(nodes.get(0).getText());
+//			// [[Category:{{ja}}]]
+//		}
+//		System.err.println("---");
+//		{
+//			List<WikiPageNode> nodes = rootNode.get("=={{ja}}==/==={{noun}}===");
+//			System.err.println(nodes.get(0).getText());
+//			// [[Category:{{ja}}]]
+//		}
+//		System.err.println("---");
+
 	}
 
 	public void testToWikiPageNodeTree() {

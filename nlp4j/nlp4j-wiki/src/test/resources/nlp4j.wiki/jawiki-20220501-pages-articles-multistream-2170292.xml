@@ -1,0 +1,24 @@
+<mediawiki>
+<page>
+<title>DRAGON BALL</title>
+    <ns>0</ns>
+    <id>1555</id>
+    <redirect title="ドラゴンボール" />
+    <revision>
+      <id>2170292</id>
+      <parentid>38818</parentid>
+      <timestamp>2003-08-07T12:56:36Z</timestamp>
+      <contributor>
+        <username>Ojigiri</username>
+        <id>329</id>
+      </contributor>
+      <minor />
+      <comment>「ドラゴンボール」に統合</comment>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text bytes="35" xml:space="preserve">#REDIRECT [[ドラゴンボール]]</text>
+      <sha1>4d51amvbo6d6n2434ljpj1pu8za1ucg</sha1>
+    </revision>
+  
+</page>
+</mediawiki>
