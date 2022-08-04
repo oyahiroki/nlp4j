@@ -9,14 +9,10 @@ import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.zip.GZIPInputStream;
-
-import org.apache.commons.io.FileUtils;
 
 import nlp4j.Document;
 import nlp4j.impl.DefaultDocument;
-import nlp4j.wiki.util.MediaWikiFileUtils;
 
 public class WikiAbstractReader {
 
@@ -24,19 +20,15 @@ public class WikiAbstractReader {
 		FEED, DOC, TITLE, URL, ABSTRACT, LINKS, SUBLINK, CLOSE_DOC
 	}
 
-	File file;
+	private final File file;
+
+	private DocumentHandler handler;
+
+	Document doc;
 
 	public WikiAbstractReader(File file) {
 		this.file = file;
 	}
-
-	DocumentHandler handler;
-
-	public void setHandler(DocumentHandler handler) {
-		this.handler = handler;
-	}
-
-	Document doc;
 
 	public void read() throws IOException {
 
@@ -98,7 +90,6 @@ public class WikiAbstractReader {
 					}
 				} //
 				else if (status == Status.LINKS) {
-
 					status = Status.SUBLINK;
 					continue;
 				} //
@@ -111,7 +102,6 @@ public class WikiAbstractReader {
 						status = Status.CLOSE_DOC;
 						continue;
 					}
-
 				} else if (status == Status.CLOSE_DOC) {
 					status = Status.DOC;
 					if (this.handler != null) {
@@ -143,31 +133,8 @@ public class WikiAbstractReader {
 
 	}
 
-	public static void main(String[] args) throws Exception {
-		File abstFile = MediaWikiFileUtils.getAbstarctFile("/usr/local/data/wiki/20220501/", "ja", "wiki", "20220501");
-//		System.err.println(abstFile.exists());
-
-		DocumentHandler handler = new DocumentHandler() {
-			int count = 0;
-
-			@Override
-			public void read(Document document) throws BreakException {
-				String abs = document.getAttributeAsString("abstract");
-				if (abs != null && abs.length() > 32) {
-					abs = abs.substring(0, 32);
-				}
-				System.err.println(count + " " + document.getAttribute("title") + ":" + abs);
-				count++;
-				if (count > 10000) {
-					throw new BreakException();
-				}
-			}
-		};
-
-		WikiAbstractReader reader = new WikiAbstractReader(abstFile);
-		reader.setHandler(handler);
-		reader.read();
-
+	public void setHandler(DocumentHandler handler) {
+		this.handler = handler;
 	}
 
 }
