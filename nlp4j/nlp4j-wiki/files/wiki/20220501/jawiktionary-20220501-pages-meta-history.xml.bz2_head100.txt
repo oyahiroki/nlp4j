@@ -1,0 +1,100 @@
+<mediawiki xmlns="http://www.mediawiki.org/xml/export-0.10/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mediawiki.org/xml/export-0.10/ http://www.mediawiki.org/xml/export-0.10.xsd" version="0.10" xml:lang="ja">
+  <siteinfo>
+    <sitename>Wiktionary</sitename>
+    <dbname>jawiktionary</dbname>
+    <base>https://ja.wiktionary.org/wiki/Wiktionary:%E3%83%A1%E3%82%A4%E3%83%B3%E3%83%9A%E3%83%BC%E3%82%B8</base>
+    <generator>MediaWiki 1.39.0-wmf.9</generator>
+    <case>case-sensitive</case>
+    <namespaces>
+      <namespace key="-2" case="case-sensitive">メディア</namespace>
+      <namespace key="-1" case="first-letter">特別</namespace>
+      <namespace key="0" case="case-sensitive" />
+      <namespace key="1" case="case-sensitive">トーク</namespace>
+      <namespace key="2" case="first-letter">利用者</namespace>
+      <namespace key="3" case="first-letter">利用者・トーク</namespace>
+      <namespace key="4" case="case-sensitive">Wiktionary</namespace>
+      <namespace key="5" case="case-sensitive">Wiktionary・トーク</namespace>
+      <namespace key="6" case="case-sensitive">ファイル</namespace>
+      <namespace key="7" case="case-sensitive">ファイル・トーク</namespace>
+      <namespace key="8" case="first-letter">MediaWiki</namespace>
+      <namespace key="9" case="first-letter">MediaWiki・トーク</namespace>
+      <namespace key="10" case="case-sensitive">テンプレート</namespace>
+      <namespace key="11" case="case-sensitive">テンプレート・トーク</namespace>
+      <namespace key="12" case="case-sensitive">ヘルプ</namespace>
+      <namespace key="13" case="case-sensitive">ヘルプ・トーク</namespace>
+      <namespace key="14" case="case-sensitive">カテゴリ</namespace>
+      <namespace key="15" case="case-sensitive">カテゴリ・トーク</namespace>
+      <namespace key="100" case="case-sensitive">付録</namespace>
+      <namespace key="101" case="case-sensitive">付録・トーク</namespace>
+      <namespace key="828" case="case-sensitive">モジュール</namespace>
+      <namespace key="829" case="case-sensitive">モジュール・トーク</namespace>
+      <namespace key="2300" case="case-sensitive">Gadget</namespace>
+      <namespace key="2301" case="case-sensitive">Gadget talk</namespace>
+      <namespace key="2302" case="case-sensitive">Gadget definition</namespace>
+      <namespace key="2303" case="case-sensitive">Gadget definition talk</namespace>
+    </namespaces>
+  </siteinfo>
+  <page>
+    <title>MediaWiki:Mainpagetext</title>
+    <ns>8</ns>
+    <id>7</id>
+    <revision>
+      <id>916</id>
+      <timestamp>2003-12-05T06:42:13Z</timestamp>
+      <contributor>
+        <username>MediaWiki default</username>
+        <id>921</id>
+      </contributor>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text bytes="37" xml:space="preserve">Wiki software successfully installed.</text>
+      <sha1>a5pzl9e39gbpe8jaiuozsnb96ev16ne</sha1>
+    </revision>
+    <revision>
+      <id>6422</id>
+      <parentid>916</parentid>
+      <timestamp>2004-06-05T17:35:50Z</timestamp>
+      <contributor>
+        <username>MediaWiki default</username>
+        <id>921</id>
+      </contributor>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text bytes="37" xml:space="preserve">Wiki software successfully installed.</text>
+      <sha1>a5pzl9e39gbpe8jaiuozsnb96ev16ne</sha1>
+    </revision>
+    <revision>
+      <id>10526</id>
+      <parentid>6422</parentid>
+      <timestamp>2004-12-22T08:01:13Z</timestamp>
+      <contributor>
+        <username>MediaWiki default</username>
+        <id>921</id>
+      </contributor>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text bytes="37" xml:space="preserve">Wiki software successfully installed.</text>
+      <sha1>a5pzl9e39gbpe8jaiuozsnb96ev16ne</sha1>
+    </revision>
+    <revision>
+      <id>11063</id>
+      <parentid>10526</parentid>
+      <timestamp>2005-06-25T11:09:32Z</timestamp>
+      <contributor>
+        <username>MediaWiki default</username>
+        <id>921</id>
+      </contributor>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text bytes="37" xml:space="preserve">Wiki software successfully installed.</text>
+      <sha1>a5pzl9e39gbpe8jaiuozsnb96ev16ne</sha1>
+    </revision>
+    <revision>
+      <id>22958</id>
+      <parentid>11063</parentid>
+      <timestamp>2005-07-26T21:55:11Z</timestamp>
+      <contributor>
+        <username>Kahusi</username>
+        <id>43</id>
+      </contributor>
+      <minor />
