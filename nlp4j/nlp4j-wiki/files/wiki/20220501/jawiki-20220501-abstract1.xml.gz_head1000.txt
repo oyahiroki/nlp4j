@@ -1,0 +1,1000 @@
+<feed>
+<doc>
+<title>Wikipedia: アンパサンド</title>
+<url>https://ja.wikipedia.org/wiki/%E3%82%A2%E3%83%B3%E3%83%91%E3%82%B5%E3%83%B3%E3%83%89</url>
+<abstract>thumb|100px|[[Trebuchet MS フォント]]</abstract>
+<links>
+<sublink linktype="nav"><anchor>語源</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%A2%E3%83%B3%E3%83%91%E3%82%B5%E3%83%B3%E3%83%89#語源</link></sublink>
+<sublink linktype="nav"><anchor>歴史</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%A2%E3%83%B3%E3%83%91%E3%82%B5%E3%83%B3%E3%83%89#歴史</link></sublink>
+<sublink linktype="nav"><anchor>手書き</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%A2%E3%83%B3%E3%83%91%E3%82%B5%E3%83%B3%E3%83%89#手書き</link></sublink>
+<sublink linktype="nav"><anchor>同様の記号</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%A2%E3%83%B3%E3%83%91%E3%82%B5%E3%83%B3%E3%83%89#同様の記号</link></sublink>
+<sublink linktype="nav"><anchor>プログラミング言語</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%A2%E3%83%B3%E3%83%91%E3%82%B5%E3%83%B3%E3%83%89#プログラミング言語</link></sublink>
+<sublink linktype="nav"><anchor>符号位置</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%A2%E3%83%B3%E3%83%91%E3%82%B5%E3%83%B3%E3%83%89#符号位置</link></sublink>
+<sublink linktype="nav"><anchor>脚注</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%A2%E3%83%B3%E3%83%91%E3%82%B5%E3%83%B3%E3%83%89#脚注</link></sublink>
+<sublink linktype="nav"><anchor>外部リンク</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%A2%E3%83%B3%E3%83%91%E3%82%B5%E3%83%B3%E3%83%89#外部リンク</link></sublink>
+</links>
+</doc>
+<doc>
+<title>Wikipedia: 言語</title>
+<url>https://ja.wikipedia.org/wiki/%E8%A8%80%E8%AA%9E</url>
+<abstract>言語（げんご）は、狭義には「声による記号の体系」をいう。</abstract>
+<links>
+<sublink linktype="nav"><anchor>概説</anchor><link>https://ja.wikipedia.org/wiki/%E8%A8%80%E8%AA%9E#概説</link></sublink>
+<sublink linktype="nav"><anchor>歴史</anchor><link>https://ja.wikipedia.org/wiki/%E8%A8%80%E8%AA%9E#歴史</link></sublink>
+<sublink linktype="nav"><anchor>起源</anchor><link>https://ja.wikipedia.org/wiki/%E8%A8%80%E8%AA%9E#起源</link></sublink>
+<sublink linktype="nav"><anchor>変化</anchor><link>https://ja.wikipedia.org/wiki/%E8%A8%80%E8%AA%9E#変化</link></sublink>
+<sublink linktype="nav"><anchor>世界の言語</anchor><link>https://ja.wikipedia.org/wiki/%E8%A8%80%E8%AA%9E#世界の言語</link></sublink>
+<sublink linktype="nav"><anchor>話者数の統計順位</anchor><link>https://ja.wikipedia.org/wiki/%E8%A8%80%E8%AA%9E#話者数の統計順位</link></sublink>
+<sublink linktype="nav"><anchor>母語話者統計で見た話者数</anchor><link>https://ja.wikipedia.org/wiki/%E8%A8%80%E8%AA%9E#母語話者統計で見た話者数</link></sublink>
+<sublink linktype="nav"><anchor>母語話者数と総話者数の差</anchor><link>https://ja.wikipedia.org/wiki/%E8%A8%80%E8%AA%9E#母語話者数と総話者数の差</link></sublink>
+<sublink linktype="nav"><anchor>言語と国家</anchor><link>https://ja.wikipedia.org/wiki/%E8%A8%80%E8%AA%9E#言語と国家</link></sublink>
+<sublink linktype="nav"><anchor>公用語、共通語、民族語</anchor><link>https://ja.wikipedia.org/wiki/%E8%A8%80%E8%AA%9E#公用語、共通語、民族語</link></sublink>
+<sublink linktype="nav"><anchor>言語の生物学</anchor><link>https://ja.wikipedia.org/wiki/%E8%A8%80%E8%AA%9E#言語の生物学</link></sublink>
+<sublink linktype="nav"><anchor>言語に関する脳の領域</anchor><link>https://ja.wikipedia.org/wiki/%E8%A8%80%E8%AA%9E#言語に関する脳の領域</link></sublink>
+<sublink linktype="nav"><anchor>ヒトの発達における言語機能の獲得</anchor><link>https://ja.wikipedia.org/wiki/%E8%A8%80%E8%AA%9E#ヒトの発達における言語機能の獲得</link></sublink>
+<sublink linktype="nav"><anchor>脚注</anchor><link>https://ja.wikipedia.org/wiki/%E8%A8%80%E8%AA%9E#脚注</link></sublink>
+<sublink linktype="nav"><anchor>注釈</anchor><link>https://ja.wikipedia.org/wiki/%E8%A8%80%E8%AA%9E#注釈</link></sublink>
+<sublink linktype="nav"><anchor>出典</anchor><link>https://ja.wikipedia.org/wiki/%E8%A8%80%E8%AA%9E#出典</link></sublink>
+<sublink linktype="nav"><anchor>関連項目</anchor><link>https://ja.wikipedia.org/wiki/%E8%A8%80%E8%AA%9E#関連項目</link></sublink>
+<sublink linktype="nav"><anchor>外部リンク</anchor><link>https://ja.wikipedia.org/wiki/%E8%A8%80%E8%AA%9E#外部リンク</link></sublink>
+</links>
+</doc>
+<doc>
+<title>Wikipedia: 日本語</title>
+<url>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E</url>
+<abstract>日本国語大辞典（小学館）の日本語の項によれば、「ニホンゴ°」</abstract>
+<links>
+<sublink linktype="nav"><anchor>特徴</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E#特徴</link></sublink>
+<sublink linktype="nav"><anchor>分布</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E#分布</link></sublink>
+<sublink linktype="nav"><anchor>系統</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E#系統</link></sublink>
+<sublink linktype="nav"><anchor>音韻</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E#音韻</link></sublink>
+<sublink linktype="nav"><anchor>音韻体系</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E#音韻体系</link></sublink>
+<sublink linktype="nav"><anchor>母音体系</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E#母音体系</link></sublink>
+<sublink linktype="nav"><anchor>子音体系</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E#子音体系</link></sublink>
+<sublink linktype="nav"><anchor>アクセント</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E#アクセント</link></sublink>
+<sublink linktype="nav"><anchor>文法</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E#文法</link></sublink>
+<sublink linktype="nav"><anchor>文の構造</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E#文の構造</link></sublink>
+<sublink linktype="nav"><anchor>題述構造</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E#題述構造</link></sublink>
+<sublink linktype="nav"><anchor>主語廃止論</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E#主語廃止論</link></sublink>
+<sublink linktype="nav"><anchor>文の成分</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E#文の成分</link></sublink>
+<sublink linktype="nav"><anchor>種類とその役割</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E#種類とその役割</link></sublink>
+<sublink linktype="nav"><anchor>主語・述語</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E#主語・述語</link></sublink>
+<sublink linktype="nav"><anchor>連用修飾語</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E#連用修飾語</link></sublink>
+<sublink linktype="nav"><anchor>連体修飾語</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E#連体修飾語</link></sublink>
+<sublink linktype="nav"><anchor>接続語</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E#接続語</link></sublink>
+<sublink linktype="nav"><anchor>独立語</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E#独立語</link></sublink>
+<sublink linktype="nav"><anchor>並立語</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E#並立語</link></sublink>
+<sublink linktype="nav"><anchor>目的語と補語</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E#目的語と補語</link></sublink>
+<sublink linktype="nav"><anchor>対象語（補語）</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E#対象語（補語）</link></sublink>
+<sublink linktype="nav"><anchor>状況語</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E#状況語</link></sublink>
+<sublink linktype="nav"><anchor>修飾語の特徴</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E#修飾語の特徴</link></sublink>
+<sublink linktype="nav"><anchor>品詞体系</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E#品詞体系</link></sublink>
+<sublink linktype="nav"><anchor>自立語</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E#自立語</link></sublink>
+<sublink linktype="nav"><anchor>付属語</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E#付属語</link></sublink>
+<sublink linktype="nav"><anchor>名詞の格</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E#名詞の格</link></sublink>
+<sublink linktype="nav"><anchor>活用形と種類</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E#活用形と種類</link></sublink>
+<sublink linktype="nav"><anchor>語彙</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E#語彙</link></sublink>
+<sublink linktype="nav"><anchor>分野ごとの語彙量</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E#分野ごとの語彙量</link></sublink>
+<sublink linktype="nav"><anchor>人称語彙</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E#人称語彙</link></sublink>
+<sublink linktype="nav"><anchor>音象徴語彙（オノマトペ）</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E#音象徴語彙（オノマトペ）</link></sublink>
+<sublink linktype="nav"><anchor>品詞ごとの語彙量</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E#品詞ごとの語彙量</link></sublink>
+<sublink linktype="nav"><anchor>語彙体系</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E#語彙体系</link></sublink>
+<sublink linktype="nav"><anchor>指示語の体系</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E#指示語の体系</link></sublink>
+<sublink linktype="nav"><anchor>色彩語彙の体系</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E#色彩語彙の体系</link></sublink>
+<sublink linktype="nav"><anchor>親族語彙の体系</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E#親族語彙の体系</link></sublink>
+<sublink linktype="nav"><anchor>語種</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E#語種</link></sublink>
+<sublink linktype="nav"><anchor>単純語と複合語</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E#単純語と複合語</link></sublink>
+<sublink linktype="nav"><anchor>表記</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E#表記</link></sublink>
+<sublink linktype="nav"><anchor>字種</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E#字種</link></sublink>
+<sublink linktype="nav"><anchor>方言と表記</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E#方言と表記</link></sublink>
+<sublink linktype="nav"><anchor>正書法</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E#正書法</link></sublink>
+<sublink linktype="nav"><anchor>文体</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E#文体</link></sublink>
+<sublink linktype="nav"><anchor>普通体・丁寧体</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E#普通体・丁寧体</link></sublink>
+<sublink linktype="nav"><anchor>文体の位相差</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E#文体の位相差</link></sublink>
+<sublink linktype="nav"><anchor>待遇表現</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E#待遇表現</link></sublink>
+<sublink linktype="nav"><anchor>敬語体系</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E#敬語体系</link></sublink>
+<sublink linktype="nav"><anchor>尊敬語</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E#尊敬語</link></sublink>
+<sublink linktype="nav"><anchor>謙譲語</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E#謙譲語</link></sublink>
+<sublink linktype="nav"><anchor>丁寧語</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E#丁寧語</link></sublink>
+<sublink linktype="nav"><anchor>敬意表現</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E#敬意表現</link></sublink>
+<sublink linktype="nav"><anchor>敬語漸減の法則</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E#敬語漸減の法則</link></sublink>
+<sublink linktype="nav"><anchor>方言</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E#方言</link></sublink>
+<sublink linktype="nav"><anchor>相互理解可能性</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E#相互理解可能性</link></sublink>
+<sublink linktype="nav"><anchor>方言区画</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E#方言区画</link></sublink>
+<sublink linktype="nav"><anchor>東西の文法</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E#東西の文法</link></sublink>
+<sublink linktype="nav"><anchor>音声・音韻</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E#音声・音韻</link></sublink>
+<sublink linktype="nav"><anchor>歴史</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E#歴史</link></sublink>
+<sublink linktype="nav"><anchor>音韻史</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E#音韻史</link></sublink>
+<sublink linktype="nav"><anchor>母音・子音</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E#母音・子音</link></sublink>
+<sublink linktype="nav"><anchor>音便現象</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E#音便現象</link></sublink>
+<sublink linktype="nav"><anchor>連音上の現象</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E#連音上の現象</link></sublink>
+<sublink linktype="nav"><anchor>外来の音韻</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E#外来の音韻</link></sublink>
+<sublink linktype="nav"><anchor>文法史</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E#文法史</link></sublink>
+<sublink linktype="nav"><anchor>活用の変化</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E#活用の変化</link></sublink>
+<sublink linktype="nav"><anchor>係り結びとその崩壊</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E#係り結びとその崩壊</link></sublink>
+<sublink linktype="nav"><anchor>終止・連体形の合一</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E#終止・連体形の合一</link></sublink>
+<sublink linktype="nav"><anchor>可能動詞</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E#可能動詞</link></sublink>
+<sublink linktype="nav"><anchor>受け身表現</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E#受け身表現</link></sublink>
+<sublink linktype="nav"><anchor>語彙史</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E#語彙史</link></sublink>
+<sublink linktype="nav"><anchor>漢字の使用</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E#漢字の使用</link></sublink>
+<sublink linktype="nav"><anchor>外来語の使用</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E#外来語の使用</link></sublink>
+<sublink linktype="nav"><anchor>語彙の増加と品詞</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E#語彙の増加と品詞</link></sublink>
+<sublink linktype="nav"><anchor>表記史</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E#表記史</link></sublink>
+<sublink linktype="nav"><anchor>仮名の誕生</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E#仮名の誕生</link></sublink>
+<sublink linktype="nav"><anchor>仮名遣い問題の発生</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E#仮名遣い問題の発生</link></sublink>
+<sublink linktype="nav"><anchor>漢字・仮名遣いの改定</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E#漢字・仮名遣いの改定</link></sublink>
+<sublink linktype="nav"><anchor>文体史</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E#文体史</link></sublink>
+<sublink linktype="nav"><anchor>和漢混淆文の誕生</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E#和漢混淆文の誕生</link></sublink>
+<sublink linktype="nav"><anchor>文語文と口語文</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E#文語文と口語文</link></sublink>
+<sublink linktype="nav"><anchor>方言史</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E#方言史</link></sublink>
+<sublink linktype="nav"><anchor>近代以前</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E#近代以前</link></sublink>
+<sublink linktype="nav"><anchor>近代以降</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E#近代以降</link></sublink>
+<sublink linktype="nav"><anchor>研究史</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E#研究史</link></sublink>
+<sublink linktype="nav"><anchor>江戸時代以前</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E#江戸時代以前</link></sublink>
+<sublink linktype="nav"><anchor>江戸時代</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E#江戸時代</link></sublink>
+<sublink linktype="nav"><anchor>日本国外の日本語</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E#日本国外の日本語</link></sublink>
+<sublink linktype="nav"><anchor>日本語話者の意識</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E#日本語話者の意識</link></sublink>
+<sublink linktype="nav"><anchor>変化に対する意識</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E#変化に対する意識</link></sublink>
+<sublink linktype="nav"><anchor>若者の日本語</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E#若者の日本語</link></sublink>
+<sublink linktype="nav"><anchor>若者言葉</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E#若者言葉</link></sublink>
+<sublink linktype="nav"><anchor>若者の表記</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E#若者の表記</link></sublink>
+<sublink linktype="nav"><anchor>日本語ブーム</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E#日本語ブーム</link></sublink>
+<sublink linktype="nav"><anchor>日本語特殊論</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E#日本語特殊論</link></sublink>
+<sublink linktype="nav"><anchor>肯定的な意見</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E#肯定的な意見</link></sublink>
+<sublink linktype="nav"><anchor>否定的な意見</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E#否定的な意見</link></sublink>
+<sublink linktype="nav"><anchor>辞書</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E#辞書</link></sublink>
+<sublink linktype="nav"><anchor>古代から中近世</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E#古代から中近世</link></sublink>
+<sublink linktype="nav"><anchor>近現代</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E#近現代</link></sublink>
+<sublink linktype="nav"><anchor>脚注</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E#脚注</link></sublink>
+<sublink linktype="nav"><anchor>注釈</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E#注釈</link></sublink>
+<sublink linktype="nav"><anchor>出典</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E#出典</link></sublink>
+<sublink linktype="nav"><anchor>関連項目</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E#関連項目</link></sublink>
+<sublink linktype="nav"><anchor>外部リンク</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E8%AA%9E#外部リンク</link></sublink>
+</links>
+</doc>
+<doc>
+<title>Wikipedia: 地理学</title>
+<url>https://ja.wikipedia.org/wiki/%E5%9C%B0%E7%90%86%E5%AD%A6</url>
+<abstract>、、、 または }}は、。地域や空間、場所、自然環境という物理的存在を対象の中に含むことから、人文科学、社会科学、自然科学のいずれの性格も有する。広範な領域を網羅する。また「地理学と哲学は諸科学の母」と称される。</abstract>
+<links>
+<sublink linktype="nav"><anchor>地理学の歴史</anchor><link>https://ja.wikipedia.org/wiki/%E5%9C%B0%E7%90%86%E5%AD%A6#地理学の歴史</link></sublink>
+<sublink linktype="nav"><anchor>地理学の諸分野</anchor><link>https://ja.wikipedia.org/wiki/%E5%9C%B0%E7%90%86%E5%AD%A6#地理学の諸分野</link></sublink>
+<sublink linktype="nav"><anchor>系統地理学</anchor><link>https://ja.wikipedia.org/wiki/%E5%9C%B0%E7%90%86%E5%AD%A6#系統地理学</link></sublink>
+<sublink linktype="nav"><anchor>自然地理学</anchor><link>https://ja.wikipedia.org/wiki/%E5%9C%B0%E7%90%86%E5%AD%A6#自然地理学</link></sublink>
+<sublink linktype="nav"><anchor>人文地理学</anchor><link>https://ja.wikipedia.org/wiki/%E5%9C%B0%E7%90%86%E5%AD%A6#人文地理学</link></sublink>
+<sublink linktype="nav"><anchor>地誌学</anchor><link>https://ja.wikipedia.org/wiki/%E5%9C%B0%E7%90%86%E5%AD%A6#地誌学</link></sublink>
+<sublink linktype="nav"><anchor>研究方法</anchor><link>https://ja.wikipedia.org/wiki/%E5%9C%B0%E7%90%86%E5%AD%A6#研究方法</link></sublink>
+<sublink linktype="nav"><anchor>地理学を学べる日本国内の大学</anchor><link>https://ja.wikipedia.org/wiki/%E5%9C%B0%E7%90%86%E5%AD%A6#地理学を学べる日本国内の大学</link></sublink>
+<sublink linktype="nav"><anchor>教育上の問題点</anchor><link>https://ja.wikipedia.org/wiki/%E5%9C%B0%E7%90%86%E5%AD%A6#教育上の問題点</link></sublink>
+<sublink linktype="nav"><anchor>脚注</anchor><link>https://ja.wikipedia.org/wiki/%E5%9C%B0%E7%90%86%E5%AD%A6#脚注</link></sublink>
+<sublink linktype="nav"><anchor>注釈</anchor><link>https://ja.wikipedia.org/wiki/%E5%9C%B0%E7%90%86%E5%AD%A6#注釈</link></sublink>
+<sublink linktype="nav"><anchor>出典</anchor><link>https://ja.wikipedia.org/wiki/%E5%9C%B0%E7%90%86%E5%AD%A6#出典</link></sublink>
+<sublink linktype="nav"><anchor>参考文献</anchor><link>https://ja.wikipedia.org/wiki/%E5%9C%B0%E7%90%86%E5%AD%A6#参考文献</link></sublink>
+<sublink linktype="nav"><anchor>関連項目</anchor><link>https://ja.wikipedia.org/wiki/%E5%9C%B0%E7%90%86%E5%AD%A6#関連項目</link></sublink>
+<sublink linktype="nav"><anchor>外部リンク</anchor><link>https://ja.wikipedia.org/wiki/%E5%9C%B0%E7%90%86%E5%AD%A6#外部リンク</link></sublink>
+</links>
+</doc>
+<doc>
+<title>Wikipedia: EU (曖昧さ回避)</title>
+<url>https://ja.wikipedia.org/wiki/EU_(%E6%9B%96%E6%98%A7%E3%81%95%E5%9B%9E%E9%81%BF)</url>
+<abstract>EU</abstract>
+<links>
+<sublink linktype="nav"><anchor>EU</anchor><link>https://ja.wikipedia.org/wiki/EU_(%E6%9B%96%E6%98%A7%E3%81%95%E5%9B%9E%E9%81%BF)#EU</link></sublink>
+<sublink linktype="nav"><anchor>Eu</anchor><link>https://ja.wikipedia.org/wiki/EU_(%E6%9B%96%E6%98%A7%E3%81%95%E5%9B%9E%E9%81%BF)#Eu</link></sublink>
+<sublink linktype="nav"><anchor>eu</anchor><link>https://ja.wikipedia.org/wiki/EU_(%E6%9B%96%E6%98%A7%E3%81%95%E5%9B%9E%E9%81%BF)#eu</link></sublink>
+</links>
+</doc>
+<doc>
+<title>Wikipedia: 国の一覧</title>
+<url>https://ja.wikipedia.org/wiki/%E5%9B%BD%E3%81%AE%E4%B8%80%E8%A6%A7</url>
+<abstract>国の一覧（くにのいちらん）は、世界の独立国の一覧。</abstract>
+<links>
+<sublink linktype="nav"><anchor>対象</anchor><link>https://ja.wikipedia.org/wiki/%E5%9B%BD%E3%81%AE%E4%B8%80%E8%A6%A7#対象</link></sublink>
+<sublink linktype="nav"><anchor>凡例</anchor><link>https://ja.wikipedia.org/wiki/%E5%9B%BD%E3%81%AE%E4%B8%80%E8%A6%A7#凡例</link></sublink>
+<sublink linktype="nav"><anchor>一覧</anchor><link>https://ja.wikipedia.org/wiki/%E5%9B%BD%E3%81%AE%E4%B8%80%E8%A6%A7#一覧</link></sublink>
+<sublink linktype="nav"><anchor>国連加盟国</anchor><link>https://ja.wikipedia.org/wiki/%E5%9B%BD%E3%81%AE%E4%B8%80%E8%A6%A7#国連加盟国</link></sublink>
+<sublink linktype="nav"><anchor>国連総会オブザーバー</anchor><link>https://ja.wikipedia.org/wiki/%E5%9B%BD%E3%81%AE%E4%B8%80%E8%A6%A7#国連総会オブザーバー</link></sublink>
+<sublink linktype="nav"><anchor>元国連加盟国</anchor><link>https://ja.wikipedia.org/wiki/%E5%9B%BD%E3%81%AE%E4%B8%80%E8%A6%A7#元国連加盟国</link></sublink>
+<sublink linktype="nav"><anchor>脚注</anchor><link>https://ja.wikipedia.org/wiki/%E5%9B%BD%E3%81%AE%E4%B8%80%E8%A6%A7#脚注</link></sublink>
+<sublink linktype="nav"><anchor>注釈</anchor><link>https://ja.wikipedia.org/wiki/%E5%9B%BD%E3%81%AE%E4%B8%80%E8%A6%A7#注釈</link></sublink>
+<sublink linktype="nav"><anchor>出典</anchor><link>https://ja.wikipedia.org/wiki/%E5%9B%BD%E3%81%AE%E4%B8%80%E8%A6%A7#出典</link></sublink>
+<sublink linktype="nav"><anchor>参考文献</anchor><link>https://ja.wikipedia.org/wiki/%E5%9B%BD%E3%81%AE%E4%B8%80%E8%A6%A7#参考文献</link></sublink>
+<sublink linktype="nav"><anchor>関連項目</anchor><link>https://ja.wikipedia.org/wiki/%E5%9B%BD%E3%81%AE%E4%B8%80%E8%A6%A7#関連項目</link></sublink>
+<sublink linktype="nav"><anchor>外部リンク</anchor><link>https://ja.wikipedia.org/wiki/%E5%9B%BD%E3%81%AE%E4%B8%80%E8%A6%A7#外部リンク</link></sublink>
+</links>
+</doc>
+<doc>
+<title>Wikipedia: パリ</title>
+<url>https://ja.wikipedia.org/wiki/%E3%83%91%E3%83%AA</url>
+<abstract>|image = 280pxエッフェル塔（前景）とパリ郊外にある新都心のラ・デファンス地区（背景）</abstract>
+<links>
+<sublink linktype="nav"><anchor>概要</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%91%E3%83%AA#概要</link></sublink>
+<sublink linktype="nav"><anchor>標語</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%91%E3%83%AA#標語</link></sublink>
+<sublink linktype="nav"><anchor>地名の語源</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%91%E3%83%AA#地名の語源</link></sublink>
+<sublink linktype="nav"><anchor>地理</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%91%E3%83%AA#地理</link></sublink>
+<sublink linktype="nav"><anchor>気候</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%91%E3%83%AA#気候</link></sublink>
+<sublink linktype="nav"><anchor>地域</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%91%E3%83%AA#地域</link></sublink>
+<sublink linktype="nav"><anchor>右岸</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%91%E3%83%AA#右岸</link></sublink>
+<sublink linktype="nav"><anchor>左岸</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%91%E3%83%AA#左岸</link></sublink>
+<sublink linktype="nav"><anchor>郊外</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%91%E3%83%AA#郊外</link></sublink>
+<sublink linktype="nav"><anchor>地形</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%91%E3%83%AA#地形</link></sublink>
+<sublink linktype="nav"><anchor>河川</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%91%E3%83%AA#河川</link></sublink>
+<sublink linktype="nav"><anchor>運河</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%91%E3%83%AA#運河</link></sublink>
+<sublink linktype="nav"><anchor>広場・公園</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%91%E3%83%AA#広場・公園</link></sublink>
+<sublink linktype="nav"><anchor>広場</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%91%E3%83%AA#広場</link></sublink>
+<sublink linktype="nav"><anchor>公園、庭園</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%91%E3%83%AA#公園、庭園</link></sublink>
+<sublink linktype="nav"><anchor>森林・緑地</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%91%E3%83%AA#森林・緑地</link></sublink>
+<sublink linktype="nav"><anchor>四大墓地</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%91%E3%83%AA#四大墓地</link></sublink>
+<sublink linktype="nav"><anchor>人口</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%91%E3%83%AA#人口</link></sublink>
+<sublink linktype="nav"><anchor>世帯構成</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%91%E3%83%AA#世帯構成</link></sublink>
+<sublink linktype="nav"><anchor>経済格差</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%91%E3%83%AA#経済格差</link></sublink>
+<sublink linktype="nav"><anchor>移民</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%91%E3%83%AA#移民</link></sublink>
+<sublink linktype="nav"><anchor>風景</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%91%E3%83%AA#風景</link></sublink>
+<sublink linktype="nav"><anchor>歴史</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%91%E3%83%AA#歴史</link></sublink>
+<sublink linktype="nav"><anchor>古代</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%91%E3%83%AA#古代</link></sublink>
+<sublink linktype="nav"><anchor>フランク王国</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%91%E3%83%AA#フランク王国</link></sublink>
+<sublink linktype="nav"><anchor>カペー朝</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%91%E3%83%AA#カペー朝</link></sublink>
+<sublink linktype="nav"><anchor>ヴァロワ朝</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%91%E3%83%AA#ヴァロワ朝</link></sublink>
+<sublink linktype="nav"><anchor>ブルボン朝</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%91%E3%83%AA#ブルボン朝</link></sublink>
+<sublink linktype="nav"><anchor>フランス革命</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%91%E3%83%AA#フランス革命</link></sublink>
+<sublink linktype="nav"><anchor>19世紀</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%91%E3%83%AA#19世紀</link></sublink>
+<sublink linktype="nav"><anchor>20世紀以降</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%91%E3%83%AA#20世紀以降</link></sublink>
+<sublink linktype="nav"><anchor>政治</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%91%E3%83%AA#政治</link></sublink>
+<sublink linktype="nav"><anchor>行政</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%91%E3%83%AA#行政</link></sublink>
+<sublink linktype="nav"><anchor>行政機構の変遷</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%91%E3%83%AA#行政機構の変遷</link></sublink>
+<sublink linktype="nav"><anchor>行政区</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%91%E3%83%AA#行政区</link></sublink>
+<sublink linktype="nav"><anchor>行政的地位の変遷</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%91%E3%83%AA#行政的地位の変遷</link></sublink>
+<sublink linktype="nav"><anchor>他のコミューンとの連携の不存在</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%91%E3%83%AA#他のコミューンとの連携の不存在</link></sublink>
+<sublink linktype="nav"><anchor>市長</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%91%E3%83%AA#市長</link></sublink>
+<sublink linktype="nav"><anchor>財政</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%91%E3%83%AA#財政</link></sublink>
+<sublink linktype="nav"><anchor>司法機関</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%91%E3%83%AA#司法機関</link></sublink>
+<sublink linktype="nav"><anchor>司法裁判所系統</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%91%E3%83%AA#司法裁判所系統</link></sublink>
+<sublink linktype="nav"><anchor>行政裁判所系統</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%91%E3%83%AA#行政裁判所系統</link></sublink>
+<sublink linktype="nav"><anchor>最高裁判所及び憲法裁判所</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%91%E3%83%AA#最高裁判所及び憲法裁判所</link></sublink>
+<sublink linktype="nav"><anchor>行刑施設</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%91%E3%83%AA#行刑施設</link></sublink>
+<sublink linktype="nav"><anchor>施設</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%91%E3%83%AA#施設</link></sublink>
+<sublink linktype="nav"><anchor>警察</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%91%E3%83%AA#警察</link></sublink>
+<sublink linktype="nav"><anchor>医療・衛生</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%91%E3%83%AA#医療・衛生</link></sublink>
+<sublink linktype="nav"><anchor>運動施設</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%91%E3%83%AA#運動施設</link></sublink>
+<sublink linktype="nav"><anchor>対外関係</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%91%E3%83%AA#対外関係</link></sublink>
+<sublink linktype="nav"><anchor>姉妹都市・提携都市</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%91%E3%83%AA#姉妹都市・提携都市</link></sublink>
+<sublink linktype="nav"><anchor>パリと呼称される世界の都市</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%91%E3%83%AA#パリと呼称される世界の都市</link></sublink>
+<sublink linktype="nav"><anchor>日本人</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%91%E3%83%AA#日本人</link></sublink>
+<sublink linktype="nav"><anchor>パリ症候群</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%91%E3%83%AA#パリ症候群</link></sublink>
+<sublink linktype="nav"><anchor>経済</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%91%E3%83%AA#経済</link></sublink>
+<sublink linktype="nav"><anchor>主要企業</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%91%E3%83%AA#主要企業</link></sublink>
+<sublink linktype="nav"><anchor>教育・研究機関</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%91%E3%83%AA#教育・研究機関</link></sublink>
+<sublink linktype="nav"><anchor>高等教育</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%91%E3%83%AA#高等教育</link></sublink>
+<sublink linktype="nav"><anchor>教育史</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%91%E3%83%AA#教育史</link></sublink>
+<sublink linktype="nav"><anchor>現在の状況</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%91%E3%83%AA#現在の状況</link></sublink>
+<sublink linktype="nav"><anchor>初等・中等教育</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%91%E3%83%AA#初等・中等教育</link></sublink>
+<sublink linktype="nav"><anchor>交通</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%91%E3%83%AA#交通</link></sublink>
+<sublink linktype="nav"><anchor>空路</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%91%E3%83%AA#空路</link></sublink>
+<sublink linktype="nav"><anchor>空港</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%91%E3%83%AA#空港</link></sublink>
+<sublink linktype="nav"><anchor>鉄道</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%91%E3%83%AA#鉄道</link></sublink>
+<sublink linktype="nav"><anchor>主要ターミナル駅</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%91%E3%83%AA#主要ターミナル駅</link></sublink>
+<sublink linktype="nav"><anchor>市内交通</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%91%E3%83%AA#市内交通</link></sublink>
+<sublink linktype="nav"><anchor>道路</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%91%E3%83%AA#道路</link></sublink>
+<sublink linktype="nav"><anchor>主要な一般道</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%91%E3%83%AA#主要な一般道</link></sublink>
+<sublink linktype="nav"><anchor>主な車輛専用道</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%91%E3%83%AA#主な車輛専用道</link></sublink>
+<sublink linktype="nav"><anchor>観光</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%91%E3%83%AA#観光</link></sublink>
+<sublink linktype="nav"><anchor>主な観光名所</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%91%E3%83%AA#主な観光名所</link></sublink>
+<sublink linktype="nav"><anchor>文化・名物</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%91%E3%83%AA#文化・名物</link></sublink>
+<sublink linktype="nav"><anchor>美術</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%91%E3%83%AA#美術</link></sublink>
+<sublink linktype="nav"><anchor>演劇</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%91%E3%83%AA#演劇</link></sublink>
+<sublink linktype="nav"><anchor>バレエ</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%91%E3%83%AA#バレエ</link></sublink>
+<sublink linktype="nav"><anchor>音楽</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%91%E3%83%AA#音楽</link></sublink>
+<sublink linktype="nav"><anchor>食文化</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%91%E3%83%AA#食文化</link></sublink>
+<sublink linktype="nav"><anchor>文化史</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%91%E3%83%AA#文化史</link></sublink>
+<sublink linktype="nav"><anchor>脚注</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%91%E3%83%AA#脚注</link></sublink>
+<sublink linktype="nav"><anchor>注釈</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%91%E3%83%AA#注釈</link></sublink>
+<sublink linktype="nav"><anchor>出典</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%91%E3%83%AA#出典</link></sublink>
+<sublink linktype="nav"><anchor>関連項目</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%91%E3%83%AA#関連項目</link></sublink>
+<sublink linktype="nav"><anchor>外部リンク</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%91%E3%83%AA#外部リンク</link></sublink>
+</links>
+</doc>
+<doc>
+<title>Wikipedia: ヨーロッパ</title>
+<url>https://ja.wikipedia.org/wiki/%E3%83%A8%E3%83%BC%E3%83%AD%E3%83%83%E3%83%91</url>
+<abstract>|area                = 1018万 km  (第6位)</abstract>
+<links>
+<sublink linktype="nav"><anchor>概要</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%A8%E3%83%BC%E3%83%AD%E3%83%83%E3%83%91#概要</link></sublink>
+<sublink linktype="nav"><anchor>定義</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%A8%E3%83%BC%E3%83%AD%E3%83%83%E3%83%91#定義</link></sublink>
+<sublink linktype="nav"><anchor>定義史</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%A8%E3%83%BC%E3%83%AD%E3%83%83%E3%83%91#定義史</link></sublink>
+<sublink linktype="nav"><anchor>現代の定義</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%A8%E3%83%BC%E3%83%AD%E3%83%83%E3%83%91#現代の定義</link></sublink>
+<sublink linktype="nav"><anchor>呼称</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%A8%E3%83%BC%E3%83%AD%E3%83%83%E3%83%91#呼称</link></sublink>
+<sublink linktype="nav"><anchor>語源</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%A8%E3%83%BC%E3%83%AD%E3%83%83%E3%83%91#語源</link></sublink>
+<sublink linktype="nav"><anchor>各言語での語形</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%A8%E3%83%BC%E3%83%AD%E3%83%83%E3%83%91#各言語での語形</link></sublink>
+<sublink linktype="nav"><anchor>他の語</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%A8%E3%83%BC%E3%83%AD%E3%83%83%E3%83%91#他の語</link></sublink>
+<sublink linktype="nav"><anchor>領域</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%A8%E3%83%BC%E3%83%AD%E3%83%83%E3%83%91#領域</link></sublink>
+<sublink linktype="nav"><anchor>国際連合による分類</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%A8%E3%83%BC%E3%83%AD%E3%83%83%E3%83%91#国際連合による分類</link></sublink>
+<sublink linktype="nav"><anchor>ワールド・ファクトブックによる分類</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%A8%E3%83%BC%E3%83%AD%E3%83%83%E3%83%91#ワールド・ファクトブックによる分類</link></sublink>
+<sublink linktype="nav"><anchor>冷戦時代の分類</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%A8%E3%83%BC%E3%83%AD%E3%83%83%E3%83%91#冷戦時代の分類</link></sublink>
+<sublink linktype="nav"><anchor>歴史</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%A8%E3%83%BC%E3%83%AD%E3%83%83%E3%83%91#歴史</link></sublink>
+<sublink linktype="nav"><anchor>地質史</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%A8%E3%83%BC%E3%83%AD%E3%83%83%E3%83%91#地質史</link></sublink>
+<sublink linktype="nav"><anchor>先史時代</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%A8%E3%83%BC%E3%83%AD%E3%83%83%E3%83%91#先史時代</link></sublink>
+<sublink linktype="nav"><anchor>ヨーロッパ概念の嚆矢</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%A8%E3%83%BC%E3%83%AD%E3%83%83%E3%83%91#ヨーロッパ概念の嚆矢</link></sublink>
+<sublink linktype="nav"><anchor>地理</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%A8%E3%83%BC%E3%83%AD%E3%83%83%E3%83%91#地理</link></sublink>
+<sublink linktype="nav"><anchor>ヨーロッパの国々</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%A8%E3%83%BC%E3%83%AD%E3%83%83%E3%83%91#ヨーロッパの国々</link></sublink>
+<sublink linktype="nav"><anchor>各国の位置</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%A8%E3%83%BC%E3%83%AD%E3%83%83%E3%83%91#各国の位置</link></sublink>
+<sublink linktype="nav"><anchor>気候</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%A8%E3%83%BC%E3%83%AD%E3%83%83%E3%83%91#気候</link></sublink>
+<sublink linktype="nav"><anchor>植生</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%A8%E3%83%BC%E3%83%AD%E3%83%83%E3%83%91#植生</link></sublink>
+<sublink linktype="nav"><anchor>経済</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%A8%E3%83%BC%E3%83%AD%E3%83%83%E3%83%91#経済</link></sublink>
+<sublink linktype="nav"><anchor>言語・民族</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%A8%E3%83%BC%E3%83%AD%E3%83%83%E3%83%91#言語・民族</link></sublink>
+<sublink linktype="nav"><anchor>言語</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%A8%E3%83%BC%E3%83%AD%E3%83%83%E3%83%91#言語</link></sublink>
+<sublink linktype="nav"><anchor>住民の遺伝子</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%A8%E3%83%BC%E3%83%AD%E3%83%83%E3%83%91#住民の遺伝子</link></sublink>
+<sublink linktype="nav"><anchor>宗教</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%A8%E3%83%BC%E3%83%AD%E3%83%83%E3%83%91#宗教</link></sublink>
+<sublink linktype="nav"><anchor>統合</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%A8%E3%83%BC%E3%83%AD%E3%83%83%E3%83%91#統合</link></sublink>
+<sublink linktype="nav"><anchor>脚注</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%A8%E3%83%BC%E3%83%AD%E3%83%83%E3%83%91#脚注</link></sublink>
+<sublink linktype="nav"><anchor>注釈</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%A8%E3%83%BC%E3%83%AD%E3%83%83%E3%83%91#注釈</link></sublink>
+<sublink linktype="nav"><anchor>出典</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%A8%E3%83%BC%E3%83%AD%E3%83%83%E3%83%91#出典</link></sublink>
+<sublink linktype="nav"><anchor>参考文献</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%A8%E3%83%BC%E3%83%AD%E3%83%83%E3%83%91#参考文献</link></sublink>
+<sublink linktype="nav"><anchor>関連項目</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%A8%E3%83%BC%E3%83%AD%E3%83%83%E3%83%91#関連項目</link></sublink>
+<sublink linktype="nav"><anchor>外部リンク</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%A8%E3%83%BC%E3%83%AD%E3%83%83%E3%83%91#外部リンク</link></sublink>
+</links>
+</doc>
+<doc>
+<title>Wikipedia: 生物</title>
+<url>https://ja.wikipedia.org/wiki/%E7%94%9F%E7%89%A9</url>
+<abstract>生物（せいぶつ、, ）は、無生物と区別される属性、つまり「生命」を備えているもの『日本大百科全書』【生物】。そしてその「生命」は生物の本質的属性として生命観によって抽象されるものであり、その定義はなかなか難しいものとなっている。</abstract>
+<links>
+<sublink linktype="nav"><anchor>定義</anchor><link>https://ja.wikipedia.org/wiki/%E7%94%9F%E7%89%A9#定義</link></sublink>
+<sublink linktype="nav"><anchor>生物の分類</anchor><link>https://ja.wikipedia.org/wiki/%E7%94%9F%E7%89%A9#生物の分類</link></sublink>
+<sublink linktype="nav"><anchor>生物相互の関係</anchor><link>https://ja.wikipedia.org/wiki/%E7%94%9F%E7%89%A9#生物相互の関係</link></sublink>
+<sublink linktype="nav"><anchor>生物と地球環境</anchor><link>https://ja.wikipedia.org/wiki/%E7%94%9F%E7%89%A9#生物と地球環境</link></sublink>
+<sublink linktype="nav"><anchor>生物を成り立たせる生体物質</anchor><link>https://ja.wikipedia.org/wiki/%E7%94%9F%E7%89%A9#生物を成り立たせる生体物質</link></sublink>
+<sublink linktype="nav"><anchor>地球外生命体</anchor><link>https://ja.wikipedia.org/wiki/%E7%94%9F%E7%89%A9#地球外生命体</link></sublink>
+<sublink linktype="nav"><anchor>ギャラリー</anchor><link>https://ja.wikipedia.org/wiki/%E7%94%9F%E7%89%A9#ギャラリー</link></sublink>
+<sublink linktype="nav"><anchor>脚注</anchor><link>https://ja.wikipedia.org/wiki/%E7%94%9F%E7%89%A9#脚注</link></sublink>
+<sublink linktype="nav"><anchor>注釈</anchor><link>https://ja.wikipedia.org/wiki/%E7%94%9F%E7%89%A9#注釈</link></sublink>
+<sublink linktype="nav"><anchor>出典</anchor><link>https://ja.wikipedia.org/wiki/%E7%94%9F%E7%89%A9#出典</link></sublink>
+<sublink linktype="nav"><anchor>参考文献</anchor><link>https://ja.wikipedia.org/wiki/%E7%94%9F%E7%89%A9#参考文献</link></sublink>
+<sublink linktype="nav"><anchor>関連項目</anchor><link>https://ja.wikipedia.org/wiki/%E7%94%9F%E7%89%A9#関連項目</link></sublink>
+<sublink linktype="nav"><anchor>外部リンク</anchor><link>https://ja.wikipedia.org/wiki/%E7%94%9F%E7%89%A9#外部リンク</link></sublink>
+</links>
+</doc>
+<doc>
+<title>Wikipedia: コケ植物</title>
+<url>https://ja.wikipedia.org/wiki/%E3%82%B3%E3%82%B1%E6%A4%8D%E7%89%A9</url>
+<abstract>コケ植物（コケしょくぶつ、）とは、陸上植物かつ非維管束植物であるような植物の総称、もしくはそこに含まれる植物のこと。コケ類（コケるい）や蘚苔類（せんたいるい）、蘚苔植物（せんたいしょくぶつ）などともいう。世界中でおよそ2万種ほどが記録されている。多くは緑色であるが、赤色や褐色の種もある。大きな群として、蘚類・苔類・ツノゴケ類の3つを含む。それをまとめて一つの分類群との扱いを受けてきたが、現在では認められていない。</abstract>
+<links>
+<sublink linktype="nav"><anchor>特徴</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%B3%E3%82%B1%E6%A4%8D%E7%89%A9#特徴</link></sublink>
+<sublink linktype="nav"><anchor>形態</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%B3%E3%82%B1%E6%A4%8D%E7%89%A9#形態</link></sublink>
+<sublink linktype="nav"><anchor>生活環</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%B3%E3%82%B1%E6%A4%8D%E7%89%A9#生活環</link></sublink>
+<sublink linktype="nav"><anchor>生育環境</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%B3%E3%82%B1%E6%A4%8D%E7%89%A9#生育環境</link></sublink>
+<sublink linktype="nav"><anchor>分類と系統</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%B3%E3%82%B1%E6%A4%8D%E7%89%A9#分類と系統</link></sublink>
+<sublink linktype="nav"><anchor>伝統的な分類</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%B3%E3%82%B1%E6%A4%8D%E7%89%A9#伝統的な分類</link></sublink>
+<sublink linktype="nav"><anchor>系統</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%B3%E3%82%B1%E6%A4%8D%E7%89%A9#系統</link></sublink>
+<sublink linktype="nav"><anchor>藻類との関係</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%B3%E3%82%B1%E6%A4%8D%E7%89%A9#藻類との関係</link></sublink>
+<sublink linktype="nav"><anchor>シダ植物との関係</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%B3%E3%82%B1%E6%A4%8D%E7%89%A9#シダ植物との関係</link></sublink>
+<sublink linktype="nav"><anchor>採集と標本</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%B3%E3%82%B1%E6%A4%8D%E7%89%A9#採集と標本</link></sublink>
+<sublink linktype="nav"><anchor>利用</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%B3%E3%82%B1%E6%A4%8D%E7%89%A9#利用</link></sublink>
+<sublink linktype="nav"><anchor>日本のコケ植物</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%B3%E3%82%B1%E6%A4%8D%E7%89%A9#日本のコケ植物</link></sublink>
+<sublink linktype="nav"><anchor>コケ植物の研究を行っている組織・機関</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%B3%E3%82%B1%E6%A4%8D%E7%89%A9#コケ植物の研究を行っている組織・機関</link></sublink>
+<sublink linktype="nav"><anchor>日本</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%B3%E3%82%B1%E6%A4%8D%E7%89%A9#日本</link></sublink>
+<sublink linktype="nav"><anchor>ドイツ</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%B3%E3%82%B1%E6%A4%8D%E7%89%A9#ドイツ</link></sublink>
+<sublink linktype="nav"><anchor>脚注</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%B3%E3%82%B1%E6%A4%8D%E7%89%A9#脚注</link></sublink>
+<sublink linktype="nav"><anchor>参考文献</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%B3%E3%82%B1%E6%A4%8D%E7%89%A9#参考文献</link></sublink>
+<sublink linktype="nav"><anchor>関連項目</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%B3%E3%82%B1%E6%A4%8D%E7%89%A9#関連項目</link></sublink>
+<sublink linktype="nav"><anchor>外部リンク</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%B3%E3%82%B1%E6%A4%8D%E7%89%A9#外部リンク</link></sublink>
+</links>
+</doc>
+<doc>
+<title>Wikipedia: 社会学</title>
+<url>https://ja.wikipedia.org/wiki/%E7%A4%BE%E4%BC%9A%E5%AD%A6</url>
+<abstract>社会学（しゃかいがく、）は、社会現象の実態や、現象の起こる原因に関するメカニズム（因果関係）を統計・データなどを用いて分析することで解明する学問である 太郎丸博Theoretical Sociology|accessdate=2018-10-08|website=Theoretical Sociology|publisher=|language=ja-JP}}人文・社会科学のためのカテゴリカル・データ解析入門p18 2005 太郎丸博。その研究対象は、行為、行動、相互作用といった微視的レベルのものから、家族、コミュニティなどの集団、組織、さらには、社会構造やその変動（社会変動）など巨視的レベルに及ぶものまでさまざまである。思想史的に言えば、「同時代（史）を把握する認識・概念（コンセプト）」を作り出そうとする学問である。</abstract>
+<links>
+<sublink linktype="nav"><anchor>概要</anchor><link>https://ja.wikipedia.org/wiki/%E7%A4%BE%E4%BC%9A%E5%AD%A6#概要</link></sublink>
+<sublink linktype="nav"><anchor>社会学の成立と実証主義の展開</anchor><link>https://ja.wikipedia.org/wiki/%E7%A4%BE%E4%BC%9A%E5%AD%A6#社会学の成立と実証主義の展開</link></sublink>
+<sublink linktype="nav"><anchor>古典的理論の形成</anchor><link>https://ja.wikipedia.org/wiki/%E7%A4%BE%E4%BC%9A%E5%AD%A6#古典的理論の形成</link></sublink>
+<sublink linktype="nav"><anchor>シカゴ学派の誕生</anchor><link>https://ja.wikipedia.org/wiki/%E7%A4%BE%E4%BC%9A%E5%AD%A6#シカゴ学派の誕生</link></sublink>
+<sublink linktype="nav"><anchor>機能主義社会学の台頭</anchor><link>https://ja.wikipedia.org/wiki/%E7%A4%BE%E4%BC%9A%E5%AD%A6#機能主義社会学の台頭</link></sublink>
+<sublink linktype="nav"><anchor>後期近代化と社会学の多様化</anchor><link>https://ja.wikipedia.org/wiki/%E7%A4%BE%E4%BC%9A%E5%AD%A6#後期近代化と社会学の多様化</link></sublink>
+<sublink linktype="nav"><anchor>政策科学への流れと新たな理論形成</anchor><link>https://ja.wikipedia.org/wiki/%E7%A4%BE%E4%BC%9A%E5%AD%A6#政策科学への流れと新たな理論形成</link></sublink>
+<sublink linktype="nav"><anchor>主な理論と方法論</anchor><link>https://ja.wikipedia.org/wiki/%E7%A4%BE%E4%BC%9A%E5%AD%A6#主な理論と方法論</link></sublink>
+<sublink linktype="nav"><anchor>社会調査</anchor><link>https://ja.wikipedia.org/wiki/%E7%A4%BE%E4%BC%9A%E5%AD%A6#社会調査</link></sublink>
+<sublink linktype="nav"><anchor>社会学の対象</anchor><link>https://ja.wikipedia.org/wiki/%E7%A4%BE%E4%BC%9A%E5%AD%A6#社会学の対象</link></sublink>
+<sublink linktype="nav"><anchor>主なテーマ</anchor><link>https://ja.wikipedia.org/wiki/%E7%A4%BE%E4%BC%9A%E5%AD%A6#主なテーマ</link></sublink>
+<sublink linktype="nav"><anchor>連字符社会学</anchor><link>https://ja.wikipedia.org/wiki/%E7%A4%BE%E4%BC%9A%E5%AD%A6#連字符社会学</link></sublink>
+<sublink linktype="nav"><anchor>隣接</anchor><link>https://ja.wikipedia.org/wiki/%E7%A4%BE%E4%BC%9A%E5%AD%A6#隣接</link></sublink>
+<sublink linktype="nav"><anchor>関連書籍</anchor><link>https://ja.wikipedia.org/wiki/%E7%A4%BE%E4%BC%9A%E5%AD%A6#関連書籍</link></sublink>
+<sublink linktype="nav"><anchor>古典・教科書・啓蒙書</anchor><link>https://ja.wikipedia.org/wiki/%E7%A4%BE%E4%BC%9A%E5%AD%A6#古典・教科書・啓蒙書</link></sublink>
+<sublink linktype="nav"><anchor>講座・シリーズ</anchor><link>https://ja.wikipedia.org/wiki/%E7%A4%BE%E4%BC%9A%E5%AD%A6#講座・シリーズ</link></sublink>
+<sublink linktype="nav"><anchor>翻訳シリーズ</anchor><link>https://ja.wikipedia.org/wiki/%E7%A4%BE%E4%BC%9A%E5%AD%A6#翻訳シリーズ</link></sublink>
+<sublink linktype="nav"><anchor>辞書</anchor><link>https://ja.wikipedia.org/wiki/%E7%A4%BE%E4%BC%9A%E5%AD%A6#辞書</link></sublink>
+<sublink linktype="nav"><anchor>総合雑誌</anchor><link>https://ja.wikipedia.org/wiki/%E7%A4%BE%E4%BC%9A%E5%AD%A6#総合雑誌</link></sublink>
+<sublink linktype="nav"><anchor>日本の社会学者の質問題・アカデミズム軽視のメディア出演重視問題</anchor><link>https://ja.wikipedia.org/wiki/%E7%A4%BE%E4%BC%9A%E5%AD%A6#日本の社会学者の質問題・アカデミズム軽視のメディア出演重視問題</link></sublink>
+<sublink linktype="nav"><anchor>脚注</anchor><link>https://ja.wikipedia.org/wiki/%E7%A4%BE%E4%BC%9A%E5%AD%A6#脚注</link></sublink>
+<sublink linktype="nav"><anchor>参考文献</anchor><link>https://ja.wikipedia.org/wiki/%E7%A4%BE%E4%BC%9A%E5%AD%A6#参考文献</link></sublink>
+<sublink linktype="nav"><anchor>関連項目</anchor><link>https://ja.wikipedia.org/wiki/%E7%A4%BE%E4%BC%9A%E5%AD%A6#関連項目</link></sublink>
+<sublink linktype="nav"><anchor>外部リンク</anchor><link>https://ja.wikipedia.org/wiki/%E7%A4%BE%E4%BC%9A%E5%AD%A6#外部リンク</link></sublink>
+</links>
+</doc>
+<doc>
+<title>Wikipedia: 古代エジプト</title>
+<url>https://ja.wikipedia.org/wiki/%E5%8F%A4%E4%BB%A3%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88</url>
+<abstract>thumb|250px|紀元前3150年から紀元前30年までの王朝時代における主要都市及び場所を示した古代エジプトの地図</abstract>
+<links>
+<sublink linktype="nav"><anchor>歴史</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%A4%E4%BB%A3%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#歴史</link></sublink>
+<sublink linktype="nav"><anchor>石器時代から古代エジプトまで</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%A4%E4%BB%A3%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#石器時代から古代エジプトまで</link></sublink>
+<sublink linktype="nav"><anchor>原始王朝時代（黎明期、上エジプト、下エジプト）</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%A4%E4%BB%A3%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#原始王朝時代（黎明期、上エジプト、下エジプト）</link></sublink>
+<sublink linktype="nav"><anchor>初期王朝時代（第1 - 2王朝）</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%A4%E4%BB%A3%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#初期王朝時代（第1_-_2王朝）</link></sublink>
+<sublink linktype="nav"><anchor>古王国時代（第3 - 6王朝）</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%A4%E4%BB%A3%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#古王国時代（第3_-_6王朝）</link></sublink>
+<sublink linktype="nav"><anchor>第1中間期（第7 - 10王朝）</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%A4%E4%BB%A3%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#第1中間期（第7_-_10王朝）</link></sublink>
+<sublink linktype="nav"><anchor>中王国時代（第11 - 12王朝）</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%A4%E4%BB%A3%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#中王国時代（第11_-_12王朝）</link></sublink>
+<sublink linktype="nav"><anchor>第2中間期（第13 - 17王朝）</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%A4%E4%BB%A3%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#第2中間期（第13_-_17王朝）</link></sublink>
+<sublink linktype="nav"><anchor>新王国時代（第18 - 20王朝）</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%A4%E4%BB%A3%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#新王国時代（第18_-_20王朝）</link></sublink>
+<sublink linktype="nav"><anchor>第3中間期（大司祭国家、第21 - 26王朝）</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%A4%E4%BB%A3%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#第3中間期（大司祭国家、第21_-_26王朝）</link></sublink>
+<sublink linktype="nav"><anchor>末期王朝（第27 - 31王朝）</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%A4%E4%BB%A3%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#末期王朝（第27_-_31王朝）</link></sublink>
+<sublink linktype="nav"><anchor>プトレマイオス朝</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%A4%E4%BB%A3%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#プトレマイオス朝</link></sublink>
+<sublink linktype="nav"><anchor>年表</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%A4%E4%BB%A3%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#年表</link></sublink>
+<sublink linktype="nav"><anchor>社会</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%A4%E4%BB%A3%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#社会</link></sublink>
+<sublink linktype="nav"><anchor>階級</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%A4%E4%BB%A3%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#階級</link></sublink>
+<sublink linktype="nav"><anchor>教育</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%A4%E4%BB%A3%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#教育</link></sublink>
+<sublink linktype="nav"><anchor>司法</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%A4%E4%BB%A3%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#司法</link></sublink>
+<sublink linktype="nav"><anchor>経済</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%A4%E4%BB%A3%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#経済</link></sublink>
+<sublink linktype="nav"><anchor>農業</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%A4%E4%BB%A3%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#農業</link></sublink>
+<sublink linktype="nav"><anchor>産業</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%A4%E4%BB%A3%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#産業</link></sublink>
+<sublink linktype="nav"><anchor>対外関係と交易</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%A4%E4%BB%A3%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#対外関係と交易</link></sublink>
+<sublink linktype="nav"><anchor>通貨</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%A4%E4%BB%A3%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#通貨</link></sublink>
+<sublink linktype="nav"><anchor>科学</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%A4%E4%BB%A3%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#科学</link></sublink>
+<sublink linktype="nav"><anchor>数学</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%A4%E4%BB%A3%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#数学</link></sublink>
+<sublink linktype="nav"><anchor>天文</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%A4%E4%BB%A3%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#天文</link></sublink>
+<sublink linktype="nav"><anchor>医学</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%A4%E4%BB%A3%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#医学</link></sublink>
+<sublink linktype="nav"><anchor>建築</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%A4%E4%BB%A3%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#建築</link></sublink>
+<sublink linktype="nav"><anchor>文化</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%A4%E4%BB%A3%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#文化</link></sublink>
+<sublink linktype="nav"><anchor>食</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%A4%E4%BB%A3%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#食</link></sublink>
+<sublink linktype="nav"><anchor>パン</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%A4%E4%BB%A3%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#パン</link></sublink>
+<sublink linktype="nav"><anchor>飲料</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%A4%E4%BB%A3%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#飲料</link></sublink>
+<sublink linktype="nav"><anchor>芸術</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%A4%E4%BB%A3%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#芸術</link></sublink>
+<sublink linktype="nav"><anchor>音楽</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%A4%E4%BB%A3%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#音楽</link></sublink>
+<sublink linktype="nav"><anchor>文学</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%A4%E4%BB%A3%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#文学</link></sublink>
+<sublink linktype="nav"><anchor>ファッション</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%A4%E4%BB%A3%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#ファッション</link></sublink>
+<sublink linktype="nav"><anchor>娯楽</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%A4%E4%BB%A3%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#娯楽</link></sublink>
+<sublink linktype="nav"><anchor>スポーツ</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%A4%E4%BB%A3%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#スポーツ</link></sublink>
+<sublink linktype="nav"><anchor>宗教</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%A4%E4%BB%A3%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#宗教</link></sublink>
+<sublink linktype="nav"><anchor>脚注</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%A4%E4%BB%A3%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#脚注</link></sublink>
+<sublink linktype="nav"><anchor>注釈</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%A4%E4%BB%A3%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#注釈</link></sublink>
+<sublink linktype="nav"><anchor>出典</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%A4%E4%BB%A3%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#出典</link></sublink>
+<sublink linktype="nav"><anchor>参考文献</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%A4%E4%BB%A3%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#参考文献</link></sublink>
+<sublink linktype="nav"><anchor>関連項目</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%A4%E4%BB%A3%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#関連項目</link></sublink>
+<sublink linktype="nav"><anchor>外部リンク</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%A4%E4%BB%A3%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#外部リンク</link></sublink>
+</links>
+</doc>
+<doc>
+<title>Wikipedia: エジプト</title>
+<url>https://ja.wikipedia.org/wiki/%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88</url>
+<abstract>| 国旗画像 = Flag of Egypt.svg</abstract>
+<links>
+<sublink linktype="nav"><anchor>概要</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#概要</link></sublink>
+<sublink linktype="nav"><anchor>国号</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#国号</link></sublink>
+<sublink linktype="nav"><anchor>歴史</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#歴史</link></sublink>
+<sublink linktype="nav"><anchor>古代エジプト</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#古代エジプト</link></sublink>
+<sublink linktype="nav"><anchor>アケメネス朝ペルシア</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#アケメネス朝ペルシア</link></sublink>
+<sublink linktype="nav"><anchor>ヘレニズム文化</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#ヘレニズム文化</link></sublink>
+<sublink linktype="nav"><anchor>ローマ帝国</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#ローマ帝国</link></sublink>
+<sublink linktype="nav"><anchor>イスラム王朝</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#イスラム王朝</link></sublink>
+<sublink linktype="nav"><anchor>オスマン帝国</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#オスマン帝国</link></sublink>
+<sublink linktype="nav"><anchor>ムハンマド・アリー朝</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#ムハンマド・アリー朝</link></sublink>
+<sublink linktype="nav"><anchor>イギリスの進出</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#イギリスの進出</link></sublink>
+<sublink linktype="nav"><anchor>独立・エジプト王国</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#独立・エジプト王国</link></sublink>
+<sublink linktype="nav"><anchor>エジプト共和国</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#エジプト共和国</link></sublink>
+<sublink linktype="nav"><anchor>ナーセル政権</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#ナーセル政権</link></sublink>
+<sublink linktype="nav"><anchor>サーダート政権</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#サーダート政権</link></sublink>
+<sublink linktype="nav"><anchor>ムバーラク政権</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#ムバーラク政権</link></sublink>
+<sublink linktype="nav"><anchor>ムルシー政権</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#ムルシー政権</link></sublink>
+<sublink linktype="nav"><anchor>アッ＝シーシー政権</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#アッ＝シーシー政権</link></sublink>
+<sublink linktype="nav"><anchor>政治</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#政治</link></sublink>
+<sublink linktype="nav"><anchor>政体</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#政体</link></sublink>
+<sublink linktype="nav"><anchor>大統領</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#大統領</link></sublink>
+<sublink linktype="nav"><anchor>議会</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#議会</link></sublink>
+<sublink linktype="nav"><anchor>選挙</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#選挙</link></sublink>
+<sublink linktype="nav"><anchor>政党</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#政党</link></sublink>
+<sublink linktype="nav"><anchor>政府</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#政府</link></sublink>
+<sublink linktype="nav"><anchor>司法</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#司法</link></sublink>
+<sublink linktype="nav"><anchor>国際関係</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#国際関係</link></sublink>
+<sublink linktype="nav"><anchor>日本国との関係</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#日本国との関係</link></sublink>
+<sublink linktype="nav"><anchor>軍事</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#軍事</link></sublink>
+<sublink linktype="nav"><anchor>地理</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#地理</link></sublink>
+<sublink linktype="nav"><anchor>国境</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#国境</link></sublink>
+<sublink linktype="nav"><anchor>気候</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#気候</link></sublink>
+<sublink linktype="nav"><anchor>地方行政区画</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#地方行政区画</link></sublink>
+<sublink linktype="nav"><anchor>主要都市</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#主要都市</link></sublink>
+<sublink linktype="nav"><anchor>経済</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#経済</link></sublink>
+<sublink linktype="nav"><anchor>農業</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#農業</link></sublink>
+<sublink linktype="nav"><anchor>交通</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#交通</link></sublink>
+<sublink linktype="nav"><anchor>鉄道</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#鉄道</link></sublink>
+<sublink linktype="nav"><anchor>航空</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#航空</link></sublink>
+<sublink linktype="nav"><anchor>国民</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#国民</link></sublink>
+<sublink linktype="nav"><anchor>人口構成</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#人口構成</link></sublink>
+<sublink linktype="nav"><anchor>民族</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#民族</link></sublink>
+<sublink linktype="nav"><anchor>言語</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#言語</link></sublink>
+<sublink linktype="nav"><anchor>宗教</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#宗教</link></sublink>
+<sublink linktype="nav"><anchor>婚姻</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#婚姻</link></sublink>
+<sublink linktype="nav"><anchor>教育</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#教育</link></sublink>
+<sublink linktype="nav"><anchor>保健</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#保健</link></sublink>
+<sublink linktype="nav"><anchor>医療</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#医療</link></sublink>
+<sublink linktype="nav"><anchor>治安</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#治安</link></sublink>
+<sublink linktype="nav"><anchor>人権</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#人権</link></sublink>
+<sublink linktype="nav"><anchor>ハーリド・サイード事件</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#ハーリド・サイード事件</link></sublink>
+<sublink linktype="nav"><anchor>マスコミ</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#マスコミ</link></sublink>
+<sublink linktype="nav"><anchor>インターネット</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#インターネット</link></sublink>
+<sublink linktype="nav"><anchor>文化</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#文化</link></sublink>
+<sublink linktype="nav"><anchor>食文化</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#食文化</link></sublink>
+<sublink linktype="nav"><anchor>文学</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#文学</link></sublink>
+<sublink linktype="nav"><anchor>映画</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#映画</link></sublink>
+<sublink linktype="nav"><anchor>音楽</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#音楽</link></sublink>
+<sublink linktype="nav"><anchor>芸術</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#芸術</link></sublink>
+<sublink linktype="nav"><anchor>建築</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#建築</link></sublink>
+<sublink linktype="nav"><anchor>世界遺産</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#世界遺産</link></sublink>
+<sublink linktype="nav"><anchor>祝祭日</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#祝祭日</link></sublink>
+<sublink linktype="nav"><anchor>スポーツ</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#スポーツ</link></sublink>
+<sublink linktype="nav"><anchor>サッカー</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#サッカー</link></sublink>
+<sublink linktype="nav"><anchor>参考文献</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#参考文献</link></sublink>
+<sublink linktype="nav"><anchor>脚注</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#脚注</link></sublink>
+<sublink linktype="nav"><anchor>注釈</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#注釈</link></sublink>
+<sublink linktype="nav"><anchor>出典</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#出典</link></sublink>
+<sublink linktype="nav"><anchor>関連項目</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#関連項目</link></sublink>
+<sublink linktype="nav"><anchor>外部リンク</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88#外部リンク</link></sublink>
+</links>
+</doc>
+<doc>
+<title>Wikipedia: 著作権の保護期間</title>
+<url>https://ja.wikipedia.org/wiki/%E8%91%97%E4%BD%9C%E6%A8%A9%E3%81%AE%E4%BF%9D%E8%AD%B7%E6%9C%9F%E9%96%93</url>
+<abstract>著作権の保護期間（ちょさくけんのほごきかん）とは、著作権の発生から消滅までの期間をいう。</abstract>
+<links>
+<sublink linktype="nav"><anchor>総説</anchor><link>https://ja.wikipedia.org/wiki/%E8%91%97%E4%BD%9C%E6%A8%A9%E3%81%AE%E4%BF%9D%E8%AD%B7%E6%9C%9F%E9%96%93#総説</link></sublink>
+<sublink linktype="nav"><anchor>著作権の意義と保護期間</anchor><link>https://ja.wikipedia.org/wiki/%E8%91%97%E4%BD%9C%E6%A8%A9%E3%81%AE%E4%BF%9D%E8%AD%B7%E6%9C%9F%E9%96%93#著作権の意義と保護期間</link></sublink>
+<sublink linktype="nav"><anchor>著作権消滅の特徴</anchor><link>https://ja.wikipedia.org/wiki/%E8%91%97%E4%BD%9C%E6%A8%A9%E3%81%AE%E4%BF%9D%E8%AD%B7%E6%9C%9F%E9%96%93#著作権消滅の特徴</link></sublink>
+<sublink linktype="nav"><anchor>起算</anchor><link>https://ja.wikipedia.org/wiki/%E8%91%97%E4%BD%9C%E6%A8%A9%E3%81%AE%E4%BF%9D%E8%AD%B7%E6%9C%9F%E9%96%93#起算</link></sublink>
+<sublink linktype="nav"><anchor>保護期間</anchor><link>https://ja.wikipedia.org/wiki/%E8%91%97%E4%BD%9C%E6%A8%A9%E3%81%AE%E4%BF%9D%E8%AD%B7%E6%9C%9F%E9%96%93#保護期間</link></sublink>
+<sublink linktype="nav"><anchor>条約</anchor><link>https://ja.wikipedia.org/wiki/%E8%91%97%E4%BD%9C%E6%A8%A9%E3%81%AE%E4%BF%9D%E8%AD%B7%E6%9C%9F%E9%96%93#条約</link></sublink>
+<sublink linktype="nav"><anchor>文学的及び美術的著作物の保護に関するベルヌ条約</anchor><link>https://ja.wikipedia.org/wiki/%E8%91%97%E4%BD%9C%E6%A8%A9%E3%81%AE%E4%BF%9D%E8%AD%B7%E6%9C%9F%E9%96%93#文学的及び美術的著作物の保護に関するベルヌ条約</link></sublink>
+<sublink linktype="nav"><anchor>著作権に関する世界知的所有権機関条約</anchor><link>https://ja.wikipedia.org/wiki/%E8%91%97%E4%BD%9C%E6%A8%A9%E3%81%AE%E4%BF%9D%E8%AD%B7%E6%9C%9F%E9%96%93#著作権に関する世界知的所有権機関条約</link></sublink>
+<sublink linktype="nav"><anchor>知的所有権の貿易関連の側面に関する協定</anchor><link>https://ja.wikipedia.org/wiki/%E8%91%97%E4%BD%9C%E6%A8%A9%E3%81%AE%E4%BF%9D%E8%AD%B7%E6%9C%9F%E9%96%93#知的所有権の貿易関連の側面に関する協定</link></sublink>
+<sublink linktype="nav"><anchor>各国の状況</anchor><link>https://ja.wikipedia.org/wiki/%E8%91%97%E4%BD%9C%E6%A8%A9%E3%81%AE%E4%BF%9D%E8%AD%B7%E6%9C%9F%E9%96%93#各国の状況</link></sublink>
+<sublink linktype="nav"><anchor>欧州</anchor><link>https://ja.wikipedia.org/wiki/%E8%91%97%E4%BD%9C%E6%A8%A9%E3%81%AE%E4%BF%9D%E8%AD%B7%E6%9C%9F%E9%96%93#欧州</link></sublink>
+<sublink linktype="nav"><anchor>イギリス</anchor><link>https://ja.wikipedia.org/wiki/%E8%91%97%E4%BD%9C%E6%A8%A9%E3%81%AE%E4%BF%9D%E8%AD%B7%E6%9C%9F%E9%96%93#イギリス</link></sublink>
+<sublink linktype="nav"><anchor>スペイン</anchor><link>https://ja.wikipedia.org/wiki/%E8%91%97%E4%BD%9C%E6%A8%A9%E3%81%AE%E4%BF%9D%E8%AD%B7%E6%9C%9F%E9%96%93#スペイン</link></sublink>
+<sublink linktype="nav"><anchor>フランス</anchor><link>https://ja.wikipedia.org/wiki/%E8%91%97%E4%BD%9C%E6%A8%A9%E3%81%AE%E4%BF%9D%E8%AD%B7%E6%9C%9F%E9%96%93#フランス</link></sublink>
+<sublink linktype="nav"><anchor>ポルトガル</anchor><link>https://ja.wikipedia.org/wiki/%E8%91%97%E4%BD%9C%E6%A8%A9%E3%81%AE%E4%BF%9D%E8%AD%B7%E6%9C%9F%E9%96%93#ポルトガル</link></sublink>
+<sublink linktype="nav"><anchor>アメリカ合衆国</anchor><link>https://ja.wikipedia.org/wiki/%E8%91%97%E4%BD%9C%E6%A8%A9%E3%81%AE%E4%BF%9D%E8%AD%B7%E6%9C%9F%E9%96%93#アメリカ合衆国</link></sublink>
+<sublink linktype="nav"><anchor>著作権延長法</anchor><link>https://ja.wikipedia.org/wiki/%E8%91%97%E4%BD%9C%E6%A8%A9%E3%81%AE%E4%BF%9D%E8%AD%B7%E6%9C%9F%E9%96%93#著作権延長法</link></sublink>
+<sublink linktype="nav"><anchor>日本</anchor><link>https://ja.wikipedia.org/wiki/%E8%91%97%E4%BD%9C%E6%A8%A9%E3%81%AE%E4%BF%9D%E8%AD%B7%E6%9C%9F%E9%96%93#日本</link></sublink>
+<sublink linktype="nav"><anchor>日本国における著作権の保護期間</anchor><link>https://ja.wikipedia.org/wiki/%E8%91%97%E4%BD%9C%E6%A8%A9%E3%81%AE%E4%BF%9D%E8%AD%B7%E6%9C%9F%E9%96%93#日本国における著作権の保護期間</link></sublink>
+<sublink linktype="nav"><anchor>著作権の発生（始期）</anchor><link>https://ja.wikipedia.org/wiki/%E8%91%97%E4%BD%9C%E6%A8%A9%E3%81%AE%E4%BF%9D%E8%AD%B7%E6%9C%9F%E9%96%93#著作権の発生（始期）</link></sublink>
+<sublink linktype="nav"><anchor>著作権の消滅（終期）</anchor><link>https://ja.wikipedia.org/wiki/%E8%91%97%E4%BD%9C%E6%A8%A9%E3%81%AE%E4%BF%9D%E8%AD%B7%E6%9C%9F%E9%96%93#著作権の消滅（終期）</link></sublink>
+<sublink linktype="nav"><anchor>終期の原則</anchor><link>https://ja.wikipedia.org/wiki/%E8%91%97%E4%BD%9C%E6%A8%A9%E3%81%AE%E4%BF%9D%E8%AD%B7%E6%9C%9F%E9%96%93#終期の原則</link></sublink>
+<sublink linktype="nav"><anchor>終期の例外</anchor><link>https://ja.wikipedia.org/wiki/%E8%91%97%E4%BD%9C%E6%A8%A9%E3%81%AE%E4%BF%9D%E8%AD%B7%E6%9C%9F%E9%96%93#終期の例外</link></sublink>
+<sublink linktype="nav"><anchor>無名または変名の著作物</anchor><link>https://ja.wikipedia.org/wiki/%E8%91%97%E4%BD%9C%E6%A8%A9%E3%81%AE%E4%BF%9D%E8%AD%B7%E6%9C%9F%E9%96%93#無名または変名の著作物</link></sublink>
+<sublink linktype="nav"><anchor>団体名義の著作物</anchor><link>https://ja.wikipedia.org/wiki/%E8%91%97%E4%BD%9C%E6%A8%A9%E3%81%AE%E4%BF%9D%E8%AD%B7%E6%9C%9F%E9%96%93#団体名義の著作物</link></sublink>
+<sublink linktype="nav"><anchor>映画の著作物</anchor><link>https://ja.wikipedia.org/wiki/%E8%91%97%E4%BD%9C%E6%A8%A9%E3%81%AE%E4%BF%9D%E8%AD%B7%E6%9C%9F%E9%96%93#映画の著作物</link></sublink>
+<sublink linktype="nav"><anchor>写真の著作物</anchor><link>https://ja.wikipedia.org/wiki/%E8%91%97%E4%BD%9C%E6%A8%A9%E3%81%AE%E4%BF%9D%E8%AD%B7%E6%9C%9F%E9%96%93#写真の著作物</link></sublink>
+<sublink linktype="nav"><anchor>継続的刊行物、逐次刊行物等の公表時</anchor><link>https://ja.wikipedia.org/wiki/%E8%91%97%E4%BD%9C%E6%A8%A9%E3%81%AE%E4%BF%9D%E8%AD%B7%E6%9C%9F%E9%96%93#継続的刊行物、逐次刊行物等の公表時</link></sublink>
+<sublink linktype="nav"><anchor>継続的刊行物</anchor><link>https://ja.wikipedia.org/wiki/%E8%91%97%E4%BD%9C%E6%A8%A9%E3%81%AE%E4%BF%9D%E8%AD%B7%E6%9C%9F%E9%96%93#継続的刊行物</link></sublink>
+<sublink linktype="nav"><anchor>逐次的刊行物</anchor><link>https://ja.wikipedia.org/wiki/%E8%91%97%E4%BD%9C%E6%A8%A9%E3%81%AE%E4%BF%9D%E8%AD%B7%E6%9C%9F%E9%96%93#逐次的刊行物</link></sublink>
+<sublink linktype="nav"><anchor>保護期間の計算方法（暦年主義）</anchor><link>https://ja.wikipedia.org/wiki/%E8%91%97%E4%BD%9C%E6%A8%A9%E3%81%AE%E4%BF%9D%E8%AD%B7%E6%9C%9F%E9%96%93#保護期間の計算方法（暦年主義）</link></sublink>
+<sublink linktype="nav"><anchor>相互主義に基づく保護期間の特例</anchor><link>https://ja.wikipedia.org/wiki/%E8%91%97%E4%BD%9C%E6%A8%A9%E3%81%AE%E4%BF%9D%E8%AD%B7%E6%9C%9F%E9%96%93#相互主義に基づく保護期間の特例</link></sublink>
+<sublink linktype="nav"><anchor>戦時加算</anchor><link>https://ja.wikipedia.org/wiki/%E8%91%97%E4%BD%9C%E6%A8%A9%E3%81%AE%E4%BF%9D%E8%AD%B7%E6%9C%9F%E9%96%93#戦時加算</link></sublink>
+<sublink linktype="nav"><anchor>著作権消滅の効果</anchor><link>https://ja.wikipedia.org/wiki/%E8%91%97%E4%BD%9C%E6%A8%A9%E3%81%AE%E4%BF%9D%E8%AD%B7%E6%9C%9F%E9%96%93#著作権消滅の効果</link></sublink>
+<sublink linktype="nav"><anchor>二次的著作物の著作権との関係</anchor><link>https://ja.wikipedia.org/wiki/%E8%91%97%E4%BD%9C%E6%A8%A9%E3%81%AE%E4%BF%9D%E8%AD%B7%E6%9C%9F%E9%96%93#二次的著作物の著作権との関係</link></sublink>
+<sublink linktype="nav"><anchor>映画の著作物の場合</anchor><link>https://ja.wikipedia.org/wiki/%E8%91%97%E4%BD%9C%E6%A8%A9%E3%81%AE%E4%BF%9D%E8%AD%B7%E6%9C%9F%E9%96%93#映画の著作物の場合</link></sublink>
+<sublink linktype="nav"><anchor>著作権の保護期間に関する裁判例</anchor><link>https://ja.wikipedia.org/wiki/%E8%91%97%E4%BD%9C%E6%A8%A9%E3%81%AE%E4%BF%9D%E8%AD%B7%E6%9C%9F%E9%96%93#著作権の保護期間に関する裁判例</link></sublink>
+<sublink linktype="nav"><anchor>1953年に公表された団体名義の独創性を有する映画の著作物の保護期間</anchor><link>https://ja.wikipedia.org/wiki/%E8%91%97%E4%BD%9C%E6%A8%A9%E3%81%AE%E4%BF%9D%E8%AD%B7%E6%9C%9F%E9%96%93#1953年に公表された団体名義の独創性を有する映画の著作物の保護期間</link></sublink>
+<sublink linktype="nav"><anchor>自然人を著作者とする映画の著作物の保護期間</anchor><link>https://ja.wikipedia.org/wiki/%E8%91%97%E4%BD%9C%E6%A8%A9%E3%81%AE%E4%BF%9D%E8%AD%B7%E6%9C%9F%E9%96%93#自然人を著作者とする映画の著作物の保護期間</link></sublink>
+<sublink linktype="nav"><anchor>出典</anchor><link>https://ja.wikipedia.org/wiki/%E8%91%97%E4%BD%9C%E6%A8%A9%E3%81%AE%E4%BF%9D%E8%AD%B7%E6%9C%9F%E9%96%93#出典</link></sublink>
+<sublink linktype="nav"><anchor>参考文献</anchor><link>https://ja.wikipedia.org/wiki/%E8%91%97%E4%BD%9C%E6%A8%A9%E3%81%AE%E4%BF%9D%E8%AD%B7%E6%9C%9F%E9%96%93#参考文献</link></sublink>
+<sublink linktype="nav"><anchor>関連項目</anchor><link>https://ja.wikipedia.org/wiki/%E8%91%97%E4%BD%9C%E6%A8%A9%E3%81%AE%E4%BF%9D%E8%AD%B7%E6%9C%9F%E9%96%93#関連項目</link></sublink>
+<sublink linktype="nav"><anchor>外部リンク</anchor><link>https://ja.wikipedia.org/wiki/%E8%91%97%E4%BD%9C%E6%A8%A9%E3%81%AE%E4%BF%9D%E8%AD%B7%E6%9C%9F%E9%96%93#外部リンク</link></sublink>
+</links>
+</doc>
+<doc>
+<title>Wikipedia: 台東区</title>
+<url>https://ja.wikipedia.org/wiki/%E5%8F%B0%E6%9D%B1%E5%8C%BA</url>
+<abstract>| 画像の説明 =</abstract>
+<links>
+<sublink linktype="nav"><anchor>概要</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%B0%E6%9D%B1%E5%8C%BA#概要</link></sublink>
+<sublink linktype="nav"><anchor>区名の由来</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%B0%E6%9D%B1%E5%8C%BA#区名の由来</link></sublink>
+<sublink linktype="nav"><anchor>地理</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%B0%E6%9D%B1%E5%8C%BA#地理</link></sublink>
+<sublink linktype="nav"><anchor>位置</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%B0%E6%9D%B1%E5%8C%BA#位置</link></sublink>
+<sublink linktype="nav"><anchor>地域</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%B0%E6%9D%B1%E5%8C%BA#地域</link></sublink>
+<sublink linktype="nav"><anchor>町名</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%B0%E6%9D%B1%E5%8C%BA#町名</link></sublink>
+<sublink linktype="nav"><anchor>住宅施設</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%B0%E6%9D%B1%E5%8C%BA#住宅施設</link></sublink>
+<sublink linktype="nav"><anchor>特徴</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%B0%E6%9D%B1%E5%8C%BA#特徴</link></sublink>
+<sublink linktype="nav"><anchor>人口</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%B0%E6%9D%B1%E5%8C%BA#人口</link></sublink>
+<sublink linktype="nav"><anchor>昼夜間人口</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%B0%E6%9D%B1%E5%8C%BA#昼夜間人口</link></sublink>
+<sublink linktype="nav"><anchor>歴史</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%B0%E6%9D%B1%E5%8C%BA#歴史</link></sublink>
+<sublink linktype="nav"><anchor>沿革</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%B0%E6%9D%B1%E5%8C%BA#沿革</link></sublink>
+<sublink linktype="nav"><anchor>行政</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%B0%E6%9D%B1%E5%8C%BA#行政</link></sublink>
+<sublink linktype="nav"><anchor>区長</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%B0%E6%9D%B1%E5%8C%BA#区長</link></sublink>
+<sublink linktype="nav"><anchor>政策</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%B0%E6%9D%B1%E5%8C%BA#政策</link></sublink>
+<sublink linktype="nav"><anchor>批判 </anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%B0%E6%9D%B1%E5%8C%BA#批判</link></sublink>
+<sublink linktype="nav"><anchor>議会</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%B0%E6%9D%B1%E5%8C%BA#議会</link></sublink>
+<sublink linktype="nav"><anchor>台東区議会</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%B0%E6%9D%B1%E5%8C%BA#台東区議会</link></sublink>
+<sublink linktype="nav"><anchor>東京都議会</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%B0%E6%9D%B1%E5%8C%BA#東京都議会</link></sublink>
+<sublink linktype="nav"><anchor>衆議院</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%B0%E6%9D%B1%E5%8C%BA#衆議院</link></sublink>
+<sublink linktype="nav"><anchor>国家機関</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%B0%E6%9D%B1%E5%8C%BA#国家機関</link></sublink>
+<sublink linktype="nav"><anchor>法務省</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%B0%E6%9D%B1%E5%8C%BA#法務省</link></sublink>
+<sublink linktype="nav"><anchor>財務省</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%B0%E6%9D%B1%E5%8C%BA#財務省</link></sublink>
+<sublink linktype="nav"><anchor>東京都の機関</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%B0%E6%9D%B1%E5%8C%BA#東京都の機関</link></sublink>
+<sublink linktype="nav"><anchor>警察</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%B0%E6%9D%B1%E5%8C%BA#警察</link></sublink>
+<sublink linktype="nav"><anchor>消防</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%B0%E6%9D%B1%E5%8C%BA#消防</link></sublink>
+<sublink linktype="nav"><anchor>医療</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%B0%E6%9D%B1%E5%8C%BA#医療</link></sublink>
+<sublink linktype="nav"><anchor>図書館</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%B0%E6%9D%B1%E5%8C%BA#図書館</link></sublink>
+<sublink linktype="nav"><anchor>運動施設</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%B0%E6%9D%B1%E5%8C%BA#運動施設</link></sublink>
+<sublink linktype="nav"><anchor>対外関係</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%B0%E6%9D%B1%E5%8C%BA#対外関係</link></sublink>
+<sublink linktype="nav"><anchor>姉妹都市・提携都市</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%B0%E6%9D%B1%E5%8C%BA#姉妹都市・提携都市</link></sublink>
+<sublink linktype="nav"><anchor>海外</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%B0%E6%9D%B1%E5%8C%BA#海外</link></sublink>
+<sublink linktype="nav"><anchor>国内</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%B0%E6%9D%B1%E5%8C%BA#国内</link></sublink>
+<sublink linktype="nav"><anchor>経済</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%B0%E6%9D%B1%E5%8C%BA#経済</link></sublink>
+<sublink linktype="nav"><anchor>第三次産業</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%B0%E6%9D%B1%E5%8C%BA#第三次産業</link></sublink>
+<sublink linktype="nav"><anchor>商業</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%B0%E6%9D%B1%E5%8C%BA#商業</link></sublink>
+<sublink linktype="nav"><anchor>区内に本社を置く企業</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%B0%E6%9D%B1%E5%8C%BA#区内に本社を置く企業</link></sublink>
+<sublink linktype="nav"><anchor>区内に拠点を置く企業</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%B0%E6%9D%B1%E5%8C%BA#区内に拠点を置く企業</link></sublink>
+<sublink linktype="nav"><anchor>情報通信</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%B0%E6%9D%B1%E5%8C%BA#情報通信</link></sublink>
+<sublink linktype="nav"><anchor>マスメディア</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%B0%E6%9D%B1%E5%8C%BA#マスメディア</link></sublink>
+<sublink linktype="nav"><anchor>放送局</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%B0%E6%9D%B1%E5%8C%BA#放送局</link></sublink>
+<sublink linktype="nav"><anchor>教育</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%B0%E6%9D%B1%E5%8C%BA#教育</link></sublink>
+<sublink linktype="nav"><anchor>大学</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%B0%E6%9D%B1%E5%8C%BA#大学</link></sublink>
+<sublink linktype="nav"><anchor>短大</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%B0%E6%9D%B1%E5%8C%BA#短大</link></sublink>
+<sublink linktype="nav"><anchor>高等学校</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%B0%E6%9D%B1%E5%8C%BA#高等学校</link></sublink>
+<sublink linktype="nav"><anchor>中学校</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%B0%E6%9D%B1%E5%8C%BA#中学校</link></sublink>
+<sublink linktype="nav"><anchor>小学校</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%B0%E6%9D%B1%E5%8C%BA#小学校</link></sublink>
+<sublink linktype="nav"><anchor>幼稚園</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%B0%E6%9D%B1%E5%8C%BA#幼稚園</link></sublink>
+<sublink linktype="nav"><anchor>その他の教育機関</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%B0%E6%9D%B1%E5%8C%BA#その他の教育機関</link></sublink>
+<sublink linktype="nav"><anchor>交通</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%B0%E6%9D%B1%E5%8C%BA#交通</link></sublink>
+<sublink linktype="nav"><anchor>鉄道</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%B0%E6%9D%B1%E5%8C%BA#鉄道</link></sublink>
+<sublink linktype="nav"><anchor>バス</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%B0%E6%9D%B1%E5%8C%BA#バス</link></sublink>
+<sublink linktype="nav"><anchor>路線バス</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%B0%E6%9D%B1%E5%8C%BA#路線バス</link></sublink>
+<sublink linktype="nav"><anchor>都市間バス</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%B0%E6%9D%B1%E5%8C%BA#都市間バス</link></sublink>
+<sublink linktype="nav"><anchor>道路</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%B0%E6%9D%B1%E5%8C%BA#道路</link></sublink>
+<sublink linktype="nav"><anchor>高速道路</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%B0%E6%9D%B1%E5%8C%BA#高速道路</link></sublink>
+<sublink linktype="nav"><anchor>国道</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%B0%E6%9D%B1%E5%8C%BA#国道</link></sublink>
+<sublink linktype="nav"><anchor>都道</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%B0%E6%9D%B1%E5%8C%BA#都道</link></sublink>
+<sublink linktype="nav"><anchor>航路</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%B0%E6%9D%B1%E5%8C%BA#航路</link></sublink>
+<sublink linktype="nav"><anchor>水上バス路線</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%B0%E6%9D%B1%E5%8C%BA#水上バス路線</link></sublink>
+<sublink linktype="nav"><anchor>ナンバープレート</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%B0%E6%9D%B1%E5%8C%BA#ナンバープレート</link></sublink>
+<sublink linktype="nav"><anchor>観光</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%B0%E6%9D%B1%E5%8C%BA#観光</link></sublink>
+<sublink linktype="nav"><anchor>名所・旧跡</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%B0%E6%9D%B1%E5%8C%BA#名所・旧跡</link></sublink>
+<sublink linktype="nav"><anchor>神社</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%B0%E6%9D%B1%E5%8C%BA#神社</link></sublink>
+<sublink linktype="nav"><anchor>寺院</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%B0%E6%9D%B1%E5%8C%BA#寺院</link></sublink>
+<sublink linktype="nav"><anchor>観光スポット</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%B0%E6%9D%B1%E5%8C%BA#観光スポット</link></sublink>
+<sublink linktype="nav"><anchor>公園</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%B0%E6%9D%B1%E5%8C%BA#公園</link></sublink>
+<sublink linktype="nav"><anchor>博物館・美術館・動物園</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%B0%E6%9D%B1%E5%8C%BA#博物館・美術館・動物園</link></sublink>
+<sublink linktype="nav"><anchor>その他</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%B0%E6%9D%B1%E5%8C%BA#その他</link></sublink>
+<sublink linktype="nav"><anchor>文化・名物</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%B0%E6%9D%B1%E5%8C%BA#文化・名物</link></sublink>
+<sublink linktype="nav"><anchor>祭事・催事</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%B0%E6%9D%B1%E5%8C%BA#祭事・催事</link></sublink>
+<sublink linktype="nav"><anchor>祭事</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%B0%E6%9D%B1%E5%8C%BA#祭事</link></sublink>
+<sublink linktype="nav"><anchor>催事</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%B0%E6%9D%B1%E5%8C%BA#催事</link></sublink>
+<sublink linktype="nav"><anchor>名産・特産</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%B0%E6%9D%B1%E5%8C%BA#名産・特産</link></sublink>
+<sublink linktype="nav"><anchor>公式キャラクター</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%B0%E6%9D%B1%E5%8C%BA#公式キャラクター</link></sublink>
+<sublink linktype="nav"><anchor>出身関連著名人</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%B0%E6%9D%B1%E5%8C%BA#出身関連著名人</link></sublink>
+<sublink linktype="nav"><anchor>出身著名人</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%B0%E6%9D%B1%E5%8C%BA#出身著名人</link></sublink>
+<sublink linktype="nav"><anchor>関連著名人</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%B0%E6%9D%B1%E5%8C%BA#関連著名人</link></sublink>
+<sublink linktype="nav"><anchor>居住者</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%B0%E6%9D%B1%E5%8C%BA#居住者</link></sublink>
+<sublink linktype="nav"><anchor>台東区を舞台とした作品</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%B0%E6%9D%B1%E5%8C%BA#台東区を舞台とした作品</link></sublink>
+<sublink linktype="nav"><anchor>アニメ</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%B0%E6%9D%B1%E5%8C%BA#アニメ</link></sublink>
+<sublink linktype="nav"><anchor>脚注</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%B0%E6%9D%B1%E5%8C%BA#脚注</link></sublink>
+<sublink linktype="nav"><anchor>関連項目</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%B0%E6%9D%B1%E5%8C%BA#関連項目</link></sublink>
+<sublink linktype="nav"><anchor>外部リンク</anchor><link>https://ja.wikipedia.org/wiki/%E5%8F%B0%E6%9D%B1%E5%8C%BA#外部リンク</link></sublink>
+</links>
+</doc>
+<doc>
+<title>Wikipedia: 地理</title>
+<url>https://ja.wikipedia.org/wiki/%E5%9C%B0%E7%90%86</url>
+<abstract>地理（ちり、英: Geography）</abstract>
+<links>
+<sublink linktype="nav"><anchor>地理学</anchor><link>https://ja.wikipedia.org/wiki/%E5%9C%B0%E7%90%86#地理学</link></sublink>
+<sublink linktype="nav"><anchor>科目</anchor><link>https://ja.wikipedia.org/wiki/%E5%9C%B0%E7%90%86#科目</link></sublink>
+<sublink linktype="nav"><anchor>関連項目</anchor><link>https://ja.wikipedia.org/wiki/%E5%9C%B0%E7%90%86#関連項目</link></sublink>
+<sublink linktype="nav"><anchor>脚注</anchor><link>https://ja.wikipedia.org/wiki/%E5%9C%B0%E7%90%86#脚注</link></sublink>
+<sublink linktype="nav"><anchor>外部リンク</anchor><link>https://ja.wikipedia.org/wiki/%E5%9C%B0%E7%90%86#外部リンク</link></sublink>
+</links>
+</doc>
+<doc>
+<title>Wikipedia: 生物学</title>
+<url>https://ja.wikipedia.org/wiki/%E7%94%9F%E7%89%A9%E5%AD%A6</url>
+<abstract>生物学（せいぶつがく、、biologiaはビオロギアと読む。）とは、生命現象を研究する、自然科学の一分野である平凡社『世界大百科事典』第15巻、p.418【生物学】。</abstract>
+<links>
+<sublink linktype="nav"><anchor>概要</anchor><link>https://ja.wikipedia.org/wiki/%E7%94%9F%E7%89%A9%E5%AD%A6#概要</link></sublink>
+<sublink linktype="nav"><anchor>歴史</anchor><link>https://ja.wikipedia.org/wiki/%E7%94%9F%E7%89%A9%E5%AD%A6#歴史</link></sublink>
+<sublink linktype="nav"><anchor>名称</anchor><link>https://ja.wikipedia.org/wiki/%E7%94%9F%E7%89%A9%E5%AD%A6#名称</link></sublink>
+<sublink linktype="nav"><anchor>特徴</anchor><link>https://ja.wikipedia.org/wiki/%E7%94%9F%E7%89%A9%E5%AD%A6#特徴</link></sublink>
+<sublink linktype="nav"><anchor>生物学の研究</anchor><link>https://ja.wikipedia.org/wiki/%E7%94%9F%E7%89%A9%E5%AD%A6#生物学の研究</link></sublink>
+<sublink linktype="nav"><anchor>還元主義と複雑系</anchor><link>https://ja.wikipedia.org/wiki/%E7%94%9F%E7%89%A9%E5%AD%A6#還元主義と複雑系</link></sublink>
+<sublink linktype="nav"><anchor>大きなパラダイムシフト</anchor><link>https://ja.wikipedia.org/wiki/%E7%94%9F%E7%89%A9%E5%AD%A6#大きなパラダイムシフト</link></sublink>
+<sublink linktype="nav"><anchor>生物学の今後</anchor><link>https://ja.wikipedia.org/wiki/%E7%94%9F%E7%89%A9%E5%AD%A6#生物学の今後</link></sublink>
+<sublink linktype="nav"><anchor>生物学の諸分野</anchor><link>https://ja.wikipedia.org/wiki/%E7%94%9F%E7%89%A9%E5%AD%A6#生物学の諸分野</link></sublink>
+<sublink linktype="nav"><anchor>各論</anchor><link>https://ja.wikipedia.org/wiki/%E7%94%9F%E7%89%A9%E5%AD%A6#各論</link></sublink>
+<sublink linktype="nav"><anchor>方法論と理論</anchor><link>https://ja.wikipedia.org/wiki/%E7%94%9F%E7%89%A9%E5%AD%A6#方法論と理論</link></sublink>
+<sublink linktype="nav"><anchor>歴史展開による分類</anchor><link>https://ja.wikipedia.org/wiki/%E7%94%9F%E7%89%A9%E5%AD%A6#歴史展開による分類</link></sublink>
+<sublink linktype="nav"><anchor>あいまいになる諸分野の境界</anchor><link>https://ja.wikipedia.org/wiki/%E7%94%9F%E7%89%A9%E5%AD%A6#あいまいになる諸分野の境界</link></sublink>
+<sublink linktype="nav"><anchor>生物学と関連する分野</anchor><link>https://ja.wikipedia.org/wiki/%E7%94%9F%E7%89%A9%E5%AD%A6#生物学と関連する分野</link></sublink>
+<sublink linktype="nav"><anchor>生物学の応用と社会的責任</anchor><link>https://ja.wikipedia.org/wiki/%E7%94%9F%E7%89%A9%E5%AD%A6#生物学の応用と社会的責任</link></sublink>
+<sublink linktype="nav"><anchor>「生物学」と「生命科学」</anchor><link>https://ja.wikipedia.org/wiki/%E7%94%9F%E7%89%A9%E5%AD%A6#「生物学」と「生命科学」</link></sublink>
+<sublink linktype="nav"><anchor>脚注</anchor><link>https://ja.wikipedia.org/wiki/%E7%94%9F%E7%89%A9%E5%AD%A6#脚注</link></sublink>
+<sublink linktype="nav"><anchor>注釈</anchor><link>https://ja.wikipedia.org/wiki/%E7%94%9F%E7%89%A9%E5%AD%A6#注釈</link></sublink>
+<sublink linktype="nav"><anchor>出典</anchor><link>https://ja.wikipedia.org/wiki/%E7%94%9F%E7%89%A9%E5%AD%A6#出典</link></sublink>
+<sublink linktype="nav"><anchor>参考文献</anchor><link>https://ja.wikipedia.org/wiki/%E7%94%9F%E7%89%A9%E5%AD%A6#参考文献</link></sublink>
+<sublink linktype="nav"><anchor>関連項目</anchor><link>https://ja.wikipedia.org/wiki/%E7%94%9F%E7%89%A9%E5%AD%A6#関連項目</link></sublink>
+<sublink linktype="nav"><anchor>外部リンク</anchor><link>https://ja.wikipedia.org/wiki/%E7%94%9F%E7%89%A9%E5%AD%A6#外部リンク</link></sublink>
+</links>
+</doc>
+<doc>
+<title>Wikipedia: 社会</title>
+<url>https://ja.wikipedia.org/wiki/%E7%A4%BE%E4%BC%9A</url>
+<abstract>社会（しゃかい、）は、ある共通項によってくくられ、他から区別される人々の集まり。また、仲間意識をもって、みずからを他と区別する人々の集まり。社会の範囲は非常に幅広く、単一の組織や結社などの部分社会から国民を包括する全体社会まで様々である。社会の複雑で多様な行為や構造を研究する社会科学では人口、政治、経済、軍事、文化、技術、思想などの観点から社会を観察する。</abstract>
+<links>
+<sublink linktype="nav"><anchor>概要</anchor><link>https://ja.wikipedia.org/wiki/%E7%A4%BE%E4%BC%9A#概要</link></sublink>
+<sublink linktype="nav"><anchor>語源</anchor><link>https://ja.wikipedia.org/wiki/%E7%A4%BE%E4%BC%9A#語源</link></sublink>
+<sublink linktype="nav"><anchor>歴史</anchor><link>https://ja.wikipedia.org/wiki/%E7%A4%BE%E4%BC%9A#歴史</link></sublink>
+<sublink linktype="nav"><anchor>社会化</anchor><link>https://ja.wikipedia.org/wiki/%E7%A4%BE%E4%BC%9A#社会化</link></sublink>
+<sublink linktype="nav"><anchor>自我</anchor><link>https://ja.wikipedia.org/wiki/%E7%A4%BE%E4%BC%9A#自我</link></sublink>
+<sublink linktype="nav"><anchor>役割</anchor><link>https://ja.wikipedia.org/wiki/%E7%A4%BE%E4%BC%9A#役割</link></sublink>
+<sublink linktype="nav"><anchor>社会行為</anchor><link>https://ja.wikipedia.org/wiki/%E7%A4%BE%E4%BC%9A#社会行為</link></sublink>
+<sublink linktype="nav"><anchor>社会構造</anchor><link>https://ja.wikipedia.org/wiki/%E7%A4%BE%E4%BC%9A#社会構造</link></sublink>
+<sublink linktype="nav"><anchor>社会の領域</anchor><link>https://ja.wikipedia.org/wiki/%E7%A4%BE%E4%BC%9A#社会の領域</link></sublink>
+<sublink linktype="nav"><anchor>政治</anchor><link>https://ja.wikipedia.org/wiki/%E7%A4%BE%E4%BC%9A#政治</link></sublink>
+<sublink linktype="nav"><anchor>経済</anchor><link>https://ja.wikipedia.org/wiki/%E7%A4%BE%E4%BC%9A#経済</link></sublink>
+<sublink linktype="nav"><anchor>脚注</anchor><link>https://ja.wikipedia.org/wiki/%E7%A4%BE%E4%BC%9A#脚注</link></sublink>
+<sublink linktype="nav"><anchor>関連項目</anchor><link>https://ja.wikipedia.org/wiki/%E7%A4%BE%E4%BC%9A#関連項目</link></sublink>
+<sublink linktype="nav"><anchor>外部リンク</anchor><link>https://ja.wikipedia.org/wiki/%E7%A4%BE%E4%BC%9A#外部リンク</link></sublink>
+</links>
+</doc>
+<doc>
+<title>Wikipedia: こどもの文化</title>
+<url>https://ja.wikipedia.org/wiki/%E3%81%93%E3%81%A9%E3%82%82%E3%81%AE%E6%96%87%E5%8C%96</url>
+<abstract>こどもの文化（こどものぶんか）は、子供の遊びや行事を通じて形成される子供独自の文化である。</abstract>
+<links>
+<sublink linktype="nav"><anchor>遊びの分類</anchor><link>https://ja.wikipedia.org/wiki/%E3%81%93%E3%81%A9%E3%82%82%E3%81%AE%E6%96%87%E5%8C%96#遊びの分類</link></sublink>
+<sublink linktype="nav"><anchor>遊具</anchor><link>https://ja.wikipedia.org/wiki/%E3%81%93%E3%81%A9%E3%82%82%E3%81%AE%E6%96%87%E5%8C%96#遊具</link></sublink>
+<sublink linktype="nav"><anchor>遊び</anchor><link>https://ja.wikipedia.org/wiki/%E3%81%93%E3%81%A9%E3%82%82%E3%81%AE%E6%96%87%E5%8C%96#遊び</link></sublink>
+<sublink linktype="nav"><anchor>日本</anchor><link>https://ja.wikipedia.org/wiki/%E3%81%93%E3%81%A9%E3%82%82%E3%81%AE%E6%96%87%E5%8C%96#日本</link></sublink>
+<sublink linktype="nav"><anchor>伝統的</anchor><link>https://ja.wikipedia.org/wiki/%E3%81%93%E3%81%A9%E3%82%82%E3%81%AE%E6%96%87%E5%8C%96#伝統的</link></sublink>
+<sublink linktype="nav"><anchor>近代的</anchor><link>https://ja.wikipedia.org/wiki/%E3%81%93%E3%81%A9%E3%82%82%E3%81%AE%E6%96%87%E5%8C%96#近代的</link></sublink>
+<sublink linktype="nav"><anchor>世界的</anchor><link>https://ja.wikipedia.org/wiki/%E3%81%93%E3%81%A9%E3%82%82%E3%81%AE%E6%96%87%E5%8C%96#世界的</link></sublink>
+<sublink linktype="nav"><anchor>その他子供を対象にしたもの</anchor><link>https://ja.wikipedia.org/wiki/%E3%81%93%E3%81%A9%E3%82%82%E3%81%AE%E6%96%87%E5%8C%96#その他子供を対象にしたもの</link></sublink>
+<sublink linktype="nav"><anchor>その他</anchor><link>https://ja.wikipedia.org/wiki/%E3%81%93%E3%81%A9%E3%82%82%E3%81%AE%E6%96%87%E5%8C%96#その他</link></sublink>
+<sublink linktype="nav"><anchor>行事</anchor><link>https://ja.wikipedia.org/wiki/%E3%81%93%E3%81%A9%E3%82%82%E3%81%AE%E6%96%87%E5%8C%96#行事</link></sublink>
+<sublink linktype="nav"><anchor>関連施設</anchor><link>https://ja.wikipedia.org/wiki/%E3%81%93%E3%81%A9%E3%82%82%E3%81%AE%E6%96%87%E5%8C%96#関連施設</link></sublink>
+<sublink linktype="nav"><anchor>出典</anchor><link>https://ja.wikipedia.org/wiki/%E3%81%93%E3%81%A9%E3%82%82%E3%81%AE%E6%96%87%E5%8C%96#出典</link></sublink>
+<sublink linktype="nav"><anchor>関連項目</anchor><link>https://ja.wikipedia.org/wiki/%E3%81%93%E3%81%A9%E3%82%82%E3%81%AE%E6%96%87%E5%8C%96#関連項目</link></sublink>
+</links>
+</doc>
+<doc>
+<title>Wikipedia: 特撮</title>
+<url>https://ja.wikipedia.org/wiki/%E7%89%B9%E6%92%AE</url>
+<abstract>特撮（とくさつ）は、特殊撮影技術（Special Effects;SFX）を指す略称特撮 - Yahoo!辞書（大辞泉、ジャパンナレッジ）（2013年10月25日閲覧）、またはSFXが多用された映画やテレビ番組などの映像作品を指す総称。</abstract>
+<links>
+<sublink linktype="nav"><anchor>解説</anchor><link>https://ja.wikipedia.org/wiki/%E7%89%B9%E6%92%AE#解説</link></sublink>
+<sublink linktype="nav"><anchor>日本での歴史</anchor><link>https://ja.wikipedia.org/wiki/%E7%89%B9%E6%92%AE#日本での歴史</link></sublink>
+<sublink linktype="nav"><anchor>主な日本の特撮作品</anchor><link>https://ja.wikipedia.org/wiki/%E7%89%B9%E6%92%AE#主な日本の特撮作品</link></sublink>
+<sublink linktype="nav"><anchor>脚注</anchor><link>https://ja.wikipedia.org/wiki/%E7%89%B9%E6%92%AE#脚注</link></sublink>
+<sublink linktype="nav"><anchor>注釈</anchor><link>https://ja.wikipedia.org/wiki/%E7%89%B9%E6%92%AE#注釈</link></sublink>
+<sublink linktype="nav"><anchor>出典</anchor><link>https://ja.wikipedia.org/wiki/%E7%89%B9%E6%92%AE#出典</link></sublink>
+<sublink linktype="nav"><anchor>参考文献</anchor><link>https://ja.wikipedia.org/wiki/%E7%89%B9%E6%92%AE#参考文献</link></sublink>
+<sublink linktype="nav"><anchor>関連項目</anchor><link>https://ja.wikipedia.org/wiki/%E7%89%B9%E6%92%AE#関連項目</link></sublink>
+</links>
+</doc>
+<doc>
+<title>Wikipedia: 日常生活</title>
+<url>https://ja.wikipedia.org/wiki/%E6%97%A5%E5%B8%B8%E7%94%9F%E6%B4%BB</url>
+<abstract>日常生活（にちじょうせいかつ、）は、毎日繰り返される普段の生活のこと。</abstract>
+<links>
+<sublink linktype="nav"><anchor>脚注</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E5%B8%B8%E7%94%9F%E6%B4%BB#脚注</link></sublink>
+<sublink linktype="nav"><anchor>関連項目</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E5%B8%B8%E7%94%9F%E6%B4%BB#関連項目</link></sublink>
+<sublink linktype="nav"><anchor>Further readings</anchor><link>https://ja.wikipedia.org/wiki/%E6%97%A5%E5%B8%B8%E7%94%9F%E6%B4%BB#Further_readings</link></sublink>
+</links>
+</doc>
+<doc>
+<title>Wikipedia: 情報工学</title>
+<url>https://ja.wikipedia.org/wiki/%E6%83%85%E5%A0%B1%E5%B7%A5%E5%AD%A6</url>
+<abstract>情報工学（じょうほうこうがく）は、情報分野についての工学である。語感としては、情報科学という語がもっぱらおおまかに「科学」という語が指す範囲を中心としているのに対し、「工学」的な分野に重心があるが、内実としてはどれもたいして変わらないことが多い（たとえば、大学の学部学科名などに関しては、個々の大学の個性による違いのほうが、名前による違いより大きい）。日本で、大学の工学部などにコンピュータ科学ないし情報関係の学科を設置する際に、「工学」部という語との整合のためだけに便利に使われた、という面が大きい（情報工学科の記事を参照）。</abstract>
+<links>
+<sublink linktype="nav"><anchor>概要</anchor><link>https://ja.wikipedia.org/wiki/%E6%83%85%E5%A0%B1%E5%B7%A5%E5%AD%A6#概要</link></sublink>
+<sublink linktype="nav"><anchor>脚注</anchor><link>https://ja.wikipedia.org/wiki/%E6%83%85%E5%A0%B1%E5%B7%A5%E5%AD%A6#脚注</link></sublink>
+<sublink linktype="nav"><anchor>出典</anchor><link>https://ja.wikipedia.org/wiki/%E6%83%85%E5%A0%B1%E5%B7%A5%E5%AD%A6#出典</link></sublink>
+</links>
+</doc>
+<doc>
+<title>Wikipedia: 形式言語</title>
+<url>https://ja.wikipedia.org/wiki/%E5%BD%A2%E5%BC%8F%E8%A8%80%E8%AA%9E</url>
+<abstract>形式言語（けいしきげんご、）は、その文法（構文、統語論）が、場合によっては意味（意味論）も、形式的に与えられている（形式体系を参照）言語である。形式的でないために、しばしば曖昧さが残されたり、話者集団によって用法のうつろいゆくような自然言語に対して、プログラミング言語を含む一部の人工言語や、いわゆる機械可読な（機械可読目録を参照）ドキュメント類などの形式言語は、用法の変化に関しては厳格である。</abstract>
+<links>
+<sublink linktype="nav"><anchor>定義</anchor><link>https://ja.wikipedia.org/wiki/%E5%BD%A2%E5%BC%8F%E8%A8%80%E8%AA%9E#定義</link></sublink>
+<sublink linktype="nav"><anchor>形式文法</anchor><link>https://ja.wikipedia.org/wiki/%E5%BD%A2%E5%BC%8F%E8%A8%80%E8%AA%9E#形式文法</link></sublink>
+<sublink linktype="nav"><anchor>その他</anchor><link>https://ja.wikipedia.org/wiki/%E5%BD%A2%E5%BC%8F%E8%A8%80%E8%AA%9E#その他</link></sublink>
+<sublink linktype="nav"><anchor>言及される分野</anchor><link>https://ja.wikipedia.org/wiki/%E5%BD%A2%E5%BC%8F%E8%A8%80%E8%AA%9E#言及される分野</link></sublink>
+<sublink linktype="nav"><anchor>自然言語への応用</anchor><link>https://ja.wikipedia.org/wiki/%E5%BD%A2%E5%BC%8F%E8%A8%80%E8%AA%9E#自然言語への応用</link></sublink>
+<sublink linktype="nav"><anchor>脚注</anchor><link>https://ja.wikipedia.org/wiki/%E5%BD%A2%E5%BC%8F%E8%A8%80%E8%AA%9E#脚注</link></sublink>
+</links>
+</doc>
+<doc>
+<title>Wikipedia: 文脈自由言語</title>
+<url>https://ja.wikipedia.org/wiki/%E6%96%87%E8%84%88%E8%87%AA%E7%94%B1%E8%A8%80%E8%AA%9E</url>
+<abstract>文脈自由言語（ぶんみゃくじゆうげんご）とは、次のような再帰的な生成規則をもつ文脈自由文法によって、与えられた言語の長さ n に対して O(n3) の時間で認識される形式言語。プッシュダウン・オートマトンで受理可能な言語と等価である。</abstract>
+<links>
+<sublink linktype="nav"><anchor>例</anchor><link>https://ja.wikipedia.org/wiki/%E6%96%87%E8%84%88%E8%87%AA%E7%94%B1%E8%A8%80%E8%AA%9E#例</link></sublink>
+<sublink linktype="nav"><anchor>閉包属性</anchor><link>https://ja.wikipedia.org/wiki/%E6%96%87%E8%84%88%E8%87%AA%E7%94%B1%E8%A8%80%E8%AA%9E#閉包属性</link></sublink>
+<sublink linktype="nav"><anchor>積集合操作で閉じていないことの証明</anchor><link>https://ja.wikipedia.org/wiki/%E6%96%87%E8%84%88%E8%87%AA%E7%94%B1%E8%A8%80%E8%AA%9E#積集合操作で閉じていないことの証明</link></sublink>
+<sublink linktype="nav"><anchor>決定性属性</anchor><link>https://ja.wikipedia.org/wiki/%E6%96%87%E8%84%88%E8%87%AA%E7%94%B1%E8%A8%80%E8%AA%9E#決定性属性</link></sublink>
+<sublink linktype="nav"><anchor>参考文献</anchor><link>https://ja.wikipedia.org/wiki/%E6%96%87%E8%84%88%E8%87%AA%E7%94%B1%E8%A8%80%E8%AA%9E#参考文献</link></sublink>
+</links>
+</doc>
+<doc>
+<title>Wikipedia: 正規言語</title>
+<url>https://ja.wikipedia.org/wiki/%E6%AD%A3%E8%A6%8F%E8%A8%80%E8%AA%9E</url>
+<abstract>正規言語（せいきげんご）または正則言語（せいそくげんご）は、以下に示す性質（いずれも等価）を満たす形式言語である。</abstract>
+<links>
+<sublink linktype="nav"><anchor>定義</anchor><link>https://ja.wikipedia.org/wiki/%E6%AD%A3%E8%A6%8F%E8%A8%80%E8%AA%9E#定義</link></sublink>
+<sublink linktype="nav"><anchor>閉包属性</anchor><link>https://ja.wikipedia.org/wiki/%E6%AD%A3%E8%A6%8F%E8%A8%80%E8%AA%9E#閉包属性</link></sublink>
+<sublink linktype="nav"><anchor>ある言語が正規言語であるかどうかの判断基準</anchor><link>https://ja.wikipedia.org/wiki/%E6%AD%A3%E8%A6%8F%E8%A8%80%E8%AA%9E#ある言語が正規言語であるかどうかの判断基準</link></sublink>
+</links>
+</doc>
+<doc>
+<title>Wikipedia: 自然言語処理</title>
+<url>https://ja.wikipedia.org/wiki/%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E5%87%A6%E7%90%86</url>
+<abstract>自然言語処理（しぜんげんごしょり、、略称：NLP）は、人間が日常的に使っている自然言語をコンピュータに処理させる一連の技術であり、人工知能と言語学の一分野である。「計算言語学」（）との類似もあるが、自然言語処理は工学的な視点からの言語処理をさすのに対して、計算言語学は言語学的視点を重視する手法をさす事が多い。</abstract>
+<links>
+<sublink linktype="nav"><anchor>基礎技術</anchor><link>https://ja.wikipedia.org/wiki/%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E5%87%A6%E7%90%86#基礎技術</link></sublink>
+<sublink linktype="nav"><anchor>処理内容とその限界</anchor><link>https://ja.wikipedia.org/wiki/%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E5%87%A6%E7%90%86#処理内容とその限界</link></sublink>
+<sublink linktype="nav"><anchor>具体的な課題</anchor><link>https://ja.wikipedia.org/wiki/%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E5%87%A6%E7%90%86#具体的な課題</link></sublink>
+<sublink linktype="nav"><anchor>統計的自然言語処理</anchor><link>https://ja.wikipedia.org/wiki/%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E5%87%A6%E7%90%86#統計的自然言語処理</link></sublink>
+<sublink linktype="nav"><anchor>自然言語処理の主な応用</anchor><link>https://ja.wikipedia.org/wiki/%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E5%87%A6%E7%90%86#自然言語処理の主な応用</link></sublink>
+<sublink linktype="nav"><anchor>脚注</anchor><link>https://ja.wikipedia.org/wiki/%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E5%87%A6%E7%90%86#脚注</link></sublink>
+<sublink linktype="nav"><anchor>関連項目</anchor><link>https://ja.wikipedia.org/wiki/%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E5%87%A6%E7%90%86#関連項目</link></sublink>
+<sublink linktype="nav"><anchor>外部リンク</anchor><link>https://ja.wikipedia.org/wiki/%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E5%87%A6%E7%90%86#外部リンク</link></sublink>
+</links>
+</doc>
+<doc>
+<title>Wikipedia: 自然言語</title>
+<url>https://ja.wikipedia.org/wiki/%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E</url>
+<abstract>自然言語（しぜんげんご、）とは、言語学や論理学、計算機科学の専門用語で、「英語」・「中国語」・「日本語」といった「○○語」の総称。つまり普通の「言語」のこと。</abstract>
+<links>
+<sublink linktype="nav"><anchor>概要</anchor><link>https://ja.wikipedia.org/wiki/%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E#概要</link></sublink>
+<sublink linktype="nav"><anchor>注</anchor><link>https://ja.wikipedia.org/wiki/%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E#注</link></sublink>
+<sublink linktype="nav"><anchor>関連項目</anchor><link>https://ja.wikipedia.org/wiki/%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E#関連項目</link></sublink>
+</links>
+</doc>
+<doc>
+<title>Wikipedia: プログラミング言語</title>
+<url>https://ja.wikipedia.org/wiki/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E8%A8%80%E8%AA%9E</url>
+<abstract>プログラミング言語（プログラミングげんご、）とは、プログラムを記述するための人工言語ISO 5127—Information and documentation—Vocabulary, clause 01.05.10 で、プログラミング言語は「プログラムを記述するための人工言語」と定義されている。。コンピュータプログラムを書くために考案された、正確に定義された記号と規則のしくみLexico, definition of programming language. A system of precisely defined symbols and rules devised for writing computer programs.。以前はしばしばプログラム言語と表記された。</abstract>
+<links>
+<sublink linktype="nav"><anchor>概要</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E8%A8%80%E8%AA%9E#概要</link></sublink>
+<sublink linktype="nav"><anchor>分類・種類</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E8%A8%80%E8%AA%9E#分類・種類</link></sublink>
+<sublink linktype="nav"><anchor>歴史</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E8%A8%80%E8%AA%9E#歴史</link></sublink>
+<sublink linktype="nav"><anchor>初期の発展</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E8%A8%80%E8%AA%9E#初期の発展</link></sublink>
+<sublink linktype="nav"><anchor>改良</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E8%A8%80%E8%AA%9E#改良</link></sublink>
+<sublink linktype="nav"><anchor>統合と成長</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E8%A8%80%E8%AA%9E#統合と成長</link></sublink>
+<sublink linktype="nav"><anchor>要素</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E8%A8%80%E8%AA%9E#要素</link></sublink>
+<sublink linktype="nav"><anchor>構文</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E8%A8%80%E8%AA%9E#構文</link></sublink>
+<sublink linktype="nav"><anchor>意味</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E8%A8%80%E8%AA%9E#意味</link></sublink>
+<sublink linktype="nav"><anchor>型システム</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E8%A8%80%E8%AA%9E#型システム</link></sublink>
+<sublink linktype="nav"><anchor>型のある言語とない言語</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E8%A8%80%E8%AA%9E#型のある言語とない言語</link></sublink>
+<sublink linktype="nav"><anchor>静的型付けと動的型付け</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E8%A8%80%E8%AA%9E#静的型付けと動的型付け</link></sublink>
+<sublink linktype="nav"><anchor>強い型付けと弱い型付け</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E8%A8%80%E8%AA%9E#強い型付けと弱い型付け</link></sublink>
+<sublink linktype="nav"><anchor>実行意味論</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E8%A8%80%E8%AA%9E#実行意味論</link></sublink>
+<sublink linktype="nav"><anchor>標準ライブラリ</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E8%A8%80%E8%AA%9E#標準ライブラリ</link></sublink>
+<sublink linktype="nav"><anchor>設計と実装</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E8%A8%80%E8%AA%9E#設計と実装</link></sublink>
+<sublink linktype="nav"><anchor>仕様</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E8%A8%80%E8%AA%9E#仕様</link></sublink>
+<sublink linktype="nav"><anchor>構文仕様</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E8%A8%80%E8%AA%9E#構文仕様</link></sublink>
+<sublink linktype="nav"><anchor>意味仕様</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E8%A8%80%E8%AA%9E#意味仕様</link></sublink>
+<sublink linktype="nav"><anchor>その他</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E8%A8%80%E8%AA%9E#その他</link></sublink>
+<sublink linktype="nav"><anchor>処理系</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E8%A8%80%E8%AA%9E#処理系</link></sublink>
+<sublink linktype="nav"><anchor>意義と目的</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E8%A8%80%E8%AA%9E#意義と目的</link></sublink>
+<sublink linktype="nav"><anchor>言語利用状況の計測</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E8%A8%80%E8%AA%9E#言語利用状況の計測</link></sublink>
+<sublink linktype="nav"><anchor>実際の指標の例</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E8%A8%80%E8%AA%9E#実際の指標の例</link></sublink>
+<sublink linktype="nav"><anchor>定義</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E8%A8%80%E8%AA%9E#定義</link></sublink>
+<sublink linktype="nav"><anchor>プログラミング言語と自然言語</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E8%A8%80%E8%AA%9E#プログラミング言語と自然言語</link></sublink>
+<sublink linktype="nav"><anchor>日本語における名称</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E8%A8%80%E8%AA%9E#日本語における名称</link></sublink>
+<sublink linktype="nav"><anchor>他</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E8%A8%80%E8%AA%9E#他</link></sublink>
+<sublink linktype="nav"><anchor>参考文献</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E8%A8%80%E8%AA%9E#参考文献</link></sublink>
+<sublink linktype="nav"><anchor>脚注</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E8%A8%80%E8%AA%9E#脚注</link></sublink>
+<sublink linktype="nav"><anchor>注釈</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E8%A8%80%E8%AA%9E#注釈</link></sublink>
+<sublink linktype="nav"><anchor>出典</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E8%A8%80%E8%AA%9E#出典</link></sublink>
+<sublink linktype="nav"><anchor>関連項目</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E8%A8%80%E8%AA%9E#関連項目</link></sublink>
+<sublink linktype="nav"><anchor>外部リンク</anchor><link>https://ja.wikipedia.org/wiki/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E8%A8%80%E8%AA%9E#外部リンク</link></sublink>
+</links>
+</doc>
+<doc>
+<title>Wikipedia: 人工知能</title>
+<url>https://ja.wikipedia.org/wiki/%E4%BA%BA%E5%B7%A5%E7%9F%A5%E8%83%BD</url>
+<abstract>人工知能（じんこうちのう）またはアーティフィシャル・インテリジェンス（、AI〔エーアイ〕）とは、「『計算（）』という概念と『コンピュータ（）』という道具を用いて『知能』を研究する計算機科学（）の一分野」を指す語。「言語の理解や推論、問題解決などの知的行動を人間に代わってコンピューターに行わせる技術」、または、「計算機（コンピュータ）による知的な情報処理システムの設計や実現に関する研究分野」ともされる。</abstract>
+<links>
+<sublink linktype="nav"><anchor>概要</anchor><link>https://ja.wikipedia.org/wiki/%E4%BA%BA%E5%B7%A5%E7%9F%A5%E8%83%BD#概要</link></sublink>
+<sublink linktype="nav"><anchor>理工学的な概要</anchor><link>https://ja.wikipedia.org/wiki/%E4%BA%BA%E5%B7%A5%E7%9F%A5%E8%83%BD#理工学的な概要</link></sublink>
+<sublink linktype="nav"><anchor>AIの種類</anchor><link>https://ja.wikipedia.org/wiki/%E4%BA%BA%E5%B7%A5%E7%9F%A5%E8%83%BD#AIの種類</link></sublink>
+<sublink linktype="nav"><anchor>AI研究開発の世界的事例</anchor><link>https://ja.wikipedia.org/wiki/%E4%BA%BA%E5%B7%A5%E7%9F%A5%E8%83%BD#AI研究開発の世界的事例</link></sublink>
+<sublink linktype="nav"><anchor>文化的・芸術的な応用事例</anchor><link>https://ja.wikipedia.org/wiki/%E4%BA%BA%E5%B7%A5%E7%9F%A5%E8%83%BD#文化的・芸術的な応用事例</link></sublink>
+<sublink linktype="nav"><anchor>議論・社会問題</anchor><link>https://ja.wikipedia.org/wiki/%E4%BA%BA%E5%B7%A5%E7%9F%A5%E8%83%BD#議論・社会問題</link></sublink>
+<sublink linktype="nav"><anchor>人権侵害</anchor><link>https://ja.wikipedia.org/wiki/%E4%BA%BA%E5%B7%A5%E7%9F%A5%E8%83%BD#人権侵害</link></sublink>
+<sublink linktype="nav"><anchor>軍事利用</anchor><link>https://ja.wikipedia.org/wiki/%E4%BA%BA%E5%B7%A5%E7%9F%A5%E8%83%BD#軍事利用</link></sublink>
+<sublink linktype="nav"><anchor>東西対立</anchor><link>https://ja.wikipedia.org/wiki/%E4%BA%BA%E5%B7%A5%E7%9F%A5%E8%83%BD#東西対立</link></sublink>
+<sublink linktype="nav"><anchor>雇用問題</anchor><link>https://ja.wikipedia.org/wiki/%E4%BA%BA%E5%B7%A5%E7%9F%A5%E8%83%BD#雇用問題</link></sublink>
+<sublink linktype="nav"><anchor>歴史</anchor><link>https://ja.wikipedia.org/wiki/%E4%BA%BA%E5%B7%A5%E7%9F%A5%E8%83%BD#歴史</link></sublink>
+<sublink linktype="nav"><anchor>初期</anchor><link>https://ja.wikipedia.org/wiki/%E4%BA%BA%E5%B7%A5%E7%9F%A5%E8%83%BD#初期</link></sublink>
+<sublink linktype="nav"><anchor>1900年代後半</anchor><link>https://ja.wikipedia.org/wiki/%E4%BA%BA%E5%B7%A5%E7%9F%A5%E8%83%BD#1900年代後半</link></sublink>
+<sublink linktype="nav"><anchor>日本における第二次AIブーム</anchor><link>https://ja.wikipedia.org/wiki/%E4%BA%BA%E5%B7%A5%E7%9F%A5%E8%83%BD#日本における第二次AIブーム</link></sublink>
+<sublink linktype="nav"><anchor>エキスパートシステム（知識工学の応用）</anchor><link>https://ja.wikipedia.org/wiki/%E4%BA%BA%E5%B7%A5%E7%9F%A5%E8%83%BD#エキスパートシステム（知識工学の応用）</link></sublink>
+<sublink linktype="nav"><anchor>第五世代コンピュータ（高性能なProlog推論マシン）</anchor><link>https://ja.wikipedia.org/wiki/%E4%BA%BA%E5%B7%A5%E7%9F%A5%E8%83%BD#第五世代コンピュータ（高性能なProlog推論マシン）</link></sublink>
+<sublink linktype="nav"><anchor>ニューロファジィ=====</anchor><link>https://ja.wikipedia.org/wiki/%E4%BA%BA%E5%B7%A5%E7%9F%A5%E8%83%BD#ニューロファジィ=====</link></sublink>
+<sublink linktype="nav"><anchor>ブームの経緯</anchor><link>https://ja.wikipedia.org/wiki/%E4%BA%BA%E5%B7%A5%E7%9F%A5%E8%83%BD#ブームの経緯</link></sublink>
+<sublink linktype="nav"><anchor>2000年代</anchor><link>https://ja.wikipedia.org/wiki/%E4%BA%BA%E5%B7%A5%E7%9F%A5%E8%83%BD#2000年代</link></sublink>
+<sublink linktype="nav"><anchor>2010年代前半</anchor><link>https://ja.wikipedia.org/wiki/%E4%BA%BA%E5%B7%A5%E7%9F%A5%E8%83%BD#2010年代前半</link></sublink>
+<sublink linktype="nav"><anchor>2010年代後半</anchor><link>https://ja.wikipedia.org/wiki/%E4%BA%BA%E5%B7%A5%E7%9F%A5%E8%83%BD#2010年代後半</link></sublink>
+<sublink linktype="nav"><anchor>人工知能の第三次ブーム：AGI（汎用人工知能）と技術的特異点</anchor><link>https://ja.wikipedia.org/wiki/%E4%BA%BA%E5%B7%A5%E7%9F%A5%E8%83%BD#人工知能の第三次ブーム：AGI（汎用人工知能）と技術的特異点</link></sublink>
+<sublink linktype="nav"><anchor>2020年代前半</anchor><link>https://ja.wikipedia.org/wiki/%E4%BA%BA%E5%B7%A5%E7%9F%A5%E8%83%BD#2020年代前半</link></sublink>
+<sublink linktype="nav"><anchor>哲学とAI</anchor><link>https://ja.wikipedia.org/wiki/%E4%BA%BA%E5%B7%A5%E7%9F%A5%E8%83%BD#哲学とAI</link></sublink>
+<sublink linktype="nav"><anchor>哲学・宗教・芸術</anchor><link>https://ja.wikipedia.org/wiki/%E4%BA%BA%E5%B7%A5%E7%9F%A5%E8%83%BD#哲学・宗教・芸術</link></sublink>
+<sublink linktype="nav"><anchor>批判</anchor><link>https://ja.wikipedia.org/wiki/%E4%BA%BA%E5%B7%A5%E7%9F%A5%E8%83%BD#批判</link></sublink>
+<sublink linktype="nav"><anchor>科学と哲学</anchor><link>https://ja.wikipedia.org/wiki/%E4%BA%BA%E5%B7%A5%E7%9F%A5%E8%83%BD#科学と哲学</link></sublink>
+<sublink linktype="nav"><anchor>文学・フィクション・SF(空想科学)</anchor><link>https://ja.wikipedia.org/wiki/%E4%BA%BA%E5%B7%A5%E7%9F%A5%E8%83%BD#文学・フィクション・SF(空想科学)</link></sublink>
+<sublink linktype="nav"><anchor>脚注</anchor><link>https://ja.wikipedia.org/wiki/%E4%BA%BA%E5%B7%A5%E7%9F%A5%E8%83%BD#脚注</link></sublink>
+<sublink linktype="nav"><anchor>注釈</anchor><link>https://ja.wikipedia.org/wiki/%E4%BA%BA%E5%B7%A5%E7%9F%A5%E8%83%BD#注釈</link></sublink>
+<sublink linktype="nav"><anchor>出典</anchor><link>https://ja.wikipedia.org/wiki/%E4%BA%BA%E5%B7%A5%E7%9F%A5%E8%83%BD#出典</link></sublink>
+<sublink linktype="nav"><anchor>参考文献</anchor><link>https://ja.wikipedia.org/wiki/%E4%BA%BA%E5%B7%A5%E7%9F%A5%E8%83%BD#参考文献</link></sublink>
+<sublink linktype="nav"><anchor>関連項目</anchor><link>https://ja.wikipedia.org/wiki/%E4%BA%BA%E5%B7%A5%E7%9F%A5%E8%83%BD#関連項目</link></sublink>
+<sublink linktype="nav"><anchor>外部リンク</anchor><link>https://ja.wikipedia.org/wiki/%E4%BA%BA%E5%B7%A5%E7%9F%A5%E8%83%BD#外部リンク</link></sublink>
+</links>
+</doc>
+<doc>
+<title>Wikipedia: オーストリア</title>
+<url>https://ja.wikipedia.org/wiki/%E3%82%AA%E3%83%BC%E3%82%B9%E3%83%88%E3%83%AA%E3%82%A2</url>
+<abstract>|国旗画像 = Flag of Austria.svg</abstract>
+<links>
+<sublink linktype="nav"><anchor>概要</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%AA%E3%83%BC%E3%82%B9%E3%83%88%E3%83%AA%E3%82%A2#概要</link></sublink>
+<sublink linktype="nav"><anchor>国名</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%AA%E3%83%BC%E3%82%B9%E3%83%88%E3%83%AA%E3%82%A2#国名</link></sublink>
+<sublink linktype="nav"><anchor>由来と「狭義のオーストリア」</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%AA%E3%83%BC%E3%82%B9%E3%83%88%E3%83%AA%E3%82%A2#由来と「狭義のオーストリア」</link></sublink>
+<sublink linktype="nav"><anchor>オーストリア家との関係</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%AA%E3%83%BC%E3%82%B9%E3%83%88%E3%83%AA%E3%82%A2#オーストリア家との関係</link></sublink>
+<sublink linktype="nav"><anchor>オーストラリアとの混同</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%AA%E3%83%BC%E3%82%B9%E3%83%88%E3%83%AA%E3%82%A2#オーストラリアとの混同</link></sublink>
+<sublink linktype="nav"><anchor>オーストリー表記</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%AA%E3%83%BC%E3%82%B9%E3%83%88%E3%83%AA%E3%82%A2#オーストリー表記</link></sublink>
+<sublink linktype="nav"><anchor>歴史</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%AA%E3%83%BC%E3%82%B9%E3%83%88%E3%83%AA%E3%82%A2#歴史</link></sublink>
+<sublink linktype="nav"><anchor>オーストリアの成立</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%AA%E3%83%BC%E3%82%B9%E3%83%88%E3%83%AA%E3%82%A2#オーストリアの成立</link></sublink>
+<sublink linktype="nav"><anchor>ハプスブルク家支配の成立</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%AA%E3%83%BC%E3%82%B9%E3%83%88%E3%83%AA%E3%82%A2#ハプスブルク家支配の成立</link></sublink>
+<sublink linktype="nav"><anchor>マリア・テレジアと二元主義</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%AA%E3%83%BC%E3%82%B9%E3%83%88%E3%83%AA%E3%82%A2#マリア・テレジアと二元主義</link></sublink>
+<sublink linktype="nav"><anchor>神聖ローマ帝国の解体と二重帝国</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%AA%E3%83%BC%E3%82%B9%E3%83%88%E3%83%AA%E3%82%A2#神聖ローマ帝国の解体と二重帝国</link></sublink>
+<sublink linktype="nav"><anchor>第一次世界大戦と共和制への移行</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%AA%E3%83%BC%E3%82%B9%E3%83%88%E3%83%AA%E3%82%A2#第一次世界大戦と共和制への移行</link></sublink>
+<sublink linktype="nav"><anchor>ファシズムからアンシュルスへ</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%AA%E3%83%BC%E3%82%B9%E3%83%88%E3%83%AA%E3%82%A2#ファシズムからアンシュルスへ</link></sublink>
+<sublink linktype="nav"><anchor>第二次大戦後</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%AA%E3%83%BC%E3%82%B9%E3%83%88%E3%83%AA%E3%82%A2#第二次大戦後</link></sublink>
+<sublink linktype="nav"><anchor>政治</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%AA%E3%83%BC%E3%82%B9%E3%83%88%E3%83%AA%E3%82%A2#政治</link></sublink>
+<sublink linktype="nav"><anchor>行政</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%AA%E3%83%BC%E3%82%B9%E3%83%88%E3%83%AA%E3%82%A2#行政</link></sublink>
+<sublink linktype="nav"><anchor>立法</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%AA%E3%83%BC%E3%82%B9%E3%83%88%E3%83%AA%E3%82%A2#立法</link></sublink>
+<sublink linktype="nav"><anchor>政党</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%AA%E3%83%BC%E3%82%B9%E3%83%88%E3%83%AA%E3%82%A2#政党</link></sublink>
+<sublink linktype="nav"><anchor>司法</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%AA%E3%83%BC%E3%82%B9%E3%83%88%E3%83%AA%E3%82%A2#司法</link></sublink>
+<sublink linktype="nav"><anchor>国際関係</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%AA%E3%83%BC%E3%82%B9%E3%83%88%E3%83%AA%E3%82%A2#国際関係</link></sublink>
+<sublink linktype="nav"><anchor>日本との関係</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%AA%E3%83%BC%E3%82%B9%E3%83%88%E3%83%AA%E3%82%A2#日本との関係</link></sublink>
+<sublink linktype="nav"><anchor>軍事</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%AA%E3%83%BC%E3%82%B9%E3%83%88%E3%83%AA%E3%82%A2#軍事</link></sublink>
+<sublink linktype="nav"><anchor>地理</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%AA%E3%83%BC%E3%82%B9%E3%83%88%E3%83%AA%E3%82%A2#地理</link></sublink>
+<sublink linktype="nav"><anchor>オーストリアの地理的名所</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%AA%E3%83%BC%E3%82%B9%E3%83%88%E3%83%AA%E3%82%A2#オーストリアの地理的名所</link></sublink>
+<sublink linktype="nav"><anchor>気候</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%AA%E3%83%BC%E3%82%B9%E3%83%88%E3%83%AA%E3%82%A2#気候</link></sublink>
+<sublink linktype="nav"><anchor>地方行政区分</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%AA%E3%83%BC%E3%82%B9%E3%83%88%E3%83%AA%E3%82%A2#地方行政区分</link></sublink>
+<sublink linktype="nav"><anchor>主要都市</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%AA%E3%83%BC%E3%82%B9%E3%83%88%E3%83%AA%E3%82%A2#主要都市</link></sublink>
+<sublink linktype="nav"><anchor>経済</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%AA%E3%83%BC%E3%82%B9%E3%83%88%E3%83%AA%E3%82%A2#経済</link></sublink>
+<sublink linktype="nav"><anchor>観光</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%AA%E3%83%BC%E3%82%B9%E3%83%88%E3%83%AA%E3%82%A2#観光</link></sublink>
+<sublink linktype="nav"><anchor>交通</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%AA%E3%83%BC%E3%82%B9%E3%83%88%E3%83%AA%E3%82%A2#交通</link></sublink>
+<sublink linktype="nav"><anchor>鉄道</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%AA%E3%83%BC%E3%82%B9%E3%83%88%E3%83%AA%E3%82%A2#鉄道</link></sublink>
+<sublink linktype="nav"><anchor>航空</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%AA%E3%83%BC%E3%82%B9%E3%83%88%E3%83%AA%E3%82%A2#航空</link></sublink>
+<sublink linktype="nav"><anchor>国民</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%AA%E3%83%BC%E3%82%B9%E3%83%88%E3%83%AA%E3%82%A2#国民</link></sublink>
+<sublink linktype="nav"><anchor>民族</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%AA%E3%83%BC%E3%82%B9%E3%83%88%E3%83%AA%E3%82%A2#民族</link></sublink>
+<sublink linktype="nav"><anchor>言語</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%AA%E3%83%BC%E3%82%B9%E3%83%88%E3%83%AA%E3%82%A2#言語</link></sublink>
+<sublink linktype="nav"><anchor>婚姻</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%AA%E3%83%BC%E3%82%B9%E3%83%88%E3%83%AA%E3%82%A2#婚姻</link></sublink>
+<sublink linktype="nav"><anchor>宗教</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%AA%E3%83%BC%E3%82%B9%E3%83%88%E3%83%AA%E3%82%A2#宗教</link></sublink>
+<sublink linktype="nav"><anchor>教育</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%AA%E3%83%BC%E3%82%B9%E3%83%88%E3%83%AA%E3%82%A2#教育</link></sublink>
+<sublink linktype="nav"><anchor>保健</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%AA%E3%83%BC%E3%82%B9%E3%83%88%E3%83%AA%E3%82%A2#保健</link></sublink>
+<sublink linktype="nav"><anchor>医療</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%AA%E3%83%BC%E3%82%B9%E3%83%88%E3%83%AA%E3%82%A2#医療</link></sublink>
+<sublink linktype="nav"><anchor>治安</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%AA%E3%83%BC%E3%82%B9%E3%83%88%E3%83%AA%E3%82%A2#治安</link></sublink>
+<sublink linktype="nav"><anchor>人権</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%AA%E3%83%BC%E3%82%B9%E3%83%88%E3%83%AA%E3%82%A2#人権</link></sublink>
+<sublink linktype="nav"><anchor>マスコミ</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%AA%E3%83%BC%E3%82%B9%E3%83%88%E3%83%AA%E3%82%A2#マスコミ</link></sublink>
+<sublink linktype="nav"><anchor>文化</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%AA%E3%83%BC%E3%82%B9%E3%83%88%E3%83%AA%E3%82%A2#文化</link></sublink>
+<sublink linktype="nav"><anchor>食文化</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%AA%E3%83%BC%E3%82%B9%E3%83%88%E3%83%AA%E3%82%A2#食文化</link></sublink>
+<sublink linktype="nav"><anchor>文学</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%AA%E3%83%BC%E3%82%B9%E3%83%88%E3%83%AA%E3%82%A2#文学</link></sublink>
+<sublink linktype="nav"><anchor>音楽</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%AA%E3%83%BC%E3%82%B9%E3%83%88%E3%83%AA%E3%82%A2#音楽</link></sublink>
+<sublink linktype="nav"><anchor>クラシック音楽</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%AA%E3%83%BC%E3%82%B9%E3%83%88%E3%83%AA%E3%82%A2#クラシック音楽</link></sublink>
+<sublink linktype="nav"><anchor>美術</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%AA%E3%83%BC%E3%82%B9%E3%83%88%E3%83%AA%E3%82%A2#美術</link></sublink>
+<sublink linktype="nav"><anchor>映画</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%AA%E3%83%BC%E3%82%B9%E3%83%88%E3%83%AA%E3%82%A2#映画</link></sublink>
+<sublink linktype="nav"><anchor>建築</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%AA%E3%83%BC%E3%82%B9%E3%83%88%E3%83%AA%E3%82%A2#建築</link></sublink>
+<sublink linktype="nav"><anchor>世界遺産</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%AA%E3%83%BC%E3%82%B9%E3%83%88%E3%83%AA%E3%82%A2#世界遺産</link></sublink>
+<sublink linktype="nav"><anchor>祝祭日</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%AA%E3%83%BC%E3%82%B9%E3%83%88%E3%83%AA%E3%82%A2#祝祭日</link></sublink>
+<sublink linktype="nav"><anchor>スポーツ</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%AA%E3%83%BC%E3%82%B9%E3%83%88%E3%83%AA%E3%82%A2#スポーツ</link></sublink>
+<sublink linktype="nav"><anchor>サッカー</anchor><link>https://ja.wikipedia.org/wiki/%E3%82%AA%E3%83%BC%E3%82%B9%E3%83%88%E3%83%AA%E3%82%A2#サッカー</link></sublink>

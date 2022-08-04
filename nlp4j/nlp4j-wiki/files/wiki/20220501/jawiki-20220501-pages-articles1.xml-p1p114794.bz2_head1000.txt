@@ -1,0 +1,1000 @@
+<mediawiki xmlns="http://www.mediawiki.org/xml/export-0.10/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mediawiki.org/xml/export-0.10/ http://www.mediawiki.org/xml/export-0.10.xsd" version="0.10" xml:lang="ja">
+  <siteinfo>
+    <sitename>Wikipedia</sitename>
+    <dbname>jawiki</dbname>
+    <base>https://ja.wikipedia.org/wiki/%E3%83%A1%E3%82%A4%E3%83%B3%E3%83%9A%E3%83%BC%E3%82%B8</base>
+    <generator>MediaWiki 1.39.0-wmf.9</generator>
+    <case>first-letter</case>
+    <namespaces>
+      <namespace key="-2" case="first-letter">メディア</namespace>
+      <namespace key="-1" case="first-letter">特別</namespace>
+      <namespace key="0" case="first-letter" />
+      <namespace key="1" case="first-letter">ノート</namespace>
+      <namespace key="2" case="first-letter">利用者</namespace>
+      <namespace key="3" case="first-letter">利用者‐会話</namespace>
+      <namespace key="4" case="first-letter">Wikipedia</namespace>
+      <namespace key="5" case="first-letter">Wikipedia‐ノート</namespace>
+      <namespace key="6" case="first-letter">ファイル</namespace>
+      <namespace key="7" case="first-letter">ファイル‐ノート</namespace>
+      <namespace key="8" case="first-letter">MediaWiki</namespace>
+      <namespace key="9" case="first-letter">MediaWiki‐ノート</namespace>
+      <namespace key="10" case="first-letter">Template</namespace>
+      <namespace key="11" case="first-letter">Template‐ノート</namespace>
+      <namespace key="12" case="first-letter">Help</namespace>
+      <namespace key="13" case="first-letter">Help‐ノート</namespace>
+      <namespace key="14" case="first-letter">Category</namespace>
+      <namespace key="15" case="first-letter">Category‐ノート</namespace>
+      <namespace key="100" case="first-letter">Portal</namespace>
+      <namespace key="101" case="first-letter">Portal‐ノート</namespace>
+      <namespace key="102" case="first-letter">プロジェクト</namespace>
+      <namespace key="103" case="first-letter">プロジェクト‐ノート</namespace>
+      <namespace key="828" case="first-letter">モジュール</namespace>
+      <namespace key="829" case="first-letter">モジュール‐ノート</namespace>
+      <namespace key="2300" case="first-letter">Gadget</namespace>
+      <namespace key="2301" case="first-letter">Gadget talk</namespace>
+      <namespace key="2302" case="case-sensitive">Gadget definition</namespace>
+      <namespace key="2303" case="case-sensitive">Gadget definition talk</namespace>
+    </namespaces>
+  </siteinfo>
+  <page>
+    <title>Wikipedia:アップロードログ/2004年4月</title>
+    <ns>4</ns>
+    <id>1</id>
+    <revision>
+      <id>80312331</id>
+      <parentid>80312300</parentid>
+      <timestamp>2020-11-06T05:49:35Z</timestamp>
+      <contributor>
+        <username>ネイ</username>
+        <id>169478</id>
+      </contributor>
+      <minor />
+      <comment>ネイ がページ「[[Wikipedia:アップロードログ 2004年4月]]」を「[[Wikipedia:アップロードログ/2004年4月]]」に移動しました: [[Wikipedia‐ノート:アップロードログ]]に基づき移動</comment>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text bytes="106652" xml:space="preserve">&lt;ul&gt;&lt;li&gt;14:46 2004年4月30日 [[利用者:Oxhop|Oxhop]] &quot;[[:画像:LocationMacedonia.png|LocationMacedonia.png]]&quot;をアップロードしました。 &lt;em&gt;(マケドニアの位置 - 英語版より)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;14:40 2004年4月30日 [[利用者:Oxhop|Oxhop]] &quot;[[:画像:Macedonia_coa.png|Macedonia_coa.png]]&quot;をアップロードしました。 &lt;em&gt;(マケドニアの国章 - 英語版画像を加工)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;14:39 2004年4月30日 [[利用者:Oxhop|Oxhop]] &quot;[[:画像:Macedonia_flag_medium.png|Macedonia_flag_medium.png]]&quot;をアップロードしました。 &lt;em&gt;(マケドニアの国旗 - 英語版より)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;09:42 2004年4月30日 [[利用者:Kim H Yusuke|Kim H Yusuke]] &quot;[[:画像:Car_honda_civic_EF_240pix.jpg|Car_honda_civic_EF_240pix.jpg]]&quot;をアップロードしました。 &lt;em&gt;(自動車：シビック：EF型写真：VGA)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;09:34 2004年4月30日 [[利用者:Kim H Yusuke|Kim H Yusuke]] &quot;[[:画像:Car_honda_civic_EF_VGA.jpg|Car_honda_civic_EF_VGA.jpg]]&quot;をアップロードしました。 &lt;em&gt;(自動車：シビック：EF型写真：VGA)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;09:32 2004年4月30日 [[利用者:Kim H Yusuke|Kim H Yusuke]] &quot;[[:画像:Car_honda_civic_EF_300pix.jpg|Car_honda_civic_EF_300pix.jpg]]&quot;をアップロードしました。 &lt;em&gt;(自動車：シビック：EF型写真：巾300pixel)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;06:37 2004年4月30日 [[利用者:Kim H Yusuke|Kim H Yusuke]] &quot;[[:画像:Car_style_sedan_VGA.jpg|Car_style_sedan_VGA.jpg]]&quot;をアップロードしました。 &lt;em&gt;(セダン型自動車の例(写真)VGA大)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;06:33 2004年4月30日 [[利用者:Kim H Yusuke|Kim H Yusuke]] &quot;[[:画像:Car_style_sedan_300pix.jpg|Car_style_sedan_300pix.jpg]]&quot;をアップロードしました。 &lt;em&gt;(セダン型自動車の例(写真)巾300pixel)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;06:16 2004年4月30日 [[利用者:Kinori|Kinori]] &quot;[[:画像:OdoriKoenNishi2chome2004-4.JPG|OdoriKoenNishi2chome2004-4.JPG]]&quot;をアップロードしました。 &lt;em&gt;(大通公園西2丁目)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;04:54 2004年4月30日 [[利用者:Ciro|Ciro]] &quot;[[:画像:Basilicata-Mappa.png|Basilicata-Mappa.png]]&quot;をアップロードしました。 &lt;em&gt;(バジリカータ地図(itから))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;04:53 2004年4月30日 [[利用者:Ciro|Ciro]] &quot;[[:画像:Basilicata-Bandiera.png|Basilicata-Bandiera.png]]&quot;をアップロードしました。 &lt;em&gt;(バジリカータ州旗(itから))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;18:22 2004年4月29日 [[利用者:DC1394|DC1394]] &quot;[[:画像:2,4-Dihydroxypyrimidin.png|2,4-Dihydroxypyrimidin.png]]&quot;をアップロードしました。 &lt;em&gt;(ChemDrawで自作)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;17:20 2004年4月29日 [[利用者:FeZn|FeZn]] &quot;[[:画像:Typeface_lines1.png|Typeface_lines1.png]]&quot;をアップロードしました。 &lt;em&gt;(欧文書体のライン類の画像。小さめに改訂してみる、ということ自体のテスト )&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;17:19 2004年4月29日 [[利用者:FeZn|FeZn]] &quot;[[:画像:Typeface_lines1.png|Typeface_lines1.png]]&quot;をアップロードしました。 &lt;em&gt;(欧文書体のライン類の画像。大きめ。)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;17:05 2004年4月29日 [[利用者:Akogi|Akogi]] &quot;[[:画像:KanayamaStaAichi.jpg|KanayamaStaAichi.jpg]]&quot;をアップロードしました。 &lt;em&gt;(金山駅(愛知県))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;16:56 2004年4月29日 [[利用者:FeZn|FeZn]] &quot;[[:画像:Typeface_elements1.png|Typeface_elements1.png]]&quot;をアップロードしました。 &lt;em&gt;(欧文書体のエレメント名。字がつぶれないようにしたところサイズ過大？)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;14:59 2004年4月29日 [[利用者:Grimlin|Grimlin]] &quot;[[:画像:ミユビゲラ.jpg|ミユビゲラ.jpg]]&quot;をアップロードしました。&lt;/li&gt;
+&lt;li&gt;14:48 2004年4月29日 [[利用者:Grimlin|Grimlin]] &quot;[[:画像:ウミバト.jpg|ウミバト.jpg]]&quot;をアップロードしました。&lt;/li&gt;
+&lt;li&gt;14:42 2004年4月29日 [[利用者:Kinori|Kinori]] &quot;[[:画像:SapporoEkiKita2004-4.jpg|SapporoEkiKita2004-4.jpg]]&quot;をアップロードしました。 &lt;em&gt;(札幌駅。北から)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;14:38 2004年4月29日 [[利用者:Grimlin|Grimlin]] &quot;[[:画像:コウライキジ.jpg|コウライキジ.jpg]]&quot;をアップロードしました。&lt;/li&gt;
+&lt;li&gt;14:35 2004年4月29日 [[利用者:Sushi|Sushi]] &quot;[[:画像:Hernia.png|Hernia.png]]&quot;をアップロードしました。 &lt;em&gt;(ヘルニアのシェーマ)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;14:27 2004年4月29日 [[利用者:Grimlin|Grimlin]] &quot;[[:画像:アカツクシガモ.jpg|アカツクシガモ.jpg]]&quot;をアップロードしました。&lt;/li&gt;
+&lt;li&gt;14:26 2004年4月29日 [[利用者:Oxhop|Oxhop]] &quot;[[:画像:LocationGreece.png|LocationGreece.png]]&quot;をアップロードしました。 &lt;em&gt;(ギリシャの位置 - 英語版より)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;14:25 2004年4月29日 [[利用者:Oxhop|Oxhop]] &quot;[[:画像:Greece_coa.png|Greece_coa.png]]&quot;をアップロードしました。 &lt;em&gt;(ギリシャの国章 - 英語版より)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;14:24 2004年4月29日 [[利用者:Oxhop|Oxhop]] &quot;[[:画像:Greece_flag_medium.png|Greece_flag_medium.png]]&quot;をアップロードしました。 &lt;em&gt;(ギリシャの国旗 - 英語版より)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;14:23 2004年4月29日 [[利用者:Grimlin|Grimlin]] &quot;[[:画像:ヘラサギ.jpg|ヘラサギ.jpg]]&quot;をアップロードしました。&lt;/li&gt;
+&lt;li&gt;14:21 2004年4月29日 [[利用者:Grimlin|Grimlin]] &quot;[[:画像:ヘラシギ.jpg|ヘラシギ.jpg]]&quot;をアップロードしました。&lt;/li&gt;
+&lt;li&gt;14:12 2004年4月29日 [[利用者:Grimlin|Grimlin]] &quot;[[:画像:カイツブリ.jpg|カイツブリ.jpg]]&quot;をアップロードしました。&lt;/li&gt;
+&lt;li&gt;10:24 2004年4月29日 [[利用者:Hamilton|Hamilton]] &quot;[[:画像:Bougainville_Island.png|Bougainville_Island.png]]&quot;をアップロードしました。 &lt;em&gt;(ブーゲンビル島の地図　英語版より)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;10:08 2004年4月29日 [[利用者:Oga|Oga]] &quot;[[:画像:Honda-us-odyssey.jpg|Honda-us-odyssey.jpg]]&quot;をアップロードしました。 &lt;em&gt;(ホンダ US Odyssey（日本ではラグレイト）)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;00:24 2004年4月29日 [[利用者:Dobby|Dobby]] &quot;[[:画像:Fem_isa_int.png|Fem_isa_int.png]]&quot;をアップロードしました。 &lt;em&gt;(ウィキ国際化用画像使用。英語版参照。)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;20:33 2004年4月28日 [[利用者:Hans castorp81|Hans castorp81]] &quot;[[:画像:Jeremy_Bentham.jpg|Jeremy_Bentham.jpg]]&quot;をアップロードしました。 &lt;em&gt;(ジェレミ・ベンサム（ロンドン大学）)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;17:53 2004年4月28日 [[利用者:Gbr3|Gbr3]] &quot;[[:画像:Kiribati_sm02.gif|Kiribati_sm02.gif]]&quot;をアップロードしました。 &lt;em&gt;(キリバスの地図 (英語版よりコピー))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;15:53 2004年4月28日 [[利用者:Manju|Manju]] &quot;[[:画像:Ejectionseat.jpg|Ejectionseat.jpg]]&quot;をアップロードしました。 &lt;em&gt;(英語版より射出座席の画像)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;14:52 2004年4月28日 [[利用者:Manju|Manju]] &quot;[[:画像:200px-Aim-120_image.jpg|200px-Aim-120_image.jpg]]&quot;をアップロードしました。 &lt;em&gt;(英語版よりAMRAAMの画像)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;12:54 2004年4月28日 [[利用者:Ribbon|Ribbon]] &quot;[[:画像:Kameido_eki_1.jpg|Kameido_eki_1.jpg]]&quot;をアップロードしました。 &lt;em&gt;(亀戸駅東口)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;12:40 2004年4月28日 [[利用者:Ribbon|Ribbon]] &quot;[[:画像:Higasioojima_eki_2.jpg|Higasioojima_eki_2.jpg]]&quot;をアップロードしました。 &lt;em&gt;(東大島駅大島方面出口)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;12:39 2004年4月28日 [[利用者:Ribbon|Ribbon]] &quot;[[:画像:Higasioojima_eki_1.jpg|Higasioojima_eki_1.jpg]]&quot;をアップロードしました。 &lt;em&gt;(東大島駅ホーム)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;12:33 2004年4月28日 [[利用者:Ribbon|Ribbon]] &quot;[[:画像:Shirasaka_eki_1.jpg|Shirasaka_eki_1.jpg]]&quot;をアップロードしました。 &lt;em&gt;(白坂駅入口あたり)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;11:15 2004年4月28日 [[利用者:Gbr3|Gbr3]] &quot;[[:画像:Ca-map.png|Ca-map.png]]&quot;をアップロードしました。 &lt;em&gt;(カナダの地図 (英語版よりコピー))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;11:02 2004年4月28日 [[利用者:Tai i|Tai i]] &quot;[[:画像:Map_tokyo_fussa_city_p01-01.png|Map_tokyo_fussa_city_p01-01.png]]&quot;をアップロードしました。 &lt;em&gt;(福生市の位置)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;10:15 2004年4月28日 [[利用者:Gbr3|Gbr3]] &quot;[[:画像:JM-map.png|JM-map.png]]&quot;をアップロードしました。 &lt;em&gt;(ジャマイカの地図 (英語版よりコピー))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;17:20 2004年4月27日 [[利用者:Akio​h|Akio​h]] &quot;[[:画像:ドリル_(1).jpg|ドリル_(1).jpg]]&quot;をアップロードしました。 &lt;em&gt;(&amp;#91;&amp;#91;de:Bild:Bohrer.jpg]] からの転載&amp;lt;br&amp;gt;Michael Häckelにより撮影、パブリック・ドメインにて公開)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;15:42 2004年4月27日 [[利用者:Gbr3|Gbr3]] &quot;[[:画像:Vc-map.png|Vc-map.png]]&quot;をアップロードしました。 &lt;em&gt;(セントビンセントおよびグレナディーン諸島の地図(英語版からコピー))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;15:41 2004年4月27日 [[利用者:Gbr3|Gbr3]] &quot;[[:画像:Svincent22.PNG|Svincent22.PNG]]&quot;をアップロードしました。 &lt;em&gt;(セントビンセントおよびグレナディーン諸島の国章(英語版からコピー))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;15:40 2004年4月27日 [[利用者:森　綾子|森　綾子]] &quot;[[:画像:Top-test.jpg|Top-test.jpg]]&quot;をアップロードしました。 &lt;em&gt;(my works!!)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;12:42 2004年4月27日 [[利用者:Akio​h|Akio​h]] &quot;[[:画像:さいたま市・旧境界.png|さいたま市・旧境界.png]]&quot;をアップロードしました。 &lt;em&gt;(サイズ変更)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;12:30 2004年4月27日 [[利用者:Oxhop|Oxhop]] &quot;[[:画像:Palestine_flag_medium.png|Palestine_flag_medium.png]]&quot;をアップロードしました。 &lt;em&gt;(パレスチナの旗 - 拙作)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;10:29 2004年4月27日 [[利用者:Gbr3|Gbr3]] &quot;[[:画像:Td-map.png|Td-map.png]]&quot;をアップロードしました。 &lt;em&gt;(トリニダード・トバゴの地図(英語版からコピー))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;10:29 2004年4月27日 [[利用者:Gbr3|Gbr3]] &quot;[[:画像:LocationTrinidadAndTobago.png|LocationTrinidadAndTobago.png]]&quot;をアップロードしました。 &lt;em&gt;(トリニダード・トバゴの位置(英語版からコピー))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;10:28 2004年4月27日 [[利用者:Gbr3|Gbr3]] &quot;[[:画像:Coat_of_arms_Trinidad_and_Tobago.jpg|Coat_of_arms_Trinidad_and_Tobago.jpg]]&quot;をアップロードしました。 &lt;em&gt;(トリニダード・トバゴの国章(英語版からコピー))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;10:28 2004年4月27日 [[利用者:Gbr3|Gbr3]] &quot;[[:画像:Trinidad_and_tobago_flag_medium.png|Trinidad_and_tobago_flag_medium.png]]&quot;をアップロードしました。 &lt;em&gt;(トリニダード・トバゴの国旗(英語版からコピー))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;20:13 2004年4月26日 [[利用者:Akio​h|Akio​h]] &quot;[[:画像:さいたま市・旧境界.png|さいたま市・旧境界.png]]&quot;をアップロードしました。 &lt;em&gt;(さいたま市の旧浦和・大宮・与野市域&amp;lt;br&amp;gt;&amp;#91;&amp;#91;:画像:埼玉県の市町村境界.png]] より切り抜き、拡大、加筆)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;19:08 2004年4月26日 [[利用者:Safkan|Safkan]] &quot;[[:画像:Suleiman_Mosque.jpg|Suleiman_Mosque.jpg]]&quot;をアップロードしました。 &lt;em&gt;(スレイマニエ・モスク。英語版より)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;17:36 2004年4月26日 [[利用者:Kinori|Kinori]] &quot;[[:画像:NakajimaKoenEki2004-4.jpg|NakajimaKoenEki2004-4.jpg]]&quot;をアップロードしました。 &lt;em&gt;(中島公園駅)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;16:57 2004年4月26日 [[利用者:Gbr3|Gbr3]] &quot;[[:画像:Gt-map.jpg|Gt-map.jpg]]&quot;をアップロードしました。 &lt;em&gt;(グアテマラの地図(英語版からコピー))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;16:57 2004年4月26日 [[利用者:Gbr3|Gbr3]] &quot;[[:画像:LocationGuatemala.png|LocationGuatemala.png]]&quot;をアップロードしました。 &lt;em&gt;(グアテマラの位置(英語版からコピー))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;16:57 2004年4月26日 [[利用者:Gbr3|Gbr3]] &quot;[[:画像:GUAcoat.jpg|GUAcoat.jpg]]&quot;をアップロードしました。 &lt;em&gt;(グアテマラの国章(英語版からコピー))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;16:57 2004年4月26日 [[利用者:Gbr3|Gbr3]] &quot;[[:画像:Guatemala_flag_medium.png|Guatemala_flag_medium.png]]&quot;をアップロードしました。 &lt;em&gt;(グアテマラの国旗(英語版からコピー))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;16:48 2004年4月26日 [[利用者:Gbr3|Gbr3]] &quot;[[:画像:El_salvador_sm02.jpg|El_salvador_sm02.jpg]]&quot;をアップロードしました。 &lt;em&gt;(エルサルバドルの地図(英語版からコピー))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;16:02 2004年4月26日 [[利用者:Gbr3|Gbr3]] &quot;[[:画像:El_Salvador_coa.gif|El_Salvador_coa.gif]]&quot;をアップロードしました。 &lt;em&gt;(エルサルバドルの国章(英語版からコピー))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;14:02 2004年4月26日 [[利用者:Gbr3|Gbr3]] &quot;[[:画像:Cs-map.jpg|Cs-map.jpg]]&quot;をアップロードしました。 &lt;em&gt;(コスタリカの地図(英語版からコピー))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;13:49 2004年4月26日 [[利用者:ガウス|ガウス]] &quot;[[:画像:Tumagos7.jpg|Tumagos7.jpg]]&quot;をアップロードしました。 &lt;em&gt;(中山道旧妻篭宿高札場)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;13:41 2004年4月26日 [[利用者:ガウス|ガウス]] &quot;[[:画像:Matusir6.jpg|Matusir6.jpg]]&quot;をアップロードしました。 &lt;em&gt;(中山道旧妻篭宿旅籠「松代屋」)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;12:53 2004年4月26日 [[利用者:Gbr3|Gbr3]] &quot;[[:画像:Pm-map.png|Pm-map.png]]&quot;をアップロードしました。 &lt;em&gt;(パナマの地図(英語版からコピー))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;11:40 2004年4月26日 [[利用者:Manju|Manju]] &quot;[[:画像:250px-AirForceOne.jpg|250px-AirForceOne.jpg]]&quot;をアップロードしました。 &lt;em&gt;(英語版よりVC-25の画像)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;10:47 2004年4月26日 [[利用者:Gbr3|Gbr3]] &quot;[[:画像:Gy-map.png|Gy-map.png]]&quot;をアップロードしました。 &lt;em&gt;(ガイアナの地図(英語版からコピー))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;10:47 2004年4月26日 [[利用者:Gbr3|Gbr3]] &quot;[[:画像:LocationGuyana.png|LocationGuyana.png]]&quot;をアップロードしました。 &lt;em&gt;(ガイアナの位置(英語版からコピー))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;10:45 2004年4月26日 [[利用者:Gbr3|Gbr3]] &quot;[[:画像:Guyana_coa.png|Guyana_coa.png]]&quot;をアップロードしました。 &lt;em&gt;(ガイアナの国章(英語版からコピー))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;10:45 2004年4月26日 [[利用者:Gbr3|Gbr3]] &quot;[[:画像:Guyana_flag_medium.png|Guyana_flag_medium.png]]&quot;をアップロードしました。 &lt;em&gt;(ガイアナの国旗(英語版からコピー))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;09:47 2004年4月26日 [[利用者:Gbr3|Gbr3]] &quot;[[:画像:Ve-map.png|Ve-map.png]]&quot;をアップロードしました。 &lt;em&gt;(ベネズエラの地図(英語版からコピー))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;09:11 2004年4月26日 [[利用者:Oga|Oga]] &quot;[[:画像:Yoteizan-from-niseko.jpg|Yoteizan-from-niseko.jpg]]&quot;をアップロードしました。 &lt;em&gt;(ニセコ町から望む羊蹄山)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;07:47 2004年4月26日 [[利用者:Oga|Oga]] &quot;[[:画像:Niseko-hirafu-alpen.jpg|Niseko-hirafu-alpen.jpg]]&quot;をアップロードしました。 &lt;em&gt;(ニセコひらふ、アルペンの下から望む)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;07:23 2004年4月26日 [[利用者:Oga|Oga]] &quot;[[:画像:Niseko-st.jpg|Niseko-st.jpg]]&quot;をアップロードしました。 &lt;em&gt;(ニセコ駅外観)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;02:49 2004年4月26日 [[利用者:Ciro|Ciro]] &quot;[[:画像:Bandiera_reale.jpg|Bandiera_reale.jpg]]&quot;をアップロードしました。 &lt;em&gt;(イタリア王国国旗(enから))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;00:41 2004年4月26日 [[利用者:紙屋|紙屋]] &quot;[[:画像:Pork.jpg|Pork.jpg]]&quot;をアップロードしました。 &lt;em&gt;(豚肩ロース)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;19:44 2004年4月25日 [[利用者:Koba-chan|Koba-chan]] &quot;[[:画像:Lilo_boot.png|Lilo_boot.png]]&quot;をアップロードしました。 &lt;em&gt;(LILO Boot イメージ)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;17:58 2004年4月25日 [[利用者:Akio​h|Akio​h]] &quot;[[:画像:埼玉県さいたま市.png|埼玉県さいたま市.png]]&quot;をアップロードしました。 &lt;em&gt;(さいたま市の埼玉県内での位置&amp;lt;br&amp;gt;&amp;#91;&amp;#91;:画像:埼玉県・縮小版.png]] より着色)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;17:50 2004年4月25日 [[利用者:Akio​h|Akio​h]] &quot;[[:画像:埼玉県上里町.png|埼玉県上里町.png]]&quot;をアップロードしました。 &lt;em&gt;(上里町の埼玉県内での位置&amp;lt;br&amp;gt;&amp;#91;&amp;#91;:画像:埼玉県・縮小版.png]] より着色)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;17:34 2004年4月25日 [[利用者:Michu|Michu]] &quot;[[:画像:Tuktuk.jpg|Tuktuk.jpg]]&quot;をアップロードしました。 &lt;em&gt;(トゥクトゥク（タイの三輪タクシー）)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;17:26 2004年4月25日 [[利用者:Michu|Michu]] &quot;[[:画像:BTS.jpg|BTS.jpg]]&quot;をアップロードしました。 &lt;em&gt;(BTS（バンコクの高架鉄道）)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;17:17 2004年4月25日 [[利用者:Akio​h|Akio​h]] &quot;[[:画像:吾妻郡・番号付き.png|吾妻郡・番号付き.png]]&quot;をアップロードしました。 &lt;em&gt;(吾妻郡を構成する自治体、番号付き&amp;lt;br&amp;gt;&amp;#91;&amp;#91;:画像:群馬県・番号付き]] より切り抜き、着色)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;17:14 2004年4月25日 [[利用者:Akio​h|Akio​h]] &quot;[[:画像:群馬県吾妻郡.png|群馬県吾妻郡.png]]&quot;をアップロードしました。 &lt;em&gt;(吾妻郡の群馬県内での位置&amp;lt;br&amp;gt;&amp;#91;&amp;#91;:画像:群馬県・縮小版.png]] より着色)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;16:35 2004年4月25日 [[利用者:Gbr3|Gbr3]] &quot;[[:画像:Colombia.png|Colombia.png]]&quot;をアップロードしました。 &lt;em&gt;(コロンビアの地図(英語版からコピー))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;16:35 2004年4月25日 [[利用者:Gbr3|Gbr3]] &quot;[[:画像:LocationColombia.png|LocationColombia.png]]&quot;をアップロードしました。 &lt;em&gt;(コロンビアの位置(英語版からコピー))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;16:34 2004年4月25日 [[利用者:Gbr3|Gbr3]] &quot;[[:画像:Colombia_coa.png|Colombia_coa.png]]&quot;をアップロードしました。 &lt;em&gt;(コロンビアの国章(英語版からコピー))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;16:34 2004年4月25日 [[利用者:Gbr3|Gbr3]] &quot;[[:画像:Colombia_flag_medium.png|Colombia_flag_medium.png]]&quot;をアップロードしました。 &lt;em&gt;(コロンビアの国旗(英語版からコピー))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;14:49 2004年4月25日 [[利用者:Gbr3|Gbr3]] &quot;[[:画像:Ci-map.jpg|Ci-map.jpg]]&quot;をアップロードしました。 &lt;em&gt;(チリの地図(英語版からコピー))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;14:48 2004年4月25日 [[利用者:Gbr3|Gbr3]] &quot;[[:画像:LocationChile.png|LocationChile.png]]&quot;をアップロードしました。 &lt;em&gt;(チリの位置(英語版からコピー))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;14:28 2004年4月25日 [[利用者:Gbr3|Gbr3]] &quot;[[:画像:Shield_cl.gif|Shield_cl.gif]]&quot;をアップロードしました。 &lt;em&gt;(チリの国章(英語版からコピー))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;14:27 2004年4月25日 [[利用者:Gbr3|Gbr3]] &quot;[[:画像:Chile_flag_medium.png|Chile_flag_medium.png]]&quot;をアップロードしました。 &lt;em&gt;(チリの国旗(英語版からコピー))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;14:08 2004年4月25日 [[利用者:Hans castorp81|Hans castorp81]] &quot;[[:画像:Nchomsky.jpg|Nchomsky.jpg]]&quot;をアップロードしました。 &lt;em&gt;(ノーム・チョムスキー（英語版より：Photo Credit MIT photographer, Donna Coveney ）)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;13:32 2004年4月25日 [[利用者:秀の介|秀の介]] &quot;[[:画像:Cantcath.JPG|Cantcath.JPG]]&quot;をアップロードしました。 &lt;em&gt;(カンタベリー大聖堂(英語版より))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;12:30 2004年4月25日 [[利用者:Miya|Miya]] &quot;[[:画像:Botan_pink2.jpg|Botan_pink2.jpg]]&quot;をアップロードしました。 &lt;em&gt;(牡丹)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;11:52 2004年4月25日 [[利用者:Akio​h|Akio​h]] &quot;[[:画像:六合村・周辺.png|六合村・周辺.png]]&quot;をアップロードしました。 &lt;em&gt;(間違いを修正)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;11:37 2004年4月25日 [[利用者:Akio​h|Akio​h]] &quot;[[:画像:六合村・周辺.png|六合村・周辺.png]]&quot;をアップロードしました。 &lt;em&gt;(六合村と、その隣接する自治体&amp;#91;&amp;#91;:画像:群馬県の市町村境界.png]] より切り抜き、加筆)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;11:09 2004年4月25日 [[利用者:TY|TY]] &quot;[[:画像:SentoLayout-Label.png|SentoLayout-Label.png]]&quot;をアップロードしました。 &lt;em&gt;(銭湯の見取り図/英語版を改変)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;09:14 2004年4月25日 [[利用者:Hans castorp81|Hans castorp81]] &quot;[[:画像:Paris.notre.dame.750pix.jpg|Paris.notre.dame.750pix.jpg]]&quot;をアップロードしました。 &lt;em&gt;(ノートルダム寺院（英語版より：public domain確認済み）)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;06:40 2004年4月25日 [[利用者:紙屋|紙屋]] &quot;[[:画像:Takoyaki.jpg|Takoyaki.jpg]]&quot;をアップロードしました。 &lt;em&gt;(たこ焼き)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;03:09 2004年4月25日 [[利用者:紙屋|紙屋]] &quot;[[:画像:Chowmein.jpg|Chowmein.jpg]]&quot;をアップロードしました。 &lt;em&gt;(焼きそば)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;03:06 2004年4月25日 [[利用者:Rai koku|Rai koku]] &quot;[[:画像:Frypan.jpg|Frypan.jpg]]&quot;をアップロードしました。 &lt;em&gt;(元の画像から背景を消してみた。)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;03:00 2004年4月25日 [[利用者:紙屋|紙屋]] &quot;[[:画像:Portablephone.png|Portablephone.png]]&quot;をアップロードしました。 &lt;em&gt;(携帯電話)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;02:54 2004年4月25日 [[利用者:紙屋|紙屋]] &quot;[[:画像:Frypan.jpg|Frypan.jpg]]&quot;をアップロードしました。 &lt;em&gt;(テフロン加工のフライパン)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;00:49 2004年4月25日 [[利用者:Akio​h|Akio​h]] &quot;[[:画像:群馬県六合村.png|群馬県六合村.png]]&quot;をアップロードしました。 &lt;em&gt;(六合村の群馬県内での位置&amp;lt;br&amp;gt;&amp;#91;&amp;#91;:画像:群馬県・縮小版.png]] より着色)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;23:44 2004年4月24日 [[利用者:Akio​h|Akio​h]] &quot;[[:画像:群馬県中之条町.png|群馬県中之条町.png]]&quot;をアップロードしました。 &lt;em&gt;(中之条町の群馬県内での位置&amp;lt;br&amp;gt;&amp;#91;&amp;#91;:画像:群馬県・縮小版.png]] より着色)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;23:33 2004年4月24日 [[利用者:Akio​h|Akio​h]] &quot;[[:画像:中之条町・周辺.png|中之条町・周辺.png]]&quot;をアップロードしました。 &lt;em&gt;(中之条町と、隣接する自治体&amp;lt;br&amp;gt;&amp;#91;&amp;#91;:画像:群馬県の市町村境界.png]] より切り抜き、着色)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;18:39 2004年4月24日 [[利用者:Gbr3|Gbr3]] &quot;[[:画像:Ce-map.png|Ce-map.png]]&quot;をアップロードしました。 &lt;em&gt;(スリランカの地図(英語版よりコピー))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;15:41 2004年4月24日 [[利用者:Gbr3|Gbr3]] &quot;[[:画像:My-map.png|My-map.png]]&quot;をアップロードしました。 &lt;em&gt;(マレーシアの地図(英語版よりコピー))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;14:35 2004年4月24日 [[利用者:Fsa|Fsa]] &quot;[[:画像:European_kingfisher.jpg|European_kingfisher.jpg]]&quot;をアップロードしました。&lt;/li&gt;
+&lt;li&gt;14:18 2004年4月24日 [[利用者:Kinori|Kinori]] &quot;[[:画像:KaminopporoEki2004-4.jpg|KaminopporoEki2004-4.jpg]]&quot;をアップロードしました。 &lt;em&gt;(上野幌駅)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;12:30 2004年4月24日 [[利用者:Kinori|Kinori]] &quot;[[:画像:NanaoShiKennai1954.png|NanaoShiKennai1954.png]]&quot;をアップロードしました。 &lt;em&gt;(七尾市の県内での位置 (1954年-))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;11:29 2004年4月24日 [[利用者:Kinori|Kinori]] &quot;[[:画像:UchinadaMachiKennai1962.png|UchinadaMachiKennai1962.png]]&quot;をアップロードしました。 &lt;em&gt;(内灘町の県内での位置 (1962年-))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;11:24 2004年4月24日 [[利用者:Kinori|Kinori]] &quot;[[:画像:UchimadaMachiKennai1962.png|UchimadaMachiKennai1962.png]]&quot;をアップロードしました。 &lt;em&gt;(内灘町の県内での位置 (1962年-))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;10:49 2004年4月24日 [[利用者:Kinori|Kinori]] &quot;[[:画像:TsubataMachiKennai1957.png|TsubataMachiKennai1957.png]]&quot;をアップロードしました。 &lt;em&gt;(津幡町の県内での位置 (1957年-))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;18:39 2004年4月23日 [[利用者:Akio​h|Akio​h]] &quot;[[:画像:高山村_(群馬県)・周辺.png|高山村_(群馬県)・周辺.png]]&quot;をアップロードしました。 &lt;em&gt;(群馬県高山村と、隣接する自治体&amp;lt;br&amp;gt;&amp;#91;&amp;#91;:画像:群馬県の市町村境界.png]] より切り抜き、着色)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;18:30 2004年4月23日 [[利用者:Akio​h|Akio​h]] &quot;[[:画像:群馬県高山村.png|群馬県高山村.png]]&quot;をアップロードしました。 &lt;em&gt;(高山村の群馬県内での位置&amp;lt;br&amp;gt;&amp;#91;&amp;#91;:画像:群馬県・縮小版.png]] より着色)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;09:34 2004年4月23日 [[利用者:Safkan|Safkan]] &quot;[[:画像:Hakka_tulou.jpg|Hakka_tulou.jpg]]&quot;をアップロードしました。 &lt;em&gt;(客家土楼（円楼）。英語版より)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;05:49 2004年4月23日 [[利用者:Kinori|Kinori]] &quot;[[:画像:HakuiShiKennai1958.png|HakuiShiKennai1958.png]]&quot;をアップロードしました。 &lt;em&gt;(羽咋市の県内での位置 (1958年-))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;19:30 2004年4月22日 [[利用者:Kinori|Kinori]] &quot;[[:画像:KanazawaShiKennai1962.png|KanazawaShiKennai1962.png]]&quot;をアップロードしました。 &lt;em&gt;(金沢市の県内での位置 (ドット修正)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;19:28 2004年4月22日 [[利用者:Kinori|Kinori]] &quot;[[:画像:NonoichiMachiKennai1957.png|NonoichiMachiKennai1957.png]]&quot;をアップロードしました。 &lt;em&gt;(野々市町の県内での位置 (ドット修正))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;19:21 2004年4月22日 [[利用者:Kinori|Kinori]] &quot;[[:画像:NonoichiMachiKennai1957.png|NonoichiMachiKennai1957.png]]&quot;をアップロードしました。 &lt;em&gt;(野々市町の県内での位置 (1957年-))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;19:02 2004年4月22日 [[利用者:Kinori|Kinori]] &quot;[[:画像:KanazawaShiKennai1962.png|KanazawaShiKennai1962.png]]&quot;をアップロードしました。 &lt;em&gt;(金沢市の県内での位置 (1962年-))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;18:48 2004年4月22日 [[利用者:Kinori|Kinori]] &quot;[[:画像:IshikawaKenMap2004-3.png|IshikawaKenMap2004-3.png]]&quot;をアップロードしました。 &lt;em&gt;(石川県市町村境界図 (ドット修正))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;18:46 2004年4月22日 [[利用者:Kinori|Kinori]] &quot;[[:画像:KahokuShiKennai2004.png|KahokuShiKennai2004.png]]&quot;をアップロードしました。 &lt;em&gt;(かほく市の県内での位置 (さらに訂正))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;18:44 2004年4月22日 [[利用者:Kinori|Kinori]] &quot;[[:画像:KahokuShiKennai2004.png|KahokuShiKennai2004.png]]&quot;をアップロードしました。 &lt;em&gt;(かほく市の県内での位置 (訂正))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;18:38 2004年4月22日 [[利用者:Kinori|Kinori]] &quot;[[:画像:KahokuShiKennai2004.png|KahokuShiKennai2004.png]]&quot;をアップロードしました。 &lt;em&gt;(かほく市の県内での位置 (2004年3月-))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;18:34 2004年4月22日 [[利用者:Kinori|Kinori]] &quot;[[:画像:IshikawaKenMap2004-3.png|IshikawaKenMap2004-3.png]]&quot;をアップロードしました。 &lt;em&gt;(石川県市町村境界図 (2004年3月-))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;18:03 2004年4月22日 [[利用者:Akio​h|Akio​h]] &quot;[[:画像:埼玉県児玉町.png|埼玉県児玉町.png]]&quot;をアップロードしました。 &lt;em&gt;(児玉町の埼玉県内での位置&amp;lt;br&amp;gt;&amp;#91;&amp;#91;:画像:埼玉県・縮小版.png]] より着色)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;16:11 2004年4月22日 [[利用者:Safkan|Safkan]] &quot;[[:画像:Afghancoa.png|Afghancoa.png]]&quot;をアップロードしました。 &lt;em&gt;(アフガニスタン国章)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;16:00 2004年4月22日 [[利用者:Safkan|Safkan]] &quot;[[:画像:Afghan_coa.png|Afghan_coa.png]]&quot;をアップロードしました。 &lt;em&gt;(アフガニスタン国章（五度目………）)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;15:50 2004年4月22日 [[利用者:Safkan|Safkan]] &quot;[[:画像:Afghan_coa.png|Afghan_coa.png]]&quot;をアップロードしました。 &lt;em&gt;(アフガニスタン国章（四度目…）)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;15:43 2004年4月22日 [[利用者:Safkan|Safkan]] &quot;[[:画像:Afghan_coa.png|Afghan_coa.png]]&quot;をアップロードしました。 &lt;em&gt;(アフガニスタン国章（再々アップロード）)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;15:34 2004年4月22日 [[利用者:Safkan|Safkan]] &quot;[[:画像:Afghan_coa.png|Afghan_coa.png]]&quot;をアップロードしました。 &lt;em&gt;(アフガニスタン国章（再アップロード）)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;04:57 2004年4月22日 [[利用者:Suisui|Suisui]] &quot;[[:画像:200px-Vitruvian.jpg|200px-Vitruvian.jpg]]&quot;をアップロードしました。 &lt;em&gt;(ヴィトルヴィウス的人間縮小版、英語版より)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;02:51 2004年4月22日 [[利用者:Ciro|Ciro]] &quot;[[:画像:Campania-Mappa.png|Campania-Mappa.png]]&quot;をアップロードしました。 &lt;em&gt;(カンパニア州地図(itから))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;02:50 2004年4月22日 [[利用者:Ciro|Ciro]] &quot;[[:画像:Campania-Bandiera.png|Campania-Bandiera.png]]&quot;をアップロードしました。 &lt;em&gt;(カンパニア州旗(itから))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;15:50 2004年4月21日 [[利用者:Akio​h|Akio​h]] &quot;[[:画像:長野県佐久市.png|長野県佐久市.png]]&quot;をアップロードしました。 &lt;em&gt;(佐久市の長野県内での位置)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;13:45 2004年4月21日 [[利用者:Yosemite|Yosemite]] &quot;[[:画像:Akr_tm01.jpg|Akr_tm01.jpg]]&quot;をアップロードしました。 &lt;em&gt;(アンコール・トム 南大門)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;13:34 2004年4月21日 [[利用者:Kinori|Kinori]] &quot;[[:画像:ToyohiraBashi2004-4-21.jpg|ToyohiraBashi2004-4-21.jpg]]&quot;をアップロードしました。 &lt;em&gt;(豊平橋)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;13:26 2004年4月21日 [[利用者:Yosemite|Yosemite]] &quot;[[:画像:Ankorc.jpg|Ankorc.jpg]]&quot;をアップロードしました。 &lt;em&gt;(アンコールワット中央)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;11:59 2004年4月21日 [[利用者:ガウス|ガウス]] &quot;[[:画像:Hinomis1.jpg|Hinomis1.jpg]]&quot;をアップロードしました。 &lt;em&gt;(出雲日御碕灯台 （島根県大社町）)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;10:14 2004年4月21日 [[利用者:TY|TY]] &quot;[[:画像:Mountain_bicycle.jpg|Mountain_bicycle.jpg]]&quot;をアップロードしました。 &lt;em&gt;(マウンテンバイク（小）/英語版から)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;10:04 2004年4月21日 [[利用者:TY|TY]] &quot;[[:画像:Mountain_bicycle.jpg|Mountain_bicycle.jpg]]&quot;をアップロードしました。 &lt;em&gt;(マウンテンバイク/英語版から)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;04:21 2004年4月21日 [[利用者:Tanuki Z|Tanuki Z]] &quot;[[:画像:Kou3.png|Kou3.png]]&quot;をアップロードしました。 &lt;em&gt;(三コウの図…自作)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;22:48 2004年4月20日 [[利用者:Jordi polo|Jordi polo]] &quot;[[:画像:アウグストゥス.jpg|アウグストゥス.jpg]]&quot;をアップロードしました。 &lt;em&gt;(アウグストゥス)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;16:27 2004年4月20日 [[利用者:Gbr3|Gbr3]] &quot;[[:画像:LocationJordan.png|LocationJordan.png]]&quot;をアップロードしました。 &lt;em&gt;(ヨルダンの位置(英語版よりコピー))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;16:27 2004年4月20日 [[利用者:Gbr3|Gbr3]] &quot;[[:画像:Hashemitearms.jpg|Hashemitearms.jpg]]&quot;をアップロードしました。 &lt;em&gt;(ヨルダンの国章(英語版よりコピー))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;16:26 2004年4月20日 [[利用者:Gbr3|Gbr3]] &quot;[[:画像:Jordan_flag_medium.png|Jordan_flag_medium.png]]&quot;をアップロードしました。 &lt;em&gt;(ヨルダンの国旗(英語版よりコピー))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;16:20 2004年4月20日 [[利用者:Gbr3|Gbr3]] &quot;[[:画像:LocationBahrain.png|LocationBahrain.png]]&quot;をアップロードしました。 &lt;em&gt;(バーレーンの位置(英語版よりコピー))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;15:15 2004年4月20日 [[利用者:Gbr3|Gbr3]] &quot;[[:画像:Coa_bahrain_small.jpg|Coa_bahrain_small.jpg]]&quot;をアップロードしました。 &lt;em&gt;(バーレーンの国章(英語版よりコピー))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;15:13 2004年4月20日 [[利用者:Gbr3|Gbr3]] &quot;[[:画像:Bahrain_flag_medium.png|Bahrain_flag_medium.png]]&quot;をアップロードしました。 &lt;em&gt;(バーレーンの国旗(英語版よりコピー))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;15:05 2004年4月20日 [[利用者:Gbr3|Gbr3]] &quot;[[:画像:Syria_flag_large.png|Syria_flag_large.png]]&quot;をアップロードしました。 &lt;em&gt;(シリアの国旗-大(英語版よりコピー))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;15:05 2004年4月20日 [[利用者:LERK|LERK]] &quot;[[:画像:Keikyu_1000-1.jpg|Keikyu_1000-1.jpg]]&quot;をアップロードしました。 &lt;em&gt;(京急1000形（初代）…堀ノ内駅にて2004年1月撮影)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;15:00 2004年4月20日 [[利用者:LERK|LERK]] &quot;[[:画像:Keikyu_1000-2.jpg|Keikyu_1000-2.jpg]]&quot;をアップロードしました。 &lt;em&gt;(京急1000形車両（2代）…京急川崎駅にて2004年1月撮影)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;15:00 2004年4月20日 [[利用者:Gbr3|Gbr3]] &quot;[[:画像:Kuwait_flag_large.png|Kuwait_flag_large.png]]&quot;をアップロードしました。 &lt;em&gt;(クウェートの国旗-大(英語版よりコピー))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;14:32 2004年4月20日 [[利用者:Akio​h|Akio​h]] &quot;[[:画像:神流町・旧境界.png|神流町・旧境界.png]]&quot;をアップロードしました。 &lt;em&gt;(神流町の旧境界（中里村と万場町）&amp;lt;br&amp;gt;&amp;#91;&amp;#91;:画像:群馬県の市町村境界.png]] より切り出し、修正)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;14:29 2004年4月20日 [[利用者:Akio​h|Akio​h]] &quot;[[:画像:群馬県神流町.png|群馬県神流町.png]]&quot;をアップロードしました。 &lt;em&gt;(神流町の群馬県内での位置&amp;lt;br&amp;gt;&amp;#91;&amp;#91;:画像:群馬県・縮小版]] より着色)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;14:23 2004年4月20日 [[利用者:LERK|LERK]] &quot;[[:画像:Toei_5300.jpg|Toei_5300.jpg]]&quot;をアップロードしました。 &lt;em&gt;(東京都交通局5300形電車…京成線青砥駅にて2004年4月20日投稿者撮影)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;14:08 2004年4月20日 [[利用者:Koba-chan|Koba-chan]] &quot;[[:画像:Direction.png|Direction.png]]&quot;をアップロードしました。 &lt;em&gt;(typo 南西微南の英名、加筆)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;12:18 2004年4月20日 [[利用者:ガウス|ガウス]] &quot;[[:画像:Maisaka1.jpg|Maisaka1.jpg]]&quot;をアップロードしました。 &lt;em&gt;(東海道旧舞阪宿脇本陣)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;12:02 2004年4月20日 [[利用者:ガウス|ガウス]] &quot;[[:画像:Kusatuh1.jpg|Kusatuh1.jpg]]&quot;をアップロードしました。 &lt;em&gt;(東海道旧草津宿本陣)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;11:37 2004年4月20日 [[利用者:Koba-chan|Koba-chan]] &quot;[[:画像:Direction.png|Direction.png]]&quot;をアップロードしました。 &lt;em&gt;(32方位(オリジナル))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;09:46 2004年4月20日 [[利用者:Gbr3|Gbr3]] &quot;[[:画像:LocationMorocco.png|LocationMorocco.png]]&quot;をアップロードしました。 &lt;em&gt;(モロッコの位置(英語版よりコピー))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;09:29 2004年4月20日 [[利用者:Gbr3|Gbr3]] &quot;[[:画像:Morocco_flag_large.png|Morocco_flag_large.png]]&quot;をアップロードしました。 &lt;em&gt;(モロッコの国旗-大(英語版よりコピー))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;09:28 2004年4月20日 [[利用者:Gbr3|Gbr3]] &quot;[[:画像:Morarms22.PNG|Morarms22.PNG]]&quot;をアップロードしました。 &lt;em&gt;(モロッコの国章(英語版よりコピー))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;09:27 2004年4月20日 [[利用者:Gbr3|Gbr3]] &quot;[[:画像:Morflag22.PNG|Morflag22.PNG]]&quot;をアップロードしました。 &lt;em&gt;(モロッコの国旗(英語版よりコピー))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;17:07 2004年4月19日 [[利用者:LERK|LERK]] &quot;[[:画像:Keisei_3000-2.jpg|Keisei_3000-2.jpg]]&quot;をアップロードしました。 &lt;em&gt;(以前のバージョンへの差し戻し。　Reverted to earlier revision)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;14:48 2004年4月19日 [[利用者:Gbr3|Gbr3]] &quot;[[:画像:Bhutan_flag_large.png|Bhutan_flag_large.png]]&quot;をアップロードしました。 &lt;em&gt;(ブータンの国旗-大(英語版からコピー))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;13:27 2004年4月19日 [[利用者:ガウス|ガウス]] &quot;[[:画像:Inuboz22.jpg|Inuboz22.jpg]]&quot;をアップロードしました。 &lt;em&gt;(犬吠埼灯台　（千葉県銚子市）)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;12:48 2004年4月19日 219.163.75.33 &quot;[[:画像:Uc-1.png|Uc-1.png]]&quot;をアップロードしました。 &lt;em&gt;(以前のバージョンへの差し戻し。　Reverted to earlier revision)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;12:43 2004年4月19日 [[利用者:あいみパパ|あいみパパ]] &quot;[[:画像:Uc-1.png|Uc-1.png]]&quot;をアップロードしました。 &lt;em&gt;(以前のバージョンへの差し戻し。　Reverted to earlier revision)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;12:23 2004年4月19日 [[利用者:LERK|LERK]] &quot;[[:画像:Keisei_3000-2.jpg|Keisei_3000-2.jpg]]&quot;をアップロードしました。 &lt;em&gt;(縮小した画像のアップがどうも上手くいっていないようなので、再アップロード)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;12:21 2004年4月19日 [[利用者:ガウス|ガウス]] &quot;[[:画像:Tumagos5.jpg|Tumagos5.jpg]]&quot;をアップロードしました。 &lt;em&gt;(中山道妻籠宿)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;12:12 2004年4月19日 [[利用者:あいみパパ|あいみパパ]] &quot;[[:画像:Uc-1.png|Uc-1.png]]&quot;をアップロードしました。 &lt;em&gt;(the ubiquitous communicator flow 1)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;12:08 2004年4月19日 [[利用者:LERK|LERK]] &quot;[[:画像:Keisei_3000-2.jpg|Keisei_3000-2.jpg]]&quot;をアップロードしました。 &lt;em&gt;(縮小)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;11:59 2004年4月19日 [[利用者:LERK|LERK]] &quot;[[:画像:Keisei_3000-2.jpg|Keisei_3000-2.jpg]]&quot;をアップロードしました。 &lt;em&gt;(京成3000形（2代）…京成西船駅にて投稿者撮影)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;11:26 2004年4月19日 [[利用者:あいみパパ|あいみパパ]] &quot;[[:画像:Uc-2.png|Uc-2.png]]&quot;をアップロードしました。 &lt;em&gt;(the ubiquitous communicator flow2)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;11:25 2004年4月19日 [[利用者:あいみパパ|あいみパパ]] &quot;[[:画像:Uc-1.png|Uc-1.png]]&quot;をアップロードしました。 &lt;em&gt;(the ubiquitous communicator flow1)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;09:47 2004年4月19日 [[利用者:Gbr3|Gbr3]] &quot;[[:画像:Bangladesh_coa_large.jpg|Bangladesh_coa_large.jpg]]&quot;をアップロードしました。 &lt;em&gt;(バングラデッシュの国章-大(英語版よりコピー))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;09:43 2004年4月19日 [[利用者:Rai koku|Rai koku]] &quot;[[:画像:Tanpopo_watage.jpg|Tanpopo_watage.jpg]]&quot;をアップロードしました。 &lt;em&gt;(セイヨウタンポポの綿毛。撮影者:Rai koku。撮影日:4/19。撮影所:都内土手。)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;09:17 2004年4月19日 [[利用者:Gbr3|Gbr3]] &quot;[[:画像:Bangladesh_flag_large.png|Bangladesh_flag_large.png]]&quot;をアップロードしました。 &lt;em&gt;(バングラデッシュの国旗-大(英語版よりコピー))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;08:55 2004年4月19日 [[利用者:Gbr3|Gbr3]] &quot;[[:画像:LocationSriLanka.png|LocationSriLanka.png]]&quot;をアップロードしました。 &lt;em&gt;(スリランカの位置(英語版よりコピー))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;08:44 2004年4月19日 [[利用者:Gbr3|Gbr3]] &quot;[[:画像:Sri_lanka_flag_large.png|Sri_lanka_flag_large.png]]&quot;をアップロードしました。 &lt;em&gt;(スリランカ国旗-大(英語版よりコピー))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;08:42 2004年4月19日 [[利用者:Gbr3|Gbr3]] &quot;[[:画像:Sri_lanka_coa.png|Sri_lanka_coa.png]]&quot;をアップロードしました。 &lt;em&gt;(スリランカ国章(英語版よりコピー))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;08:41 2004年4月19日 [[利用者:Gbr3|Gbr3]] &quot;[[:画像:Sri_lanka_flag_medium.png|Sri_lanka_flag_medium.png]]&quot;をアップロードしました。 &lt;em&gt;(スリランカ国旗(英語版よりコピー))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;04:33 2004年4月19日 [[利用者:Ciro|Ciro]] &quot;[[:画像:Toscana-Mappa.png|Toscana-Mappa.png]]&quot;をアップロードしました。 &lt;em&gt;(トスカーナ地図(イタリア版からコピー))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;04:32 2004年4月19日 [[利用者:Ciro|Ciro]] &quot;[[:画像:Toscana-Bandiera.png|Toscana-Bandiera.png]]&quot;をアップロードしました。 &lt;em&gt;(トスカーナ州旗(イタリア版からコピー))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;17:07 2004年4月18日 [[利用者:Hans castorp81|Hans castorp81]] &quot;[[:画像:Edward_Gibbon.jpg|Edward_Gibbon.jpg]]&quot;をアップロードしました。 &lt;em&gt;(エドワード・ギボン肖像（英語版より）)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;15:37 2004年4月18日 [[利用者:Oxhop|Oxhop]] &quot;[[:画像:LocationNigeria.png|LocationNigeria.png]]&quot;をアップロードしました。 &lt;em&gt;(ナイジェリアの位置 - 英語版より)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;15:35 2004年4月18日 [[利用者:Oxhop|Oxhop]] &quot;[[:画像:Nigeriaarms22.png|Nigeriaarms22.png]]&quot;をアップロードしました。 &lt;em&gt;(ナイジェリアの国章 - 英語版より)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;15:33 2004年4月18日 [[利用者:Oxhop|Oxhop]] &quot;[[:画像:Nigeria_flag_medium.png|Nigeria_flag_medium.png]]&quot;をアップロードしました。 &lt;em&gt;(ナイジェリアの国旗 - 英語版より)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;14:30 2004年4月18日 [[利用者:Oxhop|Oxhop]] &quot;[[:画像:Nh-map.png|Nh-map.png]]&quot;をアップロードしました。 &lt;em&gt;(バヌアツの地図 - CIA Factbookより日本語化 )&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;14:15 2004年4月18日 [[利用者:Akio​h|Akio​h]] &quot;[[:画像:群馬県佐波東村.png|群馬県佐波東村.png]]&quot;をアップロードしました。 &lt;em&gt;(佐波郡東村の群馬県内での位置&amp;lt;br&amp;gt;&amp;#91;&amp;#91;:画像:群馬県・縮小版]] より着色)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;14:12 2004年4月18日 [[利用者:Kinori|Kinori]] &quot;[[:画像:ToyohirakoenEki2004.jpg|ToyohirakoenEki2004.jpg]]&quot;をアップロードしました。 &lt;em&gt;(豊平公園駅)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;12:38 2004年4月18日 [[利用者:Dobby|Dobby]] &quot;[[:画像:Toyama_eki_1.jpg|Toyama_eki_1.jpg]]&quot;をアップロードしました。 &lt;em&gt;(富山駅南側西方から撮影2004.4.14 17:38)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;12:12 2004年4月18日 [[利用者:Koyanagi|Koyanagi]] &quot;[[:画像:|画像:]]&quot;をアップロードしました。&lt;/li&gt;
+&lt;li&gt;09:47 2004年4月18日 [[利用者:Oxhop|Oxhop]] &quot;[[:画像:Vanuatu_Provinces.png|Vanuatu_Provinces.png]]&quot;をアップロードしました。 &lt;em&gt;(バヌアツの州 - CIA World Factbook 画像を加工)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;03:49 2004年4月18日 [[利用者:Miya|Miya]] &quot;[[:画像:Nanohana1.jpg|Nanohana1.jpg]]&quot;をアップロードしました。 &lt;em&gt;(菜の花の茂み)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;03:45 2004年4月18日 [[利用者:Miya|Miya]] &quot;[[:画像:Nanohana.jpg|Nanohana.jpg]]&quot;をアップロードしました。 &lt;em&gt;(菜の花)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;03:43 2004年4月18日 [[利用者:Miya|Miya]] &quot;[[:画像:Nanohana_up2.jpg|Nanohana_up2.jpg]]&quot;をアップロードしました。 &lt;em&gt;(菜の花　（アップ）)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;03:11 2004年4月18日 [[利用者:Suisui|Suisui]] &quot;[[:画像:Serotonin.png|Serotonin.png]]&quot;をアップロードしました。 &lt;em&gt;(セロトニン化学式　英語版より)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;00:52 2004年4月18日 [[利用者:Rai koku|Rai koku]] &quot;[[:画像:Nazuna.jpg|Nazuna.jpg]]&quot;をアップロードしました。 &lt;em&gt;(ナズナの写真。撮影者:Rai koku。撮影場所:都内の土手)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;16:38 2004年4月17日 [[利用者:Kinori|Kinori]] &quot;[[:画像:MusashinoSenHigashikawaguchiEki2004.jpg|MusashinoSenHigashikawaguchiEki2004.jpg]]&quot;をアップロードしました。 &lt;em&gt;(武蔵野線東川口駅)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;16:00 2004年4月17日 [[利用者:Kinori|Kinori]] &quot;[[:画像:NagareyamaDentetsuHeiwadaiEkiMae2004.jpg|NagareyamaDentetsuHeiwadaiEkiMae2004.jpg]]&quot;をアップロードしました。 &lt;em&gt;(総武流山電鉄平和台駅前)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;14:57 2004年4月17日 [[利用者:Nnh|Nnh]] &quot;[[:画像:Niigata-area-rail.png|Niigata-area-rail.png]]&quot;をアップロードしました。 &lt;em&gt;(パレットを単純化、廃線を薄く表示)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;14:30 2004年4月17日 [[利用者:Kone|Kone]] &quot;[[:画像:Niigata-area-rail.png|Niigata-area-rail.png]]&quot;をアップロードしました。 &lt;em&gt;(新潟付近鉄道路線図)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;13:04 2004年4月17日 [[利用者:ガウス|ガウス]] &quot;[[:画像:Inuboz34.jpg|Inuboz34.jpg]]&quot;をアップロードしました。 &lt;em&gt;(犬吠埼灯台霧笛室)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;12:39 2004年4月17日 [[利用者:Kinori|Kinori]] &quot;[[:画像:NotsuporoKawa2004.jpg|NotsuporoKawa2004.jpg]]&quot;をアップロードしました。 &lt;em&gt;(野津幌川)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;12:13 2004年4月17日 [[利用者:Kinori|Kinori]] &quot;[[:画像:ChitoseSenNopporoKawa.jpg|ChitoseSenNopporoKawa.jpg]]&quot;をアップロードしました。 &lt;em&gt;(千歳線と野幌川)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;11:41 2004年4月17日 [[利用者:Akio​h|Akio​h]] &quot;[[:画像:群馬県東村・番号付き.png|群馬県東村・番号付き.png]]&quot;をアップロードしました。 &lt;em&gt;(誤りを修正)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;11:35 2004年4月17日 [[利用者:Ultratomio|Ultratomio]] &quot;[[:画像:Hinamatsuri.png|Hinamatsuri.png]]&quot;をアップロードしました。 &lt;em&gt;(ひな祭り（ポーランド語版のRegal.pngより）)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;08:44 2004年4月17日 [[利用者:A perfect fool|A perfect fool]] &quot;[[:画像:前橋市から見た赤城山.jpg|前橋市から見た赤城山.jpg]]&quot;をアップロードしました。 &lt;em&gt;(前橋市から見た赤城山&amp;lt;br&amp;gt;A.Hayabeにより1998年頃に撮影、パブリックドメインで公開)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;08:12 2004年4月17日 [[利用者:Miya|Miya]] &quot;[[:画像:Osaka_Toyono-town.png|Osaka_Toyono-town.png]]&quot;をアップロードしました。 &lt;em&gt;(大阪府豊能町位置図)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;08:12 2004年4月17日 [[利用者:Miya|Miya]] &quot;[[:画像:Osaka_Tajiri-town.png|Osaka_Tajiri-town.png]]&quot;をアップロードしました。 &lt;em&gt;(大阪府田尻町位置図)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;08:11 2004年4月17日 [[利用者:Miya|Miya]] &quot;[[:画像:Osaka_Shimamoto-town.png|Osaka_Shimamoto-town.png]]&quot;をアップロードしました。 &lt;em&gt;(大阪府島本町位置図)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;08:11 2004年4月17日 [[利用者:Miya|Miya]] &quot;[[:画像:Osaka_Nose-town.png|Osaka_Nose-town.png]]&quot;をアップロードしました。 &lt;em&gt;(大阪府能勢町位置図)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;08:11 2004年4月17日 [[利用者:Miya|Miya]] &quot;[[:画像:Osaka_Kashiwara-city.png|Osaka_Kashiwara-city.png]]&quot;をアップロードしました。 &lt;em&gt;(大阪府柏原市位置図)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;08:06 2004年4月17日 [[利用者:Miya.m|Miya.m]] &quot;[[:画像:Fukuoka_Kashiwara-city.png|Fukuoka_Kashiwara-city.png]]&quot;をアップロードしました。 &lt;em&gt;(大阪府柏原市位置図)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;08:06 2004年4月17日 [[利用者:Miya.m|Miya.m]] &quot;[[:画像:Fukuoka_Nose-town.png|Fukuoka_Nose-town.png]]&quot;をアップロードしました。 &lt;em&gt;(大阪府能勢町位置図)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;08:05 2004年4月17日 [[利用者:Miya.m|Miya.m]] &quot;[[:画像:Fukuoka_Toyono-town.png|Fukuoka_Toyono-town.png]]&quot;をアップロードしました。 &lt;em&gt;(大阪府豊能町位置図)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;08:05 2004年4月17日 [[利用者:Miya.m|Miya.m]] &quot;[[:画像:Fukuoka_Tajiri-town.png|Fukuoka_Tajiri-town.png]]&quot;をアップロードしました。 &lt;em&gt;(大阪府田尻町位置図)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;08:05 2004年4月17日 [[利用者:Miya.m|Miya.m]] &quot;[[:画像:Fukuoka_Shimamoto-town.png|Fukuoka_Shimamoto-town.png]]&quot;をアップロードしました。 &lt;em&gt;(大阪府島本町位置図)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;07:51 2004年4月17日 [[利用者:Miya.m|Miya.m]] &quot;[[:画像:Osaka_Taishi-town.png|Osaka_Taishi-town.png]]&quot;をアップロードしました。 &lt;em&gt;(大阪府太子町位置図)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;07:51 2004年4月17日 [[利用者:Miya.m|Miya.m]] &quot;[[:画像:Osaka_Tadaoka-town.png|Osaka_Tadaoka-town.png]]&quot;をアップロードしました。 &lt;em&gt;(大阪府忠岡町位置図)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;07:51 2004年4月17日 [[利用者:Miya.m|Miya.m]] &quot;[[:画像:Osaka_Mihara-town.png|Osaka_Mihara-town.png]]&quot;をアップロードしました。 &lt;em&gt;(大阪府美原町位置図)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;07:50 2004年4月17日 [[利用者:Miya.m|Miya.m]] &quot;[[:画像:Osaka_Kanan-town.png|Osaka_Kanan-town.png]]&quot;をアップロードしました。 &lt;em&gt;(大阪府河南町位置図)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;07:49 2004年4月17日 [[利用者:Miya.m|Miya.m]] &quot;[[:画像:Osaka_Chihayaakasaka-vil.png|Osaka_Chihayaakasaka-vil.png]]&quot;をアップロードしました。 &lt;em&gt;(大阪府千早赤阪村位置図)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;07:48 2004年4月17日 [[利用者:Miya.m|Miya.m]] &quot;[[:画像:Osaka_Habikino-city.png|Osaka_Habikino-city.png]]&quot;をアップロードしました。 &lt;em&gt;(大阪府羽曳野市位置図)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;07:47 2004年4月17日 [[利用者:Miya.m|Miya.m]] &quot;[[:画像:Osaka_Tondabayashi-city.png|Osaka_Tondabayashi-city.png]]&quot;をアップロードしました。 &lt;em&gt;(大阪府富田林市位置図)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;07:45 2004年4月17日 [[利用者:Miya.m|Miya.m]] &quot;[[:画像:Osaka_Sayama-city.png|Osaka_Sayama-city.png]]&quot;をアップロードしました。 &lt;em&gt;(大阪府大阪狭山市 位置図)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;07:41 2004年4月17日 [[利用者:Miya.m|Miya.m]] &quot;[[:画像:Osaka_Matsubara-city.png|Osaka_Matsubara-city.png]]&quot;をアップロードしました。 &lt;em&gt;(大阪府松原市 位置図)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;07:41 2004年4月17日 [[利用者:Miya.m|Miya.m]] &quot;[[:画像:Osaka_Fujiidera-city.png|Osaka_Fujiidera-city.png]]&quot;をアップロードしました。 &lt;em&gt;(大阪府藤井寺市 位置図)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;07:41 2004年4月17日 [[利用者:Miya.m|Miya.m]] &quot;[[:画像:Osaka_Takaishi-city.png|Osaka_Takaishi-city.png]]&quot;をアップロードしました。 &lt;em&gt;(大阪府高石市 位置図)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;07:40 2004年4月17日 [[利用者:Miya.m|Miya.m]] &quot;[[:画像:Osaka_Kawachinagano-city.png|Osaka_Kawachinagano-city.png]]&quot;をアップロードしました。 &lt;em&gt;(大阪府河内長野市位置図)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;07:38 2004年4月17日 [[利用者:Miya.m|Miya.m]] &quot;[[:画像:Osaka_Izumi-city.png|Osaka_Izumi-city.png]]&quot;をアップロードしました。 &lt;em&gt;(大阪府和泉市 位置図)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;07:38 2004年4月17日 [[利用者:Miya.m|Miya.m]] &quot;[[:画像:Osaka_Izumiotsu-city.png|Osaka_Izumiotsu-city.png]]&quot;をアップロードしました。 &lt;em&gt;(大阪府泉大津市 位置図)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;05:33 2004年4月17日 [[利用者:Sampo|Sampo]] &quot;[[:画像:WikiPROGNOSIS.png|WikiPROGNOSIS.png]]&quot;をアップロードしました。 &lt;em&gt;(記事数と予測)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;05:33 2004年4月17日 [[利用者:Sampo|Sampo]] &quot;[[:画像:WikiGRPH.png|WikiGRPH.png]]&quot;をアップロードしました。 &lt;em&gt;(日本語版の統計)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;16:44 2004年4月16日 [[利用者:Oxhop|Oxhop]] &quot;[[:画像:Dominican_republic_coa.png|Dominican_republic_coa.png]]&quot;をアップロードしました。 &lt;em&gt;(ドミニカ共和国の国章 - CIA  Factbook の画像を加工)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;16:25 2004年4月16日 [[利用者:Akio​h|Akio​h]] &quot;[[:画像:群馬県勢多東村.png|群馬県勢多東村.png]]&quot;をアップロードしました。 &lt;em&gt;(勢多郡東村の群馬県内での位置&amp;lt;br&amp;gt;&amp;#91;&amp;#91;:画像:群馬県・縮小版]] より着色)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;15:50 2004年4月16日 [[利用者:Oxhop|Oxhop]] &quot;[[:画像:Bp-map.png|Bp-map.png]]&quot;をアップロードしました。 &lt;em&gt;(ソロモン諸島の地図 -  CIA Factbookより日本語化 )&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;18:44 2004年4月15日 [[利用者:Yamasan|Yamasan]] &quot;[[:画像:|画像:]]&quot;をアップロードしました。&lt;/li&gt;
+&lt;li&gt;16:05 2004年4月15日 [[利用者:Oxhop|Oxhop]] &quot;[[:画像:Grenadaarms22.png|Grenadaarms22.png]]&quot;をアップロードしました。 &lt;em&gt;(グレナダの国章 - 英語版より)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;15:41 2004年4月15日 [[利用者:Miya|Miya]] &quot;[[:画像:Nanohana.jpg|Nanohana.jpg]]&quot;をアップロードしました。 &lt;em&gt;(菜花)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;15:29 2004年4月15日 [[利用者:Oxhop|Oxhop]] &quot;[[:画像:Nicaragua-coa.png|Nicaragua-coa.png]]&quot;をアップロードしました。 &lt;em&gt;(ニカラグアの国章 - 英語版画像を加工)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;15:26 2004年4月15日 [[利用者:Oxhop|Oxhop]] &quot;[[:画像:Momotombo.jpg|Momotombo.jpg]]&quot;をアップロードしました。 &lt;em&gt;(マナグア湖とモモトンボ火山 - ドイツ語版より)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;15:12 2004年4月15日 [[利用者:Akio​h|Akio​h]] &quot;[[:画像:群馬県北橘村.png|群馬県北橘村.png]]&quot;をアップロードしました。 &lt;em&gt;(北橘村の群馬県内での位置&amp;lt;br&amp;gt;&amp;#91;&amp;#91;:画像:群馬県・縮小版.png]] より着色)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;14:29 2004年4月15日 [[利用者:Miya|Miya]] &quot;[[:画像:Nanohana.jpg|Nanohana.jpg]]&quot;をアップロードしました。 &lt;em&gt;(菜の花)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;13:57 2004年4月15日 [[利用者:Yosemite|Yosemite]] &quot;[[:画像:Matsumoto_cassle.jpg|Matsumoto_cassle.jpg]]&quot;をアップロードしました。 &lt;em&gt;(松本城)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;12:23 2004年4月15日 [[利用者:A perfect fool|A perfect fool]] &quot;[[:画像:埼玉県岡部町.png|埼玉県岡部町.png]]&quot;をアップロードしました。 &lt;em&gt;(岡部町の埼玉県内での位置&amp;lt;br&amp;gt;&amp;#91;&amp;#91;:画像:埼玉県・縮小版.png]] より着色)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;18:08 2004年4月14日 [[利用者:Kon|Kon]] &quot;[[:画像:Anti-alias.png|Anti-alias.png]]&quot;をアップロードしました。 &lt;em&gt;(アンチエイリアスの比較。)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;17:37 2004年4月14日 [[利用者:Kinori|Kinori]] &quot;[[:画像:ShirakawaMura1875.png|ShirakawaMura1875.png]]&quot;をアップロードしました。 &lt;em&gt;(白川村の県内での位置 (1875-))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;17:33 2004年4月14日 [[利用者:Kinori|Kinori]] &quot;[[:画像:ShirakaraMura1875.png|ShirakaraMura1875.png]]&quot;をアップロードしました。 &lt;em&gt;(白川村の県内での位置 (1875-))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;15:35 2004年4月14日 [[利用者:Miya|Miya]] &quot;[[:画像:Delta01.png|Delta01.png]]&quot;をアップロードしました。 &lt;em&gt;(デルタ線（尼崎―塚口―宮原）)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;13:24 2004年4月14日 [[利用者:らりた|らりた]] &quot;[[:画像:Yongle_emperor.jpg|Yongle_emperor.jpg]]&quot;をアップロードしました。 &lt;em&gt;(WIKI英語版より。永楽帝。)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;13:13 2004年4月14日 [[利用者:らりた|らりた]] &quot;[[:画像:Hung-wu.jpg|Hung-wu.jpg]]&quot;をアップロードしました。 &lt;em&gt;(WIKI英語版より。朱元璋。)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;12:33 2004年4月14日 [[利用者:Oxhop|Oxhop]] &quot;[[:画像:Nauru_coa.png|Nauru_coa.png]]&quot;をアップロードしました。 &lt;em&gt;(ナウルの国章 - 英語版画像を加工)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;12:28 2004年4月14日 [[利用者:Kinori|Kinori]] &quot;[[:画像:TakayamaShiKennai1955.png|TakayamaShiKennai1955.png]]&quot;をアップロードしました。 &lt;em&gt;(高山市の県内での位置 (1955-))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;11:40 2004年4月14日 [[利用者:Oxhop|Oxhop]] &quot;[[:画像:Switzerland_flag_large.png|Switzerland_flag_large.png]]&quot;をアップロードしました。 &lt;em&gt;(スイスの国旗（大） - 英語版より)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;11:39 2004年4月14日 [[利用者:Oxhop|Oxhop]] &quot;[[:画像:LocationSolomonIslands.png|LocationSolomonIslands.png]]&quot;をアップロードしました。 &lt;em&gt;(ソロモン諸島の位置 - 英語版より)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;11:38 2004年4月14日 [[利用者:Oxhop|Oxhop]] &quot;[[:画像:Solomon_Islands_coat_of_arms.png|Solomon_Islands_coat_of_arms.png]]&quot;をアップロードしました。 &lt;em&gt;(ソロモン諸島の国章 - 英語版画像を加工)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;11:38 2004年4月14日 [[利用者:Oxhop|Oxhop]] &quot;[[:画像:Solomon_islands_flag_medium.png|Solomon_islands_flag_medium.png]]&quot;をアップロードしました。 &lt;em&gt;(ソロモン諸島の国旗 - 英語版より)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;06:52 2004年4月14日 [[利用者:K.M.|K.M.]] &quot;[[:画像:Himmler_report.jpg|Himmler_report.jpg]]&quot;をアップロードしました。 &lt;em&gt;(ヒムラー・レポート（英語版から）)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;06:30 2004年4月14日 [[利用者:K.M.|K.M.]] &quot;[[:画像:Santa.jpg|Santa.jpg]]&quot;をアップロードしました。&lt;/li&gt;
+&lt;li&gt;21:16 2004年4月13日 [[利用者:Kinori|Kinori]] &quot;[[:画像:NakatsugawaShiKennai1968.png|NakatsugawaShiKennai1968.png]]&quot;をアップロードしました。 &lt;em&gt;(中津川市の県内での位置 (1968-))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;20:53 2004年4月13日 [[利用者:Kinori|Kinori]] &quot;[[:画像:HoradoMuraKennai1897.png|HoradoMuraKennai1897.png]]&quot;をアップロードしました。 &lt;em&gt;(洞戸村の県内での位置 (1897-))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;20:42 2004年4月13日 [[利用者:Kinori|Kinori]] &quot;[[:画像:KaniShiKennai1955.png|KaniShiKennai1955.png]]&quot;をアップロードしました。 &lt;em&gt;(可児町、可児市の県内での位置 (1955-))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;20:03 2004年4月13日 [[利用者:A perfect fool|A perfect fool]] &quot;[[:画像:群馬県月夜野町.png|群馬県月夜野町.png]]&quot;をアップロードしました。 &lt;em&gt;(月夜野町の群馬県内の位置&amp;lt;br&amp;gt;&amp;#91;&amp;#91;:画像:群馬県・縮小版.png]] より着色)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;19:37 2004年4月13日 [[利用者:Hans castorp81|Hans castorp81]] &quot;[[:画像:JohnStuartMill.jpg|JohnStuartMill.jpg]]&quot;をアップロードしました。 &lt;em&gt;(JohnStuartMill（英語版より）)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;11:21 2004年4月13日 [[利用者:Hans castorp81|Hans castorp81]] &quot;[[:画像:Kierkegaard.jpg|Kierkegaard.jpg]]&quot;をアップロードしました。 &lt;em&gt;(Kierkegaard�i�p��ł��j)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;10:01 2004年4月13日 [[利用者:Birdman|Birdman]] &quot;[[:画像:Passengerpigeon.jpg|Passengerpigeon.jpg]]&quot;をアップロードしました。 &lt;em&gt;(リョコウバト、英語版より)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;09:39 2004年4月13日 [[利用者:Kinori|Kinori]] &quot;[[:画像:SekigaharaCho1954.png|SekigaharaCho1954.png]]&quot;をアップロードしました。 &lt;em&gt;(関ヶ原町の県内での位置 (1954-))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;09:19 2004年4月13日 [[利用者:Kinori|Kinori]] &quot;[[:画像:KasamatsuCho1974.png|KasamatsuCho1974.png]]&quot;をアップロードしました。 &lt;em&gt;(笠松町の県内での位置 (1974-))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;04:21 2004年4月13日 [[利用者:Paul Richter|Paul Richter]] &quot;[[:画像:NC4nasagov.jpg|NC4nasagov.jpg]]&quot;をアップロードしました。 &lt;em&gt;(カーチスNC-4, hq.nasa.gov より)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;21:32 2004年4月12日 [[利用者:Ribbon|Ribbon]] &quot;[[:画像:Honkomagome_eki_1.jpg|Honkomagome_eki_1.jpg]]&quot;をアップロードしました。 &lt;em&gt;(本駒込駅東大前より入口)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;21:26 2004年4月12日 [[利用者:Ribbon|Ribbon]] &quot;[[:画像:Sugamo_sta1.jpg|Sugamo_sta1.jpg]]&quot;をアップロードしました。 &lt;em&gt;(もうすこしよい画像に更新)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;17:23 2004年4月12日 [[利用者:Kinori|Kinori]] &quot;[[:画像:YanaizuChoKennai1955.png|YanaizuChoKennai1955.png]]&quot;をアップロードしました。 &lt;em&gt;(柳津町 (岐阜県) の県内での位置 (1955-))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;16:54 2004年4月12日 [[利用者:Kinori|Kinori]] &quot;[[:画像:OgakiShiKennai1967.png|OgakiShiKennai1967.png]]&quot;をアップロードしました。 &lt;em&gt;(大垣市の県内での位置 (1967-))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;15:23 2004年4月12日 [[利用者:Kinori|Kinori]] &quot;[[:画像:HidaShiKennai2004.png|HidaShiKennai2004.png]]&quot;をアップロードしました。 &lt;em&gt;(飛騨市の県内での位置 (2004-))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;15:01 2004年4月12日 [[利用者:Electric goat|Electric goat]] &quot;[[:画像:Blue_dragonfly_sm.jpg|Blue_dragonfly_sm.jpg]]&quot;をアップロードしました。 &lt;em&gt;(dragonfly-from-en)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;13:28 2004年4月12日 [[利用者:Ce2|Ce2]] &quot;[[:画像:Adachi_toshinogyokoen1.jpg|Adachi_toshinogyokoen1.jpg]]&quot;をアップロードしました。 &lt;em&gt;(足立区立都市農業公園)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;23:29 2004年4月11日 [[利用者:Kinori|Kinori]] &quot;[[:画像:NishiokaSuigenchi2004-4.jpg|NishiokaSuigenchi2004-4.jpg]]&quot;をアップロードしました。 &lt;em&gt;(西岡水源池)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;21:58 2004年4月11日 [[利用者:Kinori|Kinori]] &quot;[[:画像:SouseiKawa2004-4.jpg|SouseiKawa2004-4.jpg]]&quot;をアップロードしました。 &lt;em&gt;(創成川の中流)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;21:41 2004年4月11日 [[利用者:Kinori|Kinori]] &quot;[[:画像:TsukisamuKawaJoryui2004-4.JPG|TsukisamuKawaJoryui2004-4.JPG]]&quot;をアップロードしました。 &lt;em&gt;(月寒川の上流)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;18:33 2004年4月11日 [[利用者:A perfect fool|A perfect fool]] &quot;[[:画像:埼玉県小川町.png|埼玉県小川町.png]]&quot;をアップロードしました。 &lt;em&gt;(小川町の埼玉県内での位置&amp;lt;br&amp;gt;&amp;#91;&amp;#91;:画像:埼玉県・縮小版.png]] より着色)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;17:43 2004年4月11日 [[利用者:A perfect fool|A perfect fool]] &quot;[[:画像:群馬県伊勢崎市.png|群馬県伊勢崎市.png]]&quot;をアップロードしました。 &lt;em&gt;(伊勢崎市の群馬県内での位置&amp;lt;br&amp;gt;&amp;#91;&amp;#91;:画像:群馬県・縮小版.png]] より着色)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;16:20 2004年4月11日 [[利用者:Sushi|Sushi]] &quot;[[:画像:Heart_labelled.png|Heart_labelled.png]]&quot;をアップロードしました。 &lt;em&gt;(心臓の構造。英語版の図を改変。)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;12:51 2004年4月11日 [[利用者:Yosemite|Yosemite]] &quot;[[:画像:Eclipse002.jpg|Eclipse002.jpg]]&quot;をアップロードしました。 &lt;em&gt;(ダイヤモンドリング)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;12:51 2004年4月11日 [[利用者:Yosemite|Yosemite]] &quot;[[:画像:Eclipse001.jpg|Eclipse001.jpg]]&quot;をアップロードしました。 &lt;em&gt;(日食)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;12:48 2004年4月11日 [[利用者:Ribbon|Ribbon]] &quot;[[:画像:Shinjukunishiguchi_eki_1.jpg|Shinjukunishiguchi_eki_1.jpg]]&quot;をアップロードしました。 &lt;em&gt;(新宿西口駅新宿駅方改札付近)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;12:45 2004年4月11日 [[利用者:Ribbon|Ribbon]] &quot;[[:画像:Ushigomekagurazaka_eki_2.jpg|Ushigomekagurazaka_eki_2.jpg]]&quot;をアップロードしました。 &lt;em&gt;(牛込神楽坂駅改札付近)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;12:42 2004年4月11日 [[利用者:Ribbon|Ribbon]] &quot;[[:画像:Ushigomekagurazaka_eki_1.jpg|Ushigomekagurazaka_eki_1.jpg]]&quot;をアップロードしました。 &lt;em&gt;(牛込神楽坂駅入口付近)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;12:35 2004年4月11日 [[利用者:Ribbon|Ribbon]] &quot;[[:画像:Kudanshita_eki_1.jpg|Kudanshita_eki_1.jpg]]&quot;をアップロードしました。 &lt;em&gt;(九段下駅東西線入口付近)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;10:09 2004年4月11日 [[利用者:Yosemite|Yosemite]] &quot;[[:画像:Condi_Rice.jpg|Condi_Rice.jpg]]&quot;をアップロードしました。 &lt;em&gt;(コンドリーザ・ライス)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;08:56 2004年4月11日 [[利用者:TY|TY]] &quot;[[:画像:Labyrinth.png|Labyrinth.png]]&quot;をアップロードしました。 &lt;em&gt;(クノッソスの迷宮/英語版から)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;08:20 2004年4月11日 [[利用者:TY|TY]] &quot;[[:画像:Maze02-01.png|Maze02-01.png]]&quot;をアップロードしました。 &lt;em&gt;(迷路解法の例3/自作)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;08:19 2004年4月11日 [[利用者:TY|TY]] &quot;[[:画像:Maze01-02.png|Maze01-02.png]]&quot;をアップロードしました。 &lt;em&gt;(迷路解法の例2/自作)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;08:19 2004年4月11日 [[利用者:TY|TY]] &quot;[[:画像:Maze01-01.png|Maze01-01.png]]&quot;をアップロードしました。 &lt;em&gt;(迷路解法の例1/自作)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;08:17 2004年4月11日 [[利用者:TY|TY]] &quot;[[:画像:Spmaze.jpg|Spmaze.jpg]]&quot;をアップロードしました。 &lt;em&gt;(Maze in Schönbrunn Palace, Vienna/英語版から)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;08:14 2004年4月11日 [[利用者:FeZn|FeZn]] &quot;[[:画像:Smartmedia.jpg|Smartmedia.jpg]]&quot;をアップロードしました。 &lt;em&gt;(IDつき128MBスマートメディア)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;07:57 2004年4月11日 [[利用者:FeZn|FeZn]] &quot;[[:画像:VisorEdge.jpg|VisorEdge.jpg]]&quot;をアップロードしました。 &lt;em&gt;(Handspring社のPDA,VisorEdge／単体)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;02:27 2004年4月11日 [[利用者:Auf|Auf]] &quot;[[:画像:Chuuka.png|Chuuka.png]]&quot;をアップロードしました。 &lt;em&gt;(中華思想の概念図その1（自作）)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;01:21 2004年4月11日 [[利用者:Azu|Azu]] &quot;[[:画像:Flamingo.jpg|Flamingo.jpg]]&quot;をアップロードしました。 &lt;em&gt;(オオフラミンゴ　英語版より)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;18:59 2004年4月10日 [[利用者:FeZn|FeZn]] &quot;[[:画像:Mouse(computing).jpg|Mouse(computing).jpg]]&quot;をアップロードしました。 &lt;em&gt;(2ボタン型・ボール式マウス)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;18:37 2004年4月10日 [[利用者:FeZn|FeZn]] &quot;[[:画像:Tombo-seal.jpg|Tombo-seal.jpg]]&quot;をアップロードしました。 &lt;em&gt;(印刷物の版下作成用トンボ（見当）をシール化したもの。)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;18:27 2004年4月10日 [[利用者:FeZn|FeZn]] &quot;[[:画像:CD-R.jpg|CD-R.jpg]]&quot;をアップロードしました。 &lt;em&gt;(CD-Rメディアの画像)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;18:10 2004年4月10日 [[利用者:Oxhop|Oxhop]] &quot;[[:画像:Libyseal.png|Libyseal.png]]&quot;をアップロードしました。 &lt;em&gt;(リビアの国章 - 英語版画像を加工)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;18:07 2004年4月10日 [[利用者:FeZn|FeZn]] &quot;[[:画像:QXhardwarekey.jpg|QXhardwarekey.jpg]]&quot;をアップロードしました。 &lt;em&gt;(QuarkXPress用ドングル：Ver3.3用と4.3用)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;17:57 2004年4月10日 [[利用者:Gombe|Gombe]] &quot;[[:画像:Cherry_trees_creek.jpg|Cherry_trees_creek.jpg]]&quot;をアップロードしました。 &lt;em&gt;(桜並木の川　目黒川、目黒・太鼓橋より)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;17:55 2004年4月10日 [[利用者:Gombe|Gombe]] &quot;[[:画像:Cherry_trees_path.jpg|Cherry_trees_path.jpg]]&quot;をアップロードしました。 &lt;em&gt;(桜の並木　京都市、2004年4月上旬)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;17:52 2004年4月10日 [[利用者:Gombe|Gombe]] &quot;[[:画像:Cherry_blossoms.jpg|Cherry_blossoms.jpg]]&quot;をアップロードしました。 &lt;em&gt;(桜の花)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;16:00 2004年4月10日 [[利用者:FeZn|FeZn]] &quot;[[:画像:HardDiskDrive.jpg|HardDiskDrive.jpg]]&quot;をアップロードしました。 &lt;em&gt;(ＡＴ互換機内蔵用ＨＤＤ)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;15:09 2004年4月10日 [[利用者:FeZn|FeZn]] &quot;[[:画像:Divider.jpg|Divider.jpg]]&quot;をアップロードしました。 &lt;em&gt;(ディバイダ（製図用具）)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;13:44 2004年4月10日 [[利用者:Oxhop|Oxhop]] &quot;[[:画像:Oman_Coat_of_Arms.png|Oman_Coat_of_Arms.png]]&quot;をアップロードしました。 &lt;em&gt;(オマーンの国章 - ドイツ語版画像を加工)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;10:51 2004年4月10日 [[利用者:Oxhop|Oxhop]] &quot;[[:画像:LocationAmericanSamoa.png|LocationAmericanSamoa.png]]&quot;をアップロードしました。 &lt;em&gt;(米領サモアの位置 - 英語版画像を加工)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;10:50 2004年4月10日 [[利用者:Oxhop|Oxhop]] &quot;[[:画像:Us_virgin_islands_flag_medium.png|Us_virgin_islands_flag_medium.png]]&quot;をアップロードしました。 &lt;em&gt;(米領ヴァージン諸島の領旗 - 英語版より)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;10:46 2004年4月10日 [[利用者:Oxhop|Oxhop]] &quot;[[:画像:American_samoa_flag_medium.png|American_samoa_flag_medium.png]]&quot;をアップロードしました。 &lt;em&gt;(米領サモアの領旗)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;05:51 2004年4月10日 [[利用者:Ciro|Ciro]] &quot;[[:画像:Pecorinoromano.jpg|Pecorinoromano.jpg]]&quot;をアップロードしました。 &lt;em&gt;(ペコリーノロマーノ(一部))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;05:38 2004年4月10日 [[利用者:Ultratomio|Ultratomio]] &quot;[[:画像:Kuwait_flag_medium.png|Kuwait_flag_medium.png]]&quot;をアップロードしました。 &lt;em&gt;(クウェートの国旗（CIA World Fact Book より）)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;05:36 2004年4月10日 [[利用者:Ultratomio|Ultratomio]] &quot;[[:画像:LocationKuwait.png|LocationKuwait.png]]&quot;をアップロードしました。 &lt;em&gt;(クウェートの位置（英語版より）)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;05:29 2004年4月10日 [[利用者:Ultratomio|Ultratomio]] &quot;[[:画像:KUW-coat.png|KUW-coat.png]]&quot;をアップロードしました。 &lt;em&gt;(クウェートの国章（英語版より）)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;05:22 2004年4月10日 [[利用者:FeZn|FeZn]] &quot;[[:画像:Compass(1).jpg|Compass(1).jpg]]&quot;をアップロードしました。 &lt;em&gt;(コンパス（製図用具）の画像。)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;05:15 2004年4月10日 [[利用者:A perfect fool|A perfect fool]] &quot;[[:画像:群馬県沼田市.png|群馬県沼田市.png]]&quot;をアップロードしました。 &lt;em&gt;(沼田市の群馬県内での位置&amp;lt;br&amp;gt;&amp;#91;&amp;#91;:画像:群馬県・縮小版.png]] より着色)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;02:35 2004年4月10日 [[利用者:A perfect fool|A perfect fool]] &quot;[[:画像:群馬県富岡市.png|群馬県富岡市.png]]&quot;をアップロードしました。 &lt;em&gt;(富岡市の群馬県内での位置&amp;lt;br&amp;gt;&amp;#91;&amp;#91;:画像:群馬県・縮小版.png]] より加筆)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;01:59 2004年4月10日 [[利用者:Rai koku|Rai koku]] &quot;[[:画像:Seiyou_tanpopo.jpg|Seiyou_tanpopo.jpg]]&quot;をアップロードしました。 &lt;em&gt;(セイヨウタンポポの写真。撮影：Rai koku。)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;01:33 2004年4月10日 [[利用者:A perfect fool|A perfect fool]] &quot;[[:画像:群馬県東村・番号付き.png|群馬県東村・番号付き.png]]&quot;をアップロードしました。 &lt;em&gt;(一部修正)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;01:08 2004年4月10日 [[利用者:イトトン|イトトン]] &quot;[[:画像:Kawagoe_st_west.jpg|Kawagoe_st_west.jpg]]&quot;をアップロードしました。 &lt;em&gt;(川越駅西口)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;20:48 2004年4月9日 [[利用者:A perfect fool|A perfect fool]] &quot;[[:画像:群馬県東村・番号付き.png|群馬県東村・番号付き.png]]&quot;をアップロードしました。 &lt;em&gt;(群馬県の3つの東村のそれぞれの位置&amp;lt;br&amp;gt;&amp;#91;&amp;#91;:画像:群馬県・縮小版.png]] より加筆)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;18:55 2004年4月9日 [[利用者:A perfect fool|A perfect fool]] &quot;[[:画像:群馬県大間々町.png|群馬県大間々町.png]]&quot;をアップロードしました。 &lt;em&gt;(大間々町(あるいは山田郡)の群馬県内での位置&amp;lt;br&amp;gt;&amp;#91;&amp;#91;:画像:群馬県・縮小版.png]] より着色)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;18:22 2004年4月9日 [[利用者:Kinori|Kinori]] &quot;[[:画像:TsukisamuKawa2004.jpg|TsukisamuKawa2004.jpg]]&quot;をアップロードしました。 &lt;em&gt;(月寒川)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;16:24 2004年4月9日 [[利用者:Kon|Kon]] &quot;[[:画像:Pixel.png|Pixel.png]]&quot;をアップロードしました。 &lt;em&gt;(「ピクセル」の拡大図)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;13:52 2004年4月9日 [[利用者:Yosemite|Yosemite]] &quot;[[:画像:Zimbabwe_Coat_of_Arms.png|Zimbabwe_Coat_of_Arms.png]]&quot;をアップロードしました。 &lt;em&gt;(ジンバブエの紋章)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;13:51 2004年4月9日 [[利用者:Yosemite|Yosemite]] &quot;[[:画像:LocationZimbabwe.png|LocationZimbabwe.png]]&quot;をアップロードしました。 &lt;em&gt;(ジンバブエの位置)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;13:51 2004年4月9日 [[利用者:Yosemite|Yosemite]] &quot;[[:画像:Zimbabwe_flag_medium.png|Zimbabwe_flag_medium.png]]&quot;をアップロードしました。 &lt;em&gt;(ジンバブエの国旗)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;13:10 2004年4月9日 [[利用者:Yosemite|Yosemite]] &quot;[[:画像:Amb002.jpg|Amb002.jpg]]&quot;をアップロードしました。 &lt;em&gt;(アカシアと夕日)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;13:10 2004年4月9日 [[利用者:Yosemite|Yosemite]] &quot;[[:画像:Amb001.jpg|Amb001.jpg]]&quot;をアップロードしました。 &lt;em&gt;(キリマンジャロと象)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;12:37 2004年4月9日 [[利用者:A perfect fool|A perfect fool]] &quot;[[:画像:群馬県安中市.png|群馬県安中市.png]]&quot;をアップロードしました。 &lt;em&gt;(安中市の群馬県内での位置&amp;lt;br&amp;gt;&amp;#91;&amp;#91;:画像:群馬県・縮小版.png]] より着色)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;11:31 2004年4月9日 [[利用者:A perfect fool|A perfect fool]] &quot;[[:画像:埼玉県比企郡.png|埼玉県比企郡.png]]&quot;をアップロードしました。 &lt;em&gt;(東松山市部の色抜き)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;11:30 2004年4月9日 [[利用者:A perfect fool|A perfect fool]] &quot;[[:画像:比企郡・番号付き.png|比企郡・番号付き.png]]&quot;をアップロードしました。 &lt;em&gt;(郡域外を塗り潰すなど)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;06:02 2004年4月9日 [[利用者:Koba-chan|Koba-chan]] &quot;[[:画像:Senkaku_Islands.png|Senkaku_Islands.png]]&quot;をアップロードしました。 &lt;em&gt;(棉花嶼→彰佳嶼、訂正。(^^;)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;05:55 2004年4月9日 [[利用者:Koba-chan|Koba-chan]] &quot;[[:画像:Senkaku_Islands.png|Senkaku_Islands.png]]&quot;をアップロードしました。 &lt;em&gt;(花瓶嶼・棉花嶼、追加)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;17:56 2004年4月8日 [[利用者:Koba-chan|Koba-chan]] &quot;[[:画像:WorldMap_ja.png|WorldMap_ja.png]]&quot;をアップロードしました。 &lt;em&gt;(澎湖列島の記述をバタン列島に訂正、澎湖列島を追加)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;17:51 2004年4月8日 [[利用者:Koba-chan|Koba-chan]] &quot;[[:画像:Paracel_Spratly_Islands.png|Paracel_Spratly_Islands.png]]&quot;をアップロードしました。 &lt;em&gt;(澎湖列島の記述をバタン列島に訂正)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;17:51 2004年4月8日 [[利用者:Koba-chan|Koba-chan]] &quot;[[:画像:Senkaku_Islands.png|Senkaku_Islands.png]]&quot;をアップロードしました。 &lt;em&gt;(澎湖列島の記述をバタン列島に訂正、澎湖列島を追加)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;17:13 2004年4月8日 [[利用者:ブリキの太鼓叩き|ブリキの太鼓叩き]] &quot;[[:画像:P_p_pasolini.jpg|P_p_pasolini.jpg]]&quot;をアップロードしました。 &lt;em&gt;(ピエル・パオロ・パゾリーニ)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;15:32 2004年4月8日 [[利用者:Ultratomio|Ultratomio]] &quot;[[:画像:Korean_food_kimchi.jpg|Korean_food_kimchi.jpg]]&quot;をアップロードしました。 &lt;em&gt;(キムチ（英語版より）)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;13:06 2004年4月8日 [[利用者:Yosemite|Yosemite]] &quot;[[:画像:Tanzanian_Coat_of_Arms.png|Tanzanian_Coat_of_Arms.png]]&quot;をアップロードしました。 &lt;em&gt;(タンザニアの紋章)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;13:06 2004年4月8日 [[利用者:Yosemite|Yosemite]] &quot;[[:画像:Tanzania_flag_medium.png|Tanzania_flag_medium.png]]&quot;をアップロードしました。 &lt;em&gt;(タンザニアの国旗)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;13:05 2004年4月8日 [[利用者:Yosemite|Yosemite]] &quot;[[:画像:LocationTanzania.png|LocationTanzania.png]]&quot;をアップロードしました。 &lt;em&gt;(タンザニアの位置)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;12:19 2004年4月8日 [[利用者:Yosemite|Yosemite]] &quot;[[:画像:LocationKenya.png|LocationKenya.png]]&quot;をアップロードしました。 &lt;em&gt;(ケニアの位置)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;12:18 2004年4月8日 [[利用者:Yosemite|Yosemite]] &quot;[[:画像:Kenyaarms22.PNG|Kenyaarms22.PNG]]&quot;をアップロードしました。 &lt;em&gt;(ケニアの紋章)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;12:15 2004年4月8日 [[利用者:Yosemite|Yosemite]] &quot;[[:画像:Kenya_flag_medium.png|Kenya_flag_medium.png]]&quot;をアップロードしました。 &lt;em&gt;(ケニアの国旗)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;12:00 2004年4月8日 [[利用者:Yosemite|Yosemite]] &quot;[[:画像:Kili004.jpg|Kili004.jpg]]&quot;をアップロードしました。 &lt;em&gt;(氷河(キリマンジャロ))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;12:00 2004年4月8日 [[利用者:Yosemite|Yosemite]] &quot;[[:画像:Kili003.jpg|Kili003.jpg]]&quot;をアップロードしました。 &lt;em&gt;(コカコーラルート(キリマンジャロ))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;12:00 2004年4月8日 [[利用者:Yosemite|Yosemite]] &quot;[[:画像:Kili002.jpg|Kili002.jpg]]&quot;をアップロードしました。 &lt;em&gt;(ホロンボ・キャンプサイト(キリマンジャロ))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;11:58 2004年4月8日 [[利用者:Yosemite|Yosemite]] &quot;[[:画像:Kili001.jpg|Kili001.jpg]]&quot;をアップロードしました。 &lt;em&gt;(マラングゲート(キリマンジャロ))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;10:44 2004年4月8日 [[利用者:Sat.K|Sat.K]] &quot;[[:画像:BWVending.jpg|BWVending.jpg]]&quot;をアップロードしました。 &lt;em&gt;(英語版Wikipediaの自動販売機)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;09:02 2004年4月8日 [[利用者:Oga|Oga]] &quot;[[:画像:Electric_bass.jpg|Electric_bass.jpg]]&quot;をアップロードしました。 &lt;em&gt;(エレクトリックベースの例)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;15:50 2004年4月7日 [[利用者:Azu|Azu]] &quot;[[:画像:Commonloonudfs.jpg|Commonloonudfs.jpg]]&quot;をアップロードしました。 &lt;em&gt;(Gavia immer,英語版より)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;13:57 2004年4月7日 [[利用者:MH|MH]] &quot;[[:画像:Kakigori_hyoki.png|Kakigori_hyoki.png]]&quot;をアップロードしました。 &lt;em&gt;(氷旗 (新規に描画故オリジナル))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;11:36 2004年4月7日 [[利用者:Auf|Auf]] &quot;[[:画像:Qinmap.png|Qinmap.png]]&quot;をアップロードしました。 &lt;em&gt;(自作の歴史地図（中国・秦）)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;09:07 2004年4月7日 [[利用者:A perfect fool|A perfect fool]] &quot;[[:画像:埼玉県秩父郡.png|埼玉県秩父郡.png]]&quot;をアップロードしました。 &lt;em&gt;(秩父市部の変更を反映)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;09:02 2004年4月7日 [[利用者:A perfect fool|A perfect fool]] &quot;[[:画像:秩父郡・番号付き.png|秩父郡・番号付き.png]]&quot;をアップロードしました。 &lt;em&gt;(色替えを反映)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;08:37 2004年4月7日 [[利用者:A perfect fool|A perfect fool]] &quot;[[:画像:秩父郡・番号付き.png|秩父郡・番号付き.png]]&quot;をアップロードしました。 &lt;em&gt;(郡域の外を塗り潰し)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;08:37 2004年4月7日 [[利用者:A perfect fool|A perfect fool]] &quot;[[:画像:埼玉県秩父郡.png|埼玉県秩父郡.png]]&quot;をアップロードしました。 &lt;em&gt;(県外を塗り潰し)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;04:19 2004年4月7日 [[利用者:Auf|Auf]] &quot;[[:画像:China_ethnolinguistic_83.png|China_ethnolinguistic_83.png]]&quot;をアップロードしました。 &lt;em&gt;(http&amp;#58;//www.lib.utexas.edu/maps/middle_east_and_asia/china_ethnolinguistic_83.jpg（Perry-Castañeda Library）　の地図の和訳)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;02:37 2004年4月7日 [[利用者:Jpatokal|Jpatokal]] &quot;[[:画像:Okunoin_FudoMyoo.JPG|Okunoin_FudoMyoo.JPG]]&quot;をアップロードしました。 &lt;em&gt;(不動明王, 高野山奥の院)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;00:47 2004年4月7日 [[利用者:Koba-chan|Koba-chan]] &quot;[[:画像:Paracel_Spratly_Islands.png|Paracel_Spratly_Islands.png]]&quot;をアップロードしました。 &lt;em&gt;(スプラトリー諸島、パラセル諸島)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;21:31 2004年4月6日 [[利用者:A perfect fool|A perfect fool]] &quot;[[:画像:群馬県千代田町.png|群馬県千代田町.png]]&quot;をアップロードしました。 &lt;em&gt;(千代田町の群馬県内での位置&amp;lt;br&amp;gt;&amp;#91;&amp;#91;:画像:群馬県・縮小版.png]] より着色)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;21:12 2004年4月6日 [[利用者:A perfect fool|A perfect fool]] &quot;[[:画像:Nagano-pref.png|Nagano-pref.png]]&quot;をアップロードしました。 &lt;em&gt;(市町村合併を反映(千曲市))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;21:03 2004年4月6日 [[利用者:A perfect fool|A perfect fool]] &quot;[[:画像:群馬県境町.png|群馬県境町.png]]&quot;をアップロードしました。 &lt;em&gt;(初版が操作ミスによりゴミ画像だったために再アップ)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;21:01 2004年4月6日 [[利用者:A perfect fool|A perfect fool]] &quot;[[:画像:群馬県境町.png|群馬県境町.png]]&quot;をアップロードしました。 &lt;em&gt;(境町の群馬県内での位置&amp;lt;br&amp;gt;&amp;#91;&amp;#91;:画像:群馬県・縮小版.png]] より着色)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;19:26 2004年4月6日 [[利用者:A perfect fool|A perfect fool]] &quot;[[:画像:長野県更埴市.png|長野県更埴市.png]]&quot;をアップロードしました。 &lt;em&gt;(旧・更埴市の長野県内での位置)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;19:13 2004年4月6日 [[利用者:A perfect fool|A perfect fool]] &quot;[[:画像:埼玉県春日部市.png|埼玉県春日部市.png]]&quot;をアップロードしました。 &lt;em&gt;(春日部市の埼玉県内での位置&amp;lt;br&amp;gt;&amp;#91;&amp;#91;:画像:埼玉県・縮小版.png]] より着色)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;15:41 2004年4月6日 [[利用者:A perfect fool|A perfect fool]] &quot;[[:画像:長野県千曲市.png|長野県千曲市.png]]&quot;をアップロードしました。 &lt;em&gt;(千曲市の長野県内での位置)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;15:37 2004年4月6日 [[利用者:Azu|Azu]] &quot;[[:画像:Americantreesparrow36.jpg|Americantreesparrow36.jpg]]&quot;をアップロードしました。 &lt;em&gt;(スズメの写真、wiki英語版より)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;15:18 2004年4月6日 [[利用者:Ultratomio|Ultratomio]] &quot;[[:画像:Mie-pref.png|Mie-pref.png]]&quot;をアップロードしました。 &lt;em&gt;(2003/12/01　員弁郡4か町が「いなべ市」になったことを反映)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;15:14 2004年4月6日 [[利用者:Rs232c|Rs232c]] &quot;[[:画像:ResistorColorbar2.png|ResistorColorbar2.png]]&quot;をアップロードしました。 &lt;em&gt;(抵抗器カラーバー（有効桁数２桁）)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;14:24 2004年4月6日 [[利用者:Ciro|Ciro]] &quot;[[:画像:Piemonte.png|Piemonte.png]]&quot;をアップロードしました。 &lt;em&gt;(ピエモンテ地図(wiki itから))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;14:23 2004年4月6日 [[利用者:Ciro|Ciro]] &quot;[[:画像:Bandiera-Piemonte.png|Bandiera-Piemonte.png]]&quot;をアップロードしました。 &lt;em&gt;(ピエモンテ旗(wiki itから))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;11:05 2004年4月6日 [[利用者:A perfect fool|A perfect fool]] &quot;[[:画像:千葉県柏市.png|千葉県柏市.png]]&quot;をアップロードしました。 &lt;em&gt;(柏市の千葉県内の位置)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;07:55 2004年4月6日 [[利用者:Araisyohei|Araisyohei]] &quot;[[:画像:Sayama-Inariyama-Park.JPG|Sayama-Inariyama-Park.JPG]]&quot;をアップロードしました。 &lt;em&gt;(埼玉県営狭山稲荷山公園)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;06:36 2004年4月6日 [[利用者:Rai koku|Rai koku]] &quot;[[:画像:Japan_map.png|Japan_map.png]]&quot;をアップロードしました。 &lt;em&gt;(うｐ失敗してるのでもう一回)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;05:50 2004年4月6日 [[利用者:Ciro|Ciro]] &quot;[[:画像:150px-Lombardia-Bandiera.png|150px-Lombardia-Bandiera.png]]&quot;をアップロードしました。 &lt;em&gt;(ロンバルディア旗)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;05:48 2004年4月6日 [[利用者:Ciro|Ciro]] &quot;[[:画像:Lombardia-Mappa.png|Lombardia-Mappa.png]]&quot;をアップロードしました。 &lt;em&gt;(ロンバルディア地図)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;04:04 2004年4月6日 [[利用者:O.M.T.|O.M.T.]] &quot;[[:画像:Paulus.jpg|Paulus.jpg]]&quot;をアップロードしました。 &lt;em&gt;(フリードリヒ・パウルス　英語版より　)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;20:17 2004年4月5日 [[利用者:A perfect fool|A perfect fool]] &quot;[[:画像:千葉県八日市場市.png|千葉県八日市場市.png]]&quot;をアップロードしました。 &lt;em&gt;(八日市場市の千葉県内の位置)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;19:04 2004年4月5日 [[利用者:Okoge|Okoge]] &quot;[[:画像:SR-shibayamachiyoda.jpg|SR-shibayamachiyoda.jpg]]&quot;をアップロードしました。 &lt;em&gt;(芝山鉄道芝山千代田駅（縮小版）)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;15:54 2004年4月5日 [[利用者:Okoge|Okoge]] &quot;[[:画像:SR-shibayamachiyoda.JPG|SR-shibayamachiyoda.JPG]]&quot;をアップロードしました。 &lt;em&gt;(芝山鉄道芝山千代田駅)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;14:21 2004年4月5日 [[利用者:Oxhop|Oxhop]] &quot;[[:画像:LocationBrunei.png|LocationBrunei.png]]&quot;をアップロードしました。 &lt;em&gt;(ブルネイの位置)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;14:21 2004年4月5日 [[利用者:Oxhop|Oxhop]] &quot;[[:画像:Bx-coat.png|Bx-coat.png]]&quot;をアップロードしました。 &lt;em&gt;(ブルネイの国章 - 英語版の画像を加工)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;14:20 2004年4月5日 [[利用者:Oxhop|Oxhop]] &quot;[[:画像:Brunei_flag_medium.png|Brunei_flag_medium.png]]&quot;をアップロードしました。 &lt;em&gt;(ブルネイの国旗 - 英語版より)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;13:05 2004年4月5日 [[利用者:ブリキの太鼓叩き|ブリキの太鼓叩き]] &quot;[[:画像:Preussenwappen.jpg|Preussenwappen.jpg]]&quot;をアップロードしました。 &lt;em&gt;(プロイセン王国紋章)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;12:32 2004年4月5日 [[利用者:ブリキの太鼓叩き|ブリキの太鼓叩き]] &quot;[[:画像:Prussiamap2a.JPG|Prussiamap2a.JPG]]&quot;をアップロードしました。 &lt;em&gt;(プロイセンの発展（～1795年）)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;11:41 2004年4月5日 [[利用者:Ultratomio|Ultratomio]] &quot;[[:画像:Macau_coa.png|Macau_coa.png]]&quot;をアップロードしました。 &lt;em&gt;(マカオの紋章（英語版の画像をPNG化）)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;10:40 2004年4月5日 [[利用者:Ultratomio|Ultratomio]] &quot;[[:画像:Macao_flag_medium.png|Macao_flag_medium.png]]&quot;をアップロードしました。 &lt;em&gt;(澳門の旗（英語版より）)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;10:35 2004年4月5日 [[利用者:Rai koku|Rai koku]] &quot;[[:画像:Japan_map.png|Japan_map.png]]&quot;をアップロードしました。 &lt;em&gt;(塗り忘れている部分と、黒がちょこっと残ってるのを地道にぬりぬり。)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;09:48 2004年4月5日 [[利用者:ブリキの太鼓叩き|ブリキの太鼓叩き]] &quot;[[:画像:Koenigreich_Preussen_Flagge2.JPG|Koenigreich_Preussen_Flagge2.JPG]]&quot;をアップロードしました。 &lt;em&gt;(東プロイセン州旗（枠付）)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;09:27 2004年4月5日 [[利用者:ブリキの太鼓叩き|ブリキの太鼓叩き]] &quot;[[:画像:Koenigreich_Preussen_Flagge.JPG|Koenigreich_Preussen_Flagge.JPG]]&quot;をアップロードしました。 &lt;em&gt;(東プロイセン州旗)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;09:11 2004年4月5日 [[利用者:Koba-chan|Koba-chan]] &quot;[[:画像:Senkaku_Islands.png|Senkaku_Islands.png]]&quot;をアップロードしました。 &lt;em&gt;(尖閣諸島と周辺国の位置関係。尖閣諸島の記事に合わせ範囲拡大。欠落地名は適宜画像に追加してください。)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;09:09 2004年4月5日 [[利用者:Koba-chan|Koba-chan]] &quot;[[:画像:Okinawa_pref3-1.png|Okinawa_pref3-1.png]]&quot;をアップロードしました。 &lt;em&gt;(沖縄本島、先島諸島)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;09:08 2004年4月5日 [[利用者:Koba-chan|Koba-chan]] &quot;[[:画像:WorldMap_ja.png|WorldMap_ja.png]]&quot;をアップロードしました。 &lt;em&gt;(世界地図。先島諸島に地名を追記。必要に応じ、地名を加筆して下さい。)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;08:14 2004年4月5日 [[利用者:Crop|Crop]] &quot;[[:画像:Knot_Trivial-Exam1.png|Knot_Trivial-Exam1.png]]&quot;をアップロードしました。 &lt;em&gt;(ほどけている結び目 )&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;06:33 2004年4月5日 [[利用者:Crop|Crop]] &quot;[[:画像:Trivial-2-link.png|Trivial-2-link.png]]&quot;をアップロードしました。 &lt;em&gt;(成分数 2 の自明なリンク)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;06:33 2004年4月5日 [[利用者:Crop|Crop]] &quot;[[:画像:Figure-8-knot.png|Figure-8-knot.png]]&quot;をアップロードしました。 &lt;em&gt;(八の字結び目)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;04:53 2004年4月5日 [[利用者:Crop|Crop]] &quot;[[:画像:ReidemeisterMove-III.png|ReidemeisterMove-III.png]]&quot;をアップロードしました。 &lt;em&gt;(ライデマイスター移動)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;04:52 2004年4月5日 [[利用者:Crop|Crop]] &quot;[[:画像:ReidemeisterMove-II.png|ReidemeisterMove-II.png]]&quot;をアップロードしました。 &lt;em&gt;(ライデマイスター移動)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;04:52 2004年4月5日 [[利用者:Crop|Crop]] &quot;[[:画像:ReidemeisterMove-I.png|ReidemeisterMove-I.png]]&quot;をアップロードしました。 &lt;em&gt;(ライデマイスター移動)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;04:51 2004年4月5日 [[利用者:Cimiquin|Cimiquin]] &quot;[[:画像:Kitakyushu_city.png|Kitakyushu_city.png]]&quot;をアップロードしました。 &lt;em&gt;(北九州市地図。)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;00:22 2004年4月5日 [[利用者:Kon|Kon]] &quot;[[:画像:Japan_map.png|Japan_map.png]]&quot;をアップロードしました。 &lt;em&gt;(海岸線を着色。)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;19:02 2004年4月4日 [[利用者:Koba-chan|Koba-chan]] &quot;[[:画像:Japan_map.png|Japan_map.png]]&quot;をアップロードしました。 &lt;em&gt;(既存画像を元に海岸線の一部を青に修正)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;18:16 2004年4月4日 [[利用者:A perfect fool|A perfect fool]] &quot;[[:画像:埼玉県秩父市.png|埼玉県秩父市.png]]&quot;をアップロードしました。 &lt;em&gt;(埼玉県外を塗り潰し)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;14:46 2004年4月4日 [[利用者:Rs232c|Rs232c]] &quot;[[:画像:RailGage.png|RailGage.png]]&quot;をアップロードしました。 &lt;em&gt;(日本で利用されている軌間)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;14:23 2004年4月4日 [[利用者:Tsk|Tsk]] &quot;[[:画像:パイプオルガン.jpg|パイプオルガン.jpg]]&quot;をアップロードしました。 &lt;em&gt;(&amp;#91;&amp;#91;en:Image:Organ.jpg]]ノートルダム大聖堂のパイプオルガン(Montrealaisさんによる撮影))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;13:40 2004年4月4日 [[利用者:Kinori|Kinori]] &quot;[[:画像:TakamatsuShiKennai1983.png|TakamatsuShiKennai1983.png]]&quot;をアップロードしました。 &lt;em&gt;(高松市の県内での位置 (1983-))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;13:25 2004年4月4日 [[利用者:Kinori|Kinori]] &quot;[[:画像:KagawaKenMap2004-4.png|KagawaKenMap2004-4.png]]&quot;をアップロードしました。 &lt;em&gt;(香川県の市町村境界図 (2004年4月-))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;13:22 2004年4月4日 [[利用者:Hamichan|Hamichan]] &quot;[[:画像:1386264043.gif|1386264043.gif]]&quot;をアップロードしました。 &lt;em&gt;(はみちゃん♪)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;12:43 2004年4月4日 [[利用者:Yosemite|Yosemite]] &quot;[[:画像:Whilsonkabu.jpg|Whilsonkabu.jpg]]&quot;をアップロードしました。 &lt;em&gt;(ウィルソン株)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;10:57 2004年4月4日 [[利用者:Yosemite|Yosemite]] &quot;[[:画像:Johomonsugi.jpg|Johomonsugi.jpg]]&quot;をアップロードしました。 &lt;em&gt;(縄文杉)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;10:33 2004年4月4日 [[利用者:Luix|Luix]] &quot;[[:画像:Image_Hitlermusso.jpg|Image_Hitlermusso.jpg]]&quot;をアップロードしました。 &lt;em&gt;(Mussolini with Hitler)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;09:52 2004年4月4日 [[利用者:Luix|Luix]] &quot;[[:画像:Image_Hitlermusso.jpg|Image_Hitlermusso.jpg]]&quot;をアップロードしました。 &lt;em&gt;(Mussolini with Hitler)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;09:12 2004年4月4日 [[利用者:Araisyohei|Araisyohei]] &quot;[[:画像:Yuraku-New.jpg|Yuraku-New.jpg]]&quot;をアップロードしました。&lt;/li&gt;
+&lt;li&gt;09:07 2004年4月4日 [[利用者:Araisyohei|Araisyohei]] &quot;[[:画像:Ikebukuro-map.jpg|Ikebukuro-map.jpg]]&quot;をアップロードしました。&lt;/li&gt;
+&lt;li&gt;09:06 2004年4月4日 [[利用者:Araisyohei|Araisyohei]] &quot;[[:画像:Yuraku-Lain.JPG|Yuraku-Lain.JPG]]&quot;をアップロードしました。&lt;/li&gt;
+&lt;li&gt;08:42 2004年4月4日 [[利用者:Araisyohei|Araisyohei]] &quot;[[:画像:Musashi-Keiyo.jpg|Musashi-Keiyo.jpg]]&quot;をアップロードしました。 &lt;em&gt;(以前のバージョンへの差し戻し。　Reverted to earlier revision)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;07:56 2004年4月4日 [[利用者:Auf|Auf]] &quot;[[:画像:Valk1.jpg|Valk1.jpg]]&quot;をアップロードしました。 &lt;em&gt;(ワルキューレの絵（英語版より）)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;03:27 2004年4月4日 [[利用者:Araisyohei|Araisyohei]] &quot;[[:画像:秩父郡・番号付き.png|秩父郡・番号付き.png]]&quot;をアップロードしました。 &lt;em&gt;(秩父市の色変え)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;03:25 2004年4月4日 [[利用者:Araisyohei|Araisyohei]] &quot;[[:画像:埼玉県秩父郡.png|埼玉県秩父郡.png]]&quot;をアップロードしました。 &lt;em&gt;(秩父市の色変え)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;18:16 2004年4月3日 [[利用者:MH|MH]] &quot;[[:画像:180SX..jpg|180SX..jpg]]&quot;をアップロードしました。 &lt;em&gt;( (180SX TypeII レザーセレクション) (前版の画像をレタッチしてみました。気に入らない場合はお手数ですが差し戻しを…))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;17:39 2004年4月3日 [[利用者:Sushi|Sushi]] &quot;[[:画像:Human_Brainlobes.png|Human_Brainlobes.png]]&quot;をアップロードしました。 &lt;em&gt;(脳の構造（外側面）。自作。)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;17:24 2004年4月3日 [[利用者:Sushi|Sushi]] &quot;[[:画像:Human_Brain_NIH.jpg|Human_Brain_NIH.jpg]]&quot;をアップロードしました。 &lt;em&gt;(ヒトの脳。英語版より。出典：NIH)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;17:07 2004年4月3日 [[利用者:Sushi|Sushi]] &quot;[[:画像:Cat_brain.jpg|Cat_brain.jpg]]&quot;をアップロードしました。 &lt;em&gt;(ネコの脳。出典：NASA)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;17:06 2004年4月3日 [[利用者:Sushi|Sushi]] &quot;[[:画像:Mouse_brain.jpg|Mouse_brain.jpg]]&quot;をアップロードしました。 &lt;em&gt;(マウスの脳。出典：NIH)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;15:42 2004年4月3日 [[利用者:Cimiquin|Cimiquin]] &quot;[[:画像:Univers.png|Univers.png]]&quot;をアップロードしました。 &lt;em&gt;(Universフォントのサンプル。)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;15:11 2004年4月3日 [[利用者:Yosemite|Yosemite]] &quot;[[:画像:Ankor_wat.jpg|Ankor_wat.jpg]]&quot;をアップロードしました。 &lt;em&gt;(アンコールワット)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;14:12 2004年4月3日 [[利用者:A perfect fool|A perfect fool]] &quot;[[:画像:埼玉県桶川市.png|埼玉県桶川市.png]]&quot;をアップロードしました。 &lt;em&gt;(桶川市の埼玉県内での位置&amp;lt;br&amp;gt;&amp;#91;&amp;#91;:画像:埼玉県・縮小版.png]] より着色)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;11:02 2004年4月3日 [[利用者:A perfect fool|A perfect fool]] &quot;[[:画像:長野県松本市.png|長野県松本市.png]]&quot;をアップロードしました。 &lt;em&gt;(約75%縮小・修正版)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;07:03 2004年4月3日 [[利用者:U.S.S.Momotaro|U.S.S.Momotaro]] &quot;[[:画像:Chess_bishop-01.png|Chess_bishop-01.png]]&quot;をアップロードしました。 &lt;em&gt;(ちょっと軽くする)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;07:02 2004年4月3日 [[利用者:U.S.S.Momotaro|U.S.S.Momotaro]] &quot;[[:画像:Chess_knight-01.png|Chess_knight-01.png]]&quot;をアップロードしました。 &lt;em&gt;(ちょっと軽くする)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;07:02 2004年4月3日 [[利用者:U.S.S.Momotaro|U.S.S.Momotaro]] &quot;[[:画像:Chess_queen-01.png|Chess_queen-01.png]]&quot;をアップロードしました。 &lt;em&gt;(ちょっと軽くする)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;07:01 2004年4月3日 [[利用者:U.S.S.Momotaro|U.S.S.Momotaro]] &quot;[[:画像:Chess_rook-01.png|Chess_rook-01.png]]&quot;をアップロードしました。 &lt;em&gt;(ちょっと軽くする)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;06:58 2004年4月3日 [[利用者:U.S.S.Momotaro|U.S.S.Momotaro]] &quot;[[:画像:Chess-01.png|Chess-01.png]]&quot;をアップロードしました。 &lt;em&gt;(ちょっと軽くする)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;06:54 2004年4月3日 [[利用者:U.S.S.Momotaro|U.S.S.Momotaro]] &quot;[[:画像:Chess_king-01.png|Chess_king-01.png]]&quot;をアップロードしました。 &lt;em&gt;(チェスのキングの初期位置。自作。)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;06:54 2004年4月3日 [[利用者:U.S.S.Momotaro|U.S.S.Momotaro]] &quot;[[:画像:Chess_king_move.png|Chess_king_move.png]]&quot;をアップロードしました。 &lt;em&gt;(チェスのキングの動き。自作。)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;04:14 2004年4月3日 [[利用者:A perfect fool|A perfect fool]] &quot;[[:画像:埼玉県寄居町.png|埼玉県寄居町.png]]&quot;をアップロードしました。 &lt;em&gt;(寄居町の埼玉県内での位置&amp;lt;br&amp;gt;&amp;#91;&amp;#91;:画像:埼玉県・縮小版.png]] より着色)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;03:22 2004年4月3日 [[利用者:紙屋|紙屋]] &quot;[[:画像:Kanazawa-jo.jpg|Kanazawa-jo.jpg]]&quot;をアップロードしました。 &lt;em&gt;(金沢城公園、五十間長屋)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;03:19 2004年4月3日 [[利用者:Cimiquin|Cimiquin]] &quot;[[:画像:Helvetica_typeface_sample.png|Helvetica_typeface_sample.png]]&quot;をアップロードしました。 &lt;em&gt;(代表的なサンセリフ体であるヘルベチカ、ヘルベチカ・ノイエ、アライアルのサンプル)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;03:07 2004年4月3日 [[利用者:紙屋|紙屋]] &quot;[[:画像:Kenroku-spring.jpg|Kenroku-spring.jpg]]&quot;をアップロードしました。 &lt;em&gt;(兼六園：春)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;02:20 2004年4月3日 [[利用者:A perfect fool|A perfect fool]] &quot;[[:画像:長野県松本市.png|長野県松本市.png]]&quot;をアップロードしました。 &lt;em&gt;(以前のバージョンへの差し戻し。　Reverted to earlier revision)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;02:18 2004年4月3日 [[利用者:A perfect fool|A perfect fool]] &quot;[[:画像:長野県松本市.png|長野県松本市.png]]&quot;をアップロードしました。 &lt;em&gt;(約75%縮小)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;00:05 2004年4月3日 [[利用者:A perfect fool|A perfect fool]] &quot;[[:画像:長野県松本市.png|長野県松本市.png]]&quot;をアップロードしました。 &lt;em&gt;(松本市の長野県内での位置)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;21:08 2004年4月2日 [[利用者:A perfect fool|A perfect fool]] &quot;[[:画像:埼玉県滑川町.png|埼玉県滑川町.png]]&quot;をアップロードしました。 &lt;em&gt;(滑川町の埼玉県内での位置&amp;lt;br&amp;gt;&amp;#91;&amp;#91;:画像:埼玉県・縮小版.png]] より着色)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;15:49 2004年4月2日 [[利用者:Skylab|Skylab]] &quot;[[:画像:Integral.PNG|Integral.PNG]]&quot;をアップロードしました。 &lt;em&gt;(積分)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;14:57 2004年4月2日 [[利用者:Skylab|Skylab]] &quot;[[:画像:Parabola_only.png|Parabola_only.png]]&quot;をアップロードしました。 &lt;em&gt;(放物線)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;14:34 2004年4月2日 [[利用者:Dolfin|Dolfin]] &quot;[[:画像:クロウタドリ_Euroblackbird.jpg|クロウタドリ_Euroblackbird.jpg]]&quot;をアップロードしました。 &lt;em&gt;(&amp;#91;&amp;#91;en:Image:Euroblackbird.JPG]])&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;14:17 2004年4月2日 [[利用者:Aoineko|Aoineko]] &quot;[[:画像:Katakana_origine.png|Katakana_origine.png]]&quot;をアップロードしました。 &lt;em&gt;(tsk のおかげで)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;12:21 2004年4月2日 [[利用者:Ribbon|Ribbon]] &quot;[[:画像:Chuuousen_Asagaya_eki_1.jpg|Chuuousen_Asagaya_eki_1.jpg]]&quot;をアップロードしました。 &lt;em&gt;(阿佐ヶ谷駅南口)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;12:15 2004年4月2日 [[利用者:Ribbon|Ribbon]] &quot;[[:画像:Chuuousen_Ookubo_eki_2.jpg|Chuuousen_Ookubo_eki_2.jpg]]&quot;をアップロードしました。 &lt;em&gt;(大久保駅ホーム)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;12:14 2004年4月2日 [[利用者:Ribbon|Ribbon]] &quot;[[:画像:Musashikosugi_eki_2.jpg|Musashikosugi_eki_2.jpg]]&quot;をアップロードしました。 &lt;em&gt;(大久保駅ホーム)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;12:13 2004年4月2日 [[利用者:Ribbon|Ribbon]] &quot;[[:画像:Chuuousen_Ookubo_eki_1.jpg|Chuuousen_Ookubo_eki_1.jpg]]&quot;をアップロードしました。 &lt;em&gt;(大久保駅入口)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;12:09 2004年4月2日 [[利用者:Ribbon|Ribbon]] &quot;[[:画像:Shinookubo_sta1.jpg|Shinookubo_sta1.jpg]]&quot;をアップロードしました。 &lt;em&gt;(新大久保駅(もう少し解像度の良いものに))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;12:05 2004年4月2日 [[利用者:Ribbon|Ribbon]] &quot;[[:画像:Tokyokosen_Tamagawa_eki_1.jpg|Tokyokosen_Tamagawa_eki_1.jpg]]&quot;をアップロードしました。 &lt;em&gt;(多摩川駅高架ホーム)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;12:03 2004年4月2日 [[利用者:Oxhop|Oxhop]] &quot;[[:画像:LocationBermuda.png|LocationBermuda.png]]&quot;をアップロードしました。 &lt;em&gt;(バミューダの位置 - 英語版より)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;12:02 2004年4月2日 [[利用者:Oxhop|Oxhop]] &quot;[[:画像:Bermuda_Coat_of_Arms.png|Bermuda_Coat_of_Arms.png]]&quot;をアップロードしました。 &lt;em&gt;(バミューダの領章 - 英語版より)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;12:02 2004年4月2日 [[利用者:Ribbon|Ribbon]] &quot;[[:画像:Tokyokosen_Shinmaruko_eki_1.jpg|Tokyokosen_Shinmaruko_eki_1.jpg]]&quot;をアップロードしました。 &lt;em&gt;(新丸子駅ホーム)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;12:01 2004年4月2日 [[利用者:Oxhop|Oxhop]] &quot;[[:画像:Bermuda_flag_medium.png|Bermuda_flag_medium.png]]&quot;をアップロードしました。 &lt;em&gt;(バミューダの領旗)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;11:59 2004年4月2日 [[利用者:Ribbon|Ribbon]] &quot;[[:画像:Musashikosugi_eki_2.jpg|Musashikosugi_eki_2.jpg]]&quot;をアップロードしました。 &lt;em&gt;(武蔵小杉駅東横線南口)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;11:57 2004年4月2日 [[利用者:Ribbon|Ribbon]] &quot;[[:画像:Musashikosugi_eki_1.jpg|Musashikosugi_eki_1.jpg]]&quot;をアップロードしました。 &lt;em&gt;(武蔵小杉駅東横線コンコース)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;11:22 2004年4月2日 [[利用者:Oxhop|Oxhop]] &quot;[[:画像:Sp-map.png|Sp-map.png]]&quot;をアップロードしました。 &lt;em&gt;(スペインの地図 - CIA Factbookより日本語化 )&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;10:41 2004年4月2日 [[利用者:Kinori|Kinori]] &quot;[[:画像:OmaezakiShiKennai2004.png|OmaezakiShiKennai2004.png]]&quot;をアップロードしました。 &lt;em&gt;(小笠町を含めた誤りを訂正)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;10:39 2004年4月2日 [[利用者:Kinori|Kinori]] &quot;[[:画像:ShizuokaKenMap2004-4.png|ShizuokaKenMap2004-4.png]]&quot;をアップロードしました。 &lt;em&gt;(合併の誤りを訂正(御前崎市))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;09:26 2004年4月2日 [[利用者:DC1394|DC1394]] &quot;[[:画像:Adenine.png|Adenine.png]]&quot;をアップロードしました。 &lt;em&gt;(ChemDrawで自作)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;09:20 2004年4月2日 [[利用者:DC1394|DC1394]] &quot;[[:画像:Cholesterol.png|Cholesterol.png]]&quot;をアップロードしました。 &lt;em&gt;(ChemDrawで自作)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;04:35 2004年4月2日 [[利用者:Cimiquin|Cimiquin]] &quot;[[:画像:Serif_ABC.png|Serif_ABC.png]]&quot;をアップロードしました。 &lt;em&gt;(セリフ(Serif)に関する説明を&amp;#39;&amp;#39;ABC&amp;#39;&amp;#39;の文字を使って図解)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;03:47 2004年4月2日 [[利用者:ブリキの太鼓叩き|ブリキの太鼓叩き]] &quot;[[:画像:Goering.jpg|Goering.jpg]]&quot;をアップロードしました。 &lt;em&gt;(ヘルマン・ゲーリング)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;00:52 2004年4月2日 [[利用者:A perfect fool|A perfect fool]] &quot;[[:画像:埼玉県東松山市.png|埼玉県東松山市.png]]&quot;をアップロードしました。 &lt;em&gt;(東松山市の埼玉県内での位置&amp;lt;br&amp;gt;&amp;#91;&amp;#91;:画像:埼玉県・縮小版.png]] より着色)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;22:45 2004年4月1日 [[利用者:Miya.m|Miya.m]] &quot;[[:画像:Niigata_Yuzawa-town.png|Niigata_Yuzawa-town.png]]&quot;をアップロードしました。 &lt;em&gt;(新潟県湯沢町位置図)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;22:45 2004年4月1日 [[利用者:Miya.m|Miya.m]] &quot;[[:画像:Niigata_Yamato-town.png|Niigata_Yamato-town.png]]&quot;をアップロードしました。 &lt;em&gt;(新潟県大和町位置図)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;22:44 2004年4月1日 [[利用者:Miya.m|Miya.m]] &quot;[[:画像:Niigata_Shiozawa-town.png|Niigata_Shiozawa-town.png]]&quot;をアップロードしました。 &lt;em&gt;(新潟県塩沢町位置図)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;22:44 2004年4月1日 [[利用者:Miya.m|Miya.m]] &quot;[[:画像:Niigata_Muika-town.png|Niigata_Muika-town.png]]&quot;をアップロードしました。 &lt;em&gt;(新潟県六日町位置図)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;21:38 2004年4月1日 [[利用者:A perfect fool|A perfect fool]] &quot;[[:画像:群馬県尾島町.png|群馬県尾島町.png]]&quot;をアップロードしました。 &lt;em&gt;(尾島町の群馬県内での位置&amp;lt;br&amp;gt;&amp;#91;&amp;#91;:画像:群馬県・縮小版.png]] より着色)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;16:29 2004年4月1日 [[利用者:Kinori|Kinori]] &quot;[[:画像:OmaezakiShiKennai2004.png|OmaezakiShiKennai2004.png]]&quot;をアップロードしました。 &lt;em&gt;(御前崎市の県内での位置 (2004-))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;16:03 2004年4月1日 [[利用者:Kinori|Kinori]] &quot;[[:画像:IzuShiKenmai2004.png|IzuShiKenmai2004.png]]&quot;をアップロードしました。 &lt;em&gt;(伊豆市の県内での位置 (2004-))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;15:25 2004年4月1日 [[利用者:Kzhr|Kzhr]] &quot;[[:画像:Musashi-Keiyo.jpg|Musashi-Keiyo.jpg]]&quot;をアップロードしました。 &lt;em&gt;(うまくいかなかった?)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;15:23 2004年4月1日 [[利用者:Kzhr|Kzhr]] &quot;[[:画像:Musashi-Keiyo.jpg|Musashi-Keiyo.jpg]]&quot;をアップロードしました。 &lt;em&gt;(書き換え(尤もpng))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;15:21 2004年4月1日 [[利用者:Kinori|Kinori]] &quot;[[:画像:NumazuShiKennai1968.png|NumazuShiKennai1968.png]]&quot;をアップロードしました。 &lt;em&gt;(沼津市の県内での位置 (1968-))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;15:09 2004年4月1日 [[利用者:紙屋|紙屋]] &quot;[[:画像:T-paper.jpg|T-paper.jpg]]&quot;をアップロードしました。 &lt;em&gt;(トイレットペーパー)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;14:27 2004年4月1日 [[利用者:Kinori|Kinori]] &quot;[[:画像:ShizuokaShiKennai2003.png|ShizuokaShiKennai2003.png]]&quot;をアップロードしました。 &lt;em&gt;(静岡市の県内での位置 (2003-))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;14:27 2004年4月1日 [[利用者:Sushi|Sushi]] &quot;[[:画像:Uso-ja.png|Uso-ja.png]]&quot;をアップロードしました。 &lt;em&gt;(All Rights Reserved)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;14:25 2004年4月1日 [[利用者:Kinori|Kinori]] &quot;[[:画像:ShizuokaKenMap2004-4.png|ShizuokaKenMap2004-4.png]]&quot;をアップロードしました。 &lt;em&gt;(静岡県市町村境界図 (2004年4月-))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;14:24 2004年4月1日 [[利用者:Kinori|Kinori]] &quot;[[:画像:ShizuokaKenMap2003-11.png|ShizuokaKenMap2003-11.png]]&quot;をアップロードしました。 &lt;em&gt;(ドット修正)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;14:23 2004年4月1日 [[利用者:Kinori|Kinori]] &quot;[[:画像:ShizuokaKenMap2003-4.png|ShizuokaKenMap2003-4.png]]&quot;をアップロードしました。 &lt;em&gt;(ドット修正)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;14:11 2004年4月1日 [[利用者:Kinori|Kinori]] &quot;[[:画像:ShizuokaKenMap2003-11.png|ShizuokaKenMap2003-11.png]]&quot;をアップロードしました。 &lt;em&gt;(静岡県市町村境界図 (2003年11月-2004年4月))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;14:05 2004年4月1日 [[利用者:Kinori|Kinori]] &quot;[[:画像:ShizuokaKenMap2003-4.png|ShizuokaKenMap2003-4.png]]&quot;をアップロードしました。 &lt;em&gt;(静岡県市町村境界図 (2003年4月-11月))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;13:55 2004年4月1日 [[利用者:Ultratomio|Ultratomio]] &quot;[[:画像:Zinedine_Zidane.png|Zinedine_Zidane.png]]&quot;をアップロードしました。 &lt;em&gt;(ジネディーヌ・ジダン（英語版より）)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;13:51 2004年4月1日 [[利用者:Tsk|Tsk]] &quot;[[:画像:Musashi-Keiyo.jpg|Musashi-Keiyo.jpg]]&quot;をアップロードしました。 &lt;em&gt;(ファイルサイズを150分の一に。(とりあえずpng化))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;12:00 2004年4月1日 [[利用者:A perfect fool|A perfect fool]] &quot;[[:画像:Saitama-pref.png|Saitama-pref.png]]&quot;をアップロードしました。 &lt;em&gt;(浦和、大宮、与野の合併を反映)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;11:57 2004年4月1日 [[利用者:A perfect fool|A perfect fool]] &quot;[[:画像:Gunma-pref.png|Gunma-pref.png]]&quot;をアップロードしました。 &lt;em&gt;(pngrewrite)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;11:33 2004年4月1日 [[利用者:A perfect fool|A perfect fool]] &quot;[[:画像:群馬県・番号付き.png|群馬県・番号付き.png]]&quot;をアップロードしました。 &lt;em&gt;(群馬県の市町村境界、番号付き&amp;lt;br&amp;gt;&amp;#91;&amp;#91;:画像:群馬県の市町村境界.png]] より加筆)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;11:19 2004年4月1日 [[利用者:Manju|Manju]] &quot;[[:画像:300px-Rafale_low_over_desert.jpg|300px-Rafale_low_over_desert.jpg]]&quot;をアップロードしました。 &lt;em&gt;(英語版よりラファールの画像)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;04:30 2004年4月1日 [[利用者:Rai koku|Rai koku]] &quot;[[:画像:Meiji_tenno.JPG|Meiji_tenno.JPG]]&quot;をアップロードしました。 &lt;em&gt;(睦仁の写真の写真。（写真の写真の撮影者:&lt;nowiki&gt;~~~&lt;/nowiki&gt;）)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;04:10 2004年4月1日 [[利用者:Michu|Michu]] &quot;[[:画像:Toureiffel.jpg|Toureiffel.jpg]]&quot;をアップロードしました。 &lt;em&gt;(エッフェル塔　from英語版)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;02:39 2004年4月1日 [[利用者:Kinori|Kinori]] &quot;[[:画像:OtsukiEki2004.JPG|OtsukiEki2004.JPG]]&quot;をアップロードしました。 &lt;em&gt;(大月駅 (640x480))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;00:12 2004年4月1日 [[利用者:Araisyohei|Araisyohei]] &quot;[[:画像:Seibu-Yuraku.jpg|Seibu-Yuraku.jpg]]&quot;をアップロードしました。&lt;/li&gt;
+&lt;li&gt;00:10 2004年4月1日 [[利用者:Araisyohei|Araisyohei]] &quot;[[:画像:Yuraku-New.jpg|Yuraku-New.jpg]]&quot;をアップロードしました。&lt;/li&gt;
+&lt;li&gt;23:59 2004年3月31日 [[利用者:Araisyohei|Araisyohei]] &quot;[[:画像:Ikebukuro-map.jpg|Ikebukuro-map.jpg]]&quot;をアップロードしました。&lt;/li&gt;
+&lt;li&gt;23:57 2004年3月31日 [[利用者:Araisyohei|Araisyohei]] &quot;[[:画像:Yuraku-Lain.JPG|Yuraku-Lain.JPG]]&quot;をアップロードしました。&lt;/li&gt;
+&lt;li&gt;23:56 2004年3月31日 [[利用者:Araisyohei|Araisyohei]] &quot;[[:画像:Yuraku-Lain.JPG.jpg|Yuraku-Lain.JPG.jpg]]&quot;をアップロードしました。&lt;/li&gt;
+&lt;li&gt;23:54 2004年3月31日 [[利用者:Araisyohei|Araisyohei]] &quot;[[:画像:Yuraku-Lain.jpg|Yuraku-Lain.jpg]]&quot;をアップロードしました。&lt;/li&gt;
+&lt;li&gt;23:54 2004年3月31日 [[利用者:Araisyohei|Araisyohei]] &quot;[[:画像:Yuraku-Lain.jpg|Yuraku-Lain.jpg]]&quot;をアップロードしました。&lt;/li&gt;
+&lt;li&gt;19:15 2004年3月31日 [[利用者:A perfect fool|A perfect fool]] &quot;[[:画像:群馬県藤岡市.png|群馬県藤岡市.png]]&quot;をアップロードしました。 &lt;em&gt;(藤岡市の群馬県内での位置&amp;lt;br&amp;gt;&amp;#91;&amp;#91;:画像:群馬県・縮小版.png]] より着色)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;17:24 2004年3月31日 [[利用者:A perfect fool|A perfect fool]] &quot;[[:画像:Gunma-pref.png|Gunma-pref.png]]&quot;をアップロードしました。 &lt;em&gt;(万場、中里の合併を反映)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;16:10 2004年3月31日 [[利用者:Kon|Kon]] &quot;[[:画像:Kon-100Wiki-Bill.jpg|Kon-100Wiki-Bill.jpg]]&quot;をアップロードしました。 &lt;em&gt;(100ウィキ紙幣。今日だけ。)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;15:45 2004年3月31日 [[利用者:Kinori|Kinori]] &quot;[[:画像:SeiyoShiKennai2004.png|SeiyoShiKennai2004.png]]&quot;をアップロードしました。 &lt;em&gt;(西予市の県内での位置 (2004-))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;15:40 2004年3月31日 [[利用者:Spirituelle|Spirituelle]] &quot;[[:画像:Tempimg.png|Tempimg.png]]&quot;をアップロードしました。 &lt;em&gt;(&amp;#91;&amp;#91;Wikipedia:コミュニティ・ポータル]]を表示した時のスクリーンショット)&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;</text>
+      <sha1>syo543m943wbia1s5rdaditdrkhyae3</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>Wikipedia:削除記録/過去ログ 2002年12月</title>
+    <ns>4</ns>
+    <id>2</id>
+    <revision>
+      <id>80312185</id>
+      <parentid>2168856</parentid>
+      <timestamp>2020-11-06T05:35:25Z</timestamp>
+      <contributor>
+        <username>ネイ</username>
+        <id>169478</id>
+      </contributor>
+      <comment>ほかの過去ログと書式を統一</comment>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text bytes="114" xml:space="preserve">&lt;ul&gt;&lt;li&gt;09:23 2002年12月6日 [[User:Brion VIBBER|Brion VIBBER]] deleted &quot;Linux&quot; &lt;em&gt;(goatse.cx)&lt;/em&gt;&lt;/li&gt;
+
+&lt;/ul&gt;</text>
+      <sha1>iatre83d6phwd3z8q9atzcapcsbqw24</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>アンパサンド</title>
+    <ns>0</ns>
+    <id>5</id>
+    <revision>
+      <id>89167474</id>
+      <parentid>88740876</parentid>
+      <timestamp>2022-04-23T02:25:36Z</timestamp>
+      <contributor>
+        <username>ObladiOblada</username>
+        <id>166965</id>
+      </contributor>
+      <comment>&quot;and (&amp;) per se and&quot; は引用部分なので (&amp;) もそのまま残す。原文も引用しておく。</comment>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text bytes="14457" xml:space="preserve">{{Redirect|&amp;}}
+{{Otheruses|記号|競走馬|アンパサンド (競走馬)}}
+{{WikipediaPage|「アンパサンド (＆)」の使用|WP:JPE#具体例による説明}}
+{{複数の問題|出典の明記=2018年10月8日 (月) 14:50 (UTC)|独自研究=2018年10月8日 (月) 14:50 (UTC)}}
+{{記号文字|&amp;amp;}}
+[[File:Trebuchet MS ampersand.svg|thumb|100px|[[Trebuchet MS]] フォント]]
+'''アンパサンド'''（'''&amp;amp;''', {{Lang-en|ampersand}}）は、並立助詞「…と…」を意味する[[記号]]である。[[ラテン語]]で「…と…」を表す接続詞 &quot;et&quot; の[[合字]]を起源とする。現代のフォントでも、[[Trebuchet MS]] など一部のフォントでは、&quot;et&quot; の合字であることが容易にわかる字形を使用している。
+
+== 語源 ==
+{{quote|The term ampersand is a corruption of and (&amp;) per se and, which literally means &quot;(the character) &amp; by itself (is the word) and.&quot; The symbol &amp; is derived from the ligature of ET or et, which is the Latin word for &quot;and.&quot;&lt;br&gt;
+訳: アンパサンドという言葉は、''and (&amp;) per se and''（&quot;&amp;&quot; という文字それ自体が &quot;and&quot; という言葉を意味する）が[[言語変化|転訛]]したものである。&amp; の記号は、ラテン語で &quot;and&quot; を意味する &quot;[[:wikt:et|ET]]&quot; または et の[[合字]]が元になっている。|source = Geoffrey Glaister, ''Glossary of the Book''&lt;ref name=&quot;adobe&quot;&gt;{{cite book |last=[[:en:Geoffrey Glaister|Glaister]]|first=[[:en:Geoffrey Glaister|Geoffrey Ashall]]|title=Glossary of the Book|url=https://archive.org/details/glosaryofbook0000unse|url-access=registration|year=1960|publisher=[[:en:Allen &amp; Unwin|George Allen &amp; Unwin]]|location=London}}. 引用元: {{cite web |last=Caflisch |first=Max |archiveurl=https://web.archive.org/web/20130113202304/https://www.adobe.com/type/topics/theampersand.html |archivedate=13 January 2013 |url=https://www.adobe.com/type/topics/theampersand.html|title=The ampersand|work=Adobe Fonts|publisher=[[アドビ|Adobe Systems]] |accessdate=2021-04-17|url-status=dead}}&lt;/ref&gt;}}
+
+英語で教育を行う学校で[[英語アルファベット|アルファベット]]を復唱する場合、その文字自体が単語となる文字（&quot;A&quot;, &quot;I&quot;, かつては &quot;[[:en:Vocative case#English|O]]&quot; も）については、伝統的にラテン語の ''[[:en:wikt:per se|per se]]''（それ自体）を用いて &quot;A per se A&quot; のように唱えられていた&lt;ref name=aglossary&gt;{{cite book |last=Nares |first=Robert |author-link=:en:Robert Nares |title=A Glossary |url=https://books.google.com/books?id=n9bfivi9ti4C&amp;pg=PA1 |accessdate=2021-04-17 |year=2011 |origyear=first published 1822 |publisher=[[Cambridge University Press]] |isbn=9781108035996 |page=1}}&lt;/ref&gt;&lt;ref name=worddetective&gt;{{cite web|url=http://www.word-detective.com/052003.html#ampersand |title=The ampersand |work=word-detective |url-status=dead |archiveurl=https://web.archive.org/web/20080508140613/http://www.word-detective.com/052003.html |archivedate=8 May 2008 |accessdate=2021-04-17}}&lt;/ref&gt;。また、アルファベットの最後に、27番目の文字のように &quot;&amp;&quot; を加えることも広く行われていた。&quot;&amp;&quot; はラテン語で ''et'' と読まれていたが、後に英語で ''and'' と読まれるようになった。結果として、アルファベットの復唱の最後は &quot;X, Y, Z, ''and per se and''&quot; という形になった。この最後のフレーズが繰り返されるうちに &quot;ampersand&quot; と訛っていき、この言葉は1837年までには英語の一般的な語法となった&lt;ref name=worddetective/&gt;&lt;ref&gt;{{cite web|url=http://hotword.dictionary.com/ampersand/|title=What character was removed from the alphabet but is still used every day?|date=2 September 2011|work=The Hot Word|publisher=Dictionary.com |accessdate=2021-04-17}}&lt;/ref&gt;&lt;ref&gt;{{OED|ampersand}} {{subscription}}&lt;/ref&gt;。
+
+[[アンドレ＝マリ・アンペール]]がこの記号を自身の著作で使い、これが広く読まれたため、この記号が &quot;Ampère's and&quot; と呼ばれるようになったという誤った語源俗説がある&lt;ref&gt;この俗説の例は、 Jessie Bedford, Elizabeth Godfrey: [https://books.google.com/books?id=AL0KAAAAIAAJ&amp;pg=PA22 English Children in the Olden Time, page 22]. Methuen &amp; co, 1907, p. 22; Harry Alfred Long: [https://books.google.com/books?id=AWgSAAAAYAAJ&amp;pg=PA98 Personal and Family Names, page 98]. Hamilton, Adams &amp; co, 1883. などで見られる。&lt;/ref&gt;。
+
+== 歴史 ==
+[[File:Historical ampersand evolution.svg|thumb|left|390px|アンパサンドの変遷 字形1から6]]
+[[File:Ampersand.svg|thumb|left|現代のアンパサンドはカロリング小文字体のものとほぼ同じ。右のイタリック体アンパサンドはより新しい et の合字が元になっている。]]
+[[File:etlig.svg|left|frame|[[インシュラー体]]の et の合字。]]
+
+アンパサンドの起源は1世紀の[[ローマ筆記体#古ローマ筆記体|古ローマ筆記体]]にまで遡ることができる。古ローマ筆記体では、E と T はしばしば合字として繋げて書かれていた（左図「アンパサンドの変遷」の字形1）。それに続く、流麗さを増した[[ローマ筆記体#新ローマ筆記体|新ローマ筆記体]]では、様々な合字が極めて頻繁に使われるようになった。字形2と3は4世紀中頃における et の合字の例である。その後、9世紀の[[カロリング小文字体]]に至るラテン文字の変遷の過程で、合字の使用は一般には廃れていった。しかし、et の合字は使われ続け、次第に元の文字がわかりにくい字形に変化していった（字形4から6）&lt;ref&gt;Jan Tschichold: [https://web.archive.org/web/20140701/http://www.typeforum.de/modules.php?op=modload&amp;name=News&amp;file=article&amp;sid=41&amp;mode=&amp;order=0 &quot;Formenwandlung der et-Zeichen.&quot;]&lt;/ref&gt;。
+
+現代の[[イタリック体]]のアンパサンドは、[[ルネサンス|ルネサンス期]]に発展した筆記体での et の合字に遡る。1455年のヨーロッパにおける[[印刷|印刷技術]]の発明以降、印刷業者はイタリック体とローマ筆記体のアンパサンドの両方を多用するようになった。アンパサンドのルーツはローマ時代に遡るため、[[ラテン文字|ラテンアルファベット]]を使用する多くの言語でアンパサンドが使用されるようになった。
+
+アンパサンドはしばしばラテンアルファベットの最後の文字とされることがあった。例えば1011年の[[:en:Byrhtferth|Byrhtferth]]の文字表がその例である&lt;ref&gt;{{cite web|last=Everson|first=Michael|author2=Sigurðsson, Baldur|author3=Málstöð, Íslensk|date=7 June 1994|title=On the status of the Latin letter þorn and of its sorting order|url=http://www.evertype.com/standards/wynnyogh/thorn.html|url-status=live|work=Evertype|accessdate=2021-04-18}}&lt;/ref&gt;。同様に、&quot;&amp;&quot; は英語アルファベットの27番目の文字とされ、アメリカ合衆国やその他の地域でも、子供達はアンパサンドはアルファベットの最後の文字だと教えられていた。1863年の M. B. Moore の著書 ''The Dixie Primer, for the Little Folks'' にその一例を見ることができる&lt;ref&gt;{{cite web|url=http://docsouth.unc.edu/imls/moore/moore.html#moore5|work=Branson, Farrar &amp; Co., Raleigh NC|title=The Dixie Primer, for the Little Folks|accessdate=2021-04-18}}&lt;/ref&gt;。[[ジョージ・エリオット]]は、1859年に発表した小説「{{仮リンク|アダム・ビード|en|Adam Bede}}」の中で、Jacob Storey に次のセリフを語らせている。&quot;He thought it &lt;nowiki&gt;[Z]&lt;/nowiki&gt; had only been put to finish off th' alphabet like; though ampusand would ha' done as well, for what he could see.&quot;&lt;ref&gt;{{cite book |first=George |last=Eliot |title=Adam Bede |chapter=Chapter XXI |chapter-url=https://www.gutenberg.org/files/507/507-h/507-h.htm#link2HCH0021 |accessdate=2021-04-18 |publisher=[[プロジェクト・グーテンベルク|Project Gutenberg]]}}&lt;/ref&gt; よく知られた童謡の [[:en:Apple Pie ABC|Apple Pie ABC]] は  &quot;X, Y, Z, and ampersand, All wished for a piece in hand&quot; という歌詞で締めくくられる。
+
+アンパサンドは、[[ティロの速記|ティロ式記号]]の et (&quot;⁊&quot;, Unicode U+204A) とは別のものである。ティロ式記号の et は、アンパサンドと意味は同じだが数字の「7」に似た形の記号である。両者はともに古代から使用され、中世を通してラテン語の ''et'' を表すために使用された。しかし、アンパサンドとティロ式記号の et はそれぞれ独立に発明されたものである&lt;ref&gt;{{cite web|url=http://www.etymonline.com/index.php?term=ampersand |title=Ampersand|work=The Online Etymological Dictionary|accessdate=2021-04-18}}&lt;/ref&gt;。ラテン文字から発展した[[古アイルランド語]]の文字では、アイルランド語の ''agus''（「…と…」）を表すためにティロ式記号の et が使用されていた。今日は[[ゲール文字]]の一部として主に装飾的な目的で使用されている。この文字はアイルランドにおけるキリスト教時代初期に修道院の影響によって書き文字に加わった可能性がある。
+
+{{clear}}
+
+==手書き==
+日常的な手書きの場合、[[欧米]]では小文字の {{el|[[ε]]}}（エプシロン）を大きくしたもの（あるいは数字の &quot;3&quot; の鏡文字）に縦線を加えた形の単純化されたアンパサンドがしばしば使われる&lt;ref name=&quot;handwriting&quot; /&gt;。また、エプシロンの上下に縦線または点を付けたものもしばしば使われる&lt;ref name=&quot;handwriting&quot; /&gt;。
+
+くだけた用法として、[[プラス記号とマイナス記号|プラス記号]]（&quot;+&quot;, この記号もまた et の合字である&lt;ref&gt;{{cite book|last=Cajori|first=Florian|title=A History of Mathematical Notations, Vol. 1|chapter-url=https://archive.org/details/in.ernet.dli.2015.200372|year=1928|publisher=The Open Court Company, Publishers|chapter=Origin and meanings of the signs + and −}}&lt;/ref&gt;）がアンパサンドの代わりに使われることもある。また、プラス記号に輪を重ねたような、[[無声歯茎側面摩擦音]]を示す[[発音記号]]「{{IPA|ɬ}}」のようなものが使われることもある。{{citation needed|date=May 2020}}
+
+&lt;gallery&gt;
+File:Ampersand Handwriting 1.jpg|手書きのアンパサンド（エプシロンに縦線を引いた書体）&lt;ref name=&quot;handwriting&quot;&gt;{{cite web|url=https://www.webpagefx.com/blog/web-design/visual-guide-ampersand/|work=Six Revisions|title=A Visual Guide to the Ampersand (Infographic)|accessdate=2021-04-18}}&lt;/ref&gt;
+
+File:Ampersand Handwriting 3.jpg|エプシロンの上下端にそれぞれ縦線が付いたタイプ&lt;ref name=&quot;handwriting&quot; /&gt;
+
+File:Epsilon Ampersand.png|エプシロンと縦線による手書きを元にしたアンパサンドの字形の一種&lt;ref name=&quot;handwriting&quot; /&gt;
+
+File:Ampersand Handwriting 2.jpg|アンパサンドの代用として手書きのプラス記号を使用した場合の例
+&lt;/gallery&gt;
+
+== 同様の記号 ==
+[[ティロの速記]]には「et」を表すための「{{unicode|⁊}}」(U+204A Tironian sign et)がある。この文字は[[ドイツ]]の[[フラクトゥール]]で使われたほか、[[ゲール文字]]でも使用される。
+
+[[ギリシア文字]]では「……と」を意味する{{el|και}}を表すための[[合字]]として「{{el|ϗ}}」(U+03D7 Greek kai symbol)が使われることがある。
+{|class=&quot;wikitable&quot;
+|[[File:Fliegende Blätter Band 1 (München 1845) Nr. 21 S. 168.png|400px|frameless]]
+|フラクトゥールで「etc.」を「{{unicode|⁊c.}}」と書いた例（1845年の雑誌記事より）。
+|-
+|[[File:Caslon Greek type sample.jpeg|350px|frameless]]
+|2行目に「{{el|ϗ}}」を使用（18世紀のギリシア文字の活字サンプル、[[クセノポン]]『[[ソクラテスの思い出]]』2.1.21より）。
+|}
+
+== プログラミング言語 ==
+[[プログラミング言語]]では、[[C言語|C]] など多数の言語で AND [[演算子]]として用いられる。以下は C の例。
+* &lt;code&gt;X = A '''&amp;amp;&amp;amp;''' B&lt;/code&gt; のように2個重ねたものは[[論理積|論理 AND]] を表す。この場合 A, B がともに真ならば X も真、それ以外は偽である。
+* &lt;code&gt;0x12345678 '''&amp;amp;''' 0x0f0f0f0f&lt;/code&gt; のように1個であれば[[ビット演算#AND|ビット AND]] を表す。この場合の結果は &lt;code&gt;0x02040608&lt;/code&gt; である。
+[[PHP (プログラミング言語)|PHP]]では、変数宣言記号（$）の直前に記述することで、[[参照渡し]]を行うことができる。
+
+[[BASIC]] 系列の言語では[[文字列]]の連結演算子として使用される。&lt;code&gt;&quot;foo&quot; '''&amp;amp;''' &quot;bar&quot;&lt;/code&gt; は &lt;code&gt;&quot;foobar&quot;&lt;/code&gt; を返す。また、主に[[マイクロソフト]]系では整数の[[十六進法|十六進表記]]に '''&lt;code&gt;&amp;amp;h&lt;/code&gt;''' を用い、&lt;code&gt;&amp;amp;h0F&lt;/code&gt; （十進で15）のように表現する。
+
+[[Standard Generalized Markup Language|SGML]]、[[Extensible Markup Language|XML]]、[[HyperText Markup Language|HTML]]では、アンパサンドを使って[[SGML実体]]を参照する。
+
+== 符号位置 ==
+{| class=&quot;wikitable&quot; style=&quot;text-align:center;&quot;
+!記号!![[Unicode]]!![[JIS X 0213]]!![[文字参照]]!!名称
+{{CharCode|38|0026|1-1-85|Ampersand|amp}}
+{{CharCode|1789|06fd|-|Arabic Sign Sindhi Ampersand}}
+{{CharCode|8266|204a|-|Tironian Sign Et}}
+{{CharCode|8523|214b|-|Turned Ampersand}}
+{{CharCode|11858|2e52|-|Tironian Sign Capital Et}}
+{{CharCode|65120|fe60|-|Small Ampersand}}
+{{CharCode|65286|ff06|1-1-85|アンパサンド（全角）}}
+{{CharCode|128624|1f670|-|Script Ligature Et Ornament}}
+{{CharCode|128625|1f671|-|Heavy Script Ligature Et Ornament}}
+{{CharCode|128626|1f672|-|Ligature Open Et Ornament}}
+{{CharCode|128627|1f673|-|Heavy Ligature Open Et Ornament}}
+{{CharCode|128628|1f674|-|Heavy Ampersand Ornament}}
+{{CharCode|128629|1f675|-|Swash Ampersand Ornament}}
+|}
+
+== 脚注 ==
+{{Reflist}}
+
+== 外部リンク ==
+{{Commons|Ampersand}}
+
+{{punctuation marks|&amp;amp;}}
+{{DEFAULTSORT:あんはさんと}}
+[[Category:約物]]
+[[Category:ラテン語の語句]]
+[[Category:論理記号]]</text>
+      <sha1>opypwn0ffduc516n1i5wk99igk55b2i</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>Wikipedia:Sandbox</title>
+    <ns>4</ns>
+    <id>6</id>
+    <redirect title="Wikipedia:サンドボックス" />
+    <revision>
+      <id>70473293</id>
+      <parentid>70473279</parentid>
+      <timestamp>2018-10-31T16:40:16Z</timestamp>
+      <contributor>
+        <username>Y-dash</username>
+        <id>309126</id>
+      </contributor>
+      <minor />
+      <comment>「[[Wikipedia:Sandbox]]」を保護しました: 編集不要のページ, 場所間違えの防止 ([編集=自動承認された利用者のみ許可] (無期限) [移動=自動承認された利用者のみ許可] (無期限))</comment>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text bytes="45" xml:space="preserve">#REDIRECT [[Wikipedia:サンドボックス]]</text>
+      <sha1>8x10n6namf7oawlowe0whbs04o55b8d</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>言語</title>
+    <ns>0</ns>
+    <id>10</id>
+    <revision>
+      <id>89234760</id>
+      <parentid>89021888</parentid>
+      <timestamp>2022-04-27T08:54:19Z</timestamp>
+      <contributor>
+        <username>Dušan Kreheľ (bot)</username>
+        <id>1934112</id>
+      </contributor>
+      <comment>More used with only one reference definition: 3 new references and 3 new reference calls.</comment>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text bytes="39879" xml:space="preserve">'''言語'''（げんご）は、狭義には「声による記号の体系」をいう&lt;ref name=&quot;yamamoto&quot; /&gt;。
+
+[[広辞苑]]や[[大辞泉]]には次のように解説されている&lt;ref name=&quot;koujien&quot;&gt;広辞苑　第六版「げんご（言語）」&lt;/ref&gt;。
+*[[人間]]が[[音声]]や[[文字]]を用いて[[思想]]・[[感情]]・[[意志]]等々を伝達するために用いる記号体系&lt;ref name=&quot;koujien&quot; /&gt;。およびそれを用いる[[行為]]（広辞苑&lt;ref name=&quot;koujien&quot; /&gt;）。音声や文字によって、人の意志・思想・感情などの情報を表現したり伝達する、あるいは他者のそれを受け入れ、理解するための約束・[[規則]]。および、そうした記号の体系（大辞泉&lt;ref name=&quot;daijisen&quot;&gt;大辞泉「げんご（言語）」&lt;/ref&gt;）。
+*ある特定の[[集団]]が用いる、音や文字による事態の伝達手段&lt;ref name=&quot;koujien&quot; /&gt;（[[個別言語]]のことで、[[英語]]・[[フランス語]]・[[日本語]]などのこと&lt;ref name=&quot;koujien&quot; /&gt;）。
+*[[フェルディナン・ド・ソシュール|ソシュール]]の用語「langue [[ラング]]」の日本語での訳語。
+『日本大百科事典』では、「言語」という語は&lt;u&gt;多義である&lt;/u&gt;、と解説され、[[大脳]]の{{仮リンク|言語中枢|en|Language center}}に蓄えられた《[[語彙]]と[[文法]]規則の体系》を指すこともあり、その体系を用いる[[能力]]としてとらえることもある、と解説され、一方では、[[抽象化|抽象]]的に「[[人類|すべての人間]]が共有する言語能力」を指すこともあり、「個々の個別言語」を指すこともある、と解説されている&lt;ref name=&quot;nipponnica&quot;&gt;『日本大百科事典』（ニッポニカ）、言語&lt;/ref&gt;。
+
+広義の言語には、verbalなものとnon-verbalなもの（各種記号、アイコン、図形、[[ボディーランゲージ]]等）の両方を含み、日常のコミュニケーションでは狭義の言語表現に身振り、手振り、図示、擬音等も加えて表現されることもある&lt;ref name=&quot;yamamoto&quot; /&gt;。
+
+== 概説 ==
+{{言語学}}
+言語は、[[人間]]が用いる意志伝達手段であり、社会[[集団]]内で形成習得され、[[コミュニケーション|意志を相互に伝達すること]]や、抽象的な[[思考]]を可能にし、結果として人間の社会的活動や[[文化_(代表的なトピック)|文化]]的活動を支えている&lt;ref name=&quot;britanica&quot;&gt;ブリタニカ百科事典「言語」&lt;/ref&gt;。言語には、文化の特徴が織り込まれており、共同体で用いられている言語の習得をすることによって、その共同体での社会的学習、および[[人格]]の形成をしていくことになる&lt;ref name=&quot;britanica&quot; /&gt;。
+
+[[フェルディナン・ド・ソシュール|ソシュール]]の研究が、言語学の発展の上で非常に重要な役割を果たしたわけであるが、ソシュール以降は、「共同体の用いる言語'''体系'''」のことは「langue [[ラング]]」と呼ばれ、それに対して、個々の人が行う言語活動は「parole [[パロール]]」という用語で呼ばれるようになっている&lt;ref name=&quot;britanica&quot; /&gt;。
+
+《[[音韻]]》 と 《[[意味]]》の間の結び付け方、また、《文字》と音韻・形態素・単語との間の結び付け方は、社会的に作られている習慣である&lt;ref name=&quot;britanica&quot; /&gt;。
+
+言語と非言語の境界が問題になるが、文字を使う方法と文字を用いない方法の区別のみで、言語表現を非言語表現から区別することはできない&lt;ref name=&quot;yamamoto&quot;&gt;{{Cite web|url=http://www.jsik.jp/?plugin=attach&amp;refer=TableofContents1&amp;openfile=KJ00002113963.pdf|author=山本 昭|title=情報知識学会第6回研究報告会講演論文集 専門コミュニケーションにおける言語と非言語・ターミノロジーの視点から|publisher=情報知識学会|accessdate=2022-04-05}}&lt;/ref&gt;。抽象記号には文字表現と非文字表現（[[積分記号]]や[[ト音記号]]など）があり、文字表現は言語表現と文字記号に分けられる&lt;ref name=&quot;yamamoto&quot; /&gt;。言語表現と区別される文字記号とは、文字を使っているが語（word）でないものをいい、化学式H&lt;sub&gt;2&lt;/sub&gt;Oなどがその例である&lt;ref name=&quot;yamamoto&quot; /&gt;。化学式は自然言語の文法が作用しておらず、化学式独特の文法で構成されている&lt;ref name=&quot;yamamoto&quot; /&gt;。
+
+言語にはさまざまな分類がある。[[口語]]、[[口頭言語]]、[[書記言語]]、[[文語]]、といった分類があるが、重なる部分もありはっきり分類できるものでもない。また[[屈折語]]・[[膠着語]]・[[孤立語]]といったような分類もある。詳細は[[言語類型論]]を参照。
+
+言語的表現は読み上げによって音声表現、点字化により触覚表現に変換されるが、言語的表現の特性は保存され、視覚的に表現されたものと同等に取り扱うことができる&lt;ref name=&quot;yamamoto&quot; /&gt;。
+手話に関しては「[[日本語対応手話]]」は一般の日本語の話し言葉や書き言葉と同一の言語の「[[視覚言語]]バージョン」であるが、「[[日本手話]]」は一般の日本語とは異なる言語と考えられており、そちらは[[音声言語]]や[[文字言語]]とは異なる「[[視覚言語]]」ということになる、など、分類は単純ではない。
+
+以上の自然発生的な「自然」言語の他、近代以降、[[エスペラント]]などの[[国際補助語]]など、[[人工言語]]も作られた。&lt;ref group=&quot;注釈&quot;&gt;自然言語の持ついくつかの性質を全く削いだ、[[形式言語]]として設計されている人工言語も一部にはある（[[ログラン]]など）。&lt;/ref&gt;&lt;ref group=&quot;注釈&quot;&gt;（言語学の用語に沿って）「[[動物のコミュニケーション]]の体系」も「言語」と呼ぶこともある、という主張がある。しかし、チョムスキー理論では「[[普遍文法]]」などの概念において、言語は人間のものという大前提があり、どういう意味で「言語学の用語に沿って」なのかは不明確である。&lt;/ref&gt;
+
+自然言語以外については、[[人工言語]]・[[形式言語]]・[[コンピュータ言語]]などの各記事を参照。
+{{Seealso|人工言語|形式言語|コンピュータ言語}}
+
+[[ジャック・デリダ]]という、一般に[[ポスト構造主義]]の代表的[[哲学者]]と位置づけられている[[フランス]]の哲学者は、「声」を基礎とし文字をその代替とする発想が言語学に存在する、と主張し、それに対する批判を投げかける立場を主張した。[[グラマトロジーについて|『グラマトロジーについて』]]と「[[差延]]」の記事も参照。
+
+個別言語は、民族の滅亡や他言語による吸収によって使用されなくなることがある。このような言語は[[死語 (言語)|死語]]と呼ばれ、死語が再び母語として使用されたことは歴史上にただ一例、[[ヘブライ語]]の例しかない。しかし、ヘブライ語は自然に復活したわけでも完全に消滅していたわけでもなく、[[文章語]]として存続していた言語を、[[パレスチナ]]に移住した[[ユダヤ人]]たちが20世紀に入って日常語として人工的に復活させ&lt;ref&gt;「物語　エルサレムの歴史」p166　笈川博一　中央公論新社　2010年7月25日発行&lt;/ref&gt;、[[イスラエル]]建国とともに公用語に指定して完全に再生させたものである。このほかにも、[[古典アラビア語]]、[[ラテン語]]、[[古典ギリシャ語]]のように、日常語としては消滅しているものの文章語としては存続している言語も存在する。このほか、日常ではもはや用いられず、[[教典]]や[[宗教]]行為のみに用いられるようになった[[典礼言語]]も存在する。
+
+近年、話者数が非常に少ない言語が他言語に飲み込まれて消滅し、新たに死語と化すことが問題視されるようになり、消滅の危機にある言語を[[危機言語]]と呼ぶようになった。これは、[[世界の一体化]]が進み、交通網の整備や流通の迅速化、[[ラジオ]]・[[テレビ]]といった[[マスメディア]]の発達によってそれまで孤立を保っていた小さな言語がそのコミュニティを維持できなくなるために起こると考えられている&lt;ref name=&quot;#1&quot;&gt;「消滅する言語」p108-111　デイヴィッド・クリスタル著　斎藤兆史・三谷裕美訳　中公新書　2004年11月25日発行&lt;/ref&gt;。より大きな視点では[[英語]]の国際語としての勢力伸張による他主要言語の勢力縮小、いわゆる[[英語帝国主義]]もこれに含まれるといえるが、すくなくとも21世紀初頭においては英語を母語とする民族が多数派を占める国家を除いては英語のグローバル化が言語の危機に直結しているわけではない。[[言語消滅]]は、隣接したより大きな言語集団との交流が不可欠となり、その言語圏に小言語集団が取り込まれることによって起きる&lt;ref name=&quot;#1&quot;/&gt;。こうした動きは人的交流や文化的交流が盛んな[[先進国]]内においてより顕著であり、[[北アメリカ]]や[[オーストラリア]]などで言語消滅が急速に進み、経済成長と言語消滅との間には有意な相関があるとの研究も存在する&lt;ref&gt;http://www.afpbb.com/articles/-/3024935　「経済成長で少数言語が失われる、研究」AFPBB　2014年09月03日　2017年2月6日閲覧&lt;/ref&gt;。その他の地域においても言語消滅が進んでおり、[[2010年]]にはインド領の[[アンダマン諸島]]において言語が一つ消滅し&lt;ref&gt;http://www.afpbb.com/articles/-/2691446?pid=5282181　「最後の話者が死亡、消滅危機言語が絶滅 インド・アンダマン諸島のボ語」AFPBB　2010年02月06日　2017年2月6日閲覧&lt;/ref&gt;、他にも同地域において消滅の危機にある言語が存在するとの警告が発せられた&lt;ref&gt;http://www.afpbb.com/articles/-/2783379　「ジャラワ族も存亡の危機、インド・アンダマン諸島」AFPBB　2011年01月26日　2017年2月6日閲覧&lt;/ref&gt;。
+: 世界に存在する自然言語の一覧は[[言語の一覧]]を参照
+
+== 歴史 ==
+=== 起源 ===
+{{main|言語の起源}}
+言語がいつどのように生まれたのか分かっておらず、複数の[[仮説]]が存在する。例えば[[デンマーク]]の言語学者[[オットー・イェスペルセン]]は、以下のような仮説を列挙している。
+
+; プープー説(&quot;Pooh-pooh&quot; theory)
+: 思わず出た声から感情に関する語が出来たもの。
+: 爆笑から&quot;laugh&quot;「わらう」「ショウ（笑）」、嫌う声から&quot;hate&quot;「きらい」「ケン（嫌）」など。
+: 
+; ワンワン説(&quot;Bow Bow&quot; theory)
+: 鳴き声から動物に関する語が出来たもの。
+: 「モウ～」から&quot;cow&quot;「うし」「ギュウ（牛）」、「ワオ～ン」から&quot;wolf&quot;「おおかみ」「ロウ （狼）」など。
+:
+; ドンドン説(&quot;Ding-dong&quot; theory)
+: 音響から自然物に関する語が出来たもの。
+: 「ピカッ！ゴロゴロ」から&quot;thunder&quot;「かみなり」「ライ（雷）」、「ザーッ…」から&quot;water&quot;「みず」「スイ（水）」など。
+:
+; エイヤコーラ説(&quot;Yo-he-ho&quot; theory)
+: かけ声から行動に関する語が出来たもの。
+: 停止を促す声から&quot;stop&quot;「とまる」「テイ（停）」、働く時の声から&quot;work&quot;「はたらく」「ロウ（労）」など。
+: この説は、集団行動をとる時の意味の無いはやし歌が、世界各地に残っている事からも裏付けられる。
+
+なお、言語が生まれたのが地球上の一ヶ所なのか、複数ヶ所なのかも分かっていない。
+
+[[生物学]]的な観点から言語の起源を探ろうという試みもある。最近の[[分子生物学]]的研究によれば、[[FOXP2]]と名づけられている[[遺伝子]]に生じたある種の変異が言語能力の獲得につながった可能性がある&lt;ref&gt;[http://www.ncbi.nlm.nih.gov/pubmed/11586359?dopt=Abstract Nature. 413(6855):519-23.]&lt;/ref&gt;。さらにその変異は[[人類の進化#ホモ・サピエンス|現生人類]]と[[ネアンデルタール人]]が分化する以前の30-40万年前にはすでに生じていたとの解析結果が発表されており&lt;ref&gt;[http://www.sciencedirect.com/science?_ob=ArticleURL&amp;_udi=B6VRT-4PXN9TN-5&amp;_user=10&amp;_rdoc=1&amp;_fmt=&amp;_orig=search&amp;_sort=d&amp;view=c&amp;_acct=C000050221&amp;_version=1&amp;_urlVersion=0&amp;_userid=10&amp;md5=0483b7dff86f2405ff5f39185950aa9e Current Biology 17:1908–1912]&lt;/ref&gt;、現生人類が登場とともに既に言語を身につけていた可能性も考えられる。しかしFOXP2は言語能力を有しない他の動物の多くが持っていること、FOXP2の変異が言語能力の獲得の必要条件であるとの直接的な証明はまだなされていないことなどに留意する必要がある。
+
+=== 変化 ===
+{{Main|言語変化}}
+生物の場合には、進化が止まった生物が現在も生き残っている「[[生きている化石]]」と呼ばれるものがある。また、一見似ている2種類が全然別の種類から進化していたというケースもある。言語にも同じような現象が起きており、その変化の速度は一定ではなく、侵略・交易・移動等他民族との接触が多ければ、その時言語も大きく変化する。代表例として[[英語]]、[[フランス語]]、[[ルーマニア語]]、[[アルバニア語]]、[[アルメニア語]]等がある。逆に接触が少ないとほとんど変化しなくなる。代表例として[[ドイツ語]]、[[アイスランド語]]、[[ギリシャ語]]、[[スラヴ語派]]、[[バルト語派]]、[[サンスクリット語]]等があり、特にアイスランド語は基本文法が1000年前とほとんど変っていない。
+
+言語はもともといくつかの[[祖語]]から分化したと考えられており、同一の祖語から発生したグループを[[語族]]と呼ぶ。語族はさらに[[語派]]、語群、そして言語と細分化されていく。世界の大多数の言語はなんらかの語族に属するが、なかには現存する他の言語と系統関係が立証されておらず、語族に分類できない[[孤立した言語]]も存在する。また、地理・文化的に近接する異なった系統の言語が相互に影響しあい顕著に類似する事例も見られ、これは[[言語連合]]と呼ばれる。
+
+同一語族に属する言語群の場合、共通[[語彙]]から言語の分化した年代を割り出す方法も考案されている。
+
+一つの言語の言語史を作る場合、単語・綴り・発音・文法等から古代・中世・近代と3分割し、例えば「中世フランス語」等と呼ぶ。
+
+ある言語と他の言語が接触した場合、両言語の話者の交流が深まるにつれて様々な変化が発生する。これを[[言語接触]]という。言語接触によって、両言語には相手の言語から語彙を借用した[[借用語]]が発生するほか、交流が深まるにつれて商業や生活上の必要から[[混成言語]]が発生することがある。この混成言語は、初期には[[ピジン言語]]と呼ばれる非常に簡略化された形をとるが、やがて語彙が増え言語として成長してくると、『[[クレオール言語]]という「新しい言語」となった』と見なす&lt;ref&gt;「フランス語学概論」p40-41　髭郁彦・川島浩一郎・渡邊淳也著　駿河台出版社　2010年4月1日初版発行&lt;/ref&gt;。クレオール言語はピジン言語と比べ語彙も多く、何よりきちんと体系だった[[文法]]が存在しており、「一個の独立した言語」と見なして全く差し支えない。クレオール言語はピジン言語と違い、[[母語]]話者が存在する、つまり幼いころから主にその言語を話して育った人々がいる、ということも特徴である&lt;ref name=&quot;#2&quot;&gt;「文化人類学キーワード」p97　山下晋司・船曳建夫編　有斐閣　1997年9月30日初版第1刷&lt;/ref&gt;。
+
+中世の世界においてはしばしば、[[文語]]と日常使用する言語との間には隔たりがみられ、なかには[[中世ヨーロッパ]]における[[ラテン語]]のようにその土地の言葉と全く異なる言語を文章語として採用している世界も存在した。ラテン語は欧州において知識人の間の[[共通語]]として用いられ、ルネサンスなどで大きな役割を果たしたが、やがて[[印刷]]術の発展や[[宗教改革]]などによって各国において使用される日常言語が文語として用いられるようになった。この際、それまで方言の連続体しか持たなかった各国において、その言語を筆記する標準的な表記法が定まっていき&lt;ref&gt;塩川伸明 『民族とネイション - ナショナリズムという難問』p40 岩波新書、2008年　ISBN 9784004311560&lt;/ref&gt;、各国において国内共通語としての[[標準語]]が制定されるようになった。これは出版物などによって徐々に定まっていくものもあれば、中央に公的な言語統制機関を置いて国家主導で標準語を制定するものもあったが、いずれにせよこうした言語の整備と国内共通語の成立は、[[国民国家]]を成立させるうえでの重要なピースとなっていった。一方で、標準語の制定は方言連続体のその他の言語を方言とすることになり、言語内での序列をつけることにつながった&lt;ref name=&quot;#2&quot;/&gt;。
+
+最も新しい言語であり、また誕生する瞬間がとらえられた言語としては、[[ニカラグア]]の子供達の間で[[1970年代]]後半に発生した「[[ニカラグア手話]]」がある。これは、言語能力は人間に生得のものであるという考えを裏付けるものとなった。
+
+== 世界の言語 ==
+[[ファイル:Sekai-no-gengo.png|thumb|400px|世界の言語の分布図]]
+{{see also|言語の一覧|語族の一覧|語族}}
+
+現在世界に存在する言語の数は千数百とも数千とも言われる。[[1939年]]にアメリカの[[ルイス・ハーバート・グレイ]]（[[:en:Louis Herbert Gray]]）は著書 ''Foundations of Language''[https://archive.org/details/GrayFoundationsOfLanguage1939/mode/2up] において「2796言語」と唱え、[[1979年]]にドイツのマイヤーが4200から5600言語と唱えており、[[三省堂]]の[[言語学大辞典]]・世界言語編では8000超の言語を扱っている&lt;ref&gt;城生佰太郎・松崎寛　『日本語「らしさ」の言語学』　講談社　1995年　p.22&lt;/ref&gt;。
+
+しかし、正確に数えることはほぼ不可能である。これは、未発見の言語や、消滅しつつある言語があるためだけではなく、原理的な困難があるためでもある。似ているが同じではない「言語」が隣り合って存在しているとき、それは一つの言語なのか別の言語なのか区別することは難しい。これはある人間集団を「言語の話者」とするか「方言の話者」とするかの問題でもある&lt;ref&gt;「消滅する言語」p12-13　デイヴィッド・クリスタル著　斎藤兆史・三谷裕美訳　中公新書　2004年11月25日発行&lt;/ref&gt;。たとえば、旧[[ユーゴスラビア]]に属していた[[セルビア]]、[[クロアチア]]、[[ボスニア・ヘルツェゴビナ]]、[[モンテネグロ]]の4地域の言語は非常に似通ったものであり、学術的には[[方言連続体]]である[[セルビア・クロアチア語]]として扱われる。また旧ユーゴスラビアの政治上においても国家統一の観点上、これらの言語は同一言語として扱われていた。しかし1991年からの[[ユーゴスラビア紛争]]によってユーゴスラビアが崩壊すると、独立した各国は各地方の方言をそれぞれ[[独立言語]]として扱うようになり、[[セルビア語]]、[[クロアチア語]]、[[ボスニア語]]の三言語に政治的に分けられるようになった&lt;ref&gt;「人類の歴史を変えた8つのできごと1　言語・宗教・農耕・お金編」p30-31　眞淳平　岩波ジュニア新書　2012年4月20日第1刷&lt;/ref&gt;。さらに[[2006年]]にモンテネグロが[[セルビア・モンテネグロ]]から独立すると、[[モンテネグロ語]]がセルビア語からさらに分けられるようになった。こうした、明確な標準語を持たず複数の言語中心を持つ言語のことを[[複数中心地言語]]と呼び、英語などもこれに含まれる。
+
+逆に、中国においては[[北京語]]やそれを元に成立した[[普通話]]と、[[上海語]]や[[広東語]]といった遠隔地の言語とは差異が大きく会話が成立しないほどであるが、書き言葉は共通であり、またあくまでも中国語群には属していて対応関係が明確であるため、これら言語はすべて[[中国語]]内の方言として扱われている&lt;ref&gt;「中国の地域社会と標準語　南中国を中心に」p19　陳於華　三元社　2005年2月23日初版第1刷&lt;/ref&gt;。
+
+同じ言語かどうかを判定する基準として、相互理解性を提唱する考えがある。話者が相手の言うことを理解できる場合には、同一言語、理解できない場合には別言語とする。相互理解性は言語間の距離を伝える重要な情報であるが、これによって一つの言語の範囲を確定しようとすると、技術的難しさにとどまらない困難に直面する。一つは、Aの言うことをBが聞き取れても、Bの言うことをAが聞き取れないような言語差があることである。もう一つは、同系列の言語が地理的な広がりの中で徐々に変化している場合に、どこで、いくつに分割すべきなのか、あるいはまったく分割すべきでないのかを決められないことである。
+
+こうした困難に際しても、単一の基準を決めて分類していくことは、理屈の上では可能である。しかしあえて単一基準を押し通す言語学者は現実にはいない。ある集団を「言語話者」とするか「方言話者」とするかには、政治的・文化的[[アイデンティティ]]の問題が深く関係している。どのような基準を設けようと、ある地域で多くの賛成を得られる分類基準は、別の地域で強い反発を受けることになる。そうした反発は誤りだと言うための論拠を言語学はもっていないので、結局は慣習に従って、地域ごとに異なる基準を用いて分類することになる。
+
+言語と方言の区別について、現在なされる説明は二つである。第一は、言語と方言の区別にはなんら言語学的意味はないとする。第二のものはまず、どの方言もそれぞれ言語だとする。その上で、ある標準語に対して非標準語の関係にある同系言語を、方言とする。[[標準語]]の選定は政治によるから、これもまた「言語と方言の区別に言語学的意味はない」とする点で、第一と同じである。この定義では、言語を秤にかけて判定しているのではなく、人々がその言語をどう思っているかを秤にかけているのである。
+
+ある言語同士が独立の言語同士なのか、同じ言語の方言同士なのかの判定は非常に恣意的であるが、その一方で、明確に系統関係が異なる言語同士は、たとえ共通の集団で話されていても、方言同士とはみなされないという事実も有る。たとえば、中国甘粛省に住む少数民族[[ユーグ族]]は西部に住むものは[[テュルク系]]の言語を母語とし、東部に住むものはモンゴル系の言語を母語としている。両者は同じ民族だという意識があるが、その言語は方言同士ではなく、[[西部ユーグ語]]、[[東部ユーグ語]]と別々の言語として扱われる。また海南島にすむ臨高人も民族籍上は[[漢民族]]であるが、その言語は[[漢語]]の方言としては扱われず、系統どおり[[タイ・カダイ語族]]の[[臨高語]]として扱われる。
+
+使用する[[文字]]は同言語かどうかの判断基準としてはあまり用いられない。言語は基本的にどの文字でも表記可能なものであり、ある言語が使用する文字を変更することや二種以上の文字を併用することは珍しいことではなく、また[[文法]]などに文字はさほど影響を与えないためである。[[デーヴァナーガリー文字]]を用いるインドの公用語である[[ヒンディー語]]と[[ウルドゥー文字]]を用いる[[パキスタン]]の公用語である[[ウルドゥー語]]は、[[ヒンドゥスターニー語]]として同一言語または[[方言連続体]]として扱われることがある。
+
+== 話者数の統計順位 ==
+=== 母語話者統計で見た話者数 ===
+{{main|母語話者の数が多い言語の一覧}}
+下表の母語話者数および分類は、『[[エスノローグ]]第21版』に準拠する。同資料は2021年時点の推計で、中国語は13方言、アラビア語は20方言、ラフンダー語は4方言の合計である。
+{| class=&quot;wikitable&quot;
+|-
+!1位
+|[[中国語]]||13億人
+|{{Plainlist|
+*{{PRC}}
+*{{ROC}}
+*{{MYS}}
+*{{SIN}}}}
+|-
+!2位
+|[[スペイン語]]||5億7700万人
+|{{Plainlist|
+*{{ESP}}
+*{{MEX}}
+*{{ARG}}など
+ }}
+|-
+!3位
+|[[ヒンディー語]]||4億9000万人
+|{{Plainlist|
+*{{IND}}
+*{{FJI}}
+ }}
+|-
+!4位
+|[[英語]]||3億3500万人
+|{{Plainlist|
+*{{USA}}
+*{{GBR}}
+*{{AUS}}
+*{{CAN}}など
+ }}
+|-
+!5位
+|[[ポルトガル語]]||2億5000万人
+|{{Plainlist|
+*{{POR}}
+*{{BRA}}など
+ }}
+|-
+!6位
+|[[ベンガル語]]||2億4300万人
+|{{Plainlist|
+*{{BAN}}
+*{{IND}}
+ }}
+|-
+!7位
+|[[アラビア語]]||2億3500万人
+|{{Plainlist|
+*{{EGY}}
+*{{KSA}}
+*{{IRQ}}など
+ }}
+|-
+!8位
+|[[フランス語]]
+|2億3000万人
+|{{Plainlist|
+*{{FRA}}
+*{{BEL}}など
+ }}
+|-
+!9位
+|[[ロシア語]]||1億8000万人
+|{{Plainlist|
+*{{RUS}}など
+ }}
+|-
+!10位
+|[[ドイツ語]]
+|1億3000万人
+|{{Plainlist|
+*{{GER}}
+*{{AUT}}
+*{{ SUI}}など
+ }}
+|-
+!11位
+|[[日本語]]||1億2700万人
+|{{Plainlist|
+*{{JPN}}
+*{{PLW}}}}
+|-
+!12位
+|[[トルコ語]]
+|8800万人
+|{{Plainlist|
+*{{TUR}}など
+ }}
+|-
+!13位
+|[[朝鮮語]]
+|8250万人
+|{{Plainlist|
+*{{KOR}}
+*{{PRK}}
+*{{PRC}} (延辺)}}
+|-
+!14位
+|[[ジャワ語]]
+|7500万人
+|{{Plainlist|
+*{{IDN}}など
+ }}
+|-
+!15位
+|[[ラフンダー語]]||4200万人
+|{{Plainlist|
+*{{PAK}}など
+ }}
+|}
+
+=== 母語話者数と総話者数の差 ===
+上図の通り、最も母語話者の多い言語は[[中国語]]であるが、公用語としている国家は[[中華人民共和国]]と[[中華民国]]、それに[[シンガポール]]の3つの国家にすぎず、世界において広く使用されている言語というわけではない。また、共通語である[[普通話]]を含め, 13個の方言が存在する。
+
+上記の資料で話者数2位の言語は[[スペイン語]]である。これは[[ヨーロッパ大陸]]の[[スペイン]]を発祥とする言語であるが、[[17世紀]]のスペインによる[[新大陸]]の植民地化を経て、[[南アメリカ]]および[[北アメリカ]]南部における広大な言語圏を獲得した。2021年度においてスペイン語を公用語とする国々は21カ国にのぼる。さらにほぼ同系統の言語である5位の[[ポルトガル語]]圏を合わせた新大陸の領域は[[ラテンアメリカ]]と呼ばれ、広大な共通言語圏を形成している。
+
+上記の資料で[[英語]]の話者人口は4位だが、公用語としては55か国と最も多くの国で話されている。さらに、英語は[[アメリカ合衆国]]や[[イギリス]]の公用語であるため世界で広く重要視されている。世界の一体化に伴い研究やビジネスなども英語で行われる場面が増え、非英語圏どうしの住民の交渉においても共通語として英語を使用する場合があるなど、英語の世界共通語としての影響力は増大していく傾向にある。
+
+英語に次ぐ国際語としては、[[17世紀]]から[[19世紀]]まで[[西洋]]で最も有力な国際語であった&lt;ref&gt;「言語世界地図」p196　町田健　新潮新書　2008年5月20日発行&lt;/ref&gt;[[フランス語]]が挙げられる。フランス語の話者は2億3000万人とトップ5にも入らないが、フランス語を公用語とする国々はアフリカの旧フランス植民地を中心に29カ国にのぼる。
+
+話者数7位の[[アラビア語]]も広い共通言語圏を持つ言語である。アラビア語は[[クルアーン]]の言語として[[イスラム]]圏全域に使用者がおり、とくに[[北アフリカ]]から[[中東]]にかけて母語話者が多いが、公用語とする国々は23カ国にのぼっていて、ひとつの[[アラブ]]文化圏を形成している。ただしこれも文語である[[フスハー]]と口語である[[アーンミーヤ]]に分かれており、アーンミーヤはさらに多数の方言にわかれている。
+
+[[国際連合|国連]]の公用語は、英語、[[フランス語]]、[[ロシア語]]、中国語、[[スペイン語]]、[[アラビア語]]の6つであるが、これは[[安全保障理事会]]の常任理事国の言語に、広大な共通言語圏を持つスペイン語とアラビア語を加えたものである&lt;ref&gt;「言語世界地図」p209-210　町田健　新潮新書　2008年5月20日発行&lt;/ref&gt;。
+
+=== 言語と国家 ===
+言語は[[国家]]を成立させるうえでの重要な要素であり、[[カナダ]]における英語とフランス語や、[[ベルギー]]における[[オランダ語]]とフランス語のように、異なる言語間の対立がしばしば[[言語戦争]]と呼ばれるほどに激化して独立問題に発展し、国家に大きな影響を及ぼすことも珍しくない。[[東パキスタン]]のように、[[西パキスタン]]の言語であるウルドゥー語の公用語化に反発して[[ベンガル語]]を同格の国語とすることを求めたことから独立運動が起き、最終的に[[バングラデシュ]]として独立したような例もある&lt;ref&gt;大橋正明、村山真弓編著、2003年8月8日初版第1刷、『バングラデシュを知るための60章』p58、明石書店 &lt;/ref&gt;。
+
+こうした場合、言語圏別に大きな自治権を与えたり、国家の公用語を複数制定したりすることなどによって少数派言語話者の不満をなだめる政策はよく用いられる。言語圏に強い自治権を与える典型例はベルギーで、同国では[[1970年]]に言語共同体が設立され、数度の変更を経て[[フラマン語共同体]]、[[フランス語共同体]]、[[ドイツ語共同体]]の3つの言語共同体の併存する連邦国家となった&lt;ref&gt;「物語　ベルギーの歴史」p179　松尾秀哉　中公新書　2014年8月25日&lt;/ref&gt;。公用語を複数制定する例では[[スイス]]が典型的であり、それまで[[ドイツ語]]のみであった公用語が[[1848年]]の憲法によってドイツ語・フランス語・[[イタリア語]]の三公用語制となり&lt;ref&gt;「図説スイスの歴史」p86　踊共二　河出書房新社　2011年8月30日初版発行&lt;/ref&gt;&lt;ref name=&quot;#3&quot;&gt;森田安一『物語　スイスの歴史』中公新書　p198　2000年7月25日発行&lt;/ref&gt;、さらに[[1938年]]には[[ロマンシュ語]]が[[国語]]とされた&lt;ref&gt;「図説スイスの歴史」p111　踊共二　河出書房新社　2011年8月30日初版発行&lt;/ref&gt;&lt;ref name=&quot;#3&quot;/&gt;。この傾向が特に強いのは[[インド]]であり、[[1956年]]以降それまでの地理的な区分から同系統の言語を用いる地域へと州を再編する、いわゆる「言語州」政策を取っている&lt;ref&gt;塩川伸明 『民族とネイション - ナショナリズムという難問』p123 岩波新書、2008年　ISBN 9784004311560&lt;/ref&gt;。
+
+=== 公用語、共通語、民族語 ===
+{{seealso|公用語の一覧}}
+国家における言語の構造は、[[公用語]]-[[共通語]]-民族語（部族語、[[方言]]）の三層の構造からなっている。もっとも、公用語と共通語、また三層すべてが同じ言語である場合はその分だけ層の数は減少する。
+
+[[日本]]を例にとれば、各地方ではその地方の方言を使っている。つまり、同じ地方のコミュニティ内で通用する言語を使用している。これが他地方から来た人を相手にする場合となると、いわゆる[[標準語]]を使用することとなる。日本では他に有力な言語集団が存在しないため、政府関係の文書にも日本標準語がそのまま使用される。つまり、共通語と公用語が同一であるため、公用語-方言の二層構造となっている。
+
+公用語と共通語は分離していない国家も多いが、[[アフリカ大陸]]の諸国家においてはこの三層構造が明確にあらわれている。これらの国においては、政府関係の公用語は旧[[宗主国]]の言語が使用されている。学校[[教育]]もこの言語で行われるが、民族語とかけ離れた存在であることもあり国民の中で使用できる層はさほど多くない。この穴を埋めるために、各地域においては共通語が話されている。[[首都]]がある地域の共通語が強大化し、国の大部分を覆うようになることも珍しくない。しかし文法の整備などの遅れや、国内他言語話者の反対、公用語の使用能力がエリート層の権力の源泉となっているなどの事情によって、共通語が公用語化はされないことがほとんどである。その下に各民族の民族語が存在する&lt;ref&gt;「アフリカのことばと社会　多言語状況を生きるということ」pp18-21　梶茂樹・砂野幸稔編著　三元社　2009年4月30日初版第1刷&lt;/ref&gt;。
+
+== 言語の生物学 ==
+詳細は[[心理言語学]]及び、[[神経言語学]]を参照
+
+言語機能は基本的にヒトに固有のものであるため、言語の研究には少数の例外を除き動物モデルを作りにくい。そのため、脳梗塞などで脳の局所が破壊された症例での研究や、被験者に2つの単語を呈示しその干渉効果を研究するなどの'''心理学的研究'''が主になされてきたが、1980年代後半より'''[[脳機能イメージング]]研究'''が手法に加わり、被験者がさまざまな言語課題を行っているときの脳活動を視覚化できるようになった。
+
+=== 言語に関する脳の領域 ===
+古典的な[[ブローカ野|ブローカ領域]]、[[ウェルニッケ野|ウェルニッケ領域]]のほか、[[外側溝|シルヴィウス裂]]を囲む広い範囲（[[縁上回]]、[[角回]]、[[一次聴覚野|一次・二次聴覚野]]、[[一次運動野]]、[[体性感覚野]]、左[[前頭前野]]、左[[下側頭回]]）にわたっている。脳梗塞などで各部が損傷されると、それぞれ違ったタイプの[[失語]]が出現する。例えば左前頭前野付近の損傷で生じるブローカ失語は運動失語であり、自発語は非[[流暢性]]となり復唱、書字も障害される。左[[側頭葉]]付近の障害で生じるウェルニッケ失語は感覚失語であり自発語は流暢であるが、言語理解や復唱が障害され、文字による言語理解も不良である。
+
+ほとんどの右利きの人では、単語、文法、語彙などの主要な言語機能は'''左半球優位'''である。しかし声の抑揚（プロソディ）の把握、比喩の理解については'''右半球優位'''であると言われている。
+
+'''文字の認識'''には左[[紡錘状回]]、中・[[下後頭回]]が関与するが、漢字（表意文字）とひらがな（表音文字）で活動する部位が異なると言われている。
+

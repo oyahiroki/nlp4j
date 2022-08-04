@@ -1,0 +1,1000 @@
+<mediawiki xmlns="http://www.mediawiki.org/xml/export-0.10/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mediawiki.org/xml/export-0.10/ http://www.mediawiki.org/xml/export-0.10.xsd" version="0.10" xml:lang="ja">
+  <siteinfo>
+    <sitename>Wiktionary</sitename>
+    <dbname>jawiktionary</dbname>
+    <base>https://ja.wiktionary.org/wiki/Wiktionary:%E3%83%A1%E3%82%A4%E3%83%B3%E3%83%9A%E3%83%BC%E3%82%B8</base>
+    <generator>MediaWiki 1.39.0-wmf.9</generator>
+    <case>case-sensitive</case>
+    <namespaces>
+      <namespace key="-2" case="case-sensitive">メディア</namespace>
+      <namespace key="-1" case="first-letter">特別</namespace>
+      <namespace key="0" case="case-sensitive" />
+      <namespace key="1" case="case-sensitive">トーク</namespace>
+      <namespace key="2" case="first-letter">利用者</namespace>
+      <namespace key="3" case="first-letter">利用者・トーク</namespace>
+      <namespace key="4" case="case-sensitive">Wiktionary</namespace>
+      <namespace key="5" case="case-sensitive">Wiktionary・トーク</namespace>
+      <namespace key="6" case="case-sensitive">ファイル</namespace>
+      <namespace key="7" case="case-sensitive">ファイル・トーク</namespace>
+      <namespace key="8" case="first-letter">MediaWiki</namespace>
+      <namespace key="9" case="first-letter">MediaWiki・トーク</namespace>
+      <namespace key="10" case="case-sensitive">テンプレート</namespace>
+      <namespace key="11" case="case-sensitive">テンプレート・トーク</namespace>
+      <namespace key="12" case="case-sensitive">ヘルプ</namespace>
+      <namespace key="13" case="case-sensitive">ヘルプ・トーク</namespace>
+      <namespace key="14" case="case-sensitive">カテゴリ</namespace>
+      <namespace key="15" case="case-sensitive">カテゴリ・トーク</namespace>
+      <namespace key="100" case="case-sensitive">付録</namespace>
+      <namespace key="101" case="case-sensitive">付録・トーク</namespace>
+      <namespace key="828" case="case-sensitive">モジュール</namespace>
+      <namespace key="829" case="case-sensitive">モジュール・トーク</namespace>
+      <namespace key="2300" case="case-sensitive">Gadget</namespace>
+      <namespace key="2301" case="case-sensitive">Gadget talk</namespace>
+      <namespace key="2302" case="case-sensitive">Gadget definition</namespace>
+      <namespace key="2303" case="case-sensitive">Gadget definition talk</namespace>
+    </namespaces>
+  </siteinfo>
+  <page>
+    <title>MediaWiki:Mainpagetext</title>
+    <ns>8</ns>
+    <id>7</id>
+    <revision>
+      <id>22958</id>
+      <parentid>11063</parentid>
+      <timestamp>2005-07-26T21:55:11Z</timestamp>
+      <contributor>
+        <username>Kahusi</username>
+        <id>43</id>
+      </contributor>
+      <minor />
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text bytes="70" xml:space="preserve">Wikiソフトウェアが正常にインストールされました。</text>
+      <sha1>0c88b606khy8pbdrgjab52e3f7m7noo</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>MediaWiki:Aboutpage</title>
+    <ns>8</ns>
+    <id>10</id>
+    <revision>
+      <id>1360270</id>
+      <parentid>11066</parentid>
+      <timestamp>2021-03-01T11:49:03Z</timestamp>
+      <contributor>
+        <username>Whym</username>
+        <id>2974</id>
+      </contributor>
+      <minor />
+      <comment>転送解除</comment>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text bytes="50" xml:space="preserve">Wiktionary:ウィクショナリーへようこそ</text>
+      <sha1>n9ut7vdydg0zo1oh86zq0si1ghylgqu</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>MediaWiki:Faqpage</title>
+    <ns>8</ns>
+    <id>19</id>
+    <revision>
+      <id>11075</id>
+      <parentid>1978</parentid>
+      <timestamp>2004-07-14T10:14:57Z</timestamp>
+      <contributor>
+        <username>Tomos</username>
+        <id>2</id>
+      </contributor>
+      <comment>wikipedia-&gt;wiktionary</comment>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text bytes="14" xml:space="preserve">Wiktionary:FAQ</text>
+      <sha1>38xhrnh2kgdh57i67c9737a7ult459g</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>MediaWiki:Edithelppage</title>
+    <ns>8</ns>
+    <id>21</id>
+    <revision>
+      <id>141018</id>
+      <parentid>11077</parentid>
+      <timestamp>2007-11-28T07:29:01Z</timestamp>
+      <contributor>
+        <username>LERK</username>
+        <id>98</id>
+      </contributor>
+      <minor />
+      <comment>[Wiktionary:編集の仕方]リダイレクト回避（[[Wiktionary:管理者伝言板]]での依頼に基づく）</comment>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text bytes="20" xml:space="preserve">Help:編集の仕方</text>
+      <sha1>97xud2jc598ef8ax3xbdgwx57ly07rl</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>MediaWiki:Wikipediapage</title>
+    <ns>8</ns>
+    <id>52</id>
+    <revision>
+      <id>11108</id>
+      <timestamp>2004-01-31T13:37:10Z</timestamp>
+      <contributor>
+        <username>Michey.M</username>
+        <id>7</id>
+      </contributor>
+      <minor />
+      <comment>訳してみる</comment>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text bytes="28" xml:space="preserve">Wiktionaryページを表示</text>
+      <sha1>rbaeq5sin8acts62ktijvhrjq5bssyy</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>MediaWiki:Sitetitle</title>
+    <ns>8</ns>
+    <id>69</id>
+    <revision>
+      <id>241168</id>
+      <parentid>11125</parentid>
+      <timestamp>2009-05-21T09:15:58Z</timestamp>
+      <contributor>
+        <username>LERK</username>
+        <id>98</id>
+      </contributor>
+      <minor />
+      <comment>日本語化</comment>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text bytes="36" xml:space="preserve">ウィクショナリー日本語版</text>
+      <sha1>3orbfeefalew4y0uxz2z1mhkvserofu</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>MediaWiki:Sitesubtitle</title>
+    <ns>8</ns>
+    <id>70</id>
+    <revision>
+      <id>11126</id>
+      <parentid>1985</parentid>
+      <timestamp>2004-07-14T10:25:57Z</timestamp>
+      <contributor>
+        <username>Tomos</username>
+        <id>2</id>
+      </contributor>
+      <comment>百科事典－＞多機能辞典</comment>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text bytes="24" xml:space="preserve">フリー多機能辞典</text>
+      <sha1>r5cqzpkpoltnakw8lrrr4jr4tb6ng1s</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>MediaWiki:Protectedpagetext</title>
+    <ns>8</ns>
+    <id>110</id>
+    <revision>
+      <id>546235</id>
+      <parentid>35549</parentid>
+      <timestamp>2012-09-21T22:42:53Z</timestamp>
+      <contributor>
+        <username>Whym</username>
+        <id>2974</id>
+      </contributor>
+      <minor />
+      <comment>Whym がページ「[[MediaWiki:Protectedtext]]」を「[[MediaWiki:Protectedpagetext]]」に、リダイレクトを残さずに移動しました：改名されたと思われるメッセージ</comment>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text bytes="353" xml:space="preserve">このページは編集できないように保護されています。これにはいくつか理由があります。詳しくは&lt;!--[[{{ns:Project}}:保護されたページ]]または--&gt;[{{fullurl:特別:Log|type=protect&amp;page={{FULLPAGENAMEE}}}} このページの保護記録]をご覧ください。
+
+以下にソースを表示しています。</text>
+      <sha1>3q83guwnmar66haidzp875k4nozkd3x</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>MediaWiki:Summary</title>
+    <ns>8</ns>
+    <id>148</id>
+    <revision>
+      <id>248135</id>
+      <parentid>11204</parentid>
+      <timestamp>2009-06-15T14:04:37Z</timestamp>
+      <contributor>
+        <username>Ninomy</username>
+        <id>130</id>
+      </contributor>
+      <comment>update</comment>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text bytes="243" xml:space="preserve">'''[[Wiktionary:著作権|著作権]]のある作品を許諾なしに投稿するのは違法です。&lt;br&gt;他のウェブサイトや書籍にある文書の転載、歌詞などの投稿はおやめください。'''&lt;br&gt;編集内容の要約</text>
+      <sha1>qb8wlgtka0vyey213xwbm3g3qnpy4b9</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>MediaWiki:Watchthis</title>
+    <ns>8</ns>
+    <id>151</id>
+    <revision>
+      <id>11207</id>
+      <timestamp>2004-01-28T18:47:49Z</timestamp>
+      <contributor>
+        <username>Suisui</username>
+        <id>26</id>
+      </contributor>
+      <comment>訳</comment>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text bytes="30" xml:space="preserve">ウォッチリストに追加</text>
+      <sha1>ktyaa3ni2xoi7umfe3a231cjvxrlmnw</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>MediaWiki:Savearticle</title>
+    <ns>8</ns>
+    <id>152</id>
+    <revision>
+      <id>48514</id>
+      <parentid>11208</parentid>
+      <timestamp>2006-04-17T12:50:26Z</timestamp>
+      <contributor>
+        <username>Ninomy</username>
+        <id>130</id>
+      </contributor>
+      <minor />
+      <comment>「以上」</comment>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text bytes="66" xml:space="preserve">以上の記述を完全に理解し同意した上で投稿する</text>
+      <sha1>e8y8ube6a06nnioqqoib25s8042dibq</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>MediaWiki:Blockedtext</title>
+    <ns>8</ns>
+    <id>156</id>
+    <revision>
+      <id>198779</id>
+      <parentid>162629</parentid>
+      <timestamp>2009-01-05T02:06:58Z</timestamp>
+      <contributor>
+        <username>Lemonsquash</username>
+        <id>1469</id>
+      </contributor>
+      <minor />
+      <comment>「オプション」→「個人設定」変更に伴う修正。</comment>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text bytes="1574" xml:space="preserve">ご使用のユーザー名またはIPアドレスは $1 によって投稿をブロックされています。その理由は次の通りです。
+
+$2
+
+また、ブロックの詳細は以下の通りです。
+*ブロック開始時期: $8
+*ブロック解除予定: $6
+*ブロック対象: $7
+
+より詳しい情報については[[Wiktionary:投稿ブロック依頼]]や自分ユーザー名の利用者-会話ページなどに記載されていることがありますので確認してください。
+
+$1 または他の[[Wiktionary:管理者|管理者]]にこの件についてメールで問い合わせることができます。ただし、[[特別:Preferences|個人設定]]に正しい電子メールアドレスが登録されていない場合、「このユーザーにメールを送信」機能が使えないことに注意してください。あなたのIPアドレスは「$3」です。問い合わせを行う際には、このIPアドレスを必ず書いてください。
+
+== 問題のある行動をしていないのにブロックされている場合 ==
+迷惑をおかけして申し訳ありません。ひどい荒らしが行われた場合、広範囲にわたってウィクショナリーの投稿をブロックされていることがあります。この場合には多数の無関係なユーザーが投稿出来なくなります。
+
+また、個々の動的IPアドレスがブロックされた場合、通常24時間で解除されます。恐縮ですが、それまで、お待ちいただくようお願いいたします。</text>
+      <sha1>n53b3kfzsw32y78ume4dqzibgtmhpze</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>MediaWiki:Whitelistacctitle</title>
+    <ns>8</ns>
+    <id>161</id>
+    <revision>
+      <id>23010</id>
+      <parentid>11217</parentid>
+      <timestamp>2005-07-26T22:27:24Z</timestamp>
+      <contributor>
+        <username>Kahusi</username>
+        <id>43</id>
+      </contributor>
+      <minor />
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text bytes="54" xml:space="preserve">アカウントの作成は許可されていません</text>
+      <sha1>728qvgdfxr3b9ayoe4wb70gfvdh08dl</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>MediaWiki:Whitelistacctext</title>
+    <ns>8</ns>
+    <id>162</id>
+    <revision>
+      <id>22159</id>
+      <parentid>11218</parentid>
+      <timestamp>2005-07-16T02:48:01Z</timestamp>
+      <contributor>
+        <username>Brevam</username>
+        <id>161</id>
+      </contributor>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text bytes="121" xml:space="preserve">ウォッチリストを変更するためには、[[Special:Userlogin|ログイン]]している必要があります。</text>
+      <sha1>p9osrovux28iu33zqqpx0jhavlnc5zs</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>MediaWiki:Newarticletext</title>
+    <ns>8</ns>
+    <id>166</id>
+    <revision>
+      <id>22975</id>
+      <parentid>11222</parentid>
+      <timestamp>2005-07-26T22:05:51Z</timestamp>
+      <contributor>
+        <username>Kahusi</username>
+        <id>43</id>
+      </contributor>
+      <minor />
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text bytes="2230" xml:space="preserve">&lt;div style=&quot;border:gray solid 1px;padding:0.5em;margin-bottom:1em&quot;&gt;'''ウィクショナリーには現在この名前の項目はありません。'''
+* 項目を新しく書くには、まず下のテキストボックスに内容を書き込んでください。その際、'''著作権に注意'''してください。その後、ページ下部の'''■投稿する前に以下を確認して下さい■'''以下の注意事項をよく確認した上で“{{int:Savearticle}}”ボタンを押してください。そうすればすぐに見えるようになります。
+&lt;!--* もしあなたがウィクショナリーに初めて投稿するならば、先に[[{{ns:Project}}:ガイドブック|ガイドブック]]を読んでください。--&gt;
+* あなた自身やあなたのウェブサイト、製品、また仕事を宣伝する項目を作らないで下さい。
+* '''投稿のテストをしたい場合、[[{{ns:Project}}:サンドボックス|サンドボックス]]を利用してください。'''一度作成した項目はあなたが削除することはできません。
+* 他の項目から[[特別:Search/{{PAGENAME}}|{{PAGENAME}}を検索する]]
+* 姉妹プロジェクトの[[ウィキペディア]]に項目 [[w:{{PAGENAME}}|{{PAGENAME}}]] が存在するかもしれません。
+----
+* '''もしこの項目を作成したばかりなのにこのメッセージがでる場合、データベースの更新が遅れているために表示できないのかもしれません。'''項目を書き直す前にしばらく待ってから、再読込してみてください。
+* 項目名（{{PAGENAME}}）に全角英数字・半角カナ・ローマ数字・丸付数字が含まれている場合は、それらを半角英数字・全角カナ・半角英字による代替表記・半角数字に置き換えた名前で項目が存在するかもしれません。
+* 以前この項目を作成したことがあるならば、この項目は[{{SERVER}}{{LOCALURL:特別:Log|type=delete&amp;page={{NAMESPACE}}:{{PAGENAMEE}}}} 既に削除されています]。[[Project:即時削除の方針|即時削除の方針]]に削除された理由が記載されているかもしれません。
+&lt;/div&gt;</text>
+      <sha1>2s6rs00xxshobwya6ts0sicvxd8gdf9</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>MediaWiki:Anontalkpagetext</title>
+    <ns>8</ns>
+    <id>167</id>
+    <revision>
+      <id>404759</id>
+      <parentid>270111</parentid>
+      <timestamp>2010-12-01T10:29:54Z</timestamp>
+      <contributor>
+        <username>LERK</username>
+        <id>98</id>
+      </contributor>
+      <minor />
+      <comment>IPアドレス情報へのリンク変更</comment>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text bytes="2101" xml:space="preserve">----
+&lt;div style=&quot;background-color: #ffffe6; border: 1px solid #fc6; &quot;&gt;
+これはログインしていない匿名ユーザーのための会話ページです。ログインしていない場合、ユーザーの識別は利用者名の代わりに[[w:IPアドレス|IPアドレス]]を用いています。IPアドレスは、何人かで共有されることがあったり変動したりするため、他のログインしていない利用者に充てられたコメントが寄せられたり、無関係のログインしていない利用者に先に読まれたりすることがあります。この場合、[[特別:Userlogin|アカウントを作成するかログインすること]]で他利用者との区別が可能になります。他のログインしていない利用者と混同されたり間違えられたりする可能性は低くなりますので、[[特別:Userlogin|アカウント作成およびログイン]]を強くお勧めします。
+&lt;/div&gt;
+&lt;span style=&quot;font-size:smaller;&quot;&gt;&lt;nowiki&gt;[&lt;/nowiki&gt;&lt;span class=&quot;plainlinks&quot;&gt;[http://whatismyipaddress.com/ip/{{PAGENAMEE}} IPアドレス情報]&lt;nowiki&gt;]&lt;/nowiki&gt;&amp;middot; &lt;nowiki&gt;[&lt;/nowiki&gt;地域レジストリ: &lt;span class=&quot;plainlinks&quot;&gt;[http://www.apnic.net/apnic-bin/whois.pl?searchtext={{PAGENAME}} アジア・太平洋] &amp;middot; [http://ws.arin.net/whois/?queryinput={{PAGENAME}} アメリカ大陸] &amp;middot; [http://www.ripe.net/fcgi-bin/whois?searchtext={{PAGENAME}} ヨーロッパ] &amp;middot; [http://www.afrinic.net/cgi-bin/whois?query={{PAGENAME}} アフリカ大陸] &amp;middot;  [http://www.lacnic.net/cgi-bin/lacnic/whois?lg=EN&amp;query={{PAGENAME}} ラテンアメリカ・カリブ海地域]&lt;/span&gt;] &amp;middot; [ [[w:Special:Contributions/{{PAGENAME}}|jawp]] / [[b:Special:Contributions/{{PAGENAME}}|jawb]] / [[n:Special:Contributions/{{PAGENAME}}|jawn]] / [[q:Special:Contributions/{{PAGENAME}}|jawq]] / [[s:Special:Contributions/{{PAGENAME}}|jaws]] / [[v:Special:Contributions/{{PAGENAME}}|jawv]] / [[meta:Special:Contributions/{{PAGENAME}}|meta]] / [[commons:Special:Contributions/{{PAGENAME}}|commons]] ]&lt;/span&gt;</text>
+      <sha1>b5fik0di95hzu9asck7vpab6hgmd8os</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>MediaWiki:Noarticletext</title>
+    <ns>8</ns>
+    <id>168</id>
+    <revision>
+      <id>1443210</id>
+      <parentid>709873</parentid>
+      <timestamp>2021-08-06T10:38:26Z</timestamp>
+      <contributor>
+        <username>Sakretsu</username>
+        <id>39629</id>
+      </contributor>
+      <minor />
+      <comment>[[phab:T287962]]のために</comment>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text bytes="1679" xml:space="preserve">&lt;div class=&quot;floatright&quot;&gt;__NOEDITSECTION__
+&lt;h2 style=&quot;font-size:120%;font-weight:bold;border:none&quot;&gt;他言語版から探す&lt;/h2&gt;
+*[[:ar:{{PAGENAME}}|アラビア語版]]
+*[[:de:{{PAGENAME}}|ドイツ語版]]
+*[[:en:{{PAGENAME}}|英語版]]
+*[[:es:{{PAGENAME}}|スペイン語版]]
+*[[:fr:{{PAGENAME}}|フランス語版]]
+*[[:it:{{PAGENAME}}|イタリア語版]]
+*[[:ko:{{PAGENAME}}|朝鮮語版]]
+*[[:nl:{{PAGENAME}}|オランダ語版]]
+*[[:pl:{{PAGENAME}}|ポーランド語版]]
+*[[:pt:{{PAGENAME}}|ポルトガル語版]]
+*[[:ru:{{PAGENAME}}|ロシア語版]]
+*[[:simple:{{PAGENAME}}|簡単な英語版]]
+*[[:zh:{{PAGENAME}}|中国語版]]
+&lt;/div&gt;
+&lt;div class=&quot;plainlinks&quot;&gt;
+&lt;h2 style=&quot;font-size:120%;font-weight:bold;border:none&quot;&gt;ウィクショナリーには現在この名前の項目はありません&lt;/h2&gt;
+{{#ifeq:{{lcfirst:{{PAGENAME}}}}|{{ucfirst:{{PAGENAME}}}}| | * ウィクショナリーでは語頭の大文字と小文字は区別されます。次の項目が存在すれば参照して下さい: [[{{#ifeq:{{PAGENAME}}|{{ucfirst:{{PAGENAME}}}}|{{lcfirst:{{PAGENAME}}}}|{{ucfirst:{{PAGENAME}}}}}}]]}}
+* [{{fullurl:{{FULLPAGENAME}}|action=edit}} このページを編集]して項目を新しく書くこともできます。
+* ウィクショナリーの他の項目から [{{FULLURL:特別:Search/{{PAGENAME}}|fulltext=1}} &quot;{{PAGENAME}}&quot; を含む語句]や [[特別:Prefixindex/{{PAGENAME}}|&quot;{{PAGENAME}}&quot; で始まる語句]]を検索することもできます。
+* 姉妹プロジェクトの[[w:メインページ|ウィキペディア]]に記事 [[w:{{PAGENAME}}|{{PAGENAME}}]] が存在するかもしれません。
+&lt;/div&gt;
+&lt;div style=&quot;clear:both;&quot;&gt;&lt;/div&gt;</text>
+      <sha1>th4ic0x55zcdloslccalt2qdzc6lyqy</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>テンプレート:Sectionedit</title>
+    <ns>10</ns>
+    <id>174</id>
+    <revision>
+      <id>11230</id>
+      <timestamp>2003-12-14T16:46:34Z</timestamp>
+      <contributor>
+        <username>Suisui</username>
+        <id>26</id>
+      </contributor>
+      <minor />
+      <comment>訳</comment>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text bytes="12" xml:space="preserve">（部分）</text>
+      <sha1>mod5zn5z6gu9ohkazbs24dk3e9odvs0</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>テンプレート:Commentedit</title>
+    <ns>10</ns>
+    <id>175</id>
+    <revision>
+      <id>11231</id>
+      <timestamp>2003-12-14T16:46:55Z</timestamp>
+      <contributor>
+        <username>Suisui</username>
+        <id>26</id>
+      </contributor>
+      <minor />
+      <comment>訳</comment>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text bytes="19" xml:space="preserve"> （コメント）</text>
+      <sha1>byeypsqqzw07p8wswlmsse8k6y7iwhh</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>MediaWiki:Wikimedia-copyrightwarning</title>
+    <ns>8</ns>
+    <id>182</id>
+    <revision>
+      <id>566062</id>
+      <parentid>547778</parentid>
+      <timestamp>2012-12-22T07:27:56Z</timestamp>
+      <contributor>
+        <username>Whym</username>
+        <id>2974</id>
+      </contributor>
+      <comment>+&quot;you agree to the Terms of use&quot; per [[MediaWiki talk:Wikimedia-copyrightwarning|suggestion]]</comment>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text bytes="2341" xml:space="preserve">&lt;strong&gt;■投稿する前に以下を確認して下さい■&lt;/strong&gt;
+*&lt;strong&gt;著作権のある作品を許諾なしに投稿してはいけません!　特に、他のウェブサイトに掲載されている文書の転載は避けてください。&lt;/strong&gt;それらの著作権は、もし明示されていなくても、ほとんどの場合は元の文書を書いた作者に帰属します。&lt;br /&gt;あなたの投稿する文章はあなた自身によって書かれたものであるか、パブリック・ドメインかそれに類する自由なリソースからの複製であることを約束して下さい。
+*Wiktionary（ウィクショナリー）に投稿された文書は、&lt;strong&gt;すべて [[Wiktionary:Text of GNU Free Documentation License|GNU Free Documentation License (GFDL)]] および [[Wiktionary:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License|CC-BY-SA]]  によって発行し、かつ、GFDL または CC-BY-SA をウィクショナリーにおいて適用した場合の解釈については [[Wiktionary:著作権]] の通りであることを宣言したものとみなされます。&lt;/strong&gt;GFDLは、英語で書かれたものが法的な拘束力をもつ唯一の正文ですが、 http://www.opensource.jp/fdl/fdl.ja.html.euc-jp にあるGFDLの非公式な日本語訳は、正文の理解をきわめて容易にするでしょう。但し、この翻訳はウィクショナリーの運営主体や参加者によるものではなく、訳の正確さ等についてウィクショナリーは何らの保証を行うものでもありません。
+*「謝辞」「献辞」その他これに類するセクション名は、GFDL上の問題を必要以上に複雑にしますので、控えてください。
+*&lt;strong&gt;あなたは[[wmf:Terms of Use/ja|利用規約]]を遵守することに同意します。あなたの文章が他人によって自由に編集、配布されることを望まない場合は、投稿を控えて下さい。&lt;/strong&gt;また、&lt;strong&gt;あなたは、あなたの関与したページなどがウィクショナリーにおいて不適当と判断された場合（不適当と判断される理由があなたの関与によるものではない場合を含む）には削除されることに予め同意します。&lt;/strong&gt;</text>
+      <sha1>qi9roqnztv72c82mp5sqmmk2vfmb4if</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>MediaWiki:Longpagewarning</title>
+    <ns>8</ns>
+    <id>183</id>
+    <revision>
+      <id>141015</id>
+      <parentid>55026</parentid>
+      <timestamp>2007-11-28T07:16:46Z</timestamp>
+      <contributor>
+        <username>LERK</username>
+        <id>98</id>
+      </contributor>
+      <minor />
+      <comment>[[w:MediaWiki:Longpagewarning]]最新版より持ち込み</comment>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text bytes="692" xml:space="preserve">'''警告:''' 編集中のページまたは節のサイズは $1 キロバイトです。一部の古いブラウザ（[[w:Netscape Navigator|Netscape Navigator]] 4.76以前や[[w:Opera|Opera]] 6.04以前など）には 32 キロバイト以上のテキストを編集すると文章の欠ける問題が確認されています。該当のブラウザでは'''[[w:Help:セクション#セクション編集|節単位の編集]]'''を利用しましょう。詳しくは、'''[[w:Help:ページサイズ|Help:ページサイズ]]'''を参照してください。「[[w:Help:差分|差分]]を表示」ボタンをクリックすることで、問題が起こらないか確認できます。</text>
+      <sha1>a8745opj02iat8baq6yjvwetifx5bkb</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>MediaWiki:Protectedpagewarning</title>
+    <ns>8</ns>
+    <id>185</id>
+    <revision>
+      <id>162001</id>
+      <parentid>11241</parentid>
+      <timestamp>2008-03-26T09:33:09Z</timestamp>
+      <contributor>
+        <username>Kaznyan</username>
+        <id>1412</id>
+      </contributor>
+      <minor />
+      <comment>[[Wiktionary:保護の方針]]　リンク化</comment>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text bytes="179" xml:space="preserve">警告:　このページは保護されています。管理者しか編集できません。詳しくは[[Wiktionary:保護の方針|保護の方針]]を参照して下さい。</text>
+      <sha1>5a1lkd54j4vsiiap8t8pzuez1luy0g4</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>テンプレート:Searchhelppage</title>
+    <ns>10</ns>
+    <id>203</id>
+    <revision>
+      <id>11259</id>
+      <parentid>2377</parentid>
+      <timestamp>2004-08-23T10:26:54Z</timestamp>
+      <contributor>
+        <username>Nnh</username>
+        <id>8</id>
+      </contributor>
+      <minor />
+      <comment>今のうちに訳</comment>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text bytes="17" xml:space="preserve">Wiktionary:検索</text>
+      <sha1>b3u378ycoya4sdak3f8dif0wi1lz91d</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>テンプレート:Searchingwikipedia</title>
+    <ns>10</ns>
+    <id>204</id>
+    <revision>
+      <id>11260</id>
+      <timestamp>2003-12-09T09:07:10Z</timestamp>
+      <contributor>
+        <username>Tomos</username>
+        <id>2</id>
+      </contributor>
+      <comment>誤訳の訂正：「Ｗikipediaを検索中」から「検索機能の解説ページ」に</comment>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text bytes="30" xml:space="preserve">検索機能の解説ページ</text>
+      <sha1>00wypg45q245bwfpjjl06v5bt1a8x3j</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>MediaWiki:Searchresulttext</title>
+    <ns>8</ns>
+    <id>205</id>
+    <revision>
+      <id>122373</id>
+      <parentid>122372</parentid>
+      <timestamp>2007-08-08T13:58:35Z</timestamp>
+      <contributor>
+        <username>Kahusi</username>
+        <id>43</id>
+      </contributor>
+      <minor />
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text bytes="134" xml:space="preserve">ウィクショナリーの検索について詳しくは、ウィキペディアの[[w:Help:検索|Help:検索]]をご覧下さい。</text>
+      <sha1>gzmz9isrrag61mj96g3qsiqckbfawza</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>MediaWiki:Nogomatch</title>
+    <ns>8</ns>
+    <id>210</id>
+    <revision>
+      <id>11266</id>
+      <timestamp>2004-02-24T05:05:08Z</timestamp>
+      <contributor>
+        <username>Suisui</username>
+        <id>26</id>
+      </contributor>
+      <minor />
+      <comment>記事-&gt;項目</comment>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text bytes="105" xml:space="preserve">検索した名称の項目は存在しませんでした。全文検索を試してみてください。</text>
+      <sha1>dypzpv59qfm2vb7heq491bn2rzp7d7j</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>MediaWiki:Uploadfile</title>
+    <ns>8</ns>
+    <id>289</id>
+    <revision>
+      <id>11345</id>
+      <timestamp>2003-12-08T19:35:43Z</timestamp>
+      <contributor>
+        <username>Suisui</username>
+        <id>26</id>
+      </contributor>
+      <comment>原文削除</comment>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text bytes="33" xml:space="preserve">ファイルのアップロード</text>
+      <sha1>mpx4aw4ffs0su88sq7lv77fkruwd8rr</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>MediaWiki:Uploadtext</title>
+    <ns>8</ns>
+    <id>291</id>
+    <revision>
+      <id>490259</id>
+      <parentid>95032</parentid>
+      <timestamp>2012-01-13T20:20:41Z</timestamp>
+      <contributor>
+        <username>Hoo man</username>
+        <id>11761</id>
+      </contributor>
+      <minor />
+      <comment>Bot: Security fix: [[WMFblog:2011/10/03/native-https-support-enabled-for-all-wikimedia-foundation-wikis/|protocol-relative URLs]] per https://meta.wikimedia.org/?oldid=3197161 ([[m:Stewards' noticeboard|questions?]]).</comment>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text bytes="3055" xml:space="preserve">&lt;p&gt;&lt;strong&gt;■注意！■&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;ファイルをアップロードする前に、ウィクショナリーの[[{{ns:4}}:画像利用の方針|画像利用の方針]]をよく読んで、方針に反することのないようにして下さい。&lt;/li&gt;
+
+&lt;li&gt;これからアップロードしようとしているファイルが他のウィキメディア・プロジェクトにおいても使用可能であるような場合は、[[commons:|ウィキメディア・コモンズ]]への[//commons.wikimedia.org/{{#if:$1|w/index.php?title=Special:Upload&amp;wpDestFile=$1|wiki/Special:Upload}} アップロード]もご検討ください。&lt;/li&gt;
+
+&lt;li&gt;望ましいフォーマットは、写真などのイメージの場合はJPEG、手書きのものやアイコンなどはPNG、サウンドにはOGGです。&lt;/li&gt;
+
+&lt;li&gt;混乱を避けるためにファイルには説明的な名前をつけて下さい。&lt;strong&gt;アップロード後に名前変更はできません。&lt;/strong&gt;&lt;/li&gt;
+
+&lt;li&gt;記事に必要な画像を新しくアップロードする場合には、以下のフォームを利用して下さい。&lt;/li&gt;
+
+&lt;li&gt;ほとんどのブラウザでは、&quot;Browse&quot; または &quot;参照&quot; というボタンが表示されます。そのボタンを押すとファイルを選択するよう促されます。ファイルを選択し、ボタン横の空欄にファイル名が表示された状態にして下さい。また、&lt;strong&gt;そのファイルのアップロードが著作権の侵害に該当しないことをあなたが表明する必要があります。&lt;/strong&gt;そのために、チェック欄にチェックを入れて下さい。これにより著作権の問題はアップロードしたあなた自身に帰属することになります。&lt;/li&gt;
+
+&lt;li&gt;アップロードボタンを押すことで、アップロード手続きは完了します。アップロードには多少時間がかかることがあります。&lt;/li&gt;
+
+&lt;li&gt;ウィクショナリーの他のページと同じく、あなたがアップロードしたファイルも、よりよい辞書作成のために他のユーザーによって編集、削除されることがあり、アップロードした時点でこれに同意したものとみなされます。また、アップロード機能を乱用した利用者は、アップロード機能の使用を禁じられることもありますのでご承知下さい。&lt;/li&gt;
+
+&lt;li style=&quot;border:solid 2px #800;padding:.5em;background-color:#fff0f0;&quot;&gt;アップロード後、写真であれば撮影者、音楽ならば演奏者などに加えて&lt;strong&gt;ライセンスの情報を付随するページに記載してください。ライセンスが不明の場合削除されることがあります。&lt;/strong&gt;現在{{'''[[w:GNU FDL|GFDL]]'''}}か{{'''[[w:パブリックドメイン|PD]]'''}}のいずれかのみ選択できますのでどちらかを要約欄に書いてください。要約欄に書いたものは自動的に付随のページに書き込まれます。&lt;/li&gt;
+&lt;/ul&gt;</text>
+      <sha1>fgm3q0wkes77mnsynjqp42w9479eyw6</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>MediaWiki:Statistics-footer</title>
+    <ns>8</ns>
+    <id>338</id>
+    <revision>
+      <id>535537</id>
+      <parentid>535536</parentid>
+      <timestamp>2012-08-15T02:41:30Z</timestamp>
+      <contributor>
+        <username>Whym</username>
+        <id>2974</id>
+      </contributor>
+      <comment>不要になった部分を除去、外部リンク先の変更に追従</comment>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text bytes="291" xml:space="preserve">__NOTOC__
+== 関連項目 ==
+* [[Wiktionary:発表]]
+* [http://stats.wikimedia.org/wiktionary/JA/Sitemap.htm Wiktionaries 多言語統計] (Eric Zachteによる)
+== 外部リンク ==
+* [http://www.alexa.com/siteinfo/ja.wiktionary.org Alexaによるwiktionary.orgのトラフィック解析]</text>
+      <sha1>gv8c9m3jteaw8yiji3d1qipcvcx6qs0</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>テンプレート:Sysopspheading</title>
+    <ns>10</ns>
+    <id>372</id>
+    <revision>
+      <id>11428</id>
+      <timestamp>2003-12-09T19:32:02Z</timestamp>
+      <contributor>
+        <username>Suisui</username>
+        <id>26</id>
+      </contributor>
+      <minor />
+      <comment>管理者</comment>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text bytes="45" xml:space="preserve">管理者用特別ページ (pages for sysop)</text>
+      <sha1>n2glf2ad6csva567vwyw44j7tnys4zl</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>MediaWiki:Watchlistsub</title>
+    <ns>8</ns>
+    <id>401</id>
+    <revision>
+      <id>11457</id>
+      <timestamp>2003-12-08T19:41:38Z</timestamp>
+      <contributor>
+        <username>Suisui</username>
+        <id>26</id>
+      </contributor>
+      <comment>全角括弧</comment>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text bytes="26" xml:space="preserve">（ユーザー名 &quot;$1&quot;）</text>
+      <sha1>gcwr4j4zrbqzsp2g0girxarb5qk5tnt</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>MediaWiki:Confirmdeletetext</title>
+    <ns>8</ns>
+    <id>432</id>
+    <revision>
+      <id>606280</id>
+      <parentid>143971</parentid>
+      <timestamp>2013-11-17T13:54:26Z</timestamp>
+      <contributor>
+        <username>Whym</username>
+        <id>2974</id>
+      </contributor>
+      <comment>[[MediaWiki:Confirmdeletetext/ja]]より</comment>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text bytes="899" xml:space="preserve">&lt;span class=&quot;plainlinks&quot;&gt;'''[{{fullurl:{{FULLPAGENAME}}}} {{FULLPAGENAME}}]'''をその[{{fullurl:{{FULLPAGENAME}}|action=history}} 履歴]&lt;/span&gt;とともに削除しようとしています。本当にこの操作を行いたいか、操作の結果を理解しているか、およびこの操作が[[Wiktionary:削除の方針|削除の方針]]（[[Wiktionary:即時削除の方針|即時]]）に従っているかどうか、確認してください。
+
+このページへのリンクは変更されません。'''削除の前に&quot;[[Special:Whatlinkshere/{{FULLPAGENAMEE}}|リンク元]]&quot;を確認してください。ファイルについては&quot;&lt;span class=&quot;plainlinks&quot;&gt;[{{fullurl:{{FULLPAGENAME}}}}#filelinks リンク]&lt;/span&gt;&quot;を確認してすべての項目からファイルへのリンクを除去してください。
+
+* [[MediaWiki:Deletereason-dropdown|ドロップダウンの編集]]</text>
+      <sha1>jfh4ow18n3kdm9vgmx3tj1injmfp8gd</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>MediaWiki:Deletecomment</title>
+    <ns>8</ns>
+    <id>441</id>
+    <revision>
+      <id>11497</id>
+      <timestamp>2003-12-08T20:06:44Z</timestamp>
+      <contributor>
+        <username>Suisui</username>
+        <id>26</id>
+      </contributor>
+      <comment>原文削除</comment>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text bytes="15" xml:space="preserve">削除の理由</text>
+      <sha1>95949f7pvzwq0ab6u8rnce87hxksbxq</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>MediaWiki:Revertpage</title>
+    <ns>8</ns>
+    <id>449</id>
+    <revision>
+      <id>162379</id>
+      <parentid>150936</parentid>
+      <timestamp>2008-03-29T14:13:24Z</timestamp>
+      <contributor>
+        <username>Electric goat</username>
+        <id>16</id>
+      </contributor>
+      <comment>敬称不要と思います</comment>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text bytes="122" xml:space="preserve">[[特別:Contributions/$2|$2]]による編集を取り消し、$1による最新版へと差し戻しを行いました。</text>
+      <sha1>mtv6h2vmt7c9xosrz921oskmo6rhiz2</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>MediaWiki:Blockiptext</title>
+    <ns>8</ns>
+    <id>478</id>
+    <revision>
+      <id>551765</id>
+      <parentid>30983</parentid>
+      <timestamp>2012-10-18T13:05:15Z</timestamp>
+      <contributor>
+        <username>Whym</username>
+        <id>2974</id>
+      </contributor>
+      <comment>[[MediaWiki:Blockiptext/ja]]から複製・反映</comment>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text bytes="473" xml:space="preserve">以下のフォームを使用して、指定したIPアドレスまたは利用者からの書き込みアクセスをブロックできます。
+このような措置は、荒らしからの防御の目的のみに行われるべきで、また[[Project:基本方針とガイドライン|方針]]に沿ったものであるべきです。
+以下にブロックの理由を具体的に書いてください (例えば、荒らされたページ名に言及するなど)。</text>
+      <sha1>9f3sxxef8qkfde6el2skkdmjm4hd93j</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>MediaWiki:Ipblocklist</title>
+    <ns>8</ns>
+    <id>490</id>
+    <revision>
+      <id>11546</id>
+      <timestamp>2004-02-16T06:24:18Z</timestamp>
+      <contributor>
+        <username>Michey.M</username>
+        <id>7</id>
+      </contributor>
+      <minor />
+      <comment>訳</comment>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text bytes="53" xml:space="preserve">投稿ブロック中のユーザーやIPアドレス</text>
+      <sha1>nq27ejr07utshmri5qp8ng55f7u8md9</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>MediaWiki:Blocklistline</title>
+    <ns>8</ns>
+    <id>491</id>
+    <revision>
+      <id>28705</id>
+      <parentid>11547</parentid>
+      <timestamp>2005-09-21T14:21:40Z</timestamp>
+      <contributor>
+        <username>Brevam</username>
+        <id>161</id>
+      </contributor>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text bytes="37" xml:space="preserve">$1, $2 は $3 をブロック（$4）</text>
+      <sha1>cgembwtb55c62vpikp49tlmsg7qxdy0</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>MediaWiki:Blocklogentry</title>
+    <ns>8</ns>
+    <id>497</id>
+    <revision>
+      <id>162630</id>
+      <parentid>28704</parentid>
+      <timestamp>2008-03-31T07:30:00Z</timestamp>
+      <contributor>
+        <username>Kaznyan</username>
+        <id>1412</id>
+      </contributor>
+      <minor />
+      <comment>[[Wiktionary:管理者伝言板#システムメッセージ修正依頼]] による修正。</comment>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text bytes="39" xml:space="preserve">&quot;$1&quot; を $2 ブロックしました $3</text>
+      <sha1>748eh86d95x5upwn6136n63aepjuyzx</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>MediaWiki:Querybtn</title>
+    <ns>8</ns>
+    <id>517</id>
+    <revision>
+      <id>11573</id>
+      <parentid>9564</parentid>
+      <timestamp>2005-06-14T14:14:50Z</timestamp>
+      <contributor>
+        <username>Lusheeta~jawiktionary</username>
+        <id>202</id>
+      </contributor>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text bytes="15" xml:space="preserve">クエリ送信</text>
+      <sha1>9ccsd215b6aswmnbl7aco033wltbux3</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>テンプレート:stub</title>
+    <ns>10</ns>
+    <id>546</id>
+    <revision>
+      <id>1656888</id>
+      <parentid>1636323</parentid>
+      <timestamp>2022-04-02T03:26:33Z</timestamp>
+      <contributor>
+        <username>最終編集</username>
+        <id>85186</id>
+      </contributor>
+      <comment>画像にSVG版が存在しましたので、そちらに置換しました。</comment>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text bytes="833" xml:space="preserve">&lt;noinclude&gt;
+&lt;!-- 例として余白を空けておく --&gt;&amp;nbsp;&lt;/noinclude&gt;&lt;!--
+--&gt;&lt;div class=&quot;boilerplate noprint plainlinks&quot; style=&quot;font-size:90%; {{#ifeq: {{{1|}}} | kanji | | border-top:1px solid #aaa;}} margin:1em 0 0.5em 0;&quot;&gt;
+[[ファイル:Stubico.svg|30px|alt=]]
+このページは[[Wiktionary:スタブ|スタブ（書きかけ）]]です。[{{fullurl:{{FULLPAGENAME}}|action=edit}} このページを加筆して下さる]協力者を求めています。
+&lt;/div&gt;&lt;includeonly&gt;[[Category:スタブ_{{#switch:{{{1|}}}|abbr=略語|documentation=テンプレート文書|homonym=同音異義語|kanji=漢字|#default={{#ifexist:テンプレート:{{{1}}}|{{{{{1}}}}}|{{{1|}}}}}}}]]&lt;/includeonly&gt;&lt;noinclude&gt;
+{{Documentation}}
+=={{seealso}}==
+*[[:Category:スタブ]]
+*[[Wiktionary:スタブ]]
+[[Category:スタブ|*]]&lt;/noinclude&gt;</text>
+      <sha1>iqpk54xyo5ydsehdino26ts0011pthn</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>テンプレート:sakujo</title>
+    <ns>10</ns>
+    <id>549</id>
+    <revision>
+      <id>1370334</id>
+      <parentid>1311935</parentid>
+      <timestamp>2021-04-17T14:22:03Z</timestamp>
+      <contributor>
+        <username>Naggy Nagumo</username>
+        <id>12105</id>
+      </contributor>
+      <comment>subst展開に関する注意をテンプレートに置換</comment>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text bytes="2317" xml:space="preserve">{{subst限定}}&lt;onlyinclude&gt;
+{| class=&quot;sakujo&quot; style=&quot;border:solid gray 1px; padding:0 0.5em; margin:1ex auto; font-size: small; width:80%&quot;
+|-
+| [[ファイル:Icono aviso borrar.svg|50px|削除依頼に提出されています]]
+|
+このページは'''[[Wiktionary:削除の方針|削除の方針]]'''に従い'''[[Wiktionary:削除依頼|削除依頼]]'''に出されています。[[{{TALKSPACE}}:{{PAGENAME}}|このページのノート]]も参照してください。
+
+この項目の削除可否についての議論が&lt;span class=&quot;sakujo-request&quot;&gt;[[Wiktionary:削除依頼/{{&lt;includeonly&gt;subst:&lt;/includeonly&gt;CURRENTYEAR}}年{{&lt;includeonly&gt;subst:&lt;/includeonly&gt;CURRENTMONTHNAME}}/{{{1|{{&lt;includeonly&gt;Subst:&lt;/includeonly&gt;FULLPAGENAME}}}}}|該当する削除依頼]]&lt;/span&gt;で進行中です。
+
+この項目は'''まだ削除されていません'''。削除に異議のある方は&lt;span class=&quot;sakujo-request&quot;&gt;[[Wiktionary:削除依頼/{{&lt;includeonly&gt;subst:&lt;/includeonly&gt;CURRENTYEAR}}年{{&lt;includeonly&gt;subst:&lt;/includeonly&gt;CURRENTMONTHNAME}}/{{{1|{{&lt;includeonly&gt;Subst:&lt;/includeonly&gt;FULLPAGENAME}}}}}|該当する削除依頼]]&lt;/span&gt;に是非ご参加ください。該当する削除依頼が終了するまで'''このメッセージを剥がさないでください。'''
+&lt;includeonly&gt;[[カテゴリ:削除依頼中のページ]]&lt;/includeonly&gt;
+|}
+&lt;/onlyinclude&gt;
+
+== 使用法 ==
+&lt;pre&gt;&lt;nowiki&gt;{{subst:sakujo|（該当する削除依頼のページ、省略可）}}&lt;/nowiki&gt;&lt;/pre&gt;
+
+* 該当する削除依頼のページを省略すると、項目名が該当する削除依頼のページとなります。通常は省略して構いません。
+* 同じような理由で削除すべき項目が複数存在する場合は、適切なページ名を入力して、一箇所で議論できるようにしてください。
+* &quot;sakujo&quot; を &quot;Sakujo&quot;（一文字目が大文字）や&quot;削除依頼&quot;と置き換えても同じです。ただし、'''&lt;span style=&quot;color:red;&quot;&gt;いずれの場合でもSUBST展開を必ず行ってください。&lt;/span&gt;'''
+
+== 関連テンプレート ==
+* {{[[Template:即時削除|即時削除]]}} - [[Wiktionary:即時削除|即時削除]]が望ましいときに使用します。
+[[Category:管理テンプレート|{{PAGENAME}}]]
+[[カテゴリ:削除関連のテンプレート]]</text>
+      <sha1>7gfviv4fspa5qlhaq8iqwoq90y4dqni</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>テンプレート:KTOC</title>
+    <ns>10</ns>
+    <id>550</id>
+    <revision>
+      <id>1279128</id>
+      <parentid>174367</parentid>
+      <timestamp>2020-04-16T12:57:46Z</timestamp>
+      <contributor>
+        <username>Yapparina</username>
+        <id>21485</id>
+      </contributor>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text bytes="1176" xml:space="preserve">&lt;table border=0 cellpadding=3 cellspacing=0 style=&quot;background: white; border: 1px solid black; padding: 1em;&quot;&gt;
+&lt;tr&gt;&lt;td&gt;
+&lt;table&gt;
+&lt;tr&gt;&lt;td&gt;[[#あ|あ]]&lt;td&gt;[[#い|い]]&lt;td&gt;[[#う|う]]&lt;td&gt;[[#え|え]]&lt;td&gt;[[#お|お]]&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;[[#か|か]]&lt;td&gt;[[#き|き]]&lt;td&gt;[[#く|く]]&lt;td&gt;[[#け|け]]&lt;td&gt;[[#こ|こ]]&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;[[#さ|さ]]&lt;td&gt;[[#し|し]]&lt;td&gt;[[#す|す]]&lt;td&gt;[[#せ|せ]]&lt;td&gt;[[#そ|そ]]&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;[[#た|た]]&lt;td&gt;[[#ち|ち]]&lt;td&gt;[[#つ|つ]]&lt;td&gt;[[#て|て]]&lt;td&gt;[[#と|と]]&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;[[#な|な]]&lt;td&gt;[[#に|に]]&lt;td&gt;[[#ぬ|ぬ]]&lt;td&gt;[[#ね|ね]]&lt;td&gt;[[#の|の]]&lt;/tr&gt;
+&lt;/table&gt;&lt;td&gt;&amp;nbsp;&lt;td&gt;
+&lt;table&gt;
+&lt;tr&gt;&lt;td&gt;[[#は|は]]&lt;td&gt;[[#ひ|ひ]]&lt;td&gt;[[#ふ|ふ]]&lt;td&gt;[[#へ|へ]]&lt;td&gt;[[#ほ|ほ]]&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;[[#ま|ま]]&lt;td&gt;[[#み|み]]&lt;td&gt;[[#む|む]]&lt;td&gt;[[#め|め]]&lt;td&gt;[[#も|も]]&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;[[#や|や]]&lt;td&gt;&amp;nbsp;&lt;td&gt;[[#ゆ|ゆ]]&lt;td&gt;&amp;nbsp;&lt;td&gt;[[#よ|よ]]&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;[[#ら|ら]]&lt;td&gt;[[#り|り]]&lt;td&gt;[[#る|る]]&lt;td&gt;[[#れ|れ]]&lt;td&gt;[[#ろ|ろ]]&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;[[#わ|わ]]&lt;td&gt;&amp;nbsp;&lt;td&gt;[[#を|を]]&lt;td&gt;&amp;nbsp;&lt;td&gt;[[#ん|ん]]&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/tr&gt;&lt;/table&gt;
+__notoc__&lt;noinclude&gt;
+[[Category:目次テンプレート|KTOC]]
+[[Category:日本語 テンプレート]]
+&lt;/noinclude&gt;</text>
+      <sha1>lvjt0ylnq7zlvleriosnpmhai1e2k5c</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>テンプレート:copyrights</title>
+    <ns>10</ns>
+    <id>551</id>
+    <revision>
+      <id>32497</id>
+      <parentid>32495</parentid>
+      <timestamp>2005-11-05T22:22:23Z</timestamp>
+      <contributor>
+        <username>Brevam</username>
+        <id>161</id>
+      </contributor>
+      <minor />
+      <comment>[[w:Template:Copyrights]] 2005-08-03 13:36:31 の版から文面拝借。</comment>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text bytes="2106" xml:space="preserve">__NOEDITSECTION__
+== '''他者の著作権を侵害している可能性のお知らせ''' ==

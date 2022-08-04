@@ -1,0 +1,100 @@
+<mediawiki xmlns="http://www.mediawiki.org/xml/export-0.10/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mediawiki.org/xml/export-0.10/ http://www.mediawiki.org/xml/export-0.10.xsd" version="0.10" xml:lang="ja">
+  <siteinfo>
+    <sitename>Wikipedia</sitename>
+    <dbname>jawiki</dbname>
+    <base>https://ja.wikipedia.org/wiki/%E3%83%A1%E3%82%A4%E3%83%B3%E3%83%9A%E3%83%BC%E3%82%B8</base>
+    <generator>MediaWiki 1.39.0-wmf.9</generator>
+    <case>first-letter</case>
+    <namespaces>
+      <namespace key="-2" case="first-letter">メディア</namespace>
+      <namespace key="-1" case="first-letter">特別</namespace>
+      <namespace key="0" case="first-letter" />
+      <namespace key="1" case="first-letter">ノート</namespace>
+      <namespace key="2" case="first-letter">利用者</namespace>
+      <namespace key="3" case="first-letter">利用者‐会話</namespace>
+      <namespace key="4" case="first-letter">Wikipedia</namespace>
+      <namespace key="5" case="first-letter">Wikipedia‐ノート</namespace>
+      <namespace key="6" case="first-letter">ファイル</namespace>
+      <namespace key="7" case="first-letter">ファイル‐ノート</namespace>
+      <namespace key="8" case="first-letter">MediaWiki</namespace>
+      <namespace key="9" case="first-letter">MediaWiki‐ノート</namespace>
+      <namespace key="10" case="first-letter">Template</namespace>
+      <namespace key="11" case="first-letter">Template‐ノート</namespace>
+      <namespace key="12" case="first-letter">Help</namespace>
+      <namespace key="13" case="first-letter">Help‐ノート</namespace>
+      <namespace key="14" case="first-letter">Category</namespace>
+      <namespace key="15" case="first-letter">Category‐ノート</namespace>
+      <namespace key="100" case="first-letter">Portal</namespace>
+      <namespace key="101" case="first-letter">Portal‐ノート</namespace>
+      <namespace key="102" case="first-letter">プロジェクト</namespace>
+      <namespace key="103" case="first-letter">プロジェクト‐ノート</namespace>
+      <namespace key="828" case="first-letter">モジュール</namespace>
+      <namespace key="829" case="first-letter">モジュール‐ノート</namespace>
+      <namespace key="2300" case="first-letter">Gadget</namespace>
+      <namespace key="2301" case="first-letter">Gadget talk</namespace>
+      <namespace key="2302" case="case-sensitive">Gadget definition</namespace>
+      <namespace key="2303" case="case-sensitive">Gadget definition talk</namespace>
+    </namespaces>
+  </siteinfo>
+  <page>
+    <title>Wikipedia:アップロードログ/2004年4月</title>
+    <ns>4</ns>
+    <id>1</id>
+    <revision>
+      <id>27237</id>
+      <timestamp>2003-05-26T23:58:42Z</timestamp>
+      <contributor>
+        <username>0~jawiki</username>
+        <id>128</id>
+      </contributor>
+      <comment>&quot;TEST.PNG&quot;をアップロードしました。: 以前のバージョンへの差し戻し。　Reverted to earlier revision</comment>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text bytes="29638" xml:space="preserve">Below is a list of the most recent file uploads.
+All times shown are server (U.S. Pacific) time.
+&lt;ul&gt;&lt;li&gt;23:58 2003年5月26日 [[利用者:0|0]] &quot;[[:画像:TEST.PNG|TEST.PNG]]&quot;をアップロードしました。 &lt;em&gt;(以前のバージョンへの差し戻し。　Reverted to earlier revision)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;23:57 2003年5月26日 [[利用者:Yoshitaka Mieda|Yoshitaka Mieda]] &quot;[[:画像:TEST.PNG|TEST.PNG]]&quot;をアップロードしました。 &lt;em&gt;(TEST)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;23:55 2003年5月26日 [[利用者:Yoshitaka Mieda|Yoshitaka Mieda]] &quot;[[:画像:TEST.PNG|TEST.PNG]]&quot;をアップロードしました。 &lt;em&gt;(TEST)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;23:44 2003年5月26日 [[利用者:Yoshitaka Mieda|Yoshitaka Mieda]] &quot;[[:画像:TEST.PNG|TEST.PNG]]&quot;をアップロードしました。 &lt;em&gt;(実験用)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;01:59 2003年5月25日 [[利用者:Sphl|Sphl]] &quot;[[:画像:Elliptical-orbit.png|Elliptical-orbit.png]]&quot;をアップロードしました。 &lt;em&gt;(楕円軌道の説明図)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;01:59 2003年5月25日 [[利用者:Sphl|Sphl]] &quot;[[:画像:Elliptical-orbit.png|Elliptical-orbit.png]]&quot;をアップロードしました。 &lt;em&gt;(楕円軌道の説明図)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;23:43 2003年5月24日 [[利用者:0|0]] &quot;[[:画像:Elliptical-orbit.png|Elliptical-orbit.png]]&quot;をアップロードしました。 &lt;em&gt;(以前のバージョンへの差し戻し。　Reverted to earlier revision)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;23:05 2003年5月24日 [[利用者:Ideal|Ideal]] &quot;[[:画像:Elliptical-orbit.png|Elliptical-orbit.png]]&quot;をアップロードしました。 &lt;em&gt;(以前のバージョンへの差し戻し。　Reverted to earlier revision)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;23:04 2003年5月24日 [[利用者:Ideal|Ideal]] &quot;[[:画像:Elliptical-orbit.png|Elliptical-orbit.png]]&quot;をアップロードしました。 &lt;em&gt;(以前のバージョンへの差し戻し。　Reverted to earlier revision)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;17:21 2003年5月24日 [[利用者:Suisui|Suisui]] &quot;[[:画像:ISLcoat.png|ISLcoat.png]]&quot;をアップロードしました。 &lt;em&gt;(アイスランドのシンボル)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;17:17 2003年5月24日 [[利用者:Suisui|Suisui]] &quot;[[:画像:Iceland_flag_medium.png|Iceland_flag_medium.png]]&quot;をアップロードしました。 &lt;em&gt;(アイスランドの国旗 (midium))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;08:23 2003年5月23日 [[利用者:Sphl|Sphl]] &quot;[[:画像:Elliptical-orbit.png|Elliptical-orbit.png]]&quot;をアップロードしました。 &lt;em&gt;(人工衛星の楕円軌道の説明図)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;05:52 2003年5月23日 [[利用者:るがこむ|るがこむ]] &quot;[[:画像:James_Clerk_Maxwell.jpg|James_Clerk_Maxwell.jpg]]&quot;をアップロードしました。 &lt;em&gt;(ジェームズ・クラーク・マクスウェル（英語版より）)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;04:18 2003年5月23日 [[利用者:るがこむ|るがこむ]] &quot;[[:画像:Berlin_wall.jpg|Berlin_wall.jpg]]&quot;をアップロードしました。 &lt;em&gt;(ベルリンの壁（英語版より）)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;03:59 2003年5月23日 [[利用者:るがこむ|るがこむ]] &quot;[[:画像:Berlin_wappen.png|Berlin_wappen.png]]&quot;をアップロードしました。 &lt;em&gt;(ベルリン市のワッペン（ドイツ語版より）)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;19:04 2003年5月22日 [[利用者:るがこむ|るがこむ]] &quot;[[:画像:Nil.jpg|Nil.jpg]]&quot;をアップロードしました。 &lt;em&gt;(ナイル川（仏語版より）)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;18:23 2003年5月22日 [[利用者:るがこむ|るがこむ]] &quot;[[:画像:Milkyway_xray.jpg|Milkyway_xray.jpg]]&quot;をアップロードしました。 &lt;em&gt;(銀河系のX線画像（英語版より）)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;10:11 2003年5月22日 [[利用者:Sphl|Sphl]] &quot;[[:画像:Elliptical-orbit.png|Elliptical-orbit.png]]&quot;をアップロードしました。 &lt;em&gt;(楕円軌道の説明)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;10:11 2003年5月22日 [[利用者:Sphl|Sphl]] &quot;[[:画像:Elliptical-orbit.png|Elliptical-orbit.png]]&quot;をアップロードしました。 &lt;em&gt;(楕円軌道の説明)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;05:04 2003年5月20日 [[利用者:るがこむ|るがこむ]] &quot;[[:画像:Aristoteles.jpg|Aristoteles.jpg]]&quot;をアップロードしました。 &lt;em&gt;(アリストテレス（英語版より）)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;04:56 2003年5月20日 [[利用者:るがこむ|るがこむ]] &quot;[[:画像:Christopher_Columbus.jpg|Christopher_Columbus.jpg]]&quot;をアップロードしました。 &lt;em&gt;(コロンブス（英語版より）)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;04:40 2003年5月20日 [[利用者:るがこむ|るがこむ]] &quot;[[:画像:Rene_descartes.jpg|Rene_descartes.jpg]]&quot;をアップロードしました。 &lt;em&gt;(ルネ・デカルト（仏語版より）)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;04:13 2003年5月20日 [[利用者:るがこむ|るがこむ]] &quot;[[:画像:Napoleon_tombe.jpg|Napoleon_tombe.jpg]]&quot;をアップロードしました。 &lt;em&gt;(ナポレオンの墓（仏語版より）)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;04:12 2003年5月20日 [[利用者:るがこむ|るがこむ]] &quot;[[:画像:Napoleon_Bonaparte.jpg|Napoleon_Bonaparte.jpg]]&quot;をアップロードしました。 &lt;em&gt;(ナポレオン・ボナパルト（仏語版より）)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;04:11 2003年5月20日 [[利用者:るがこむ|るがこむ]] &quot;[[:画像:Napoleon1.jpg|Napoleon1.jpg]]&quot;をアップロードしました。 &lt;em&gt;(ナポレオン1世（仏語版より）)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;17:16 2003年5月19日 [[利用者:るがこむ|るがこむ]] &quot;[[:画像:Alfred_Wegener.jpg|Alfred_Wegener.jpg]]&quot;をアップロードしました。 &lt;em&gt;(アルフレート・ヴェーゲナー（ドイツ語版より）)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;18:51 2003年5月18日 [[利用者:るがこむ|るがこむ]] &quot;[[:画像:Alexander_iii_of_macedon.jpg|Alexander_iii_of_macedon.jpg]]&quot;をアップロードしました。 &lt;em&gt;(アレクサンドロス3世（英語版より）)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;17:45 2003年5月18日 [[利用者:るがこむ|るがこむ]] &quot;[[:画像:Nsa_seal.png|Nsa_seal.png]]&quot;をアップロードしました。 &lt;em&gt;(アメリカ国家安全保障局の紋章（英語版より）)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;17:09 2003年5月18日 [[利用者:るがこむ|るがこむ]] &quot;[[:画像:Animexample3.gif|Animexample3.gif]]&quot;をアップロードしました。 &lt;em&gt;(アニメーション例３（英語版より）)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;17:08 2003年5月18日 [[利用者:るがこむ|るがこむ]] &quot;[[:画像:Animexample2.gif|Animexample2.gif]]&quot;をアップロードしました。 &lt;em&gt;(アニメーション例２（英語版より）)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;17:08 2003年5月18日 [[利用者:るがこむ|るがこむ]] &quot;[[:画像:Animexample.gif|Animexample.gif]]&quot;をアップロードしました。 &lt;em&gt;(アニメーション例１（英語版より）)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;16:58 2003年5月18日 [[利用者:るがこむ|るがこむ]] &quot;[[:画像:Nicolaus_Copernicus.jpg|Nicolaus_Copernicus.jpg]]&quot;をアップロードしました。 &lt;em&gt;(コペルニクス（英語版より）)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;03:45 2003年5月2日 [[利用者:Sutou|Sutou]] &quot;[[:画像:Odakyuu_syaryou_1.jpg|Odakyuu_syaryou_1.jpg]]&quot;をアップロードしました。 &lt;em&gt;(小田急の車両(藤沢本町駅前踏切を通過する小田急車両)1)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;03:25 2003年5月2日 [[利用者:Sutou|Sutou]] &quot;[[:画像:Fujisawa_eki_1.jpg|Fujisawa_eki_1.jpg]]&quot;をアップロードしました。 &lt;em&gt;(藤沢駅(北口遠景)1)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;03:24 2003年5月2日 [[利用者:Sutou|Sutou]] &quot;[[:画像:Odakyuu_fujiswa_eki_1.jpg|Odakyuu_fujiswa_eki_1.jpg]]&quot;をアップロードしました。 &lt;em&gt;(小田急藤沢駅（改札前）1)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;03:22 2003年5月2日 [[利用者:Sutou|Sutou]] &quot;[[:画像:Fujisawa_honmachi_eki_2.jpg|Fujisawa_honmachi_eki_2.jpg]]&quot;をアップロードしました。 &lt;em&gt;(藤沢本町駅(改札前)1)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;03:20 2003年5月2日 [[利用者:Sutou|Sutou]] &quot;[[:画像:Fujisawa_honmachi_eki_1.jpg|Fujisawa_honmachi_eki_1.jpg]]&quot;をアップロードしました。 &lt;em&gt;(藤沢本町駅(遠景)1)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;00:22 2003年4月30日 [[利用者:Hajime yoneya|Hajime yoneya]] &quot;[[:画像:Nemuro.png|Nemuro.png]]&quot;をアップロードしました。 &lt;em&gt;(根室市のシンボル)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;03:56 2003年4月23日 [[利用者:Setu|Setu]] &quot;[[:画像:G50.png|G50.png]]&quot;をアップロードしました。 &lt;em&gt;(グラフ用 緑色の四角 50px幅)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;03:55 2003年4月23日 [[利用者:Setu|Setu]] &quot;[[:画像:G01.png|G01.png]]&quot;をアップロードしました。 &lt;em&gt;(グラフ用 緑色の四角 1px幅)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;03:55 2003年4月23日 [[利用者:Setu|Setu]] &quot;[[:画像:G03.png|G03.png]]&quot;をアップロードしました。 &lt;em&gt;(グラフ用 緑色の四角 3px幅)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;03:55 2003年4月23日 [[利用者:Setu|Setu]] &quot;[[:画像:G05.png|G05.png]]&quot;をアップロードしました。 &lt;em&gt;(グラフ用 緑色の四角 5px幅)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;03:54 2003年4月23日 [[利用者:Setu|Setu]] &quot;[[:画像:G05.png|G05.png]]&quot;をアップロードしました。 &lt;em&gt;(グラフ用 緑色の四角 5px幅)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;03:53 2003年4月23日 [[利用者:Setu|Setu]] &quot;[[:画像:G30.png|G30.png]]&quot;をアップロードしました。 &lt;em&gt;(グラフ用 緑色の四角 30px幅)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;03:53 2003年4月23日 [[利用者:Setu|Setu]] &quot;[[:画像:G100.png|G100.png]]&quot;をアップロードしました。 &lt;em&gt;(グラフ用 緑色の四角 100px幅)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;03:45 2003年4月23日 [[利用者:Setu|Setu]] &quot;[[:画像:G10.png|G10.png]]&quot;をアップロードしました。 &lt;em&gt;(グラフ用 緑色の四角 10px幅)&lt;/em&gt;&lt;/li&gt;

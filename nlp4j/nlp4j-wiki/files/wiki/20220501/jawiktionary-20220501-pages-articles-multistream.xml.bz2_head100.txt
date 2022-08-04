@@ -1,0 +1,100 @@
+<mediawiki xmlns="http://www.mediawiki.org/xml/export-0.10/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mediawiki.org/xml/export-0.10/ http://www.mediawiki.org/xml/export-0.10.xsd" version="0.10" xml:lang="ja">
+  <siteinfo>
+    <sitename>Wiktionary</sitename>
+    <dbname>jawiktionary</dbname>
+    <base>https://ja.wiktionary.org/wiki/Wiktionary:%E3%83%A1%E3%82%A4%E3%83%B3%E3%83%9A%E3%83%BC%E3%82%B8</base>
+    <generator>MediaWiki 1.39.0-wmf.9</generator>
+    <case>case-sensitive</case>
+    <namespaces>
+      <namespace key="-2" case="case-sensitive">メディア</namespace>
+      <namespace key="-1" case="first-letter">特別</namespace>
+      <namespace key="0" case="case-sensitive" />
+      <namespace key="1" case="case-sensitive">トーク</namespace>
+      <namespace key="2" case="first-letter">利用者</namespace>
+      <namespace key="3" case="first-letter">利用者・トーク</namespace>
+      <namespace key="4" case="case-sensitive">Wiktionary</namespace>
+      <namespace key="5" case="case-sensitive">Wiktionary・トーク</namespace>
+      <namespace key="6" case="case-sensitive">ファイル</namespace>
+      <namespace key="7" case="case-sensitive">ファイル・トーク</namespace>
+      <namespace key="8" case="first-letter">MediaWiki</namespace>
+      <namespace key="9" case="first-letter">MediaWiki・トーク</namespace>
+      <namespace key="10" case="case-sensitive">テンプレート</namespace>
+      <namespace key="11" case="case-sensitive">テンプレート・トーク</namespace>
+      <namespace key="12" case="case-sensitive">ヘルプ</namespace>
+      <namespace key="13" case="case-sensitive">ヘルプ・トーク</namespace>
+      <namespace key="14" case="case-sensitive">カテゴリ</namespace>
+      <namespace key="15" case="case-sensitive">カテゴリ・トーク</namespace>
+      <namespace key="100" case="case-sensitive">付録</namespace>
+      <namespace key="101" case="case-sensitive">付録・トーク</namespace>
+      <namespace key="828" case="case-sensitive">モジュール</namespace>
+      <namespace key="829" case="case-sensitive">モジュール・トーク</namespace>
+      <namespace key="2300" case="case-sensitive">Gadget</namespace>
+      <namespace key="2301" case="case-sensitive">Gadget talk</namespace>
+      <namespace key="2302" case="case-sensitive">Gadget definition</namespace>
+      <namespace key="2303" case="case-sensitive">Gadget definition talk</namespace>
+    </namespaces>
+  </siteinfo>
+  <page>
+    <title>MediaWiki:Mainpagetext</title>
+    <ns>8</ns>
+    <id>7</id>
+    <revision>
+      <id>22958</id>
+      <parentid>11063</parentid>
+      <timestamp>2005-07-26T21:55:11Z</timestamp>
+      <contributor>
+        <username>Kahusi</username>
+        <id>43</id>
+      </contributor>
+      <minor />
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text bytes="70" xml:space="preserve">Wikiソフトウェアが正常にインストールされました。</text>
+      <sha1>0c88b606khy8pbdrgjab52e3f7m7noo</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>MediaWiki:Aboutpage</title>
+    <ns>8</ns>
+    <id>10</id>
+    <revision>
+      <id>1360270</id>
+      <parentid>11066</parentid>
+      <timestamp>2021-03-01T11:49:03Z</timestamp>
+      <contributor>
+        <username>Whym</username>
+        <id>2974</id>
+      </contributor>
+      <minor />
+      <comment>転送解除</comment>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text bytes="50" xml:space="preserve">Wiktionary:ウィクショナリーへようこそ</text>
+      <sha1>n9ut7vdydg0zo1oh86zq0si1ghylgqu</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>MediaWiki:Faqpage</title>
+    <ns>8</ns>
+    <id>19</id>
+    <revision>
+      <id>11075</id>
+      <parentid>1978</parentid>
+      <timestamp>2004-07-14T10:14:57Z</timestamp>
+      <contributor>
+        <username>Tomos</username>
+        <id>2</id>
+      </contributor>
+      <comment>wikipedia-&gt;wiktionary</comment>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text bytes="14" xml:space="preserve">Wiktionary:FAQ</text>
+      <sha1>38xhrnh2kgdh57i67c9737a7ult459g</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>MediaWiki:Edithelppage</title>
+    <ns>8</ns>
+    <id>21</id>
+    <revision>
+      <id>141018</id>

@@ -1,0 +1,100 @@
+<mediawiki xmlns="http://www.mediawiki.org/xml/export-0.10/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mediawiki.org/xml/export-0.10/ http://www.mediawiki.org/xml/export-0.10.xsd" version="0.10" xml:lang="ja">
+  <siteinfo>
+    <sitename>Wikipedia</sitename>
+    <dbname>jawiki</dbname>
+    <base>https://ja.wikipedia.org/wiki/%E3%83%A1%E3%82%A4%E3%83%B3%E3%83%9A%E3%83%BC%E3%82%B8</base>
+    <generator>MediaWiki 1.39.0-wmf.9</generator>
+    <case>first-letter</case>
+    <namespaces>
+      <namespace key="-2" case="first-letter">メディア</namespace>
+      <namespace key="-1" case="first-letter">特別</namespace>
+      <namespace key="0" case="first-letter" />
+      <namespace key="1" case="first-letter">ノート</namespace>
+      <namespace key="2" case="first-letter">利用者</namespace>
+      <namespace key="3" case="first-letter">利用者‐会話</namespace>
+      <namespace key="4" case="first-letter">Wikipedia</namespace>
+      <namespace key="5" case="first-letter">Wikipedia‐ノート</namespace>
+      <namespace key="6" case="first-letter">ファイル</namespace>
+      <namespace key="7" case="first-letter">ファイル‐ノート</namespace>
+      <namespace key="8" case="first-letter">MediaWiki</namespace>
+      <namespace key="9" case="first-letter">MediaWiki‐ノート</namespace>
+      <namespace key="10" case="first-letter">Template</namespace>
+      <namespace key="11" case="first-letter">Template‐ノート</namespace>
+      <namespace key="12" case="first-letter">Help</namespace>
+      <namespace key="13" case="first-letter">Help‐ノート</namespace>
+      <namespace key="14" case="first-letter">Category</namespace>
+      <namespace key="15" case="first-letter">Category‐ノート</namespace>
+      <namespace key="100" case="first-letter">Portal</namespace>
+      <namespace key="101" case="first-letter">Portal‐ノート</namespace>
+      <namespace key="102" case="first-letter">プロジェクト</namespace>
+      <namespace key="103" case="first-letter">プロジェクト‐ノート</namespace>
+      <namespace key="828" case="first-letter">モジュール</namespace>
+      <namespace key="829" case="first-letter">モジュール‐ノート</namespace>
+      <namespace key="2300" case="first-letter">Gadget</namespace>
+      <namespace key="2301" case="first-letter">Gadget talk</namespace>
+      <namespace key="2302" case="case-sensitive">Gadget definition</namespace>
+      <namespace key="2303" case="case-sensitive">Gadget definition talk</namespace>
+    </namespaces>
+  </siteinfo>
+  <page>
+    <title>Wikipedia:アップロードログ/2004年4月</title>
+    <ns>4</ns>
+    <id>1</id>
+    <revision>
+      <id>80312331</id>
+      <parentid>80312300</parentid>
+      <timestamp>2020-11-06T05:49:35Z</timestamp>
+      <contributor>
+        <username>ネイ</username>
+        <id>169478</id>
+      </contributor>
+      <minor />
+      <comment>ネイ がページ「[[Wikipedia:アップロードログ 2004年4月]]」を「[[Wikipedia:アップロードログ/2004年4月]]」に移動しました: [[Wikipedia‐ノート:アップロードログ]]に基づき移動</comment>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text bytes="106652" xml:space="preserve">&lt;ul&gt;&lt;li&gt;14:46 2004年4月30日 [[利用者:Oxhop|Oxhop]] &quot;[[:画像:LocationMacedonia.png|LocationMacedonia.png]]&quot;をアップロードしました。 &lt;em&gt;(マケドニアの位置 - 英語版より)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;14:40 2004年4月30日 [[利用者:Oxhop|Oxhop]] &quot;[[:画像:Macedonia_coa.png|Macedonia_coa.png]]&quot;をアップロードしました。 &lt;em&gt;(マケドニアの国章 - 英語版画像を加工)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;14:39 2004年4月30日 [[利用者:Oxhop|Oxhop]] &quot;[[:画像:Macedonia_flag_medium.png|Macedonia_flag_medium.png]]&quot;をアップロードしました。 &lt;em&gt;(マケドニアの国旗 - 英語版より)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;09:42 2004年4月30日 [[利用者:Kim H Yusuke|Kim H Yusuke]] &quot;[[:画像:Car_honda_civic_EF_240pix.jpg|Car_honda_civic_EF_240pix.jpg]]&quot;をアップロードしました。 &lt;em&gt;(自動車：シビック：EF型写真：VGA)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;09:34 2004年4月30日 [[利用者:Kim H Yusuke|Kim H Yusuke]] &quot;[[:画像:Car_honda_civic_EF_VGA.jpg|Car_honda_civic_EF_VGA.jpg]]&quot;をアップロードしました。 &lt;em&gt;(自動車：シビック：EF型写真：VGA)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;09:32 2004年4月30日 [[利用者:Kim H Yusuke|Kim H Yusuke]] &quot;[[:画像:Car_honda_civic_EF_300pix.jpg|Car_honda_civic_EF_300pix.jpg]]&quot;をアップロードしました。 &lt;em&gt;(自動車：シビック：EF型写真：巾300pixel)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;06:37 2004年4月30日 [[利用者:Kim H Yusuke|Kim H Yusuke]] &quot;[[:画像:Car_style_sedan_VGA.jpg|Car_style_sedan_VGA.jpg]]&quot;をアップロードしました。 &lt;em&gt;(セダン型自動車の例(写真)VGA大)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;06:33 2004年4月30日 [[利用者:Kim H Yusuke|Kim H Yusuke]] &quot;[[:画像:Car_style_sedan_300pix.jpg|Car_style_sedan_300pix.jpg]]&quot;をアップロードしました。 &lt;em&gt;(セダン型自動車の例(写真)巾300pixel)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;06:16 2004年4月30日 [[利用者:Kinori|Kinori]] &quot;[[:画像:OdoriKoenNishi2chome2004-4.JPG|OdoriKoenNishi2chome2004-4.JPG]]&quot;をアップロードしました。 &lt;em&gt;(大通公園西2丁目)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;04:54 2004年4月30日 [[利用者:Ciro|Ciro]] &quot;[[:画像:Basilicata-Mappa.png|Basilicata-Mappa.png]]&quot;をアップロードしました。 &lt;em&gt;(バジリカータ地図(itから))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;04:53 2004年4月30日 [[利用者:Ciro|Ciro]] &quot;[[:画像:Basilicata-Bandiera.png|Basilicata-Bandiera.png]]&quot;をアップロードしました。 &lt;em&gt;(バジリカータ州旗(itから))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;18:22 2004年4月29日 [[利用者:DC1394|DC1394]] &quot;[[:画像:2,4-Dihydroxypyrimidin.png|2,4-Dihydroxypyrimidin.png]]&quot;をアップロードしました。 &lt;em&gt;(ChemDrawで自作)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;17:20 2004年4月29日 [[利用者:FeZn|FeZn]] &quot;[[:画像:Typeface_lines1.png|Typeface_lines1.png]]&quot;をアップロードしました。 &lt;em&gt;(欧文書体のライン類の画像。小さめに改訂してみる、ということ自体のテスト )&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;17:19 2004年4月29日 [[利用者:FeZn|FeZn]] &quot;[[:画像:Typeface_lines1.png|Typeface_lines1.png]]&quot;をアップロードしました。 &lt;em&gt;(欧文書体のライン類の画像。大きめ。)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;17:05 2004年4月29日 [[利用者:Akogi|Akogi]] &quot;[[:画像:KanayamaStaAichi.jpg|KanayamaStaAichi.jpg]]&quot;をアップロードしました。 &lt;em&gt;(金山駅(愛知県))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;16:56 2004年4月29日 [[利用者:FeZn|FeZn]] &quot;[[:画像:Typeface_elements1.png|Typeface_elements1.png]]&quot;をアップロードしました。 &lt;em&gt;(欧文書体のエレメント名。字がつぶれないようにしたところサイズ過大？)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;14:59 2004年4月29日 [[利用者:Grimlin|Grimlin]] &quot;[[:画像:ミユビゲラ.jpg|ミユビゲラ.jpg]]&quot;をアップロードしました。&lt;/li&gt;
+&lt;li&gt;14:48 2004年4月29日 [[利用者:Grimlin|Grimlin]] &quot;[[:画像:ウミバト.jpg|ウミバト.jpg]]&quot;をアップロードしました。&lt;/li&gt;
+&lt;li&gt;14:42 2004年4月29日 [[利用者:Kinori|Kinori]] &quot;[[:画像:SapporoEkiKita2004-4.jpg|SapporoEkiKita2004-4.jpg]]&quot;をアップロードしました。 &lt;em&gt;(札幌駅。北から)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;14:38 2004年4月29日 [[利用者:Grimlin|Grimlin]] &quot;[[:画像:コウライキジ.jpg|コウライキジ.jpg]]&quot;をアップロードしました。&lt;/li&gt;
+&lt;li&gt;14:35 2004年4月29日 [[利用者:Sushi|Sushi]] &quot;[[:画像:Hernia.png|Hernia.png]]&quot;をアップロードしました。 &lt;em&gt;(ヘルニアのシェーマ)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;14:27 2004年4月29日 [[利用者:Grimlin|Grimlin]] &quot;[[:画像:アカツクシガモ.jpg|アカツクシガモ.jpg]]&quot;をアップロードしました。&lt;/li&gt;
+&lt;li&gt;14:26 2004年4月29日 [[利用者:Oxhop|Oxhop]] &quot;[[:画像:LocationGreece.png|LocationGreece.png]]&quot;をアップロードしました。 &lt;em&gt;(ギリシャの位置 - 英語版より)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;14:25 2004年4月29日 [[利用者:Oxhop|Oxhop]] &quot;[[:画像:Greece_coa.png|Greece_coa.png]]&quot;をアップロードしました。 &lt;em&gt;(ギリシャの国章 - 英語版より)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;14:24 2004年4月29日 [[利用者:Oxhop|Oxhop]] &quot;[[:画像:Greece_flag_medium.png|Greece_flag_medium.png]]&quot;をアップロードしました。 &lt;em&gt;(ギリシャの国旗 - 英語版より)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;14:23 2004年4月29日 [[利用者:Grimlin|Grimlin]] &quot;[[:画像:ヘラサギ.jpg|ヘラサギ.jpg]]&quot;をアップロードしました。&lt;/li&gt;
+&lt;li&gt;14:21 2004年4月29日 [[利用者:Grimlin|Grimlin]] &quot;[[:画像:ヘラシギ.jpg|ヘラシギ.jpg]]&quot;をアップロードしました。&lt;/li&gt;
+&lt;li&gt;14:12 2004年4月29日 [[利用者:Grimlin|Grimlin]] &quot;[[:画像:カイツブリ.jpg|カイツブリ.jpg]]&quot;をアップロードしました。&lt;/li&gt;
+&lt;li&gt;10:24 2004年4月29日 [[利用者:Hamilton|Hamilton]] &quot;[[:画像:Bougainville_Island.png|Bougainville_Island.png]]&quot;をアップロードしました。 &lt;em&gt;(ブーゲンビル島の地図　英語版より)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;10:08 2004年4月29日 [[利用者:Oga|Oga]] &quot;[[:画像:Honda-us-odyssey.jpg|Honda-us-odyssey.jpg]]&quot;をアップロードしました。 &lt;em&gt;(ホンダ US Odyssey（日本ではラグレイト）)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;00:24 2004年4月29日 [[利用者:Dobby|Dobby]] &quot;[[:画像:Fem_isa_int.png|Fem_isa_int.png]]&quot;をアップロードしました。 &lt;em&gt;(ウィキ国際化用画像使用。英語版参照。)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;20:33 2004年4月28日 [[利用者:Hans castorp81|Hans castorp81]] &quot;[[:画像:Jeremy_Bentham.jpg|Jeremy_Bentham.jpg]]&quot;をアップロードしました。 &lt;em&gt;(ジェレミ・ベンサム（ロンドン大学）)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;17:53 2004年4月28日 [[利用者:Gbr3|Gbr3]] &quot;[[:画像:Kiribati_sm02.gif|Kiribati_sm02.gif]]&quot;をアップロードしました。 &lt;em&gt;(キリバスの地図 (英語版よりコピー))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;15:53 2004年4月28日 [[利用者:Manju|Manju]] &quot;[[:画像:Ejectionseat.jpg|Ejectionseat.jpg]]&quot;をアップロードしました。 &lt;em&gt;(英語版より射出座席の画像)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;14:52 2004年4月28日 [[利用者:Manju|Manju]] &quot;[[:画像:200px-Aim-120_image.jpg|200px-Aim-120_image.jpg]]&quot;をアップロードしました。 &lt;em&gt;(英語版よりAMRAAMの画像)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;12:54 2004年4月28日 [[利用者:Ribbon|Ribbon]] &quot;[[:画像:Kameido_eki_1.jpg|Kameido_eki_1.jpg]]&quot;をアップロードしました。 &lt;em&gt;(亀戸駅東口)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;12:40 2004年4月28日 [[利用者:Ribbon|Ribbon]] &quot;[[:画像:Higasioojima_eki_2.jpg|Higasioojima_eki_2.jpg]]&quot;をアップロードしました。 &lt;em&gt;(東大島駅大島方面出口)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;12:39 2004年4月28日 [[利用者:Ribbon|Ribbon]] &quot;[[:画像:Higasioojima_eki_1.jpg|Higasioojima_eki_1.jpg]]&quot;をアップロードしました。 &lt;em&gt;(東大島駅ホーム)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;12:33 2004年4月28日 [[利用者:Ribbon|Ribbon]] &quot;[[:画像:Shirasaka_eki_1.jpg|Shirasaka_eki_1.jpg]]&quot;をアップロードしました。 &lt;em&gt;(白坂駅入口あたり)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;11:15 2004年4月28日 [[利用者:Gbr3|Gbr3]] &quot;[[:画像:Ca-map.png|Ca-map.png]]&quot;をアップロードしました。 &lt;em&gt;(カナダの地図 (英語版よりコピー))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;11:02 2004年4月28日 [[利用者:Tai i|Tai i]] &quot;[[:画像:Map_tokyo_fussa_city_p01-01.png|Map_tokyo_fussa_city_p01-01.png]]&quot;をアップロードしました。 &lt;em&gt;(福生市の位置)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;10:15 2004年4月28日 [[利用者:Gbr3|Gbr3]] &quot;[[:画像:JM-map.png|JM-map.png]]&quot;をアップロードしました。 &lt;em&gt;(ジャマイカの地図 (英語版よりコピー))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;17:20 2004年4月27日 [[利用者:Akio​h|Akio​h]] &quot;[[:画像:ドリル_(1).jpg|ドリル_(1).jpg]]&quot;をアップロードしました。 &lt;em&gt;(&amp;#91;&amp;#91;de:Bild:Bohrer.jpg]] からの転載&amp;lt;br&amp;gt;Michael Häckelにより撮影、パブリック・ドメインにて公開)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;15:42 2004年4月27日 [[利用者:Gbr3|Gbr3]] &quot;[[:画像:Vc-map.png|Vc-map.png]]&quot;をアップロードしました。 &lt;em&gt;(セントビンセントおよびグレナディーン諸島の地図(英語版からコピー))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;15:41 2004年4月27日 [[利用者:Gbr3|Gbr3]] &quot;[[:画像:Svincent22.PNG|Svincent22.PNG]]&quot;をアップロードしました。 &lt;em&gt;(セントビンセントおよびグレナディーン諸島の国章(英語版からコピー))&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;15:40 2004年4月27日 [[利用者:森　綾子|森　綾子]] &quot;[[:画像:Top-test.jpg|Top-test.jpg]]&quot;をアップロードしました。 &lt;em&gt;(my works!!)&lt;/em&gt;&lt;/li&gt;
