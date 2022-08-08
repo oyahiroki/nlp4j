@@ -1,4 +1,4 @@
-# Components
+# NLP4J Components
 
 Core Data, Utilities, CSV/Json/Plaintext parser, etc. : [core](https://github.com/oyahiroki/nlp4j/tree/master/nlp4j/nlp4j-core)   
 English language NLP: [stanford](https://github.com/oyahiroki/nlp4j/tree/master/nlp4j/nlp4j-stanford)  
@@ -7,7 +7,8 @@ Wikipedia dump file parser, mediawiki api client: [wiki](https://github.com/oyah
 Data crawling: [twitter](https://github.com/oyahiroki/nlp4j/tree/master/nlp4j/nlp4j-twitter4j), [webcrawler](https://github.com/oyahiroki/nlp4j/tree/master/nlp4j/nlp4j-webcrawler)  
 Document search: [apache solr](https://github.com/oyahiroki/nlp4j/tree/master/nlp4j/nlp4j-solr), [azure](https://github.com/oyahiroki/nlp4j/tree/master/nlp4j/nlp4j-azure)  
 
-# nlp4j
+# NLP4J
+
 Natural Language Processing Library for Java
 
 Following is a simple example for using Stanford NLP via NLP4J
