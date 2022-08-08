@@ -2,8 +2,10 @@
 
 Core Data, Utilities, CSV/Json/Plaintext parser, etc. : [core](https://github.com/oyahiroki/nlp4j/tree/master/nlp4j/nlp4j-core)   
 English language NLP: [stanford](https://github.com/oyahiroki/nlp4j/tree/master/nlp4j/nlp4j-stanford)  
-Japanese language NLP: [kuromoji](https://github.com/oyahiroki/nlp4j/tree/master/nlp4j/nlp4j-kuromoji), [cabocha](https://github.com/oyahiroki/nlp4j/tree/master/nlp4j/nlp4j-cabocha), [mecab](https://github.com/oyahiroki/nlp4j/tree/master/nlp4j/nlp4j-mecab)   
-
+Japanese language NLP: [kuromoji](https://github.com/oyahiroki/nlp4j/tree/master/nlp4j/nlp4j-kuromoji), [cabocha](https://github.com/oyahiroki/nlp4j/tree/master/nlp4j/nlp4j-cabocha), [mecab](https://github.com/oyahiroki/nlp4j/tree/master/nlp4j/nlp4j-mecab), [yahoojp](https://github.com/oyahiroki/nlp4j/tree/master/nlp4j/nlp4j-yahoojp)   
+Wikipedia dump file parser, mediawiki api client: [wiki](https://github.com/oyahiroki/nlp4j/tree/master/nlp4j/nlp4j-wiki)  
+Data crawling: [twitter](https://github.com/oyahiroki/nlp4j/tree/master/nlp4j/nlp4j-twitter4j), [webcrawler](https://github.com/oyahiroki/nlp4j/tree/master/nlp4j/nlp4j-webcrawler)  
+Document search: [apache solr](https://github.com/oyahiroki/nlp4j/tree/master/nlp4j/nlp4j-solr), [azure](https://github.com/oyahiroki/nlp4j/tree/master/nlp4j/nlp4j-azure)  
 
 # nlp4j
 Natural Language Processing Library for Java
