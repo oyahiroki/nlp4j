@@ -53,13 +53,9 @@ import nlp4j.stanford.StanfordPosAnnotator;
 public class StanfordPosAnnotatorExample0 {
     public static void main(String[] args) throws Exception {
         Document doc = new DefaultDocument();
-        {
             doc.putAttribute("text", "I eat sushi with chopsticks.");
-        }
         StanfordPosAnnotator ann = new StanfordPosAnnotator();
-        {
             ann.setProperty("target", "text");
-        }
         ann.annotate(doc); // do annotation
         for (Keyword kwd : doc.getKeywords()) {
             System.err.println(kwd);
