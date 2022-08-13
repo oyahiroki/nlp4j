@@ -1,7 +1,17 @@
-# nlp4j
+# NLP4J
+
 Natural Language Processing Library for Java
 
-Following is a simple example for using Stanford NLP via NLP4J
+![png](https://raw.githubusercontent.com/oyahiroki/nlp4j/master/nlp4j/files/icon/NLP4J_N_128.png)
+
+# NLP4J Components
+
+Core Data, Utilities, CSV/Json/Plaintext parser, etc. : [core](https://github.com/oyahiroki/nlp4j/tree/master/nlp4j/nlp4j-core)   
+English language NLP: [stanford](https://github.com/oyahiroki/nlp4j/tree/master/nlp4j/nlp4j-stanford)  
+Japanese language NLP: [kuromoji](https://github.com/oyahiroki/nlp4j/tree/master/nlp4j/nlp4j-kuromoji), [cabocha](https://github.com/oyahiroki/nlp4j/tree/master/nlp4j/nlp4j-cabocha), [mecab](https://github.com/oyahiroki/nlp4j/tree/master/nlp4j/nlp4j-mecab), [yahoojp](https://github.com/oyahiroki/nlp4j/tree/master/nlp4j/nlp4j-yahoojp)   
+Wikipedia dump file parser, mediawiki api client: [wiki](https://github.com/oyahiroki/nlp4j/tree/master/nlp4j/nlp4j-wiki)  
+Data crawling: [twitter](https://github.com/oyahiroki/nlp4j/tree/master/nlp4j/nlp4j-twitter4j), [webcrawler](https://github.com/oyahiroki/nlp4j/tree/master/nlp4j/nlp4j-webcrawler)  
+Document search: [apache solr](https://github.com/oyahiroki/nlp4j/tree/master/nlp4j/nlp4j-solr), [azure](https://github.com/oyahiroki/nlp4j/tree/master/nlp4j/nlp4j-azure)  
 
 ## Maven
 
@@ -44,13 +54,9 @@ import nlp4j.stanford.StanfordPosAnnotator;
 public class StanfordPosAnnotatorExample0 {
     public static void main(String[] args) throws Exception {
         Document doc = new DefaultDocument();
-        {
             doc.putAttribute("text", "I eat sushi with chopsticks.");
-        }
         StanfordPosAnnotator ann = new StanfordPosAnnotator();
-        {
             ann.setProperty("target", "text");
-        }
         ann.annotate(doc); // do annotation
         for (Keyword kwd : doc.getKeywords()) {
             System.err.println(kwd);
@@ -69,4 +75,8 @@ with [facet=word.IN, str=with]
 chopstick [facet=word.NNS, str=chopsticks]
 . [facet=word.., str=.]
 ```
+
+# Author
+
+Hiroki Oya [twitter](https://twitter.com/oyahiroki) [linkedin](https://www.linkedin.com/in/oyahiroki/)
 
