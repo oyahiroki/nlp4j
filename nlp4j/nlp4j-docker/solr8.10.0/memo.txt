@@ -1,0 +1,6 @@
+https://hub.docker.com/_/solr
+
+To run a single Solr server:
+
+$ docker run -p 8983:8983 -t solr
+

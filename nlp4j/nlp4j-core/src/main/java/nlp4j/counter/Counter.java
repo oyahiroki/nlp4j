@@ -93,6 +93,11 @@ public class Counter<T> {
 		return objList;
 	}
 
+	/**
+	 * Sort by count
+	 * 
+	 * @return
+	 */
 	public List<Count<T>> getCountListSorted() {
 		List<T> objList = getObjectList();
 		Collections.sort(objList, new Comparator<T>() {
@@ -108,4 +113,17 @@ public class Counter<T> {
 		return counts;
 	}
 
+	/**
+	 * Sort by value
+	 * 
+	 * @return
+	 */
+	public List<Count<T>> getCountList() {
+		List<T> objList = getObjectList();
+		ArrayList<Count<T>> counts = new ArrayList<Count<T>>();
+		for (T o : objList) {
+			counts.add(new Count<T>(o, getCount(o)));
+		}
+		return counts;
+	}
 }

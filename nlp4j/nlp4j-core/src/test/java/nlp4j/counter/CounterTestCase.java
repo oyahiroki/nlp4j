@@ -56,4 +56,39 @@ public class CounterTestCase extends TestCase {
 		System.err.println(counter.getObjectList());
 	}
 
+	public void testCounter003() {
+
+		int a = 1;
+		int b = 2;
+		int c = 3;
+
+		Counter<Integer> counter = new Counter<>();
+		{
+			counter.add(b);
+			counter.add(b);
+			counter.add(b);
+			counter.add(b);
+			counter.add(b);
+		}
+		{
+			counter.add(a);
+			counter.add(a);
+		}
+		{
+			counter.add(c);
+			counter.add(c);
+			counter.add(c);
+		}
+		System.err.println("---");
+		for (Count<Integer> ct : counter.getCountList()) {
+			System.err.println(ct);
+		}
+		System.err.println("---");
+		for (Count<Integer> ct : counter.getCountListSorted()) {
+			System.err.println(ct);
+		}
+		System.err.println("---");
+		System.err.println(counter.getObjectList());
+	}
+
 }

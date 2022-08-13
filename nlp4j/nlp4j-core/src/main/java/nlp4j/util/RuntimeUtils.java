@@ -1,5 +1,11 @@
 package nlp4j.util;
 
+/**
+ * created_at: 2022-05-09
+ * 
+ * @author Hiroki Oya
+ *
+ */
 public class RuntimeUtils {
 
 	/**
