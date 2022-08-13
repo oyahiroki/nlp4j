@@ -1,5 +1,7 @@
 # NLP4J
 
+Natural Language Processing Library for Java
+
 ![png](https://raw.githubusercontent.com/oyahiroki/nlp4j/master/nlp4j/files/icon/NLP4J_N_128.png)
 
 # NLP4J Components
@@ -10,12 +12,6 @@ Japanese language NLP: [kuromoji](https://github.com/oyahiroki/nlp4j/tree/master
 Wikipedia dump file parser, mediawiki api client: [wiki](https://github.com/oyahiroki/nlp4j/tree/master/nlp4j/nlp4j-wiki)  
 Data crawling: [twitter](https://github.com/oyahiroki/nlp4j/tree/master/nlp4j/nlp4j-twitter4j), [webcrawler](https://github.com/oyahiroki/nlp4j/tree/master/nlp4j/nlp4j-webcrawler)  
 Document search: [apache solr](https://github.com/oyahiroki/nlp4j/tree/master/nlp4j/nlp4j-solr), [azure](https://github.com/oyahiroki/nlp4j/tree/master/nlp4j/nlp4j-azure)  
-
-# NLP4J
-
-Natural Language Processing Library for Java
-
-Following is a simple example for using Stanford NLP via NLP4J
 
 ## Maven
 
@@ -79,4 +75,8 @@ with [facet=word.IN, str=with]
 chopstick [facet=word.NNS, str=chopsticks]
 . [facet=word.., str=.]
 ```
+
+# Author
+
+Hiroki Oya [twitter](https://twitter.com/oyahiroki) [linkedin](https://www.linkedin.com/in/oyahiroki/)
 
