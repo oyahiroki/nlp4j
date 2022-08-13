@@ -1,3 +1,7 @@
+# NLP4J
+
+![png](https://raw.githubusercontent.com/oyahiroki/nlp4j/master/nlp4j/files/icon/NLP4J_N_128.png)
+
 # NLP4J Components
 
 Core Data, Utilities, CSV/Json/Plaintext parser, etc. : [core](https://github.com/oyahiroki/nlp4j/tree/master/nlp4j/nlp4j-core)   
