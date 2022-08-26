@@ -31,9 +31,15 @@ public class EmojiAnnotator extends AbstractDocumentAnnotator implements Documen
 	@Override
 	public void annotate(Document doc) throws Exception {
 
+		if (super.targets == null || super.targets.isEmpty()) {
+			logger.info("target is empty");
+			return;
+		}
+
 		for (String target : super.targets) {
 			String text = doc.getAttributeAsString(target);
 			if (text == null || text.trim().isEmpty()) {
+				logger.info("text is empty");
 				continue;
 			} //
 			else {
