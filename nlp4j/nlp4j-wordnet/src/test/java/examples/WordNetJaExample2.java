@@ -29,6 +29,10 @@ public class WordNetJaExample2 {
 			String data = count + "," + e.getId() + "," + e.getLemmaWrittenForm() + "," + e.getPos();
 			System.err.println(data);
 			count++;
+
+			if (count > 100) {
+				break;
+			}
 		}
 
 	}

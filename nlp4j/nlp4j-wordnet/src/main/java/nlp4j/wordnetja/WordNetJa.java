@@ -71,6 +71,22 @@ public class WordNetJa {
 
 	}
 
+	public List<List<String>> findAsListList(String word, String filter) {
+
+		List<List<String>> sss = new ArrayList<>();
+
+		List<String> ss = new ArrayList<>();
+
+		List<LexicalEntry> ee = findLexicalEntry(word, filter);
+
+		for (LexicalEntry et : ee) {
+			ss.add(et.getLemmaWrittenForm());
+		}
+
+		return sss;
+
+	}
+
 	public List<String> findHypernyms(String word) {
 		String filter = "hype";
 		return find(word, filter);
@@ -96,15 +112,17 @@ public class WordNetJa {
 			return list;
 		}
 
+		// FOR EACH POS
 		for (String pos : writtenFormPosMap.get(word)) {
 
 			LexicalEntry entry = writtenFormPosLexicalEntryMap.get(word + "." + pos);
 
+			// FOR EACH synset_id
 			for (String synset_id : entry.getSynset_ids()) {
 				Synset synset = handler.getSynsetIdObjMap().get(synset_id);
 
 				for (SynsetRelation r : synset.getSynsetRelations()) {
-					if (filter != null && filter.equals(r.getRelType()) == false) {
+					if ((filter != null) && (filter.equals(r.getRelType()) == false)) {
 						continue;
 					}
 //					System.err.println("\t" + r.getRelType());
@@ -119,8 +137,9 @@ public class WordNetJa {
 						}
 					}
 				}
-			}
-		}
+			} // END OF FOR EACH synset_id
+		} // END OF FOR EACH POS
+
 		return list;
 	}
 
@@ -132,12 +151,34 @@ public class WordNetJa {
 		return handler.getLexicalEntries();
 	}
 
+	/**
+	 * 同じSynsetに属するLexicalEntryを返す
+	 * 
+	 * @param entry
+	 * @return
+	 */
 	public List<LexicalEntry> getLexicalEntriesInSameSynset(LexicalEntry entry) {
 		List<LexicalEntry> list = new ArrayList<LexicalEntry>();
 		List<String> synset_ids = entry.getSynset_ids();
 		for (String synset_id : synset_ids) {
 			List<LexicalEntry> les = handler.getSynsetLexicalEntryMap().get(synset_id);
 			list.addAll(les);
+		}
+		return list;
+	}
+
+	/**
+	 * 同じSynsetに属するLexicalEntryを返す
+	 * 
+	 * @param entry
+	 * @return
+	 */
+	public List<List<LexicalEntry>> getLexicalEntriesInSameSynsetAsListList(LexicalEntry entry) {
+		List<List<LexicalEntry>> list = new ArrayList<>();
+		List<String> synset_ids = entry.getSynset_ids();
+		for (String synset_id : synset_ids) {
+			List<LexicalEntry> les = handler.getSynsetLexicalEntryMap().get(synset_id);
+			list.add(les);
 		}
 		return list;
 	}
@@ -157,15 +198,19 @@ public class WordNetJa {
 		}
 		for (String pos : poss) {
 			LexicalEntry entry = getEntry(word, pos);
-			List<String> synset_ids = entry.getSynset_ids();
-			for (String synset_id : synset_ids) {
-//				System.err.println("# " + handler.getSynsetIdObjMap().get(synset_id).getDefinition_gloss());
-				List<LexicalEntry> les = handler.getSynsetLexicalEntryMap().get(synset_id);
-				for (LexicalEntry le : les) {
-//					System.err.println(le.getLemmaWrittenForm());
-					list.add(le);
-				}
-			}
+
+			List<LexicalEntry> les = getLexicalEntriesInSameSynset(entry);
+			list.addAll(les);
+
+//			List<String> synset_ids = entry.getSynset_ids();
+//			for (String synset_id : synset_ids) {
+////				System.err.println("# " + handler.getSynsetIdObjMap().get(synset_id).getDefinition_gloss());
+//				List<LexicalEntry> les = handler.getSynsetLexicalEntryMap().get(synset_id);
+//				for (LexicalEntry le : les) {
+////					System.err.println(le.getLemmaWrittenForm());
+//					list.add(le);
+//				}
+//			}
 		}
 		return list;
 	}

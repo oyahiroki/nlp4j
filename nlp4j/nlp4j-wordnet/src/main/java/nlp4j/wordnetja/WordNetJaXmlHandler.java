@@ -53,14 +53,24 @@ public class WordNetJaXmlHandler extends AbstractXmlHandler {
 
 	private String writtenForm;
 
-	// id -> LexicalEntry
+	/**
+	 * id -> LexicalEntry
+	 */
 	private Map<String, LexicalEntry> lexicalEntryIdMap = new HashMap<>();
 
-	// "均質化.n" -> LexicalEntryObject
+	/**
+	 * "均質化.n" -> LexicalEntryObject
+	 */
 	private Map<String, LexicalEntry> writtenFormPosLexicalEntryMap = new HashMap<>();
 
+	/**
+	 * synset -> List<LexicalEntry>
+	 */
 	private Map<String, List<LexicalEntry>> synsetLexicalEntryMap = new HashMap<>();
 
+	/**
+	 * @return Map: synset -> List<LexicalEntry>
+	 */
 	public Map<String, List<LexicalEntry>> getSynsetLexicalEntryMap() {
 		return synsetLexicalEntryMap;
 	}

@@ -39,6 +39,9 @@ public class Synset {
 		return id;
 	}
 
+	/**
+	 * @return Statement Example 例文
+	 */
 	public String getStatement_example() {
 		return statement_example;
 	}
@@ -59,6 +62,9 @@ public class Synset {
 		this.id = id;
 	}
 
+	/**
+	 * @param statement_example 例文
+	 */
 	public void setStatement_example(String statement_example) {
 		this.statement_example = statement_example;
 	}
