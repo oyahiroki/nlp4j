@@ -100,4 +100,70 @@ public class WikiIndexReader {
 
 		return wikiIndex;
 	}
+
+	/**
+	 * @param indexFile
+	 * @param handler
+	 * @return
+	 * @throws IOException
+	 */
+	static public void readIndexFile(File indexFile, WikiIndexItemHandler handler) throws IOException {
+
+		logger.info("Reading: " + indexFile.getAbsolutePath());
+		logger.info("Reading File size (bytes): " + String.format("%,d", indexFile.length()));
+
+//		WikiIndex wikiIndex = new WikiIndex((int) indexFile.length() / 10);
+//		wikiIndex.setDataLength(indexFile.length());
+
+		long time1 = System.currentTimeMillis();
+
+		// try-with-resources
+		try (FileInputStream fis = new FileInputStream(indexFile)) {
+
+			BufferedInputStream bis = new BufferedInputStream(fis);
+			CompressorInputStream cis = new CompressorStreamFactory() //
+					.createCompressorInputStream(bis);
+			BufferedReader br = new BufferedReader(new InputStreamReader(cis, encoding));
+
+			String line;
+
+			// Example of line
+			// 382308:2239:水素
+			while ((line = br.readLine()) != null) {
+
+				int idx1block = line.indexOf(':');
+				int idx2id = line.indexOf(':', idx1block + 1);
+
+				long blockNum = Long.parseLong(line.substring(0, idx1block));
+				long itemID = Long.parseLong(line.substring(idx1block + 1, idx2id));
+
+				String title = line.substring(idx2id + 1).trim();
+
+				title = StringEscapeUtils.unescapeHtml4(title);
+
+				WikiIndexItem wikiIndexItem = new WikiIndexItem(blockNum, itemID, title);
+//				wikiIndex.add(wikiIndexItem);
+
+				if (handler != null) {
+					try {
+						handler.read(wikiIndexItem);
+					} catch (BreakException e) {
+						break;
+					}
+				}
+
+			}
+
+		} catch (CompressorException e) {
+			throw new IOException(e);
+		}
+
+		long time2 = System.currentTimeMillis();
+
+		logger.info("Read done (ms): " + String.format("%,d", (time2 - time1)));
+//		logger.info("WikiIndex item size (bytes): " + wikiIndex.size());
+
+//		return wikiIndex;
+	}
+
 }

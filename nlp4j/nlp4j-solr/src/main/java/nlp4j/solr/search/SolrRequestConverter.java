@@ -106,7 +106,7 @@ public class SolrRequestConverter {
 
 		// top -> rows
 		{
-			String top = requestAzureSearch.get("top").getAsString();
+			String top = (requestAzureSearch.get("top") != null) ? requestAzureSearch.get("top").getAsString() : "10";
 			if (top != null) {
 				String[] pp = { top };
 				requestParamsSolr.put("rows", pp);
@@ -114,7 +114,7 @@ public class SolrRequestConverter {
 		}
 		// skip -> start
 		{
-			String skip = requestAzureSearch.get("skip").getAsString();
+			String skip = (requestAzureSearch.get("skip") != null) ? requestAzureSearch.get("skip").getAsString() : "0";
 			if (skip != null) {
 				String[] pp = { skip };
 				requestParamsSolr.put("start", pp);
