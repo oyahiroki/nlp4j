@@ -2,6 +2,7 @@ package nlp4j.wiki.util;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import org.apache.commons.io.FileUtils;
 
@@ -25,7 +26,13 @@ public class MediaWikiTextUtilsTestCase extends TestCase {
 				+ "";
 		String plainText = MediaWikiTextUtils.toPlainText("test", wikitext);
 
+		System.err.println("<before>");
+		System.err.println(wikitext);
+		System.err.println("</before>");
+
+		System.err.println("<after>");
 		System.err.println(plainText);
+		System.err.println("</after>");
 	}
 
 	public void testToPlainText002() throws IOException {
@@ -36,11 +43,44 @@ public class MediaWikiTextUtilsTestCase extends TestCase {
 		String wikitext = FileUtils.readFileToString(file, charsetName);
 		String plainText = MediaWikiTextUtils.toPlainText("test", wikitext);
 
+		System.err.println("<before>");
+		System.err.println(wikitext);
+		System.err.println("</before>");
+
+		System.err.println("<after>");
 		System.err.println(plainText);
+		System.err.println("</after>");
+	}
+
+	public void testGetRootNodeText001() throws IOException {
+		// x-wiki 形式のテキストを用意する
+		// Prepare x-wiki format text
+		File file = new File("src/test/resources/hello.sweble/wiki-example.txt");
+		String charsetName = "UTF-8";
+		String wikitext = FileUtils.readFileToString(file, charsetName);
+		String rootNodeText = MediaWikiTextUtils.getRootNodeText(wikitext);
+
+		System.err.println("<rootNodeText>");
+		System.err.println(rootNodeText);
+		System.err.println("</rootNodeText>");
+
+	}
+
+	public void testParseTemplateTags001() throws IOException {
+		// x-wiki 形式のテキストを用意する
+		// Prepare x-wiki format text
+		File file = new File("src/test/resources/hello.sweble/wiki-example.txt");
+		String charsetName = "UTF-8";
+		String wikitext = FileUtils.readFileToString(file, charsetName);
+		List<String> tags = MediaWikiTextUtils.parseTemplateTags(wikitext);
+
+		System.err.println("<tags>");
+		System.err.println(tags.toString());
+		System.err.println("</tags>");
 	}
 
 	public void testGetWikiPageLinks() {
-		
+
 	}
 
 }

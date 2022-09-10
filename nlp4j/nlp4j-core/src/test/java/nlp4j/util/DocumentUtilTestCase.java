@@ -2,6 +2,7 @@ package nlp4j.util;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import com.google.gson.JsonObject;
 
@@ -26,21 +27,75 @@ public class DocumentUtilTestCase extends TestCase {
 	}
 
 	public void testParseFromJson002() throws Exception {
-		String json = "{'text':'This is test.'}";
+		// plain string
+		String s = "This is test.";
+		String json = "{'text':'" + s + "'}";
 		Document doc = DocumentUtil.parseFromJson(json);
 		assertNotNull(doc);
 		System.err.println(doc);
 		assertNotNull(doc.getAttribute("text"));
 		System.err.println("text=" + doc.getAttribute("text"));
+		assertEquals(s, doc.getAttribute("text"));
 	}
 
 	public void testParseFromJson003() throws Exception {
-		String json = "{'text':'This is test.',keywords:[{'begin':0,'end':4,'facet':'noun','lex':'test','str':'test'}]}";
+		// plain text and keywords
+		String json = "{" //
+				+ "'text':'This is test.',"//
+				+ "keywords:[{'begin':0,'end':4,'facet':'noun','lex':'test','str':'test'}]"//
+				+ "}";
 		Document doc = DocumentUtil.parseFromJson(json);
 		assertNotNull(doc);
 		System.err.println(doc);
 		assertNotNull(doc.getAttribute("text"));
 		System.err.println("text=" + doc.getAttribute("text"));
+		assertEquals(1, doc.getKeywords().size());
+	}
+
+	/**
+	 * created_at: 2022-09-06
+	 * 
+	 * @throws Exception
+	 */
+	public void testParseFromJson004() throws Exception {
+		// plain text and array
+		String json = "{" //
+				+ "'text':'This is test.',"//
+				+ "'arr':['aaa','bbb','ccc']"//
+				+ "}";
+		Document doc = DocumentUtil.parseFromJson(json);
+		assertNotNull(doc);
+		System.err.println(doc);
+		assertNotNull(doc.getAttribute("text"));
+		assertEquals("This is test.", doc.getAttribute("text"));
+		System.err.println("text=" + doc.getAttribute("text"));
+		System.err.println(doc.getAttribute("arr"));
+		System.err.println(doc.getAttribute("arr").getClass().getName());
+		assertTrue(doc.getAttribute("arr") instanceof List);
+	}
+
+	/**
+	 * created_at: 2022-09-06
+	 * 
+	 * @throws Exception
+	 */
+	public void testParseFromJson005() throws Exception {
+		// plain text and array
+		String json = "{" //
+				+ "'text':'This is test.',"//
+				+ "'arr':[1,2,3]"//
+				+ "}";
+		Document doc = DocumentUtil.parseFromJson(json);
+		assertNotNull(doc);
+		System.err.println(doc);
+		assertNotNull(doc.getAttribute("text"));
+		assertEquals("This is test.", doc.getAttribute("text"));
+		System.err.println("text=" + doc.getAttribute("text"));
+		System.err.println(doc.getAttribute("arr"));
+		System.err.println(doc.getAttribute("arr").getClass().getName());
+		assertTrue(doc.getAttribute("arr") instanceof List);
+		System.err.println(((List) doc.getAttribute("arr")).get(0).getClass().getName());
+		assertEquals(1.0d, ((List) doc.getAttribute("arr")).get(0));
 	}
 
 	public void testParseFromJson501() throws Exception {
@@ -199,6 +254,17 @@ public class DocumentUtilTestCase extends TestCase {
 		assertEquals("This is test.", doc.getAttribute("text"));
 		assertEquals("This is test.", doc.getText());
 		assertEquals("test", doc.getKeywords().get(0).getLex());
+	}
+
+	public void testToDocumentString003() {
+		String json = "{\"arr\":[\"a\",\"b\",\"c\"]}";
+
+		Document doc = DocumentUtil.toDocument(json);
+		System.err.println(DocumentUtil.toJsonPrettyString(doc));
+
+		System.err.println(doc.getAttribute("arr"));
+
+		assertEquals("[a, b, c]", doc.getAttribute("arr").toString());
 	}
 
 	/**

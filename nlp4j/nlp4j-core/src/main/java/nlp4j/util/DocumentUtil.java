@@ -178,26 +178,65 @@ public class DocumentUtil {
 			else {
 				String fieldName = key;
 				JsonElement elm = jsonObj.get(key);
+				// Null -> do nothing
 				if (elm.isJsonNull()) {
 					// System.err.println("json null");
 				} //
+					// JsonArray -> List
 				else if (elm.isJsonArray()) {
-					String value = jsonObj.get(key).toString();
-					doc.putAttribute(fieldName, value);
+					// FIXED 2022-09-08
+					JsonArray arr = elm.getAsJsonArray();
+					List<Object> list = new ArrayList<>();
+					for (int n = 0; n < arr.size(); n++) {
+
+						JsonElement el = arr.get(n);
+
+						if (el.isJsonObject()) {
+							String value = jsonObj.get(key).toString();
+							list.add(value);
+						} //
+						else if (el.isJsonPrimitive()) {
+							JsonPrimitive p = (JsonPrimitive) el;
+							if (p.isString()) {
+								String value = p.getAsString();
+								list.add(value);
+							} else if (p.isNumber()) {
+								double d = p.getAsDouble();
+								list.add(d);
+							} else {
+								String value = p.getAsString();
+								list.add(value);
+							}
+						} //
+						else {
+							String value = jsonObj.get(key).toString();
+							list.add(value);
+						}
+
+						list.add(arr.get(n).getAsString());
+					}
+					doc.putAttribute(key, list);
 				} //
+					// JsonObject -> String
 				else if (elm.isJsonObject()) {
 					String value = jsonObj.get(key).toString();
 					doc.putAttribute(fieldName, value);
 				} //
+					// JsonPrimitive -> primitive
 				else if (elm.isJsonPrimitive()) {
 					JsonPrimitive p = (JsonPrimitive) elm;
+					// string
 					if (p.isString()) {
 						String value = jsonObj.get(key).getAsString();
 						doc.putAttribute(fieldName, value);
-					} else if (p.isNumber()) {
+					}
+					// number
+					else if (p.isNumber()) {
 						Number value = jsonObj.get(key).getAsNumber();
 						doc.putAttribute(fieldName, value);
-					} else {
+					}
+					// else(not string && not number)
+					else {
 						String value = jsonObj.get(key).toString();
 						doc.putAttribute(fieldName, value);
 					}
@@ -238,6 +277,7 @@ public class DocumentUtil {
 	 * @return Instance of DefaultDocument
 	 */
 	static public Document toDocument(String json) {
+
 		Document doc = new DefaultDocument();
 		Gson gson = new Gson();
 		JsonObject jsonObj = gson.fromJson(json, JsonObject.class);
@@ -273,7 +313,15 @@ public class DocumentUtil {
 						doc.putAttribute(key, n);
 					}
 				} //
-				else {
+				else if (elm.isJsonArray() == true) {
+					JsonArray arr = (JsonArray) elm;
+					List<String> ss = new ArrayList<>();
+					for (int n = 0; n < arr.size(); n++) {
+						String v = arr.get(n).getAsString();
+						ss.add(v);
+					}
+					doc.putAttribute(key, ss);
+				} else {
 					doc.putAttribute(key, elm);
 				}
 			}

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
@@ -113,7 +114,31 @@ public class SolrDocumentImporter extends AbstractDocumentImporter implements Do
 				if (map.containsKey(key)) {
 					field = map.get(key);
 				}
-				inputDocument.addField(field, doc.getAttribute(key));
+				Object o = doc.getAttribute(key);
+
+				logger.debug(o.getClass().getName());
+
+				if (o instanceof List) {
+					@SuppressWarnings({ "rawtypes" })
+					List list = (List) o;
+					List<String> list2 = new ArrayList<>();
+					for (Object x : list) {
+						list2.add(x.toString());
+					}
+					inputDocument.addField(field, list2.toArray(new String[0]));
+				} //
+				else if (o instanceof String) {
+					String s = (String) o;
+					inputDocument.addField(field, s);
+				} //
+				else if (o instanceof Number) {
+					Number num = (Number) o;
+					inputDocument.addField(field, num);
+				} //
+				else {
+					inputDocument.addField(field, o);
+				}
+
 			}
 		}
 

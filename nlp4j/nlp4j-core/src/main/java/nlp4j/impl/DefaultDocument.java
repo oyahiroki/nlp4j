@@ -11,7 +11,6 @@ import java.util.Map;
 
 import nlp4j.Document;
 import nlp4j.Keyword;
-import nlp4j.KeywordWithDependency;
 import nlp4j.util.DateUtils;
 
 /**
@@ -243,9 +242,24 @@ public class DefaultDocument implements Document {
 		this.attributes.put(key, value);
 	}
 
-	@Override
+	/**
+	 * @param key     of Object
+	 * @param object: Object[] will be converted to List<Object> internally
+	 */
 	public void putAttribute(String key, Object object) {
-		this.attributes.put(key, object);
+
+		// convert Object[] to List
+		if (object instanceof Object[]) {
+			List<Object> oo = new ArrayList<>();
+			Object[] o1 = (Object[]) object;
+			for (int n = 0; n < o1.length; n++) {
+				oo.add(o1[n]);
+			}
+			this.attributes.put(key, oo);
+		} //
+		else {
+			this.attributes.put(key, object);
+		}
 	}
 
 	@Override

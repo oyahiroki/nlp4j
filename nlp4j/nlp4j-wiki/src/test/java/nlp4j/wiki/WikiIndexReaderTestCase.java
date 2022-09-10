@@ -143,9 +143,41 @@ public class WikiIndexReaderTestCase extends TestCase {
 			System.err.println(String.format("%09d", n) + "\t" + titles.get(n));
 		}
 
-		int count1nonamespace = 0;
-		int count2namespace = 0;
+//		int count1nonamespace = 0;
+//		int count2namespace = 0;
 
 //		for(String title )
+	}
+
+	/**
+	 * created_at : 2022-09-04
+	 * 
+	 * @throws Exception
+	 */
+	public void testReadIndexFileWiki001() throws Exception {
+		String indexFileName = "src/test/resources/nlp4j.wiki/"
+				+ "jawiktionary-20210401-pages-articles-multistream-index.txt.bz2";
+
+		File indexFile = new File(indexFileName);
+
+		if (indexFile.exists() == false) {
+			System.err.println("Not found: " + indexFile.getAbsolutePath());
+			return;
+		}
+
+		// Read Wiki Index File
+		WikiIndexReader.readIndexFile(indexFile, new WikiIndexItemHandler() {
+			int countMax = 0;
+
+			@Override
+			public void read(WikiIndexItem item) throws BreakException {
+				System.out.println(item.getTitle());
+				countMax++;
+				if (countMax > 100) {
+					throw new BreakException();
+				}
+			}
+		}); // throws IOException
+
 	}
 }

@@ -1,6 +1,7 @@
 package nlp4j.wiki.util;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -13,6 +14,9 @@ import org.sweble.wikitext.engine.nodes.EngProcessedPage;
 import org.sweble.wikitext.engine.utils.DefaultConfigEnWp;
 import org.sweble.wikitext.example.TextConverter;
 
+import nlp4j.wiki.WikiItemTextParser;
+import nlp4j.wiki.WikiPageNode;
+
 public class MediaWikiTextUtils {
 
 	static private final WtEngineImpl engine;
@@ -21,6 +25,37 @@ public class MediaWikiTextUtils {
 		engine = new WtEngineImpl(config);
 	}
 
+	static public String getRootNodeText(String wikiText) {
+		WikiItemTextParser parser = new WikiItemTextParser();
+		parser.parse(wikiText);
+
+		WikiPageNode rootNode = parser.getRoot();
+//		System.err.println("<out>");
+
+//		{
+//			String s = rootNode.getText().length() > 16 ? rootNode.getText().substring(0, 16)
+//					: rootNode.getText();
+//			s = s.replace("\n", "").trim();
+//			System.err.println(page.getTitle() + "\t" + s);
+//		}
+
+		String t = rootNode.getText();
+
+		return t;
+	}
+
+	/**
+	 * <pre>
+	 * 1. Remove Templates. 
+	 *     "{{otheruses}}" will be removed.
+	 * 2. Compile section number. 
+	 *     "== TITLE ==" will be "1. TITLE\n--------"
+	 * </pre>
+	 * 
+	 * @param wikiTitle
+	 * @param wikiText
+	 * @return
+	 */
 	static public String toPlainText(String wikiTitle, String wikiText) {
 		// Set-up a simple wiki configuration
 		try {
@@ -79,6 +114,55 @@ public class MediaWikiTextUtils {
 		}
 
 		return t;
+	}
+
+	public static List<String> parseTemplateTags(String t) {
+		List<String> tags = new ArrayList<>();
+
+		// FOR EACH LINE
+		for (String line : t.split("\n")) {
+			if (line.startsWith("{{") == true) {
+				String tag = parseTag(line);
+				if (tags.contains(tag) == false) {
+					tags.add(tag);
+				}
+			}
+		} // END OF ( FOR EACH LINE)
+
+		Collections.sort(tags);
+
+		return tags;
+	}
+
+	private static String parseTag(String line) {
+		String tag;
+		if (line.contains("|")) {
+			int idx = line.indexOf("|");
+			tag = line.substring(0, idx);
+		} //
+		else if (line.contains(":")) {
+			int idx = line.indexOf(":");
+			tag = line.substring(0, idx).trim();
+		} //
+		else {
+			tag = line;
+		}
+
+		tag = tag.replace("{", "");
+		tag = tag.replace("}", "");
+		tag = tag.replace("[", "");
+		tag = tag.replace("]", "");
+
+		tag = tag.trim();
+
+		if (tag.startsWith("Infobox ")) {
+			tag = tag.replace("Infobox ", "");
+		}
+
+		tag = tag.toLowerCase();
+		tag = tag.replace(" ", "_");
+
+		return tag;
 	}
 
 }

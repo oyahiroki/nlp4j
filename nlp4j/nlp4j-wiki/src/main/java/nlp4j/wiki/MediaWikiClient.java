@@ -20,6 +20,7 @@ import nlp4j.util.HttpClient;
  * <pre>
  * Media Wiki API Client
  * https://www.mediawiki.org/wiki/API:Tutorial/en
+ * https://www.mediawiki.org/wiki/API:Tutorial/ja
  * 
  * created at: 2022-03-03
  * </pre>
@@ -28,6 +29,23 @@ import nlp4j.util.HttpClient;
  *
  */
 public class MediaWikiClient {
+
+	/**
+	 * en.wikipedia.org
+	 */
+	static public String HOST_EN_WIKIPEDIA_ORG = "en.wikipedia.org";
+	/**
+	 * en.wiktionary.org
+	 */
+	static public String HOST_EN_WIKTIONARY_ORG = "en.wiktionary.org";
+	/**
+	 * ja.wikipedia.org
+	 */
+	static public String HOST_JA_WIKIPEDIA_ORG = "ja.wikipedia.org";
+	/**
+	 * ja.wiktionary.org
+	 */
+	static public String HOST_JA_WIKTIONARY_ORG = "ja.wiktionary.org";
 
 	private static final int MAX_QUERY_COUNT = 100;
 

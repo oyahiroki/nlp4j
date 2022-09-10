@@ -14,15 +14,9 @@ public class MediaWikiIndexFileUtils {
 
 		// Read Wiki Index File
 		WikiIndexReader.readIndexFile(indexFile, new WikiIndexItemHandler() {
-			int countMax = 0;
-
 			@Override
 			public void read(WikiIndexItem item) throws BreakException {
 				System.out.println(item.getTitle());
-				countMax++;
-				if (countMax > 100) {
-					throw new BreakException();
-				}
 			}
 		}); // throws IOException
 

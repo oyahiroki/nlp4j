@@ -49,8 +49,8 @@ public class WordCounterTestCase extends TestCase {
 		String facet = "word_ss";
 		SolrSearchClient client = new SolrSearchClient.Builder(endPoint).build();
 		WordCounter wc = new WordCounter(client, indexName, facet);
-		System.err.println("idf(日本):" + wc.getIdf(facet, "日本"));
-		System.err.println("idf(関東地方):" + wc.getIdf(facet, "関東地方"));
+//		System.err.println("idf(日本):" + wc.getIdf(facet, "日本"));
+//		System.err.println("idf(関東地方):" + wc.getIdf(facet, "関東地方"));
 	}
 
 	public void test102() throws Exception {

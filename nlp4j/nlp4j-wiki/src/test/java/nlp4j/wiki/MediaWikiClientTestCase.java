@@ -16,9 +16,11 @@ public class MediaWikiClientTestCase extends TestCase {
 		String category = "Category:Auto_parts";
 		MediaWikiClient client = new MediaWikiClient(host);
 		List<String> titles = client.getPageTitlesByCategory(category);
+		System.err.println("<titles>");
 		for (String title : titles) {
 			System.err.println(title);
 		}
+		System.err.println("</titles>");
 		System.err.println(titles.size());
 	}
 
@@ -32,9 +34,11 @@ public class MediaWikiClientTestCase extends TestCase {
 		String category = "Category:en:Medicine";
 		MediaWikiClient client = new MediaWikiClient(host);
 		List<String> titles = client.getPageTitlesByCategory(category);
+		System.err.println("<titles>");
 		for (String title : titles) {
 			System.err.println(title);
 		}
+		System.err.println("</titles>");
 		System.err.println(titles.size());
 	}
 
@@ -48,9 +52,11 @@ public class MediaWikiClientTestCase extends TestCase {
 		String category = "カテゴリ:日本語_ことわざ";
 		MediaWikiClient client = new MediaWikiClient(host);
 		List<String> titles = client.getPageTitlesByCategory(category);
+		System.err.println("<titles>");
 		for (String title : titles) {
 			System.err.println(title);
 		}
+		System.err.println("</titles>");
 		System.err.println(titles.size());
 	}
 
