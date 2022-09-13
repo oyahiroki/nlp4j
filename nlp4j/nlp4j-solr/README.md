@@ -24,5 +24,16 @@ nlp4j-solr provides
 	> docker exec -it nlp4j-solr-unittest /bin/bash
 	
 	$ bin/solr create_core -c unittest
-	
-	
+
+# Solr
+
+https://solr.apache.org/guide/8_1/common-query-parameters.html
+
+# Azure
+
+Azure Query:
+
+https://docs.microsoft.com/en-us/rest/api/searchservice/search-documents
+
+https://docs.microsoft.com/ja-jp/rest/api/searchservice/search-documents
+

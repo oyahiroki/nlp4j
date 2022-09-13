@@ -1,0 +1,398 @@
+{{otheruses}}
+{{Infobox Continent
+|image               = [[File:Europe (orthographic projection).svg|200px]]
+|area                = 1018万 km{{sup|2}}
+|population          = 7億3100万人 (2009, [[大陸#面積と人口|3位]])
+|density             = 70人/km{{sup|2}}
+|demonym             = [[ヨーロッパ人]]
+|countries           = 50
+|list_countries      = 
+|languages           = 
+|time                = [[協定世界時|UTC]] ~ [[UTC+5]]
+|internet            = [[.eu]] ([[欧州連合|EU]])
+|cities              = {{flagicon|RUS}}[[モスクワ]]
+}}
+'''ヨーロッパ'''{{efn|日本語の「ヨーロッパ」の直接の原語は、『[[広辞苑]]』第5版「ヨーロッパ」によると[[ポルトガル語]]・[[オランダ語]]、『[[デジタル大辞泉]]』[[goo辞書]]版「[http://dictionary.goo.ne.jp/leaf/jn2/226957/m0u/ ヨーロッパ]」によるとポルトガル語。}}（[[ポルトガル語]]・{{Lang-nl|Europa}} {{IPA-pt|ew.ˈɾɔ.pɐ|lang}} {{IPA-nl|øːˈroːpaː, ʏˑˈroːpaˑ|lang}}）又は'''欧州'''（おうしゅう）は、[[地球]]上の七つの[[大州]]の一つ。[[漢字]]表記は'''欧羅巴'''。
+
+==概要==
+地理的には、[[ユーラシア#ユーラシア大陸|ユーラシア大陸]]北西の[[半島]]部を包括し、[[ウラル山脈]]および[[コーカサス山脈]]の[[分水嶺]]と[[ウラル川]]・[[カスピ海]]・[[黒海]]、そして黒海と[[エーゲ海]]を繋ぐ[[ボスポラス海峡]]-[[マルマラ海]]-[[ダーダネルス海峡]]が、[[アジア]]と区分される[[東]]の境界となる<ref name=masuda38>[[#増田1967|増田 (1967)、pp.38–39、Ⅲ.地理的にみたヨーロッパの構造 ヨーロッパの地理的範囲]]</ref><ref name="NatlGeoAtlas">{{Cite book|title=National Geographic Atlas of the World|edition=7th|year=1999|location=Washington, DC|publisher=[[ナショナルジオグラフィック協会]]|isbn=0-7922-7528-4}} "Europe" (pp. 68-9); "Asia" (pp. 90-1): "A commonly accepted division between Asia and Europe ... is formed by the Ural Mountains, Ural River, Caspian Sea, Caucasus Mountains, and the Black Sea with its outlets, the Bosporus and Dardanelles."（一般的に受け入れられているアジアとヨーロッパの境界は、（中略）ウラル山脈、ウラル川、カスピ海、コーカサス山脈、黒海の河口、ボスポラスそしてダーダネスルである。）</ref>。
+
+面積から見るとヨーロッパ州は世界で2番目に小さな大州であり、1018万km{{sup|2}}は地球表面積の2%、陸地に限れば6.8%を占める。アジアに跨る領土を持つ[[ロシア]]は、ヨーロッパ50か国の中で面積および人口第1位の[[国家]]である。対照的に最も小さな国家は[[バチカン市国]]である。総人口はアジア・[[アフリカ]]に次ぐ7億3300万。これは地球総人口の11%である<ref>"[http://migration.ucdavis.edu/mn/more.php?id=3585_0_5_0 Global: UN Migrants, Population]". Migration News. January 2010 Volume 17 Number 1.</ref>。
+
+ヨーロッパ、特に[[古代ギリシア]]は[[西洋文明]]発祥の地である<ref>[[#Lewis1997|Lewis & Wigen (1997)、p.226]]</ref>。これは、16世紀以降の[[植民地主義]]の始まりとともに世界中に拡散し、支配的な役割を果たした。16世紀から20世紀の間、ヨーロッパの国々は[[アメリカ州]]、[[アフリカ]]、[[オセアニア]]、[[中東]]、[[アジア]]の大部分を支配下に置いた。2度の世界大戦はヨーロッパを戦火で覆い、[[20世紀]]中頃の[[西ヨーロッパ]]による世界への影響力減衰に結びつき、その地位を[[アメリカ合衆国]]と[[ソビエト連邦]]に奪われる結果となった<ref name="natgeo 534">[[#National Geographic|National Geographic, p.534.]]</ref>。
+
+== 定義 ==
+[[File:Herodotus world map-en.svg|thumb|right|復元された[[ヘロドトス]]の世界地図。]]
+[[File:T and O map Guntherus Ziner 1472.jpg|150px|thumb|left|1472年に作成された中世の[[TO図]]。世界を3つの大陸として描いている。]]
+[[File:Europe As A Queen Sebastian Munster 1570.jpg|150px|thumb|upright|right|{{仮リンク|ヨーロッパの女王|en|Europa regina}}を模した地図。『[[宇宙誌]]』から。ここでは、[[ブリテン諸島]]と[[スカンディナヴィア半島]]がヨーロッパとして含まれていない。]]
+
+=== 定義史 ===
+用語「ヨーロッパ」は、[[歴史]]が展開する中で使われ方が様々に発展した<ref>[[#Lewis1997|Lewis & Wigen (1997)]]</ref><ref>{{Cite book|title=The European culture area: a systematicgeography|first=Terry G.|last= Jordan-Bychkov| first2=Bella Bychkova|last2= Jordan| publisher=[[:en:Rowman & Littlefield|Rowman & Littlefield]]|year= 2001|isbn=0742516288}}</ref>。地理用語としてのEurṓpēの記録に残る最古の使用法は、[[エーゲ海]]の南海岸を指したもので、[[アポローン|デロス島のアポローン]]に捧げられた[[ホメーロス風讃歌]]にある。初めてヨーロッパとアジアを区分した地図は[[ミレトスのヘカタイオス]]が作成した<ref name=OkaSekai12>[[#岡崎2003|岡崎 (2003)、第一章第一節 歴史観の世界観的基礎 1.古代ギリシア人の「世界」と時間と時間、pp.12-24]]</ref>。[[古代ギリシア|ギリシア]]の歴史家[[ヘロドトス]]は著書『歴史』第4章にて<ref name=OkaSekai12 />、世界がヨーロッパ・アジア・リビアの3箇所に分けられ、その境界は[[ナイル川]]と[[リオニ川]]であることを示唆した。彼はさらに、ヨーロッパとアジアの境界はリオニ川ではなく[[ドン川]]とする考えもあると述べた<ref>[[ヘロドトス]]、4:45</ref>。1世紀の地理学者[[ストラボン]]も東側の境をドン川と考えた<ref>[[ストラボン]]、''[[地理誌|Geography]] 11.1''</ref>。{{仮リンク|フラヴィウス家|en|Flavius}}の人物の著述や『[[ヨベル書]]』では、各大陸を[[ノア (聖書)|ノア]]から3人の息子たちへそれぞれ与えられたものと記している。そこでは、ヨーロッパはリビアとの境となる[[ジブラルタル海峡]]の[[ヘラクレスの柱]]から、アジアとの境となるドン川まで広がる地域としている<ref>{{Cite book|title=Genesis and the Jewish antiquities of Flavius Josephus|first= Thomas W.|last= Franxman|publisher=Pontificium Institutum Biblicum|year= 1979|isbn=8876533354|pages=101–102}}</ref>。
+
+ヨーロッパの文化に言及すると、まず大きく東西2つに分けられ、「西ヨーロッパ」は[[ラテン語]]と{{仮リンク|キリスト教世界|en|Christendom}}が結合し8世紀に形成された地域となり、[[ゲルマン民族]]の伝統とラテン系[[キリスト教]]文化の合流と表され、「東ヨーロッパ」は「[[東ローマ帝国|ビザンティン帝国]]」となる。これらは[[イスラム教|イスラム圏]]と対比することもできる。西ヨーロッパ地域は[[イベリア半島]]北部、[[ブリテン諸島]]、[[フランス]]、キリスト教化された[[ドイツ]]西部<!--西ドイツだと東西分断時代のドイツ連邦共和国-->、[[アルプス山脈|アルプス]]そして北および中央[[イタリア]]が該当する<ref>[[#Cantor1993|Cantor （1993）、pp185ff]]</ref>。この考えは[[カロリング朝ルネサンス]]の影響を受け継いだもので、[[カール大帝]]の文化相となった[[アルクィン]]の手紙の中に、しばしば Europa の単語が見られる<ref>[[#Cantor1993|Cantor （1993）、pp181]]</ref>。このような文化的また地理的な区分は[[中世後期]]まで用いられたが、[[大航海時代]]にはそぐわなくなった<ref>[[#Lewis1997|Lewis & Wigen (1997)、pp.23–25]]</ref><ref>{{Cite book|url=http://books.google.com/books?id=jrVW9W9eiYMC&pg=PA8&dq=%22suggested+that+Europe%27s+boundary%22 |title=Europe: A History, by Norman Davies, p. 8 |publisher=|date= |accessdate=2010-08-23|isbn=9780198201717|year=1996|author1=Davies|first1=Norman}}</ref>。ヨーロッパの定義問題は最終的に、[[スウェーデン]]の地理学者兼地図製作者の{{仮リンク|フィリップ・ヨハン・フォン・シュトラーレンベルク|en|Philip Johan von Strahlenberg}}が提唱した、水域ではなく[[ウラル山脈]]を最も重要な東の境とする1730年の案が[[ロシア・ツァーリ国]]を皮切りにヨーロッパ各国の支持を集め、解決を見た<ref>[[#Lewis1997|Lewis & Wigen (1997)、pp.27-28]]</ref>。
+
+=== 現代の定義 ===
+現代では、ヨーロッパとはユーラシア大陸の北西に位置する[[半島]]と認識され、北・西・南が大きな水域で区切られた陸地と認識される。東の境界は通常ウラル山脈から[[ウラル川]]を経由して[[カスピ海]]に接続し、そこから南東にある[[コーカサス山脈]]を通って[[黒海]]・[[ボスポラス海峡]]そして[[地中海]]まで繋がる<ref name="Encarta">{{cite encyclopedia|last=Microsoft Encarta Online Encyclopaedia 2007|title=Europe|url=http://encarta.msn.com/encyclopaedia_761570768/Europe.html|accessdate=27 December 2007|archiveurl=https://www.webcitation.org/5kwbxqnne?url=http://encarta.msn.com/encyclopedia_761570768/Europe.html|archivedate=2009年10月31日|deadurl=yes|deadlinkdate=2017年9月}}</ref>。
+
+社会政治学的または文化的な側面を考慮すると、ヨーロッパの境界は様々な言及がなされる。例えば、[[キプロス]]は小アジアの[[アナトリア半島]]に近接しているが、ここはしばしばヨーロッパの一部とみなされ、現在ではEUの一員でもある。逆に[[マルタ]]は長い間アフリカに属する島と受け止められていた<ref>Falconer, William; Falconer, Thomas. [http://books.google.com/books?id=B3Q29kWRdtgC&pg=PA50&dq=Strabo+Theophrastus+Melita#v=onepage&f=false ''Dissertation on St. Paul's Voyage''], BiblioLife (BiblioBazaar), 1872. (1817.), p 50, ISBN 1-113-68809-2 ''These islands Pliny, as well as Strabo and Ptolemy, included in the African sea''</ref>。[[日本]]の[[外務省]]の公式サイトは、[[アルメニア]]、[[カザフスタン]]などを欧州に含めている<ref>{{Cite web |url=https://www.mofa.go.jp/mofaj/area/europe.html |title=地域別インデックス（欧州） |publisher=外務省 |accessdate=2021-03-14}}</ref>。
+
+「ヨーロッパ」という単語は、欧州共同体（{{Lang|en|European Union, EU}}）のみを指す地政学的な制限を加えて用いられる事もあり<ref>参照： Merje Kuus, [http://phg.sagepub.com/cgi/content/abstract/28/4/472 'Europe's eastern expansion and the re-inscription of otherness in East-Central Europe'] ''Progress in Human Geography'', Vol. 28, No. 4, 472–489 (2004), József Böröcz, [http://papers.ssrn.com/sol3/papers.cfm?abstract_id=1082435 'Goodness Is Elsewhere: The Rule of European Difference'], ''Comparative Studies in Society and History'', 110–36, 2006, or [http://www.ceupress.com/books/html/OnTheEast-WestSlope.htm Attila Melegh, ''On the East-West Slope: Globalisation, nationalism, racism and discourses on Central and Eastern Europe''], Budapest: Central European University Press, 2006.</ref>、さらに排他的な用例や文化的な中心地と定義する場合もある。その一方で、[[欧州評議会]]には47か国が参加しているのに対し、[[EU加盟国]]は27か国に過ぎない<ref>{{cite web|url=http://www.coe.int/T/e/Com/about_coe/|title=About the Council of Europe|publisher=Council of Europe|accessdate=9 June 2008|archiveurl=https://web.archive.org/web/20080516024649/http://www.coe.int/T/e/Com/about_coe/|archivedate=2008年5月16日|deadlinkdate=2017年9月}}</ref>。
+
+== 呼称 ==
+[[File:Europa copy.jpg|thumb|エウローペと{{仮リンク|神聖なる雄牛|en|Sacred bull}}]]
+
+=== 語源 ===
+単語ヨーロッパの語源にはさまざまな説がある。古代の[[ギリシア神話]]には、主神[[ゼウス]]が白い雄牛に変化して攫った[[フェニキア]]の王女[[エウローペー]]（{{lang-el-short|Εὐρώπη}}）が登場する。ゼウスは彼女を[[クレタ島]]へ連れ出し、そこで[[ミーノース]]ら3人の子どもを得た<ref>{{cite book|和書|title=世界神話事典|author=大林太良、伊藤清司、吉田敦彦、松村一男|publisher=[[角川書店]] |year=2005|isbn=4-04-703375-8 |pages=314}}</ref>。このエウローペーがヨーロッパの語源という説がある<ref>{{cite web|url=http://ksirius.kj.yamagata-u.ac.jp/~shibata/yamashin/22-body.html|title=おうし座|author=柴田晋平||publisher=[[山形新聞]]月曜夕刊「星空案内」／[[山形大学]]|accessdate=2012-05-20}}</ref>。
+
+他に、「広い・幅広い」を意味する[[ギリシア語]]の {{lang|grc|εὐρύς}}<ref group="注釈">{{lang-*-Latn|el|eurus}}</ref><ref>[http://www.perseus.tufts.edu/hopper/text?doc=Perseus%3Atext%3A1999.04.0057%3Aentry%3Deu%29ru%2Fs {{lang|grec|εὐρύς}}], Henry George Liddell, Robert Scott, ''A Greek-English Lexicon'', on Perseus</ref>に「眼」を意味する {{lang|el|ὤψ}}<ref group="注釈">{{lang-*-Latn|el|ōps}}</ref>、「顔」を意味する {{lang|el|ὠπ}}<ref group="注釈">{{lang-*-Latn|el|ōp}}</ref>、「相貌」を意味する {{lang|el|ὀπτ}}<ref group="注釈">{{lang-*-Latn|el|opt}}</ref>が付加され<ref>[http://www.perseus.tufts.edu/hopper/text?doc=Perseus%3Atext%3A1999.04.0057%3Aentry%3Dw%29%2Fy ὤψ], Henry George Liddell, Robert Scott, ''A Greek-English Lexicon'', on Perseus</ref>、合わせた {{Unicode|Eurṓpē}} は「広く熟視する」や「幅広い方角」という意味を持つという。初期インドヨーロッパ語族の信仰では、{{lang|und|broad}}（広い）とは[[地球]]そのものを指す[[形容詞句]]であった<ref>{{Cite book|author=M. L. West |title=Indo-European poetry and myth |publisher=[[オックスフォード大学出版局|Oxford University Press]] |location=Oxford [Oxfordshire] |year=2007 |pages=178–179 |isbn=0-19-928075-4 |oclc= |doi=}}</ref>。
+
+他の説では[[セム語派]]の言語に源流を求め、[[アッカド語]]の {{lang|akk-Latn|erebu}}<ref group="注釈">アッカド語ラテン翻字</ref> (「太陽が沈むところ」) が元だとも言い<ref name="Etymonline: European">{{cite web| url=http://www.etymonline.com/index.php?term=European| title=Etymonline: European| accessdate=10 September 2006}}</ref>、[[フェニキア語]]の {{lang|phn-Latn|ereb}}<ref group="注釈">フェニキア語ラテン翻字</ref> (「夕方、西」) <ref name=OkaSekai12 />や[[アラビア語]]の {{lang|ar-Latn|Maghreb}}<ref group="注釈">アラビア語ラテン翻字</ref>（[[マグリブ]]）やヘブライ語の {{lang|he-Latn|ma'ariv}}<ref group="注釈">ヘブライ語ラテン翻字</ref> と[[同根語]]だと言う。ただし、{{仮リンク|マーチン・リッチフィールド・ウエスト|en|Martin Litchfield West}}は、{{Unicode|Europa}}とセム語の単語との間には、音韻論的に合致する部分がほとんど無いと主張した<ref>{{Cite book|author={{仮リンク|マーチン・リッチフィールド・ウエスト|en|Martin Litchfield West}}|title=The east face of Helicon: west Asiatic elements in Greek poetry and myth |publisher=Clarendon Press |location=Oxford |year=1997 |page=451 |isbn=0-19-815221-3 |oclc= |doi=}}</ref>。
+
+=== 各言語での語形 ===
+ヨーロッパの大半の言語で、発音こそ違えど綴りは {{la|Europa}} であるが、[[英語]]・[[フランス語]]では末尾音が脱落し、{{lang|en|Europe}} となる。英語での発音は「{{IPA2|ˈjʊərəp}}」「{{IPA2|ˈjɜrəp}}」で、オクスフォード英語辞典オンラインが示す「{{lang|en|Europe}}」の発音記号は、イギリス英語では「{{IPA2|ˈjʊərəp}}」「{{IPA2|ˈjɔːrəp}}」、アメリカ英語では「{{IPA2|ˈjərəp}}」「{{IPA2|ˈjurəp}}」である。
+
+[[日本語]]の「ヨーロッパ」は、何らかの外国語の発音を直接に音写したものではない。この語は、[[戦国時代 (日本)|戦国時代]]末～[[江戸時代]]初期に[[ポルトガル語]]の {{pt|Europa}}（エウロパ）から借用され、「えうろつは」と表記され、「エウロッパ」と発音された。[[促音]]の挿入は、原音を反映したものではなく、当時の日本語では促音・[[撥音]]の後にのみ {{IPA2|p}} 音が現れたためである（{{pt|capa}} → [[合羽|かっぱ]] もその例）。その後、「エウ」が[[拗長音]]化規則により「ヨー」に遷移し、「ヨーロッパ」となった。
+
+[[漢語]]では「欧羅巴（歐羅巴）」と音写されたため、[[中国語]]では[[漢字]]で「歐洲」と表される。日本語においても「欧州連合」のような漢字表記もあるが、[[カタカナ]]「ヨーロッパ」の方が一般的である。ちなみに、「欧（歐）」という漢字は、本来「体を曲げてかがむ」という意味であり、「吐く・もどす」「殴る」「うたう」の意味にも用いられたが、現在ではこれらの用例はほとんどなく、[[当て字]]としての「ヨーロッパ」の意味で用いられている。
+
+=== 他の語 ===
+多くの主要言語では {{lang|und|Europa}} から派生した単語が、大陸（もしくは半島）を指して使われる。しかし[[トルコ語]]では、[[ペルシャ語]]を語源とする {{lang|tr|Frangistan}} （[[フランク人]]の土地）という単語が、正式名称の {{lang|tr|Avrupa}} や {{lang|tr|Evropa}} よりも多用される<ref name="davison">{{Cite journal|author=Davidson, Roderic H. |title={{lang|en|Where is the Middle East?}}|jstor=20029452 |journal={{lang|en|Foreign Affairs}}|volume=38|issue=4 |pages=665–675 |year=1960|doi=10.2307/20029452 |ref=harv}}</ref>。
+
+== 領域 ==
+ヨーロッパとは歴史や伝統、文化に共通する地域を類型化してできた地域名であり、[[地学]]上はユーラシア大陸西端の半島にすぎない。そのため、領域は観念的なものである。
+
+=== 国際連合による分類 ===
+[[File:Europe subregion map UN geoscheme.svg|thumb|250px|[[国際連合]]によるヨーロッパの分類]]
+{{legend|#4080FF|[[北ヨーロッパ]]}}
+{{legend|#00FFFF|[[西ヨーロッパ]]}}
+{{legend|#FF8080|[[東ヨーロッパ]]}}
+*{{legend|#FFC0C0|[[ロシア連邦]]の[[北アジア]]部}}
+{{legend|#00FF00|[[南ヨーロッパ]]}}
+{{legend|#80C080|[[西アジア]]の国が持つ[[南ヨーロッパ]]部の領土([[トルコ]])}}
+*{{legend|#C0FFC0|上記の国家のアジア部分}}
+{{legend|#FF80C0|[[西アジア]]の国が持つ[[東ヨーロッパ]]部の領土([[ジョージア (国)|ジョージア]]及び[[アゼルバイジャン]])}}
+*{{legend|#FFC0E0|上記の国家のアジア部分}}
+{{legend|#D060D0|[[中央アジア]]の国が持つ[[東ヨーロッパ]]部の領土([[カザフスタン]])}}
+*{{legend|#E0C0E0|上記の国家のアジア部分}}
+{{clear}}
+
+=== ワールド・ファクトブックによる分類 ===
+[[File:Europe subregion map world factbook.svg|thumb|250px|[[ワールド・ファクトブック]]によるヨーロッパの分類]]
+{{legend|#4080FF|[[北ヨーロッパ]]}}
+{{legend|#00FFFF|[[西ヨーロッパ]]}}
+{{legend|#FFDB6C|[[中央ヨーロッパ]]}}
+{{legend|#FF8080|[[東ヨーロッパ]]}}
+{{legend|#FF0000|[[西南ヨーロッパ]]}}
+{{legend|#00FF00|[[南ヨーロッパ]]}}
+{{legend|#C07215|[[東南ヨーロッパ]]}}
+{{legend|#99BADD|[[南西アジア]]}}
+{{legend|#FFC0CB|[[北アジア]]}}
+{{legend|#CD00CC|[[中央アジア]]}}
+{{legend|#228B22|[[中東]]}}
+{{clear}}
+
+=== 冷戦時代の分類 ===
+[[File:Iron Curtain Final.svg|thumb|200px|[[冷戦]]時代のヨーロッパの分類]]
+{{legend|#1003BF|[[西側世界]]}}
+{{legend|#E91D01|[[東側世界]]}}
+{{legend|#2F4F4F|[[非同盟]]([[ユーゴスラビア]])}}
+{{legend|#A9A9A9|中立国(※灰色に赤の斜線は、東側諸国であったが後にソ連と対立し孤立政策を採っていた[[アルバニア]])}}
+{{clear}}
+
+<gallery>
+ファイル:Europe satellite orthographic.jpg|ヨーロッパの衛星写真
+ファイル:Europe countries map ja.png|現在ヨーロッパ各国の地図
+ファイル:Europe with flags.png|[[国旗]]地図
+</gallery>
+
+== 歴史 ==
+{{main|ヨーロッパ史}}
+=== 地質史 ===
+ヨーロッパ大陸の起源は、22億5000万年前の{{仮リンク|バルト盾状地|en|Baltic Shield}}（フェノスカンディア）と{{仮リンク|サルマティア・クラトン|en|Sarmatian craton}}形成まで遡ることができる。その後、ヴォルガ-ウラリア盾状地も形成され、この3つが合わさり[[東ヨーロッパ・クラトン]]（[[バルティカ大陸]]）へ発達した。これはさらに集積し、[[超大陸]]である[[コロンビア大陸]]の一部となった。約11億年前には、バルティカと[[ローレンシア大陸]]の一部であった{{仮リンク|アークティカ大陸|en|Arctica}}が合わさり[[ロディニア大陸]]となった。約5億5000万年前には孤立しふたたびバルティカ大陸となったが、約4億4000万年頃にまたローレンシア大陸と衝突して[[ユーラメリカ大陸]]が形成、後に[[ゴンドワナ大陸]]と合わさり[[パンゲア大陸]]へと成長した。1億9000万年前、[[大西洋]]へと成長する分断が始まり、パンゲア大陸は[[ゴンドワナ大陸]]と[[ローラシア大陸]]に別れ始め、じきにローラシア大陸もローレンシア（北アメリカ）とユーラシアに分裂した。ただしこの2大陸は長い間グリーンランドで繋がっており、動物の行き来があった。これも5000万年前頃から海面の起伏や低下活動を通じて現在に通じるヨーロッパの姿が形成され、アジアなどと接続した。現在のヨーロッパの形は500万年前頃の[[第三紀]]遅くに形成された<ref name="Encyclopædia Britannica">{{cite web|url=http://www.britannica.com/eb/article-9106055|title=Europe|publisher=[[ブリタニカ百科事典]]|year=2007|accessdate=10 June 2008}}</ref>。
+
+=== 先史時代===
+{{Main|先史ヨーロッパ}}
+[[File:Ggantija Temples (1).jpg|thumb|150px|left|[[マルタ島]]の[[ジュガンティーヤ]]]]
+[[File:Vinca clay figure 02.jpg|thumb|100px|right|{{仮リンク|ビンチャの女性像|en| Lady of Vinča }}。[[セルビア]]新石器時代の土偶]]
+[[File:Summer Solstice Sunrise over Stonehenge 2005.jpg|thumb|150px|left|イギリスの[[ストーンヘンジ]]]]
+[[File:Nebra Scheibe.jpg|thumb|100px|right|[[ネブラ・ディスク]]。ドイツ青銅器時代の遺品]]
+ヨーロッパに定住した初期の[[ヒト科]]は、約180万年前に[[ジョージア (国)|ジョージア]]にいた[[ホモ・ゲオルギクス]]である<ref>{{Cite journal| author = A. Vekua, D. Lordkipanidze, G. P. Rightmire, J. Agusti, R. Ferring, G. Maisuradze, et al. | year = 2002 | title = A new skull of early ''Homo'' from Dmanisi, Georgia | journal = Science | volume = 297 | pages = 85–9 | doi = 10.1126/science.1072953 | pmid = 12098694 | issue = 5578 | ref = harv}}</ref>。他にも、[[スペイン]]の[[アタプエルカ]]からは、約100万年前のヒト科の化石が発見された<ref>[http://news.bbc.co.uk/1/hi/sci/tech/6256356.stm The million year old tooth from [[アタプエルカ|Atapuerca]], [[スペイン|Spain]], found in June 2007]</ref>。[[ドイツ]]の[[ネアンデル谷]]を名の由来とする[[ネアンデルタール人]]がヨーロッパに現れたのは約15万年前であり、紀元前28,000年頃には気候変動などの要因から、[[ポルトガル]]に最後の足跡を残し絶滅した。彼らに取って代わったのが[[クロマニョン人]]であり、ヨーロッパには4.3万年前から4.0万年前頃に進出した<ref name="natgeo 21">[[#National Geographic|National Geographic, p.21.]]</ref>。
+
+[[新石器時代のヨーロッパ|新石器時代]]には、作物の栽培や家畜飼育の開始、定住人口が著しく増え、土器の使用も広範囲に及んだ。これらは紀元前7000頃に、農業の先進地である[[アナトリア半島]]や[[近東]]からの影響を受けた[[ギリシア]]や[[バルカン半島]]で始まり、南東ヨーロッパから[[ドナウ川]]や[[ライン川]]の渓谷を伝って{{仮リンク|線形陶器文化|en|Linear Pottery culture}}を形成し、[[地中海沿岸]]経由には紀元前4500年から前3000年頃に伝播した。これら新石器時代の文化は中央ヨーロッパから西や北端まで達し、さらに銅器の製法技術が伝わった。新石器時代の西ヨーロッパは、大規模な農耕集落ではなく{{仮リンク|土手道付き囲い地|en|causewayed enclosure}}や[[クルガン]]または{{仮リンク|巨石古墳|en|megalithic tomb}}のような遺跡で特徴づけられる<ref>{{Cite document|title=The Oxford Companion to Archaeology|publisher= [[オックスフォード大学出版局]]|year=1996|pages=215–216|isbn=0-19-507618-4}}</ref>。[[戦斧文化]]の隆盛がヨーロッパを石器時代から[[銅器時代]]へと転換させた。この期間、[[マルタの巨石神殿群]]や[[ストーンヘンジ]]などの[[巨石記念物|巨石遺跡]]が西または南ヨーロッパで建設された<ref>[[:en:Richard J. C. Atkinson|Atkinson]], R J C, ''Stonehenge'' ([[ペンギン・ブックス]], 1956)</ref><ref>{{Cite book|title=Encyclopaedia of Prehistory|first=Peter Neal|last= Peregrine|last2= Ember|publisher=Springer|year= 2001
+|isbn=0306462583|pages=157–184|first2= Melvin}}, European Megalithic</ref>。ヨーロッパの[[鉄器時代]]は紀元前800年頃に、[[ハルシュタット文化]]が担い始まった<ref >{{cite web|url=http://www.ia.inf.shizuoka.ac.jp/~smorino/newpage3.htm|title=ケルト人とは誰か? |author=森野聡子|publisher=[[静岡大学]] |accessdate=2012-04-20}}</ref>。
+
+=== ヨーロッパ概念の嚆矢 ===
+歴史家ヘロドトスは『世界』にて、ヨーロッパが単に「西」の地を指すのみならず、アジアと異なる世界である事を記述した。彼は第7章にて、[[ペルシア戦争]]時の[[クセルクセス1世]]と亡命[[スパルタ]]人[[デマラトス]]との会話を記しているが、ここでクセルクセス1世は統率者不在で自由放任にあるギリシア人がペルシアの大軍に反抗するとは思えないと語る。それに対しデマラトスは、ギリシアの自由民は自ら定めた法に忠実であり、降伏勧告を受諾する事はないであろうと返す<ref name=OkaSekai12 />。ヘロドトスは、神聖的絶対君主に「隷属」するアジアと、国民たちによる規律ある「自由」のヨーロッパを対比させている<ref name=OkaSekai12 />。しかし厳密にはヨーロッパではなくギリシャを対比させている。ヨーロッパは比較的自由だがギリシャは自由だ、としている後代のアリストテレスと共に、ヨーロッパと自己を区別したギリシャの自意識がここにある。
+
+このような対比は[[アイスキュロス]]の『[[ペルシア人 (アイスキュロス)|ペルシア人]]』にもあり、ペルシア人の合唱隊がクセルクセス1世の母アトッサを神の妃であり母と讃えるのに対し、決戦に向かうギリシア人が「祖国に自由を」と叫ぶ姿を描写した<ref name=OkaSekai12 />。古代ギリシアでは、このように隷属を特徴とするアジアとは異なる社会形態を持つ地として、自らの社会を区分する概念を持っていた<ref name=OkaSekai12 />。
+
+以下は{{See|ヨーロッパ史}}
+
+== 地理 ==
+[[File:Europe topography map en.png|thumb|right|ヨーロッパと周辺の高低差を表した地図。]]
+[[File:Tammerkoski from air.jpg|thumb|right|{{ill|タンメルコスキ川|en|Tammerkoski}}, [[タンペレ]]、[[フィンランド]]]]
+[[File:Wały Chrobrego4.JPG|thumb|right|[[オーデル川]], [[シュチェチン]], [[ポーランド]]]]
+ヨーロッパは、[[ユーラシア大陸]]西の1/5を占める陸地であり<ref name="Encarta"/>、アジアとの地形的に明瞭な区分がない<ref name=masuda38 />。
+
+ヨーロッパの主軸山系は西から[[ピレネー山脈]]、[[アルプス山脈]]、[[カルパティア山脈]]・[[ディナル・アルプス山脈]]がある。これらは急峻ではあるが、古代からかなり高地にまで集落がつくられ交易が行われていたように、アジアのヒマラヤ山脈のような人跡未踏の地にはならず、山脈の両側にある程度の分岐を施しながらも断絶させるようなものではなかった<ref name=masuda40>[[#増田1967|増田 (1967)、pp.40-41、Ⅲ.地理的にみたヨーロッパの構造 ヨーロッパの山系]]</ref>。
+
+河川は、ヨーロッパ大陸が小さいため、アジアやアフリカ・アメリカのような大河が無い。アルプス山脈北側は[[北ヨーロッパ平野]]などの比較的広い平野をゆるやかな川が流れる。これらの水量は一年を通して変化が少なく、また分水嶺が低い事もあって運河建設が容易な特徴も持っており、水運を発達させやすい性質を持っている。例えば国際河川である[[ライン川]]は1000トンクラスの船がスイスまで曳航可能である<ref name=masuda41>[[#増田1967|増田 (1967)、pp.41-44、Ⅲ.地理的にみたヨーロッパの構造 ヨーロッパの河川]]</ref>。これに対し、地中海に注ぐヨーロッパの河川は、源流となる山脈が海に近いため短く、かつ水量が[[ポー川]]を除きおしなべて少ない<ref name=masuda41 />。
+
+人文地理的な区分<ref name=masuda41 />をヨーロッパに施すと、3つの領域に分けることができる<ref name=masuda44>[[#増田1967|増田 (1967)、pp.44-46、Ⅲ.地理的にみたヨーロッパの構造 地中海世界の特徴]]</ref>。アフリカを含めた地中海沿岸は、[[ナイル川]]流域<ref name=masuda41 />やイベリア半島の一部を除き、およそ内陸と呼べる平野部分が狭い。そのため、各文明は海岸前沿岸部に形成され、そして発展は内陸よりも地中海へ漕ぎ出す志向を強めた<ref name=masuda44 />。これに対し、アルプス北部の西ヨーロッパには水運に適した河川が多く見られる<ref name=masuda47>[[#増田1967|増田 (1967)、pp.47-50、Ⅲ.地理的にみたヨーロッパの構造 西ヨーロッパ地域の特長]]</ref>。そのため、この地域では港湾都市が海岸線よりも河川流域で発達し、[[ケルン]]、[[ブレーメン]]、[[ハンブルク]]そして[[ロンドン]]もこの例に当たる。海岸都市は[[オランダ]]など16世紀以降にしか見られない<ref name=masuda41 />。13世紀以降は開墾が盛んになり、河川地域や沼沢地の開墾が盛んになり、海岸線の開拓にも着手されるようになった<ref name=masuda47 />。残る東ヨーロッパは[[東ヨーロッパ平原]]の平坦で単調な地形が広がり、中央アジアの草原地帯へと続いている。そのため東方からの異民族侵入に弱く、結果的に何度も占拠を許した。ヨーロッパの防衛線は、事実上西ヨーロッパの東端となり、東ヨーロッパは都市化が遅れた<ref name=masuda50>[[#増田1967|増田 (1967)、pp.50-51、Ⅲ.地理的にみたヨーロッパの構造 東ヨーロッパ地域の特長]]</ref>。
+
+=== ヨーロッパの国々 ===
+{{main|ヨーロッパの主権国家及び属領の一覧}}
+<!--非独立国を記載する場合はノートでの議論をお願いします-->
+{| class="wikitable"
+|-
+! 国名 !! 漢字表記{{efn|現代の日本ではここに記載した表記をそのまま使用することはほとんどないが、'''強調'''で示した漢字一字を略称として使用する場合がある。以下の場合には一般的である。
+* 複数の国や各国語を列挙する場合 （[[ソ芬戦争]]、[[日独伊三国軍事同盟]]、[http://www.jfa.maff.go.jp/rerys/13.09.21.1.html 日諾漁業協議]、[http://dictionary.sanseido-publ.co.jp/dicts/foreign/cwsj/ クラウン西和辞典]など）
+* その他、複合語の要素として （[[蘭学]]、[[フランス領ギアナ|仏領ギアナ]]、[[イギリス連邦|英連邦]]など）
+* イギリスを英国と呼ぶ場合がある。特に、英国政府は[[イングランド]]を語源とする「イギリス」の使用を避け、同語源であるが「英国」の名称を使用している（[http://ukinjapan.fco.gov.uk/ja/ 駐日英国大使館]、[http://www.visitbritain.jp/ 英国政府観光庁]など）。
+* [[イギリス帝国|大英帝国]]、[[大英博物館]]、[[大英図書館]]など、"British"を「大英」と訳す場合がある。[[イギリス帝国#名称]]を参照。}}!! 原語（公用語）表記 !! 首都 
+|-
+|{{flagicon|Albania}} [[アルバニア|アルバニア共和国]]||阿爾巴尼亜||{{Lang|al|Shqipëria}}||[[ティラナ]]
+|-
+|{{flagicon|Andorra}} [[アンドラ|アンドラ公国]]||安道爾||{{lang|ca|Andorra}}||[[アンドラ・ラ・ベリャ]]
+|-
+|{{flagicon|Austria}} [[オーストリア|オーストリア共和国]]||'''墺'''太利/奥地利||{{lang|de|Österreich}}||[[ウィーン]]
+|-
+|{{flagicon|Belarus}} [[ベラルーシ|ベラルーシ共和国]]||白露西亜/白俄羅斯||{{lang|be|Беларусь}}/{{lang|ru|Белоруссия}}||[[ミンスク]]
+|-
+|{{flagicon|Belgium}} [[ベルギー|ベルギー王国]]||'''白'''耳義/比利時||{{lang|nl|België}}/{{lang|fr|Belgique}}/{{lang|de|Belgien}}||[[ブリュッセル]]
+|-
+|{{flagicon|Bosnia and Herzegovina}} [[ボスニア・ヘルツェゴビナ]]||波士尼亜赫塞哥維納||{{lang|bs|Bosna i Hercegovina}}||[[サラエヴォ]]
+|-
+|{{flagicon|Bulgaria}} [[ブルガリア|ブルガリア共和国]]||勃牙利/保加利亜||{{lang|bg|България}}||[[ソフィア (ブルガリア)|ソフィア]]
+|-
+|{{flagicon|Croatia}} [[クロアチア|クロアチア共和国]]||克羅埃西亜/克羅地亜||{{lang|hr|Hrvatska}}||[[ザグレブ]]
+|-
+|{{flagicon|Czech Republic}} [[チェコ|チェコ共和国]]||捷克||{{lang|cs|Česká Republika}}||[[プラハ]]
+|-
+|{{flagicon|Denmark}} [[デンマーク|デンマーク王国]]||'''丁'''抹/丹麦||{{lang|da|Danmark}}||[[コペンハーゲン]]
+|-
+|{{flagicon|Estonia}} [[エストニア|エストニア共和国]]||愛沙尼亜||{{lang|et|Eesti}}||[[タリン]]
+|-
+|{{flagicon|Finland}} [[フィンランド|フィンランド共和国]]||'''芬'''蘭||{{lang|fi|Suomi}}/{{lang|sv|Finland}}||[[ヘルシンキ]]
+|-
+|{{flagicon|France}} [[フランス|フランス共和国]]||'''仏'''蘭西/法蘭西||{{lang|fr|France}}||[[パリ]]
+|-
+|{{flagicon|Germany}} [[ドイツ|ドイツ連邦共和国]]||'''独'''逸/徳意志||{{lang|de|Deutschland}}||[[ベルリン]]
+|-
+|{{flagicon|Greece}} [[ギリシャ|ギリシャ共和国]]||'''希'''臘|| {{lang|el|Ελλάδα/Elláda}}||[[アテネ]]
+|-
+|{{flagicon|Hungary}} [[ハンガリー]]||'''洪'''牙利/匈牙利||{{lang|hu|Magyarország}}||[[ブダペスト]]
+|-
+|{{flagicon|Iceland}} [[アイスランド]]||愛斯蘭/氷島/氷州/氷洲||{{lang|is|Ísland}}||[[レイキャヴィーク]]
+|-
+|{{flagicon|Ireland}} [[アイルランド]]||'''愛'''蘭/愛爾蘭||{{lang|ga|Éire}}/{{lang|en|Ireland}}||[[ダブリン]]
+|-
+|{{flagicon|Italy}} [[イタリア|イタリア共和国]]||'''伊'''太利/伊太利亜/義大利/意大利||{{lang|it|Italia}}||[[ローマ]]
+|-
+|{{flagicon|Latvia}} [[ラトビア|ラトビア共和国]]||拉脱維亜||{{lang|lv|Latvija}}||[[リガ]]
+|-
+|{{flagicon|Liechtenstein}} [[リヒテンシュタイン|リヒテンシュタイン公国]]||列支敦士登||{{lang|de|Liechtenstein}}||[[ファドゥーツ]]
+|-
+|{{flagicon|Lithuania}} [[リトアニア|リトアニア共和国]]||立陶宛||{{lang|lt|Lietuva}}||[[ヴィリニュス]]
+|-
+|{{flagicon|Luxembourg}} [[ルクセンブルク|ルクセンブルク大公国]]||盧森堡||{{lang|fr|Luxembourg}}/{{lang|de|Luxemburg}}/{{lang|lb|Lëtzebuerg}}||[[ルクセンブルク市]]
+|-
+|{{flagicon|Malta}} [[マルタ|マルタ共和国]]||馬耳他||{{lang|mt|Malta}}||[[バレッタ]]
+|-
+|{{flagicon|Moldova}} [[モルドバ|モルドバ共和国]]||摩爾多瓦||{{lang|ro|Moldova}}||[[キシナウ]]
+|-
+|{{flagicon|Monaco}} [[モナコ|モナコ公国]]||摩納哥||{{lang|fr|Monaco}}||[[モナコ]]
+|-
+|{{flagicon|Montenegro}} [[モンテネグロ]]||黒山国/門的内哥羅||{{lang|se|Црна Гора}}/Crna Gora||[[ポドゴリツァ]]
+|-
+|{{flagicon|Netherlands}} [[オランダ|オランダ王国]]||和'''蘭'''/阿蘭陀/荷蘭/尼德蘭||{{lang|nl|Nederland}}||[[アムステルダム]]
+|-
+|{{flagicon|North Macedonia}} [[北マケドニア|北マケドニア共和国]]||北馬其頓||{{lang|mk|Северна Македонија}}||[[スコピエ]]
+|-
+|{{flagicon|Norway}} [[ノルウェー|ノルウェー王国]]||'''諾'''威/挪威||{{lang|no|Norge/Noreg}}||[[オスロ]]
+|-
+|{{flagicon|Poland}} [[ポーランド|ポーランド共和国]]||'''波'''蘭{{efn|[[ペルシア]]の漢字表記は「波斯」であり、略称は同じ「波」となる。ペルシアは国名としては[[イラン]]の古名だが、[[ペルシア語]]など、現在でも「ペルシア」の語を用いる名称が存在する。}}||{{lang|pl|Polska}}||[[ワルシャワ]]
+|-
+|{{flagicon|Portugal}} [[ポルトガル|ポルトガル共和国]]||'''葡'''萄牙||{{lang|pt|Portugal}}||[[リスボン]]
+|-
+|{{flagicon|Romania}} [[ルーマニア]]||'''羅'''馬尼亜{{efn|国名の由来でもある[[古代ローマ|ローマ]]の漢字表記は「羅馬」、またラテンの漢字表記は「羅甸」であり、略称は同じ「羅」となる。特に、言語の略称としては「羅」は通常[[ルーマニア語]]ではなく、[[ラテン語]]を意味する。}}||{{lang|ro|România}}||[[ブカレスト]]
+|-
+|{{flagicon|Russia}} [[ロシア|ロシア連邦]]||'''露'''西亜/俄羅斯/鄂羅斯/斡羅思|| {{lang|ro|Россия}}||[[モスクワ]]
+|-
+|{{flagicon|San Marino}} [[サンマリノ|サンマリノ共和国]]||聖馬力諾||{{Lang|it|San Marino}}||[[サンマリノ市]]
+|-
+|{{flagicon|Serbia}} [[セルビア|セルビア共和国]]||塞爾維/塞爾維亜||{{lang|sr|Србија}}/Srbija||[[ベオグラード]]
+|-
+|{{flagicon|Slovakia}} [[スロバキア|スロバキア共和国]]||斯洛伐克||{{lang|sk|Slovensko}}||[[ブラチスラヴァ]]
+|-
+|{{flagicon|Slovenia}} [[スロベニア|スロベニア共和国]]||斯洛文尼亜||{{lang|sl|Slovenija}}||[[リュブリャナ]]
+|-
+|{{flagicon|Spain}} [[スペイン|スペイン王国]]||'''西'''班牙/日斯巴尼亜||{{lang|es|España}}||[[マドリード]]
+|-
+|{{flagicon|Sweden}} [[スウェーデン|スウェーデン王国]]||'''瑞'''典{{efn|name="CH-SE"}}||{{lang|sv|Sverige}}||[[ストックホルム]]
+|-
+|{{flagicon|Switzerland}} [[スイス|スイス連邦]]||'''瑞'''西{{efn|name="CH-SE"|通常、スイスとスウェーデンの略称としてはともに「瑞」を使用する。ただし、重複を避け、スウェーデンの略称として「典」を使用する場合もある。}}/瑞士|| {{lang|de|Schweiz}}/{{lang|fr|Suisse}}/{{lang|it|Svizzera}}/{{lang|rm|Svizra}}/{{lang|la|Helvetia}}||[[ベルン]]
+|-
+|{{flagicon|Ukraine}} [[ウクライナ]]||烏克蘭/宇克蘭|| {{lang|uk|Україна}} ||[[キエフ]]
+|-
+|{{flagicon|United Kingdom}} [[イギリス]]{{efn|正式名称は「グレートブリテンおよび北アイルランド連合王国」}}||'''英'''吉利||{{lang|en|United Kingdom}}||[[ロンドン]]
+|-
+|{{flagicon|Vatican}} [[バチカン|バチカン市国]]||和地関/梵蒂岡||{{lang|la|Status Civitatis Vaticanae}}/{{lang|it|Stato della Città del Vaticano}}||バチカン
+|}
+
+以下に、場合によってはヨーロッパに分類されることがある地理的意味での[[アジア]]の国々を示す。
+{| class="wikitable"
+|-
+! 国名 !! 漢字表記!! 原語（公用語）表記 !! 首都 !! style="width:30%" | 備考
+|-
+|{{flagicon|Armenia}} [[アルメニア|アルメニア共和国]]||亜'''美'''尼亜||{{lang|hy|Հայաստան}}/{{lang|hy|Hayastan}}||[[エレバン]]||[[コーカサス地方]]の国
+|-
+|{{flagicon|Azerbaijan}} [[アゼルバイジャン|アゼルバイジャン共和国]] ||阿塞拜疆||{{lang|az|Azərbaycan}}||[[バクー]]||[[コーカサス地方]]の国
+|-
+|{{flagicon|Cyprus}} [[キプロス|キプロス共和国]]||賽普勒斯/塞浦路斯||{{lang|el|Κύπρος}}/{{lang|tr|Kıbrıs}}||[[ニコシア]]||南部はギリシャ系、北部はトルコ系が実効支配中。[[欧州連合|ヨーロッパ連合]]加盟国。国連はキプロスを西アジアに分類<ref>{{cite web  |url=http://unstats.un.org/unsd/methods/m49/m49regin.htm |title=United Nations Statistics Division- Standard Country and Area Codes Classifications (M49) |accessdate=2012-10-05}}</ref>
+|-
+|{{flagicon|Georgia}} [[ジョージア (国)|ジョージア]]||具琉耳/喬治亜||{{lang|ka|საქართველო}}/{{lang|ka|Sakartvelo}}||[[トビリシ]]||[[コーカサス地方]]の国
+|-
+|{{flagicon|Israel}} [[イスラエル|イスラエル国]]||以色列||{{lang|he|מדינת ישראל}}||[[エルサレム]]||[[ヨーロッパオリンピック委員会]]・[[欧州サッカー連盟]]・[[欧州野球連盟]]に所属
+|-
+|{{flagicon|Kazakhstan}} [[カザフスタン|カザフスタン共和国]]||香佐富斯坦/哈薩克斯坦 ||{{lang|kk|Қазақстан}}/Казахстан||[[ヌルスルタン]]||国土の西部がヨーロッパに属する。[[欧州サッカー連盟]]に所属
+|-
+|{{flagicon|Turkey}} [[トルコ|トルコ共和国]]||'''土'''耳古/土耳其||{{lang|tr|Türkiye}}||[[アンカラ]]||[[バルカン半島]]から[[アナトリア半島]]に跨る。[[北大西洋条約機構]]加盟国。[[ヨーロッパオリンピック委員会]]・[[欧州サッカー連盟]]・[[欧州野球連盟]]に所属
+|}
+
+以下に、事実上独立した地域（国家の承認を得る事が少ない、またはない国）を示す。
+{| class="wikitable"
+|-
+! 国名 !! 漢字表記!! 原語（公用語）表記 !! 首都 !! 備考
+|-
+|{{flagicon|Kosovo}} [[コソボ|コソボ共和国]]||科索沃|||{{lang|arm|Republika e Kosovës}}||[[プリシュティナ]] || [[セルビア]]からの独立を主張
+|-
+|[[File:Transnistria State Flag.svg|border|25x20px]] [[沿ドニエストル共和国]]||德涅斯特河沿岸||{{lang|mol|Република Молдовеняскэ Нистрянэ}}||[[ティラスポリ]] || [[モルドバ]]からの独立を主張
+|-
+|{{flagicon|South Ossetia}} [[南オセチア|南オセチア共和国]]||南奥塞梯||{{lang|oss|Хуссар Ирыстон}}||[[ツヒンヴァリ]]||[[ジョージア (国)|ジョージア]]からの独立を主張
+|-
+|{{flagicon|Abkhazia}} [[アブハジア|アブハジア共和国]]||阿布哈茲||{{lang|abk|Аҧсны}}||[[スフミ]]||[[ジョージア (国)|ジョージア]]からの独立を主張
+|-
+|[[File:Flag of the Turkish Republic of Northern Cyprus.svg|border|25x20px]] [[北キプロス・トルコ共和国]]||北賽普勒斯||{{lang|tur|Kuzey Kıbrıs Türk Cumhuriyeti}}||[[レフコシャ]]||[[キプロス]]からの独立を主張
+|-
+|{{flagicon|アルツァフ}} [[アルツァフ共和国]]||阿尔扎赫||{{lang|hy|Արցախի Հանրապետություն}}||[[ステパナケルト]]||[[アゼルバイジャン]]からの独立を主張
+|}
+
+=== 各国の位置 ===
+{{ヨーロッパ地図}}
+
+== 気候 ==
+[[File:Vegetation Europe.png|frame|ヨーロッパと周辺の[[生物群系]]:
+<br />
+{{legend0|#9fd6c9|[[ツンドラ]]}}
+{{legend0|#a7bddb|{{仮リンク|高山ツンドラ|en|alpine tundra}}}}
+{{legend0|#006d64|[[タイガ]]}}
+{{legend0|#3c9798|{{仮リンク|山林 (生物群系)|en|montane forest|label=山林}}}} <br />
+{{legend0|#a4e05d|{{仮リンク|温帯の広葉樹林|en|temperate broadleaf forest}}}}
+{{legend0|#907699|{{仮リンク|地中海性の森林|en|mediterranean forest}}}}
+{{legend0|#f7ec6f|{{仮リンク|温帯のステップ|en|temperate steppe}}}}
+{{legend0|#9b8447|[[ステップ気候]]}}]]
+ヨーロッパは概して[[偏西風]]が吹き付け、付近に北大西洋海流が流れるため、[[温帯]]気候領域にある。[[メキシコ湾流]]が影響し、同緯度の他地域よりも温暖である<ref name=climate>{{cite web|url=http://www.worldbook.com/wb/Students?content_spotlight%2Fclimates%2Feuropean_climate|title=European Climate|work=World Book|accessdate=16 June 2008|publisher=World Book, Inc|archiveurl=https://web.archive.org/web/20061109230709/http://www.worldbook.com/wb/Students?content_spotlight%2Fclimates%2Feuropean_climate|archivedate=2006年11月9日|deadlinkdate=2017年9月}}</ref>。このような条件が働き、[[ナポリ]]の年間平均気温は16℃（60.8°F）であり、ほぼ同じ緯度にある[[ニューヨーク]]の12℃（53.6°F）よりも高い。ドイツのベルリンは、[[カナダ]]の[[カルガリー]]や[[ロシア]]のアジア大陸部の都市[[イルクーツク]]とほぼ同じ緯度にあるが、1月の平均気温はカルガリーより約8℃（15°F）、イルクーツクより22℃（40°F）ちかく高い<ref name=climate/>。<!-- 理科年表によると、1月の平均気温はベルリン（テンペルホーフ）が0.9°C (1981 - 2010) / -0.2°C (1961 - 1990)、イルクーツクは-17.7°C (1981 - 2010) / -19.1°C (1961 - 1990)で、温度差はどちらも20°C未満。英語版記事の出典元 https://web.archive.org/web/20061109230709/http://www.worldbook.com/wb/Students?content_spotlight/climates/european_climate に問題がありそうです（“almost 40 degrees F higher”という記述自体があやしいうえ、有効数字を考慮せずに摂氏に換算していると思われる）。 -->
+
+細かな差異では、地中海沿岸は夏に亜熱帯気候的性格を現して雨量が極端に少なくなるのに対し、冬は温暖で雨も多い<ref name=masuda44 />。西ヨーロッパは海洋性気候の特徴を持ち、夏は涼しく冬は暖かい。季節による雨量の変化も少なくほぼ一定している<ref name=masuda47 />。これに対し東ヨーロッパは大陸性気候であり、夏は暑く冬は寒い。黒海沿岸を除き雨量は少なく、冬には多くの河川や湖沼が凍結する<ref name=masuda50 />。
+
+== 植生 ==
+[[File:Europe biogeography countries.svg|right|thumb|300px|ヨーロッパおよび周辺の[[生物地理学|生物地理分布]]]]
+[[File:Floristic regions in Europe (english).png|thumb|right|300px|ヨーロッパと隣接地域の植物区系。Wolfgang Frey and Rainer Lösch から。]]
+かつて、おそらくヨーロッパの80-90%は森林で覆われていた<ref>{{cite web|url=http://www.saveamericasforests.org/europages/history&geography.htm|title=History and geography|publisher=Save America's Forest Funds|accessdate=9 June 2008}}</ref>。その姿は今から1000年ほど前までは維持されていたと考えられる。[[花粉学]]研究結果によると、太古には[[ハシバミ]]類が主流であったが、時とともに[[ナラ]]、[[ニレ]]、[[シナノキ]]が繁り、5-6世紀頃には[[ブナ]]、ツノギ、[[モミ]]、[[ハリモミ]]類が優勢になった。10世紀末-11世紀頃にはこれらに[[シラカバ]]や[[クリ]]も加わり豊かな樹相を成していた。山岳地帯や北欧では[[ハリモミ]]類が、南ヨーロッパでは[[マツ]]類も見られた<ref name=Kimra128>[[#木村1989|木村 (1989)、pp.128-133 第二章 2.森の王国 千年前のヨーロッパ‐樹海]]</ref>。ただし乾燥した地中海沿岸では、古くから森林の発達は限定的であった<ref name=masuda47 />。東ヨーロッパでは北部こそ針葉樹林が広がっていたが、東南部は乾燥したステップ地帯が広がり木々の生長はあまり見込めなかった。黒海沿岸は肥沃な黒土域であり、古代から豊かな穀物収穫があげられていた<ref name=masuda50 />。
+
+これらに変化が見られたのは12世紀後半以降、盛んに広まった[[羊]]の[[放牧]]による森林伐採と牧草地化である<ref name=masuda47 />。イギリスおよびイベリア半島で盛んになった季節的移動牧畜、そして11-13世紀頃に人口が急激に増えた影響から開墾や住居地化が広がった。樹木の種類にも人間の活動による選別が加わり、[[ドングリ]]など家畜飼料に使える[[種実類]]をもたらすナラ・ブナ・クリ類は[[木材]]用としても珍重されたが、これらに適さないマツは多くが伐採され、南欧のステップ化を促進した<ref name=Kimra128 />。現在ヨーロッパで多く見られる[[プラタナス]]や[[ポプラ]]などは、近年になって人間が植栽したものである<ref name=Kimra128 />。
+
+== 経済 ==
+[[File:Europe gdp map-1-.png|thumb|left|ヨーロッパおよび周辺諸国の一人あたり名目[[GDP]] (nominal)。2006年。]]
+大陸という単位で見れば、ヨーロッパの経済規模は最も大きく、2008年の資産データでは32.7兆ドルと、北アメリカの27.1兆ドルを上回る<ref>{{cite web|last=Fineman |first=Josh |url=http://www.bloomberg.com/apps/news?pid=20601085&sid=aL5a46f2RjVA |title=Bloomberg.com |publisher=Bloomberg.com |date=2009-09-15 |accessdate=2010-08-23}}</ref>。2009年においてもヨーロッパは、経済危機前の水準を上回る総資産総額37.1兆ドルという世界全資産の1/3を確保し、最も豊かな地域であり続けた<ref>{{cite web |url=http://www.pr-inside.com/global-wealth-stages-a-strong-comeback-r1942019.htm |title=Global Wealth Stages a Strong Comeback |publisher=Pr-inside.com |date=2010-06-10 |accessdate=2010-08-23 |archiveurl=https://web.archive.org/web/20110520174617/http://www.pr-inside.com/global-wealth-stages-a-strong-comeback-r1942019.htm |archivedate=2011年5月20日 |deadlinkdate=2017年9月 }}</ref>。
+
+27か国で構成される欧州連合のうち16か国が共通[[通貨]]である[[ユーロ]]に移行し、世界一の単一経済統合地域を創設した。国別[[GDP]] (PPP) 比較では、世界の上位10か国中5か国がヨーロッパ諸国で占められた。『[[ザ・ワールド・ファクトブック]]』によると、ドイツが5位、イギリスが6位、ロシアが7位、フランスが8位、イタリアが10位にランクインした<ref>{{cite web|url=https://www.cia.gov/library/publications/the-world-factbook/rankorder/2001rank.html|title=[[ザ・ワールド・ファクトブック]] – GDP (PPP)|date=15 July 2008|accessdate=19 July 2008|publisher=[[CIA]]}}</ref>。
+
+ヨーロッパ内部では、一人あたりの国民所得に大きなばらつきがある。最も高いモナコは172,676USドル（2009年）、最も低いモルドバは1,631USドルに過ぎない<ref>http://databank.worldbank.org/ddp/home.do?Step=12&id=4&CNO=2</ref>。
+
+== 言語・民族 ==
+[[ファイル:Rectified Languages of Europe map.png|right|thumb|300px|ヨーロッパの言語地図]]
+[[File:Haplogroups europe.png|thumb|right|300px|ヨーロッパ人のY染色体ハプログループ]]
+===言語===
+ヨーロッパの言語はほとんどが[[インドヨーロッパ語族]]に属すが、一部は[[ウラル語族]]や[[カフカス諸語]]に属し、[[バスク語]]は孤立した言語である。
+
+*[[インド・ヨーロッパ語族]]
+**[[ゲルマン語派]]　：[[英語]]、[[オランダ語]]、[[ドイツ語]]、[[ルクセンブルク語]]、[[ノルウェー語]]、[[スウェーデン語]]、[[デンマーク語]]、[[アイスランド語]]、[[フェロー語]]など
+**[[イタリック語派]]　：[[イタリア語]]、[[フランス語]]、[[スペイン語]]、[[ポルトガル語]]、[[ルーマニア語]]、[[カタルーニャ語]]、[[ロマンシュ語]]など
+**[[ケルト語派]]　：[[アイルランド語]]、[[ウェールズ語]]、[[スコットランド・ゲール語]]、[[マン島語]]など
+**[[スラブ語派]]　：[[ロシア語]]、[[ベラルーシ語]]、[[ウクライナ語]]、[[チェコ語]]、[[スロバキア語]]、[[ブルガリア語]]、[[マケドニア語]]、[[スロベニア語]]、[[セルビア語]]、[[ボスニア語]]、[[クロアチア語]]、[[モンテネグロ語]]、[[ポーランド語]]など
+**[[バルト語派]]　：[[ラトビア語]]、[[リトアニア語]]
+**[[ギリシャ語派]]　：[[ギリシャ語]]
+**[[アルバニア語派]]　：[[アルバニア語]]
+**[[アルメニア語派]]　：[[アルメニア語]]
+**[[インド・イラン語派]]　：[[オセット語]]、[[ロマ語]]
+*[[ウラル語族]]
+**[[フィン・ウゴル語派]]　：[[フィンランド語]]、[[サーミ語]]、[[エストニア語]]、[[ハンガリー語]]など
+**[[サモエード語派]]　：[[ネネツ語]]
+*[[コーカサス諸語]]　：[[チェチェン語]]、[[グルジア語]]など
+*[[バスク語]]　
+*[[アフロ・アジア語族]]　：[[マルタ語]]
+*[[アルタイ諸語]]
+**[[テュルク語族]]　：[[トルコ語]]、[[アゼルバイジャン語]]、[[タタール語]]など
+**[[モンゴル語族]]　：[[カルムイク語]]
+
+===住民の遺伝子===
+ヨーロッパ人は[[コーカソイド]]に属す。[[Y染色体ハプログループ]]は、西ヨーロッパを中心に[[ハプログループR1b (Y染色体)]]が最も高頻度にみられるほか、バルカン半島と北欧で[[ハプログループI (Y染色体)]]、東欧で[[ハプログループR1a (Y染色体)]]、北西ヨーロッパで[[ハプログループN (Y染色体)]]、南ヨーロッパで[[ハプログループE1b1b (Y染色体)]]が高頻度に見られる。
+
+== 宗教 ==
+[[File:Ramsau (ja).jpg|thumb|ドイツ、サンセバスチャンの{{仮リンク|ラムサウの教会|en|Ramsau bei Berchtesgaden}}。]]
+歴史的に、ヨーロッパの[[宗教]]は[[西洋美術史]]、文化、[[西洋哲学]]、[[EU法]]などに影響を及ぼした。ヨーロッパ主要の宗教は、[[カトリック]]、[[正教会]]、[[プロテスタント]]の3様式に分かれた[[キリスト教]]である。これに続き、東南ヨーロッパ（ボスニア・ヘルツェゴビナ、アルバニア、コソボ、カザフスタン、北キプロス・トルコ共和国、トルコ、アゼルバイジャン）で主に信仰される[[イスラム教]]がある。その他、ユダヤ教、[[ヒンドゥー教]]、[[仏教]]などがあり、ロシアの[[カルムイク共和国]]ではチベット系仏教が主流である。一方で、ヨーロッパは比較的世俗的風潮が強いところでもあり、[[無宗教]]や[[不可知論]]、[[無神論]]を標榜する人々も西ヨーロッパを中心に増加傾向にあり、実際にチェコ、エストニア、スウェーデン、ドイツ（特に旧東ドイツ）、フランスなどで無宗教を表明している人の割合が高い<ref>{{Cite journal|last=Dogan|first=Mattei|year=1998|title=The Decline of Traditional Values in Western Europe|journal=International Journal of Comparative Sociology|publisher=Sage|volume=39|pages=77–90|doi=10.1177/002071529803900106|ref=harv}}</ref>。
+
+== 統合 ==
+[[File:OSCEcountries.PNG|thumb|right|400px|[[欧州安全保障協力機構]] (OSCE)]]
+[[File:EU CIS.PNG|thumb|right|400px|[[欧州連合]]と[[独立国家共同体]]]]
+{{Main|欧州統合}}
+11世紀以降、ヨーロッパは各都市間および農村との間を繋ぐ交通網と経済交流が盛んに行われ、日用品や生活必需品までもの需要供給関係が確立していた。そして共通のラテン語を基盤とする普遍的文化に覆われていた。この統一的な状態を破壊したものが、近代的な国民国家の成立と言える。それぞれの国が個別の言語や法律などを以って政治的支配を施し、内政的には都市と農村の対立、外交的には分断された主義を原因とする争いが激化し、ヨーロッパの近代を「戦争の世紀」に陥らせた<ref name=Kimura15>[[#木村1989|木村 (1989)、pp.15-17、序説 第二の欧州の転換]]</ref>。
+
+欧州統合は通貨・経済から、最終的には政治統合までを目指す活動であり、それは国民国家樹立以前の普遍的なヨーロッパを現代に復活させようという動きでもある。そして現代的視点からすれば、欧州統合は地方主義そして国民国家の緩やかな否定でもある。アメリカ合衆国と比肩する政治・経済共同体として国際的な立場を強化するという点もさる事ながら、思考的にも近代的な政治区画観念から脱却し、大陸主義に立脚したものへの転換を迫る意義を持つ<ref name=Kimura15 />。
+
+== 脚注 ==
+{{脚注ヘルプ}}
+=== 注釈 ===
+{{Notelist}}
+=== 出典 ===
+{{Reflist|2}}
+
+== 参考文献 ==
+* {{cite book |author= Bellamy, James A.B. |title=National Geographic Visual History of the World |publisher= [[ナショナルジオグラフィック協会]]|edition= |year=2005 |isbn=0-7922-3695-5|ref=National Geographic}}
+* {{Cite journal|title=The myth of continents: a critique of metageography| first=Martin W.|last= Lewis|first2= Kären|last2= Wigen|year= 1997|isbn= 0-520-20743-2|publisher=[[カリフォルニア大学]]出版局|ref=Lewis1997}}
+* {{Cite book|title= The Civilization of the Middle Ages |author={{仮リンク|ノーマン・カンター|en|Norman F. Cantor}} |year= 1993 |chapter= Culture and Society in the First Europe |ref=Cantor1993}}
+* {{cite book|和書|title=世界史とヨーロッパ|author=[[岡崎勝世]]|publisher=[[講談社]]現代新書|edition=第5刷|year=2008|oriyear=2003|isbn=4-06-149687-5 |ref=岡崎2003}}
+* {{cite book|和書|title=ヨーロッパとは何か|author=[[増田四郎]]|publisher=[[岩波新書]] |edition=第19刷|year=1967|oriyear=1981 |ref=増田1967}}
+* {{cite book|和書|title=西欧文明の原像|author=[[木村尚三郎]]|publisher=[[講談社]]学術文庫|edition=第4刷|year=1989|isbn=4-06-158815-X|ref=木村1989}}
+
+== 関連項目 ==
+{{ウィキポータルリンク|ヨーロッパ}}
+{{Sisterlinks|ヨーロッパ
+ |commons=Europe - Europa
+ |commonscat=Europe
+ |wiktionary=ヨーロッパ
+ |voy=ja:ヨーロッパ
+}}
+* [[欧州連合]] (EU)
+* [[欧州評議会]]
+* [[欧州統合]]
+*[[欧州連合の経済通貨統合]]
+* [[北大西洋条約機構]] (NATO)
+* [[欧州安全保障協力機構]] (OSCE)
+* [[欧州自由貿易連合]] (EFTA)
+* [[西欧同盟]] (weu)
+* [[欧州・大西洋パートナーシップ理事会]] (EAPC)
+* {{仮リンク|欧州民族的少数者保護枠組条約|en|Framework Convention for the Protection of National Minorities}}（FCPNM）
+* [[北欧理事会]]
+* [[ヨーロッパ史]]
+* [[ヨーロッパ料理の一覧]]
+
+{{大州横}}
+{{世界の地理}}
+{{ヨーロッパ}}
+
+{{Normdaten}}
+{{デフォルトソート:よおろつは}}
+[[カテゴリ:ヨーロッパ|*]]

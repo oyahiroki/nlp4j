@@ -1,7 +1,9 @@
 package nlp4j.solr.search;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.solr.common.params.MultiMapSolrParams;
@@ -118,6 +120,22 @@ public class SolrRequestConverter {
 			if (skip != null) {
 				String[] pp = { skip };
 				requestParamsSolr.put("start", pp);
+			}
+		}
+
+		// 2022-09-10
+		// select -> fl
+		{
+			String select = (requestAzureSearch.get("select") != null) ? requestAzureSearch.get("select").getAsString()
+					: null;
+			if (select != null) {
+				List<String> fl = new ArrayList<>();
+				String[] ss = select.split(",");
+				for (String s : ss) {
+					s = s.trim();
+					fl.add(s);
+				}
+				requestParamsSolr.put("fl", fl.toArray(new String[0]));
 			}
 		}
 

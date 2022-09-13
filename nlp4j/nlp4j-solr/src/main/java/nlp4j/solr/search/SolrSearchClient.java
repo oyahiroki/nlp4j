@@ -116,10 +116,32 @@ public class SolrSearchClient extends AbstractSearchClient implements SearchClie
 			{
 				responseAz.add("@requestbody", requestAz);
 			}
+			if (logger.isDebugEnabled()) {
+				logger.debug(responseAz.toString());
+			}
 			return responseAz;
 		} catch (SolrServerException | RemoteSolrException e) {
 			throw new IOException(e);
 		} finally {
+		}
+	}
+
+	/**
+	 * Performs a query to the Solr server
+	 * 
+	 * @param collection
+	 * @param solrQueryParams
+	 * @return
+	 * @throws IOException
+	 */
+	public QueryResponse search(String collection, SolrParams solrQueryParams) throws IOException {
+		try {
+			return this.solrClient //
+					.query(collection, solrQueryParams, METHOD.POST); // throws RemoteSolrException
+		} catch (SolrServerException | RemoteSolrException e) {
+			throw new IOException(e);
+		} finally {
+
 		}
 	}
 

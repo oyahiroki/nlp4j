@@ -3,6 +3,7 @@ package nlp4j.wiki;
 import java.lang.invoke.MethodHandles;
 import java.util.HashMap;
 
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.xml.sax.Attributes;
@@ -97,8 +98,13 @@ public class MediawikiXmlHandler3 extends AbstractXmlHandler {
 			String pageFormat = pageInfo.get(MEDIAWIKI_PAGE_REVISION_FORMAT);
 			String pageText = pageInfo.get(PATH_MEDIAWIKI_PAGE_REVISION_TEXT);
 
-			WikiPage page = new WikiPage(pageTitle, pageId, pageFormat, pageText);
+			WikiPage page = new WikiPage(pageTitle, pageId, pageFormat);
 			page.setTimestamp(pageTimestamp);
+			{
+				String text = org.apache.commons.text.StringEscapeUtils.unescapeXml(pageText);
+				page.setText(text);
+			}
+			page.setXml(pageText);
 
 			if (this.wikiPageHander != null) {
 				try {
@@ -111,8 +117,7 @@ public class MediawikiXmlHandler3 extends AbstractXmlHandler {
 			}
 
 //			pages.put(page.getId(), page);
-			
-			
+
 		} //
 
 		// end of process

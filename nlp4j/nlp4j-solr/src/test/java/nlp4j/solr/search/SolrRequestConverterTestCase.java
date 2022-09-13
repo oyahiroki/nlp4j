@@ -7,6 +7,16 @@ import com.google.gson.JsonObject;
 
 import junit.framework.TestCase;
 
+/**
+ * <pre>
+ * Azure Query:
+ * https://docs.microsoft.com/en-us/rest/api/searchservice/search-documents
+ * https://docs.microsoft.com/ja-jp/rest/api/searchservice/search-documents
+ * </pre>
+ * 
+ * @author Hiroki Oya
+ *
+ */
 public class SolrRequestConverterTestCase extends TestCase {
 
 	public void testConvertRequestParamsJsonObject001() {
@@ -58,11 +68,32 @@ public class SolrRequestConverterTestCase extends TestCase {
 				+ "}" //
 		;
 		SolrParams params = SolrRequestConverter.convertRequestParams(json);
+		System.err.println("<params>");
 		System.err.println(params.toString());
+		System.err.println("</params>");
+		System.err.println("<params>");
 		for (String p : params.toString().split("&")) {
 			System.err.println(p);
 		}
-
+		System.err.println("</params>");
+	}
+	public void testConvertRequestParamsJsonString003() {
+		String json = "{" //
+				+ "search:'*:*'," //
+				+ "facets:['word_ss,count:10','wikilink_ss,count:10']," //
+				+ "select:'id, field1, field2'," //
+				+ "top:0" //
+				+ "}" //
+		;
+		SolrParams params = SolrRequestConverter.convertRequestParams(json);
+		System.err.println("<params>");
+		System.err.println(params.toString());
+		System.err.println("</params>");
+		System.err.println("<params>");
+		for (String p : params.toString().split("&")) {
+			System.err.println(p);
+		}
+		System.err.println("</params>");
 	}
 
 }

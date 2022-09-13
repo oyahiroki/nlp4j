@@ -3,9 +3,11 @@ package nlp4j.wiki.util;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Stack;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.http.util.TextUtils;
 import org.sweble.wikitext.engine.PageId;
 import org.sweble.wikitext.engine.PageTitle;
 import org.sweble.wikitext.engine.WtEngineImpl;
@@ -163,6 +165,122 @@ public class MediaWikiTextUtils {
 		tag = tag.replace(" ", "_");
 
 		return tag;
+	}
+
+	public static List<String> parseCategoryTags(String t) {
+		List<String> tags = new ArrayList<>();
+
+		for (String line : t.split("\n")) {
+			line = line.trim();
+
+			if (line.startsWith("[[Category:")) {
+				if (line.contains("|")) {
+					String v = line.substring(11, line.indexOf('|'));
+					tags.add(v);
+				} else {
+					String v = line.substring(11, line.length() - 2);
+					tags.add(v);
+				}
+			}
+		}
+
+		return tags;
+	}
+
+	public static String toPlainText2(String wikiText) {
+
+		StringBuilder sb = new StringBuilder();
+
+		Stack<Character> stack = new Stack<>();
+		int status = 0; // 0:default,1:filelink,2:リンク中のアンカー
+
+		for (int n = 0; n < wikiText.length(); n++) {
+			char c = wikiText.charAt(n);
+			String rest = wikiText.substring(n);
+
+			if (c == '{' || c == '[') {
+				stack.push(c);
+//				System.err.println(toString(stack));
+			} //
+			else if (c == '}' || c == ']') {
+				stack.pop();
+//				System.err.println(toString(stack));
+				if (stack.size() == 0) {
+					status = 0; // リセットされる
+				}
+			}
+			//
+			else {
+				if (stack.size() == 0) {
+					if (c == '\'') {
+
+					} else {
+						sb.append(c);
+					}
+				} //
+				else if (stack.size() == 2 && toString(stack).equals("[[")) {
+
+					if (status == 0) {
+						String link = rest.substring(0, rest.indexOf("]]"));
+
+						String text = parseTextFromLink(link);
+						status = 2;
+						sb.append(text);
+					}
+
+//					// ファイルへのリンク
+//					if (rest.startsWith("ファイル")) {
+//						status = 1;
+//					}
+//					if (c == '#') { // リンク中のアンカー
+//						status = 2;
+//					}
+//					if (status == 0) {
+//						sb.append(c);
+//					}
+				}
+			}
+		}
+
+		return sb.toString();
+	}
+
+	private static String parseTextFromLink(String link) {
+		// https://ja.wikipedia.org/wiki/Help:%E3%83%AA%E3%83%B3%E3%82%AF
+
+		// パイプ付き
+		if (link.split("\\|").length == 2) {
+			return link.split("\\|")[1];
+		}
+		// 特別:転送
+		else if (link.startsWith("特別:転送")) {
+			return "";
+		}
+		//
+		else if (link.startsWith(":")) {
+			return "";
+		}
+		//
+		else if (link.startsWith("ファイル")) {
+			return "";
+		} else if (link.contains("#")) {
+			int idx = link.indexOf("#");
+			return link.substring(0, idx);
+		}
+		//
+		else {
+			return link;
+		}
+
+	}
+
+	static private String toString(Stack stack) {
+		StringBuilder sb = new StringBuilder();
+		stack.forEach(c -> {
+			sb.append(c);
+		});
+		return sb.toString();
+//	return(stack.toString().substring(1,stack.toString().length()-1));	
 	}
 
 }

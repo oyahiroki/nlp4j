@@ -89,6 +89,9 @@ public class DocumentUtil {
 	 */
 	@SuppressWarnings("unchecked")
 	private static void copyAttributes(Document doc, JsonObject jsonObj) {
+		if (doc == null) {
+			return;
+		}
 		// FOR EACH DOCUMENT ATTRIBUTE
 		for (String key : doc.getAttributeKeys()) {
 			Object obj = doc.getAttribute(key);

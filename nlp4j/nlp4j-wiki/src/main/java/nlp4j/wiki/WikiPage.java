@@ -39,6 +39,18 @@ public class WikiPage {
 	}
 
 	/**
+	 * @param title  : title of wiki entry
+	 * @param id     : id of wiki entry
+	 * @param format : format of wiki entry
+	 */
+	public WikiPage(String title, String id, String format) {
+		super();
+		this.title = title;
+		this.id = id;
+		this.format = format;
+	}
+
+	/**
 	 * @return format of wiki entry
 	 */
 	public String getFormat() {
@@ -107,8 +119,24 @@ public class WikiPage {
 		return this.xml;
 	}
 
+	public void setFormat(String format) {
+		this.format = format;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public void setText(String text) {
+		this.text = text;
+	}
+
 	public void setTimestamp(String timestamp) {
 		this.timestamp = timestamp;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	/**

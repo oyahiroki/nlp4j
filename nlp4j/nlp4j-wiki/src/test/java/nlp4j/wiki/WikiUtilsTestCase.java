@@ -1,9 +1,13 @@
 package nlp4j.wiki;
 
+import java.io.File;
 import java.util.List;
+
+import org.apache.commons.io.FileUtils;
 
 import junit.framework.TestCase;
 import nlp4j.Keyword;
+import nlp4j.wiki.util.MediaWikiTextUtils;
 
 public class WikiUtilsTestCase extends TestCase {
 
@@ -113,6 +117,27 @@ public class WikiUtilsTestCase extends TestCase {
 
 		List<Keyword> kwds = WikiUtils.extractKeywordsFromWikiHtml(html, "wiki.link");
 		System.err.println(kwds);
+	}
+
+	/**
+	 * created at: 2022-09-13
+	 */
+	public void testToHtml003() throws Exception {
+		File file = new File("src/test/resources/nlp4j.wiki/wiki-example-ichiro.txt");
+		String charsetName = "UTF-8";
+		String wikitext = FileUtils.readFileToString(file, charsetName);
+		String rootNodeText = MediaWikiTextUtils.getRootNodeText(wikitext);
+
+		String html = WikiUtils.toHtml(rootNodeText);
+		System.err.println(html);
+
+		List<Keyword> kwds = WikiUtils.extractKeywordsFromWikiHtml(html, "wiki.link");
+		System.err.println(kwds);
+		System.err.println("<wiki.link>");
+		kwds.forEach(kw -> {
+			System.err.println(kw.getLex());
+		});
+		System.err.println("</wiki.link>");
 	}
 
 	public void testToPlainText001() {
