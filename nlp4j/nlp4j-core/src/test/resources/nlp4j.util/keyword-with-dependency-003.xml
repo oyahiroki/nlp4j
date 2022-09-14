@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<w begin="20" depth="0" end="22" facet="名詞" id="12" lex="一つ" sequence="12" str="一つ" upos="NOUN">
+    <w begin="9" depth="1" end="10" facet="助詞" id="3" lex="は" sequence="3" str="は" upos="ADP">
+        <w begin="7" depth="2" end="9" facet="名詞" id="2" lex="欧州" sequence="2" str="欧州" upos="NOUN">
+            <w begin="5" depth="3" end="7" facet="接続詞" id="1" lex="又は" sequence="1" str="又は" upos="CONJ">
+                <w begin="0" depth="4" end="5" facet="名詞" id="0" lex="ヨーロッパ" sequence="0" str="ヨーロッパ" upos="NOUN"/>
+            </w>
+        </w>
+    </w>
+    <w begin="19" depth="1" end="20" facet="助詞" id="11" lex="の" sequence="11" str="の" upos="ADP">
+        <w begin="17" depth="2" end="19" facet="名詞" id="10" lex="大州" sequence="10" str="大州" upos="NOUN">
+            <w begin="16" depth="3" end="17" facet="助詞" id="9" lex="の" sequence="9" str="の" upos="ADP">
+                <w begin="15" depth="4" end="16" facet="助動詞" id="8" lex="つ" sequence="8" str="つ" upos="AUX">
+                    <w begin="14" depth="5" end="15" facet="名詞" id="7" lex="7" sequence="7" str="7" upos="NOUN">
+                        <w begin="13" depth="6" end="14" facet="助詞" id="6" lex="の" sequence="6" str="の" upos="ADP">
+                            <w begin="12" depth="7" end="13" facet="名詞" id="5" lex="上" sequence="5" str="上" upos="NOUN">
+                                <w begin="10" depth="8" end="12" facet="名詞" id="4" lex="地球" sequence="4" str="地球" upos="NOUN"/>
+                            </w>
+                        </w>
+                    </w>
+                </w>
+            </w>
+        </w>
+    </w>
+</w>

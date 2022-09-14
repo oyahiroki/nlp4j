@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<w begin="45" depth="0" end="47" facet="助動詞" id="31" lex="ある" sequence="31" str="ある" upos="AUX">
+    <w begin="44" depth="1" end="45" facet="助動詞" id="30" lex="だ" sequence="30" str="で" upos="AUX">
+        <w begin="43" depth="2" end="44" facet="名詞" id="29" lex="語" sequence="29" str="語" upos="NOUN">
+            <w begin="41" depth="3" end="43" facet="名詞" id="28" lex="公用" sequence="28" str="公用" upos="NOUN">
+                <w begin="4" depth="4" end="5" facet="記号" id="2" lex="、" sequence="2" str="、" upos="SYM">
+                    <w begin="3" depth="5" end="4" facet="助詞" id="1" lex="は" sequence="1" str="は" upos="ADP">
+                        <w begin="0" depth="6" end="3" facet="名詞" id="0" lex="日本語" sequence="0" str="日本語" upos="NOUN"/>
+                    </w>
+                </w>
+                <w begin="31" depth="4" end="32" facet="記号" id="21" lex="、" sequence="21" str="、" upos="SYM">
+                    <w begin="30" depth="5" end="31" facet="助詞" id="20" lex="で" sequence="20" str="で" upos="ADP">
+                        <w begin="28" depth="6" end="30" facet="名詞" id="19" lex="言語" sequence="19" str="言語" upos="NOUN">
+                            <w begin="26" depth="7" end="28" facet="動詞" id="18" lex="いる" sequence="18" str="いる" upos="VERB">
+                                <w begin="25" depth="8" end="26" facet="助詞" id="17" lex="て" sequence="17" str="て" upos="ADP">
+                                    <w begin="24" depth="9" end="25" facet="動詞" id="16" lex="れる" sequence="16" str="れ" upos="VERB">
+                                        <w begin="23" depth="10" end="24" facet="動詞" id="15" lex="する" sequence="15" str="さ" upos="VERB">
+                                            <w begin="21" depth="11" end="23" facet="名詞" id="14" lex="使用" sequence="14" str="使用" upos="NOUN">
+                                                <w begin="6" depth="12" end="7" facet="助詞" id="4" lex="に" sequence="4" str="に" upos="ADP">
+                                                    <w begin="5" depth="13" end="6" facet="名詞" id="3" lex="主" sequence="3" str="主" upos="NOUN"/>
+                                                </w>
+                                                <w begin="20" depth="12" end="21" facet="助詞" id="13" lex="で" sequence="13" str="で" upos="ADP">
+                                                    <w begin="19" depth="13" end="20" facet="名詞" id="12" lex="間" sequence="12" str="間" upos="NOUN">
+                                                        <w begin="12" depth="14" end="13" facet="記号" id="8" lex="、" sequence="8" str="、" upos="SYM">
+                                                            <w begin="11" depth="15" end="12" facet="助詞" id="7" lex="や" sequence="7" str="や" upos="ADP">
+                                                                <w begin="9" depth="16" end="11" facet="名詞" id="6" lex="国内" sequence="6" str="国内" upos="NOUN">
+                                                                    <w begin="7" depth="17" end="9" facet="名詞" id="5" lex="日本" sequence="5" str="日本" upos="NOUN"/>
+                                                                </w>
+                                                            </w>
+                                                        </w>
+                                                        <w begin="18" depth="14" end="19" facet="助詞" id="11" lex="の" sequence="11" str="の" upos="ADP">
+                                                            <w begin="16" depth="15" end="18" facet="名詞" id="10" lex="同士" sequence="10" str="同士" upos="NOUN">
+                                                                <w begin="13" depth="16" end="16" facet="名詞" id="9" lex="日本人" sequence="9" str="日本人" upos="NOUN"/>
+                                                            </w>
+                                                        </w>
+                                                    </w>
+                                                </w>
+                                            </w>
+                                        </w>
+                                    </w>
+                                </w>
+                            </w>
+                        </w>
+                    </w>
+                </w>
+                <w begin="34" depth="4" end="35" facet="名詞" id="23" lex="上" sequence="23" str="上" upos="NOUN">
+                    <w begin="32" depth="5" end="34" facet="名詞" id="22" lex="事実" sequence="22" str="事実" upos="NOUN"/>
+                </w>
+                <w begin="40" depth="4" end="41" facet="助詞" id="27" lex="の" sequence="27" str="の" upos="ADP">
+                    <w begin="38" depth="5" end="40" facet="名詞" id="26" lex="唯一" sequence="26" str="唯一" upos="NOUN">
+                        <w begin="37" depth="6" end="38" facet="助詞" id="25" lex="の" sequence="25" str="の" upos="ADP">
+                            <w begin="35" depth="7" end="37" facet="名詞" id="24" lex="日本" sequence="24" str="日本" upos="NOUN"/>
+                        </w>
+                    </w>
+                </w>
+            </w>
+        </w>
+    </w>
+</w>

@@ -77,6 +77,7 @@ public class UPOS20 {
 
 	static {
 		UPOS_JA.put("名詞", NOUN);
+		UPOS_JA.put("接頭詞", NOUN); // 2022-09-14
 		UPOS_JA.put("固有名詞", PROPN);
 		UPOS_JA.put("動詞", VERB);
 		UPOS_JA.put("動詞-接尾", AUX);

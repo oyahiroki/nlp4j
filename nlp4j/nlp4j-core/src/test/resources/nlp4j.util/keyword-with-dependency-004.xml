@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<w begin="9" depth="0" end="11" facet="名詞" id="5" lex="首都" sequence="5" str="首都" upos="NOUN">
+    <w begin="3" depth="1" end="4" facet="記号" id="2" lex="、" sequence="2" str="、" upos="SYM">
+        <w begin="2" depth="2" end="3" facet="助詞" id="1" lex="は" sequence="1" str="は" upos="ADP">
+            <w begin="0" depth="3" end="2" facet="名詞" id="0" lex="パリ" sequence="0" str="パリ" upos="NOUN"/>
+        </w>
+    </w>
+    <w begin="8" depth="1" end="9" facet="助詞" id="4" lex="の" sequence="4" str="の" upos="ADP">
+        <w begin="4" depth="2" end="8" facet="名詞" id="3" lex="フランス" sequence="3" str="フランス" upos="NOUN"/>
+    </w>
+</w>
