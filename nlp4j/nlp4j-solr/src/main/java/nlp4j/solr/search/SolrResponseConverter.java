@@ -66,6 +66,10 @@ public class SolrResponseConverter {
 					else if (o instanceof Number) {
 						v.addProperty(k, (Number) o);
 					} //
+						// 2022-09-20
+					else if (o instanceof Boolean) {
+						v.addProperty(k, (Boolean) o);
+					} //
 					else if (o instanceof List) {
 						JsonArray arr = new JsonArray();
 						@SuppressWarnings("rawtypes")
@@ -80,6 +84,10 @@ public class SolrResponseConverter {
 						}
 						v.add(k, arr);
 					}
+					// 2022-09-20
+					else {
+						v.addProperty(k, o.toString());
+					} //
 
 //						System.err.println("key=" + d.getKey());
 //						System.err.println("value=" + d.getValue());
