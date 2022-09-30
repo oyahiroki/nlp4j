@@ -19,7 +19,10 @@ public class MediaWikiFileUtils {
 	static public final String fileNameAbstract = "%s%s-%s-abstract.xml.gz";
 
 	/**
+	 * <pre>
 	 * Get index file of Media Wiki
+	 * Example: jawiktionary-20220501-pages-articles-multistream-index.txt.bz2
+	 * </pre>
 	 * 
 	 * @param dir      Directory of the file
 	 * @param language Language of MediaWiki like "en", "ja"
@@ -33,7 +36,10 @@ public class MediaWikiFileUtils {
 	}
 
 	/**
+	 * <pre>
 	 * Get dump file of Media Wiki
+	 * Example: jawiktionary-20220501-pages-articles-multistream.xml.bz2
+	 * </pre>
 	 * 
 	 * @param dir      Directory of the file
 	 * @param language Language of MediaWiki like "en", "ja"

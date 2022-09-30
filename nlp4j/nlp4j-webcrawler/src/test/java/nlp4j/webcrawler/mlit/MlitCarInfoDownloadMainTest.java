@@ -6,7 +6,7 @@ public class MlitCarInfoDownloadMainTest {
 
 		String[] params = {};
 
-		MlitCarInfoDownloadMain.main(params);
+		P101MlitCarInfoDownloadMain.main(params);
 
 	}
 

@@ -44,6 +44,9 @@ public class WikiIndexItem {
 		return nextBlock;
 	}
 
+	/**
+	 * @return Size: difference of next block number and this block number
+	 */
 	public long getSize() {
 		if (this.blockNum != -1 && this.nextBlock != -1) {
 			return (this.nextBlock - this.blockNum);

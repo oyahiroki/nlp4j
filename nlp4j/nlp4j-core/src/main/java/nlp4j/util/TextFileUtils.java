@@ -1,7 +1,11 @@
 package nlp4j.util;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 import java.util.List;
 
@@ -9,10 +13,17 @@ import org.apache.commons.io.FileUtils;
 
 public class TextFileUtils {
 
+	/**
+	 * @param plainTextFile Plain Text File (*.txt)
+	 * @return BufferedReader
+	 * @throws IOException on IO Error
+	 */
+	static public BufferedReader openPlainTextFileAsBufferedReader(File plainTextFile) throws IOException {
+		return new BufferedReader(new InputStreamReader(new FileInputStream(plainTextFile), StandardCharsets.UTF_8));
+	}
+
 	static public void sortLinesByValue(File inFile, File outFile) throws IOException {
-
 		sortLinesByValue(inFile, "UTF-8", outFile, "UTF-8", false);
-
 	}
 
 	static public void sortLinesByValue(File inFile, String inFileEncoding, File outFile, String outFileEncoding,
