@@ -34,10 +34,17 @@ nlp4j-core provides
 
 # Maven Build Tips
 
+package without test
+
+	mvn package -Dmaven.test.skip
+
+
 	mvn dependency:copy-dependencies
 		output dir is: ./target/dependency
 
+
 	mvn assembly:assembly -DdescriptorId=bin
+
 
 	mvn dependency:copy-dependencies -DoutputDirectory=lib
 	

@@ -2,11 +2,13 @@ package nlp4j.util;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import org.apache.commons.io.FileUtils;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
@@ -68,6 +70,23 @@ public class JsonUtils {
 		Gson gson = new Gson();
 		JsonObject obj = gson.fromJson(json, JsonObject.class);
 		return prettyPrint(obj);
+	}
+
+	/**
+	 * @param list of String
+	 * @return JsonArray of String
+	 * @since 1.3.7.3
+	 */
+	static public JsonArray toJsonArray(List<String> list) {
+		JsonArray arr = new JsonArray();
+		if (list == null) {
+			return null;
+		} else {
+			for (int n = 0; n < list.size(); n++) {
+				arr.add(list.get(n));
+			}
+			return arr;
+		}
 	}
 
 }
