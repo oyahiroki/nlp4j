@@ -121,6 +121,36 @@ public class SolrSearchClient extends AbstractSearchClient implements SearchClie
 			}
 			return responseAz;
 		} catch (SolrServerException | RemoteSolrException e) {
+
+			// RETRY PROCESS
+			{
+				try {
+					System.err.println("Exception Occured: " + e.getClass().getCanonicalName() + ", " + e.getMessage());
+					System.err.println("WAITING 30SECONDS...");
+					Thread.sleep(30 * 1000);
+				} catch (InterruptedException e1) {
+					e1.printStackTrace();
+				}
+
+				System.err.println("RETRY...");
+				try {
+					QueryResponse solrResponse = this.solrClient //
+							.query(collection, solrQueryParams, METHOD.POST); // throws RemoteSolrException
+					JsonObject responseAz = SolrResponseConverter.convertResponse(solrResponse);
+					{
+						responseAz.add("@requestbody", requestAz);
+					}
+					if (logger.isDebugEnabled()) {
+						logger.debug(responseAz.toString());
+					}
+					System.err.println("RETRY...SUCCEEDED");
+					return responseAz;
+				} catch (Exception e2) {
+
+				}
+			}
+			System.err.println("RETRY...FAILED");
+
 			throw new IOException(e);
 		} finally {
 		}

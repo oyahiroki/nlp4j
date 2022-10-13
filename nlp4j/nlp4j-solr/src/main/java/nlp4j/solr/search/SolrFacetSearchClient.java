@@ -1,5 +1,6 @@
 package nlp4j.solr.search;
 
+import java.io.Closeable;
 import java.io.IOException;
 import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
@@ -21,7 +22,7 @@ import nlp4j.Keyword;
 import nlp4j.impl.DefaultKeyword;
 import nlp4j.solr.search.SolrSearchClient;
 
-public class SolrFacetSearchClient {
+public class SolrFacetSearchClient implements Closeable {
 
 	static private Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
@@ -31,7 +32,7 @@ public class SolrFacetSearchClient {
 	private String indexName;
 
 	private String facet;
-
+	// 検索クライアント
 	SolrSearchClient client;
 	// 文書全件
 	long countAll0 = -1;
@@ -218,6 +219,14 @@ public class SolrFacetSearchClient {
 			logger.info("RETREIVING WORDS DONE: " + this.COUNT0);
 			logger.info("time: " + (time2 - time1));
 		} // END(FETCH COUNT OF KEYWORD)
+	}
+
+	@Override
+	public void close() throws IOException {
+		if (this.client != null) {
+			this.client.close();
+		}
+
 	}
 
 }
