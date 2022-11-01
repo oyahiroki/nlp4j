@@ -8,6 +8,9 @@ public class SolrUtils {
 		if ("AND".equals(queryChars) || "OR".equals(queryChars) || "NOT".equals(queryChars)) {
 			return "\\" + queryChars;
 		}
+
+		queryChars = queryChars.replace(":", "\\:");
+
 		return ClientUtils.escapeQueryChars(queryChars);
 	}
 
