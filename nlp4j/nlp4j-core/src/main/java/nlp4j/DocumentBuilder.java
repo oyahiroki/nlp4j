@@ -29,6 +29,7 @@ public class DocumentBuilder {
 	 * 
 	 * @param classOfT target class of Created Document
 	 */
+	@SuppressWarnings("deprecation")
 	public DocumentBuilder(Class<? extends Document> classOfT) {
 		try {
 			doc = classOfT.newInstance();

@@ -86,7 +86,11 @@ public class WikiDocumentAnnotator extends AbstractDocumentAnnotator implements 
 			// Wiki形式のページからNodeを取得する
 			WikiPageNode rootWikiPageNode = parser.getRoot();
 
+			// 説明文
 			List<String> ttPlainText = new ArrayList<>();
+
+			// 例文
+			List<String> ttPlainTextExample = new ArrayList<>();
 
 			// FOR EACH(PATH)
 			for (String path : paths) {
@@ -115,28 +119,56 @@ public class WikiDocumentAnnotator extends AbstractDocumentAnnotator implements 
 
 							logger.debug("line=" + line);
 
-							//
-							if (line.startsWith("#") && (line.startsWith("#*") == false)) {
-								String html = WikiUtils.toHtml(line);
-								logger.debug("html=" + html);
-								{
-									// Wikiリンク情報からリンク先アイテムをキーワードとしてセットする
-									List<Keyword> kwds = WikiUtils.extractKeywordsFromWikiHtml(html, "wiki.link");
-									// ADD KEYWORD TO DOC
-									doc.addKeywords(kwds);
-								}
-								{
-									// Wikiリンク情報からリンク先アイテムをキーワードとしてセットする
-									List<Keyword> kwds = WikiUtils.extractKeywordsFromWikiText(line, "wiki.link");
-									if (kwds.size() > 0) {
+							// 「#」から始まる
+							if (line.startsWith("#")) {
+								// 例文ではない
+								if (line.startsWith("#*") == false) {
+									String html = WikiUtils.toHtml(line);
+									logger.debug("html=" + html);
+									{
+										// Wikiリンク情報からリンク先アイテムをキーワードとしてセットする
+										List<Keyword> kwds = WikiUtils.extractKeywordsFromWikiHtml(html, "wiki.link");
+										// ADD KEYWORD TO DOC
 										doc.addKeywords(kwds);
 									}
+									{
+										// Wikiリンク情報からリンク先アイテムをキーワードとしてセットする
+										List<Keyword> kwds = WikiUtils.extractKeywordsFromWikiText(line, "wiki.link");
+										if (kwds.size() > 0) {
+											doc.addKeywords(kwds);
+										}
+									}
+									{
+										String text = WikiUtils.toPlainText(line);
+										logger.debug("text=" + text);
+										if (ttPlainText.contains("# " + text) == false) {
+											ttPlainText.add("# " + text);
+										}
+									}
 								}
-								{
-									String text = WikiUtils.toPlainText(line);
-									logger.debug("text=" + text);
-									if (ttPlainText.contains("# " + text) == false) {
-										ttPlainText.add("# " + text);
+								// 例文
+								else {
+//									String html = WikiUtils.toHtml(line);
+//									logger.debug("html=" + html);
+//									{
+//										// Wikiリンク情報からリンク先アイテムをキーワードとしてセットする
+//										List<Keyword> kwds = WikiUtils.extractKeywordsFromWikiHtml(html, "wiki.link");
+//										// ADD KEYWORD TO DOC
+//										doc.addKeywords(kwds);
+//									}
+//									{
+//										// Wikiリンク情報からリンク先アイテムをキーワードとしてセットする
+//										List<Keyword> kwds = WikiUtils.extractKeywordsFromWikiText(line, "wiki.link");
+//										if (kwds.size() > 0) {
+//											doc.addKeywords(kwds);
+//										}
+//									}
+									{
+										String text = WikiUtils.toPlainText(line);
+										logger.debug("text=" + text);
+										if (ttPlainTextExample.contains("# " + text) == false) {
+											ttPlainTextExample.add("# " + text);
+										}
 									}
 								}
 							}
@@ -180,6 +212,13 @@ public class WikiDocumentAnnotator extends AbstractDocumentAnnotator implements 
 //				System.err.println(t);
 //				System.err.println("</t>");
 				doc.putAttribute("text", t);
+			}
+			if (ttPlainTextExample != null && ttPlainTextExample.size() > 0) {
+				String t = String.join("\n", ttPlainTextExample);
+//				System.err.println("<t>");
+//				System.err.println(t);
+//				System.err.println("</t>");
+				doc.putAttribute("text_example", t);
 			}
 
 		}

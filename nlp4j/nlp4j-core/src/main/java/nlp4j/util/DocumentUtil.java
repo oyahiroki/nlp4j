@@ -7,8 +7,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Set;
 import java.util.TimeZone;
 
 import org.apache.commons.io.FileUtils;
@@ -42,43 +44,20 @@ public class DocumentUtil {
 	}
 
 	/**
-	 * <pre>
-	 * 名詞と動詞について「読み」をキーワードとして追加する
-	 * 2022-06-18
-	 * </pre>
+	 * created_at: 2022-11-19
 	 * 
 	 * @param doc
-	 * @since 1.3.6.1
+	 * @param lex
+	 * @return doc contains keyword of lex
 	 */
-	static public void extractReading(Document doc) {
-		{// よみがな展開
-			List<Keyword> kk = new ArrayList<>();
-			for (Keyword kwd : doc.getKeywords()) {
-				if (kwd == null) {
-					continue;
-				} else {
-					if (kwd.getLex() != null //
-							// LEX 全ひらがな以外
-							&& JaStringUtils.isAllHiragana(kwd.getLex()) == false //
-							&& kwd.getReading() != null //
-							// READING
-							&& JaStringUtils.isAllKatakana(kwd.getReading()) //
-							&& ("NOUN".equals(kwd.getUPos()) || "VERB".equals(kwd.getUPos())) //
-
-					) {
-						Keyword kwd1 = new DefaultKeyword();
-						kwd1.setFacet("wiki.yomi");
-						kwd1.setLex(JaStringUtils.toHiragana(kwd.getReading()));
-						kwd1.setStr(kwd.getStr());
-						kwd1.setUPos(kwd.getUPos());
-						kwd1.setBegin(kwd.getBegin());
-						kwd1.setEnd(kwd.getEnd());
-						kk.add(kwd1);
-					}
-				}
+	static public boolean containsKeyword(Document doc, String facet, String lex) {
+		Set<String> lexs = new HashSet<String>();
+		for (Keyword kwd : doc.getKeywords(facet)) {
+			if (kwd.getLex() != null) {
+				lexs.add(kwd.getLex());
 			}
-			doc.addKeywords(kk);
 		}
+		return lexs.contains(lex);
 	}
 
 	/**
@@ -126,6 +105,46 @@ public class DocumentUtil {
 				jsonObj.addProperty(key, doc.getAttribute(key).toString());
 			}
 		} // END OF FOR EACH DOCUMENT ATTRIBUTE
+	}
+
+	/**
+	 * <pre>
+	 * 名詞と動詞について「読み」をキーワードとして追加する
+	 * 2022-06-18
+	 * </pre>
+	 * 
+	 * @param doc
+	 * @since 1.3.6.1
+	 */
+	static public void extractReading(Document doc) {
+		{// よみがな展開
+			List<Keyword> kk = new ArrayList<>();
+			for (Keyword kwd : doc.getKeywords()) {
+				if (kwd == null) {
+					continue;
+				} else {
+					if (kwd.getLex() != null //
+							// LEX 全ひらがな以外
+							&& JaStringUtils.isAllHiragana(kwd.getLex()) == false //
+							&& kwd.getReading() != null //
+							// READING
+							&& JaStringUtils.isAllKatakana(kwd.getReading()) //
+							&& ("NOUN".equals(kwd.getUPos()) || "VERB".equals(kwd.getUPos())) //
+
+					) {
+						Keyword kwd1 = new DefaultKeyword();
+						kwd1.setFacet("wiki.yomi");
+						kwd1.setLex(JaStringUtils.toHiragana(kwd.getReading()));
+						kwd1.setStr(kwd.getStr());
+						kwd1.setUPos(kwd.getUPos());
+						kwd1.setBegin(kwd.getBegin());
+						kwd1.setEnd(kwd.getEnd());
+						kk.add(kwd1);
+					}
+				}
+			}
+			doc.addKeywords(kk);
+		}
 	}
 
 	/**
@@ -449,19 +468,6 @@ public class DocumentUtil {
 	}
 
 	/**
-	 * @since 1.3.1.0
-	 * @param docs target Documents
-	 * @return Pretty JSON String of Documents
-	 */
-	static public String toJsonPrettyString(List<Document> docs) {
-
-		JsonElement jsonArray = toJsonObject(docs);
-
-		return JsonUtils.prettyPrint(jsonArray);
-
-	}
-
-	/**
 	 * @since 1.3.2.0
 	 * @param doc target Document
 	 * @return Pretty JSON String of Documents
@@ -471,6 +477,19 @@ public class DocumentUtil {
 		JsonElement el = toJsonObject(doc);
 
 		return JsonUtils.prettyPrint(el);
+
+	}
+
+	/**
+	 * @since 1.3.1.0
+	 * @param docs target Documents
+	 * @return Pretty JSON String of Documents
+	 */
+	static public String toJsonPrettyString(List<Document> docs) {
+
+		JsonElement jsonArray = toJsonObject(docs);
+
+		return JsonUtils.prettyPrint(jsonArray);
 
 	}
 

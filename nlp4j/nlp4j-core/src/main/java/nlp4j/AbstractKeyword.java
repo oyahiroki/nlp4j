@@ -188,7 +188,7 @@ public abstract class AbstractKeyword implements Keyword {
 				+ " [" //
 //				+ "sequence=" + sequence //
 				+ "facet=" + facet //
-//				+ ", lex=" + lex //
+				+ ", lex=" + lex //
 				+ ", str=" + str //
 //				+ ", reading="+ reading  //
 //				+ ", count=" + count  //

@@ -45,6 +45,7 @@ public class KeywordUtil {
 			return this;
 		}
 
+		@SuppressWarnings({ "unchecked", "hiding" })
 		public <T extends Keyword> T build() {
 			return (T) kwd;
 		}
@@ -64,6 +65,7 @@ public class KeywordUtil {
 			return this;
 		}
 
+		@SuppressWarnings("hiding")
 		public <T> T newKeyword(Class<T> classOfT) {
 			Class<?>[] parameterTypes = {};
 			try {
@@ -86,7 +88,8 @@ public class KeywordUtil {
 			}
 		}
 
-		public Builder newKwd() {
+		public Builder<T> newKwd() {
+			@SuppressWarnings("unchecked")
 			T kwd = (T) this.newKeyword(this.classOfT);
 			this.kwd = kwd;
 			return this;

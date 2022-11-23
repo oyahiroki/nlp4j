@@ -5,6 +5,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
@@ -16,13 +17,15 @@ import java.util.stream.Collectors;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.google.gson.internal.bind.CollectionTypeAdapterFactory;
+
 import nlp4j.Document;
 import nlp4j.Keyword;
-import nlp4j.counter.Count;
 import nlp4j.counter.Counter;
 import nlp4j.impl.DefaultKeyword;
 import nlp4j.util.DateUtils;
 import nlp4j.util.FacetUtils;
+import nlp4j.util.KeywordUtil;
 
 /**
  * シンプルなドキュメントインデックスのクラスです。<br>
@@ -36,21 +39,50 @@ public class SimpleDocumentIndex extends AbstractDocumentIndexer implements Docu
 
 	static private final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
-	HashMap<String, Document> mapDocument = new HashMap<>();
+	static public final String KEY_DATEFIELD = "datefield";
+
+	/**
+	 * Map of (Document ID -> Document Object)
+	 */
+	private HashMap<String, Document> mapDocidDocument = new HashMap<>();
 
 	// <String facet, HashMap <String lex, Long count>>
-	HashMap<String, HashMap<String, Long>> mapKeywordCount = new HashMap<>();
+	private HashMap<String, HashMap<String, Long>> mapFacetKeywordCount = new HashMap<>();
 
 	// facet -> (value, count)
-	HashMap<String, Counter<String>> mapItemCount = new HashMap<>();
+	private HashMap<String, Counter<String>> mapItemCount = new HashMap<>();
 
-	HashMap<Keyword, Long> keywordCount = new HashMap<Keyword, Long>();
+	private HashMap<Keyword, Long> keywordCount = new HashMap<Keyword, Long>();
 
-	ArrayList<Keyword> keywords = new ArrayList<>();
+	private ArrayList<Keyword> keywords = new ArrayList<>();
+
+	private List<String> documentids = new ArrayList<>();
+
+	/**
+	 * key (keyword facet + "." + keyword lex) -> Document IDs
+	 */
+	private HashMap<String, List<String>> mapKeywordDocumentids = new HashMap<String, List<String>>();
+
+	Counter<String> dateCounterYYYY = new Counter<>();
+
+	Counter<String> dateCounterYYYYMM = new Counter<>();
+
+	Counter<String> dateCounterYYYYMMDD = new Counter<>();
+	// 日付フィールドの名前
+	private String dateField = null;
+	private String dateFieldFormat = null;
 
 	@Override
 	public void addDocument(Document doc) {
-		mapDocument.put(doc.getId(), doc);
+		String docId = doc.getId();
+
+		// DOCUMENT ID
+		if (docId != null) {
+			documentids.add(docId);
+			mapDocidDocument.put(docId, doc);
+		} else {
+			logger.warn("ID is null: " + doc);
+		}
 
 		{ // COUNT ITEM
 			// Facet count
@@ -79,6 +111,15 @@ public class SimpleDocumentIndex extends AbstractDocumentIndexer implements Docu
 					countKeyword(kwd);
 					usedLex.add(kwd.getLex());
 				}
+
+				String key = kwd.getFacet() + "." + kwd.getLex();
+				if (mapKeywordDocumentids.get(key) == null) {
+					mapKeywordDocumentids.put(key, new ArrayList<String>());
+				}
+				if (mapKeywordDocumentids.get(key).contains(docId) == false) {
+					mapKeywordDocumentids.get(key).add(docId);
+				}
+
 			}
 		} // END OF COUNT KEYWORD
 
@@ -128,10 +169,6 @@ public class SimpleDocumentIndex extends AbstractDocumentIndexer implements Docu
 
 	}
 
-	Counter<String> dateCounterYYYY = new Counter<>();
-	Counter<String> dateCounterYYYYMM = new Counter<>();
-	Counter<String> dateCounterYYYYMMDD = new Counter<>();
-
 	private void countKeyword(Keyword kwd) {
 		{
 			keywords.add(kwd);
@@ -153,12 +190,12 @@ public class SimpleDocumentIndex extends AbstractDocumentIndexer implements Docu
 
 		List<String> ff = FacetUtils.splitFacetPath(facet0);
 		for (String facet : ff) {
-			HashMap<String, Long> keywordCount = mapKeywordCount.get(facet);
+			HashMap<String, Long> keywordCount = mapFacetKeywordCount.get(facet);
 			if (keywordCount == null) {
 				keywordCount = new HashMap<>();
 				keywordCount.put(kwd.getLex(), (long) 1);
 				logger.debug("put: new keyword(1)");
-				mapKeywordCount.put(facet, keywordCount);
+				mapFacetKeywordCount.put(facet, keywordCount);
 				logger.debug("put: new facet count");
 			} else {
 				Long l = keywordCount.get(kwd.getLex());
@@ -172,27 +209,6 @@ public class SimpleDocumentIndex extends AbstractDocumentIndexer implements Docu
 				}
 			}
 		}
-	}
-
-	/**
-	 * @return
-	 */
-	public List<Keyword> getDateCountMonth() {
-		return getDateCount("YYYYMM");
-	}
-
-	/**
-	 * @return
-	 */
-	public List<Keyword> getDateCountDay() {
-		return getDateCount("YYYYMMDD");
-	}
-
-	/**
-	 * @return
-	 */
-	public List<Keyword> getDateCountYear() {
-		return getDateCount("YYYY");
 	}
 
 	/**
@@ -251,14 +267,58 @@ public class SimpleDocumentIndex extends AbstractDocumentIndexer implements Docu
 	}
 
 	/**
+	 * @return
+	 */
+	public List<Keyword> getDateCountDay() {
+		return getDateCount("YYYYMMDD");
+	}
+
+	/**
+	 * @return
+	 */
+	public List<Keyword> getDateCountMonth() {
+		return getDateCount("YYYYMM");
+	}
+
+	/**
+	 * @return
+	 */
+	public List<Keyword> getDateCountYear() {
+		return getDateCount("YYYY");
+	}
+
+	public List<String> getDocumentIds() {
+		return this.documentids;
+	}
+
+	/**
+	 * created_at: 2022-11-19
+	 * 
+	 * @param kwd Keyword
+	 * @return Document IDs that contains Keyword
+	 */
+	public List<String> getDocumentidsByKeyword(Keyword kwd) {
+		String key = kwd.getFacet() + "." + kwd.getLex();
+		if (this.mapKeywordDocumentids.get(key) != null) {
+			return this.mapKeywordDocumentids.get(key);
+		} else {
+			return new ArrayList<String>();
+		}
+	}
+
+	public Document getDocumentById(String id) {
+		return this.mapDocidDocument.get(id);
+	}
+
+	/**
 	 * @since 20220115
 	 * @return count of documents
 	 */
 	public int getDocumentSize() {
-		if (this.mapDocument == null) {
+		if (this.mapDocidDocument == null) {
 			return 0;
 		} else {
-			return mapDocument.size();
+			return mapDocidDocument.size();
 		}
 	}
 
@@ -305,7 +365,7 @@ public class SimpleDocumentIndex extends AbstractDocumentIndexer implements Docu
 	@Override
 	public List<Keyword> getKeywords(String facet) {
 
-		HashMap<String, Long> kwCount = mapKeywordCount.get(facet);
+		HashMap<String, Long> kwCount = mapFacetKeywordCount.get(facet);
 
 		if (kwCount == null) {
 			return new ArrayList<Keyword>();
@@ -331,8 +391,8 @@ public class SimpleDocumentIndex extends AbstractDocumentIndexer implements Docu
 
 		ArrayList<Document> dd = new ArrayList<>();
 
-		for (String key : mapDocument.keySet()) {
-			Document doc = mapDocument.get(key);
+		for (String key : mapDocidDocument.keySet()) {
+			Document doc = mapDocidDocument.get(key);
 			dd.add(doc);
 		}
 
@@ -352,12 +412,12 @@ public class SimpleDocumentIndex extends AbstractDocumentIndexer implements Docu
 		List<Keyword> kwds = smallIndex.getKeywords(facet);
 
 		// 相関値の計算
-		int docCount0 = mapDocument.size();
+		int docCount0 = mapDocidDocument.size();
 		int docCount1 = ddd.size();
 
 		for (int n = 0; n < kwds.size(); n++) {
 			Keyword kwd = kwds.get(n);
-			long keywordCount0 = mapKeywordCount.get(kwd.getFacet()).get(kwd.getLex());
+			long keywordCount0 = mapFacetKeywordCount.get(kwd.getFacet()).get(kwd.getLex());
 			long keywordCount1 = kwd.getCount();
 
 			double corr = ((double) keywordCount1 / (double) keywordCount0) / ((double) docCount1 / (double) docCount0);
@@ -379,12 +439,6 @@ public class SimpleDocumentIndex extends AbstractDocumentIndexer implements Docu
 		return keywords;
 	}
 
-	// 日付フィールドの名前
-	private String dateField = null;
-	private String dateFieldFormat = null;
-
-	static public final String KEY_DATEFIELD = "datefield";
-
 	@Override
 	public void setProperty(String key, String value) {
 		super.setProperty(key, value);
@@ -400,7 +454,78 @@ public class SimpleDocumentIndex extends AbstractDocumentIndexer implements Docu
 
 	@Override
 	public String toString() {
-		return "SimpleDocumentIndex [mapDocument=" + mapDocument + ", mapKeywordCount=" + mapKeywordCount + "]";
+		return "SimpleDocumentIndex [" //
+				+ "mapDocument.size=" + mapDocidDocument.keySet().size() //
+				+ ", mapKeywordCount.size=" + mapFacetKeywordCount.keySet().size()//
+				+ "]";
+	}
+
+	public long getDocumentCount(Keyword kwd) {
+		return getDocumentidsByKeyword(kwd).size();
+	}
+
+	public List<Keyword> getRelevantKeywords(Keyword kwd, double minimumCorrelation) {
+
+		String facet = kwd.getFacet();
+
+		// キーワードが含まれるドキュメント
+		List<String> document_ids = getDocumentidsByKeyword(kwd);
+		// キーワードが含まれるドキュメントに含まれるキーワードのカウンタ
+		Counter<String> kwdCounter = new Counter<>();
+		{
+			for (String document_id : document_ids) {
+				Document doc = getDocumentById(document_id);
+				List<Keyword> kk = (facet != null) ? doc.getKeywords(facet) : doc.getKeywords();
+				for (Keyword k : kk) {
+					kwdCounter.add(k.getLex());
+				}
+			}
+		}
+		// キーワードが含まれるドキュメントに含まれるキーワード
+		List<String> lexs = kwdCounter.getObjectList();
+		// 全文書数
+		long countDocAll = getDocumentSize();
+		// 共起のキーワード
+		List<Keyword> kk = new ArrayList<Keyword>();
+
+		for (String lex : lexs) {
+			Keyword k = new DefaultKeyword(facet, lex);
+			// 文書セットの中で出てくるカウント
+			long countRelevancy = kwdCounter.getCount(lex);
+			k.setCount(countRelevancy);
+
+			long countKeywordAll = getDocumentCount(k);
+			if (countKeywordAll == 0) {
+				countKeywordAll = 1;
+			}
+
+			double w = ((double) document_ids.size() / (double) countRelevancy) //
+					/ //
+					((double) countKeywordAll / (double) countDocAll);
+			k.setCorrelation(w);
+			kk.add(k);
+		}
+
+		kk = kk.stream().filter(k -> k.getCorrelation() > minimumCorrelation).collect(Collectors.toList());
+
+		Collections.sort(kk, new Comparator<Keyword>() {
+			@Override
+			public int compare(Keyword o1, Keyword o2) {
+				double d2 = o2.getCorrelation();
+				double d1 = o1.getCorrelation();
+				if (d2 == d1) {
+					return 0;
+				} //
+				else if (d2 > d1) {
+					return 1;
+				} //
+				else {
+					return -1;
+				}
+			}
+		});
+
+		return kk;
 	}
 
 }
