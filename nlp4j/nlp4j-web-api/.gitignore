@@ -12,6 +12,7 @@
 
 # Package Files #
 *.jar
+!dist/*.jar
 *.war
 *.nar
 *.ear
