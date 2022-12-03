@@ -6,6 +6,7 @@ import java.util.List;
 
 import nlp4j.Document;
 import nlp4j.util.DocumentUtil;
+import nlp4j.util.DocumentsUtils;
 
 /**
  * 国土交通省「自動車のリコール・不具合情報」をダウンロードする<br>
@@ -74,7 +75,14 @@ public class P101MlitCarInfoDownloadMain {
 			System.err.println(DocumentUtil.toJsonString(doc));
 		}
 
-		DocumentUtil.writeAsLineSeparatedJson(docs, new File(output_filename));
+		File outFile = new File(output_filename);
+
+		if (output_filename.toLowerCase().endsWith(".csv")) {
+			DocumentsUtils.printAsCsv(docs, outFile);
+		} //
+		else {
+			DocumentUtil.writeAsLineSeparatedJson(docs, outFile);
+		}
 
 	}
 
