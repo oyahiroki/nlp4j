@@ -3,8 +3,6 @@ package nlp4j;
 import java.util.Date;
 import java.util.List;
 
-import com.google.gson.JsonElement;
-
 /**
  * ドキュメントクラスです。<br>
  * Document Class.

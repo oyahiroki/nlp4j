@@ -128,6 +128,7 @@ public class DocumentProcessor {
 	 * 
 	 * @throws Exception
 	 */
+	@SuppressWarnings("deprecation")
 	public List<Document> crawlDocuments() throws Exception {
 
 		ArrayList<Crawler> crawlers = new ArrayList<>();
@@ -228,6 +229,7 @@ public class DocumentProcessor {
 
 	}
 
+	@SuppressWarnings("deprecation")
 	private void initAnnotators(DocumentAnnotatorPipeline pipeline) throws Exception {
 
 		// annotator[n].name
@@ -302,8 +304,6 @@ public class DocumentProcessor {
 						}
 					}
 				}
-
-				Object[] oo = { endPoint };
 
 				DocumentImporter importer = null;
 				try {
