@@ -1,4 +1,4 @@
-package nlp4j.word2vec;
+package example;
 
 import java.util.List;
 

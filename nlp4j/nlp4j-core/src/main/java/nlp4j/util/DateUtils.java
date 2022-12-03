@@ -15,27 +15,9 @@ import java.util.Locale;
  */
 public class DateUtils {
 
-	static private SimpleDateFormat sdfISO8601 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX");
+	static private SimpleDateFormat sdf_ISO8601 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX");
 
-	/**
-	 * @param data       "202101"
-	 * @param dataFormat "yyyyMM"
-	 * @return "January 1, 2021"
-	 */
-	static public String formatUsLong(String data, String dataFormat) {
-		int style = DateFormat.LONG;
-		return formatUs(data, dataFormat, style);
-	}
-
-	/**
-	 * @param data       "202101"
-	 * @param dataFormat "yyyyMM"
-	 * @return
-	 */
-	static public String formatUsMidium(String data, String dataFormat) {
-		int style = DateFormat.MEDIUM;
-		return formatUs(data, dataFormat, style);
-	}
+	static private SimpleDateFormat sdf_yyyyMMdd_HHmmss = new SimpleDateFormat("yyyyMMdd-HHmmss");
 
 	static private String formatUs(String data, String dataFormat, int style) {
 		SimpleDateFormat sdf = new SimpleDateFormat(dataFormat);
@@ -67,66 +49,30 @@ public class DateUtils {
 	}
 
 	/**
-	 * <pre>
-	 * created_at : 2021-01-19
-	 * </pre>
-	 * 
-	 * @param format
-	 * @return
+	 * @param data       "202101"
+	 * @param dataFormat "yyyyMM"
+	 * @return "January 1, 2021"
 	 */
-	static public String getString(String format) {
-		SimpleDateFormat sdf = new SimpleDateFormat(format);
-		return sdf.format(new Date());
+	static public String formatUsLong(String data, String dataFormat) {
+		int style = DateFormat.LONG;
+		return formatUs(data, dataFormat, style);
 	}
 
 	/**
-	 * 
-	 * @param date
-	 * @return ISO 8601 format
+	 * @param data       "202101"
+	 * @param dataFormat "yyyyMM"
+	 * @return
 	 */
-	static public String toISO8601(Date date) {
-		return sdfISO8601.format(date);
+	static public String formatUsMidium(String data, String dataFormat) {
+		int style = DateFormat.MEDIUM;
+		return formatUs(data, dataFormat, style);
 	}
 
 	/**
-	 * @param iso8601
-	 * @return
+	 * @return Date in yyyyMMdd-HHmmss
 	 */
-	static public Date toDate(String iso8601) {
-		try {
-			return sdfISO8601.parse(iso8601);
-		} catch (ParseException e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
-
-	/**
-	 * <pre>
-	 * created_at: 2021-01-22
-	 * </pre>
-	 * 
-	 * @param min
-	 * @param max
-	 * @param format
-	 * @return
-	 */
-	static public List<String> getCalendarValuesDay(String min, String max, String format) {
-		return getCalendarValues(min, max, format, Calendar.DAY_OF_MONTH);
-	}
-
-	/**
-	 * <pre>
-	 * created_at: 2021-01-22
-	 * </pre>
-	 * 
-	 * @param min
-	 * @param max
-	 * @param format
-	 * @return
-	 */
-	static public List<String> getCalendarValuesMonth(String min, String max, String format) {
-		return getCalendarValues(min, max, format, Calendar.MONTH);
+	static public String get_yyyyMMdd_HHmmss() {
+		return sdf_yyyyMMdd_HHmmss.format(new Date());
 	}
 
 	/**
@@ -164,6 +110,69 @@ public class DateUtils {
 
 		return vv;
 
+	}
+
+	/**
+	 * <pre>
+	 * created_at: 2021-01-22
+	 * </pre>
+	 * 
+	 * @param min
+	 * @param max
+	 * @param format
+	 * @return
+	 */
+	static public List<String> getCalendarValuesDay(String min, String max, String format) {
+		return getCalendarValues(min, max, format, Calendar.DAY_OF_MONTH);
+	}
+
+	/**
+	 * <pre>
+	 * created_at: 2021-01-22
+	 * </pre>
+	 * 
+	 * @param min
+	 * @param max
+	 * @param format
+	 * @return
+	 */
+	static public List<String> getCalendarValuesMonth(String min, String max, String format) {
+		return getCalendarValues(min, max, format, Calendar.MONTH);
+	}
+
+	/**
+	 * <pre>
+	 * created_at : 2021-01-19
+	 * </pre>
+	 * 
+	 * @param format
+	 * @return
+	 */
+	static public String getString(String format) {
+		SimpleDateFormat sdf = new SimpleDateFormat(format);
+		return sdf.format(new Date());
+	}
+
+	/**
+	 * @param iso8601
+	 * @return
+	 */
+	static public Date toDate(String iso8601) {
+		try {
+			return sdf_ISO8601.parse(iso8601);
+		} catch (ParseException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	/**
+	 * 
+	 * @param date
+	 * @return ISO 8601 format
+	 */
+	static public String toISO8601(Date date) {
+		return sdf_ISO8601.format(date);
 	}
 
 }

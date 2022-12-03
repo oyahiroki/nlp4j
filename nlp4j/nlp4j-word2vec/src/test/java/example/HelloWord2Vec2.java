@@ -1,4 +1,4 @@
-package nlp4j.word2vec;
+package example;
 
 import java.io.File;
 import java.io.IOException;
@@ -10,11 +10,11 @@ import java.util.List;
 import org.deeplearning4j.models.embeddings.loader.WordVectorSerializer;
 import org.deeplearning4j.models.embeddings.wordvectors.WordVectors;
 
-public class HelloWord2VecJa3b {
+public class HelloWord2Vec2 {
 
 	public static void main(String[] args) throws IOException {
 
-		String modelFileName = "C:/usr/local/nlp4j/collections/mlit/models/model.txt";
+		String modelFileName = "C:\\usr\\local\\nlp4j\\collections\\nhtsa\\models\\word2vec_model_nissan.txt";
 
 		{
 			// 単語ベクトルの読込
@@ -47,23 +47,11 @@ public class HelloWord2VecJa3b {
 
 			// 評価2(ある単語に最も意味が近い言葉)
 			{
-				String word = "タイヤ";
+				String word = "driver";
 				printTop10(vec, word);
 			}
 			{
-				String word = "ブレーキ";
-				printTop10(vec, word);
-			}
-			{
-				String word = "ゴールド";
-				printTop10(vec, word);
-			}
-			{
-				String word = "塗装";
-				printTop10(vec, word);
-			}
-			{
-				String word = "ドア";
+				String word = "pedal";
 				printTop10(vec, word);
 			}
 //			{
@@ -118,15 +106,15 @@ public class HelloWord2VecJa3b {
 
 			// 単語の足し算
 			System.out.println("単語の足し算");
-			List<String> positiveList = Arrays.asList("車", "運転手");
+			List<String> positiveList = Arrays.asList("vehicle", "driver");
 			List<String> negativeList = new ArrayList<String>();
 			Collection<String> nearestList = vec.wordsNearest(positiveList, negativeList, 10);
 			System.out.println(String.format("%s = %s", String.join(" + ", positiveList), nearestList));
 
 			// 単語の足し算・引き算
 			System.out.println("単語の足し算・引き算");
-			positiveList = Arrays.asList("車");
-			negativeList = Arrays.asList("事故");
+			positiveList = Arrays.asList("vehicle");
+			negativeList = Arrays.asList("driver");
 			nearestList = vec.wordsNearest(positiveList, negativeList, 10);
 			System.out.println(String.format("%s - %s = %s", String.join(" + ", positiveList),
 					String.join(" + ", negativeList), nearestList));
@@ -135,10 +123,10 @@ public class HelloWord2VecJa3b {
 	}
 
 	private static void printTop10(WordVectors vec, String word1) {
-
+		
 		int ranking = 30;
 		double minSimilarity = 0.3;
-
+		
 		Collection<String> similarTop10 = vec.wordsNearest(word1, ranking);
 //		System.out.println(String.format("Similar word to 「%s」 is %s", word1, similarTop10));
 
@@ -155,7 +143,7 @@ public class HelloWord2VecJa3b {
 			}
 		}
 		if (print) {
-			System.out.println(word1 + " -> " + out);
+			System.out.println(out);
 		}
 //		try {
 //			FileUtils.write(new File("/usr/local/nissan/textanalytics/models/word2vec_model_2_out.txt"), out + "\n", "UTF-8", true);

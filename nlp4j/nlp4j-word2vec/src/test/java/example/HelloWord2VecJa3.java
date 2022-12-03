@@ -1,4 +1,4 @@
-package nlp4j.word2vec;
+package example;
 
 import java.text.Normalizer;
 import java.util.ArrayList;
@@ -26,6 +26,7 @@ import nlp4j.importer.PlainTextOutImporter;
 import nlp4j.krmj.annotator.KuromojiAnnotator;
 import nlp4j.util.DocumentUtil;
 import nlp4j.util.JsonUtils;
+import nlp4j.word2vec.Word2VecOutImporter;
 
 public class HelloWord2VecJa3 {
 

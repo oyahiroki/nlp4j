@@ -34,12 +34,16 @@ public class PlainTextOutImporter extends AbstractDocumentImporter {
 		if (key == null) {
 			return;
 		} else {
+			// outfile
 			if (key.equals("outfile")) {
 				this.outFile = new File(value);
+				logger.info("outfile: " + this.outFile.getAbsolutePath());
 			} //
+				// encoding
 			else if (key.equals("encoding")) {
 				this.encoding = value;
 			} //
+				// target
 			else if (key.equals("target")) {
 				this.target = value;
 			}

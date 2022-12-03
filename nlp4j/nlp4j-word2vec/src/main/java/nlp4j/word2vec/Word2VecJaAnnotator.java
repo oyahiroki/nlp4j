@@ -128,11 +128,6 @@ public class Word2VecJaAnnotator extends AbstractDocumentAnnotator implements Do
 
 		doc.putAttribute(target2, String.join("\n", ss));
 
-//		if (idx > 10) {
-//			break;
-//		}
-//		idx++;
-
 	}
 
 	@Override
@@ -140,21 +135,26 @@ public class Word2VecJaAnnotator extends AbstractDocumentAnnotator implements Do
 
 		super.setProperty(key, value);
 
+		// target
 		if ("target".equals(key)) {
 			this.target = value;
 		} //
+			// target2
 		else if ("target2".equals(key)) {
 			this.target2 = value;
 		} //
+			// annotator
 		else if ("annotator".equals(key)) {
 			try {
 				this.annotator = (DocumentAnnotator) Class.forName(value).newInstance();
-				this.annotator.setProperty("target", this.target);
+				this.annotator.setProperty("target", "text");
+				logger.info("annotator: " + this.annotator.getClass().getCanonicalName());
 			} catch (Exception e) {
 				logger.error(e.getMessage(), e);
 				throw new RuntimeException(e);
 			}
 		} //
+			// upos
 		else if ("upos".equals(key)) {
 			if (this.uposFilter == null) {
 				this.uposFilter = new ArrayList<>();
