@@ -39,8 +39,13 @@ public class MediaWikiUtils {
 
 	private static WikiPage getPage(String dir, String lang, String media, String version, String itemString)
 			throws IOException {
-		File dumpFile = MediaWikiFileUtils.getDumpFile(dir, lang, media, version);
+		// INDEX FILE
 		File indexFile = MediaWikiFileUtils.getIndexFile(dir, lang, media, version);
+		logger.info("Index_file: " + indexFile.getAbsolutePath());
+		// DUMP FILE
+		File dumpFile = MediaWikiFileUtils.getDumpFile(dir, lang, media, version);
+		logger.info("Dump_file: " + dumpFile.getAbsolutePath());
+		// READ FILE
 		try (WikiDumpReader dumpReader = new WikiDumpReader(dumpFile, indexFile);) {
 			{
 				WikiPage page = dumpReader.getItem(itemString);

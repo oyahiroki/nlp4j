@@ -18,7 +18,8 @@ public class WikiTextParserTestCase extends TestCase {
 				+ "学校制度は[[社会システム]]の1つである教育制度の中心的システムの一つである<ref name=\"syakai11\">高橋靖直編『学校制度と社会 第二版』玉川大学出版局、2007年、11頁</ref>。社会的作用・社会的活動としての教育は、個人、家庭、小集団、地域社会、国家社会などにもみられるが、現代国家では学校が教育制度の中核的役割を担っている<ref name=\"syakai10\">高橋靖直編『学校制度と社会 第二版』玉川大学出版局、2007年、10頁</ref>。\r\n" //
 				+ "\r\n" //
 				+ "";
-		WikiTextParser.parse(s);
+		WikiTextParser parser = new WikiTextParser();
+		parser.parse(s);
 	}
 
 }

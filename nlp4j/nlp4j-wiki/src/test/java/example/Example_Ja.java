@@ -12,7 +12,7 @@ import nlp4j.wiki.util.MediaWikiFileUtils;
  * @author Hiroki Oya
  *
  */
-public class Example {
+public class Example_Ja {
 
 	public static void main(String[] args) throws Exception {
 		// Language: en
@@ -20,17 +20,19 @@ public class Example {
 		// Version: 20220501 (May 1 2022)
 
 		// Wiktionary Page Title
-		String itemString = "sukiyaki";
+		String itemString = "学校";
 
-		String dir = "/usr/local/data/wiki/20220501";
-		String lang = "en";
+		String dir = "/usr/local/data/wiki/jawiktionary/20221101";
+		String lang = "ja";
 		String media = "wiktionary";
-		String version = "20220501";
+		String version = "20221101";
 
 		// Index File
 		File indexFile = MediaWikiFileUtils.getIndexFile(dir, lang, media, version);
+		System.err.println(indexFile.getAbsolutePath());
 		// Dump File
 		File dumpFile = MediaWikiFileUtils.getDumpFile(dir, lang, media, version);
+		System.err.println(dumpFile.getAbsolutePath());
 
 		try (WikiDumpReader dumpReader = new WikiDumpReader(dumpFile, indexFile);) {
 			{

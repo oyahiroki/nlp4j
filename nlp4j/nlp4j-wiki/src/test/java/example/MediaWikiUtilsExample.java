@@ -8,10 +8,10 @@ public class MediaWikiUtilsExample {
 
 		String itemString = "中学校";
 
-		String dir = "/usr/local/data/wiki";
+		String dir = "/usr/local/data/wiki/jawiktionary/20221101";
 		String lang = "ja";
 		String media = "wiktionary";
-		String version = "20210401";
+		String version = "20221101";
 
 		MediaWikiUtils.printXml(dir, lang, media, version, itemString);
 

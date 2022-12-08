@@ -8,16 +8,16 @@ import nlp4j.wiki.WikiPage;
 import nlp4j.wiki.WikiPageHandler;
 import nlp4j.wiki.util.MediaWikiFileUtils;
 
-public class Wikipedia003ReadDumpWithoutIndexExampleEn_20220401 {
+public class Wikipedia003ReadDumpWithoutIndexExampleEn_20221101 {
 
 	public static void main(String[] args) throws Exception {
 
 		// WIKI DUMP FILE
 		File dumpFile = MediaWikiFileUtils.getDumpFile( //
-				"/usr/local/data/wiki/20220401", // File Path
+				"/usr/local/data/wiki/enwiki/20221101/", // File Path
 				"en", // Language
 				"wiki", // Type (wiki | wiktionary)
-				"20220401"); // Version
+				"20221101"); // Version
 
 		System.err.println("FILE: " + dumpFile.getAbsolutePath());
 		System.err.println("FILE_SIZE: " + String.format("%,d", dumpFile.length()));

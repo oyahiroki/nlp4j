@@ -63,8 +63,10 @@ public class WikiDumpReader implements AutoCloseable {
 		if (indexFile.exists() == false) {
 			throw new FileNotFoundException("Index File Not Found: " + indexFile.getAbsolutePath());
 		}
+		// READ INDEX FILE
 		this.wikiIndex = WikiIndexReader.readIndexFile(indexFile); // throws IOException
 		this.dumpFile = dumpFile;
+		// RANDOM READ DUMP FILE
 		this.randomfile1 = new RandomAccessFile(dumpFile, "r");
 	}
 
