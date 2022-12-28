@@ -13,7 +13,7 @@ import nlp4j.impl.DefaultKeyword;
  * @author Hiroki Oya
  * @since 1.3.2
  */
-public class DocumentBuilder {
+public class DocumentBuilder implements Builder<Document> {
 
 	Document doc;
 
@@ -164,6 +164,15 @@ public class DocumentBuilder {
 	 * @return Created Document
 	 */
 	public Document create() {
+		return this.doc;
+	}
+
+	/**
+	 * Same as create()
+	 * 
+	 * @return Created Document
+	 */
+	public Document build() {
 		return this.doc;
 	}
 

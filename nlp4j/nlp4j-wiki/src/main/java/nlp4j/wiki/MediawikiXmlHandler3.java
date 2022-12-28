@@ -3,7 +3,7 @@ package nlp4j.wiki;
 import java.lang.invoke.MethodHandles;
 import java.util.HashMap;
 
-import org.apache.commons.lang3.StringEscapeUtils;
+//import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.xml.sax.Attributes;
@@ -23,32 +23,25 @@ public class MediawikiXmlHandler3 extends AbstractXmlHandler {
 
 	static private final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
-	private static final String ATT_XML_SPACE = "xml:space";
+	private String ROOT = null;
 
-	private static final String PATH_MEDIAWIKI_PAGE = "mediawiki/page";
-
+	private static final String TAG_MEDIAWIKI = "mediawiki";
 	private static final String QNAME_PAGE = "page";
 
-	private static final String MEDIAWIKI_PAGE_REVISION_TIMESTAMP = "mediawiki/page/revision/timestamp";
-
-	private static final String PATH001_MEDIAWIKI_PAGE_TITLE = "mediawiki/page/title";
-
-	private static final String PATH003_MEDIAWIKI_PAGE_ID = "mediawiki/page/id";
-
-	private static final String PATH_MEDIAWIKI_PAGE_REVISION_TEXT = "mediawiki/page/revision/text";
-
-	private static final String MEDIAWIKI_PAGE_REVISION_FORMAT = "mediawiki/page/revision/format";
+	private String ATT_XML_SPACE = "xml:space";
+	private String PATH_MEDIAWIKI_PAGE = "page";
+	private String MEDIAWIKI_PAGE_REVISION_TIMESTAMP = "page/revision/timestamp";
+	private String PATH001_MEDIAWIKI_PAGE_TITLE = "page/title";
+	private String PATH003_MEDIAWIKI_PAGE_ID = "page/id";
+	private String PATH_MEDIAWIKI_PAGE_REVISION_TEXT = "page/revision/text";
+	private String MEDIAWIKI_PAGE_REVISION_FORMAT = "page/revision/format";
 
 	// pageID -> WikiPage Object
-//	private HashMap<String, WikiPage> pages = new HashMap<>();
-
 	private HashMap<String, String> pageInfo = new HashMap<>();
 
 	private void resetPageInfo() {
 		pageInfo = new HashMap<>();
 	}
-
-//	private int count = 0;
 
 	private WikiPageHandler wikiPageHander;
 
@@ -57,13 +50,19 @@ public class MediawikiXmlHandler3 extends AbstractXmlHandler {
 
 		logger.debug("qName=" + qName);
 
-//		count++;
-//
-//		if (count > 10) {
-//			SAXException e = new SAXException();
-//			e.initCause(new BreakException());
-//			throw e;
-//		}
+		// root tag is <mediawiki> or <page>
+		if (ROOT == null) {
+			ROOT = qName;
+			if (ROOT.equals(TAG_MEDIAWIKI)) {
+				PATH_MEDIAWIKI_PAGE = TAG_MEDIAWIKI + "/" + PATH_MEDIAWIKI_PAGE;
+
+				MEDIAWIKI_PAGE_REVISION_TIMESTAMP = TAG_MEDIAWIKI + "/" + MEDIAWIKI_PAGE_REVISION_TIMESTAMP;
+				PATH001_MEDIAWIKI_PAGE_TITLE = TAG_MEDIAWIKI + "/" + PATH001_MEDIAWIKI_PAGE_TITLE;
+				PATH003_MEDIAWIKI_PAGE_ID = TAG_MEDIAWIKI + "/" + PATH003_MEDIAWIKI_PAGE_ID;
+				PATH_MEDIAWIKI_PAGE_REVISION_TEXT = TAG_MEDIAWIKI + "/" + PATH_MEDIAWIKI_PAGE_REVISION_TEXT;
+				MEDIAWIKI_PAGE_REVISION_FORMAT = TAG_MEDIAWIKI + "/" + MEDIAWIKI_PAGE_REVISION_FORMAT;
+			}
+		}
 
 		super.startElement(uri, localName, qName, attributes);
 
@@ -88,6 +87,8 @@ public class MediawikiXmlHandler3 extends AbstractXmlHandler {
 		if (super.getText() != null && super.getText().isEmpty() == false) {
 			this.pageInfo.put(super.getPath(), super.getText());
 		}
+
+//		System.err.println(super.getPath());
 
 		// IF (END OF PAGE TAG) THEN
 		if (super.getPath().equals(PATH_MEDIAWIKI_PAGE)) {

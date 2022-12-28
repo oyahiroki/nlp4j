@@ -298,14 +298,22 @@ public class WikiDumpReaderTestCase extends TestCase {
 				+ "jawiktionary-20220501-pages-articles-multistream.xml.bz2";
 		File dumpFile = new File(dumpFileName);
 
+		// FILE CHECK
+		if (dumpFile.exists() == false) {
+			FileNotFoundException e = new FileNotFoundException(dumpFile.getAbsolutePath());
+			e.printStackTrace();
+			// skip this test
+			return;
+		} //
+
 		WikiPageHandler wikiPageHander = new WikiPageHandler() {
 
 			int count = 0;
 
 			@Override
 			public void read(WikiPage page) throws BreakException {
-//				System.err.println("OK");
 				System.err.println(page);
+				assertNotNull(page);
 				if (page != null && page.getTitle().contains(":") == false) {
 					count++;
 					System.err.println(page.getText());
@@ -316,13 +324,7 @@ public class WikiDumpReaderTestCase extends TestCase {
 			}
 		};
 
-		if (dumpFile.exists() == false) {
-			FileNotFoundException e = new FileNotFoundException(dumpFile.getAbsolutePath());
-			e.printStackTrace();
-			// skip this test
-			return;
-		} //
-		else {
+		{
 //			String indexFileName = "src/test/resources/nlp4j.wiki/"
 //					+ "jawiktionary-20210401-pages-articles-multistream-index.txt.bz2";
 //

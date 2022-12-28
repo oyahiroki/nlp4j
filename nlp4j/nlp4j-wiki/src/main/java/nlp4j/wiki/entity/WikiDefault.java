@@ -1,7 +1,8 @@
 package nlp4j.wiki.entity;
 
-public class WikiTemplate extends AbstractWikiEntity implements WikiEntity {
-	public WikiTemplate(String text) {
+public class WikiDefault extends AbstractWikiEntity implements WikiEntity {
+
+	public WikiDefault(String text) {
 		super();
 		this.text = text;
 	}

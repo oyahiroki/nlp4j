@@ -34,6 +34,39 @@ public class NodeTestCase extends NLP4JTestCase {
 		logger.info("--- setup ---");
 	}
 
+	public void testAddChildNode001() {
+		Node<Character> n1 = new Node<Character>('a');
+		{
+			n1.addChildNode(new Node<Character>('b'));
+			n1.addChildNode(new Node<Character>('c'));
+		}
+		printNode(n1, "original");
+	}
+
+	public void testAddChildNode101() {
+
+		String s = "日本アイ・ビー・エム株式会社";
+
+		Node<Character> root = null;
+		Node<Character> ptr = null;
+
+		for (int n = 0; n < s.length(); n++) {
+			char c = s.charAt(n);
+			Node<Character> n1 = new Node<Character>(c);
+			if (n == 0) {
+				root = n1;
+			}
+			if (ptr != null) {
+				ptr.addChildNode(n1);
+			}
+			ptr = n1;
+		}
+
+		ptr.addChildNode(new Node<Character>(null));
+
+		printNode(root, "original");
+	}
+
 	public void testClone001() {
 		Node<String> n1 = new Node<String>("a");
 		{

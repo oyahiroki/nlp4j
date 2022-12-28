@@ -1,0 +1,4 @@
+.user.company	日本IBM	日本アイビーエム	日本アイ・ビー・エム
+.user.company	IBM	アイ・ビー・エム
+.user.company	日本HP
+.user.others	テスト
