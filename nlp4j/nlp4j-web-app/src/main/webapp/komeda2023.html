@@ -1,0 +1,259 @@
+<html lang="ja">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--  meta http-equiv="Content-Type" content="text/html; charset=UTF-8" -->
+<meta charset="UTF-8">
+<title>【非公式】 コメダ珈琲店 年末年始営業時間 2023</title>
+<meta name="description" content="【非公式】 コメダ珈琲店 年末年始営業時間 2023 です．">
+<meta property="og:title" content="【非公式】 コメダ珈琲店 年末年始営業時間 2023"/>
+<meta property="og:description" content="${DESCRIPTION}"/>
+<meta property="og:image" content="https://nlp4j.org/favicon.png"/>
+<meta property="og:type" content="article"/>
+<meta name="twitter:card" content="summary">
+
+<!-- bootstrap 5 -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+
+<link href="" rel="stylesheet" crossorigin="anonymous" />
+
+<!-- DataTables -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.11.4/js/dataTables.bootstrap5.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css" />
+<link rel="stylesheet" href="https://cdn.datatables.net/1.11.4/css/dataTables.bootstrap5.min.css" />
+<!-- /DataTables -->
+
+
+<!-- コメダデータ -->
+<script type="text/javascript" charset="UTF-8" src="komeda2023.js"></script>
+
+
+<style type="text/css" >
+.table-wrap {
+  width: 100%;
+  height: 800px;
+  overflow-y: auto;
+}
+div{
+  margin-bottom:8px;
+}
+</style>
+
+<link rel="icon" href="https://nlp4j.org/wp-content/uploads/2021/09/nlp4j-favicon64.png" sizes="32x32" />
+<link rel="icon" href="https://nlp4j.org/wp-content/uploads/2021/09/nlp4j-favicon64.png" sizes="192x192" />
+<link rel="apple-touch-icon" href="https://nlp4j.org/wp-content/uploads/2021/09/nlp4j-favicon64.png" />
+<meta name="msapplication-TileImage" content="https://nlp4j.org/wp-content/uploads/2021/09/nlp4j-favicon64.png" />
+
+<script>
+
+data = [
+    {
+        "name":       "Tiger Nixon",
+        "position":   "System Architect",
+        "salary":     "$3,120",
+        "start_date": "2011/04/25",
+        "office":     "Edinburgh",
+        "extn":       "5421"
+    },
+    {
+        "name":       "Garrett Winters",
+        "position":   "Director",
+        "salary":     "$5,300",
+        "start_date": "2011/07/25",
+        "office":     "Edinburgh",
+        "extn":       "8422"
+    }
+];
+
+data = new Array();
+
+var filter_todofuken = new Array();
+
+var todofuken = "";
+
+data_komeda.forEach(function(d,idx){
+	// console.log(d);
+	{
+		var tdfk = d["都道府県"];
+		if(tdfk.length>0){
+			todofuken = tdfk;
+		}
+		if(filter_todofuken.includes(tdfk) == false){
+			filter_todofuken.push(tdfk);
+		}
+	}
+	var o = new Object();
+	o.idx = (idx+1);
+	o.todofuken = d["都道府県"];
+	{
+		if(o.todofuken == null || o.todofuken.length == 0){
+			o.todofuken = todofuken;
+		}
+	}
+	o.shichoson = d["市"];
+	o.tenmei = d["店舗名"];
+	o.tel = d["TEL"];
+	o.eigyojikan = ""
+		+ "12/28 "+ d["1228_1"] + " - " + d["1228_2"] + "<br/>"
+		+ "12/29 "+ d["1229_1"] + " - " + d["1229_2"] + "<br/>"
+		+ "12/30 "+ d["1230_1"] + " - " + d["1230_2"] + "<br/>"
+		+ "12/31 "+ d["1231_1"] + " - " + d["1231_2"] + "<br/>"
+		+ "1/1 "+ d["0101_1"] + " - " + d["0101_2"] + "<br/>"
+		+ "1/2 "+ d["0102_1"] + " - " + d["0102_2"] + "<br/>"
+		+ "1/3 "+ d["0103_1"] + " - " + d["0103_2"] + "<br/>"
+		+ "1/4 "+ d["0104_1"] + " - " + d["0104_2"] + "<br/>"
+		;
+	// 	o.eigyojikan = "";
+	o.data1 =
+		""
+	+ o.tenmei + "<br/>" 
+	+ "【電話番号】<br/>"
+	+ "<a href='tel:" + o.tel + "'>☎ " + o.tel + "</a>" + "<br/>"
+	+ "【所在地】<br/>"
+	+ o.todofuken + " "
+	+ "<a target='_blank' href='https://www.google.com/maps/place/" + encodeURI( o.shichoson ) + "'>" + o.shichoson + "</a><br/>" 
+	+ "【営業時間】<br/>"
+	+ o.eigyojikan;
+	data.push(o);
+});
+
+$(document).ready(function() {
+	
+	filter_todofuken.forEach(function(d,idx){
+		$("#filter1").append($("<option>").html(""+d).val(""+d));
+	});
+	
+	$("#filter1").change(function(){
+		// 選択された値
+		var v = $(this).val();
+		// リセット
+		if(v == "-"){
+			$("#filter2").empty();
+			$("#filter2").append($("<option>").html("市区町村を指定しない").val("-"));
+			$('#tbl_data').dataTable().fnClearTable();
+			$('#tbl_data').dataTable().fnAddData(data);
+			return;
+		}
+		// リセット以外
+		// フィルターされた店舗
+		var komeda2 = new Array();
+		// フィルターされた市区町村
+		var filter2 = new Array();
+		data.forEach(function(d,idx){
+			if(d["todofuken"] == v){
+				// console.log(d["shichoson"]);
+				d.idx = (idx+1);
+				komeda2.push(d);
+				if(filter2.includes(d["shichoson"])==false){
+					filter2.push(d["shichoson"]);
+				}
+			}
+		});
+		console.log(filter2);
+		if(filter2.length>0){
+			$("#filter2").empty();
+			$("#filter2").append($("<option>").html("市区町村を指定しない").val("-"));
+			filter2.forEach(function(d,idx){
+				$("#filter2").append($("<option>").html(""+d).val(""+d));
+			});
+		}
+		console.log(komeda2);
+		$('#tbl_data').dataTable().fnClearTable();
+		$('#tbl_data').dataTable().fnAddData(komeda2);
+	});
+	
+	$("#filter2").change(function(){
+		var todofuken = $("#filter1").val();
+		// 選択された値
+		var v = $(this).val();
+		// リセット
+		if(v == "-"){
+			// フィルターされた店舗
+			var komeda2 = new Array();
+			// フィルターされた市区町村
+			data.forEach(function(d,idx){
+				if(d["todofuken"] == todofuken){
+					// console.log(d["shichoson"]);
+					d.idx = (idx+1);
+					komeda2.push(d);
+				}
+			});
+			console.log(komeda2);
+			$('#tbl_data').dataTable().fnClearTable();
+			$('#tbl_data').dataTable().fnAddData(komeda2);
+			return;
+		}
+		// リセット以外
+		// フィルターされた店舗
+		var komeda2 = new Array();
+		data.forEach(function(d,idx){
+			if(d["shichoson"] == v){
+				// console.log(d["shichoson"]);
+				d.idx = (idx+1);
+				komeda2.push(d);
+			}
+		});
+		console.log(komeda2);
+		$('#tbl_data').dataTable().fnClearTable();
+		$('#tbl_data').dataTable().fnAddData(komeda2);
+	});
+
+	table = $('#tbl_data').DataTable( {
+		dom: "<iptp>",
+	    columns: [
+	        { data: 'idx', title: '#' },
+//	        { data: 'todofuken', title: '都道府県' },
+//	        { data: 'shichoson', title: '市町村' },
+	        { data: 'data1', title: '店情報' },
+//	        { data: 'eigyojikan', title: '営業時間' },
+	    ],
+	    data: data,
+	    initComplete: function(){
+	    	this.api()
+	    	.columns()
+	    	.every(function(){
+	    		var column = this;
+	    		var select = $("<select><option value=''></option></select>")
+	    		.appendTo($(column.footer()).empty())
+	    		.on('change',function(){
+	    			var val = $.fn.dataTable.util.escapeRegex($(this).val());
+	    			column.search(val ? "^" + val + "$" : "", true, false).draw();
+	    		});
+	    		console.log(select);
+	    		column.data().unique().sort()
+	    		.each(function(d,j){
+	    			// console.log(j);
+	    			select.append('<option value="' + d + '">' + d + '</option>');
+	    		});
+	    	});
+	    },
+	} );	
+	
+	// $('#example').DataTable();
+} );
+</script>
+
+</head>
+<body>
+
+<h1>コメダ珈琲店 年末年始営業時間 2023</h1>
+
+<select id="filter1">
+	<option value="-">都道府県を指定しない</option>
+</select>
+
+<select id="filter2">
+	<option value="-">市区町村を指定しない</option>
+</select>
+
+<table id="tbl_data" class="table table-striped" style="width:100%">
+<thead></thead>
+<tbody></tbody>
+<tfoot></tfoot>
+</table>
+
+
+
+</body>
+</html>

@@ -38,7 +38,39 @@ public class DefaultDocumentTestCase extends TestCase {
 	public void testAddKeywords() {
 	}
 
-	public void testGetAttribute() {
+	public void testGetAttribute001() {
+		DefaultDocument doc = new DefaultDocument();
+		{
+			doc.putAttribute("aaa", "111");
+			doc.putAttribute("bbb", "222");
+			doc.putAttribute("ccc", "333");
+		}
+
+		System.err.println(doc.getAttribute("aaa"));
+		assertEquals("111", doc.getAttribute("aaa"));
+	}
+
+	public void testGetAttributeAsString001() {
+		DefaultDocument doc = new DefaultDocument();
+		{
+			doc.putAttribute("aaa", "111");
+			doc.putAttribute("bbb", "222");
+			doc.putAttribute("ccc", "333");
+		}
+		System.err.println(doc.getAttributeAsString("aaa"));
+		assertEquals("111", doc.getAttributeAsString("aaa"));
+	}
+
+	public void testGetAttributeAsString002() {
+		DefaultDocument doc = new DefaultDocument();
+		{
+			doc.putAttribute("aaa", "111");
+			doc.putAttribute("bbb", "222");
+			doc.putAttribute("ccc", "333");
+			doc.putAttribute("都道府県", "北海道");
+		}
+		System.err.println(doc.getAttributeAsString("都道府県"));
+		assertEquals("北海道", doc.getAttributeAsString("都道府県"));
 	}
 
 	public void testGetAttributeKeys() {

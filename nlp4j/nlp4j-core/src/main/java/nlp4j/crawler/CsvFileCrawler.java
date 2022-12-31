@@ -20,8 +20,11 @@ import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.google.gson.JsonArray;
+
 import nlp4j.Document;
 import nlp4j.impl.DefaultDocument;
+import nlp4j.util.UnicodeUtils;
 
 /**
  * CSVファイルをクロールします。<br>
@@ -57,19 +60,13 @@ public class CsvFileCrawler extends AbstractFileCrawler implements Crawler {
 		}
 
 		for (File file : super.files) {
-
 			try (FileInputStream fis = new FileInputStream(file)) {
-
 				docs.addAll(parseDocuments(fis));
-
 			} catch (FileNotFoundException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+				logger.error(e1.getMessage(), e1);
 			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+				logger.error(e1.getMessage(), e1);
 			}
-
 		}
 		return docs;
 	}
@@ -95,13 +92,62 @@ public class CsvFileCrawler extends AbstractFileCrawler implements Crawler {
 				CSVFormat.EXCEL.withFirstRecordAsHeader() //
 		);
 		String[] headers = parser.getHeaderMap().keySet().toArray(new String[0]);
+		if (headers.length > 0) {
+			{
+				String header0 = headers[0];
+				if (header0.startsWith(UnicodeUtils.BOM)) {
+					headers[0] = UnicodeUtils.removeBOM(header0);
+					logger.info("removed BOM");
+				}
+			}
+			for (int n = 0; n < headers.length; n++) {
+				headers[n] = headers[n].trim();
+			}
+		}
 		Iterable<CSVRecord> records = parser.getRecords();
 
 		for (CSVRecord record : records) {
+
 			Document doc = new DefaultDocument();
+			{
+				JsonArray data = new JsonArray();
+				for (int n = 0; n < record.size(); n++) {
+					String value = record.get(n);
+					if (n == 0) {
+						value = UnicodeUtils.removeBOM(value);
+					}
+					data.add(value);
+				}
+				doc.putAttribute("data", data);
+			}
+			{
+				JsonArray header = new JsonArray();
+				for (int n = 0; n < headers.length; n++) {
+					String hd = headers[n];
+					header.add(hd);
+				}
+				doc.putAttribute("header", header);
+			}
+
 			for (int n = 0; n < record.size(); n++) {
 				String value = record.get(n);
-				doc.putAttribute(headers[n], value);
+				// <2022-12-31>
+				// body data size is larger than header (short header)
+				if (n < headers.length) {
+					String header = headers[n].trim();
+					if (n == 0) {
+						header = UnicodeUtils.removeBOM(header);
+					}
+					if (header.trim().isEmpty()) {
+						header = "header" + n;
+					}
+					doc.putAttribute(header, value);
+				} //
+				else {
+					String header = "header" + n;
+					doc.putAttribute(header, value);
+				}
+				// </2022-12-31>
 			}
 			docs.add(doc);
 		}

@@ -26,4 +26,25 @@ public class CsvFileCrawlerTestCase extends TestCase {
 
 	}
 
+	public void testCrawlDocuments002() {
+
+		CsvFileCrawler crawler = new CsvFileCrawler();
+
+		crawler.setProperty("file", "src/test/resources/nlp4j.crawler/CsvFileCrawlerTestCase_utf8_bom.csv");
+
+		List<Document> docs = crawler.crawlDocuments();
+
+		System.err.println(DocumentUtil.toJsonPrettyString(docs));
+
+		assertTrue(docs.size() == 4);
+
+		System.err.println(docs.get(0).getAttributeAsString("TEXT"));
+		System.err.println(docs.get(0).getAttributeAsString("DOCUMENTID"));
+		System.err.println(docs.get(0).getAttributeAsString("DOCUMENTID").length());
+		System.err.println(docs.get(3).getAttributeAsString("TEXT"));
+		System.err.println(docs.get(3).getAttributeAsString("DOCUMENTID"));
+		System.err.println(docs.get(3).getAttributeAsString("DOCUMENTID").length());
+
+	}
+
 }

@@ -216,6 +216,7 @@ public class DefaultDocument implements Document {
 		return ret;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public <T extends Keyword> List<T> getKeywords(Class<T> classOfT) {
 		List<T> ret = new ArrayList<T>();
