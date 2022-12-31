@@ -3,11 +3,8 @@ package nlp4j.crawler;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
 import java.lang.invoke.MethodHandles;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
@@ -16,7 +13,6 @@ import java.util.List;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
-import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -87,6 +83,7 @@ public class CsvFileCrawler extends AbstractFileCrawler implements Crawler {
 
 		ArrayList<Document> docs = new ArrayList<>();
 
+		@SuppressWarnings("deprecation")
 		CSVParser parser = CSVParser.parse(is, //
 				Charset.forName(super.encoding), //
 				CSVFormat.EXCEL.withFirstRecordAsHeader() //

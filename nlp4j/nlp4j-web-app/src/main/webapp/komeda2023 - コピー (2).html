@@ -1,12 +1,12 @@
 <html lang="ja">
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!--  meta http-equiv="Content-Type" content="text/html; charset=UTF-8" -->
 <meta charset="UTF-8">
 <title>【非公式】 コメダ珈琲店 年末年始営業時間 2023</title>
 <meta name="description" content="【非公式】 コメダ珈琲店 年末年始営業時間 2023 です．">
 <meta property="og:title" content="【非公式】 コメダ珈琲店 年末年始営業時間 2023"/>
-<meta property="og:description" content="【非公式】 コメダ珈琲店 年末年始営業時間 2023 です．"/>
+<meta property="og:description" content="${DESCRIPTION}"/>
 <meta property="og:image" content="https://nlp4j.org/favicon.png"/>
 <meta property="og:type" content="article"/>
 <meta name="twitter:card" content="summary">
@@ -47,7 +47,26 @@ div{
 
 <script>
 
-var data = new Array();
+data = [
+    {
+        "name":       "Tiger Nixon",
+        "position":   "System Architect",
+        "salary":     "$3,120",
+        "start_date": "2011/04/25",
+        "office":     "Edinburgh",
+        "extn":       "5421"
+    },
+    {
+        "name":       "Garrett Winters",
+        "position":   "Director",
+        "salary":     "$5,300",
+        "start_date": "2011/07/25",
+        "office":     "Edinburgh",
+        "extn":       "8422"
+    }
+];
+
+data = new Array();
 
 var filter_todofuken = new Array();
 
@@ -75,7 +94,6 @@ data_komeda.forEach(function(d,idx){
 	o.shichoson = d["市"];
 	o.tenmei = d["店舗名"];
 	o.tel = d["TEL"];
-	o.bikou = d["備考"];
 	o.eigyojikan = ""
 		+ "12/28 "+ d["1228_1"] + " - " + d["1228_2"] + "<br/>"
 		+ "12/29 "+ d["1229_1"] + " - " + d["1229_2"] + "<br/>"
@@ -90,14 +108,14 @@ data_komeda.forEach(function(d,idx){
 	o.data1 =
 		""
 	+ "<a target='_blank' href='https://www.google.com/search?q=" + encodeURI( "コメダ珈琲店 " + o.tenmei ) + "'>コメダ珈琲店 " + o.tenmei + "</a><br/>" 
+// 	+ o.tenmei + "<br/>" 
 	+ "【電話番号】<br/>"
 	+ "<a href='tel:" + o.tel + "'>☎ " + o.tel + "</a>" + "<br/>"
 	+ "【所在地】<br/>"
 	+ o.todofuken + " "
 	+ "<a target='_blank' href='https://www.google.com/search?q=" + encodeURI( o.shichoson ) + "'>" + o.shichoson + "</a><br/>" 
 	+ "【営業時間】<br/>"
-	+ o.eigyojikan
-	+ ( o.bikou.length > 0 ? "【備考】<br/>" + o.bikou : "" );
+	+ o.eigyojikan;
 	data.push(o);
 });
 
@@ -133,6 +151,7 @@ $(document).ready(function() {
 				}
 			}
 		});
+		console.log(filter2);
 		if(filter2.length>0){
 			$("#filter2").empty();
 			$("#filter2").append($("<option>").html("市区町村を指定しない").val("-"));
@@ -140,6 +159,7 @@ $(document).ready(function() {
 				$("#filter2").append($("<option>").html(""+d).val(""+d));
 			});
 		}
+		console.log(komeda2);
 		$('#tbl_data').dataTable().fnClearTable();
 		$('#tbl_data').dataTable().fnAddData(komeda2);
 	});
@@ -179,12 +199,15 @@ $(document).ready(function() {
 		$('#tbl_data').dataTable().fnClearTable();
 		$('#tbl_data').dataTable().fnAddData(komeda2);
 	});
-	
+
 	table = $('#tbl_data').DataTable( {
-		dom: "<ptp>",
+		dom: "<iptp>",
 	    columns: [
 	        { data: 'idx', title: '#' },
+//	        { data: 'todofuken', title: '都道府県' },
+//	        { data: 'shichoson', title: '市町村' },
 	        { data: 'data1', title: '店情報' },
+//	        { data: 'eigyojikan', title: '営業時間' },
 	    ],
 	    data: data,
 	    initComplete: function(){
@@ -206,10 +229,9 @@ $(document).ready(function() {
 	    		});
 	    	});
 	    },
-	    language: {
-	        "url": "https://cdn.datatables.net/plug-ins/1.10.16/i18n/Japanese.json"
-        },
-	} );	// 
+	} );	
+	
+	// $('#example').DataTable();
 } );
 </script>
 

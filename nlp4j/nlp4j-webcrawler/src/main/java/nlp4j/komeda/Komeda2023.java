@@ -10,10 +10,7 @@ import com.google.gson.JsonObject;
 
 import nlp4j.Document;
 import nlp4j.crawler.CsvFileCrawler;
-import nlp4j.importer.JsonOutImporter;
 import nlp4j.util.DocumentUtil;
-import nlp4j.util.DocumentsUtils;
-import nlp4j.util.JsonUtils;
 
 public class Komeda2023 {
 
@@ -53,10 +50,13 @@ public class Komeda2023 {
 		JsonArray jsonArray = new JsonArray();
 		for (int n = 0; n < docs.size(); n++) {
 			JsonObject obj = DocumentUtil.toJsonObject(docs.get(n));
+			obj.remove("data");
+			obj.remove("header");
 			jsonArray.add(obj);
 		}
 
-		FileUtils.write(new File("file/komeda/komed2023_out2_json.txt"), jsonArray.toString(), "UTF-8", false);
+		FileUtils.write(new File("file/komeda/komed2023_out2_json_v2.js"),
+				"var data_komeda=" + jsonArray.toString() + ";", "UTF-8", false);
 
 	}
 
