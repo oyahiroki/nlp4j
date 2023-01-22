@@ -34,7 +34,7 @@ public class MediawikiXmlHandler3TestCase extends TestCase {
 	}
 
 	public void test002() throws Exception {
-		File xmlFile = new File("src/test/resources/nlp4j.wiki/jawiki-20220501-pages-articles-multistream-255425.xml");
+		File xmlFile = new File("src/test/resources/nlp4j.wiki/jawiki-20221101-pages-articles-multistream-255425.xml");
 		WikiPageHandler h = new WikiPageHandler() {
 			@Override
 			public void read(WikiPage page) throws BreakException {

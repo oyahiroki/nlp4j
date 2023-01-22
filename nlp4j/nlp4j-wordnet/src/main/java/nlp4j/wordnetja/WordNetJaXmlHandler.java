@@ -244,13 +244,20 @@ public class WordNetJaXmlHandler extends AbstractXmlHandler {
 		// baseConcept
 		else if (p.equals("LexicalResource/Lexicon/Synset")) {
 			String synsetId = attributes.getValue("id");
-			int baseConcept = Integer.parseInt(attributes.getValue("baseConcept"));
 
 			this.synsetId = synsetId;
 			this.synsetObj = new Synset();
 			{
 				this.synsetObj.setId(attributes.getValue("id"));
-				this.synsetObj.setBaseConcept(baseConcept);
+				// <baseConcept>
+				// 英語版には baseConcept属性 が存在しない
+				String baseConcept_s = attributes.getValue("baseConcept");
+				if (baseConcept_s != null) {
+					int baseConcept = Integer.parseInt(attributes.getValue("baseConcept")); // throws
+																							// NumberFormatException
+					this.synsetObj.setBaseConcept(baseConcept);
+				}
+				// </baseConcept>
 			}
 
 //			this.synsetRelationMap.put(synsetId, new ArrayList<String>());

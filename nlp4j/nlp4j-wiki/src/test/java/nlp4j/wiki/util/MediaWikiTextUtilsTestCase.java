@@ -204,6 +204,24 @@ public class MediaWikiTextUtilsTestCase extends TestCase {
 		System.err.println("</tags>");
 	}
 
+	/**
+	 * created_at : 2023-01-18
+	 * 
+	 * @throws IOException
+	 */
+	public void testParseTemplateTags002() throws IOException {
+		String wikitext = "{{Otheruses}}\r\n" //
+				+ "{{Redirect|鈴木一朗|その他の同名の人物|鈴木一朗 (曖昧さ回避)}}\r\n" //
+				+ "xxx\r\n" //
+				+ "{{abc}}\r\n" //
+				+ "{{def}}";
+		List<String> tags = MediaWikiTextUtils.parseTemplateTags(wikitext);
+
+		System.err.println("<tags>");
+		System.err.println(tags.toString());
+		System.err.println("</tags>");
+	}
+
 	public void testGetWikiPageLinks() {
 
 	}

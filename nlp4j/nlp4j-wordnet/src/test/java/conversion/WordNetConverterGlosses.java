@@ -1,6 +1,7 @@
 package conversion;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -14,31 +15,9 @@ import nlp4j.wordnetja.LexicalEntry;
 import nlp4j.wordnetja.Synset;
 import nlp4j.wordnetja.WordNetJa;
 
-/**
- * <pre>
- * created_at 2021-12-10
- * </pre>
- * 
- * @author Hiroki Oya
- *
- */
-public class WordNetJaConvert1Glosses {
+public class WordNetConverterGlosses {
 
-	public static void main(String[] args) throws Exception {
-
-		String fileName = "/usr/local/data/wordnetja/" + "jpn_wn_lmf.xml.gz";
-		File file = new File(fileName);
-
-		String outFileName = "/usr/local/data/wordnetja/" + "jpn_wn_lmf_glosses_json.txt";
-		File outFile = new File(outFileName);
-
-		if (outFile.exists()) {
-			System.err.println("Exists: " + outFile.getAbsolutePath());
-			return;
-		}
-
-		String licenseFileName = "/usr/local/local/doshisha/iip/data/wordnetja/license.txt";
-		File licenseFile = new File(licenseFileName);
+	public void convert(File inFile, File licenseFile, File outFile) throws IOException {
 		String license = FileUtils.readFileToString(licenseFile, "UTF-8");
 		{
 			JsonObject doc = new JsonObject();
@@ -53,7 +32,7 @@ public class WordNetJaConvert1Glosses {
 			FileUtils.write(outFile, doc.toString() + "\n", "UTF-8", true);
 		}
 
-		WordNetJa db = new WordNetJa(file);
+		WordNetJa db = new WordNetJa(inFile);
 
 //		for (LexicalEntry le : db.getLexicalEntries()) {
 //			System.err.println(le.getLemmaWrittenForm());
@@ -61,11 +40,13 @@ public class WordNetJaConvert1Glosses {
 
 		System.err.println(db.getLexicalEntries().size());
 
-		int max = 100;
+		int max = db.getLexicalEntries().size();
 
-		max = db.getLexicalEntries().size();
-
+		// FOR_EACH(LexicalEntries)
 		for (int n = 0; n < max; n++) {
+
+			System.err.println("processing ... " + n + " / " + max + " ("
+					+ String.format("%.2f", ((double) n / (double) max) * 100));
 
 			JsonObject doc = new JsonObject();
 
@@ -127,7 +108,7 @@ public class WordNetJaConvert1Glosses {
 
 			FileUtils.write(outFile, doc.toString() + "\n", "UTF-8", true);
 
-		}
+		} // END_OF FOR_EACH(LexicalEntries)
 
 	}
 

@@ -118,11 +118,15 @@ public class MediaWikiTextUtils {
 		return t;
 	}
 
-	public static List<String> parseTemplateTags(String t) {
+	/**
+	 * @param wikiText wiki形式のテキスト wiki format text
+	 * @return
+	 */
+	public static List<String> parseTemplateTags(String wikiText) {
 		List<String> tags = new ArrayList<>();
 
 		// FOR EACH LINE
-		for (String line : t.split("\n")) {
+		for (String line : wikiText.split("\n")) {
 			if (line.startsWith("{{") == true) {
 				String tag = parseTag(line);
 				if (tags.contains(tag) == false) {
@@ -203,7 +207,9 @@ public class MediaWikiTextUtils {
 //				System.err.println(toString(stack));
 			} //
 			else if (c == '}' || c == ']') {
-				stack.pop();
+				if (stack.isEmpty() == false) {
+					stack.pop();
+				}
 //				System.err.println(toString(stack));
 				if (stack.size() == 0) {
 					status = 0; // リセットされる
@@ -221,11 +227,18 @@ public class MediaWikiTextUtils {
 				else if (stack.size() == 2 && toString(stack).equals("[[")) {
 
 					if (status == 0) {
-						String link = rest.substring(0, rest.indexOf("]]"));
-
-						String text = parseTextFromLink(link);
+						int idx = rest.indexOf("]]");
+						// 閉じている
+						if (idx != -1) {
+							String link = rest.substring(0, idx);
+							String text = parseTextFromLink(link);
+							sb.append(text);
+						}
+						// 閉じてない
+						else {
+							sb.append(rest);
+						}
 						status = 2;
-						sb.append(text);
 					}
 
 //					// ファイルへのリンク
