@@ -11,7 +11,9 @@
 	<!-- JAR -->
 	<packaging>jar</packaging>
 	<name>nlp4j-wiki</name>
+	<!-- https://mvnrepository.com/artifact/org.nlp4j/nlp4j-wiki -->
 	<!-- VERSION -->
+	<!-- 0.3.1.0 : Sep 04, 2022 -->
 	<version>0.3.1.0</version>
 	<description>NLP4J for Wikipedia / Wiktionary</description>
 	<url>https://nlp4j.org/</url>
@@ -35,53 +37,66 @@
 			<version>1.1.0.0</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-compress -->
+		<!-- 1.22 : Oct 31, 2022 -->
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-compress</artifactId>
-			<version>[1.21,)</version>
+			<version>[1.22,)</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.sweble.wikitext/swc-parser-lazy -->
+		<!-- 3.1.9 : Sep 26, 2018 -->
 		<dependency>
 			<groupId>org.sweble.wikitext</groupId>
 			<artifactId>swc-parser-lazy</artifactId>
 			<version>3.1.9</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.sweble.wikitext/swc-example-basic -->
-		<dependency>
-			<groupId>org.sweble.wikitext</groupId>
-			<artifactId>swc-example-basic</artifactId>
-			<version>3.1.9</version>
-		</dependency>
+		<!-- 3.1.9 : Sep 26, 2018 -->
+		<!-- dependency -->
+			<!-- groupId>org.sweble.wikitext</groupId -->
+			<!-- artifactId>swc-example-basic</artifactId -->
+			<!-- version>3.1.9</version -->
+		<!-- /dependency -->
 		<!-- https://mvnrepository.com/artifact/info.bliki.wiki/bliki-core -->
+		<!-- 3.1.0 : Mar 10, 2016 -->
 		<dependency>
 			<groupId>info.bliki.wiki</groupId>
 			<artifactId>bliki-core</artifactId>
 			<version>3.1.0</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.jsoup/jsoup -->
+		<!-- 1.14.3 : Sep 30, 2021 -->
+		<!-- 1.15.3 : Aug 24, 2022 -->
 		<dependency>
 			<groupId>org.jsoup</groupId>
 			<artifactId>jsoup</artifactId>
-			<version>[1.14.3,)</version>
+			<version>[1.15.3,)</version>
 		</dependency>
-
 		<!-- for_jaxb -->
+		<!-- https://mvnrepository.com/artifact/javax.activation/javax.activation-api -->
 		<!-- https://github.com/acroquest/javabook-support/issues/49 -->
+		<!-- 1.2.0 : Sep 06, 2017 -->
 		<dependency>
 			<groupId>javax.activation</groupId>
 			<artifactId>javax.activation-api</artifactId>
 			<version>1.2.0</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/javax.xml.bind/jaxb-api -->
+		<!-- 2.4.0-b180830.0359 : Aug 30, 2018 -->
 		<dependency>
 			<groupId>javax.xml.bind</groupId>
 			<artifactId>jaxb-api</artifactId>
 			<version>2.4.0-b180830.0359</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.sun.xml.bind/jaxb-core -->
+		<!-- 2.3.0.1 : May 18, 2018 -->
 		<dependency>
 			<groupId>com.sun.xml.bind</groupId>
 			<artifactId>jaxb-core</artifactId>
 			<version>2.3.0.1</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.sun.xml.bind/jaxb-impl -->
+		<!-- 2.4.0-b180830.0438 : Aug 30, 2018 -->
 		<dependency>
 			<groupId>com.sun.xml.bind</groupId>
 			<artifactId>jaxb-impl</artifactId>
@@ -90,6 +105,7 @@
 		<!-- /for_jaxb -->
 
 		<!-- https://mvnrepository.com/artifact/junit/junit -->
+		<!-- 3.8.2 : May 14, 2007 -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>

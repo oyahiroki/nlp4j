@@ -13,7 +13,7 @@ import nlp4j.wiki.util.MediaWikiFileUtils;
  * @author Hiroki Oya
  *
  */
-public class Wikipedia002CheckDumpIndexFileExample_20221101 {
+public class Wikipedia002CheckDumpIndexFile_20221101 {
 
 	public static void main(String[] args) throws Exception {
 		{
