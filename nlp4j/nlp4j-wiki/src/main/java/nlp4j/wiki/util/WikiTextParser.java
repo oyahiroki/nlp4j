@@ -3,14 +3,12 @@ package nlp4j.wiki.util;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Stack;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import nlp4j.wiki.entity.WikiEntity;
 import nlp4j.wiki.entity.WikiCategory;
 import nlp4j.wiki.entity.WikiDefault;
-import nlp4j.wiki.entity.WikiTemplate;
+import nlp4j.wiki.entity.WikiEntity;
 
 public class WikiTextParser {
 

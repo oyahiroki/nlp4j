@@ -1,4 +1,4 @@
-package example.p001download.jawiktionary;
+package example202301.ja.wiktionary;
 
 import nlp4j.wiki.MediaWikiDownloader;
 import nlp4j.wiki.MediaWikiDownloader.media;
@@ -12,7 +12,7 @@ import nlp4j.wiki.MediaWikiDownloader.media;
  * @author Hiroki Oya
  *
  */
-public class Wikipedia001DownloadWiktionaryDumpJa_20221101builder {
+public class Example000Download_WiktionaryDumpJa {
 
 	static public void main(String[] args) throws Exception {
 		MediaWikiDownloader dl = (new MediaWikiDownloader.Builder()) //

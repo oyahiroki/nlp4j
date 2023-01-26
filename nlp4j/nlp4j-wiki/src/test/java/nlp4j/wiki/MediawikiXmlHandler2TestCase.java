@@ -87,7 +87,7 @@ public class MediawikiXmlHandler2TestCase extends TestCase {
 
 		// Plain (Not compressed) XML file
 		String fileName = "src/test/resources/nlp4j.wiki/" //
-				+ "jawiki-20220501-pages-articles-multistream-255425.xml";
+				+ "jawiki-20221101-pages-articles-multistream-255425.xml";
 
 		// XML Handler for Media Wiki
 		MediawikiXmlHandler2 handler = new MediawikiXmlHandler2();
@@ -117,7 +117,7 @@ public class MediawikiXmlHandler2TestCase extends TestCase {
 
 		// Plain (Not compressed) XML file
 		String fileName = "src/test/resources/nlp4j.wiki/" //
-				+ "jawiki-20220501-pages-articles-multistream-255425.xml";
+				+ "jawiki-20221101-pages-articles-multistream-255425.xml";
 
 		// XML Handler for Media Wiki
 		MediawikiXmlHandler2 handler = new MediawikiXmlHandler2();

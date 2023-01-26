@@ -21,8 +21,29 @@ public class WikiPage {
 	private String format = null;
 	private String text = null;
 
-	private String xml;
-	private String timestamp;
+	private String xml = null;
+	private String timestamp = null;
+	private boolean isRediect = false;
+	private String rediect_title = null;
+
+	/**
+	 * @return This page is redirected to
+	 */
+	public String getRediect_title() {
+		return rediect_title;
+	}
+
+	/**
+	 * @param title  : title of wiki entry
+	 * @param id     : id of wiki entry
+	 * @param format : format of wiki entry
+	 */
+	public WikiPage(String title, String id, String format) {
+		super();
+		this.title = title;
+		this.id = id;
+		this.format = format;
+	}
 
 	/**
 	 * @param title  : title of wiki entry
@@ -36,18 +57,6 @@ public class WikiPage {
 		this.id = id;
 		this.format = format;
 		this.text = text;
-	}
-
-	/**
-	 * @param title  : title of wiki entry
-	 * @param id     : id of wiki entry
-	 * @param format : format of wiki entry
-	 */
-	public WikiPage(String title, String id, String format) {
-		super();
-		this.title = title;
-		this.id = id;
-		this.format = format;
 	}
 
 	/**
@@ -119,12 +128,21 @@ public class WikiPage {
 		return this.xml;
 	}
 
+	public boolean isRediect() {
+		return isRediect;
+	}
+
 	public void setFormat(String format) {
 		this.format = format;
 	}
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public void setRedirectTitle(String rediect_title) {
+		this.rediect_title = rediect_title;
+		this.isRediect = (rediect_title != null);
 	}
 
 	public void setText(String text) {
@@ -159,6 +177,8 @@ public class WikiPage {
 
 		return "WikiPage [" //
 				+ "id=" + id + ", "//
+				+ "isRedirect=" + this.isRediect + ", "//
+				+ "redirect_title=" + this.rediect_title + ", "//
 				+ "timestamp=" + timestamp + ", "//
 				+ "format=" + format + ", "//
 				+ "title=" + title + ", "//

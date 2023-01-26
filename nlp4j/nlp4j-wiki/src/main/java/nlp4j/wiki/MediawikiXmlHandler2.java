@@ -23,6 +23,8 @@ public class MediawikiXmlHandler2 extends AbstractXmlHandler {
 
 	private static final String PATH003_MEDIAWIKI_PAGE_ID = "mediawiki/page/id";
 
+	private static final String MEDIAWIKI_PAGE_REDIRECT = "mediawiki/page/redirect";
+
 	private static final String MEDIAWIKI_PAGE_REVISION_TEXT = "mediawiki/page/revision/text";
 
 	private static final String MEDIAWIKI_PAGE_REVISION_FORMAT = "mediawiki/page/revision/format";
@@ -51,6 +53,13 @@ public class MediawikiXmlHandler2 extends AbstractXmlHandler {
 			resetPage();
 		}
 		// System.err.println(qName);
+		// ELSE IF(リダイレクト)
+		else if (super.getPath().equals(MEDIAWIKI_PAGE_REDIRECT)) {
+			String redirect_title = attributes.getValue("title");
+			pageInfo.put(MEDIAWIKI_PAGE_REDIRECT, redirect_title);
+//			System.err.println("redirect_title: " + redirect_title);
+		}
+		//
 		else if (super.getPath().equals(MEDIAWIKI_PAGE_REVISION_TEXT)) {
 			pageInfo.put("xml:space", attributes.getValue("xml:space"));
 		}
@@ -74,6 +83,11 @@ public class MediawikiXmlHandler2 extends AbstractXmlHandler {
 
 			WikiPage page = new WikiPage(pageTitle, pageId, pageFormat, pageText);
 			page.setTimestamp(pageTimestamp);
+
+			// リダイレクト情報
+			if (pageInfo.containsKey(MEDIAWIKI_PAGE_REDIRECT)) {
+				page.setRedirectTitle(pageInfo.get(MEDIAWIKI_PAGE_REDIRECT));
+			}
 
 			pages.put(page.getId(), page);
 		} //

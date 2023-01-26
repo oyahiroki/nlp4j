@@ -48,11 +48,16 @@ public class WikiTextParserTestCase extends TestCase {
 //				+ "ZZZ\n" + "{{XXX}}\n"//
 //		;
 		WikiTextParser parser = new WikiTextParser();
-		parser.parse(s);
+		List<WikiEntity> ee = parser.parse(s);
+		for (WikiEntity e : ee) {
+			System.err.println("---");
+//			System.err.println(e.getText());
+			System.err.println(e);
+		}
 	}
 
 	public void testParse003() throws Exception {
-		File xmlFile = new File("src/test/resources/nlp4j.wiki/jawiki-20220501-pages-articles-multistream-255425.xml");
+		File xmlFile = new File("src/test/resources/nlp4j.wiki/jawiki-20221101-pages-articles-multistream-255425.xml");
 		WikiPageReader wpr = new WikiPageReader();
 		WikiPage data = wpr.readWikiPageXmlFile(xmlFile);
 		assertNotNull(data);

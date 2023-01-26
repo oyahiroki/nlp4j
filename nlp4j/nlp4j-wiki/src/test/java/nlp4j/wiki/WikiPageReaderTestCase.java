@@ -8,7 +8,7 @@ public class WikiPageReaderTestCase extends TestCase {
 
 	public void test101() throws Exception {
 
-		File xmlFile = new File("src/test/resources/nlp4j.wiki/jawiki-20220501-pages-articles-multistream-255425.xml");
+		File xmlFile = new File("src/test/resources/nlp4j.wiki/jawiki-20221101-pages-articles-multistream-255425.xml");
 
 		WikiPageReader wpr = new WikiPageReader();
 		WikiPage data = wpr.readWikiPageXmlFile(xmlFile);

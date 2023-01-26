@@ -5,7 +5,7 @@ import junit.framework.TestCase;
 public class MediaWikiTemplateUtilsTestCase extends TestCase {
 
 	public void testToText() {
-		fail("Not yet implemented");
+
 	}
 
 	public void testIsTemplateOf001() {

@@ -55,7 +55,9 @@ public class MediaWikiDownloader extends AbstractWebCrawler implements Crawler {
 		public MediaWikiDownloader build() {
 			MediaWikiDownloader dl = new MediaWikiDownloader();
 			dl.setProperty("version", this.version);
-			dl.setProperty("outdir", this.outdir);
+			if (this.outdir != null) {
+				dl.setProperty("outdir", this.outdir);
+			}
 			dl.setProperty("language", this.language);
 			dl.setProperty("media", this.media);
 			return dl;
@@ -155,14 +157,14 @@ public class MediaWikiDownloader extends AbstractWebCrawler implements Crawler {
 		FileDownloader downloader = new FileDownloader();
 
 		{ // DOWNLOAD MD5 FILE
-			String filename = String.format(MD5_FILENAME, this.language, this.media, this.version);
-			String outfilename = this.outdir + "/" + filename;
-			md5File = new File(outfilename);
-			String url = String.format(WIKIMEDIA_URL_BASE, this.language, this.media, this.version, filename);
+			String filenameMd5 = String.format(MD5_FILENAME, this.language, this.media, this.version);
+			String outfilenameMd5 = this.outdir + "/" + filenameMd5;
+			md5File = new File(outfilenameMd5);
+			String url = getURL_md5();
 			System.out.println("Download: " + url);
-			System.out.println("File: " + outfilename);
+			System.out.println("File: " + outfilenameMd5);
 			try {
-				downloader.download(url, outfilename);
+				downloader.download(url, outfilenameMd5);
 			} catch (IOException e) {
 				e.printStackTrace();
 				logger.error(e.getMessage());
@@ -170,14 +172,15 @@ public class MediaWikiDownloader extends AbstractWebCrawler implements Crawler {
 			}
 		}
 		{ // DOWNLOAD INDEX FILE
-			String filename = String.format(WIKTIONARY_INDEX_FILENAME_BASE, this.language, this.media, this.version);
-			String outfilename = this.outdir + "/" + filename;
-			indexFile = new File(outfilename);
-			String url = String.format(WIKIMEDIA_URL_BASE, this.language, this.media, this.version, filename);
+			String filenameIndex = String.format(WIKTIONARY_INDEX_FILENAME_BASE, this.language, this.media,
+					this.version);
+			String outfilenameIndex = this.outdir + "/" + filenameIndex;
+			indexFile = new File(outfilenameIndex);
+			String url = getURL_dumpIndex();
 			System.out.println("Download: " + url);
-			System.out.println("File: " + outfilename);
+			System.out.println("File: " + outfilenameIndex);
 			try {
-				downloader.download(url, outfilename);
+				downloader.download(url, outfilenameIndex);
 				// CHECK INDEX MD5
 				logger.info("Checking MD5: " + indexFile.getAbsolutePath());
 				boolean md5check = MediaWikiMD5Util.checkMD5(md5File, indexFile);
@@ -193,14 +196,14 @@ public class MediaWikiDownloader extends AbstractWebCrawler implements Crawler {
 
 		}
 		{ // DOWNLOAD DUMP FILE
-			String filename = String.format(WIKTIONARY_DUMP_FILENAME_BASE, this.language, this.media, this.version);
-			String outfilename = this.outdir + "/" + filename;
-			dumpFile = new File(outfilename);
-			String url = String.format(WIKIMEDIA_URL_BASE, this.language, this.media, this.version, filename);
+			String filenameDump = String.format(WIKTIONARY_DUMP_FILENAME_BASE, this.language, this.media, this.version);
+			String outfilenameDump = this.outdir + "/" + filenameDump;
+			dumpFile = new File(outfilenameDump);
+			String url = getURL_dumpData();
 			System.out.println("Download: " + url);
-			System.out.println("File: " + outfilename);
+			System.out.println("File: " + outfilenameDump);
 			try {
-				downloader.download(url, outfilename);
+				downloader.download(url, outfilenameDump);
 				logger.info("Checking MD5: " + dumpFile.getAbsolutePath());
 				// CHECK DUMP MD5
 				boolean md5check = MediaWikiMD5Util.checkMD5(md5File, dumpFile);
@@ -216,6 +219,24 @@ public class MediaWikiDownloader extends AbstractWebCrawler implements Crawler {
 		}
 
 		return null;
+	}
+
+	public String getURL_dumpData() {
+		String filename = String.format(WIKTIONARY_DUMP_FILENAME_BASE, this.language, this.media, this.version);
+		String url = String.format(WIKIMEDIA_URL_BASE, this.language, this.media, this.version, filename);
+		return url;
+	}
+
+	public String getURL_dumpIndex() {
+		String filename = String.format(WIKTIONARY_INDEX_FILENAME_BASE, this.language, this.media, this.version);
+		String url = String.format(WIKIMEDIA_URL_BASE, this.language, this.media, this.version, filename);
+		return url;
+	}
+
+	public String getURL_md5() {
+		String filename = String.format(MD5_FILENAME, this.language, this.media, this.version);
+		String url = String.format(WIKIMEDIA_URL_BASE, this.language, this.media, this.version, filename);
+		return url;
 	}
 
 	/**
@@ -247,6 +268,12 @@ public class MediaWikiDownloader extends AbstractWebCrawler implements Crawler {
 			}
 
 		}
+	}
+
+	public void printURL() {
+		System.out.println("MD5  : " + this.getURL_md5());
+		System.out.println("INDEX: " + this.getURL_dumpIndex());
+		System.out.println("DATA : " + this.getURL_dumpData());
 	}
 
 }

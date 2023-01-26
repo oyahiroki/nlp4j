@@ -1,6 +1,7 @@
-package example.p001download.jawiktionary;
+package example202301.ja.wikipedia;
 
 import nlp4j.wiki.MediaWikiDownloader;
+import nlp4j.wiki.MediaWikiDownloader.media;
 
 /**
  * <pre>
@@ -11,14 +12,15 @@ import nlp4j.wiki.MediaWikiDownloader;
  * @author Hiroki Oya
  *
  */
-public class Wikipedia001DownloadWiktinaryDumpJa_20221101 {
+public class Example000Download_WikipediaDumpJa {
 
 	static public void main(String[] args) throws Exception {
-		MediaWikiDownloader dl = new MediaWikiDownloader();
-		dl.setProperty("version", "20221101");
-		dl.setProperty("outdir", "/usr/local/data/wiki/enwiktionary/20221101");
-		dl.setProperty("language", "ja");
-		dl.setProperty("media", "wiktionary");
+		MediaWikiDownloader dl = (new MediaWikiDownloader.Builder()) //
+				.version("20221101") //
+				.outdir("/usr/local/wiki/jawiki/20221101") //
+				.language("ja") //
+				.media(media.wiki) //
+				.build();
 		dl.crawlDocuments();
 	}
 }

@@ -17,7 +17,7 @@ public class Wikipedia001DownloadWikiDumpEn_20221101builder {
 	static public void main(String[] args) throws Exception {
 		MediaWikiDownloader dl = (new MediaWikiDownloader.Builder()) //
 				.version("20221101") //
-				.outdir("/usr/local/wiki/enwiki/20221101") //
+//				.outdir("/usr/local/wiki/enwiki/20221101") //
 				.language("en") //
 				.media(media.wiki) //
 				.build();
