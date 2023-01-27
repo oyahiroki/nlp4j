@@ -1,6 +1,7 @@
 package nlp4j.wiki;
 
 import java.io.IOException;
+import java.util.List;
 
 import info.bliki.wiki.model.WikiModel;
 import nlp4j.wiki.util.MediaWikiTextUtils;
@@ -25,13 +26,7 @@ public class WikiPage {
 	private String timestamp = null;
 	private boolean isRediect = false;
 	private String rediect_title = null;
-
-	/**
-	 * @return This page is redirected to
-	 */
-	public String getRediect_title() {
-		return rediect_title;
-	}
+	private List<String> categoryTags;
 
 	/**
 	 * @param title  : title of wiki entry
@@ -57,6 +52,31 @@ public class WikiPage {
 		this.id = id;
 		this.format = format;
 		this.text = text;
+	}
+
+	/**
+	 * @return Wikipedia Page categories
+	 */
+	public List<String> getCategoryTags() {
+		return categoryTags;
+	}
+
+	/**
+	 * Depends on MediaWikiTextUtils.getRootNodeText()
+	 * 
+	 * @return Root Node Wiki text
+	 */
+	public String getRootNodeWikiText() {
+		return MediaWikiTextUtils.getRootNodeText(this.text);
+	}
+
+	/**
+	 * Depends on MediaWikiTextUtils.toPlainText()
+	 * 
+	 * @return Root Node Plain text
+	 */
+	public String getRootNodePlainText() {
+		return MediaWikiTextUtils.toPlainText(this.title, this.getRootNodeWikiText());
 	}
 
 	/**
@@ -102,6 +122,13 @@ public class WikiPage {
 	}
 
 	/**
+	 * @return This page is redirected to
+	 */
+	public String getRediect_title() {
+		return rediect_title;
+	}
+
+	/**
 	 * Return Wiki Entry as Wiki Text
 	 * 
 	 * @return Wiki Text
@@ -130,6 +157,14 @@ public class WikiPage {
 
 	public boolean isRediect() {
 		return isRediect;
+	}
+
+	/**
+	 * @param categoryTags Wikipedia Page Categories
+	 */
+	public void setCategoryTags(List<String> categoryTags) {
+		this.categoryTags = categoryTags;
+
 	}
 
 	public void setFormat(String format) {

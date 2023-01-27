@@ -30,8 +30,11 @@ public class MediawikiXmlHandler2TestCase extends TestCase {
 
 		System.err.println(pages.keySet());
 
-		for (WikiPage p : pages.values()) {
-			System.err.println(p.toString());
+		for (WikiPage page : pages.values()) {
+			System.err.println("<page>");
+			System.err.println(page.toString());
+			System.err.println("categories: " + page.getCategoryTags());
+			System.err.println("</page>");
 		}
 
 		// Expected Output
@@ -87,7 +90,7 @@ public class MediawikiXmlHandler2TestCase extends TestCase {
 
 		// Plain (Not compressed) XML file
 		String fileName = "src/test/resources/nlp4j.wiki/" //
-				+ "jawiki-20221101-pages-articles-multistream-255425.xml";
+				+ "jawiki-20221101-pages-articles-multistream-255425_revised.xml";
 
 		// XML Handler for Media Wiki
 		MediawikiXmlHandler2 handler = new MediawikiXmlHandler2();
@@ -117,7 +120,7 @@ public class MediawikiXmlHandler2TestCase extends TestCase {
 
 		// Plain (Not compressed) XML file
 		String fileName = "src/test/resources/nlp4j.wiki/" //
-				+ "jawiki-20221101-pages-articles-multistream-255425.xml";
+				+ "jawiki-20221101-pages-articles-multistream-255425_revised.xml";
 
 		// XML Handler for Media Wiki
 		MediawikiXmlHandler2 handler = new MediawikiXmlHandler2();

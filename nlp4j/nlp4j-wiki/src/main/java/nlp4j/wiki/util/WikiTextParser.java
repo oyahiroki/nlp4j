@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 import nlp4j.wiki.entity.WikiCategory;
 import nlp4j.wiki.entity.WikiDefault;
 import nlp4j.wiki.entity.WikiEntity;
+import nlp4j.wiki.entity.WikiTemplate;
 
 public class WikiTextParser {
 
@@ -29,7 +30,12 @@ public class WikiTextParser {
 				templateLevel++;
 				if (templateLevel == 1) {
 					if (sb.length() > 0) {
-						WikiEntity e = new WikiDefault(sb.toString());
+						WikiEntity e;
+						if (sb.toString().startsWith("{{")) {
+							e = new WikiTemplate(sb.toString());
+						} else {
+							e = new WikiDefault(sb.toString());
+						}
 						sb = new StringBuilder();
 						entities.add(e);
 					}

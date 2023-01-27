@@ -27,9 +27,9 @@ public abstract class AbstractWikiEntity implements WikiEntity {
 	@Override
 	public String toString() {
 		if (text == null) {
-			return this.getClass().getName() + " [text=" + text + "]";
+			return getClass().getName() + " " + "[text=" + text + "]";
 		} else {
-			return this.getClass().getName() + " [text=" + text.replace("\n", "\\n").replace("\r", "\\r") + "]";
+			return getClass().getName() + " " + "[text=" + text.replace("\n", "\\n").replace("\r", "\\r") + "]";
 		}
 	}
 

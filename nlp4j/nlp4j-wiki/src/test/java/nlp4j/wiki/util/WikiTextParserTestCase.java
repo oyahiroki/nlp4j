@@ -68,18 +68,37 @@ public class WikiTextParserTestCase extends TestCase {
 //			System.err.println(e.getText());
 			System.err.println(e);
 		}
-
 	}
 
-	public void testParse004() throws Exception {
-		File xmlFile = new File(
-				"src/test/resources/nlp4j.wiki/" + "jawiki-20221101-pages-articles-multistream-25635.xml");
+	public void testParse003b() throws Exception {
+		File xmlFile = new File("src/test/resources/nlp4j.wiki/jawiki-20221101-pages-articles-multistream-255425.xml");
 		WikiPageReader wpr = new WikiPageReader();
 		WikiPage data = wpr.readWikiPageXmlFile(xmlFile);
 		assertNotNull(data);
-
 		WikiTextParser parser = new WikiTextParser();
 		List<WikiEntity> ee = parser.parse(data.getText());
+		for (WikiEntity e : ee) {
+			System.err.println(e);
+			if (e.isTemplate()) {
+				System.err.println(MediaWikiTemplateUtils.toText(e));
+			}
+//			break;
+		}
+	}
+
+	public void testParse004() throws Exception {
+
+		File xmlFile = new File(
+				"src/test/resources/nlp4j.wiki/" + "jawiki-20221101-pages-articles-multistream-25635.xml");
+
+		WikiPageReader wpr = new WikiPageReader();
+
+		WikiPage data = wpr.readWikiPageXmlFile(xmlFile);
+		assertNotNull(data);
+
+		WikiTextParser wikiTextParser = new WikiTextParser();
+
+		List<WikiEntity> ee = wikiTextParser.parse(data.getText());
 		for (WikiEntity e : ee) {
 			System.err.println("---<entity>");
 //			System.err.println(e.getText());

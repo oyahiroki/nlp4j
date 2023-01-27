@@ -1,10 +1,12 @@
 package nlp4j.wiki;
 
 import java.util.HashMap;
+import java.util.List;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 
+import nlp4j.wiki.util.MediaWikiTextUtils;
 import nlp4j.xml.AbstractXmlHandler;
 
 /**
@@ -17,17 +19,19 @@ import nlp4j.xml.AbstractXmlHandler;
  */
 public class MediawikiXmlHandler2 extends AbstractXmlHandler {
 
-	private static final String MEDIAWIKI_PAGE_REVISION_TIMESTAMP = "mediawiki/page/revision/timestamp";
+	private String root = null;
 
-	private static final String PATH001_MEDIAWIKI_PAGE_TITLE = "mediawiki/page/title";
+	private String MEDIAWIKI_PAGE_REVISION_TIMESTAMP = "mediawiki/page" + "/revision/timestamp";
 
-	private static final String PATH003_MEDIAWIKI_PAGE_ID = "mediawiki/page/id";
+	private String PATH001_MEDIAWIKI_PAGE_TITLE = "mediawiki/page" + "/title";
 
-	private static final String MEDIAWIKI_PAGE_REDIRECT = "mediawiki/page/redirect";
+	private String PATH003_MEDIAWIKI_PAGE_ID = "mediawiki/page" + "/id";
 
-	private static final String MEDIAWIKI_PAGE_REVISION_TEXT = "mediawiki/page/revision/text";
+	private String MEDIAWIKI_PAGE_REDIRECT = "mediawiki/page" + "/redirect";
 
-	private static final String MEDIAWIKI_PAGE_REVISION_FORMAT = "mediawiki/page/revision/format";
+	private String MEDIAWIKI_PAGE_REVISION_TEXT = "mediawiki/page" + "/revision/text";
+
+	private String MEDIAWIKI_PAGE_REVISION_FORMAT = "mediawiki/page" + "/revision/format";
 
 	// pageID -> WikiPage Object
 	private HashMap<String, WikiPage> pages = new HashMap<>();
@@ -39,7 +43,28 @@ public class MediawikiXmlHandler2 extends AbstractXmlHandler {
 	}
 
 	@Override
+	public void startDocument() throws SAXException {
+		super.startDocument();
+	}
+
+	@Override
 	public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
+
+		// root mediawiki
+		// root page
+		// 悩ましい (2023-01-27)
+		if (this.root == null) {
+			this.root = qName;
+			if ("mediawiki".equals(qName)) {
+
+			} //
+			else if ("page".equals(qName)) {
+
+			} //
+			else {
+
+			}
+		}
 
 		super.startElement(uri, localName, qName, attributes);
 
@@ -79,10 +104,22 @@ public class MediawikiXmlHandler2 extends AbstractXmlHandler {
 			String pageId = pageInfo.get(PATH003_MEDIAWIKI_PAGE_ID);
 			String pageTimestamp = pageInfo.get(MEDIAWIKI_PAGE_REVISION_TIMESTAMP);
 			String pageFormat = pageInfo.get(MEDIAWIKI_PAGE_REVISION_FORMAT);
+			// タグ名が紛らわしい感じもするが、本文は mediawiki/page/revision/text に記述されている 2023-01-26
 			String pageText = pageInfo.get(MEDIAWIKI_PAGE_REVISION_TEXT);
 
 			WikiPage page = new WikiPage(pageTitle, pageId, pageFormat, pageText);
-			page.setTimestamp(pageTimestamp);
+			// TIMESTAMP
+			{
+				page.setTimestamp(pageTimestamp);
+			}
+
+			// CATEGORY TAGS (CATEGORIES)
+			{
+				List<String> categoryTags = MediaWikiTextUtils.parseCategoryTags(pageText);
+				if (categoryTags != null && categoryTags.size() > 0) {
+					page.setCategoryTags(categoryTags);
+				}
+			}
 
 			// リダイレクト情報
 			if (pageInfo.containsKey(MEDIAWIKI_PAGE_REDIRECT)) {

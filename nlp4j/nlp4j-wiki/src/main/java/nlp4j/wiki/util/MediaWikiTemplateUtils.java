@@ -1,5 +1,7 @@
 package nlp4j.wiki.util;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.Objects;
 
 import nlp4j.wiki.entity.WikiEntity;
@@ -303,6 +305,11 @@ public class MediaWikiTemplateUtils {
 		}
 
 		// 大学
+		if (isTemplateOf(t, "大学") || isTemplateOf(t, "日本の大学")) {
+			Map<String, String> map = map(t);
+			return "" + map.get("大学名") + "は" + map.get("国") + "の" + map.get("学校種別") + "大学";
+		}
+		//
 		{
 			// 混同
 			if (isTemplateOf(t, "混同")) {
@@ -332,6 +339,23 @@ public class MediaWikiTemplateUtils {
 		}
 
 		return "";
+	}
+
+	private static Map<String, String> map(String t) {
+		Map<String, String> mapKeyValue = new LinkedHashMap<String, String>();
+		for (String s : t.split("\n\\|")) {
+//			System.err.println(s);
+			int idx = s.indexOf('=');
+			if (idx != -1) {
+				String key = s.substring(0, idx).trim();
+				String value = s.substring(idx + 1).trim();
+				mapKeyValue.put(key, value);
+			} else {
+
+			}
+		}
+		return mapKeyValue;
+
 	}
 
 	public static String valueOfConcatted(String t) {

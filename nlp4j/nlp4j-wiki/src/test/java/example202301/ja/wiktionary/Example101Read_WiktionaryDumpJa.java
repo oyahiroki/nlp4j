@@ -44,6 +44,8 @@ public class Example101Read_WiktionaryDumpJa {
 					}
 					//
 					else {
+						System.err.println("---");
+						System.err.println("categories: " + page.getCategoryTags());
 						System.err.println("<text>");
 						System.err.println(page.getText()); // <text>...</text>
 						System.err.println("</text>");

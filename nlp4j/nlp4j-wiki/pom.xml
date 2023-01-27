@@ -14,7 +14,7 @@
 	<!-- https://mvnrepository.com/artifact/org.nlp4j/nlp4j-wiki -->
 	<!-- VERSION -->
 	<!-- 0.3.1.0 : Sep 04, 2022 -->
-	<version>0.3.1.0</version>
+	<version>0.3.2.0</version>
 	<description>NLP4J for Wikipedia / Wiktionary</description>
 	<url>https://nlp4j.org/</url>
 	<licenses>

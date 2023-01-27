@@ -184,7 +184,7 @@ public class MediaWikiTextUtilsTestCase extends TestCase {
 				+ "[[1990年代]]から[[2000年代]]の球界を代表する打者で、[[日本プロ野球]]（以下：NPB）では[[読売ジャイアンツ]]、[[メジャーリーグベースボール]]（以下：MLB）では[[ニューヨーク・ヤンキース]]などで活躍した。2009年のニューヨーク・ヤンキース時代に[[ワールドシリーズ]]優勝を経験している。同年、アジア人初の[[ワールドシリーズMVP]]を受賞した。2013年には[[国民栄誉賞]]を受賞した。\r\n"//
 				+ "";//
 
-		String plainText = MediaWikiTextUtils.toPlainText2(wikiText);
+		String plainText = MediaWikiTextUtils.toPlainText(title, wikiText);
 
 		System.err.println("<plainText>");
 		System.err.println(plainText);
