@@ -2,10 +2,8 @@ package nlp4j.wiki.converter;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
-import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,17 +27,18 @@ public class MediaWikiCsvConverter {
 
 		File outFile = new File("R:/" + "jawiki-20221101-pages-articles-multistream.csv");
 
-		out = new OutputStreamWriter(new FileOutputStream(outFile), "UTF-8");
+		out = new OutputStreamWriter(new FileOutputStream(outFile, false), "UTF-8");
 
 		List<String> header = new ArrayList<String>();
 		header.add("title");
 		header.add("namespace");
 		header.add("id");
 
+		header.add("revision_id");
 		header.add("revision_parentid");
 		header.add("revision_timestamp");
 		header.add("is_redirect");
-		header.add("redirect");
+		header.add("redirect_title");
 		header.add("categories");
 		header.add("text_length");
 		header.add("text");
@@ -73,11 +72,12 @@ public class MediaWikiCsvConverter {
 
 					String namespace = page.getNamespace();
 					String id = page.getId();
-					String parentId = page.getParentId();
-					String timestamp = page.getTimestamp();
+					String revision_id = page.getRevisionId();
+					String revision_parentid = page.getParentId();
+					String revision_timestamp = page.getTimestamp();
 					String title = (page.getTitle());
 					String is_redirect = "" + page.isRediect();
-					String redirect = page.isRediect() ? page.getRediect_title() : "";
+					String redirect_title = page.isRediect() ? page.getRediect_title() : "";
 					String categories = page.getCategoryTags() != null ? page.getCategoryTags().toString() //
 							.replace("[", "")//
 							.replace("]", "")//
@@ -86,8 +86,19 @@ public class MediaWikiCsvConverter {
 					String text = page.getRootNodePlainText();
 					String text_length = "" + text.length();
 					try {
-						printer.printRecord(title, namespace, id, parentId, timestamp, is_redirect, redirect,
-								categories, text_length, text);
+						printer.printRecord( //
+								title, //
+								namespace, //
+								id, //
+								revision_id, //
+								revision_parentid, //
+								revision_timestamp, //
+								is_redirect, //
+								redirect_title, //
+								categories, //
+								text_length, //
+								text //
+						);
 					} catch (IOException e) {
 						System.err.println("error on: " + count);
 						e.printStackTrace();
