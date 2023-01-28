@@ -32,16 +32,22 @@ public class MediaWikiCsvConverter {
 		out = new OutputStreamWriter(new FileOutputStream(outFile), "UTF-8");
 
 		List<String> header = new ArrayList<String>();
-		header.add("id");
 		header.add("title");
+		header.add("namespace");
+		header.add("id");
+
+		header.add("revision_parentid");
+		header.add("revision_timestamp");
+		header.add("is_redirect");
 		header.add("redirect");
 		header.add("categories");
+		header.add("text_length");
 		header.add("text");
 
 //	final	Integer max = 100;
 
 		final Integer max;
-		
+
 //		max = null;
 		max = 1000;
 
@@ -65,14 +71,23 @@ public class MediaWikiCsvConverter {
 
 					count++;
 
+					String namespace = page.getNamespace();
 					String id = page.getId();
+					String parentId = page.getParentId();
+					String timestamp = page.getTimestamp();
 					String title = (page.getTitle());
+					String is_redirect = "" + page.isRediect();
 					String redirect = page.isRediect() ? page.getRediect_title() : "";
-					String categories = page.getCategoryTags() != null ? page.getCategoryTags().toString() : "";
+					String categories = page.getCategoryTags() != null ? page.getCategoryTags().toString() //
+							.replace("[", "")//
+							.replace("]", "")//
+							.replace(", ", ",")//
+							: "";
 					String text = page.getRootNodePlainText();
-
+					String text_length = "" + text.length();
 					try {
-						printer.printRecord(id, title, redirect,categories, text);
+						printer.printRecord(title, namespace, id, parentId, timestamp, is_redirect, redirect,
+								categories, text_length, text);
 					} catch (IOException e) {
 						System.err.println("error on: " + count);
 						e.printStackTrace();

@@ -226,9 +226,48 @@ public class MediaWikiTextUtils {
 			String text;
 
 			{
+				wikiText = StringUtils.removeBracketted(wikiText, "（）"); // JA BRACKETS
+			}
+
+			{ // FOR EACH LINE
+				StringBuilder sb = new StringBuilder();
+				for (String t : wikiText.split("\n")) {
+					t = t.trim();
+					if (t.startsWith("[[File:") && t.endsWith("]]")) {
+						continue; // SKIP THIS LINE
+					} //
+					else if (t.startsWith("[[ファイル:") && t.endsWith("]]")) {
+						continue; // SKIP THIS LINE
+					} //
+					else {
+						sb.append(t + "\n");
+					}
+				}
+				wikiText = sb.toString();
+			}
+
+			{
 				wikiText = wikiText //
+						.replaceAll("\\[\\[File.*?\\]\\]", "") // ファイルへのリンクを除去 JA_ONLY
 						.replaceAll("\\[\\[ファイル.*?\\]\\]", "") // ファイルへのリンクを除去 JA_ONLY
 						.trim();
+			}
+			{ // DEBUG
+				if (wikiText.contains("<gallery>")) {
+					wikiText = wikiText //
+							.replaceAll("<gallery>(.|\\n)*?</gallery>", "") // ファイルへのリンクを除去 JA_ONLY
+					;
+				}
+				if (wikiText.contains("<ref>")) {
+					wikiText = wikiText //
+							.replaceAll("<ref>(.|\\n)*?</ref>", "") // ファイルへのリンクを除去 JA_ONLY
+					;
+				}
+				if (wikiText.contains("<imagemap>")) {
+					wikiText = wikiText //
+							.replaceAll("<imagemap>(.|\\n)*?</imagemap>", "") // ファイルへのリンクを除去 JA_ONLY
+					;
+				}
 			}
 
 			// TODO 大学テンプレートの処理

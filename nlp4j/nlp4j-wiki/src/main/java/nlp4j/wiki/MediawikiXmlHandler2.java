@@ -21,11 +21,14 @@ public class MediawikiXmlHandler2 extends AbstractXmlHandler {
 
 	private String root = null;
 
+	private String MEDIAWIKI_PAGE_REVISION_ID = "mediawiki/page" + "/revision/id";
 	private String MEDIAWIKI_PAGE_REVISION_TIMESTAMP = "mediawiki/page" + "/revision/timestamp";
 
 	private String PATH001_MEDIAWIKI_PAGE_TITLE = "mediawiki/page" + "/title";
 
+	private String PATH003_MEDIAWIKI_PAGE_NAMESPACE = "mediawiki/page" + "/ns";
 	private String PATH003_MEDIAWIKI_PAGE_ID = "mediawiki/page" + "/id";
+	private String PATH003_MEDIAWIKI_PAGE_PARENTID = "mediawiki/page" + "/parentid";
 
 	private String MEDIAWIKI_PAGE_REDIRECT = "mediawiki/page" + "/redirect";
 
@@ -101,13 +104,28 @@ public class MediawikiXmlHandler2 extends AbstractXmlHandler {
 		if (super.getPath().equals("mediawiki/page")) {
 
 			String pageTitle = pageInfo.get(PATH001_MEDIAWIKI_PAGE_TITLE);
+			String pageNamespace = pageInfo.get(PATH003_MEDIAWIKI_PAGE_NAMESPACE);
 			String pageId = pageInfo.get(PATH003_MEDIAWIKI_PAGE_ID);
+			String pageParentId = pageInfo.get(PATH003_MEDIAWIKI_PAGE_PARENTID);
+			String pageRevisionId = pageInfo.get(MEDIAWIKI_PAGE_REVISION_ID);
 			String pageTimestamp = pageInfo.get(MEDIAWIKI_PAGE_REVISION_TIMESTAMP);
 			String pageFormat = pageInfo.get(MEDIAWIKI_PAGE_REVISION_FORMAT);
 			// タグ名が紛らわしい感じもするが、本文は mediawiki/page/revision/text に記述されている 2023-01-26
 			String pageText = pageInfo.get(MEDIAWIKI_PAGE_REVISION_TEXT);
 
 			WikiPage page = new WikiPage(pageTitle, pageId, pageFormat, pageText);
+			// NAMESPACE
+			if (pageNamespace != null) {
+				page.setNamespace(pageNamespace);
+			}
+			// PARENTID
+			if (pageParentId != null) {
+				page.setParentId(pageParentId);
+			}
+			// REVISION ID
+			if (pageRevisionId != null) {
+				page.setRevisionId(pageRevisionId);
+			}
 			// TIMESTAMP
 			{
 				page.setTimestamp(pageTimestamp);

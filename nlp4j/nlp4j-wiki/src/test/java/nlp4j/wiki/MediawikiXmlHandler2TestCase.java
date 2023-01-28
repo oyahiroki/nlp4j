@@ -31,6 +31,9 @@ public class MediawikiXmlHandler2TestCase extends TestCase {
 		System.err.println(pages.keySet());
 
 		for (WikiPage page : pages.values()) {
+			assertNotNull(page.getNamespace());
+			assertNotNull(page.getId());
+			assertNotNull(page.getRevisionId());
 			System.err.println("<page>");
 			System.err.println(page.toString());
 			System.err.println("categories: " + page.getCategoryTags());

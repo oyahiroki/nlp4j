@@ -32,9 +32,12 @@ public class MediawikiXmlHandler3 extends AbstractXmlHandler {
 
 	private String ATT_XML_SPACE = "xml:space";
 	private String PATH_MEDIAWIKI_PAGE = "page";
+	private String MEDIAWIKI_PAGE_REVISION_ID = "page/revision/id";
 	private String MEDIAWIKI_PAGE_REVISION_TIMESTAMP = "page/revision/timestamp";
 	private String PATH001_MEDIAWIKI_PAGE_TITLE = "page/title";
+	private String PATH003_MEDIAWIKI_PAGE_NAMESPACE = "page/ns";
 	private String PATH003_MEDIAWIKI_PAGE_ID = "page/id";
+	private String PATH003_MEDIAWIKI_PAGE_PARENTID = "page/parentid";
 	private String PATH003_MEDIAWIKI_PAGE_REDIRECT = "page/redirect";
 	private String PATH_MEDIAWIKI_PAGE_REVISION_TEXT = "page/revision/text";
 	private String MEDIAWIKI_PAGE_REVISION_FORMAT = "page/revision/format";
@@ -59,9 +62,12 @@ public class MediawikiXmlHandler3 extends AbstractXmlHandler {
 			if (ROOT.equals(TAG_MEDIAWIKI)) {
 				PATH_MEDIAWIKI_PAGE = TAG_MEDIAWIKI + "/" + PATH_MEDIAWIKI_PAGE;
 
+				MEDIAWIKI_PAGE_REVISION_ID = TAG_MEDIAWIKI + "/" + MEDIAWIKI_PAGE_REVISION_ID;
 				MEDIAWIKI_PAGE_REVISION_TIMESTAMP = TAG_MEDIAWIKI + "/" + MEDIAWIKI_PAGE_REVISION_TIMESTAMP;
 				PATH001_MEDIAWIKI_PAGE_TITLE = TAG_MEDIAWIKI + "/" + PATH001_MEDIAWIKI_PAGE_TITLE;
+				PATH003_MEDIAWIKI_PAGE_NAMESPACE = TAG_MEDIAWIKI + "/" + PATH003_MEDIAWIKI_PAGE_NAMESPACE;
 				PATH003_MEDIAWIKI_PAGE_ID = TAG_MEDIAWIKI + "/" + PATH003_MEDIAWIKI_PAGE_ID;
+				PATH003_MEDIAWIKI_PAGE_PARENTID = TAG_MEDIAWIKI + "/" + PATH003_MEDIAWIKI_PAGE_PARENTID;
 				PATH003_MEDIAWIKI_PAGE_REDIRECT = TAG_MEDIAWIKI + "/" + PATH003_MEDIAWIKI_PAGE_REDIRECT;
 				PATH_MEDIAWIKI_PAGE_REVISION_TEXT = TAG_MEDIAWIKI + "/" + PATH_MEDIAWIKI_PAGE_REVISION_TEXT;
 				MEDIAWIKI_PAGE_REVISION_FORMAT = TAG_MEDIAWIKI + "/" + MEDIAWIKI_PAGE_REVISION_FORMAT;
@@ -104,16 +110,31 @@ public class MediawikiXmlHandler3 extends AbstractXmlHandler {
 		if (super.getPath().equals(PATH_MEDIAWIKI_PAGE)) {
 
 			String pageTitle = pageInfo.get(PATH001_MEDIAWIKI_PAGE_TITLE);
+			String pageNamespace = pageInfo.get(PATH003_MEDIAWIKI_PAGE_NAMESPACE);
 			String pageId = pageInfo.get(PATH003_MEDIAWIKI_PAGE_ID);
+			String pageParentId = pageInfo.get(PATH003_MEDIAWIKI_PAGE_PARENTID);
 			String pageRedirect = pageInfo.get(PATH003_MEDIAWIKI_PAGE_REDIRECT);
+			String pageRevisonId = pageInfo.get(MEDIAWIKI_PAGE_REVISION_ID);
 			String pageTimestamp = pageInfo.get(MEDIAWIKI_PAGE_REVISION_TIMESTAMP);
 			String pageFormat = pageInfo.get(MEDIAWIKI_PAGE_REVISION_FORMAT);
 			String pageText = pageInfo.get(PATH_MEDIAWIKI_PAGE_REVISION_TEXT);
 
 			WikiPage page = new WikiPage(pageTitle, pageId, pageFormat);
+			// NAMESPACE NS
+			if (pageNamespace != null) {
+				page.setNamespace(pageNamespace);
+			}
+			// PARENTID
+			if (pageParentId != null) {
+				page.setParentId(pageParentId);
+			}
 			// REDIRECT
 			if (pageRedirect != null) {
 				page.setRedirectTitle(pageRedirect);
+			}
+			// REVISION_ID
+			if (pageRevisonId != null) {
+				page.setRevisionId(pageRevisonId);
 			}
 			// TIMESTAMP
 			{

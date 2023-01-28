@@ -27,6 +27,9 @@ public class WikiPage {
 	private boolean isRediect = false;
 	private String rediect_title = null;
 	private List<String> categoryTags;
+	private String parentId;
+	private String namespace;
+	private String revisionId;
 
 	/**
 	 * @param title  : title of wiki entry
@@ -59,24 +62,6 @@ public class WikiPage {
 	 */
 	public List<String> getCategoryTags() {
 		return categoryTags;
-	}
-
-	/**
-	 * Depends on MediaWikiTextUtils.getRootNodeText()
-	 * 
-	 * @return Root Node Wiki text
-	 */
-	public String getRootNodeWikiText() {
-		return MediaWikiTextUtils.getRootNodeText(this.text);
-	}
-
-	/**
-	 * Depends on MediaWikiTextUtils.toPlainText()
-	 * 
-	 * @return Root Node Plain text
-	 */
-	public String getRootNodePlainText() {
-		return MediaWikiTextUtils.toPlainText(this.title, this.getRootNodeWikiText());
 	}
 
 	/**
@@ -113,6 +98,20 @@ public class WikiPage {
 	}
 
 	/**
+	 * @return Namespace of this page
+	 */
+	public String getNamespace() {
+		return namespace;
+	}
+
+	/**
+	 * @return Parent ID of the page
+	 */
+	public String getParentId() {
+		return parentId;
+	}
+
+	/**
 	 * Return Wiki Entry as Plain Text
 	 * 
 	 * @return TEXT null on error
@@ -126,6 +125,31 @@ public class WikiPage {
 	 */
 	public String getRediect_title() {
 		return rediect_title;
+	}
+
+	/**
+	 * @return Revision II of this page
+	 */
+	public String getRevisionId() {
+		return revisionId;
+	}
+
+	/**
+	 * Depends on MediaWikiTextUtils.toPlainText()
+	 * 
+	 * @return Root Node Plain text
+	 */
+	public String getRootNodePlainText() {
+		return MediaWikiTextUtils.toPlainText(this.title, this.getRootNodeWikiText());
+	}
+
+	/**
+	 * Depends on MediaWikiTextUtils.getRootNodeText()
+	 * 
+	 * @return Root Node Wiki text
+	 */
+	public String getRootNodeWikiText() {
+		return MediaWikiTextUtils.getRootNodeText(this.text);
 	}
 
 	/**
@@ -155,6 +179,9 @@ public class WikiPage {
 		return this.xml;
 	}
 
+	/**
+	 * @return
+	 */
 	public boolean isRediect() {
 		return isRediect;
 	}
@@ -167,27 +194,68 @@ public class WikiPage {
 
 	}
 
+	/**
+	 * @param format
+	 */
 	public void setFormat(String format) {
 		this.format = format;
 	}
 
+	/**
+	 * @param id
+	 */
 	public void setId(String id) {
 		this.id = id;
 	}
 
+	/**
+	 * @param namespace Namespace of this page
+	 */
+	public void setNamespace(String namespace) {
+		this.namespace = namespace;
+
+	}
+
+	/**
+	 * @param parentId Parent ID of the page
+	 */
+	public void setParentId(String parentId) {
+		this.parentId = parentId;
+	}
+
+	/**
+	 * @param rediect_title
+	 */
 	public void setRedirectTitle(String rediect_title) {
 		this.rediect_title = rediect_title;
 		this.isRediect = (rediect_title != null);
 	}
 
+	/**
+	 * @param revisionId
+	 */
+	public void setRevisionId(String revisionId) {
+		this.revisionId = revisionId;
+
+	}
+
+	/**
+	 * @param text in Wiki format
+	 */
 	public void setText(String text) {
 		this.text = text;
 	}
 
+	/**
+	 * @param timestamp
+	 */
 	public void setTimestamp(String timestamp) {
 		this.timestamp = timestamp;
 	}
 
+	/**
+	 * @param title
+	 */
 	public void setTitle(String title) {
 		this.title = title;
 	}
@@ -211,14 +279,15 @@ public class WikiPage {
 				: "" + xml;
 
 		return "WikiPage [" //
-				+ "id=" + id + ", "//
+				+ "ns=" + this.namespace + ", "//
+				+ "id=" + this.id + ", "//
 				+ "isRedirect=" + this.isRediect + ", "//
 				+ "redirect_title=" + this.rediect_title + ", "//
-				+ "timestamp=" + timestamp + ", "//
-				+ "format=" + format + ", "//
-				+ "title=" + title + ", "//
-				+ "text=" + t + ", "//
+				+ "timestamp=" + this.timestamp + ", "//
+				+ "format=" + this.format + ", "//
+				+ "title=" + this.title + ", "//
 				+ "text.length=" + textlength + ", "//
+				+ "text=" + t + ", "//
 				+ "xml=" + x //
 				+ "]";
 	}

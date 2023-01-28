@@ -17,6 +17,7 @@ public class MediawikiXmlHandler3TestCase extends TestCase {
 			public void read(WikiPage page) throws BreakException {
 				System.err.println(page);
 				System.err.println(page.getXml());
+				assertNotNull(page);
 			}
 		};
 		SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
