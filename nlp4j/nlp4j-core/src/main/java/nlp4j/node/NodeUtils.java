@@ -1,5 +1,9 @@
 package nlp4j.node;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintStream;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
@@ -17,15 +21,37 @@ import nlp4j.util.XmlUtils;
 public class NodeUtils {
 
 	/**
+	 * @param outFile
 	 * @param node
-	 * @return
+	 * @throws IOException
 	 */
-	static public String toXmlString(Node<?> node) {
-		Document w3cdoc = toW3CDocument(node);
-		try {
-			return XmlUtils.prettyFormatXml(w3cdoc);
-		} catch (Exception e) {
-			return null;
+	public static void print(File outFile, Node<?> node) throws IOException {
+		PrintStream ps = new PrintStream(outFile, "UTF-8");
+		print(ps, node, "");
+	}
+
+	/**
+	 * @param ps
+	 * @param node
+	 */
+	static public void print(PrintStream ps, Node<?> node) {
+		print(ps, node, "");
+	}
+
+	/**
+	 * @param ps
+	 * @param node
+	 * @param parentPath
+	 */
+	static public void print(PrintStream ps, Node<?> node, String parentPath) {
+		String v = node.getValue().toString();
+		String p = parentPath + "/" + v;
+		ps.println(p);
+		if (node.getChildNodes() != null) {
+			for (int n = 0; n < node.getChildNodesSize(); n++) {
+				Node<?> nn = node.getChildNode(n);
+				print(ps, nn, p);
+			}
 		}
 	}
 
@@ -64,6 +90,12 @@ public class NodeUtils {
 		}
 	}
 
+	/**
+	 * @param doc
+	 * @param node1
+	 * @param n1
+	 * @param nodeTagName
+	 */
 	static private void toW3CNode(Document doc, org.w3c.dom.Node node1, Node<?> n1, String nodeTagName) {
 		((Element) node1).setAttribute("value", n1.getValue().toString());
 		if (n1.getChildNodes() != null) {
@@ -73,6 +105,19 @@ public class NodeUtils {
 				node1.appendChild(nodeX);
 				toW3CNode(doc, nodeX, childNode, nodeTagName);
 			}
+		}
+	}
+
+	/**
+	 * @param node
+	 * @return
+	 */
+	static public String toXmlString(Node<?> node) {
+		Document w3cdoc = toW3CDocument(node);
+		try {
+			return XmlUtils.prettyFormatXml(w3cdoc);
+		} catch (Exception e) {
+			return null;
 		}
 	}
 

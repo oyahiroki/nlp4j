@@ -34,16 +34,19 @@ public class Work20230129CategoryPageRead {
 		File dumpFile = new File(dumpFileName);
 		System.err.println(dumpFile.getAbsolutePath());
 
-		Map<String, WikiCategory> map = new HashMap<>();
+//		Map<String, WikiCategory> map = new HashMap<>();
 
 		Map<String, Node<String>> nodeMap = new HashMap<>();
 		Node<String> root = new Node<>("*");
+
+		boolean print = false;
 
 		try ( //
 				WikiDumpReader dumpReader = new WikiDumpReader(dumpFile, indexFile); //
 		) {
 			// Read Wiki Index File
 			WikiIndexReader.readIndexFile(indexFile, new WikiIndexItemHandler() {
+
 				int count = 0;
 
 				@Override
@@ -53,13 +56,19 @@ public class Work20230129CategoryPageRead {
 
 					if (title.startsWith("Category:")) {
 
+						count++;
+
+						if (count % 100 == 0) {
+							System.err.println(count);
+						}
+
 						String title_short = title.substring(9); //
 
-						WikiCategory cat = map.get(title_short);
-						if (cat == null) {
-							cat = new WikiCategory(title_short);
-							map.put(title_short, cat);
-						}
+//						WikiCategory cat = map.get(title_short);
+//						if (cat == null) {
+//							cat = new WikiCategory(title_short);
+//							map.put(title_short, cat);
+//						}
 
 						Node<String> n1 = nodeMap.get(title_short);
 						if (n1 == null) {
@@ -77,16 +86,18 @@ public class Work20230129CategoryPageRead {
 							String wikiText = page.getText();
 							List<String> categories = MediaWikiTextUtils.parseCategoryTags(wikiText);
 							for (String cate : categories) {
-								System.out.println(title_short + " (子) -> (親) " + cate);
-								{
-									WikiCategory cat_parent = map.get(cate);
-									if (cat_parent == null) {
-										cat_parent = new WikiCategory(cate);
-										map.put(cate, cat_parent);
-									}
-									cat_parent.addChild(cat);
-									cat.setChild(true);
+								if (print) {
+									System.out.println(title_short + " (子) -> (親) " + cate);
 								}
+//								{
+//									WikiCategory cat_parent = map.get(cate);
+//									if (cat_parent == null) {
+//										cat_parent = new WikiCategory(cate);
+//										map.put(cate, cat_parent);
+//									}
+//									cat_parent.addChild(cat);
+//									cat.setChild(true);
+//								}
 								{
 									Node<String> n2 = nodeMap.get(cate);
 									if (n2 == null) {
@@ -110,14 +121,14 @@ public class Work20230129CategoryPageRead {
 
 		}
 
-		System.err.println("---");
+//		System.err.println("---");
 
-		for (String key : map.keySet()) {
-			WikiCategory category = map.get(key);
-			if (category.isChild() == false) {
-				System.err.println(category);
-			}
-		}
+//		for (String key : map.keySet()) {
+//			WikiCategory category = map.get(key);
+//			if (category.isChild() == false) {
+//				System.err.println(category);
+//			}
+//		}
 
 //		for (String key : nodeMap.keySet()) {
 //			Node<String> n = nodeMap.get(key);
@@ -128,6 +139,8 @@ public class Work20230129CategoryPageRead {
 //		}
 
 //		System.err.println(nlp4j.node.NodeUtils.toXmlString(root));
+
+		nlp4j.node.NodeUtils.print(new File("R:/wikicategory.txt"), root);
 
 		FileUtils.write(new File("R:/xml.xml"), nlp4j.node.NodeUtils.toXmlString(root), "UTF-8", false);
 
