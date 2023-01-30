@@ -10,6 +10,61 @@ import junit.framework.TestCase;
 
 public class MediaWikiTextUtilsTestCase extends TestCase {
 
+	public void testRemoveTable001() {
+		String wikitext = "{{Pathnav|スーパー戦隊シリーズ|frame=1}}\r\n" //
+				+ "{{半保護}}\r\n" //
+				+ "{{注意|クレジットなどで確認できない[[スーツアクター]]の役柄を記載する場合には、'''必ず[[Wikipedia:信頼できる情報源|信頼可能な情報源]]からの[[Wikipedia:出典を明記する|出典を示してください]]。'''出典の無い情報については、[[Wikipedia:独自研究は載せない]]に基づき一定期間ののち除去されるおそれがあります（[[プロジェクト:特撮/スーツアクターの役名記載について]]での議論に基づく）}}\r\n" //
+				+ "{| style=\"float: right; text-align:center; border-collapse:collapse; border:2px solid black; white-space:nowrap\"\r\n" //
+				+ "|-\r\n" //
+				+ "|colspan=\"3\" style=\"background-color:#ffccff; border:1px solid black; white-space:nowrap\"|'''[[スーパー戦隊シリーズ]]'''\r\n" //
+				+ "|-\r\n" //
+				+ "|style=\"border:1px solid black; background-color:#ffccff; white-space:nowrap\"|'''第1作'''\r\n" //
+				+ "|style=\"border:1px solid black; white-space:nowrap\"|'''秘密戦隊<br />ゴレンジャー'''\r\n" //
+				+ "|style=\"border:1px solid black; white-space:nowrap\"|1975年4月<br />- 1977年3月\r\n" //
+				+ "|-\r\n" //
+				+ "|style=\"border:1px solid black; white-space:nowrap; background-color:#ffccff\"|'''第2作'''\r\n" //
+				+ "|style=\"border:1px solid black; white-space:nowrap\"|[[ジャッカー電撃隊|ジャッカー<br />電撃隊]]\r\n" //
+				+ "|style=\"border:1px solid black; white-space:nowrap\"|1977年4月<br />- 1977年12月\r\n" //
+				+ "|}\r\n" //
+				+ "『'''秘密戦隊ゴレンジャー'''』 (ひみつせんたいゴレンジャー) は、[[1975年]][[4月5日]]から[[1977年]][[3月26日]]まで、NET系列で毎週土曜19:30 - 20:00 ([[日本標準時|JST]]) に全84話が放送された、[[テレビ朝日|NET]] (現・テレビ朝日)・[[東映]]制作の[[特撮テレビ番組一覧|特撮テレビドラマ]]、および作中に登場するヒーローチームの名称。\r\n" //
+				+ "";
+
+		System.err.println(wikitext);
+
+		String wikitext2 = MediaWikiTextUtils.removeTable(wikitext);
+
+		System.err.println("<result>");
+		System.err.println(wikitext2);
+		System.err.println("</result>");
+
+	}
+
+	public void testRemoveInfobox001() {
+		String wikitext = "aaa\r\n" //
+				+ "{{Infobox Continent\r\n" //
+				+ "|image = [[File:Europe (orthographic projection).svg|200px]]\r\n" //
+				+ "|countries = 50\r\n" //
+				+ "}}\r\n" //
+				+ "\r\n" //
+				+ "bbb\r\n" //
+				+ "\r\n" //
+				+ "ccc\r\n" //
+				+ "{{Infobox Continent\r\n" //
+				+ "|image = [[File:Europe (orthographic projection).svg|200px]]\r\n" //
+				+ "|countries = 50\r\n" //
+				+ "}}\r\n" //
+				+ "{{Infobox {{}}{{}}{{{}}}xxx}}" + "";
+
+		System.err.println(wikitext);
+
+		System.err.println("---");
+
+		String wikitext2 = MediaWikiTextUtils.removeInfobox(wikitext);
+
+		System.err.println(wikitext2);
+
+	}
+
 	public void testToPlainText001() {
 		String wikitext = "{{otheruses}}\r\n" //
 				+ "{{Infobox Continent\r\n" //

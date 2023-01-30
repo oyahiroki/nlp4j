@@ -2,7 +2,7 @@ package example202301;
 
 import nlp4j.wiki.WikiPage;
 
-public class PagePrinter {
+public class PagePrinterForTest {
 
 	static public void print(WikiPage page) {
 		if (page == null) {

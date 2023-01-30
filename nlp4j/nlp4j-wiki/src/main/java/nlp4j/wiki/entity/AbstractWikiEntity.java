@@ -3,6 +3,7 @@ package nlp4j.wiki.entity;
 public abstract class AbstractWikiEntity implements WikiEntity {
 
 	String text;
+	String name;
 
 	public boolean isEmpty() {
 		if (this.text == null) {
@@ -22,6 +23,11 @@ public abstract class AbstractWikiEntity implements WikiEntity {
 
 	public String getText() {
 		return text;
+	}
+
+	@Override
+	public String getName() {
+		return name;
 	}
 
 	@Override

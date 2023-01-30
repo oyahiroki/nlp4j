@@ -29,6 +29,61 @@ public class MediaWikiTextUtils {
 
 	static final Pattern p = Pattern.compile("\\[\\[(.*?)\\]\\]");
 
+	private static void extractedInfobox(String wikiText, StringBuilder sb, List<String> infoBoxes) {
+		StringBuilder sbInfobox = new StringBuilder();
+
+		// Infobox は必ず行頭から始まる
+		// Infobox は複数存在することがある
+
+		boolean infobox = false;
+		int level = 0;
+
+		for (String t : wikiText.split("\n")) {
+			// NOT Infobox
+			if (infobox == false) {
+				if (t.startsWith("{{Infobox")) {
+					infobox = true;
+					sbInfobox.append(t);
+					level += 2;
+				} //
+				else {
+					sb.append(t);
+				}
+			}
+			// IN Infobox
+			else {
+				for (int n = 0; n < t.length(); n++) {
+					char c = t.charAt(n);
+					if (c == '{') { // 入れ子になっている
+						level++;
+					} //
+
+					if (level == 0) {
+						if (infobox == true) {
+							infobox = false;
+						}
+						sb.append(c);
+					} //
+					else {
+						sbInfobox.append(c);
+					}
+
+					if (c == '}') {
+						level--;
+						if (level == 0 && sbInfobox.length() > 0) {
+							infoBoxes.add(sbInfobox.toString());
+							sbInfobox = new StringBuilder();
+						}
+					} //
+				}
+			}
+		}
+		if (level == 0 && sbInfobox.length() > 0) {
+			infoBoxes.add(sbInfobox.toString());
+			sbInfobox = new StringBuilder();
+		}
+	}
+
 	/**
 	 * @param wikiText
 	 * @return Root Node Wiki text
@@ -131,32 +186,6 @@ public class MediaWikiTextUtils {
 		return tag;
 	}
 
-	/**
-	 * @param wikiText wiki形式のテキスト wiki format text
-	 * @return
-	 */
-	public static List<String> parseTemplateTags(String wikiText) {
-		List<String> tags = new ArrayList<>();
-
-		if (wikiText != null) {
-			// FOR EACH LINE
-			for (String line : wikiText.split("\n")) {
-				if (line.startsWith("{{") == true) {
-					String tag = parseTag(line);
-					if (tag != null) {
-						if (tags.contains(tag) == false) {
-							tags.add(tag);
-						}
-					}
-				}
-			} // END OF ( FOR EACH LINE)
-		}
-
-		Collections.sort(tags);
-
-		return tags;
-	}
-
 //	private static String parseTextFromLink(String link) {
 //		// https://ja.wikipedia.org/wiki/Help:%E3%83%AA%E3%83%B3%E3%82%AF
 //
@@ -186,6 +215,40 @@ public class MediaWikiTextUtils {
 //
 //	}
 
+	/**
+	 * @param wikiText wiki形式のテキスト wiki format text
+	 * @return
+	 */
+	public static List<String> parseTemplateTags(String wikiText) {
+		List<String> tags = new ArrayList<>();
+
+		if (wikiText != null) {
+			// FOR EACH LINE
+			for (String line : wikiText.split("\n")) {
+				if (line.startsWith("{{") == true) {
+					String tag = parseTag(line);
+
+					if (tag.contains("<!--")) {
+						int idx1 = tag.indexOf("<!--");
+						if (idx1 > 0) {
+							tag = tag.substring(0, idx1);
+						}
+					}
+
+					if (tag != null) {
+						if (tags.contains(tag) == false) {
+							tags.add(tag);
+						}
+					}
+				}
+			} // END OF ( FOR EACH LINE)
+		}
+
+//		Collections.sort(tags);
+
+		return tags;
+	}
+
 	static public String processRedirect(String t) {
 
 		if (t == null) {
@@ -202,6 +265,47 @@ public class MediaWikiTextUtils {
 		}
 
 		return t;
+	}
+
+	/**
+	 * @param wikiText
+	 * @return wikiText without Infovox
+	 */
+	static public String removeInfobox(String wikiText) {
+
+		StringBuilder sbWikiText = new StringBuilder();
+		List<String> infoBoxes = new ArrayList<String>();
+
+		extractedInfobox(wikiText, sbWikiText, infoBoxes);
+
+		boolean debug = false;
+
+		if (debug == true) {
+			if (infoBoxes.size() > 0) {
+				for (String ib : infoBoxes) {
+					System.err.println("<infobox>");
+					System.err.println(ib.toString());
+					System.err.println("</infobox>");
+				}
+			}
+		}
+
+		return sbWikiText.toString();
+	}
+
+	public static String removeTable(String wikitext) {
+		if (wikitext == null) {
+			return null;
+		}
+
+		if (wikitext.contains("\n{|") && wikitext.contains("\n|}")) {
+			wikitext = wikitext.replace("\r", "").replace("\n", " ")
+			// https://qiita.com/ymatsuta/items/cff10a2d8d0fa6b69485
+//					.replaceAll("\\{\\| (.|\\n|\\r)*?\\|\\}", "");
+					.replaceAll("\\{\\|.*? \\|\\}", "");
+		}
+
+		return wikitext;
 	}
 
 	/**
@@ -225,10 +329,6 @@ public class MediaWikiTextUtils {
 
 			String text;
 
-			{
-				wikiText = StringUtils.removeBracketted(wikiText, "（）"); // JA BRACKETS
-			}
-
 			{ // FOR EACH LINE
 				StringBuilder sb = new StringBuilder();
 				for (String t : wikiText.split("\n")) {
@@ -239,6 +339,9 @@ public class MediaWikiTextUtils {
 					else if (t.startsWith("[[ファイル:") && t.endsWith("]]")) {
 						continue; // SKIP THIS LINE
 					} //
+					else if (t.startsWith("[[画像:") && t.endsWith("]]")) {
+						continue; // SKIP THIS LINE
+					} //
 					else {
 						sb.append(t + "\n");
 					}
@@ -246,26 +349,45 @@ public class MediaWikiTextUtils {
 				wikiText = sb.toString();
 			}
 
-			{
-				wikiText = wikiText //
-						.replaceAll("\\[\\[File.*?\\]\\]", "") // ファイルへのリンクを除去 JA_ONLY
-						.replaceAll("\\[\\[ファイル.*?\\]\\]", "") // ファイルへのリンクを除去 JA_ONLY
-						.trim();
+			{ // REMOVE TABLE
+				wikiText = removeTable(wikiText);
 			}
+
+			{ // REMOVE {{Infobox}}
+				wikiText = removeInfobox(wikiText);
+			}
+
+			{ // REMOVE （...）
+				wikiText = StringUtils.removeBracketted(wikiText, "（）"); // JA BRACKETS
+			}
+
+//			{
+//				wikiText = wikiText //
+//						.replaceAll("\\[\\[File.*?\\]\\]", "") // ファイルへのリンクを除去 JA_ONLY
+//						.replaceAll("\\[\\[ファイル.*?\\]\\]", "") // ファイルへのリンクを除去 JA_ONLY
+//						.trim();
+//			}
+
 			{ // DEBUG
 				if (wikiText.contains("<gallery>")) {
 					wikiText = wikiText //
-							.replaceAll("<gallery>(.|\\n)*?</gallery>", "") // ファイルへのリンクを除去 JA_ONLY
+							.replace("\n", "\\n") //
+							.replaceAll("<gallery>.*?</gallery>", "") // ファイルへのリンクを除去 JA_ONLY
+							.replace("\\n", "\n")//
 					;
 				}
 				if (wikiText.contains("<ref>")) {
 					wikiText = wikiText //
-							.replaceAll("<ref>(.|\\n)*?</ref>", "") // ファイルへのリンクを除去 JA_ONLY
+							.replace("\n", "\\n")//
+							.replaceAll("<ref>.*?</ref>", "") // ファイルへのリンクを除去 JA_ONLY
+							.replace("\\n", "\n")//
 					;
 				}
 				if (wikiText.contains("<imagemap>")) {
 					wikiText = wikiText //
-							.replaceAll("<imagemap>(.|\\n)*?</imagemap>", "") // ファイルへのリンクを除去 JA_ONLY
+							.replace("\n", "\\n")//
+							.replaceAll("<imagemap>.*?</imagemap>", "") // ファイルへのリンクを除去 JA_ONLY
+							.replace("\\n", "\n")//
 					;
 				}
 			}
@@ -294,6 +416,7 @@ public class MediaWikiTextUtils {
 						.replaceAll("/\\*\\*.*?\\*\\*/", "") // コメント
 						.replace("**", "") //
 						.replace("<WtRedirect />", "") //
+						.replace("<WtTable />", "") //
 						.trim();
 			}
 

@@ -138,6 +138,13 @@ public class MediawikiXmlHandler2 extends AbstractXmlHandler {
 					page.setCategoryTags(categoryTags);
 				}
 			}
+			{
+				List<String> templateTags = MediaWikiTextUtils.parseTemplateTags(pageText);
+				if (templateTags != null && templateTags.size() > 0) {
+					page.setTemplateTags(templateTags);
+				}
+
+			}
 
 			// リダイレクト情報
 			if (pageInfo.containsKey(MEDIAWIKI_PAGE_REDIRECT)) {

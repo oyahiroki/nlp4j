@@ -144,8 +144,14 @@ public class MediawikiXmlHandler3 extends AbstractXmlHandler {
 			{
 				String text = org.apache.commons.text.StringEscapeUtils.unescapeXml(pageText);
 				page.setText(text);
-				List<String> categoryTags = MediaWikiTextUtils.parseCategoryTags(text);
-				page.setCategoryTags(categoryTags);
+				{
+					List<String> categoryTags = MediaWikiTextUtils.parseCategoryTags(text);
+					page.setCategoryTags(categoryTags);
+				}
+				{
+					List<String> templateTags = MediaWikiTextUtils.parseTemplateTags(text);
+					page.setTemplateTags(templateTags);
+				}
 			}
 			// nlp4j.wiki.util.MediaWikiTextUtils.parseCategoryTags(String)
 			// SET XML

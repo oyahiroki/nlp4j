@@ -27,6 +27,7 @@ public class WikiPage {
 	private boolean isRediect = false;
 	private String rediect_title = null;
 	private List<String> categoryTags;
+	private List<String> templateTags;
 	private String parentId;
 	private String namespace;
 	private String revisionId;
@@ -290,6 +291,20 @@ public class WikiPage {
 				+ "text=" + t + ", "//
 				+ "xml=" + x //
 				+ "]";
+	}
+
+	/**
+	 * @param templateTags
+	 */
+	public void setTemplateTags(List<String> templateTags) {
+		this.templateTags = templateTags;
+	}
+
+	/**
+	 * @return Template tags
+	 */
+	public List<String> getTemplateTags() {
+		return templateTags;
 	}
 
 }

@@ -19,13 +19,51 @@ public class MediaWikiCsvConverter {
 
 	public static void main(String[] args) throws Exception {
 
+		if (args == null || args.length != 3) {
+			System.err.println("Usage:");
+			System.err.println("args[0]: Input file path of Wikipedia/Wiktionary dump file in bz2 format");
+			System.err.println("args[1]: Output file path of CSV");
+			System.err.println("args[2]: Max count of process");
+			return;
+		}
+
+		String inputFileName = args[0];
+		String outFileName = args[1];
+		String maxParam = args[2];
+
+		int n = -1;
+		try {
+			n = Integer.parseInt(maxParam);
+		} catch (NumberFormatException e) {
+
+		}
+
+		final Integer max = (n > 0) ? n : null;
+
+//		max = null;
+
 		// WIKI DUMP FILE
-		File dumpFile = new File("/usr/local/wiki/jawiki/20221101/" //
-				+ "jawiki-20221101-pages-articles-multistream.xml.bz2");
+//		File dumpFile = new File("/usr/local/wiki/jawiki/20221101/" //
+//				+ "jawiki-20221101-pages-articles-multistream.xml.bz2");
+		File dumpFile = new File(inputFileName);
+		{
+			if (dumpFile.exists() == false) {
+				System.err.println("Not Found: " + dumpFile.getAbsolutePath());
+				return;
+			}
+			if (dumpFile.getName().endsWith(".bz2") == false) {
+				System.err.println("Not .bz2: " + dumpFile.getAbsolutePath());
+				return;
+			}
+		}
 
 		Appendable out = System.out;
-
-		File outFile = new File("R:/" + "jawiki-20221101-pages-articles-multistream.csv");
+//		File outFile = new File("R:/" + "jawiki-20221101-pages-articles-multistream.csv");
+		File outFile = new File(outFileName);
+		if (outFile.exists()) {
+			System.err.println("Output file already exists: " + outFile.getAbsolutePath());
+			return;
+		}
 
 		out = new OutputStreamWriter(new FileOutputStream(outFile, false), "UTF-8");
 
@@ -40,15 +78,11 @@ public class MediaWikiCsvConverter {
 		header.add("is_redirect");
 		header.add("redirect_title");
 		header.add("categories");
+		header.add("templates");
 		header.add("text_length");
 		header.add("text");
 
 //	final	Integer max = 100;
-
-		final Integer max;
-
-//		max = null;
-		max = 1000;
 
 		try (WikiDumpReader dumpReader = new WikiDumpReader(dumpFile);
 
@@ -78,10 +112,11 @@ public class MediaWikiCsvConverter {
 					String title = (page.getTitle());
 					String is_redirect = "" + page.isRediect();
 					String redirect_title = page.isRediect() ? page.getRediect_title() : "";
-					String categories = page.getCategoryTags() != null ? page.getCategoryTags().toString() //
-							.replace("[", "")//
-							.replace("]", "")//
-							.replace(", ", ",")//
+					String categories = page.getCategoryTags() != null //
+							? String.join(",", page.getCategoryTags()) //
+							: "";
+					String templates = page.getTemplateTags() != null //
+							? String.join(",", page.getTemplateTags()) //
 							: "";
 					String text = page.getRootNodePlainText();
 					String text_length = "" + text.length();
@@ -96,6 +131,7 @@ public class MediaWikiCsvConverter {
 								is_redirect, //
 								redirect_title, //
 								categories, //
+								templates, //
 								text_length, //
 								text //
 						);

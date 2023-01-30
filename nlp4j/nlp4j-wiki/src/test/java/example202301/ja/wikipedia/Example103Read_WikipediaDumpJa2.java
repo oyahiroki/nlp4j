@@ -2,7 +2,7 @@ package example202301.ja.wikipedia;
 
 import java.io.File;
 
-import example202301.PagePrinter;
+import example202301.PagePrinterForTest;
 import nlp4j.wiki.WikiDumpReader;
 import nlp4j.wiki.WikiPage;
 
@@ -30,7 +30,7 @@ public class Example103Read_WikipediaDumpJa2 {
 		try (WikiDumpReader dumpReader = new WikiDumpReader(dumpFile, indexFile);) {
 			{
 				WikiPage page = dumpReader.getItem(itemString);
-				PagePrinter.print(page);
+				PagePrinterForTest.print(page);
 			}
 		}
 

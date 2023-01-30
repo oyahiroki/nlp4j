@@ -1,5 +1,6 @@
-package nlp4j.wiki;
+package nlp4j.wiki.client;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import junit.framework.TestCase;
@@ -16,12 +17,10 @@ public class MediaWikiClientTestCase extends TestCase {
 		String category = "Category:Auto_parts";
 		MediaWikiClient client = new MediaWikiClient(host);
 		List<String> titles = client.getPageTitlesByCategory(category);
-		System.err.println("<titles>");
 		for (String title : titles) {
-			System.err.println(title);
+			System.out.println(title);
 		}
-		System.err.println("</titles>");
-		System.err.println(titles.size());
+		System.out.println(titles.size());
 	}
 
 	/**
@@ -34,12 +33,10 @@ public class MediaWikiClientTestCase extends TestCase {
 		String category = "Category:en:Medicine";
 		MediaWikiClient client = new MediaWikiClient(host);
 		List<String> titles = client.getPageTitlesByCategory(category);
-		System.err.println("<titles>");
 		for (String title : titles) {
-			System.err.println(title);
+			System.out.println(title);
 		}
-		System.err.println("</titles>");
-		System.err.println(titles.size());
+		System.out.println(titles.size());
 	}
 
 	/**
@@ -52,12 +49,10 @@ public class MediaWikiClientTestCase extends TestCase {
 		String category = "カテゴリ:日本語_ことわざ";
 		MediaWikiClient client = new MediaWikiClient(host);
 		List<String> titles = client.getPageTitlesByCategory(category);
-		System.err.println("<titles>");
 		for (String title : titles) {
-			System.err.println(title);
+			System.out.println(title);
 		}
-		System.err.println("</titles>");
-		System.err.println(titles.size());
+		System.out.println(titles.size());
 	}
 
 	/**
@@ -72,11 +67,46 @@ public class MediaWikiClientTestCase extends TestCase {
 		client.setFetchSubCategory(false);
 		List<String> titles = client.getPageTitlesByCategory(category);
 		for (String title : titles) {
-			if (title.contains("ウイルス")) {
-				System.err.println(title);
-			}
+			System.out.println(title);
 		}
-		System.err.println(titles.size());
+	}
+
+	/**
+	 * 
+	 * 
+	 * @throws Exception
+	 */
+	public void testMediaWikiClient103() throws Exception {
+		String host = "ja.wikipedia.org";
+		String category = "Category:自動車部品";
+		MediaWikiClient client = new MediaWikiClient(host);
+		client.setFetchSubCategory(true);
+
+		List<String> categories = new ArrayList<String>();
+
+		client.getSubcategoryTitlesByCategory(0, categories, null, category);
+		for (String title : categories) {
+			System.out.println(title);
+		}
+	}
+
+	/**
+	 * 
+	 * 
+	 * @throws Exception
+	 */
+	public void testMediaWikiClient104() throws Exception {
+		String host = "ja.wikipedia.org";
+		String category = "Category:鉄道駅";
+		MediaWikiClient client = new MediaWikiClient(host);
+		client.setFetchSubCategory(true);
+
+		List<String> categories = new ArrayList<String>();
+
+		client.getSubcategoryTitlesByCategory(0, categories, null, category);
+		for (String title : categories) {
+			System.out.println(title);
+		}
 	}
 
 }

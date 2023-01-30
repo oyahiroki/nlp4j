@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 import nlp4j.wiki.entity.WikiCategory;
 import nlp4j.wiki.entity.WikiDefault;
 import nlp4j.wiki.entity.WikiEntity;
+import nlp4j.wiki.entity.WikiEntityUtils;
 import nlp4j.wiki.entity.WikiTemplate;
 
 public class WikiTextParser {
@@ -18,61 +19,125 @@ public class WikiTextParser {
 		Objects.nonNull(text);
 
 		List<WikiEntity> entities = new ArrayList<>();
-		int templateLevel = 0;
 
 		StringBuilder sb = new StringBuilder();
 
-		// FOR EACH CARACTER
+		int levelTemplate = 0;
+		int levelCategory = 0;
+
 		for (int n = 0; n < text.length(); n++) {
+
 			char c = text.charAt(n);
 
-			if (c == '{') {
-				templateLevel++;
-				if (templateLevel == 1) {
-					if (sb.length() > 0) {
-						WikiEntity e;
-						if (sb.toString().startsWith("{{")) {
-							e = new WikiTemplate(sb.toString());
-						} else {
-							e = new WikiDefault(sb.toString());
-						}
-						sb = new StringBuilder();
-						entities.add(e);
-					}
+			if (levelCategory == 0 && c == '{') {
+				levelTemplate++;
+				if (levelTemplate == 1 && sb.toString().trim().length() > 0) {
+					String s = sb.toString().trim();
+					entities.add(WikiEntityUtils.get(s));
+					sb = new StringBuilder();
 				}
-				// always
-				sb.append(c);
-			} //
-			else if (c == '}') {
-				templateLevel--;
-
-				if (templateLevel == 0) {
-					if (sb.length() > 0) {
-						// always
-						sb.append(c);
-						String s = sb.toString();
-						extractCategories(entities, s);
-					}
-				} else {
-					sb.append(c);
-				}
-			} //
-			else {
-				sb.append(c);
 			}
-		} // END OF (FOR EACH CARACTER)
+			if (levelTemplate == 0 && c == '[') {
+				levelCategory++;
+				if (levelCategory == 1 && sb.toString().trim().length() > 0) {
+					if (text.substring(n).startsWith("[[Category") == true) {
+						String s = sb.toString().trim();
+						entities.add(WikiEntityUtils.get(s));
+						sb = new StringBuilder();
+					}
+				}
+			}
 
-		if (sb.length() > 0) {
-			String s = sb.toString();
-			extractCategories(entities, s);
+//			if (levelTemplate == 0 && levelCategory == 0) {
+//				sb.append(c);
+//			}
+
+			sb.append(c);
+//			System.err.println("sb: " + sb.toString());
+
+			if (levelCategory == 0 && c == '}') {
+				levelTemplate--;
+				if (levelTemplate == 0 && sb.toString().trim().length() > 0) {
+					String s = sb.toString().trim();
+					entities.add(WikiEntityUtils.get(s));
+					sb = new StringBuilder();
+				}
+			}
+			if (levelTemplate == 0 && c == ']') {
+				levelCategory--;
+				if (levelCategory == 0 && sb.toString().trim().length() > 0) {
+					if (sb.toString().startsWith("[[Category")) {
+						String s = sb.toString().trim();
+						entities.add(WikiEntityUtils.get(s));
+						sb = new StringBuilder();
+					} else {
+
+					}
+				}
+			}
+
 		}
 
-//		System.err.println(sb.toString());
+		if (sb.toString().trim().length() > 0) {
+			entities.add(WikiEntityUtils.get(sb.toString()));
+			sb = new StringBuilder();
+		}
+
+//		int templateLevel = 0;
 //
-//		for (WikiEntity e : entities) {
-//			System.err.println("---");
-//			System.err.println(e);
+//		StringBuilder sb = new StringBuilder();
+//
+//		// FOR EACH CARACTER
+//		for (int n = 0; n < text.length(); n++) {
+//			char c = text.charAt(n);
+//
+//			if (c == '{') {
+//				templateLevel++;
+//				if (templateLevel == 1) {
+//					if (sb.length() > 0) {
+//						WikiEntity e;
+//						if (sb.toString().startsWith("{{")) {
+//							e = new WikiTemplate(sb.toString());
+//						} else {
+//							e = new WikiDefault(sb.toString());
+//						}
+//						sb = new StringBuilder();
+//						entities.add(e);
+//					}
+//				}
+//				// always
+//				sb.append(c);
+//			} //
+//			else if (c == '}') {
+//				templateLevel--;
+//
+//				if (templateLevel == 0) {
+//					if (sb.length() > 0) {
+//						// always
+//						sb.append(c);
+//						String s = sb.toString();
+//						extractCategories(entities, s);
+//					}
+//				} else {
+//					sb.append(c);
+//				}
+//			} //
+//			else {
+//				sb.append(c);
+//			}
+//		} // END OF (FOR EACH CARACTER)
+//
+//		if (sb.length() > 0) {
+//			String s = sb.toString();
+//			extractCategories(entities, s);
 //		}
+//
+////		System.err.println(sb.toString());
+////
+////		for (WikiEntity e : entities) {
+////			System.err.println("---");
+////			System.err.println(e);
+////		}
 
 		return entities;
 
