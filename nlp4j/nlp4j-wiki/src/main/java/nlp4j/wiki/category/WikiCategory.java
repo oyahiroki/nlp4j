@@ -73,15 +73,23 @@ public class WikiCategory {
 	}
 
 	public String getFirstRootCategories() {
+		return String.join(",", getFirstRootCategoriesAsList());
+	}
+
+	public List<String> getFirstRootCategoriesAsList() {
 		Set<String> roopCheck = new LinkedHashSet<String>();
 		getFirstRoot(roopCheck);
-		return String.join(",", new ArrayList<String>(roopCheck));
+		return new ArrayList<String>(roopCheck);
 	}
 
 	public String getRootCategories() {
+		return String.join(",", getRootCategoriesAsList());
+	}
+
+	public List<String> getRootCategoriesAsList() {
 		Set<String> roopCheck = new LinkedHashSet<String>();
 		getRoot(roopCheck);
-		return String.join(",", new ArrayList<String>(roopCheck));
+		return new ArrayList<String>(roopCheck);
 	}
 
 	public String getRoot() {

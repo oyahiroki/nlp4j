@@ -14,6 +14,16 @@ import org.apache.logging.log4j.Logger;
 
 import nlp4j.util.FileUtils;
 
+/**
+ * <pre>
+ * カテゴリ情報を読み込む
+ * </pre>
+ * 
+ * created_at: 2023-02-01
+ * 
+ * @author Hiroki Oya
+ *
+ */
 public class WikiCategoryIndexReader {
 
 	static private Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
@@ -25,6 +35,13 @@ public class WikiCategoryIndexReader {
 		return mapTitleObj.get(categoryTitle);
 	}
 
+	/**
+	 * カテゴリ構造を読み込む
+	 * 
+	 * @param indexFile
+	 * @param categoryFile
+	 * @throws IOException
+	 */
 	public WikiCategoryIndexReader(File indexFile, File categoryFile) throws IOException {
 		logger.info("Reading Files ...");
 		long time1 = System.currentTimeMillis();

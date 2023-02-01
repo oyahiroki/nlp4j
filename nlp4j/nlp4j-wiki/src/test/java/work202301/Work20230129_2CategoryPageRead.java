@@ -21,9 +21,11 @@ import nlp4j.wiki.WikiPage;
 import nlp4j.wiki.category.WikiCategory;
 import nlp4j.wiki.util.MediaWikiTextUtils;
 
-public class Work20230129CategoryPageRead {
+public class Work20230129_2CategoryPageRead {
 
 	public static void main(String[] args) throws Exception {
+
+		// カテゴリ情報の出力
 
 		// Index File
 //		String indexFileName = "/usr/local/wiki/jawiki/20221101/jawiki-20221101-pages-articles-multistream-index.txt.bz2";

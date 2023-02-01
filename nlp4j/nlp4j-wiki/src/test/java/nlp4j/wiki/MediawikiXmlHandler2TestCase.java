@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.HashMap;
+import java.util.Map;
 
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
@@ -26,7 +27,7 @@ public class MediawikiXmlHandler2TestCase extends TestCase {
 
 		saxParser.parse(bais, handler);
 
-		HashMap<String, WikiPage> pages = handler.getPages();
+		Map<String, WikiPage> pages = handler.getPages();
 
 		System.err.println(pages.keySet());
 
@@ -79,7 +80,7 @@ public class MediawikiXmlHandler2TestCase extends TestCase {
 
 		saxParser.parse(bais, handler);
 
-		HashMap<String, WikiPage> pages = handler.getPages();
+		Map<String, WikiPage> pages = handler.getPages();
 
 		System.err.println(pages.keySet());
 
@@ -105,7 +106,7 @@ public class MediawikiXmlHandler2TestCase extends TestCase {
 
 		saxParser.parse(bais, handler);
 
-		HashMap<String, WikiPage> pages = handler.getPages();
+		Map<String, WikiPage> pages = handler.getPages();
 
 //		System.err.println(pages.keySet());
 
@@ -135,7 +136,7 @@ public class MediawikiXmlHandler2TestCase extends TestCase {
 
 		saxParser.parse(bais, handler);
 
-		HashMap<String, WikiPage> pages = handler.getPages();
+		Map<String, WikiPage> pages = handler.getPages();
 
 //		System.err.println(pages.keySet());
 

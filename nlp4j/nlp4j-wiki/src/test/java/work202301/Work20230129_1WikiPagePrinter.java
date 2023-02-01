@@ -5,7 +5,7 @@ import java.io.IOException;
 
 import nlp4j.wiki.printer.WikiPagePrinter;
 
-public class Work20230129WikiPagePrinter {
+public class Work20230129_1WikiPagePrinter {
 
 	public static void main(String[] args) throws IOException {
 

@@ -9,6 +9,8 @@ public class Work20230131CategoryIndexRead {
 
 	public static void main(String[] args) throws IOException {
 
+		// カテゴリ情報を読み込み、親カテゴリの情報を取得する
+
 		File indexFile = new File("R:/jawiki-20221101-pages-articles-multistream-categories-index.txt");
 		File categoryFile = new File("R:/jawiki-20221101-pages-articles-multistream-categories.txt");
 

@@ -3,6 +3,7 @@ package nlp4j.wiki;
 import java.lang.invoke.MethodHandles;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 //import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.logging.log4j.LogManager;
@@ -24,6 +25,8 @@ import nlp4j.xml.AbstractXmlHandler;
 public class MediawikiXmlHandler3 extends AbstractXmlHandler {
 
 	static private final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
+
+	private boolean keepObject = false;
 
 	private String ROOT = null;
 
@@ -50,6 +53,26 @@ public class MediawikiXmlHandler3 extends AbstractXmlHandler {
 	}
 
 	private WikiPageHandler wikiPageHander;
+
+	private WikiPage pageObj;
+
+	public WikiPage getPage() {
+		return pageObj;
+	}
+
+	public Map<String, WikiPage> getPages() {
+		if (pageObj == null) {
+			return null;
+		} else {
+			Map<String, WikiPage> pages = new HashMap<String, WikiPage>();
+			pages.put(this.pageObj.getTitle(), pageObj);
+			return pages;
+		}
+	}
+
+	public void setKeepObject(boolean keepObject) {
+		this.keepObject = keepObject;
+	}
 
 	@Override
 	public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
@@ -167,6 +190,10 @@ public class MediawikiXmlHandler3 extends AbstractXmlHandler {
 					e.initCause(be);
 					throw e;
 				}
+			}
+
+			if (this.keepObject == true) {
+				this.pageObj = page;
 			}
 
 //			pages.put(page.getId(), page);

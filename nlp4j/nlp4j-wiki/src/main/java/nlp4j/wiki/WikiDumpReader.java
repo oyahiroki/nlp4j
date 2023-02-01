@@ -164,7 +164,7 @@ public class WikiDumpReader implements AutoCloseable {
 			saxParser.parse(bais, handler);
 
 			// ID -> WikiPage
-			HashMap<String, WikiPage> pages = handler.getPages();
+			Map<String, WikiPage> pages = handler.getPages();
 
 			for (WikiPage page : pages.values()) {
 
@@ -270,7 +270,7 @@ public class WikiDumpReader implements AutoCloseable {
 
 			saxParser.parse(bais, handler);
 
-			HashMap<String, WikiPage> pages = handler.getPages();
+			Map<String, WikiPage> pages = handler.getPages();
 
 //			System.err.println(pages.get(itemString).getTitle());
 //			System.err.println(pages.get(itemString).getText());

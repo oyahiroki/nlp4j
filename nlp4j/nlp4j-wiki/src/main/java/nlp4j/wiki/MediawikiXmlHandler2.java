@@ -2,6 +2,7 @@ package nlp4j.wiki;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
@@ -161,7 +162,7 @@ public class MediawikiXmlHandler2 extends AbstractXmlHandler {
 	/**
 	 * @return WikiPage Map (ID -&gt; Object)
 	 */
-	public HashMap<String, WikiPage> getPages() {
+	public Map<String, WikiPage> getPages() {
 		return pages;
 	}
 
