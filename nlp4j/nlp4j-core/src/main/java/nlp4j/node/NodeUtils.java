@@ -21,13 +21,18 @@ import nlp4j.util.XmlUtils;
 public class NodeUtils {
 
 	/**
+	 * To prevent StackOverflow
+	 */
+	static private int MAX_DEPTH = 10000;
+
+	/**
 	 * @param outFile
 	 * @param node
 	 * @throws IOException
 	 */
 	public static void print(File outFile, Node<?> node) throws IOException {
 		PrintStream ps = new PrintStream(outFile, "UTF-8");
-		print(ps, node, "");
+		print(ps, node, "", 0);
 	}
 
 	/**
@@ -35,7 +40,7 @@ public class NodeUtils {
 	 * @param node
 	 */
 	static public void print(PrintStream ps, Node<?> node) {
-		print(ps, node, "");
+		print(ps, node, "", 0);
 	}
 
 	/**
@@ -43,14 +48,18 @@ public class NodeUtils {
 	 * @param node
 	 * @param parentPath
 	 */
-	static public void print(PrintStream ps, Node<?> node, String parentPath) {
+	static public void print(PrintStream ps, Node<?> node, String parentPath, int depth) {
+		if (depth > MAX_DEPTH) {
+			System.err.println("depth is over MAX_DEPTH");
+			return;
+		}
 		String v = node.getValue().toString();
 		String p = parentPath + "/" + v;
 		ps.println(p);
 		if (node.getChildNodes() != null) {
 			for (int n = 0; n < node.getChildNodesSize(); n++) {
 				Node<?> nn = node.getChildNode(n);
-				print(ps, nn, p);
+				print(ps, nn, p, (depth + 1));
 			}
 		}
 	}
@@ -80,7 +89,7 @@ public class NodeUtils {
 			org.w3c.dom.Node node1 = doc.createElement(nodeTagName);
 			doc.appendChild(node1);
 
-			toW3CNode(doc, node1, node, nodeTagName);
+			toW3CNode(doc, node1, node, nodeTagName, 0);
 
 			return doc;
 
@@ -96,14 +105,18 @@ public class NodeUtils {
 	 * @param n1
 	 * @param nodeTagName
 	 */
-	static private void toW3CNode(Document doc, org.w3c.dom.Node node1, Node<?> n1, String nodeTagName) {
+	static private void toW3CNode(Document doc, org.w3c.dom.Node node1, Node<?> n1, String nodeTagName, int depth) {
+		if (depth > MAX_DEPTH) {
+			System.err.println("depth is over MAX_DEPTH");
+			return;
+		}
 		((Element) node1).setAttribute("value", n1.getValue().toString());
 		if (n1.getChildNodes() != null) {
 			for (int n = 0; n < n1.getChildNodesSize(); n++) {
 				Node<?> childNode = n1.getChildNode(n);
 				org.w3c.dom.Node nodeX = doc.createElement(nodeTagName);
 				node1.appendChild(nodeX);
-				toW3CNode(doc, nodeX, childNode, nodeTagName);
+				toW3CNode(doc, nodeX, childNode, nodeTagName, (depth + 1));
 			}
 		}
 	}

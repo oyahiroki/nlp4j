@@ -1,13 +1,10 @@
 package nlp4j.wiki.util;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Stack;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.http.util.TextUtils;
 import org.sweble.wikitext.engine.PageId;
 import org.sweble.wikitext.engine.PageTitle;
 import org.sweble.wikitext.engine.WtEngineImpl;
@@ -140,9 +137,21 @@ public class MediaWikiTextUtils {
 				if (line.startsWith("[[Category:")) {
 					if (line.contains("|")) {
 						String v = line.substring(11, line.indexOf('|'));
+						{
+							int idx = v.indexOf("]]");
+							if (idx != -1) {
+								v = v.substring(0, idx);
+							}
+						}
 						tags.add(v);
 					} else {
 						String v = line.substring(11, line.length() - 2);
+						{
+							int idx = v.indexOf("]]");
+							if (idx != -1) {
+								v = v.substring(0, idx);
+							}
+						}
 						tags.add(v);
 					}
 				}
