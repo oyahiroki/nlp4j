@@ -138,34 +138,43 @@ public class WikiCategory {
 		roopCheck.add(this.title);
 
 		if (this.parents != null) {
-			if (this.parents.size() == 1) {
-				if (this.parents.get(0) == null) {
-					logger.debug("Parent is null: " + this.title + ",index: " + 0);
-					return sb.toString();
-				}
-				String parentTitle = this.parents.get(0).getTitle();
-				if (roopCheck.contains(parentTitle)) {
-					sb.append("/*" + parentTitle);
-					return sb.toString();
-				} else {
-					sb.append("/");
-					sb.append(this.parents.get(0).getRoot(roopCheck));
-				}
-			} //
-			else if (this.parents.size() > 1) {
+//			if (this.parents.size() == 1) {
+//				if (this.parents.get(0) == null) {
+//					logger.debug("Parent is null: " + this.title + ",index: " + 0);
+//					return sb.toString();
+//				}
+//				String parentTitle = this.parents.get(0).getTitle();
+//				// IF(既出)
+//				if (roopCheck.contains(parentTitle)) {
+//					sb.append("/*" + parentTitle);
+//					return sb.toString();
+//				}
+//				// ELSE(既出ではない)
+//				else {
+//					sb.append("/");
+//					sb.append(this.parents.get(0).getRoot(roopCheck));
+//				}
+//			} //
+//			else 
+			if (this.parents.size() >= 0) {
 				sb.append("/");
 				sb.append("[");
+
 				for (int n = 0; n < this.parents.size(); n++) {
 					if (this.parents.get(n) == null) {
 						logger.debug("Parent is null: " + this.title + ",index: " + n);
 						continue;
 					}
 					String parentTitle = this.parents.get(n).getTitle();
+					System.err.println("子:" + this.title + " -> 親:" + parentTitle);
 
+					// IF(既出)
 					if (roopCheck.contains(parentTitle)) {
 						sb.append("/*" + parentTitle);
 						return sb.toString();
-					} else {
+					}
+					// ELSE(既出ではない)
+					else {
 						if (n > 0) {
 							sb.append(",");
 						}

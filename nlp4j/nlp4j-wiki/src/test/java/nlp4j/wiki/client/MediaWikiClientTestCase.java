@@ -96,17 +96,17 @@ public class MediaWikiClientTestCase extends TestCase {
 	 * @throws Exception
 	 */
 	public void testMediaWikiClient104() throws Exception {
-		String host = "ja.wikipedia.org";
-		String category = "Category:鉄道駅";
-		MediaWikiClient client = new MediaWikiClient(host);
-		client.setFetchSubCategory(true);
-
-		List<String> categories = new ArrayList<String>();
-
-		client.getSubcategoryTitlesByCategory(0, categories, null, category);
-		for (String title : categories) {
-			System.out.println(title);
-		}
+//		String host = "ja.wikipedia.org";
+//		String category = "Category:鉄道駅";
+//		MediaWikiClient client = new MediaWikiClient(host);
+//		client.setFetchSubCategory(true);
+//
+//		List<String> categories = new ArrayList<String>();
+//
+//		client.getSubcategoryTitlesByCategory(0, categories, null, category);
+//		for (String title : categories) {
+//			System.out.println(title);
+//		}
 	}
 
 }

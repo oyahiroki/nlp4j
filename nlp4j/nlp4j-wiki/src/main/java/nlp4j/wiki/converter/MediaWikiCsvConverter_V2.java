@@ -38,16 +38,11 @@ public class MediaWikiCsvConverter_V2 {
 		File categoryIndexFile = new File(args[1]);
 		File categoryFile = new File(args[2]);
 		String outFileName = args[3];
+		// 最大件数
 		String maxParam = args[4];
 
 		// Category
-		WikiCategoryIndexReader reader = new WikiCategoryIndexReader(categoryIndexFile, categoryFile);
-
-//		System.err.println(reader.getCategory("漫画"));
-		{
-			String title = "漫画";
-			System.err.println(title + "->" + reader.getCategory(title).getRootCategories());
-		}
+		WikiCategoryIndexReader wikiCategoryIndexReader = new WikiCategoryIndexReader(categoryIndexFile, categoryFile);
 
 		int n = -1;
 		try {
@@ -100,7 +95,8 @@ public class MediaWikiCsvConverter_V2 {
 		header.add("categories_firstall");
 		header.add("templates");
 		header.add("text_length");
-		header.add("text");
+		header.add("text_abstract");
+		header.add("text_all");
 
 //	final	Integer max = 100;
 
@@ -136,33 +132,48 @@ public class MediaWikiCsvConverter_V2 {
 							? String.join(",", page.getCategoryTags()) //
 							: "";
 					String categories2all = "";
-					{
+					{ // 全カテゴリ情報
 						if (page.getCategoryTags() != null) {
 							Set<String> rootCategoriesAll = new LinkedHashSet<>();
 							for (String pageCategoryTag : page.getCategoryTags()) {
-								List<String> pageRootCategories = reader.getCategory(pageCategoryTag)
-										.getRootCategoriesAsList();
-								for (String t : pageRootCategories) {
-									if (rootCategoriesAll.contains(t) == false) {
-										rootCategoriesAll.add(t);
+//								System.err.println(title + " -> Category: " + pageCategoryTag);
+								if (wikiCategoryIndexReader.getCategory(pageCategoryTag) != null
+										&& wikiCategoryIndexReader.getCategory(pageCategoryTag)
+												.getRootCategoriesAsList() != null) {
+									List<String> pageRootCategories = wikiCategoryIndexReader
+											.getCategory(pageCategoryTag).getRootCategoriesAsList();
+									for (String t : pageRootCategories) {
+										if (rootCategoriesAll.contains(t) == false) {
+											rootCategoriesAll.add(t);
+										}
 									}
 								}
 							}
+
+							if (rootCategoriesAll.contains("機械工学") == false) {
+								return; // skip
+							}
+
 							categories2all = String.join(",", new ArrayList<String>(rootCategoriesAll));
 //							System.err.println(categories2all);
 						}
 
 					}
+
 					String categories3firstall = "";
-					{
+					{ // 第一カテゴリをたどったもの
 						if (page.getCategoryTags() != null) {
 							Set<String> rootCategoriesAll = new LinkedHashSet<>();
 							for (String pageCategoryTag : page.getCategoryTags()) {
-								List<String> pageRootCategories = reader.getCategory(pageCategoryTag)
-										.getFirstRootCategoriesAsList();
-								for (String t : pageRootCategories) {
-									if (rootCategoriesAll.contains(t) == false) {
-										rootCategoriesAll.add(t);
+								if (wikiCategoryIndexReader.getCategory(pageCategoryTag) != null
+										&& wikiCategoryIndexReader.getCategory(pageCategoryTag)
+												.getFirstRootCategoriesAsList() != null) {
+									List<String> pageRootCategories = wikiCategoryIndexReader
+											.getCategory(pageCategoryTag).getFirstRootCategoriesAsList();
+									for (String t : pageRootCategories) {
+										if (rootCategoriesAll.contains(t) == false) {
+											rootCategoriesAll.add(t);
+										}
 									}
 								}
 							}
@@ -174,8 +185,9 @@ public class MediaWikiCsvConverter_V2 {
 					String templates = page.getTemplateTags() != null //
 							? String.join(",", page.getTemplateTags()) //
 							: "";
-					String text = page.getRootNodePlainText();
-					String text_length = "" + text.length();
+					String text_abstract = page.getRootNodePlainText();
+					String text_length = "" + text_abstract.length();
+					String text_all = page.getPlainText();
 					try {
 						printer.printRecord( //
 								title, //
@@ -191,7 +203,8 @@ public class MediaWikiCsvConverter_V2 {
 								categories3firstall, //
 								templates, //
 								text_length, //
-								text //
+								text_abstract, //
+								text_all //
 						);
 					} catch (IOException e) {
 						System.err.println("error on: " + count);

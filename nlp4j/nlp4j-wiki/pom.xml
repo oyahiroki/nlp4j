@@ -14,7 +14,7 @@
 	<!-- https://mvnrepository.com/artifact/org.nlp4j/nlp4j-wiki -->
 	<!-- VERSION -->
 	<!-- 0.3.1.0 : Sep 04, 2022 -->
-	<version>0.3.2.0</version>
+	<version>0.3.2.1</version>
 	<description>NLP4J for Wikipedia / Wiktionary</description>
 	<url>https://nlp4j.org/</url>
 	<licenses>
@@ -34,7 +34,7 @@
 		<dependency>
 			<groupId>org.nlp4j</groupId>
 			<artifactId>nlp4j-webcrawler</artifactId>
-			<version>1.1.0.0</version>
+			<version>1.1.1.0</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-compress -->
 		<!-- 1.22 : Oct 31, 2022 -->

@@ -74,7 +74,11 @@ public class MlitCarInfoCrawler extends AbstractWebCrawler implements Crawler {
 	}
 
 	public String getAccessKey() throws IOException {
-		String url = "http://carinf.mlit.go.jp/jidosha/carinf/opn/index.html";
+//		String url = "https://"
+////				+ "carinf."
+//				+ "www." //
+//				+ "mlit.go.jp/jidosha/carinf/opn/index.html";
+		String url = "https://www.mlit.go.jp/jidosha/carinf/rcl/cgi-bin/cis_search.cgi";
 		org.jsoup.nodes.Document document = Jsoup.parse(new URL(url), 1000 * 10); // throws IOException
 
 		String v = document.select("#inputForm").select("input[name=\"nccharset\"]").val();
@@ -131,7 +135,10 @@ public class MlitCarInfoCrawler extends AbstractWebCrawler implements Crawler {
 			// &chkDevCd=
 			// &page=64
 
-			String url = String.format("http://carinf.mlit.go.jp/jidosha/carinf/opn/search.html?" //
+			String url = String.format("https://"
+//					+ "carinf."
+					+ "www." //
+					+ "mlit.go.jp/jidosha/carinf/opn/search.html?" //
 					+ "nccharset=%s" //
 					+ "&selCarTp=1" //
 					+ "&lstCarNo=000" //
