@@ -9,12 +9,11 @@ public class WikiDocumentCrawlerTestCase extends TestCase {
 
 	Class target = WikiDocumentCrawler.class;
 
-	public void test001() throws Exception {
+	public void testCrawlDocument001() throws Exception {
 
-		String wikidumpfile_name = "C:/usr/local/data/wiki/"
-				+ "jawiktionary-20210401-pages-articles-multistream.xml.bz2";
-		String wikiindexfile_name = "C:/usr/local/data/wiki/"
-				+ "jawiktionary-20210401-pages-articles-multistream-index.txt.bz2";
+		String dir = "C:/usr/local/wiki/jawiktionary/20230101/";
+		String wikidumpfile_name = dir + "jawiktionary-20230101-pages-articles-multistream.xml.bz2";
+		String wikiindexfile_name = dir + "jawiktionary-20230101-pages-articles-multistream-index.txt.bz2";
 		String entries = "学校,病院,医者,いぬ,ねこ";
 
 		WikiDocumentCrawler crawler = new WikiDocumentCrawler();
