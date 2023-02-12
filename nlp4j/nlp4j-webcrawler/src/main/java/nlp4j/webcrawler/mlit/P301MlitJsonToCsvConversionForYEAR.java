@@ -12,11 +12,11 @@ import nlp4j.importer.CsvOutImporter;
 /**
  * <pre>
  * JSONファイルを年別のCSVに変換する
- * created_at: 2022-09-30
  * </pre>
  * 
+ * created on 2022-09-30
+ * 
  * @author Hiroki Oya
- *
  */
 public class P301MlitJsonToCsvConversionForYEAR {
 

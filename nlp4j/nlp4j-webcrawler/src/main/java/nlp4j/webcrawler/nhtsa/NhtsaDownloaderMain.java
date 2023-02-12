@@ -13,8 +13,9 @@ import org.apache.logging.log4j.Logger;
 import nlp4j.util.ConsoleUtils;
 
 /**
+ * created on 2021-05-01
+ * 
  * @author Hiroki Oya
- * @created_at 2021-05-01
  * @since 1.3.1.0
  */
 public class NhtsaDownloaderMain {

@@ -1,5 +1,10 @@
 /**
+ * <pre>
+ * Package for crawling CAA
+ * </pre>
+ * 
+ * created on 2021-04-29
+ * 
  * @author Hiroki Oya
- * @created_at 2021-04-29
  */
 package nlp4j.webcrawler.caa;

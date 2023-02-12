@@ -27,8 +27,9 @@ import nlp4j.impl.DefaultDocument;
 import nlp4j.util.DocumentUtil;
 
 /**
+ * created on 2021-04-30
+ * 
  * @author Hiroki Oya
- * @created_at 2021-04-30
  */
 public class CaaParser {
 

@@ -15,12 +15,11 @@ import org.apache.logging.log4j.Logger;
 import nlp4j.util.HttpClient;
 
 /**
- * 
- * Data downloader
- * 
  * <pre>
- * created_at 2021-04-30
+ * Data downloader
  * </pre>
+ * 
+ * created on 2021-04-30
  * 
  * @author Hiroki Oya
  * @since 1.0.0.0
