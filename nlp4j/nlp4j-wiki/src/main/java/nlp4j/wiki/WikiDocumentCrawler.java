@@ -17,8 +17,9 @@ import nlp4j.impl.DefaultDocument;
  * wikiindexfile: File path of wiki index.
  * entries: comma separated entries. For example: "学校,医者,鉄道"
  * 
- * created_at 2021-07-09
  * </pre>
+ * 
+ * created on 2021-07-09
  * 
  * @author Hiroki Oya
  */

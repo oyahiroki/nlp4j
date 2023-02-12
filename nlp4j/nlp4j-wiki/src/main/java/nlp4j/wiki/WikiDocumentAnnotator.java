@@ -17,8 +17,9 @@ import nlp4j.Keyword;
 /**
  * <pre>
  * Document の "wikitext" から必要な部分を切り出して "text" にセットする。
- * created_at 2021-08-10
  * </pre>
+ * 
+ * created on 2021-08-10
  * 
  * @author Hiroki Oya
  */

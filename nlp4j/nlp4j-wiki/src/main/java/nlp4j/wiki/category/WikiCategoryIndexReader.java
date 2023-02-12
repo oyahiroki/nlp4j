@@ -17,12 +17,12 @@ import nlp4j.util.FileUtils;
 /**
  * <pre>
  * カテゴリ情報を読み込む
+ * Read wiki categories index file
  * </pre>
  * 
- * created_at: 2023-02-01
+ * created on 2023-02-01
  * 
  * @author Hiroki Oya
- *
  */
 public class WikiCategoryIndexReader {
 
@@ -87,7 +87,7 @@ public class WikiCategoryIndexReader {
 				if (idx == -1) {
 					throw new RuntimeException("" + s);
 				}
-				String categoryId = s.substring(0, idx);
+//				String categoryId = s.substring(0, idx);
 				String s2 = s.substring(idx + 1);
 				int idx2 = s2.indexOf("->");
 				// 親あり

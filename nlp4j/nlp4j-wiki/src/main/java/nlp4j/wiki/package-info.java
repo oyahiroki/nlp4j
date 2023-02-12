@@ -1,8 +1,9 @@
 /**
  * <pre>
  * Package for wiki
- * created_at 2021-06-24
  * </pre>
+ * 
+ * created on 2021-06-24
  * 
  * @author Hiroki Oya
  */

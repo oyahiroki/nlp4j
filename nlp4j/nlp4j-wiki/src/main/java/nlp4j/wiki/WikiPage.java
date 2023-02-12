@@ -10,8 +10,9 @@ import nlp4j.wiki.util.MediaWikiTextUtils;
  * <pre>
  * Wiki Page Entry
  * 
- * created_at 2021-06-25
  * </pre>
+ * 
+ * created on 2021-06-25
  * 
  * @author Hiroki Oya
  */

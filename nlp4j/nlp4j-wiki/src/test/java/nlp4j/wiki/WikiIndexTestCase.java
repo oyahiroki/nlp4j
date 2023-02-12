@@ -6,8 +6,10 @@ import junit.framework.TestCase;
 
 /**
  * <pre>
- * created_at 2021-06-25
+ * Test cases for nlp4j.wiki.WikiIndex
  * </pre>
+ * 
+ * created on 2021-06-25
  * 
  * @author Hiroki Oya
  */

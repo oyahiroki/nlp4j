@@ -8,8 +8,9 @@ import java.util.List;
  * <pre>
  * Wiki Index
  * Wiki のインデックス情報
- * created_at 2021-06-25
  * </pre>
+ * 
+ * created on 2021-06-25
  * 
  * @author Hiroki Oya
  */

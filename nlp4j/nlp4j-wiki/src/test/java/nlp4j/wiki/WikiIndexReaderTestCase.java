@@ -7,8 +7,9 @@ import junit.framework.TestCase;
 
 /**
  * <pre>
- * created_at 2021-06-25
  * </pre>
+ * 
+ * created on 2021-06-25
  * 
  * @author Hiroki Oya
  */
@@ -150,7 +151,7 @@ public class WikiIndexReaderTestCase extends TestCase {
 	}
 
 	/**
-	 * created_at : 2022-09-04
+	 * created on 2022-09-04
 	 * 
 	 * @throws Exception
 	 */

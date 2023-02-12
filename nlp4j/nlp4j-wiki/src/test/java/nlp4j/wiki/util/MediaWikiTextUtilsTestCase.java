@@ -122,7 +122,7 @@ public class MediaWikiTextUtilsTestCase extends TestCase {
 	}
 
 	/**
-	 * created_at: 2022-09-13
+	 * created on 2022-09-13
 	 * 
 	 * @throws IOException
 	 */
@@ -140,7 +140,7 @@ public class MediaWikiTextUtilsTestCase extends TestCase {
 	}
 
 	/**
-	 * created_at: 2022-09-13
+	 * created on 2022-09-13
 	 * 
 	 * @throws IOException
 	 */
@@ -170,7 +170,7 @@ public class MediaWikiTextUtilsTestCase extends TestCase {
 	}
 
 	/**
-	 * created_at: 2022-09-13
+	 * created on 2022-09-13
 	 * 
 	 * @throws IOException
 	 */
@@ -260,7 +260,7 @@ public class MediaWikiTextUtilsTestCase extends TestCase {
 	}
 
 	/**
-	 * created_at : 2023-01-18
+	 * created on 2023-01-18
 	 * 
 	 * @throws IOException
 	 */

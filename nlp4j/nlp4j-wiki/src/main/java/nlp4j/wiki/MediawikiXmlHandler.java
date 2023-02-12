@@ -10,8 +10,9 @@ import nlp4j.xml.AbstractXmlHandler;
 /**
  * <pre>
  * XML Handler for Media Wiki
- * created_at 2021-06-25
  * </pre>
+ * 
+ * created on 2021-06-25
  * 
  * @author Hiroki Oya
  * @deprecated

@@ -25,7 +25,6 @@ import nlp4j.crawler.Crawler;
  * wikidumpfile: File path of wiki dump.
  * wikiindexfile: File path of wiki index.
  * 
- * created_at 2021-08-19
  * </pre>
  * 
  * <pre>
@@ -35,6 +34,8 @@ import nlp4j.crawler.Crawler;
  *     "wikiplaintext": (String) Wiki Plain text
  *     "wikihtml": (String) Wiki HTML format text
  * </pre>
+ * 
+ * created on 2021-08-19
  * 
  * @author Hiroki Oya
  * @see nlp4j.wiki.WikiIndexDocument

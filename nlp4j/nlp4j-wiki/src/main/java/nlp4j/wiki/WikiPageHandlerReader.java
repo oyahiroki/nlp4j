@@ -3,11 +3,11 @@ package nlp4j.wiki;
 /**
  * <pre>
  * Simple Wiki page reader
- * created_at: 2022-12-09
  * </pre>
  * 
+ * created on 2022-12-09
+ * 
  * @author Hiroki Oya
- *
  */
 public class WikiPageHandlerReader implements WikiPageHandler {
 
