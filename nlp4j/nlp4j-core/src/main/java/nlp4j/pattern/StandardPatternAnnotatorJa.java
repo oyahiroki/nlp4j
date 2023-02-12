@@ -5,7 +5,7 @@ import nlp4j.Document;
 import nlp4j.DocumentAnnotator;
 
 /**
- * created_at: 2022-05-12
+ * created on 2022-05-12
  * 
  * @author Hiroki Oya
  *

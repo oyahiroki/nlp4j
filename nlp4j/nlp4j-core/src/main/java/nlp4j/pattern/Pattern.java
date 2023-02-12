@@ -10,8 +10,9 @@ import nlp4j.Keyword;
 import nlp4j.KeywordWithDependency;
 
 /**
+ * created on 2021-05-03
+ * 
  * @author Hiroki Oya
- * @created_at 2021-05-03
  * @since 1.3.1.0
  */
 public class Pattern implements Cloneable {

@@ -5,12 +5,12 @@ package nlp4j.pattern;
 
 import nlp4j.Keyword;
 import nlp4j.KeywordWithDependency;
-import nlp4j.impl.DefaultKeyword;
 import nlp4j.impl.DefaultKeywordWithDependency;
 
 /**
+ * created on 2021-05-03
+ * 
  * @author Hiroki Oya
- * @created_at 2021-05-03
  */
 public class KeywordRule extends DefaultKeywordWithDependency {
 

@@ -20,7 +20,7 @@ import nlp4j.Keyword;
 import nlp4j.KeywordWithDependency;
 
 /**
- * created_at 2021-05-05
+ * created on 2021-05-05
  * 
  * @author Hiroki Oya
  */

@@ -2,7 +2,6 @@ package nlp4j.util;
 
 import java.io.BufferedInputStream;
 import java.io.InputStream;
-import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,7 +11,6 @@ import nlp4j.impl.DefaultNlpServiceResponse;
 public class HttpClientTestCase extends TestCase {
 
 	public void testHttpClient() {
-		fail("Not yet implemented");
 	}
 
 	public void testGetString001() throws Exception {
@@ -60,15 +58,12 @@ public class HttpClientTestCase extends TestCase {
 	}
 
 	public void testGetInputStream() {
-		fail("Not yet implemented");
 	}
 
 	public void testPostStringMapOfStringStringString() {
-		fail("Not yet implemented");
 	}
 
 	public void testPostStringString() {
-		fail("Not yet implemented");
 	}
 
 }

@@ -1,8 +1,9 @@
 package nlp4j.util;
 
 /**
+ * created on 2021-08-06
+ * 
  * @author Hiroki Oya
- * @created_at 2021-08-06
  */
 public class RegexUtils {
 

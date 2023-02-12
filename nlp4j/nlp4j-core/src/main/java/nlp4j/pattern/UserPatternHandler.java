@@ -30,8 +30,9 @@ import org.xml.sax.helpers.DefaultHandler;
  * &lt;/patterns&gt;
  * </pre>
  * 
+ * created on 2021-05-03
+ * 
  * @author Hiroki Oya
- * @created_at 2021-05-03
  * @since 1.3.1.0
  */
 public class UserPatternHandler extends DefaultHandler {

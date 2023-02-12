@@ -98,10 +98,15 @@ public interface Document {
 	List<Keyword> getKeywords();
 
 	/**
+	 * <pre>
+	 * Return keywords as specified class of keyword
+	 * </pre>
+	 * 
+	 * created on 2021-05-06
+	 * 
 	 * @param <T>
 	 * @param classOfT
 	 * @return Keywords
-	 * @created_at 2021-05-06
 	 * @since 1.3.1.0
 	 */
 	<T extends Keyword> List<T> getKeywords(Class<T> classOfT);

@@ -5,8 +5,9 @@ import java.util.List;
 
 /**
  * <pre>
- * created_at : 2022-01-16
  * </pre>
+ * 
+ * created on 2022-01-16
  * 
  * @author Hiroki Oya
  */
@@ -14,8 +15,9 @@ public class FacetUtils {
 
 	/**
 	 * <pre>
-	 * created_at : 2021-01-16
 	 * </pre>
+	 * 
+	 * created on 2021-01-16
 	 * 
 	 * @param path
 	 * @return

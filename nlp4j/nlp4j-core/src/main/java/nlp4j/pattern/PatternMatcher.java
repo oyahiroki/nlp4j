@@ -11,13 +11,13 @@ import org.apache.logging.log4j.Logger;
 import nlp4j.Keyword;
 import nlp4j.KeywordWithDependency;
 import nlp4j.impl.DefaultKeyword;
-import nlp4j.impl.DefaultKeywordWithDependency;
 import nlp4j.node.Node;
 import nlp4j.node.NodeKeyword;
 
 /**
+ * created on 2021-05-04
+ * 
  * @author Hiroki Oya
- * @created_at 2021-05-04
  * @since 1.3.1.0
  */
 public class PatternMatcher {

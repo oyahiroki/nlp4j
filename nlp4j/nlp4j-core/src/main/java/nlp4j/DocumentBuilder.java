@@ -7,8 +7,10 @@ import nlp4j.impl.DefaultKeyword;
 
 /**
  * <pre>
- * created_at 2021-11-16
+ * Document builder class
  * </pre>
+ * 
+ * created on 2021-11-16
  * 
  * @author Hiroki Oya
  * @since 1.3.2

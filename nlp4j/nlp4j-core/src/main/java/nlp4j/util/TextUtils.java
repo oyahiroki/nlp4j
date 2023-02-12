@@ -4,12 +4,12 @@ import java.text.Normalizer;
 
 /**
  * <pre>
- * String converter Utils 
- * created_at: 2022-09-09
+ * String converter Utils
  * </pre>
  * 
+ * created on 2022-09-09
+ * 
  * @author Hiroki Oya
- *
  */
 public class TextUtils {
 

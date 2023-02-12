@@ -44,7 +44,7 @@ public class DocumentUtil {
 	}
 
 	/**
-	 * created_at: 2022-11-19
+	 * created on 2022-11-19
 	 * 
 	 * @param doc
 	 * @param lex

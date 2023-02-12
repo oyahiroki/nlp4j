@@ -292,7 +292,7 @@ public class SimpleDocumentIndex extends AbstractDocumentIndexer implements Docu
 	}
 
 	/**
-	 * created_at: 2022-11-19
+	 * created on: 2022-11-19
 	 * 
 	 * @param kwd Keyword
 	 * @return Document IDs that contains Keyword

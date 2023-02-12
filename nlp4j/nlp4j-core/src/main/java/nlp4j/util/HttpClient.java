@@ -53,7 +53,7 @@ public class HttpClient {
 	}
 
 	/**
-	 * created_at 2020-04-29
+	 * created on 2020-04-29
 	 * 
 	 * @param url APIのURL
 	 * @return NLPの結果

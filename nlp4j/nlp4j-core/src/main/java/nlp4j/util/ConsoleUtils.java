@@ -6,11 +6,14 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * <pre>
  * Utilities for Command Line Interface
+ * </pre>
+ * 
+ * created on 2021-05-01
  * 
  * @author Hiroki Oya
  * @since 1.3.1.0
- * @created_at 2021-05-01
  */
 public class ConsoleUtils {
 
@@ -23,13 +26,16 @@ public class ConsoleUtils {
 	}
 
 	/**
+	 * <pre>
 	 * input : ["-dir","/usr/local/nlp4j","-message","hello"]<br>
 	 * output : {"-dir":["/usr/local/nlp4j"],"-message":["hello"]}<br>
+	 * </pre>
+	 * 
+	 * created on 2021-05-01
 	 * 
 	 * @param args input
 	 * @return Map of parameters
 	 * @since 1.3.1.0
-	 * @created_at 2021-05-01
 	 */
 	static public Map<String, List<String>> parseParams(String[] args) {
 		Map<String, List<String>> map = new HashMap<String, List<String>>();

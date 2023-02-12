@@ -1,7 +1,7 @@
 package nlp4j.util;
 
 /**
- * created_at: 2022-12-31
+ * created on 2022-12-31
  * 
  * @author Hiroki Oya
  * 

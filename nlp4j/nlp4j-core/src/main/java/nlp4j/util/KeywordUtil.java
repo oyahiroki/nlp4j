@@ -254,7 +254,7 @@ public class KeywordUtil {
 	}
 
 	/**
-	 * created_at: 2022-09-14
+	 * created on 2022-09-14
 	 */
 	public static List<List<Keyword>> toListList(KeywordWithDependency kw) {
 		List<List<Keyword>> listList = new ArrayList<>();
@@ -271,14 +271,14 @@ public class KeywordUtil {
 	}
 
 	/**
-	 * created_at: 2022-09-14
+	 * created on 2022-09-14
 	 */
 	public static List<Keyword> toList(KeywordWithDependency kd) {
 		return toList(kd, new ArrayList<Keyword>());
 	}
 
 	/**
-	 * created_at: 2022-09-14
+	 * created on 2022-09-14
 	 */
 	public static List<Keyword> toList(KeywordWithDependency kd, List<Keyword> arrayList) {
 		arrayList.add(kd);
@@ -290,14 +290,14 @@ public class KeywordUtil {
 	}
 
 	/**
-	 * created_at: 2022-09-14
+	 * created on 2022-09-14
 	 */
 	public static String toStrString(List<Keyword> kwds) {
 		return String.join("", toStrList(kwds));
 	}
 
 	/**
-	 * created_at: 2022-09-14
+	 * created on 2022-09-14
 	 */
 	public static boolean containsLex(List<Keyword> list, String title) {
 		if (list == null || title == null) {

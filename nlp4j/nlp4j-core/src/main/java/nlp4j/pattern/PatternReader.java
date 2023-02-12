@@ -13,7 +13,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * created_at: 2021-05-03
+ * created on 2021-05-03
  * 
  * @author Hiroki Oya
  * @since 1.3.1.0
@@ -45,7 +45,7 @@ public class PatternReader {
 	}
 
 	/**
-	 * created_at: 2022-05-12
+	 * created on 2022-05-12
 	 * 
 	 * @param is : Input Stream of Pattern XML
 	 * @return null on Error

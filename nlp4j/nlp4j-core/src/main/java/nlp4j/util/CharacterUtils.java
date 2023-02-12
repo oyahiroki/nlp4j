@@ -3,8 +3,9 @@ package nlp4j.util;
 import java.lang.Character.UnicodeBlock;
 
 /**
+ * created on 2021-08-05
+ * 
  * @author Hiroki Oya
- * @created_at 2021-08-05
  * @since 1.3.1.2
  */
 public class CharacterUtils {

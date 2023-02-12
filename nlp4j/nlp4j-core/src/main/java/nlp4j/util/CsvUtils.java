@@ -14,10 +14,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * created_at: 2022-12-31
+ * created on: 2022-12-31
  * 
  * @author Hiroki Oya
- *
  */
 public class CsvUtils {
 

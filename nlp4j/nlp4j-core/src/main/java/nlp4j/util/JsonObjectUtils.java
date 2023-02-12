@@ -11,7 +11,7 @@ import com.google.gson.JsonArray;
 public class JsonObjectUtils {
 
 	/**
-	 * created_at : 2023-01-19
+	 * created on 2023-01-19
 	 * 
 	 * @param list
 	 * @return

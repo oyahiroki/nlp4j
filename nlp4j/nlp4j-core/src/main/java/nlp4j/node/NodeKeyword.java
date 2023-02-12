@@ -9,8 +9,9 @@ import nlp4j.KeywordWithDependency;
 import nlp4j.pattern.KeywordRule;
 
 /**
+ * created on 2021-05-03
+ * 
  * @author Hiroki Oya
- * @created_at 2021-05-03
  * @param <T>
  */
 public class NodeKeyword<T extends KeywordWithDependency> extends Node<Object> {
@@ -32,7 +33,7 @@ public class NodeKeyword<T extends KeywordWithDependency> extends Node<Object> {
 
 	@Override
 	public boolean match(Node n) {
-		
+
 		if (this.value == null) {
 			return false;
 		}
@@ -43,13 +44,12 @@ public class NodeKeyword<T extends KeywordWithDependency> extends Node<Object> {
 		T v2 = (T) n.getValue();
 
 		logger.debug("v2 instanceof KeywordRule: " + (v2 instanceof KeywordRule));
-		
+
 		boolean b = v1.match(v2);
 		return b;
 
 //		return v2.match(v1);
-		
-		
+
 	}
 
 }

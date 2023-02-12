@@ -1,8 +1,9 @@
 package nlp4j.util;
 
 /**
+ * created on 2021-07-27
+ * 
  * @author Hiroki Oya
- * @created_at 2021-07-27
  * @since 1.3.2.0
  */
 public class EnvUtil {

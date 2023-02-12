@@ -9,11 +9,11 @@ import java.util.Set;
 import nlp4j.Document;
 import nlp4j.Keyword;
 import nlp4j.impl.DefaultDocument;
-import nlp4j.impl.DefaultKeyword;
 
 /**
+ * created on 2021-07-13
+ * 
  * @author Hiroki Oya
- * @created_at 2021-07-13
  * @since 1.3.2
  */
 public class DocumentCounter {

@@ -5,7 +5,7 @@ import java.nio.charset.CharsetEncoder;
 import java.util.ArrayList;
 
 /**
- * created_at 2021-07-24
+ * created on 2021-07-24
  * 
  * @author Hiroki Oya
  * @since 1.3.2.0

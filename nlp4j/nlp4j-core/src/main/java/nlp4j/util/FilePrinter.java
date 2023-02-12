@@ -10,7 +10,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * created_at: 2022-07-23
+ * created on 2022-07-23
  * 
  * @author Hiroki Oya
  * @since 1.3.7

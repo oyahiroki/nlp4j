@@ -3,8 +3,9 @@ package nlp4j.counter;
 import java.util.ArrayList;
 
 /**
+ * created on 2021-07-13
+ * 
  * @author Hiroki Oya
- * @created_at 2021-07-13
  * @since 1.3.2
  */
 public class DocumentCounterBuilder {

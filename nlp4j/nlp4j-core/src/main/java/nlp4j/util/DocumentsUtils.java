@@ -14,7 +14,7 @@ import org.apache.commons.csv.CSVPrinter;
 import nlp4j.Document;
 
 /**
- * created_at: 2022-12-03
+ * created on 2022-12-03
  * 
  * @author Hiroki Oya
  * @since 1.3.7.4

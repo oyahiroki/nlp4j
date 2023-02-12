@@ -7,9 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- * <pre>
- * created_at : 2021-07-13
- * </pre>
+ * created on : 2021-07-13
  * 
  * @author Hiroki Oya
  * @param <T> Class for counting

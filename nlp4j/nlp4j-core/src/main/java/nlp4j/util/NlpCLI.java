@@ -8,8 +8,9 @@ import nlp4j.KeywordWithDependency;
 import nlp4j.impl.DefaultDocument;
 
 /**
+ * created on 2021-05-07
+ * 
  * @author Hiroki Oya
- * @created_at 2021-05-07
  * @since 1.3.1.0
  */
 public class NlpCLI {

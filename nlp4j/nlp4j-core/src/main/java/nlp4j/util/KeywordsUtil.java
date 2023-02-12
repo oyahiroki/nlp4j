@@ -7,10 +7,9 @@ import java.util.List;
 import nlp4j.Keyword;
 
 /**
- * created_at: 2022-11-19
+ * created on 2022-11-19
  * 
  * @author Hiroki Oya
- *
  */
 public class KeywordsUtil {
 

@@ -1,8 +1,9 @@
 package nlp4j.counter;
 
 /**
+ * created on 2021-07-13
+ * 
  * @author Hiroki Oya
- * @created_at 2021-07-13
  * @param <T> class for count
  */
 public class Count<T> {

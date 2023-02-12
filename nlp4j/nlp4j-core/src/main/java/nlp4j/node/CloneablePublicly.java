@@ -1,8 +1,9 @@
 package nlp4j.node;
 
 /**
+ * created on 2021-05-04
+ * 
  * @author Hiroki Oya
- * @created_at 2021-05-04
  */
 interface CloneablePublicly<T> extends Cloneable {
 	T clone();

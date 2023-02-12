@@ -77,8 +77,9 @@ public class DateUtils {
 
 	/**
 	 * <pre>
-	 * created_at: 2021-01-22
 	 * </pre>
+	 * 
+	 * created on 2021-01-22
 	 * 
 	 * @param min
 	 * @param max
@@ -114,8 +115,9 @@ public class DateUtils {
 
 	/**
 	 * <pre>
-	 * created_at: 2021-01-22
 	 * </pre>
+	 * 
+	 * created on 2021-01-22
 	 * 
 	 * @param min
 	 * @param max
@@ -128,8 +130,9 @@ public class DateUtils {
 
 	/**
 	 * <pre>
-	 * created_at: 2021-01-22
 	 * </pre>
+	 * 
+	 * created on 2021-01-22
 	 * 
 	 * @param min
 	 * @param max
@@ -142,8 +145,9 @@ public class DateUtils {
 
 	/**
 	 * <pre>
-	 * created_at : 2021-01-19
 	 * </pre>
+	 * 
+	 * created on 2021-01-19
 	 * 
 	 * @param format
 	 * @return

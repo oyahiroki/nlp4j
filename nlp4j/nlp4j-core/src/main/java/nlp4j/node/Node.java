@@ -8,9 +8,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
+ * created on 2021-01-17
+ * 
  * @author Hiroki Oya
  * @param <T> Value of this Node
- * @created_at 2021-01-17
  * @since 1.3.1.0
  */
 public class Node<T> implements CloneablePublicly<Node<T>> {
