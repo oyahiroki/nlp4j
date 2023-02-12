@@ -14,6 +14,7 @@ import org.w3c.dom.Node;
 
 public class NodeMatcher {
 
+	@SuppressWarnings("unused")
 	static private final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
 	public static List<Node> getHitNodes(Node target, Node condition) {
