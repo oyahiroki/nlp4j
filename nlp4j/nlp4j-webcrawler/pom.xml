@@ -8,6 +8,8 @@
 	<artifactId>nlp4j-webcrawler</artifactId>
 	<!-- 1.0.0.0 : 2020-05-17 -->
 	<!-- 1.1.0.0 : 2022-04-29 -->
+	<!-- 1.1.1.0 : 2023-02-01 -->
+	<!-- https://mvnrepository.com/artifact/org.nlp4j/nlp4j-webcrawler -->
 	<version>1.1.1.0</version>
 	<dependencies>
 		<dependency>
