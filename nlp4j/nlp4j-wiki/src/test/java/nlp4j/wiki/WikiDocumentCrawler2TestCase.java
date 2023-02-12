@@ -1,5 +1,6 @@
 package nlp4j.wiki;
 
+import java.io.File;
 import java.util.List;
 
 import junit.framework.TestCase;
@@ -15,13 +16,17 @@ public class WikiDocumentCrawler2TestCase extends TestCase {
 
 	Class target = WikiDocumentCrawler2.class;
 
+	String dir = "/usr/local/wiki/jawiktionary/20230101/";
+
+	String wikidumpfile_name = dir + "jawiktionary-20230101-pages-articles-multistream.xml.bz2";
+	String wikiindexfile_name = dir + "jawiktionary-20230101-pages-articles-multistream-index.txt.bz2";
+
 	public void testCrawlDocuments001() throws Exception {
 
-		String wikidumpfile_name = "C:/usr/local/data/wiki/"
-				+ "jawiktionary-20210401-pages-articles-multistream.xml.bz2";
-		String wikiindexfile_name = "C:/usr/local/data/wiki/"
-				+ "jawiktionary-20210401-pages-articles-multistream-index.txt.bz2";
 //		String entries = "学校,病院,医者,いぬ,ねこ";
+
+		System.err.println((new File(wikidumpfile_name)).exists());
+		System.err.println((new File(wikiindexfile_name)).exists());
 
 		WikiDocumentCrawler2 crawler = new WikiDocumentCrawler2();
 		{
@@ -45,6 +50,9 @@ public class WikiDocumentCrawler2TestCase extends TestCase {
 		}
 
 		List<Document> docs = crawler.crawlDocuments();
+
+		assertNotNull(docs);
+		assertNotNull(docs.get(0));
 
 		System.err.println(docs.get(0) instanceof nlp4j.wiki.WikiIndexDocument);
 
@@ -79,10 +87,6 @@ public class WikiDocumentCrawler2TestCase extends TestCase {
 
 	public void testCrawlDocuments002() throws Exception {
 
-		String wikidumpfile_name = "C:/usr/local/data/wiki/"
-				+ "jawiktionary-20210401-pages-articles-multistream.xml.bz2";
-		String wikiindexfile_name = "C:/usr/local/data/wiki/"
-				+ "jawiktionary-20210401-pages-articles-multistream-index.txt.bz2";
 		String entries = "履修,日本";
 
 		WikiDocumentCrawler2 crawler = new WikiDocumentCrawler2();
@@ -138,10 +142,6 @@ public class WikiDocumentCrawler2TestCase extends TestCase {
 
 	public void testCrawlDocuments003furigana() throws Exception {
 
-		String wikidumpfile_name = "C:/usr/local/data/wiki/"
-				+ "jawiktionary-20210401-pages-articles-multistream.xml.bz2";
-		String wikiindexfile_name = "C:/usr/local/data/wiki/"
-				+ "jawiktionary-20210401-pages-articles-multistream-index.txt.bz2";
 		// String entries = "学校,病院,医者,いぬ,ねこ";
 
 		WikiDocumentCrawler2 crawler = new WikiDocumentCrawler2();
@@ -207,10 +207,6 @@ public class WikiDocumentCrawler2TestCase extends TestCase {
 
 	public void testCrawlDocuments004Rel() throws Exception {
 
-		String wikidumpfile_name = "C:/usr/local/data/wiki/"
-				+ "jawiktionary-20210401-pages-articles-multistream.xml.bz2";
-		String wikiindexfile_name = "C:/usr/local/data/wiki/"
-				+ "jawiktionary-20210401-pages-articles-multistream-index.txt.bz2";
 		String entries = "学校";
 
 		WikiDocumentCrawler2 crawler = new WikiDocumentCrawler2();

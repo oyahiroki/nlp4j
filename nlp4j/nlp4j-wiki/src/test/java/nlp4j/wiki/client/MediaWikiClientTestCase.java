@@ -78,7 +78,8 @@ public class MediaWikiClientTestCase extends TestCase {
 	 */
 	public void testMediaWikiClient103() throws Exception {
 		String host = "ja.wikipedia.org";
-		String category = "Category:自動車部品";
+//		String category = "Category:自動車部品";
+		String category = "Category:自動車ブレーキメーカー";
 		MediaWikiClient client = new MediaWikiClient(host);
 		client.setFetchSubCategory(true);
 
