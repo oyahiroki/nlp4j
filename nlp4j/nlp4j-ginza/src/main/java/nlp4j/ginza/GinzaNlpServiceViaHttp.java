@@ -23,6 +23,7 @@ import nlp4j.KeywordWithDependency;
 import nlp4j.NlpService;
 import nlp4j.impl.DefaultNlpServiceResponse;
 import nlp4j.util.HttpClient;
+import nlp4j.util.JsonUtils;
 
 /**
  * <pre>
@@ -56,10 +57,12 @@ public class GinzaNlpServiceViaHttp implements NlpService {
 		HttpClient client = new HttpClient();
 		DefaultNlpServiceResponse res = client.get(this.endPoint, params);
 
-		logger.debug(res);
-		logger.debug(res.getOriginalResponseBody());
+		if (logger.isDebugEnabled()) {
+			logger.debug(res.getOriginalResponseBody());
+		}
 
-		System.err.println(res.getOriginalResponseBody());
+//		JsonArray arr = (new Gson()).fromJson(res.getOriginalResponseBody(), JsonArray.class);
+//		System.err.println(JsonUtils.prettyPrint(arr));
 
 		GinzaJsonResponseParser parser = new GinzaJsonResponseParser();
 
