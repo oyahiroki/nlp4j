@@ -24,13 +24,14 @@ public class MediaWikiCsvConverter_V2 {
 
 		// カテゴリの親情報も出力する
 
-		if (args == null || args.length != 5) {
+		if (args == null || args.length != 6) {
 			System.err.println("Usage:");
 			System.err.println("args[0]: Input file path of Wikipedia/Wiktionary dump file in bz2 format");
 			System.err.println("args[1]: Category Index File");
 			System.err.println("args[2]: Category file");
 			System.err.println("args[3]: Output file path of CSV");
 			System.err.println("args[4]: Max count of process");
+			System.err.println("args[5]: Category filter: set \"null\" when not needed");
 			return;
 		}
 
@@ -40,6 +41,8 @@ public class MediaWikiCsvConverter_V2 {
 		String outFileName = args[3];
 		// 最大件数
 		String maxParam = args[4];
+		// カテゴリを指定する
+		String categoryFilter = args[5].equals("null") ? null : args[5];
 
 		// Category
 		WikiCategoryIndexReader wikiCategoryIndexReader = new WikiCategoryIndexReader(categoryIndexFile, categoryFile);
@@ -74,8 +77,7 @@ public class MediaWikiCsvConverter_V2 {
 //		File outFile = new File("R:/" + "jawiki-20221101-pages-articles-multistream.csv");
 		File outFile = new File(outFileName);
 		if (outFile.exists()) {
-			System.err.println("Output file already exists: " + outFile.getAbsolutePath());
-			return;
+			throw new IOException("Output file already exists: " + outFile.getAbsolutePath());
 		}
 
 		out = new OutputStreamWriter(new FileOutputStream(outFile, false), "UTF-8");
@@ -100,13 +102,12 @@ public class MediaWikiCsvConverter_V2 {
 
 //	final	Integer max = 100;
 
-		try (WikiDumpReader dumpReader = new WikiDumpReader(dumpFile);
-
+		try ( //
+				WikiDumpReader dumpReader = new WikiDumpReader(dumpFile);
 				CSVPrinter printer = new CSVPrinter( //
 						out, //
 						CSVFormat.RFC4180.builder().setHeader(header.toArray(new String[0])).build() //
-				);
-
+				); //
 		) {
 			dumpReader.read(new WikiPageHandler() {
 				int count = 0;
@@ -119,6 +120,13 @@ public class MediaWikiCsvConverter_V2 {
 					}
 
 					count++;
+					if (count % 1000 == 0) {
+						System.err.println(count);
+					}
+
+					if (max != null && count > max) {
+						throw new BreakException();
+					}
 
 					String namespace = page.getNamespace();
 					String id = page.getId();
@@ -150,7 +158,7 @@ public class MediaWikiCsvConverter_V2 {
 								}
 							}
 
-							if (rootCategoriesAll.contains("機械工学") == false) {
+							if (categoryFilter != null && rootCategoriesAll.contains(categoryFilter) == false) {
 								return; // skip
 							}
 
@@ -209,14 +217,6 @@ public class MediaWikiCsvConverter_V2 {
 					} catch (IOException e) {
 						System.err.println("error on: " + count);
 						e.printStackTrace();
-						throw new BreakException();
-					}
-
-					if (count % 1000 == 0) {
-						System.err.println(count);
-					}
-
-					if (max != null && count > max) {
 						throw new BreakException();
 					}
 

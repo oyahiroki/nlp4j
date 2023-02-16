@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.xml.parsers.SAXParser;
@@ -21,6 +22,7 @@ import nlp4j.DefaultEnv;
 import nlp4j.Keyword;
 import nlp4j.KeywordWithDependency;
 import nlp4j.NlpService;
+import nlp4j.NlpServiceResponse;
 import nlp4j.impl.DefaultNlpServiceResponse;
 import nlp4j.util.HttpClient;
 import nlp4j.util.JsonUtils;
@@ -45,7 +47,7 @@ public class GinzaNlpServiceViaHttp implements NlpService {
 		this.endPoint = endPoint;
 	}
 
-	public DefaultNlpServiceResponse process(String text) throws IOException {
+	public NlpServiceResponse process(String text) throws IOException {
 
 		if (text == null || text.isEmpty() || text.trim().isEmpty()) {
 			return null;
@@ -55,9 +57,15 @@ public class GinzaNlpServiceViaHttp implements NlpService {
 		params.put("text", text);
 
 		HttpClient client = new HttpClient();
-		DefaultNlpServiceResponse res = client.get(this.endPoint, params);
+//		DefaultNlpServiceResponse res = client.get(this.endPoint, params);
+
+		JsonObject jsonObj = new JsonObject();
+		jsonObj.addProperty("text", text);
+
+		NlpServiceResponse res = client.post(this.endPoint, jsonObj.toString());
 
 		if (logger.isDebugEnabled()) {
+			logger.debug("debug is enabled");
 			logger.debug(res.getOriginalResponseBody());
 		}
 
@@ -66,7 +74,8 @@ public class GinzaNlpServiceViaHttp implements NlpService {
 
 		GinzaJsonResponseParser parser = new GinzaJsonResponseParser();
 
-		parser.parseResponse(res.getOriginalResponseBody());
+		List<Keyword> kwds = parser.parseResponse(res.getOriginalResponseBody());
+		res.setKeywords(kwds);
 
 //		try {
 //			SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();

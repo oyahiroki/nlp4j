@@ -36,4 +36,10 @@ public interface NlpServiceResponse extends Response {
 	 */
 	public List<Keyword> getKeywords();
 
+	/**
+	 * @param kwds Keywords
+	 * @since 1.3.7.6 (2023-02-16)
+	 */
+	public void setKeywords(List<Keyword> kwds);
+
 }

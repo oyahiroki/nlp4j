@@ -166,7 +166,9 @@ public class WikiCategory {
 						continue;
 					}
 					String parentTitle = this.parents.get(n).getTitle();
-					System.err.println("子:" + this.title + " -> 親:" + parentTitle);
+					if (logger.isDebugEnabled()) {
+						logger.debug("子:" + this.title + " -> 親:" + parentTitle);
+					}
 
 					// IF(既出)
 					if (roopCheck.contains(parentTitle)) {

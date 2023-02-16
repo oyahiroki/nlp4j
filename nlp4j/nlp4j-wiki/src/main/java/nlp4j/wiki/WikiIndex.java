@@ -65,6 +65,9 @@ public class WikiIndex {
 		}
 	}
 
+	/**
+	 * @return List of wiki index items
+	 */
 	public List<WikiIndexItem> getWikiIndexItems() {
 		return wikiIndexItems;
 	}

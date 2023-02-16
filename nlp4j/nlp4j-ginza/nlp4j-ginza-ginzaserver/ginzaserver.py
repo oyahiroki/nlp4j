@@ -15,34 +15,15 @@ import threading
 
 class GinzaHttpRequestHandler(BaseHTTPRequestHandler):
     def __init__(self, request, client_address, server):
-        print("init request handler")
+#        print("init request handler")
 #        self.nlp = spacy.load("ja_ginza")
         BaseHTTPRequestHandler.__init__(self,request,client_address,server)
     
-    def do_GET(self):
-
-        query = urlparse(self.path).query
-        print("query=" + query)
-
-        qs_d = urllib.parse.parse_qs(query)
-        print(qs_d)
-        print(hasattr(qs_d,"text"))
-        print("text" in qs_d)
-        # check parameter
-        if ("text" in qs_d) == False:
-            print("hi2")
-            self.send_response(404)
-            self.end_headers()
-            return
-        
-        text = qs_d["text"][0]
-        # decode requested value
-        text = urllib.parse.unquote(text)
-
+    def myProcess(self, text):
+#        print("hi")
         try:
             doc = self.nlp(text)
             res = []
-
             for sent in doc.sents:
                 resx = {}
                 res.append(resx)
@@ -70,16 +51,6 @@ class GinzaHttpRequestHandler(BaseHTTPRequestHandler):
                     tk["head"] = token.head.i
                     tk["dep"] = token.dep_
                     tokens.append(tk)
-#                     o["paragraphs"].append(tk)
-#                     tk["id"] = token
-#                     tokens.append(tk)
-#                     print(token.i)
-#                     print(token.orth_)
-#                     print(token.lemma_)
-#                     print(token.pos_)
-#                     print(token.tag_)
-#                     print(token.dep_)
-#                     print(token.head.i)
             self.send_response(200)
             self.send_header("Content-type","application/json; charset=utf-8")
             self.end_headers()
@@ -89,6 +60,44 @@ class GinzaHttpRequestHandler(BaseHTTPRequestHandler):
         except:
             print(traceback.format_exc())
             self.send_response(500)
+
+    def do_POST(self):
+        try:
+#            print(self.headers)
+            content_length = int(self.headers.get('content-length'))
+            requestbody = json.loads(self.rfile.read(content_length).decode('utf-8'))
+            text = requestbody.get('text')
+            self.myProcess(text)
+#            print('text: ' + text )
+        except Exception as e:
+            print(e)
+            self.send_response(500)
+            self.send_header('Content-type','application/json')
+            self.end_headers()
+            response = {}
+            responsebody = json.dumps(response)
+            self.wfile.write(responsebody.encode('utf-8'))
+    
+
+    def do_GET(self):
+        query = urlparse(self.path).query
+#        print("query=" + query)
+
+        qs_d = urllib.parse.parse_qs(query)
+        print(qs_d)
+        print(hasattr(qs_d,"text"))
+        print("text" in qs_d)
+        # check parameter
+        if ("text" in qs_d) == False:
+            print("hi2")
+            self.send_response(404)
+            self.end_headers()
+            return
+        
+        text = qs_d["text"][0]
+        # decode requested value
+        text = urllib.parse.unquote(text)
+        self.myProcess(self,text)
 
 class GinzaHttpServer(ThreadingMixIn, HTTPServer):
     def __init__(self, address, handlerClass=GinzaHttpRequestHandler):
@@ -100,7 +109,7 @@ class GinzaHttpServer(ThreadingMixIn, HTTPServer):
 def main():
     ip = '127.0.0.1'
     port = 8888
-
+    # MEMO: WSL, Container からの localhost リクエストを受け付けるには工夫が必要
     server = GinzaHttpServer((ip,port),GinzaHttpRequestHandler)
     try:
         server.serve_forever()

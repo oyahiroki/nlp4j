@@ -1,6 +1,5 @@
 package nlp4j;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,7 +11,7 @@ import java.util.List;
  *
  */
 public interface KeywordWithDependency extends Keyword, Cloneable {
-	
+
 	/**
 	 * 係り受けのラベル
 	 * 
@@ -58,7 +57,7 @@ public interface KeywordWithDependency extends Keyword, Cloneable {
 	 * 
 	 * @return 子ノード
 	 */
-	public ArrayList<KeywordWithDependency> getChildren();
+	public List<KeywordWithDependency> getChildren();
 
 	/**
 	 * もっとも親の位置にあるキーワード（ルートキーワード）からの深さの位置を返します。

@@ -57,6 +57,9 @@ public class DefaultDocument implements Document {
 
 	@Override
 	public void addKeywords(List<Keyword> kwds) {
+		if (kwds == null) {
+			return;
+		}
 		this.keywords.addAll(kwds);
 	}
 

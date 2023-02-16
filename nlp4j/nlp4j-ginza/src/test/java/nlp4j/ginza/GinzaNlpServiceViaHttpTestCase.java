@@ -1,15 +1,5 @@
 package nlp4j.ginza;
 
-import java.io.File;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.List;
-
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang3.CharSet;
-
 import junit.framework.TestCase;
 
 public class GinzaNlpServiceViaHttpTestCase extends TestCase {

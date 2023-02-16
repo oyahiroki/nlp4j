@@ -12,15 +12,16 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
+import nlp4j.Keyword;
 import nlp4j.impl.DefaultKeywordWithDependency;
 
 public class GinzaJsonResponseParser {
 
 	static private Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
-	public void parseResponse(String json) {
+	public List<Keyword> parseResponse(String json) {
 
-		List<DefaultKeywordWithDependency> kwds = new ArrayList<>();
+		List<Keyword> kwds = new ArrayList<>();
 
 		{
 			Gson gson = new Gson();
@@ -106,9 +107,13 @@ public class GinzaJsonResponseParser {
 
 		}
 
-		for (DefaultKeywordWithDependency kwd : kwds) {
-			System.err.println(kwd.toStringAsXml());
+		if (logger.isDebugEnabled()) {
+			for (Keyword kwd : kwds) {
+				logger.debug(((DefaultKeywordWithDependency) kwd).toStringAsXml());
+			}
 		}
+
+		return kwds;
 
 	}
 

@@ -52,6 +52,30 @@ public class WikiDumpReader implements AutoCloseable {
 
 //	private WikiPageHandler wikiPageHander;
 
+	private long time1 = System.currentTimeMillis();
+
+	/**
+	 * 読み込んだページ（複数ページを同時にファイルから読む必要があるため、キャッシュとして残る場合がある）
+	 */
+	private Map<String, WikiPage> pages = null;
+
+	/**
+	 * キャッシュから見つかった数
+	 */
+	private int countCacheFound = 0;
+
+	/**
+	 * @param dumpFile Wiki dump file (bz2)
+	 * @throws IOException on Error File Not found
+	 */
+	public WikiDumpReader(File dumpFile) throws IOException {
+		if (dumpFile.exists() == false) {
+			throw new FileNotFoundException("Dump File Not Found: " + dumpFile.getAbsolutePath());
+		}
+		this.dumpFile = dumpFile;
+		this.randomfile1 = new RandomAccessFile(dumpFile, "r");
+	}
+
 	/**
 	 * @param dumpFile  Wiki dump file (bz2)
 	 * @param indexFile Wiki index file (bz2)
@@ -72,21 +96,14 @@ public class WikiDumpReader implements AutoCloseable {
 	}
 
 	/**
-	 * @param dumpFile Wiki dump file (bz2)
-	 * @throws IOException on Error File Not found
-	 */
-	public WikiDumpReader(File dumpFile) throws IOException {
-		if (dumpFile.exists() == false) {
-			throw new FileNotFoundException("Dump File Not Found: " + dumpFile.getAbsolutePath());
-		}
-		this.dumpFile = dumpFile;
-		this.randomfile1 = new RandomAccessFile(dumpFile, "r");
-	}
-
-	/**
 	 * java.lang.AutoCloseable: Close Wiki Dump file
 	 */
 	public void close() {
+
+		System.out.println("countCacheFound: " + countCacheFound);
+		long time2 = System.currentTimeMillis();
+		System.out.println("time: " + (time2 - time1));
+
 		if (this.randomfile1 != null) {
 			try {
 				this.randomfile1.close();
@@ -96,6 +113,122 @@ public class WikiDumpReader implements AutoCloseable {
 				logger.error(e);
 			}
 		}
+	}
+
+	/**
+	 * @param itemString Dictionary Entry
+	 * @return Wiki Item (Null on Not found)
+	 * @throws IOException on Error
+	 */
+	public WikiPage getItem(String itemString) throws IOException {
+		// GET INDEX INFO FROM INDEX FILE
+		WikiIndexItem item = wikiIndex.getItem(itemString);
+
+		if (this.pages != null) {
+			String itemId = "" + item.getItemID();
+			if (this.pages.containsKey(itemId)) {
+				logger.debug("Cache found!: " + item.getTitle());
+				countCacheFound++;
+				return this.pages.get(itemId);
+			}
+		}
+
+		// IF(INDEX NOT FOUND) THEN RETURN NULL
+		if (item == null) {
+			logger.debug("Not found in index:" + itemString);
+			return null;
+		}
+		// READ INDEX INFO
+		long p1 = item.getBlockNum();
+		int size = (int) item.getSize();
+
+		// IF(INDEX NOT FOUND) THEN RETURN NULL
+		if (size < 0) {
+			return null;
+		}
+		// BUFFER FOR DATA READ
+		byte[] b = new byte[size];
+		// SEEK FILE
+		randomfile1.seek(p1);
+		// READ FILE
+		int r = randomfile1.read(b); // throws IOException
+
+		logger.debug("File read in bytes: " + r);
+
+		if (logger.isDebugEnabled()) {
+			System.err.println(r);
+
+			System.err.println("length: " + b.length);
+			System.err.println("begin: " + Integer.toHexString(b[0]));
+			System.err.println("char: " + (char) b[0]);
+			System.err.println("char: " + (char) b[1]);
+			System.err.println("char: " + (char) b[2]);
+			System.err.println("char: " + (char) b[3]);
+			System.err.println("char: " + (char) b[4]);
+			System.err.println("char: " + (char) b[5]);
+			System.err.println("char: " + (char) b[6]);
+			System.err.println("end: " + Integer.toHexString(b[b.length - 1]));
+
+			System.err.println("OK");
+		}
+
+		// READ AS BZ2
+		BZip2CompressorInputStream bz2cis = new BZip2CompressorInputStream(new ByteArrayInputStream(b));
+
+		String blockXml = TAG1_MEDIAWIKI //
+				+ org.apache.commons.io.IOUtils.toString(bz2cis, ENCODING_UTF8) //
+				+ TAG2_MEDIAWIKI;
+
+//				System.err.println(blockXml);
+//		System.err.println(blockXml);
+
+		try {
+
+			SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
+			SAXParser saxParser = saxParserFactory.newSAXParser();
+
+			// XML Handler for Media Wiki
+//			MediawikiXmlHandler handler = new MediawikiXmlHandler();
+			MediawikiXmlHandler2 handler = new MediawikiXmlHandler2();
+
+			InputStream bais = new ByteArrayInputStream(blockXml.getBytes(ENCODING_UTF8));
+
+// 2023/02/14 10:09:44.761 [main] INFO   nlp4j.wiki.WikiDumpReader       :93   File closed.
+// Exception in thread "main" java.io.IOException: org.xml.sax.SAXParseException;
+//			lineNumber: 4490; columnNumber: 17; 要素タイプ"timestamp"の後には、属性指定">"または"/>"が必要です。
+
+			saxParser.parse(bais, handler); // throws org.xml.sax.SAXParseException
+
+			pages = handler.getPages();
+
+			logger.debug("pages.size:" + pages.size());
+
+//			System.err.println(pages.get(itemString).getTitle());
+//			System.err.println(pages.get(itemString).getText());
+
+			WikiPage page = pages.get("" + item.getItemID());
+			page.setXml(blockXml);
+
+			{
+				int idxTitle = blockXml.indexOf(TAG1_TITLE + itemString + TAG2_TITLE);
+				if (idxTitle != -1) {
+					int idx2 = blockXml.indexOf(TAG2_PAGE, idxTitle);
+					if (idx2 != -1) {
+						page.setXml(TAG1_PAGE + "\n" + blockXml.substring(idxTitle, idx2) + "\n" + TAG2_PAGE);
+					}
+				}
+			}
+
+			return page;
+
+		} catch (org.xml.sax.SAXParseException e) {
+			String msg = "itemString: " + itemString + ",XML: " + blockXml;
+			throw new IOException(msg, e);
+		} catch (Exception e) {
+			String msg = "itemString: " + itemString + ",XML: " + blockXml;
+			throw new IOException(msg, e);
+		}
+
 	}
 
 	public Map<String, WikiPage> getItemsInSameBlock(String itemString) throws IOException {
@@ -201,103 +334,6 @@ public class WikiDumpReader implements AutoCloseable {
 	}
 
 	/**
-	 * @param itemString Dictionary Entry
-	 * @return Wiki Item (Null on Not found)
-	 * @throws IOException on Error
-	 */
-	public WikiPage getItem(String itemString) throws IOException {
-		// GET INDEX INFO FROM INDEX FILE
-		WikiIndexItem item = wikiIndex.getItem(itemString);
-
-		// IF(INDEX NOT FOUND) THEN RETURN NULL
-		if (item == null) {
-			logger.debug("Not found in index:" + itemString);
-			return null;
-		}
-		// READ INDEX INFO
-		long p1 = item.getBlockNum();
-		int size = (int) item.getSize();
-
-		// IF(INDEX NOT FOUND) THEN RETURN NULL
-		if (size < 0) {
-			return null;
-		}
-		// BUFFER FOR DATA READ
-		byte[] b = new byte[size];
-		// SEEK FILE
-		randomfile1.seek(p1);
-		// READ FILE
-		int r = randomfile1.read(b); // throws IOException
-
-		logger.debug("File read in bytes: " + r);
-
-		if (logger.isDebugEnabled()) {
-			System.err.println(r);
-
-			System.err.println("length: " + b.length);
-			System.err.println("begin: " + Integer.toHexString(b[0]));
-			System.err.println("char: " + (char) b[0]);
-			System.err.println("char: " + (char) b[1]);
-			System.err.println("char: " + (char) b[2]);
-			System.err.println("char: " + (char) b[3]);
-			System.err.println("char: " + (char) b[4]);
-			System.err.println("char: " + (char) b[5]);
-			System.err.println("char: " + (char) b[6]);
-			System.err.println("end: " + Integer.toHexString(b[b.length - 1]));
-
-			System.err.println("OK");
-		}
-
-		// READ AS BZ2
-		BZip2CompressorInputStream bz2cis = new BZip2CompressorInputStream(new ByteArrayInputStream(b));
-
-		String blockXml = TAG1_MEDIAWIKI //
-				+ org.apache.commons.io.IOUtils.toString(bz2cis, ENCODING_UTF8) //
-				+ TAG2_MEDIAWIKI;
-
-//				System.err.println(blockXml);
-//		System.err.println(blockXml);
-
-		try {
-
-			SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
-			SAXParser saxParser = saxParserFactory.newSAXParser();
-
-			// XML Handler for Media Wiki
-//			MediawikiXmlHandler handler = new MediawikiXmlHandler();
-			MediawikiXmlHandler2 handler = new MediawikiXmlHandler2();
-
-			InputStream bais = new ByteArrayInputStream(blockXml.getBytes(ENCODING_UTF8));
-
-			saxParser.parse(bais, handler);
-
-			Map<String, WikiPage> pages = handler.getPages();
-
-//			System.err.println(pages.get(itemString).getTitle());
-//			System.err.println(pages.get(itemString).getText());
-
-			WikiPage page = pages.get("" + item.getItemID());
-			page.setXml(blockXml);
-
-			{
-				int idxTitle = blockXml.indexOf(TAG1_TITLE + itemString + TAG2_TITLE);
-				if (idxTitle != -1) {
-					int idx2 = blockXml.indexOf(TAG2_PAGE, idxTitle);
-					if (idx2 != -1) {
-						page.setXml(TAG1_PAGE + "\n" + blockXml.substring(idxTitle, idx2) + "\n" + TAG2_PAGE);
-					}
-				}
-			}
-
-			return page;
-
-		} catch (Exception e) {
-			throw new IOException(e);
-		}
-
-	}
-
-	/**
 	 * @return WikiIndex
 	 */
 	public WikiIndex getWikiIndex() {
@@ -325,7 +361,8 @@ public class WikiDumpReader implements AutoCloseable {
 				// point to the nextbyte after the .bz2 stream
 				// MEMO: decompressConcatenated をtrueにしないとエラーになる 2022-06-11
 				// 参考: https://github.com/lemire/IndexWikipedia/issues/4
-				BZip2CompressorInputStream bz2cis = new BZip2CompressorInputStream(fis, true);) {
+				BZip2CompressorInputStream bz2cis = new BZip2CompressorInputStream(fis, true); //
+		) {
 
 			SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
 			{ // 2022-08-01
@@ -344,14 +381,17 @@ public class WikiDumpReader implements AutoCloseable {
 				handler.setWikiPageHander(wikiPageHander);
 			}
 
-			saxParser.parse(bz2cis, handler);
+			// bz2cis: BZip2CompressorInputStream
+			saxParser.parse(bz2cis, handler); // throws org.xml.sax.SAXParseException;
 
 //			HashMap<String, WikiPage> pages = handler.getPages();
 
 //			System.err.println(pages.get(itemString).getTitle());
 //			System.err.println(pages.get(itemString).getText());
 
-		} catch (SAXException e) {
+		} //
+
+		catch (SAXException e) {
 //			if (e.getCause() != null && e.getCause() instanceof BreakException) {
 ////				System.err.println("break;");
 //			} else {

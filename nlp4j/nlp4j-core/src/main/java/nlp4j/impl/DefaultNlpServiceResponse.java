@@ -1,6 +1,5 @@
 package nlp4j.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -22,7 +21,7 @@ public class DefaultNlpServiceResponse implements NlpServiceResponse {
 
 	String originalResponseBody;
 	int responseCode = -1;
-	private ArrayList<Keyword> keywords;
+	private List<Keyword> keywords;
 	private Map<String, List<String>> headers;
 	private String headersOriginal;
 
@@ -45,8 +44,56 @@ public class DefaultNlpServiceResponse implements NlpServiceResponse {
 		this.originalResponseBody = originalResponseBody;
 	}
 
-	public ArrayList<Keyword> getKeywords() {
+	/**
+	 * since 2022-03-02
+	 * 
+	 * @since 1.3.4.0
+	 */
+	public JsonObject getAsJsonObject() {
+//		List<String> values = this.headers.get("content-type");
+//		System.err.println(values.toString().contains("json"));
+
+		if (this.headers != null && this.headers.get("content-type").toString().contains("json")) {
+			Gson gson = new Gson();
+			JsonObject jo = gson.fromJson(this.originalResponseBody, JsonObject.class);
+			return jo;
+		} else {
+			return null;
+		}
+
+	}
+
+	/**
+	 * since 2022-03-02
+	 * 
+	 * @since 1.3.4.0
+	 */
+	public String getHeaders() {
+		return this.headersOriginal;
+	}
+
+	/**
+	 * since 2022-03-02
+	 * 
+	 * @since 1.3.4.0
+	 */
+	public Map<String, List<String>> getHeadersAsMultiMap() {
+		return headers;
+	}
+
+	/**
+	 *
+	 */
+	public List<Keyword> getKeywords() {
 		return keywords;
+	}
+
+	/**
+	 * @since 1.3
+	 */
+	@Override
+	public String getMessage() {
+		return null;
 	}
 
 	@Override
@@ -60,9 +107,28 @@ public class DefaultNlpServiceResponse implements NlpServiceResponse {
 	}
 
 	/**
+	 * since 2022-03-02
+	 * 
+	 * @since 1.3.4.0
+	 */
+	public void setHeaders(Map<String, List<String>> multimap) {
+		this.headers = multimap;
+	}
+
+	/**
+	 * since 2022-03-02
+	 * 
+	 * @since 1.3.4.0
+	 */
+	public void setHeaders(String string) {
+		this.headersOriginal = string;
+
+	}
+
+	/**
 	 * @param keywords キーワード
 	 */
-	public void setKeywords(ArrayList<Keyword> keywords) {
+	public void setKeywords(List<Keyword> keywords) {
 		this.keywords = keywords;
 
 	}
@@ -89,70 +155,6 @@ public class DefaultNlpServiceResponse implements NlpServiceResponse {
 	public String toString() {
 		return "DefaultNlpServiceResponse [responseCode=" + responseCode + ", originalResponseBody="
 				+ originalResponseBody + "]";
-	}
-
-	/**
-	 * @since 1.3
-	 */
-	@Override
-	public String getMessage() {
-		return null;
-	}
-
-	/**
-	 * since 2022-03-02
-	 * 
-	 * @since 1.3.4.0
-	 */
-	public void setHeaders(Map<String, List<String>> multimap) {
-		this.headers = multimap;
-	}
-
-	/**
-	 * since 2022-03-02
-	 * 
-	 * @since 1.3.4.0
-	 */
-	public Map<String, List<String>> getHeadersAsMultiMap() {
-		return headers;
-	}
-
-	/**
-	 * since 2022-03-02
-	 * 
-	 * @since 1.3.4.0
-	 */
-	public String getHeaders() {
-		return this.headersOriginal;
-	}
-
-	/**
-	 * since 2022-03-02
-	 * 
-	 * @since 1.3.4.0
-	 */
-	public void setHeaders(String string) {
-		this.headersOriginal = string;
-
-	}
-
-	/**
-	 * since 2022-03-02
-	 * 
-	 * @since 1.3.4.0
-	 */
-	public JsonObject getAsJsonObject() {
-//		List<String> values = this.headers.get("content-type");
-//		System.err.println(values.toString().contains("json"));
-
-		if (this.headers != null && this.headers.get("content-type").toString().contains("json")) {
-			Gson gson = new Gson();
-			JsonObject jo = gson.fromJson(this.originalResponseBody, JsonObject.class);
-			return jo;
-		} else {
-			return null;
-		}
-
 	}
 
 }
