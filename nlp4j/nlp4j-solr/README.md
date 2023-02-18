@@ -1,8 +1,48 @@
-# Introduction 
+# NLP4J Solr
 
-NLP4J for Apache Solr
+NLP4J Library for Apache Solr
+
+# Apache Solr
 
 https://solr.apache.org/
+
+
+# Install Solr container
+
+```
+docker run --name solr-sandbox -d -v "d:\solrdata:/var/solr" -p 8983:8983 solr:8.11.2 solr-precreate gettingstarted
+
+```
+
+## Run Solr docker
+
+```
+docker image list
+
+docker container list
+
+docker exec -it solr-sandbox /bin/bash
+```
+
+
+http://localhost:8983/solr/#/
+
+# Create Solr collection コレクションの作成
+
+```
+$ bin/solr create_core -c sandbox
+
+$ bin/solr create_core -c unittest
+```
+
+
+
+
+
+
+
+
+
 
 
 # Features
