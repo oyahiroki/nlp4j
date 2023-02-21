@@ -8,7 +8,7 @@
 	<artifactId>nlp4j-mecab</artifactId>
 	<!-- 0.2.0.0 : 2022-06-24  -->
 	<!-- 0.2.0.1 : 2022-06-24  -->
-	<version>0.2.0.1</version>
+	<version>1.0.0.0</version>
 	<licenses>
 		<license>
 			<name>Apache License, Version 2.0</name>
@@ -35,6 +35,5 @@
 			<artifactId>bridj</artifactId>
 			<version>0.6.2</version>
 		</dependency>
-
 	</dependencies>
 </project>
