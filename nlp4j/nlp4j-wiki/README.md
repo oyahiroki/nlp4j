@@ -48,7 +48,7 @@ try (WikiDumpReader dumpReader = new WikiDumpReader(dumpFile, indexFile);) {
 	{
 		WikiPage page = dumpReader.getItem(itemString);
 		System.out.println("<text>\n" + page.getText() + "\n</text>");
-		System.out.println("<xml>\n" + page.getXml() + "\n</xml>");
+		// System.out.println("<xml>\n" + page.getXml() + "\n</xml>");
 	}
 }
 
