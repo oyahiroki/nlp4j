@@ -2,7 +2,7 @@
 
 # Maven Repository
 
-	https://mvnrepository.com/artifact/org.nlp4j/nlp4j-wiki
+https://mvnrepository.com/artifact/org.nlp4j/nlp4j-wiki
 
 # Dump file Download Site
 
