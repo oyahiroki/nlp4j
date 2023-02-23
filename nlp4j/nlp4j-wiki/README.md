@@ -14,18 +14,6 @@ https://dumps.wikimedia.org/enwiki/
 
 https://dumps.wikimedia.org/enwiktionary/
 
-## Wikipedia Japanese version dump Download 
-
-日本語版ウィキペディア ダンプファイル ダウンロード
-
-https://dumps.wikimedia.org/jawiki/
-
-## Wiktionary Japanese version dump Download 
-
-日本語版ウィクショナリー ダンプファイル ダウンロード
-
-https://dumps.wikimedia.org/jawiktionary/
-
 # Code Example
 
 ## Read Wiki Dump file with Index file
