@@ -45,11 +45,9 @@ File indexFile = new File(dumpIndexFileName);
 File dumpFile = new File(dumpFileName);
 
 try (WikiDumpReader dumpReader = new WikiDumpReader(dumpFile, indexFile);) {
-	{
-		WikiPage page = dumpReader.getItem(itemString);
-		System.out.println("<text>\n" + page.getText() + "\n</text>");
-		// System.out.println("<xml>\n" + page.getXml() + "\n</xml>");
-	}
+	WikiPage page = dumpReader.getItem(itemString);
+	System.out.println("<text>\n" + page.getText() + "\n</text>");
+	// System.out.println("<xml>\n" + page.getXml() + "\n</xml>");
 }
 
 ```
