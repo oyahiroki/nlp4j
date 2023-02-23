@@ -39,12 +39,9 @@ String dumpFileName = dir + "enwiktionary-20230101-pages-articles-multistream.xm
 
 // THE PAGE TITLE YOU WANT
 String itemString = "NLP"; 
-// Index File
-File indexFile = new File(dumpIndexFileName);
-// Dump File
-File dumpFile = new File(dumpFileName);
 
-try (WikiDumpReader dumpReader = new WikiDumpReader(dumpFile, indexFile);) {
+// READ DUMP FILE
+try (WikiDumpReader dumpReader = new WikiDumpReader(new File(dumpFileName), new File(dumpIndexFileName));) {
 	WikiPage page = dumpReader.getItem(itemString);
 	System.out.println("<text>\n" + page.getText() + "\n</text>");
 	// System.out.println("<xml>\n" + page.getXml() + "\n</xml>");
