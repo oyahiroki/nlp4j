@@ -108,23 +108,22 @@ File dumpFile = new File(dumpFileName);
 // READ WIKI DUMP
 try (WikiDumpReader dumpReader = new WikiDumpReader(dumpFile)) {
 	dumpReader.read(
-			// YOUR WikiPageHandler HERE
-			new WikiPageHandler() {
-				int count = 0; // YOUR BREAK CONDITIN IF YOU NEED
-
+		// YOUR WikiPageHandler HERE
+		new WikiPageHandler() {
+			int count = 0; // YOUR BREAK CONDITIN IF YOU NEED
 				@Override
-				public void read(WikiPage page) throws BreakException {
-					if (page.getTitle().contains(":")) {
-						return; // SKIP Template page
-					}
-					count++;
-					if (count > 3) { // YOUR BREAK CONDITION HERE
-						throw new BreakException();
-					}
-					System.out.println(page.getTitle());
-					System.out.println(page.getText());
+			public void read(WikiPage page) throws BreakException {
+				if (page.getTitle().contains(":")) {
+					return; // SKIP Template page
 				}
-			});
+				count++;
+				if (count > 3) { // YOUR BREAK CONDITION HERE
+					throw new BreakException();
+				}
+				System.out.println(page.getTitle());
+				System.out.println(page.getText());
+			}
+		});
 } catch (BreakException be) {
 	System.err.println("OK");
 }
