@@ -7,6 +7,7 @@ https://mvnrepository.com/artifact/org.nlp4j/nlp4j-wiki
 # Dump file Download Site
 
 Index file name is: en(wiki|wiktionary)-(YYYYMMDD)-pages-articles-multistream-index.txt.bz2
+
 Dump file name is: en(wiki|wiktionary)-(YYYYMMDD)-pages-articles-multistream.xml.bz2
 
 ## Wikipedia Dump
