@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import nlp4j.wiki.util.StringUtils;
+
 /**
  * <pre>
  * </pre>
@@ -18,11 +20,11 @@ public class WikiItemTextParser {
 
 	static private final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
-	private static final String LV1 = "==";
-	private static final String LV2 = "===";
-	private static final String LV3 = "====";
-	private static final String LV4 = "=====";
-	private static final String LV5 = "======";
+	static private final String LV1 = "==";
+	static private final String LV2 = "===";
+	static private final String LV3 = "====";
+	static private final String LV4 = "=====";
+	static private final String LV5 = "======";
 
 	private ArrayList<WikiPageNode> list = new ArrayList<>();
 	private WikiPageNode root = null;
@@ -76,7 +78,17 @@ public class WikiItemTextParser {
 		return root;
 	}
 
-	public void parse(String wikiItemText) {
+	public ArrayList<WikiPageNode> getWikiPageNodesAsList() {
+		return list;
+	}
+
+	/**
+	 * Wikipage を解析する
+	 * 
+	 * @param wikiItemText Wiki形式の文字列
+	 * @return
+	 */
+	public WikiPageNode parse(String wikiItemText) {
 
 		{ // normalize new line
 			int n1 = wikiItemText.length();
@@ -87,10 +99,15 @@ public class WikiItemTextParser {
 			}
 		}
 
+		{ // REMOVE XML COMMENT : XMLコメントを削除する
+			// 複数行のXMLコメントは存在するか？(文法上は可能)
+			wikiItemText = StringUtils.removeXmlComment(wikiItemText);
+		}
+
 		// FOR EACH LINE
 		for (String line : wikiItemText.split("\n")) {
 
-			{
+			{ // TRIM トリムする
 				int n1 = line.length();
 				line = line.trim();
 				int n2 = line.length();
@@ -158,6 +175,21 @@ public class WikiItemTextParser {
 			}
 		} // END OF FOR EACH LINE
 
+		return this.root;
+	}
+
+	/**
+	 * Wikipage を解析する
+	 * 
+	 * @param page
+	 * @return
+	 */
+	public WikiPageNode parse(WikiPage page) {
+		if (page == null) {
+			return null;
+		} else {
+			return parse(page.getText());
+		}
 	}
 
 	public String toWikiPageNodeTree() {

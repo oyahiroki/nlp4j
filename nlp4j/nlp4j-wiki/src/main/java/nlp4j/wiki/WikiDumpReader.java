@@ -100,9 +100,9 @@ public class WikiDumpReader implements AutoCloseable {
 	 */
 	public void close() {
 
-		System.out.println("countCacheFound: " + countCacheFound);
+		logger.info("countCacheFound: " + countCacheFound);
 		long time2 = System.currentTimeMillis();
-		System.out.println("time: " + (time2 - time1));
+		logger.info("time: " + (time2 - time1));
 
 		if (this.randomfile1 != null) {
 			try {

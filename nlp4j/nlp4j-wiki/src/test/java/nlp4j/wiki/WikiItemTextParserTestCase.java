@@ -7,11 +7,13 @@ import java.util.List;
 import org.apache.commons.io.FileUtils;
 
 import junit.framework.TestCase;
+import nlp4j.wiki.util.MediaWikiFileUtils;
 import nlp4j.wiki.util.MediaWikiTextUtils;
+import nlp4j.wiki.util.WikiPageNodeUtil;
 
 public class WikiItemTextParserTestCase extends TestCase {
 
-	private final String wikiText = "{{Wikipedia|学校}}\r\n" //
+	private final String wiktinaryText_Gakkou = "{{Wikipedia|学校}}\r\n" //
 			+ "{{ja-DEFAULTSORT|がっこう}}\r\n" //
 			+ "=={{ja}}==\r\n" //
 			+ "[[Category:{{ja}}]]\r\n" //
@@ -50,7 +52,7 @@ public class WikiItemTextParserTestCase extends TestCase {
 
 		WikiItemTextParser parser = new WikiItemTextParser();
 
-		parser.parse(wikiText);
+		parser.parse(wiktinaryText_Gakkou);
 
 		WikiPageNode rootNode = parser.getRoot();
 		{
@@ -75,6 +77,32 @@ public class WikiItemTextParserTestCase extends TestCase {
 			// [[Category:{{ja}}]]
 		}
 		System.err.println("---");
+
+	}
+
+	public void testGetRoot001b() {
+
+		WikiItemTextParser parser = new WikiItemTextParser();
+
+		parser.parse(wiktinaryText_Gakkou);
+
+		WikiPageNode rootNode = parser.getRoot();
+		System.err.println("<header>");
+		System.err.println(rootNode.getHeader());
+		System.err.println("</header>");
+		System.err.println("<text>");
+		System.err.println(rootNode.getText());
+		System.err.println("</text>");
+		{
+			for (WikiPageNode n : rootNode.getChildren()) {
+				System.err.println("\t" + n.getHeader());
+				System.err.println("\t" + n.getText());
+				for (WikiPageNode nn : n.getChildren()) {
+					System.err.println("\t\t" + nn.getHeader());
+					System.err.println("\t\t" + nn.getText());
+				}
+			}
+		}
 
 	}
 
@@ -118,10 +146,58 @@ public class WikiItemTextParserTestCase extends TestCase {
 
 	}
 
+	public void testGetRoot101() throws Exception {
+		String itemString = "歩く";
+
+		String dir = "files/wiki/jawiktionary/20220501/";
+		String fileIndexName = "jawiktionary-20220501-pages-articles-multistream-index.txt.bz2";
+		String fileDumpName = "jawiktionary-20220501-pages-articles-multistream.xml.bz2";
+
+		File indexFile = new File(dir + fileIndexName);
+		File dumpFile = new File(dir + fileDumpName);
+
+		System.err.println(indexFile.getAbsolutePath());
+		System.err.println(dumpFile.getAbsolutePath());
+
+		// WikiPedia のインデックスが読めるかどうかテスト
+
+		try (WikiDumpReader dumpReader = new WikiDumpReader(dumpFile, indexFile);) {
+			WikiPage page = dumpReader.getItem(itemString);
+			WikiItemTextParser parser = new WikiItemTextParser();
+			WikiPageNode rootNode = parser.parse(page.getText());
+			System.err.println(WikiPageNodeUtil.toString(rootNode));
+		}
+	}
+
+	public void testGetRoot102() throws Exception {
+		String itemString = "あるく";
+
+		String dir = "files/wiki/jawiktionary/20220501/";
+		String fileIndexName = "jawiktionary-20220501-pages-articles-multistream-index.txt.bz2";
+		String fileDumpName = "jawiktionary-20220501-pages-articles-multistream.xml.bz2";
+
+		File indexFile = new File(dir + fileIndexName);
+		File dumpFile = new File(dir + fileDumpName);
+
+		System.err.println(indexFile.getAbsolutePath());
+		System.err.println(dumpFile.getAbsolutePath());
+
+		// WikiPedia のインデックスが読めるかどうかテスト
+
+		try (WikiDumpReader dumpReader = new WikiDumpReader(dumpFile, indexFile);) {
+			WikiPage page = dumpReader.getItem(itemString);
+			WikiItemTextParser parser = new WikiItemTextParser();
+			WikiPageNode rootNode = parser.parse(page.getText());
+			System.err.println(WikiPageNodeUtil.toString(rootNode));
+		}
+	}
+
+	
+
 	public void testToWikiPageNodeTree() {
 		WikiItemTextParser parser = new WikiItemTextParser();
 
-		parser.parse(wikiText);
+		parser.parse(wiktinaryText_Gakkou);
 
 		System.err.println(parser.toWikiPageNodeTree());
 

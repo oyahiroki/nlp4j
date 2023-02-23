@@ -40,6 +40,37 @@ public class WikiPageNode {
 		}
 	}
 
+	/**
+	 * Find Descendant by header
+	 * 
+	 * @param s header name
+	 * @return
+	 */
+	public List<WikiPageNode> find(String s) {
+
+		List<WikiPageNode> list = new ArrayList<>();
+
+		find(s, list);
+
+		return list;
+	}
+
+	private void find(String string, List<WikiPageNode> list) {
+
+		if (this.header != null && this.header.contains(string)) {
+			list.add(this);
+		}
+
+		if (children != null) {
+			for (WikiPageNode p : children) {
+				p.find(string, list);
+			}
+		}
+
+		return;
+
+	}
+
 	public List<WikiPageNode> get(String path) {
 
 //		System.err.println("path=" + path);
@@ -131,6 +162,28 @@ public class WikiPageNode {
 		return text.toString();
 	}
 
+	/**
+	 * @return 子孫ノードまでテキストに変換したもの
+	 */
+	public String getTextDescendant() {
+		StringBuilder sb = new StringBuilder();
+
+		if (this.header != null) {
+			sb.append(this.header + "\n");
+		}
+		if (this.text != null) {
+			sb.append(this.text + "\n");
+		}
+
+		if (children != null) {
+			for (WikiPageNode p : children) {
+				sb.append(p.getTextDescendant());
+			}
+		}
+
+		return sb.toString();
+	}
+
 	private String join(String[] paths, int idx) {
 		StringBuilder sb = new StringBuilder();
 		for (int n = idx; n < paths.length; n++) {
@@ -175,14 +228,8 @@ public class WikiPageNode {
 	@Override
 	public String toString() {
 
-		int textLength = 0;
-		if (this.text != null) {
-			textLength = this.text.length();
-		}
-		int childSize = 0;
-		if (children != null) {
-			childSize = children.size();
-		}
+		int textLength = (this.text != null) ? this.text.length() : 0;
+		int childSize = (children != null) ? children.size() : 0;
 
 		return "WikiPageNode [" //
 				+ "level=" + level + ", "//
@@ -191,56 +238,6 @@ public class WikiPageNode {
 				+ "parent=" + (parent != null) + ", "//
 				+ "children=" + childSize //
 				+ "]";
-	}
-
-	public String getTextDescendant() {
-		StringBuilder sb = new StringBuilder();
-
-		if (this.header != null) {
-			sb.append(this.header + "\n");
-		}
-		if (this.text != null) {
-			sb.append(this.text + "\n");
-		}
-
-		if (children != null) {
-			for (WikiPageNode p : children) {
-				sb.append(p.getTextDescendant());
-			}
-		}
-
-		return sb.toString();
-	}
-
-	/**
-	 * Find Descendant by header
-	 * 
-	 * @param s header name
-	 * @return
-	 */
-	public List<WikiPageNode> find(String s) {
-
-		List<WikiPageNode> list = new ArrayList<>();
-
-		find(s, list);
-
-		return list;
-	}
-
-	private void find(String string, List<WikiPageNode> list) {
-
-		if (this.header != null && this.header.contains(string)) {
-			list.add(this);
-		}
-
-		if (children != null) {
-			for (WikiPageNode p : children) {
-				p.find(string, list);
-			}
-		}
-
-		return;
-
 	}
 
 }
