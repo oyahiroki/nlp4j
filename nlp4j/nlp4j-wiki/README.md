@@ -32,9 +32,13 @@ https://dumps.wikimedia.org/jawiktionary/
 
 ```java
 
-String dumpIndexFileName = "/usr/local/wiki/enwiktionary/20230101/" + "enwiktionary-20230101-pages-articles-multistream-index.txt.bz2";
-String dumpFileName = "/usr/local/wiki/enwiktionary/20230101/" + "enwiktionary-20230101-pages-articles-multistream.xml.bz2";
-String itemString = "NLP"; // THE PAGE TITLE YOU WANT
+// File names
+String dir = "/usr/local/wiki/enwiktionary/20230101/";
+String dumpIndexFileName = dir + "enwiktionary-20230101-pages-articles-multistream-index.txt.bz2";
+String dumpFileName = dir + "enwiktionary-20230101-pages-articles-multistream.xml.bz2";
+
+// THE PAGE TITLE YOU WANT
+String itemString = "NLP"; 
 // Index File
 File indexFile = new File(dumpIndexFileName);
 // Dump File
