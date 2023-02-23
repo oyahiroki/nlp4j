@@ -114,17 +114,3 @@ Wikidata/Wikidata-Toolkit: Java library to interact with Wikibase
 https://github.com/Wikidata/Wikidata-Toolkit
 
 
-
-# For Build Admin
-
-## Build for Release
-
-	mvn -DperformRelease=true clean deploy
-
-	mvn -e -X -DperformRelease=true clean deploy
-	
-## Maven Commands
-
-	mvn test
-	mvn javadoc:javadoc
-
