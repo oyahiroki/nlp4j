@@ -11,6 +11,7 @@ public class Wikipedia003ReadDumpWithoutIndexExampleJa_20230223 {
 
 	public static void main(String[] args) throws Exception {
 
+		// DUMP FILE NAME
 		String dumpFileName = "/usr/local/wiki/enwiktionary/20230101/"
 				+ "enwiktionary-20230101-pages-articles-multistream.xml.bz2";
 
@@ -18,26 +19,24 @@ public class Wikipedia003ReadDumpWithoutIndexExampleJa_20230223 {
 		File dumpFile = new File(dumpFileName);
 
 		try (WikiDumpReader dumpReader = new WikiDumpReader(dumpFile)) {
-			dumpReader.read(new WikiPageHandler() {
-				int count = 0; // YOUR BREAK CONDITIN IF YOU NEED
+			dumpReader.read(
+					// YOUR WikiPageHandelr HERE
+					new WikiPageHandler() {
+						int count = 0; // YOUR BREAK CONDITIN IF YOU NEED
 
-				@Override
-				public void read(WikiPage page) throws BreakException {
-
-					if (page.getTitle().contains(":")) {
-						return; // SKIP Template page
-					}
-
-					count++;
-
-					if (count > 3) { // YOUR BREAK CONDITION HERE
-						throw new BreakException();
-					}
-
-					System.err.println(page.getTitle());
-					System.err.println(page.getText());
-				}
-			});
+						@Override
+						public void read(WikiPage page) throws BreakException {
+							if (page.getTitle().contains(":")) {
+								return; // SKIP Template page
+							}
+							count++;
+							if (count > 3) { // YOUR BREAK CONDITION HERE
+								throw new BreakException();
+							}
+							System.out.println(page.getTitle());
+							System.out.println(page.getText());
+						}
+					});
 		} catch (BreakException be) {
 			System.err.println("OK");
 		}
