@@ -36,9 +36,7 @@ String dumpIndexFileName = "/usr/local/wiki/enwiktionary/20230101/"
 		+ "enwiktionary-20230101-pages-articles-multistream-index.txt.bz2";
 String dumpFileName = "/usr/local/wiki/enwiktionary/20230101/"
 		+ "enwiktionary-20230101-pages-articles-multistream.xml.bz2";
-
-String itemString = "NLP";
-
+String itemString = "NLP"; // THE PAGE TITLE YOU WANT
 // Index File
 File indexFile = new File(dumpIndexFileName);
 // Dump File
