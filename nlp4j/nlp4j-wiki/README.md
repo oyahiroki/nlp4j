@@ -1,6 +1,6 @@
 # NLP4J-Wiki (Wikipedia Dump Parser)
 
-# MAVEN Repository
+# Maven Repository
 
 	https://mvnrepository.com/artifact/org.nlp4j/nlp4j-wiki
 
