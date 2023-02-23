@@ -117,7 +117,7 @@ try (WikiDumpReader dumpReader = new WikiDumpReader(dumpFile)) {
 			}
 		});
 } catch (BreakException be) {
-	System.err.println("OK");
+	System.err.println("OK"); // YOU CAN BREAK LOOP
 }
 
 ```
