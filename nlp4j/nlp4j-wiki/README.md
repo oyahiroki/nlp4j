@@ -6,11 +6,11 @@
 
 # Dump file Download Site
 
-## Wikipedia English version dump Download
+## Wikipedia
 
 https://dumps.wikimedia.org/enwiki/
 
-## Wiktionary English version dump Download
+## Wiktionary
 
 https://dumps.wikimedia.org/enwiktionary/
 
