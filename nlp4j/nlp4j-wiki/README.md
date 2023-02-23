@@ -87,7 +87,7 @@ Almost same data as https://en.wiktionary.org/w/index.php?title=NLP&action=edit
 
 ```
 
-# Read wiki dump without Index sequentially
+# Read wiki dump sequentially without Index 
 
 ```java
 
