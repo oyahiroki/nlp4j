@@ -108,7 +108,7 @@ File dumpFile = new File(dumpFileName);
 // READ WIKI DUMP
 try (WikiDumpReader dumpReader = new WikiDumpReader(dumpFile)) {
 	dumpReader.read(
-			// YOUR WikiPageHandelr HERE
+			// YOUR WikiPageHandler HERE
 			new WikiPageHandler() {
 				int count = 0; // YOUR BREAK CONDITIN IF YOU NEED
 
