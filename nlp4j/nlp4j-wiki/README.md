@@ -102,11 +102,11 @@ try (WikiDumpReader dumpReader = new WikiDumpReader(dumpFile)) {
 	dumpReader.read(
 		// YOUR WikiPageHandler HERE
 		new WikiPageHandler() {
-			int count = 0; // YOUR BREAK CONDITIN IF YOU NEED
+			int count = 0; // YOUR BREAK CONDITION IF YOU NEED
 				@Override
 			public void read(WikiPage page) throws BreakException {
 				if (page.getTitle().contains(":")) {
-					return; // SKIP Template page
+					return; // SKIP Template page IF YOU WANT
 				}
 				count++;
 				if (count > 3) { // YOUR BREAK CONDITION HERE
