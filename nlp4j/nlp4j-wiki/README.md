@@ -4,27 +4,27 @@
 
 	https://mvnrepository.com/artifact/org.nlp4j/nlp4j-wiki
 
-# Dump Download
+# Dump file Download Site
 
 ## Wikipedia English version dump Download
 
-https://dumps.wikimedia.org/enwiki/20230101/
+https://dumps.wikimedia.org/enwiki/
 
 ## Wiktionary English version dump Download
 
-https://dumps.wikimedia.org/enwiktionary/20230101/
+https://dumps.wikimedia.org/enwiktionary/
 
 ## Wikipedia Japanese version dump Download 
 
 日本語版ウィキペディア ダンプファイル ダウンロード
 
-https://dumps.wikimedia.org/jawiki/20230101/
+https://dumps.wikimedia.org/jawiki/
 
 ## Wiktionary Japanese version dump Download 
 
 日本語版ウィクショナリー ダンプファイル ダウンロード
 
-https://dumps.wikimedia.org/jawiktionary/20230101/
+https://dumps.wikimedia.org/jawiktionary/
 
 # Code Example
 
