@@ -7,6 +7,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import nlp4j.wiki.util.StringUtils;
+import nlp4j.wiki.util.WikiUtils;
 
 /**
  * <pre>
@@ -114,6 +115,15 @@ public class WikiItemTextParser {
 				if (n2 != n1) {
 					logger.debug("Line trimmed: " + line);
 				}
+			}
+
+			// Wiktionary -> Wikipedia へのリンク
+			// https://ja.wiktionary.org/wiki/%E3%83%86%E3%83%B3%E3%83%97%E3%83%AC%E3%83%BC%E3%83%88:wikipedia
+			if (line.startsWith("{{wikipedia") && line.endsWith("}}")) {
+				// {{wikipedia}} 引数なし: 同名のWikipedia記事
+				// {{wikipedia|記事名}}
+				// {{wikipedia|記事名|表示名}}
+				System.err.println(line);
 			}
 
 			// is header

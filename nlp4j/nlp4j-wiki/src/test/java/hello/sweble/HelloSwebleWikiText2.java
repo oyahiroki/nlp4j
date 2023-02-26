@@ -1,8 +1,5 @@
 package hello.sweble;
 
-import java.io.File;
-
-import org.apache.commons.io.FileUtils;
 import org.sweble.wikitext.engine.PageId;
 import org.sweble.wikitext.engine.PageTitle;
 import org.sweble.wikitext.engine.WtEngineImpl;
@@ -19,17 +16,23 @@ public class HelloSwebleWikiText2 {
 		// Prepare x-wiki format text
 
 		String wikitext = "{{otheruses}}\r\n" //
-				+ "{{Infobox Continent\r\n" //
-				+ "|image               = [[File:Europe (orthographic projection).svg|200px]]\r\n" //
-				+ "|countries           = 50\r\n" //
-				+ "}}\r\n" //
+				+ "{{Infobox Continent\r\n" // INFOBOX
+				+ "|image = [[File:Europe (orthographic projection).svg|200px]]\r\n" // INFOBOX
+				+ "|countries = 50\r\n" // INFOBOX
+				+ "}}\r\n" // INFOBOX
 				+ "\r\n" //
 				+ "This is test. [TEST]\r\n" //
 				+ "\r\n" //
 				+ "== TITLE ==\r\n" //
 				+ "\r\n" //
-				+ "This is test2.\r\n" //
+				+ "This is test.\r\n" //
 				+ "\r\n" //
+				+ "=== TITLE ===\r\n" //
+				+ "\r\n" //
+				+ "This is test.\r\n" //
+				+ "== TITLE ==\r\n" //
+				+ "\r\n" //
+				+ "This is test.\r\n" //
 				+ "";
 
 		// Set-up a simple wiki configuration

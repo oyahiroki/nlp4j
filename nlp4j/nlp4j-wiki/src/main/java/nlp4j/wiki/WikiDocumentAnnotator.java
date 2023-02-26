@@ -13,6 +13,7 @@ import nlp4j.Document;
 import nlp4j.DocumentAnnotator;
 import nlp4j.FieldAnnotator;
 import nlp4j.Keyword;
+import nlp4j.wiki.util.WikiUtils;
 
 /**
  * <pre>

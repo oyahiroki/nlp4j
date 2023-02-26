@@ -1,4 +1,4 @@
-package nlp4j.wiki.util;
+package nlp4j.wiki.template;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

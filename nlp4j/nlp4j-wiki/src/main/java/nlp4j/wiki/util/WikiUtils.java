@@ -1,4 +1,4 @@
-package nlp4j.wiki;
+package nlp4j.wiki.util;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -21,7 +21,7 @@ import org.sweble.wikitext.example.TextConverter;
 import info.bliki.wiki.model.WikiModel;
 import nlp4j.Keyword;
 import nlp4j.impl.DefaultKeyword;
-import nlp4j.wiki.util.WikiTemplateNormalizer;
+import nlp4j.wiki.template.WikiTemplateNormalizer;
 
 public class WikiUtils {
 
@@ -35,13 +35,21 @@ public class WikiUtils {
 
 	static {
 		// key: before normailze, value: after normalized
-		mapForNormalize.put("=={{L|ja}}==", "=={{ja}}==");
-		mapForNormalize.put("=={{jpn}}==", "=={{ja}}==");
-		mapForNormalize.put("== {{jpn}} ==", "=={{ja}}==");
-		mapForNormalize.put("== {{ja}} ==", "=={{ja}}==");
-		mapForNormalize.put("==日本語==", "=={{ja}}==");
-		mapForNormalize.put("== 日本語 ==", "=={{ja}}==");
-		mapForNormalize.put("===名詞===", "==={{noun}}===");
+		mapForNormalize.put("=={{L|ja}}==", "=={{ja}}=="); // 日本語
+		mapForNormalize.put("=={{jpn}}==", "=={{ja}}=="); // 日本語
+		mapForNormalize.put("== {{jpn}} ==", "=={{ja}}=="); // 日本語
+		mapForNormalize.put("== {{ja}} ==", "=={{ja}}=="); // 日本語
+		mapForNormalize.put("==日本語==", "=={{ja}}=="); // 日本語
+		mapForNormalize.put("== 日本語 ==", "=={{ja}}=="); // 日本語
+		mapForNormalize.put("名詞", "{{noun}}"); // 名詞
+		mapForNormalize.put("形容動詞", "{{adjectivenoun}}"); // 形容動詞
+		mapForNormalize.put("動詞", "{{verb}}"); // 動詞
+
+		mapForNormalize.put("成句", "{{idiom}}"); // 成句
+		mapForNormalize.put("関連語", "{{rel}}"); // 関連語
+		mapForNormalize.put("同義語", "{{syn}}"); // 同義語
+		mapForNormalize.put("複合語", "{{comp}}"); // 複合語
+		mapForNormalize.put("熟語", "{{prov}}"); // 複合語
 	}
 
 	static String splitter = "(:|・)";
@@ -209,6 +217,17 @@ public class WikiUtils {
 		}
 
 		return header;
+	}
+
+	static public String normailzeHeaderPath(String headerPath) {
+		if (headerPath == null) {
+			return null;
+		} else {
+			for (String k : new ArrayList<>(mapForNormalize.keySet())) {
+				headerPath = headerPath.replace(k, mapForNormalize.get(k));
+			}
+			return headerPath;
+		}
 	}
 
 	/**

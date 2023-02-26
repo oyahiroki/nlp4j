@@ -1,6 +1,7 @@
-package nlp4j.wiki.util;
+package nlp4j.wiki.template;
 
 import junit.framework.TestCase;
+import nlp4j.wiki.template.WikiTemplateNormalizer;
 
 public class WikiTemplateNormalizerTestCase extends TestCase {
 

@@ -5,6 +5,7 @@ import java.util.List;
 
 public class WikiPageNode {
 
+	// 見出し
 	String header;
 
 	StringBuilder text = new StringBuilder();
@@ -127,8 +128,19 @@ public class WikiPageNode {
 		return arr;
 	}
 
+	/**
+	 * @return 見出し
+	 */
 	public String getHeader() {
 		return header;
+	}
+
+	public String getHeaderPath() {
+		if (this.parent != null) {
+			return this.parent.getHeaderPath() + "/" + ((this.header != null) ? this.header : "");
+		} else {
+			return (this.header != null) ? this.header : "";
+		}
 	}
 
 	public int getLevel() {
@@ -205,6 +217,9 @@ public class WikiPageNode {
 		}
 	}
 
+	/**
+	 * @param header 見出し
+	 */
 	public void setHeader(String header) {
 		this.header = header;
 	}

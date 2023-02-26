@@ -1,9 +1,12 @@
 package nlp4j.wiki;
 
+import java.lang.invoke.MethodHandles;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 
@@ -21,22 +24,26 @@ import nlp4j.xml.AbstractXmlHandler;
  */
 public class MediawikiXmlHandler2 extends AbstractXmlHandler {
 
+	static private final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
+
+	//
+
 	private String root = null;
 
-	private String MEDIAWIKI_PAGE_REVISION_ID = "mediawiki/page" + "/revision/id";
-	private String MEDIAWIKI_PAGE_REVISION_TIMESTAMP = "mediawiki/page" + "/revision/timestamp";
+	private static final String MEDIAWIKI = "mediawiki";
+	private static final String QNAME_PAGE = "page";
 
-	private String PATH001_MEDIAWIKI_PAGE_TITLE = "mediawiki/page" + "/title";
-
-	private String PATH003_MEDIAWIKI_PAGE_NAMESPACE = "mediawiki/page" + "/ns";
-	private String PATH003_MEDIAWIKI_PAGE_ID = "mediawiki/page" + "/id";
-	private String PATH003_MEDIAWIKI_PAGE_PARENTID = "mediawiki/page" + "/parentid";
-
-	private String MEDIAWIKI_PAGE_REDIRECT = "mediawiki/page" + "/redirect";
-
-	private String MEDIAWIKI_PAGE_REVISION_TEXT = "mediawiki/page" + "/revision/text";
-
-	private String MEDIAWIKI_PAGE_REVISION_FORMAT = "mediawiki/page" + "/revision/format";
+	private static final String ATT_XML_SPACE = "xml:space";
+	//
+	private String MEDIAWIKI_PAGE_REVISION_ID = MEDIAWIKI + "/page" + "/revision/id";
+	private String MEDIAWIKI_PAGE_REVISION_TIMESTAMP = MEDIAWIKI + "/page" + "/revision/timestamp";
+	private String PATH001_MEDIAWIKI_PAGE_TITLE = MEDIAWIKI + "/page" + "/title";
+	private String PATH003_MEDIAWIKI_PAGE_NAMESPACE = MEDIAWIKI + "/page" + "/ns";
+	private String PATH003_MEDIAWIKI_PAGE_ID = MEDIAWIKI + "/page" + "/id";
+	private String PATH003_MEDIAWIKI_PAGE_PARENTID = MEDIAWIKI + "/page" + "/parentid";
+	private String MEDIAWIKI_PAGE_REDIRECT = MEDIAWIKI + "/page" + "/redirect";
+	private String MEDIAWIKI_PAGE_REVISION_TEXT = MEDIAWIKI + "/page" + "/revision/text";
+	private String MEDIAWIKI_PAGE_REVISION_FORMAT = MEDIAWIKI + "/page" + "/revision/format";
 
 	// pageID -> WikiPage Object
 	private HashMap<String, WikiPage> pages = new HashMap<>();
@@ -71,28 +78,29 @@ public class MediawikiXmlHandler2 extends AbstractXmlHandler {
 			}
 		}
 
+		// AbstractXmlHandler
 		super.startElement(uri, localName, qName, attributes);
 
-//		for (int idx = 0; idx < attributes.getLength(); idx++) {
-//			System.err.println(attributes.getLocalName(idx) + "=" + attributes.getValue(idx));
-//		}
-//		System.err.println("uri=" + uri + ",localName=" + localName + ",qName=" + qName + ",attributes=");
+		if (logger.isDebugEnabled()) {
+			for (int idx = 0; idx < attributes.getLength(); idx++) {
+				logger.debug(attributes.getLocalName(idx) + "=" + attributes.getValue(idx));
+			}
+			logger.debug("uri=" + uri + ",localName=" + localName + ",qName=" + qName + ",attributes=");
+		}
 
-		if (qName.equals("page")) {
+		if (qName.equals(QNAME_PAGE)) {
 			// 255425
 			resetPage();
 		}
-		// System.err.println(qName);
 		// ELSE IF(リダイレクト)
 		else if (super.getPath().equals(MEDIAWIKI_PAGE_REDIRECT)) {
 			String redirect_title = attributes.getValue("title");
 			pageInfo.put(MEDIAWIKI_PAGE_REDIRECT, redirect_title);
-//			System.err.println("redirect_title: " + redirect_title);
 		}
 		//
 		else if (super.getPath().equals(MEDIAWIKI_PAGE_REVISION_TEXT)) {
-			pageInfo.put("xml:space", attributes.getValue("xml:space"));
-		}
+			pageInfo.put(ATT_XML_SPACE, attributes.getValue(ATT_XML_SPACE));
+		} //
 	}
 
 	@Override
@@ -116,41 +124,38 @@ public class MediawikiXmlHandler2 extends AbstractXmlHandler {
 			String pageText = pageInfo.get(MEDIAWIKI_PAGE_REVISION_TEXT);
 
 			WikiPage page = new WikiPage(pageTitle, pageId, pageFormat, pageText);
-			// NAMESPACE
-			if (pageNamespace != null) {
-				page.setNamespace(pageNamespace);
-			}
-			// PARENTID
-			if (pageParentId != null) {
-				page.setParentId(pageParentId);
-			}
-			// REVISION ID
-			if (pageRevisionId != null) {
-				page.setRevisionId(pageRevisionId);
-			}
-			// TIMESTAMP
 			{
-				page.setTimestamp(pageTimestamp);
-			}
-
-			// CATEGORY TAGS (CATEGORIES)
-			{
-				List<String> categoryTags = MediaWikiTextUtils.parseCategoryTags(pageText);
-				if (categoryTags != null && categoryTags.size() > 0) {
-					page.setCategoryTags(categoryTags);
+				// 1 NAMESPACE
+				if (pageNamespace != null) {
+					page.setNamespace(pageNamespace);
 				}
-			}
-			{
-				List<String> templateTags = MediaWikiTextUtils.parseTemplateTags(pageText);
-				if (templateTags != null && templateTags.size() > 0) {
-					page.setTemplateTags(templateTags);
+				// 2 PARENTID
+				if (pageParentId != null) {
+					page.setParentId(pageParentId);
 				}
-
-			}
-
-			// リダイレクト情報
-			if (pageInfo.containsKey(MEDIAWIKI_PAGE_REDIRECT)) {
-				page.setRedirectTitle(pageInfo.get(MEDIAWIKI_PAGE_REDIRECT));
+				// 3 REVISION ID
+				if (pageRevisionId != null) {
+					page.setRevisionId(pageRevisionId);
+				}
+				{ // 4 TIMESTAMP
+					page.setTimestamp(pageTimestamp);
+				}
+				{ // CATEGORY TAGS (CATEGORIES)
+					List<String> categoryTags = MediaWikiTextUtils.parseCategoryTags(pageText);
+					if (categoryTags != null && categoryTags.size() > 0) {
+						page.setCategoryTags(categoryTags);
+					}
+				}
+				{ // TEMPLATE TAGS
+					List<String> templateTags = MediaWikiTextUtils.parseTemplateTags(pageText);
+					if (templateTags != null && templateTags.size() > 0) {
+						page.setTemplateTags(templateTags);
+					}
+				}
+				// リダイレクト情報
+				if (pageInfo.containsKey(MEDIAWIKI_PAGE_REDIRECT)) {
+					page.setRedirectTitle(pageInfo.get(MEDIAWIKI_PAGE_REDIRECT));
+				}
 			}
 
 			pages.put(page.getId(), page);

@@ -176,6 +176,77 @@ public class WikiPageNodeTestCase extends TestCase {
 
 	}
 
+	public void testGetText006() {
+		String wikiText = "{{半保護S}}\r\n" //
+				+ "{{also|學校}}\r\n" //
+				+ "=={{L|ja}}==\r\n" //
+				+ "{{ja-DEFAULTSORT|がっこう}}\r\n" //
+				+ "{{ja-kanjitab|がく|k1=がっ|こう|yomi=o}}\r\n" //
+				+ "{{wikipedia}}\r\n" //
+				+ "\r\n" //
+				+ "==={{pron}}===\r\n" //
+				+ "{{ja-pron|がっこう|acc=0|acc_ref=DJR4}}\r\n" //
+				+ "\r\n" //
+				+ "==={{noun}}===\r\n" //
+				+ "{{ja-noun|がっこう|kyu=學校}}\r\n" //
+				+ "[[Category:{{ja}} 学校|*]]\r\n" //
+				+ "#何らかの[[教育]]が体系的に行われる[[組織]]又はその[[設備]]。[[学舎]]、[[まなびや]]。\r\n" //
+				+ "#語義1のうち、教育する事項について[[履修]][[課程]]を定め、[[学生]]又は[[児童]]、[[生徒]]の[[修学]]状況を管理し、それを証する[[機関]]。ただし教育機関であっても学習塾や予備校などは除く。\r\n" //
+				+ "#{{タグ|ja|法律}} 日本の学校教育法においては[[幼稚園]]、[[小学校]]、[[中学校]]、[[義務教育学校]]、[[高等学校]]、[[中等教育学校]]、[[特別支援学校]]、[[大学]][[及び]][[高等専門学校]]とされる（同法第一条）。 \r\n" //
+				+ "#[[授業]]。\r\n" //
+				+ "#*今日は'''学校'''がある日だ。\r\n" //
+				+ "\r\n" //
+				+ "===={{comp}}====\r\n" //
+				+ "{{top}}\r\n" //
+				+ "* [[学校安全警備員]]\r\n" //
+				+ "* [[学校安全ボランティア]]\r\n" //
+				+ "* [[学校医]]\r\n" //
+				+ "{{bottom}}\r\n" //
+				+ "\r\n" //
+				+ "===={{rel}}====\r\n" //
+				+ "* [[学校教育]]\r\n" //
+				+ "* [[幼稚園]]\r\n" //
+				+ "* [[小学校]]\r\n" //
+				+ "\r\n" //
+				+ "===={{desc}}====\r\n" //
+				+ "* {{desc|pwn|gaku}}, {{l|pwn|gakku}}, {{l|pwn|gak-ku}}\r\n" //
+				+ "* {{desc|tao|gako}}\r\n" //
+				+ "\r\n" //
+				+ "===={{trans}}====\r\n" //
+				+ "{{trans-top}}\r\n" //
+				+ "*{{T|ga}}: [[scoil]] {{f}}\r\n" //
+				+ "*{{T|af}}: [[skool]]\r\n" //
+				+ "*{{T|ar}}: {{ARchar|[[مدرسة]]}} (madrása) {{f}}\r\n" //
+				+ "{{trans-bottom}}\r\n" //
+				+ "\r\n" //
+				+ "----\r\n" //
+				+ "\r\n" //
+				+ "=={{L|zh}}==\r\n" //
+				+ "{{wikipedia|lang=zh}}\r\n" //
+				+ "[[category:{{zh}}|xue2xiao4]]\r\n" //
+				+ "==={{noun}}===\r\n" //
+				+ "[[Category:{{zh}}_{{noun}}|xue2xiao4]]\r\n" //
+				+ "[[Category:{{zh}}_学校|*]]\r\n" //
+				+ "[[Category:学校|*]]\r\n" //
+				+ "{{ZHsim|'''学校'''}} {{zh-ts|'''[[學校]]'''}} (xuéxiào)\r\n" //
+				+ "#（日本語に同じ）学校。\r\n" //
+				+ "[[Category:HSKレベル1級|xue2xiao4]]\r\n" //
+				+ "[[Category:HSKレベル甲|xue2xiao4]]\r\n" //
+				+ "\r\n" //
+				+ "----\r\n" //
+				+ "\r\n" //
+				+ "==脚注==\r\n" //
+				+ "<references />\r\n" //
+				+ "";
+		WikiItemTextParser parser = new WikiItemTextParser();
+		parser.parse(wikiText);
+
+		parser.getWikiPageNodesAsList().stream().forEach(p -> {
+			System.err.println(p.getLevel() + "," + p.getHeaderPath());
+		});
+
+	}
+
 	public void testSetHeader() {
 	}
 

@@ -4,8 +4,13 @@ public class StringUtils {
 
 	// Thank you
 	// https://stackoverflow.com/questions/6804951/regex-to-remove-comments-in-xml-file-in-eclipse-java
-	private static final String REGEX_XML_COMMENT = "(?s)<!--.*?-->";
+	private static final String REGEX_XML_COMMENT = "(?s)" + "<!--" + ".*?" + "-->";
 
+	/**
+	 * @param s target string
+	 * @param b pair of begin char and end char like "()"
+	 * @return
+	 */
 	static public String removeBracketted(String s, String b) {
 		int level = 0;
 		StringBuilder sb = new StringBuilder();
@@ -25,6 +30,14 @@ public class StringUtils {
 		}
 		return sb.toString();
 
+	}
+
+	static public String remove(String s, String from, String to) {
+		if (s.indexOf(from) == -1) {
+			return s;
+		}
+		String regex = "(?s)" + from + ".*?" + to;
+		return s.replaceAll(regex, "");
 	}
 
 	/**

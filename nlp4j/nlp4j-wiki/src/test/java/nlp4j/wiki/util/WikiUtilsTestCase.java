@@ -1,4 +1,4 @@
-package nlp4j.wiki;
+package nlp4j.wiki.util;
 
 import java.io.File;
 import java.util.List;
@@ -162,6 +162,14 @@ public class WikiUtilsTestCase extends TestCase {
 	public void testNormailzeHeader001() {
 		String s1 = "=={{L|ja}}==";
 		String s2 = WikiUtils.normailzeHeader(s1);
+		String expected = "=={{ja}}==";
+		System.err.println(s2);
+		assertEquals(expected, s2);
+	}
+
+	public void testNormailzeHeaderPath001() {
+		String s1 = "=={{L|ja}}==";
+		String s2 = WikiUtils.normailzeHeaderPath(s1);
 		String expected = "=={{ja}}==";
 		System.err.println(s2);
 		assertEquals(expected, s2);

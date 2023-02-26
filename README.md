@@ -76,6 +76,14 @@ chopstick [facet=word.NNS, str=chopsticks]
 . [facet=word.., str=.]
 ```
 
+# See also
+
+Natural Language Processing with Groovy, OpenNLP, CoreNLP, Nlp4j, Datumbox, Smile, Spark NLP, DJL and TensorFlow
+
+
+https://groovy.apache.org/blog/natural-language-processing-with-groovy
+
+
 # Author
 
 Hiroki Oya [twitter](https://twitter.com/oyahiroki) [linkedin](https://www.linkedin.com/in/oyahiroki/)

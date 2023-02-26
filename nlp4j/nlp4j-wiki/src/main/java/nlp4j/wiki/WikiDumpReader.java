@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.RandomAccessFile;
 import java.lang.invoke.MethodHandles;
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.xml.XMLConstants;
@@ -69,6 +68,15 @@ public class WikiDumpReader implements AutoCloseable {
 	 * @throws IOException on Error File Not found
 	 */
 	public WikiDumpReader(File dumpFile) throws IOException {
+		init0(dumpFile);
+	}
+
+	public WikiDumpReader(String dumpFileName) throws IOException {
+		File dumpFile = new File(dumpFileName);
+		init0(dumpFile);
+	}
+
+	private void init0(File dumpFile) throws FileNotFoundException {
 		if (dumpFile.exists() == false) {
 			throw new FileNotFoundException("Dump File Not Found: " + dumpFile.getAbsolutePath());
 		}
@@ -82,6 +90,21 @@ public class WikiDumpReader implements AutoCloseable {
 	 * @throws IOException on Error File Not found
 	 */
 	public WikiDumpReader(File dumpFile, File indexFile) throws IOException {
+		init1(dumpFile, indexFile);
+	}
+
+	/**
+	 * @param dumpFileName:  path of Wiki dump file (bz2)
+	 * @param indexFileName: path of Wiki index file (bz2)
+	 * @throws IOException on Error File Not found
+	 */
+	public WikiDumpReader(String dumpFileName, String indexFileName) throws IOException {
+		File dumpFile = new File(dumpFileName);
+		File indexFile = new File(indexFileName);
+		init1(dumpFile, indexFile);
+	}
+
+	private void init1(File dumpFile, File indexFile) throws IOException {
 		if (dumpFile.exists() == false) {
 			throw new FileNotFoundException("Dump File Not Found: " + dumpFile.getAbsolutePath());
 		}
@@ -124,6 +147,12 @@ public class WikiDumpReader implements AutoCloseable {
 		// GET INDEX INFO FROM INDEX FILE
 		WikiIndexItem item = wikiIndex.getItem(itemString);
 
+		// IF(INDEX NOT FOUND) THEN RETURN NULL
+		if (item == null) {
+			logger.debug("Not found in index:" + itemString);
+			return null;
+		}
+		
 		if (this.pages != null) {
 			String itemId = "" + item.getItemID();
 			if (this.pages.containsKey(itemId)) {
@@ -133,11 +162,6 @@ public class WikiDumpReader implements AutoCloseable {
 			}
 		}
 
-		// IF(INDEX NOT FOUND) THEN RETURN NULL
-		if (item == null) {
-			logger.debug("Not found in index:" + itemString);
-			return null;
-		}
 		// READ INDEX INFO
 		long p1 = item.getBlockNum();
 		int size = (int) item.getSize();

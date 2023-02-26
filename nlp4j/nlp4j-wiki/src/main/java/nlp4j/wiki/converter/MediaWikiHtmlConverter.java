@@ -12,7 +12,7 @@ import nlp4j.wiki.BreakException;
 import nlp4j.wiki.WikiDumpReader;
 import nlp4j.wiki.WikiPage;
 import nlp4j.wiki.WikiPageHandler;
-import nlp4j.wiki.WikiUtils;
+import nlp4j.wiki.util.WikiUtils;
 
 public class MediaWikiHtmlConverter {
 

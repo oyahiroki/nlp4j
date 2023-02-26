@@ -7,6 +7,7 @@ import junit.framework.TestCase;
 import nlp4j.wiki.WikiPage;
 import nlp4j.wiki.WikiPageReader;
 import nlp4j.wiki.entity.WikiEntity;
+import nlp4j.wiki.template.MediaWikiTemplateUtils;
 import nlp4j.wiki.entity.WikiDefault;
 
 public class WikiTextParserTestCase extends TestCase {
@@ -25,7 +26,27 @@ public class WikiTextParserTestCase extends TestCase {
 //			System.err.println(e.getText());
 			System.err.println(e);
 		}
+	}
 
+	public void testParse001b() throws Exception {
+		String s = "{{AAA}}\n" //
+				+ "== AAA ==\n"//
+				+ "TTT\n"//
+				+ "TTT\n" //
+				+ "== {{ja}} ==\n"//
+				+ "TTT\n"//
+				+ "TTT\n" //
+				+ "=== BBB ===\n" ///
+				+ "TTT\n" //
+				+ "TTT" //
+		;
+		WikiTextParser parser = new WikiTextParser();
+		List<WikiEntity> ee = parser.parse(s);
+		for (WikiEntity e : ee) {
+			System.err.println("---");
+//			System.err.println(e.getText());
+			System.err.println(e);
+		}
 	}
 
 	public void testParse002() throws Exception {

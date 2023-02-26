@@ -1,4 +1,4 @@
-package nlp4j.wiki.util;
+package nlp4j.wiki.template;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -8,6 +8,12 @@ import nlp4j.wiki.entity.WikiEntity;
 
 public class MediaWikiTemplateUtils {
 
+	/**
+	 * 簡易のテンプレート処理
+	 * 
+	 * @param e
+	 * @return
+	 */
 	static public String toText(WikiEntity e) {
 
 		String t = e.getText();

@@ -11,9 +11,9 @@ import nlp4j.wiki.WikiItemTextParser;
 import nlp4j.wiki.WikiPage;
 import nlp4j.wiki.WikiPageHandler;
 import nlp4j.wiki.WikiPageNode;
+import nlp4j.wiki.template.WikiTemplateNormalizer;
 import nlp4j.wiki.util.MediaWikiFileUtils;
 import nlp4j.wiki.util.MediaWikiTextUtils;
-import nlp4j.wiki.util.WikiTemplateNormalizer;
 
 public class Wikipedia003ReadDumpWithoutIndexExampleJa_20220401b {
 
