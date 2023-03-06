@@ -123,7 +123,8 @@ public class WikiItemTextParser {
 				// {{wikipedia}} 引数なし: 同名のWikipedia記事
 				// {{wikipedia|記事名}}
 				// {{wikipedia|記事名|表示名}}
-				System.err.println(line);
+				// TODO Wikipedia リンクの処理
+				System.err.println("wikipedia: " + line);
 			}
 
 			// is header

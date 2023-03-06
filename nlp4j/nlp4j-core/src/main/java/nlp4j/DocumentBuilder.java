@@ -163,6 +163,18 @@ public class DocumentBuilder implements Builder<Document> {
 	}
 
 	/**
+	 * created_at: 2023-03-06
+	 * 
+	 * @param keyword
+	 * @return
+	 * @since 1.3.7.6
+	 */
+	public DocumentBuilder kw(Keyword kw) {
+		this.doc.addKeyword(kw);
+		return this;
+	}
+
+	/**
 	 * @return Created Document
 	 */
 	public Document create() {

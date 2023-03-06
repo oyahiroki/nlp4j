@@ -136,8 +136,8 @@ public class MecabAnnotator extends AbstractDocumentAnnotator implements Documen
 					continue;
 				}
 
-				if (features.length < 8) {
-					logger.warn("invalid: features.length:" + features.length + "," + text);
+				if (features.length < 8 && logger.isDebugEnabled()) {
+					logger.debug("invalid: features.length:" + features.length + "," + text);
 				}
 
 				logger.debug(node.surface() + "\t" + node.feature());
@@ -216,7 +216,9 @@ public class MecabAnnotator extends AbstractDocumentAnnotator implements Documen
 	}
 
 	public void close() {
-		tagger.destroy();
+		if (tagger != null) {
+			tagger.destroy();
+		}
 	}
 
 	/**

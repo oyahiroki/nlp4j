@@ -1,6 +1,10 @@
 package nlp4j.wiki.util;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -34,22 +38,30 @@ public class WikiUtils {
 	static private final Map<String, String> mapForNormalize = new HashMap<String, String>();
 
 	static {
-		// key: before normailze, value: after normalized
-		mapForNormalize.put("=={{L|ja}}==", "=={{ja}}=="); // 日本語
-		mapForNormalize.put("=={{jpn}}==", "=={{ja}}=="); // 日本語
-		mapForNormalize.put("== {{jpn}} ==", "=={{ja}}=="); // 日本語
-		mapForNormalize.put("== {{ja}} ==", "=={{ja}}=="); // 日本語
-		mapForNormalize.put("==日本語==", "=={{ja}}=="); // 日本語
-		mapForNormalize.put("== 日本語 ==", "=={{ja}}=="); // 日本語
-		mapForNormalize.put("名詞", "{{noun}}"); // 名詞
-		mapForNormalize.put("形容動詞", "{{adjectivenoun}}"); // 形容動詞
-		mapForNormalize.put("動詞", "{{verb}}"); // 動詞
 
-		mapForNormalize.put("成句", "{{idiom}}"); // 成句
-		mapForNormalize.put("関連語", "{{rel}}"); // 関連語
-		mapForNormalize.put("同義語", "{{syn}}"); // 同義語
-		mapForNormalize.put("複合語", "{{comp}}"); // 複合語
-		mapForNormalize.put("熟語", "{{prov}}"); // 複合語
+		try {
+			InputStream is = WikiUtils.class.getClassLoader()
+					.getResourceAsStream("nlp4j/wiki/util/WikiUtilsConfig.txt");
+			InputStreamReader isr = new InputStreamReader(is, StandardCharsets.UTF_8);
+			BufferedReader br = new BufferedReader(isr);
+			String s;
+			while ((s = br.readLine()) != null) {
+				if (s.contains("\t")) {
+//					System.err.println(s);
+					String[] ss = s.split("\t");
+					String s1 = ss[0];
+					String s2 = ss[1];
+
+					mapForNormalize.put("=" + s1 + "=", "=" + s2 + "=");
+				}
+			}
+			br.close();
+		} catch (Exception e) {
+
+		}
+
+//		// key: before normailze, value: after normalized
+//		mapForNormalize.put("={{L|ja}}==", "={{ja}}="); // 日本語
 	}
 
 	static String splitter = "(:|・)";
@@ -196,11 +208,24 @@ public class WikiUtils {
 		}
 	}
 
+	/**
+	 * <pre>
+	 * WiktionaryのHeaderを正規化する
+	 * ・半角空白の除去
+	 * ・テンプレート以外に文字が入っている場合の除去
+	 * ・事前に定義した変換
+	 * </pre>
+	 * 
+	 * @param header
+	 * @return
+	 */
 	static public String normailzeHeader(String header) {
 
+		// 半角空白の除去
 		// "=== {{verb}}・往 ===" -> "==={{verb}}・往==="
 		header = header.replace(" ", "");
 
+		// テンプレート以外に文字が入っている場合の除去
 		{ // "==={{verb}}・往===" -> "==={{verb}}==="
 			int idx2 = header.indexOf("}}");
 			if (idx2 != -1) {
@@ -211,7 +236,7 @@ public class WikiUtils {
 			}
 
 		}
-
+		// 事前に定義した変換
 		if (mapForNormalize.containsKey(header)) {
 			return mapForNormalize.get(header);
 		}

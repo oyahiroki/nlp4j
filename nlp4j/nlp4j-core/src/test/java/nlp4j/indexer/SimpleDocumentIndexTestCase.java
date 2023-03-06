@@ -7,26 +7,27 @@ import junit.framework.TestCase;
 import nlp4j.Document;
 import nlp4j.DocumentBuilder;
 import nlp4j.Keyword;
+import nlp4j.KeywordBuilder;
 import nlp4j.impl.DefaultDocument;
 import nlp4j.impl.DefaultKeyword;
 import nlp4j.indexer.SimpleDocumentIndex;
 
 public class SimpleDocumentIndexTestCase extends TestCase {
 
+	/**
+	 * <pre>
+	 * キーワードのカウントをテストする
+	 * Test Keyword count
+	 * </pre>
+	 */
 	public void testAddDocument001() {
 		DefaultDocument d1 = new DefaultDocument();
 		{
-			Keyword kw = new DefaultKeyword();
-			kw.setFacet("facet");
-			kw.setLex("lex");
-			d1.addKeyword(kw);
+			d1.addKeyword((new KeywordBuilder()).facet("noun").lex("TEST").build());
 		}
 		DefaultDocument d2 = new DefaultDocument();
 		{
-			Keyword kw = new DefaultKeyword();
-			kw.setFacet("facet");
-			kw.setLex("lex");
-			d2.addKeyword(kw);
+			d2.addKeyword((new KeywordBuilder()).facet("noun").lex("TEST").build());
 		}
 
 		SimpleDocumentIndex index = new SimpleDocumentIndex();
@@ -36,25 +37,27 @@ public class SimpleDocumentIndexTestCase extends TestCase {
 		}
 
 		System.err.println(index.getKeywords().size());
-		System.err.println(index.getKeywords());
-		assertEquals("lex", index.getKeywords().get(0).getLex());
-		assertEquals(2, index.getKeywords().get(0).getCount());
+		index.getKeywords().stream().forEach(kw -> {
+			System.err.println("facet=" + kw.getFacet() + ",lex=" + kw.getLex() + ",count=" + kw.getCount());
+		});
+		int expectedCount = 2;
+		assertEquals(expectedCount, index.getKeywords().get(0).getCount());
 	}
 
+	/**
+	 * <pre>
+	 * キーワードのカウントをテストする
+	 * Test Keyword count
+	 * </pre>
+	 */
 	public void testAddDocument002() {
 		DefaultDocument d1 = new DefaultDocument();
 		{
-			Keyword kw = new DefaultKeyword();
-			kw.setFacet("facet.aa");
-			kw.setLex("lex");
-			d1.addKeyword(kw);
+			d1.addKeyword((new KeywordBuilder()).facet("facet1").lex("TEST").build());
 		}
 		DefaultDocument d2 = new DefaultDocument();
 		{
-			Keyword kw = new DefaultKeyword();
-			kw.setFacet("facet.bb");
-			kw.setLex("lex");
-			d2.addKeyword(kw);
+			d2.addKeyword((new KeywordBuilder()).facet("facet2").lex("TEST").build());
 		}
 
 		SimpleDocumentIndex index = new SimpleDocumentIndex();
@@ -63,14 +66,17 @@ public class SimpleDocumentIndexTestCase extends TestCase {
 			index.addDocument(d2);
 		}
 
-		for (Keyword kwd : index.getKeywords("facet")) {
-			System.err.println(kwd.getFacet() + "," + kwd.getLex() + "," + kwd.getCount());
+		{
+			int countExpected = 1;
+			assertEquals(countExpected, index.getKeywords("facet1").size());
 		}
-		for (Keyword kwd : index.getKeywords("facet.aa")) {
-			System.err.println(kwd.getFacet() + "," + kwd.getLex() + "," + kwd.getCount());
+		{
+			int countExpected = 1;
+			assertEquals(countExpected, index.getKeywords("facet2").size());
 		}
-		for (Keyword kwd : index.getKeywords("facet.bb")) {
-			System.err.println(kwd.getFacet() + "," + kwd.getLex() + "," + kwd.getCount());
+		{
+			int countExpected = 0;
+			assertEquals(countExpected, index.getKeywords("facet0").size());
 		}
 	}
 
@@ -332,6 +338,29 @@ public class SimpleDocumentIndexTestCase extends TestCase {
 		assertTrue(kwds.size() > 0);
 		for (Keyword kwd : kwds) {
 			System.err.println(kwd.getLex() + "," + kwd.getCount());
+		}
+	}
+
+	public void testGetDocumentsKeyword() {
+		DefaultDocument d1 = new DefaultDocument();
+		{
+			d1.setText("Hi, OK");
+			d1.addKeyword((new KeywordBuilder()).facet("noun").lex("TEST").build());
+		}
+		DefaultDocument d2 = new DefaultDocument();
+		{
+			d2.setText("Hi, NG");
+			d2.addKeyword((new KeywordBuilder()).facet("noun").lex("TEST2").build());
+		}
+		SimpleDocumentIndex index = new SimpleDocumentIndex();
+		{
+			index.addDocument(d1);
+			index.addDocument(d2);
+		}
+		List<Document> docs = index.getDocumentsByKeyword((new KeywordBuilder()).facet("noun").lex("TEST").build());
+		System.err.println(docs.size());
+		for (Document doc : docs) {
+			System.err.println(doc.getText());
 		}
 	}
 

@@ -3,18 +3,32 @@ package nlp4j.util;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.zip.GZIPInputStream;
 
+/**
+ * @author Hiroki Oya
+ *
+ */
 public class FileUtils {
 
-	static public long lineCount(File file) throws IOException {
+	/**
+	 * Returns line count of a text file
+	 * 
+	 * @param textFileUTF8 in UTF-8 text file
+	 * @return
+	 * @throws IOException
+	 */
+	static public long lineCount(File textFileUTF8) throws IOException {
 		long lineCount = 0;
-		try (BufferedReader br = new BufferedReader(new FileReader(file, StandardCharsets.UTF_8))) {
+		try (BufferedReader br = new BufferedReader(new FileReader(textFileUTF8, StandardCharsets.UTF_8))) {
 			while (br.readLine() != null) {
 				lineCount++;
 			}
@@ -22,20 +36,48 @@ public class FileUtils {
 		return lineCount;
 	}
 
-	static public long lineCountGZipTextFile(File file) throws IOException {
+	/**
+	 * Returns line count of a text file in GZip
+	 * 
+	 * @param fileGZipText
+	 * @return
+	 * @throws IOException
+	 */
+	static public long lineCountGZipTextFile(File fileGZipText) throws IOException {
 		long lineCount = 0;
-		try (BufferedReader br = GZIPFileUtils.openGZIPFileAsBufferedReader(file)) {
+		try (BufferedReader br = GZIPFileUtils.openGZIPFileAsBufferedReader(fileGZipText)) {
 			while (br.readLine() != null) {
 				lineCount++;
 			}
 		}
 		return lineCount;
+	}
+
+	/**
+	 * Returns new PrintWriter of UTF-8
+	 * 
+	 * @param fileName
+	 * @return
+	 * @throws IOException
+	 * @since 1.3.7.6
+	 */
+	static public PrintWriter newPrintWriter(String fileName) throws IOException {
+		return new PrintWriter(
+				new OutputStreamWriter(new FileOutputStream(new File(fileName)), StandardCharsets.UTF_8));
 	}
 
 	static public BufferedReader openTextFileAsBufferedReader(File gzipTextOrPlainTextFile) throws IOException {
 		return openTextFileAsBufferedReader(gzipTextOrPlainTextFile, StandardCharsets.UTF_8);
 	}
 
+	/**
+	 * Returns BufferedReader of text file (plain or gzip)
+	 * 
+	 * @param gzipTextOrPlainTextFile plain text file OR gzip text file
+	 * @param encoding
+	 * @return
+	 * @throws IOException
+	 */
 	static public BufferedReader openTextFileAsBufferedReader(File gzipTextOrPlainTextFile, Charset encoding)
 			throws IOException {
 

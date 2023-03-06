@@ -1,6 +1,14 @@
 package nlp4j.wiki.util;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.BufferUnderflowException;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
@@ -168,11 +176,20 @@ public class WikiUtilsTestCase extends TestCase {
 	}
 
 	public void testNormailzeHeaderPath001() {
-		String s1 = "=={{L|ja}}==";
-		String s2 = WikiUtils.normailzeHeaderPath(s1);
-		String expected = "=={{ja}}==";
-		System.err.println(s2);
-		assertEquals(expected, s2);
+		{
+			String s1 = "=={{L|ja}}==";
+			String s2 = WikiUtils.normailzeHeaderPath(s1);
+			String expected = "=={{ja}}==";
+			System.err.println(s2);
+			assertEquals(expected, s2);
+		}
+		{
+			String s1 = "==日本語==";
+			String s2 = WikiUtils.normailzeHeaderPath(s1);
+			String expected = "=={{ja}}==";
+			System.err.println(s2);
+			assertEquals(expected, s2);
+		}
 	}
 
 	// # {{lb|en|US|Canada}} An [[institution]] dedicated to [[teaching]] and
@@ -218,6 +235,17 @@ public class WikiUtilsTestCase extends TestCase {
 		for (Keyword kwd : kwds) {
 			System.err.println(kwd.getLex());
 		}
+	}
+
+	public void testRead() throws IOException {
+		InputStream is = this.getClass().getClassLoader().getResourceAsStream("nlp4j/wiki/util/WikiUtilsConfig.txt");
+		InputStreamReader isr = new InputStreamReader(is, StandardCharsets.UTF_8);
+		BufferedReader br = new BufferedReader(isr);
+		String s;
+		while ((s = br.readLine()) != null) {
+			System.err.println(s);
+		}
+		br.close();
 	}
 
 }

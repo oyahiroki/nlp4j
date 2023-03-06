@@ -32,3 +32,7 @@ Thumbs.db
 .DS_Store
 
 nlp4j/nlp4j-solr/.classpath
+nlp4j/nlp4j-word2vec/.classpath
+nlp4j/nlp4j-word2vec/.project
+nlp4j/nlp4j-word2vec/.classpath
+nlp4j/nlp4j-word2vec/.project

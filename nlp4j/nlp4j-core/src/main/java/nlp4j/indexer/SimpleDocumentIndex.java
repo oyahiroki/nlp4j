@@ -306,6 +306,29 @@ public class SimpleDocumentIndex extends AbstractDocumentIndexer implements Docu
 		}
 	}
 
+	/**
+	 * @param kwd
+	 * @return Documents that have keywords
+	 */
+	public List<Document> getDocumentsByKeyword(Keyword kwd) {
+		String key = kwd.getFacet() + "." + kwd.getLex();
+		if (this.mapKeywordDocumentids.get(key) != null) {
+			List<String> ids = this.mapKeywordDocumentids.get(key);
+			List<Document> list = new ArrayList<>();
+			for (String id : ids) {
+				Document doc = this.mapDocidDocument.get(id);
+				if (doc != null) {
+					list.add(doc);
+				}
+			}
+			return list;
+		} //
+		else {
+			// RETURM EMPTY
+			return new ArrayList<>();
+		}
+	}
+
 	public Document getDocumentById(String id) {
 		return this.mapDocidDocument.get(id);
 	}

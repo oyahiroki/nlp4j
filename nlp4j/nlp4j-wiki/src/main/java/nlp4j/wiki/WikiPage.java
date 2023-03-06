@@ -155,6 +155,13 @@ public class WikiPage {
 	}
 
 	/**
+	 * @return Template tags
+	 */
+	public List<String> getTemplateTags() {
+		return templateTags;
+	}
+
+	/**
 	 * Return Wiki Entry as Wiki Text
 	 * 
 	 * @return Wiki Text
@@ -242,6 +249,13 @@ public class WikiPage {
 	}
 
 	/**
+	 * @param templateTags
+	 */
+	public void setTemplateTags(List<String> templateTags) {
+		this.templateTags = templateTags;
+	}
+
+	/**
 	 * @param text in Wiki format
 	 */
 	public void setText(String text) {
@@ -271,6 +285,25 @@ public class WikiPage {
 
 	@Override
 	public String toString() {
+		return "WikiPage [" //
+				+ "title=" + title + ", " // <title>
+				+ "namespace=" + namespace + ", " // <ns>
+				+ "id=" + id + ", " // <id>
+				// <revision>
+				+ "revisionId=" + revisionId + "" // <id>
+				+ "parentId=" + parentId + ", " //
+				+ "timestamp=" + timestamp + ", " //
+				// <contributor></contributor>
+				+ "format=" + format + ", " // <format>
+				+ "isRediect=" + isRediect + ", " //
+				+ "rediect_title=" + rediect_title + ", " //
+				+ "categoryTags=" + categoryTags + ", " //
+				+ "templateTags=" + templateTags + ", " //
+				+ "xml.length=" + ((xml != null) ? xml.length() : 0) + ", " //
+				+ "]";
+	}
+
+	public String toString2() {
 
 		String t = (this.text != null && this.text.length() > 16) ? text.substring(0, 16).replace("\n", "") + "..."
 				: "" + text;
@@ -292,20 +325,6 @@ public class WikiPage {
 				+ "text=" + t + ", "//
 				+ "xml=" + x //
 				+ "]";
-	}
-
-	/**
-	 * @param templateTags
-	 */
-	public void setTemplateTags(List<String> templateTags) {
-		this.templateTags = templateTags;
-	}
-
-	/**
-	 * @return Template tags
-	 */
-	public List<String> getTemplateTags() {
-		return templateTags;
 	}
 
 }

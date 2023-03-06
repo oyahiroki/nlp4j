@@ -9,7 +9,7 @@ import nlp4j.wiki.entity.WikiEntity;
 public class MediaWikiTemplateUtils {
 
 	/**
-	 * 簡易のテンプレート処理
+	 * TODO 簡易のテンプレート処理
 	 * 
 	 * @param e
 	 * @return

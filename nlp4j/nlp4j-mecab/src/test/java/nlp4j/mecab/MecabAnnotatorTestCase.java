@@ -203,6 +203,33 @@ public class MecabAnnotatorTestCase extends TestCase {
 
 	}
 
+	public void testAnnotateDocument006() throws Exception {
+
+		// 自然文のテキスト
+		String text = "アメリカとカナダ。";
+		Document doc = new DefaultDocument();
+		{
+			doc.putAttribute("text", text);
+		}
+		MecabAnnotator annotator = new MecabAnnotator();
+		{
+			annotator.setProperty("target", "text");
+		}
+		annotator.annotate(doc); // throws Exception
+		System.err.println("Finished : annotation");
+
+		assertNotNull(doc.getKeywords());
+		assertTrue(doc.getKeywords().size() > 0);
+
+		for (Keyword kwd : doc.getKeywords()) {
+			System.err.println(kwd.getLex() + "," + kwd.getFacet() + "," + kwd.getUPos());
+		}
+
+		assertEquals("アメリカ", doc.getKeywords().get(0).getLex());
+		annotator.close();
+
+	}
+
 	/**
 	 * 「私は学校に行きました\n彼は家で過ごしました。」の形態素解析結果をテスト
 	 * 
