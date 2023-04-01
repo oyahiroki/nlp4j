@@ -92,10 +92,37 @@ public class GinzaPosDependencyAnnotatorTestCase extends TestCase {
 		}
 	}
 
+	public void testAnnotateDocument007() throws Exception {
+		Document doc = new DefaultDocument("私は牛丼を食べる");
+		GinzaPosDependencyAnnotator ann = new GinzaPosDependencyAnnotator();
+		ann.setProperty("target", "text");
+		ann.annotate(doc);
+		for (KeywordWithDependency kwd : doc.getKeywords(KeywordWithDependency.class)) {
+			System.err.println(kwd.toStringAsXml());
+			List<Keyword> kwds = KeywordWithDependencyParser.parse(kwd);
+			for (Keyword kw : kwds) {
+				System.err.println(kw.getLex() + "," + kw.getFacet());
+			}
+		}
+	}
+
+	public void testAnnotateDocument008() throws Exception {
+		Document doc = new DefaultDocument("私は学校に行く");
+		GinzaPosDependencyAnnotator ann = new GinzaPosDependencyAnnotator();
+		ann.setProperty("target", "text");
+		ann.annotate(doc);
+		for (KeywordWithDependency kwd : doc.getKeywords(KeywordWithDependency.class)) {
+			System.err.println(kwd.toStringAsXml());
+			List<Keyword> kwds = KeywordWithDependencyParser.parse(kwd);
+			for (Keyword kw : kwds) {
+				System.err.println(kw.getLex() + "," + kw.getFacet());
+			}
+		}
+	}
+
 	public void testSetProperty() {
 		GinzaPosDependencyAnnotator ann = new GinzaPosDependencyAnnotator();
 		ann.setProperty("target", "text");
-
 	}
 
 }

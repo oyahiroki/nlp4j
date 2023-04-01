@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<patterns lang="ja">
+
+	<pattern facet="pattern.svo"
+		value="{1.lex} ... {3.lex} ... {5.lex}">
+		<w id="5">
+			<w id="1" relation="nsubj">
+				<w id="2" lex="/(が|は)/" />
+			</w>
+			<w id="3" relation="obj">
+				<w id="4" lex="を" />
+			</w>
+		</w>
+	</pattern>
+
+</patterns>
+
