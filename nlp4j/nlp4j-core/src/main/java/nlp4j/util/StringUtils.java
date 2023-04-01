@@ -1,5 +1,6 @@
 package nlp4j.util;
 
+import java.math.BigDecimal;
 import java.nio.charset.Charset;
 import java.nio.charset.CharsetEncoder;
 import java.util.ArrayList;
@@ -11,6 +12,56 @@ import java.util.ArrayList;
  * @since 1.3.2.0
  */
 public class StringUtils {
+
+	static public boolean isJaHiragana(String s) {
+		return s.matches("^[\u3040-\u309F]+$");
+	}
+
+	static public boolean isJaKatakana(String s) {
+		return s.matches("^[ァ-ヶー]*$");
+	}
+
+	static public boolean isJaKana(String s) {
+		return s.matches("^([\u3040-\u309F]|[\u30A1-\u30FA])+$");
+	}
+
+	/**
+	 * ひらがな → カタカナ
+	 * 
+	 * @param s
+	 * @return
+	 */
+	static public String toJaKatakanaFromHiragana(String s) {
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < s.length(); i++) {
+			char c = s.charAt(i);
+			if ((c >= 0x3041) && (c <= 0x3093)) {
+				sb.append((char) (c + 0x60));
+			} else {
+				sb.append(c);
+			}
+		}
+		return sb.toString();
+	}
+
+	/**
+	 * カタカナ → ひらがな
+	 * 
+	 * @param s
+	 * @return
+	 */
+	static public String toJaHiraganaFromKatakana(String s) {
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < s.length(); i++) {
+			char c = s.charAt(i);
+			if ((c >= 0x30a1) && (c <= 0x30f3)) {
+				sb.append((char) (c - 0x60));
+			} else {
+				sb.append(c);
+			}
+		}
+		return sb.toString();
+	}
 
 	static public String charAt(String s, int n) {
 		int len = s.length();
@@ -155,6 +206,15 @@ public class StringUtils {
 			sb.append(toHexUnicode(c));
 		}
 		return sb.toString();
+	}
+
+	/**
+	 * @param d
+	 * @return plain string of double value like (0.00004707386081488301) not in
+	 *         exponential notation
+	 */
+	static public String toString(double d) {
+		return BigDecimal.valueOf(d).toPlainString();
 	}
 
 }

@@ -121,29 +121,9 @@ public class DefaultKeyword extends AbstractKeyword implements Keyword, Cloneabl
 	/**
 	 * @return true (Check for lex, facet)
 	 */
+	@Override
 	public boolean equals(Object obj) {
-
-		if (this == obj) {
-			return true;
-		}
-
-		if (obj instanceof Keyword) {
-			Keyword kw = (Keyword) obj;
-
-			if (this.facet == null && kw.getFacet() == null) {
-				return this.lex.equals(kw.getLex());
-			} //
-			else if (this.lex == null || kw.getLex() == null || this.facet == null || kw.getFacet() == null) {
-				return false;
-			} //
-			else {
-				return this.facet.equals(kw.getFacet()) && this.lex.equals(kw.getLex());
-			}
-		} //
-		else {
-			return super.equals(obj);
-		}
-
+		return super.equals(obj);
 	}
 
 	@Override

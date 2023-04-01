@@ -7,6 +7,7 @@ import nlp4j.Document;
 import nlp4j.Keyword;
 import nlp4j.impl.DefaultDocument;
 import nlp4j.test.TestUtils;
+import nlp4j.util.RegexUtils;
 
 /**
  * @author Hiroki Oya
@@ -226,6 +227,62 @@ public class MecabAnnotatorTestCase extends TestCase {
 		}
 
 		assertEquals("アメリカ", doc.getKeywords().get(0).getLex());
+		annotator.close();
+
+	}
+
+	public void testAnnotateDocument007() throws Exception {
+
+		// 自然文のテキスト
+		String text = "アメリカとカナダとハンガリー。";
+		Document doc = new DefaultDocument();
+		{
+			doc.putAttribute("text", text);
+		}
+		MecabAnnotator annotator = new MecabAnnotator();
+		{
+			annotator.setProperty("target", "text");
+			annotator.setProperty("lexregexfilter", RegexUtils.REGEX_JA_CHARS);
+		}
+		annotator.annotate(doc); // throws Exception
+		System.err.println("Finished : annotation");
+
+		assertNotNull(doc.getKeywords());
+		assertTrue(doc.getKeywords().size() > 0);
+
+		for (Keyword kwd : doc.getKeywords()) {
+			System.err.println("lex=" + kwd.getLex() + ",facet=" + kwd.getFacet() + ",upos=" + kwd.getUPos());
+		}
+
+		assertEquals("アメリカ", doc.getKeywords().get(0).getLex());
+		annotator.close();
+
+	}
+
+	public void testAnnotateDocument008() throws Exception {
+		// 半角スペースが途中に入っている場合の取り扱い →バラバラになる
+
+		// 自然文のテキスト
+		String text = "今 日 は い い 天 気 で す 。";
+		Document doc = new DefaultDocument();
+		{
+			doc.putAttribute("text", text);
+		}
+		MecabAnnotator annotator = new MecabAnnotator();
+		{
+			annotator.setProperty("target", "text");
+			annotator.setProperty("lexregexfilter", RegexUtils.REGEX_JA_CHARS);
+		}
+		annotator.annotate(doc); // throws Exception
+		System.err.println("Finished : annotation");
+
+		assertNotNull(doc.getKeywords());
+		assertTrue(doc.getKeywords().size() > 0);
+
+		for (Keyword kwd : doc.getKeywords()) {
+			System.err.println("lex=" + kwd.getLex() + ",facet=" + kwd.getFacet() + ",upos=" + kwd.getUPos());
+		}
+
 		annotator.close();
 
 	}

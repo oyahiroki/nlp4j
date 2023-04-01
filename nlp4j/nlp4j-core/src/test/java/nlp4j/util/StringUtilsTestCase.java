@@ -26,6 +26,63 @@ public class StringUtilsTestCase extends TestCase {
 		assertEquals("ほっけ", s2);
 	}
 
+	public void testIsJaHiragana001() {
+		String s = "あいうえお";
+		boolean b = StringUtils.isJaHiragana(s);
+		boolean expected = true;
+		assertEquals(expected, b);
+	}
+
+	public void testIsJaHiragana002() {
+		String s = "あいうえおア";
+		boolean b = StringUtils.isJaHiragana(s);
+		boolean expected = false;
+		assertEquals(expected, b);
+	}
+
+	public void testIsJaKana001() {
+		String s = "あいうえおア";
+		boolean b = StringUtils.isJaKana(s);
+		boolean expected = true;
+		assertEquals(expected, b);
+	}
+
+	public void testIsJaKana002() {
+		String s = "あいうえおア漢";
+		boolean b = StringUtils.isJaKana(s);
+		boolean expected = false;
+		assertEquals(expected, b);
+	}
+
+	public void testIsJaKana003() {
+		String s = "abc";
+		boolean b = StringUtils.isJaKana(s);
+		boolean expected = false;
+		assertEquals(expected, b);
+	}
+
+	/**
+	 * ひらがな → カタカナ
+	 */
+	public void testToJaKatakanaFromHiragana001() {
+		String s1 = "あいうえおABC";
+		String s2 = StringUtils.toJaKatakanaFromHiragana(s1);
+		String expected = "アイウエオABC";
+		assertEquals(expected, s2);
+	}
+
+	/**
+	 * カタカナ → ひらがな
+	 */
+	public void testToJaHiraganaFromKatakana001() {
+		String s1 = "アイウエオABC";
+		String s2 = StringUtils.toJaHiraganaFromKatakana(s1);
+		String expected = "あいうえおABC";
+		assertEquals(expected, s2);
+	}
+
+	// 0.00004707386081488301
+
 	public void testLength001() {
 		String s = "ABC";
 		int len = StringUtils.length(s);
@@ -141,6 +198,22 @@ public class StringUtilsTestCase extends TestCase {
 		String s2 = StringUtils.toHexUnicode(s);
 		System.err.println(s2);
 		assertEquals("\\ud842\\udfb7\\u7530", s2);
+	}
+
+	public void testToStringDouble001() {
+		double d = 0.00000000000000001;
+		String s = StringUtils.toString(d);
+		String expected = "0.000000000000000010";
+		System.err.println(s);
+		assertEquals(expected, s);
+	}
+
+	public void testToStringDouble002() {
+		double d = 0.00004707386081488301;
+		String s = StringUtils.toString(d);
+		String expected = "0.00004707386081488301";
+		System.err.println(s);
+		assertEquals(expected, s);
 	}
 
 }

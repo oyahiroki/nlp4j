@@ -1,6 +1,7 @@
 package nlp4j.ginza;
 
 import junit.framework.TestCase;
+import nlp4j.NlpServiceResponse;
 
 public class GinzaNlpServiceViaHttpTestCase extends TestCase {
 
@@ -8,7 +9,8 @@ public class GinzaNlpServiceViaHttpTestCase extends TestCase {
 		String text = "今日はとてもいい天気です。明日は晴れるかな。";
 		String endPoint = "http://localhost:8888/";
 		GinzaNlpServiceViaHttp nlp = new GinzaNlpServiceViaHttp(endPoint);
-		nlp.process(text);
+		NlpServiceResponse res = nlp.process(text);
+		System.err.println(res);
 	}
 
 	public void testProcess001b() throws Exception {

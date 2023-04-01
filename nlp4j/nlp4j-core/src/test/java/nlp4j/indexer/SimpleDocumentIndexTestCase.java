@@ -16,32 +16,87 @@ public class SimpleDocumentIndexTestCase extends TestCase {
 
 	/**
 	 * <pre>
-	 * キーワードのカウントをテストする
-	 * Test Keyword count
+	 * すべての機能をテストする
 	 * </pre>
 	 */
-	public void testAddDocument001() {
-		DefaultDocument d1 = new DefaultDocument();
-		{
-			d1.addKeyword((new KeywordBuilder()).facet("noun").lex("TEST").build());
-		}
-		DefaultDocument d2 = new DefaultDocument();
-		{
-			d2.addKeyword((new KeywordBuilder()).facet("noun").lex("TEST").build());
-		}
+	public void testAll001() {
 
 		SimpleDocumentIndex index = new SimpleDocumentIndex();
 		{
-			index.addDocument(d1);
-			index.addDocument(d2);
+			index.addDocument((new DocumentBuilder()).id("001").kw("noun", "TEST1").build());
+			index.addDocument((new DocumentBuilder()).id("002").kw("noun", "TEST1").kw("noun", "TEST2").build());
+			index.addDocument((new DocumentBuilder()).id("003").kw("noun", "TEST1").kw("noun", "TEST2")
+					.kw("noun", "TEST3").build());
+			index.addDocument((new DocumentBuilder()).id("004").kw("noun", "TEST2").build());
+			index.addDocument((new DocumentBuilder()).id("005").kw("noun", "TEST2").build());
 		}
 
 		System.err.println(index.getKeywords().size());
 		index.getKeywords().stream().forEach(kw -> {
 			System.err.println("facet=" + kw.getFacet() + ",lex=" + kw.getLex() + ",count=" + kw.getCount());
 		});
-		int expectedCount = 2;
-		assertEquals(expectedCount, index.getKeywords().get(0).getCount());
+		{ // 文書の数
+			System.err.println("文書数: " + index.getDocumentCount());
+		}
+		{ // 文書ID のリスト
+			index.getDocumentIds().stream().forEach(id -> {
+				System.err.println("id: " + id);
+			});
+		}
+		{ // 文書IDを指定してドキュメント取得
+			Document doc = index.getDocumentById("001");
+			System.err.println(doc);
+		}
+		{ // キーワードの異なり数
+			long expectedSize = 3;
+			long keywordSize = index.getKeywords().size();
+			System.err.println("キーワードの数: " + keywordSize);
+			assertEquals(expectedSize, keywordSize);
+		}
+		{ // キーワードの多い順
+			index.getKeywords().stream().forEach(kw -> {
+				System.err.println("facet:" + kw.getFacet() + ",lex:" + kw.getLex() + ",count:" + kw.getCount());
+			});
+		}
+		{ // キーワードの数
+			System.err.println("キーワード(noun,TEST1)の数:" + index.getKeywordCount(new DefaultKeyword("noun", "TEST1")));
+			System.err.println("キーワード(noun,TEST2)の数:" + index.getKeywordCount(new DefaultKeyword("noun", "TEST2")));
+			System.err.println("キーワード(noun,TEST3)の数:" + index.getKeywordCount(new DefaultKeyword("noun", "TEST3")));
+		}
+		{ // キーワードのIDF
+			System.err.println("IDF(noun,TEST1):" + index.getkeywordIDF(new DefaultKeyword("noun", "TEST1")));
+			System.err.println("IDF(noun,TEST2):" + index.getkeywordIDF(new DefaultKeyword("noun", "TEST2")));
+			System.err.println("IDF(noun,TEST3):" + index.getkeywordIDF(new DefaultKeyword("noun", "TEST3")));
+		}
+		{ // キーワードのTF-IDF
+			System.err.println("TF-IDF(noun,TEST1):" + index.getkeywordTFIDF(new DefaultKeyword("noun", "TEST1"),1));
+			System.err.println("TF-IDF(noun,TEST2):" + index.getkeywordTFIDF(new DefaultKeyword("noun", "TEST2"),1));
+			System.err.println("TF-IDF(noun,TEST3):" + index.getkeywordTFIDF(new DefaultKeyword("noun", "TEST3"),1));
+		}
+	}
+
+	/**
+	 * <pre>
+	 * キーワードのカウントをテストする
+	 * Test Keyword count
+	 * </pre>
+	 */
+	public void testAddDocument001() {
+
+		SimpleDocumentIndex index = new SimpleDocumentIndex();
+		{
+			index.addDocument((new DocumentBuilder()).id("001").kw("noun", "TEST").build());
+			index.addDocument((new DocumentBuilder()).id("002").kw("noun", "TEST").build());
+			index.addDocument((new DocumentBuilder()).id("003").kw("noun", "TEST").build());
+		}
+
+		System.err.println(index.getKeywords().size());
+		index.getKeywords().stream().forEach(kw -> {
+			System.err.println("facet=" + kw.getFacet() + ",lex=" + kw.getLex() + ",count=" + kw.getCount());
+		});
+		long expectedCount = 3;
+		long keywordCount = index.getKeywords().get(0).getCount();
+		assertEquals(expectedCount, keywordCount);
 	}
 
 	/**
@@ -258,6 +313,27 @@ public class SimpleDocumentIndexTestCase extends TestCase {
 			}
 		}
 
+	}
+
+	public void testGetKeywordCount001() {
+		DefaultDocument d1 = new DefaultDocument();
+		{
+			d1.addKeyword((new KeywordBuilder()).facet("noun").lex("TEST").build());
+		}
+		DefaultDocument d2 = new DefaultDocument();
+		{
+			d2.addKeyword((new KeywordBuilder()).facet("noun").lex("TEST").build());
+		}
+
+		SimpleDocumentIndex index = new SimpleDocumentIndex();
+		{
+			index.addDocument(d1);
+			index.addDocument(d2);
+		}
+
+		long expectedCount = 2;
+		long keywordCount = index.getKeywordCount(new DefaultKeyword("noun", "TEST"));
+		assertEquals(expectedCount, keywordCount);
 	}
 
 	public void testGetKeywordsString() {

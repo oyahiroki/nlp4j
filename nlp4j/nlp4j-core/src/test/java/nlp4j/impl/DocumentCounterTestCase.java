@@ -36,7 +36,7 @@ public class DocumentCounterTestCase extends TestCase {
 			DefaultDocument doc = new DefaultDocument();
 			{
 				doc.putAttribute("id", "002");
-				doc.putAttribute("text", "私は学校に行きました。");
+				doc.putAttribute("text", "私は学校に行く。学校から帰る。");
 			}
 			{
 				doc.addKeyword(new DefaultKeyword(0, 2, "名詞", "学校", "学校"));

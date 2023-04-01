@@ -151,6 +151,27 @@ public class DocumentBuilder implements Builder<Document> {
 	}
 
 	/**
+	 * Set document id
+	 * 
+	 * @param id
+	 * @return DocumentBuilder
+	 */
+	public DocumentBuilder id(String id) {
+		put("id", id);
+		return this;
+	}
+
+	/**
+	 * @param text of document
+	 * @return DocumentBuilder
+	 * @since 1.3.7.6
+	 */
+	public DocumentBuilder text(String text) {
+		put("text", text);
+		return this;
+	}
+
+	/**
 	 * @param facet of keyword
 	 * @param lex   of keyword
 	 * @since 1.3.4.0.20200203

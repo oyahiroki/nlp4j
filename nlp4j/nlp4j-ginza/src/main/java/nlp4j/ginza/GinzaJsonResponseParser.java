@@ -43,7 +43,7 @@ public class GinzaJsonResponseParser {
 					}
 
 					// 原文
-					String raw = jsonObjParagraph.get("raw").getAsString();
+//					String raw = jsonObjParagraph.get("raw").getAsString();
 
 					JsonArray sentences = jsonObjParagraph.get("sentences").getAsJsonArray();
 
@@ -55,25 +55,33 @@ public class GinzaJsonResponseParser {
 
 						// FOR_EACH TOKEN
 						tokens.forEach(token -> {
+							DefaultKeywordWithDependency kwd = new DefaultKeywordWithDependency();
 							JsonObject tk = token.getAsJsonObject();
 							String id = "" + tk.get("id").getAsInt();
-							// "orth": "今日",
-							String orth = tk.get("orth").getAsString();
-							// "tag": "名詞-普通名詞-副詞可能",
-							String tag = tk.get("tag").getAsString();
-							// "pos": "NOUN",
-							String pos = tk.get("pos").getAsString();
-							// "lemma": "今日",
-							String lemma = tk.get("lemma").getAsString();
+							{
+								// "orth": "今日",
+								String orth = tk.get("orth").getAsString();
+								kwd.setStr(orth);
+							}
+							{
+								// "tag": "名詞-普通名詞-副詞可能",
+								String tag = tk.get("tag").getAsString();
+							}
+							{
+								// "pos": "NOUN",
+								String pos = tk.get("pos").getAsString();
+								kwd.setFacet(pos);
+							}
+							{
+								// "lemma": "今日",
+								String lemma = tk.get("lemma").getAsString();
+								kwd.setLex(lemma);
+							}
 							// "head": 4,
 							String head = "" + tk.get("head").getAsInt();
 							// "dep": "obl"
 							String dep = tk.get("dep").getAsString();
 //							String ner = tk.get("ner").getAsString();
-							DefaultKeywordWithDependency kwd = new DefaultKeywordWithDependency();
-							kwd.setLex(lemma);
-							kwd.setStr(orth);
-							kwd.setFacet(pos);
 //							kwd.setFacet(tag.substring(0, tag.indexOf("-")));
 							kwd.setRelation(dep);
 							kwd.setDependencyKey(head);

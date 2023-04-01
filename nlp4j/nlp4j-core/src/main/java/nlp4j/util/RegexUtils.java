@@ -25,7 +25,12 @@ public class RegexUtils {
 	static public String REGEX_NOT_ALPHABET_SYMBOLS = "^[^a-zA-Z0-9!-/:-@\\[-`{-~]*$";
 
 	/**
+	 * <pre>
+	 * 日本語の文字列
+	 * TODO 検証
+	 * </pre>
+	 * 
 	 * ^[ぁ-んァ-ヶｱ-ﾝﾞﾟ一-龠]*$
 	 */
-	static public String REGEX_JA_CHARS = "^[ぁ-んァ-ヶｱ-ﾝﾞﾟ一-龠]*$";
+	static public String REGEX_JA_CHARS = "^[。、．，・\u0020\u3000ぁ-んァ-ヶｱ-ﾝﾞﾟー一-龠)]*$";
 }

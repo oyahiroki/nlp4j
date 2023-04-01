@@ -44,7 +44,7 @@ public class SimpleDocumentIndex extends AbstractDocumentIndexer implements Docu
 	/**
 	 * Map of (Document ID -> Document Object)
 	 */
-	private HashMap<String, Document> mapDocidDocument = new HashMap<>();
+	private HashMap<String, Document> map_docid_document = new HashMap<>();
 
 	// <String facet, HashMap <String lex, Long count>>
 	private HashMap<String, HashMap<String, Long>> mapFacetKeywordCount = new HashMap<>();
@@ -56,7 +56,8 @@ public class SimpleDocumentIndex extends AbstractDocumentIndexer implements Docu
 
 	private ArrayList<Keyword> keywords = new ArrayList<>();
 
-	private List<String> documentids = new ArrayList<>();
+	// LIST OF DOCUMENT ID
+	private List<String> docids = new ArrayList<>();
 
 	/**
 	 * key (keyword facet + "." + keyword lex) -> Document IDs
@@ -78,9 +79,10 @@ public class SimpleDocumentIndex extends AbstractDocumentIndexer implements Docu
 
 		// DOCUMENT ID
 		if (docId != null) {
-			documentids.add(docId);
-			mapDocidDocument.put(docId, doc);
-		} else {
+			docids.add(docId);
+			map_docid_document.put(docId, doc);
+		} //
+		else {
 			logger.warn("ID is null: " + doc);
 		}
 
@@ -167,6 +169,11 @@ public class SimpleDocumentIndex extends AbstractDocumentIndexer implements Docu
 			}
 		} // END OF COUNT DATE
 
+	}
+
+	public long getKeywordCount(Keyword kwd) {
+		Long kwCount = keywordCount.get(kwd);
+		return (kwCount != null) ? kwCount : 0;
 	}
 
 	private void countKeyword(Keyword kwd) {
@@ -287,8 +294,18 @@ public class SimpleDocumentIndex extends AbstractDocumentIndexer implements Docu
 		return getDateCount("YYYY");
 	}
 
+	/**
+	 * @return document IDs ドキュメントIDのリスト
+	 */
 	public List<String> getDocumentIds() {
-		return this.documentids;
+		return this.docids;
+	}
+
+	/**
+	 * @return Number of documents ドキュメントの数
+	 */
+	public long getDocumentCount() {
+		return this.docids.size();
 	}
 
 	/**
@@ -316,7 +333,7 @@ public class SimpleDocumentIndex extends AbstractDocumentIndexer implements Docu
 			List<String> ids = this.mapKeywordDocumentids.get(key);
 			List<Document> list = new ArrayList<>();
 			for (String id : ids) {
-				Document doc = this.mapDocidDocument.get(id);
+				Document doc = this.map_docid_document.get(id);
 				if (doc != null) {
 					list.add(doc);
 				}
@@ -330,7 +347,7 @@ public class SimpleDocumentIndex extends AbstractDocumentIndexer implements Docu
 	}
 
 	public Document getDocumentById(String id) {
-		return this.mapDocidDocument.get(id);
+		return this.map_docid_document.get(id);
 	}
 
 	/**
@@ -338,10 +355,10 @@ public class SimpleDocumentIndex extends AbstractDocumentIndexer implements Docu
 	 * @return count of documents
 	 */
 	public int getDocumentSize() {
-		if (this.mapDocidDocument == null) {
+		if (this.map_docid_document == null) {
 			return 0;
 		} else {
-			return mapDocidDocument.size();
+			return map_docid_document.size();
 		}
 	}
 
@@ -372,7 +389,9 @@ public class SimpleDocumentIndex extends AbstractDocumentIndexer implements Docu
 
 	}
 
-	@Override
+	/**
+	 * @return カウントでソートされたキーワード
+	 */
 	public List<Keyword> getKeywords() {
 		ArrayList<Keyword> kwds = new ArrayList<Keyword>(keywordCount.keySet());
 		// clone を正しく実装する必要がある？
@@ -380,8 +399,15 @@ public class SimpleDocumentIndex extends AbstractDocumentIndexer implements Docu
 			Long l = keywordCount.get(kwds.get(n));
 			kwds.get(n).setCount(l);
 		}
-		List<Keyword> kwds2 = kwds.stream().sorted(Comparator.comparing(Keyword::getCount).reversed())
+
+		long time1 = System.currentTimeMillis();
+		List<Keyword> kwds2 = kwds.stream()
+				// カウントの降順でソート
+				.sorted(Comparator.comparing(Keyword::getCount).reversed())
+				// リストにする
 				.collect(Collectors.toList());
+		long time2 = System.currentTimeMillis();
+		logger.info("sort_time: " + (time2 - time1));
 		return kwds2;
 	}
 
@@ -414,8 +440,8 @@ public class SimpleDocumentIndex extends AbstractDocumentIndexer implements Docu
 
 		ArrayList<Document> dd = new ArrayList<>();
 
-		for (String key : mapDocidDocument.keySet()) {
-			Document doc = mapDocidDocument.get(key);
+		for (String key : map_docid_document.keySet()) {
+			Document doc = map_docid_document.get(key);
 			dd.add(doc);
 		}
 
@@ -435,7 +461,7 @@ public class SimpleDocumentIndex extends AbstractDocumentIndexer implements Docu
 		List<Keyword> kwds = smallIndex.getKeywords(facet);
 
 		// 相関値の計算
-		int docCount0 = mapDocidDocument.size();
+		int docCount0 = map_docid_document.size();
 		int docCount1 = ddd.size();
 
 		for (int n = 0; n < kwds.size(); n++) {
@@ -478,7 +504,7 @@ public class SimpleDocumentIndex extends AbstractDocumentIndexer implements Docu
 	@Override
 	public String toString() {
 		return "SimpleDocumentIndex [" //
-				+ "mapDocument.size=" + mapDocidDocument.keySet().size() //
+				+ "mapDocument.size=" + map_docid_document.keySet().size() //
 				+ ", mapKeywordCount.size=" + mapFacetKeywordCount.keySet().size()//
 				+ "]";
 	}
@@ -549,6 +575,28 @@ public class SimpleDocumentIndex extends AbstractDocumentIndexer implements Docu
 		});
 
 		return kk;
+	}
+
+	/**
+	 * @param Keyword
+	 * @return IDF of keyword
+	 */
+	public double getkeywordIDF(Keyword kwd) {
+		long doc_count = (this.getDocumentCount() != -1) ? this.getDocumentCount() : 0;
+		long kwd_count = (this.getKeywordCount(kwd) != -1) ? this.getKeywordCount(kwd) : 0;
+		double d = Math.log10((double) doc_count / ((double) kwd_count + 1.0d));
+		return d;
+	}
+
+	/**
+	 * @param kwd   Keyword
+	 * @param count count of keyword in a document
+	 * @return IDF of keyword
+	 */
+	public double getkeywordTFIDF(Keyword kwd, long count) {
+		double tf = (double) count / (double) this.getDocumentCount();
+		double idf = this.getkeywordIDF(kwd);
+		return tf * idf;
 	}
 
 }

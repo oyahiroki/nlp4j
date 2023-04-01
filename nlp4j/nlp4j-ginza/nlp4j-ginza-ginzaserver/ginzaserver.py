@@ -85,7 +85,7 @@ class GinzaHttpRequestHandler(BaseHTTPRequestHandler):
 
         qs_d = urllib.parse.parse_qs(query)
         print(qs_d)
-        print(hasattr(qs_d,"text"))
+        print('has attribute text:' + str(hasattr(qs_d,"text")))
         print("text" in qs_d)
         # check parameter
         if ("text" in qs_d) == False:
@@ -97,7 +97,8 @@ class GinzaHttpRequestHandler(BaseHTTPRequestHandler):
         text = qs_d["text"][0]
         # decode requested value
         text = urllib.parse.unquote(text)
-        self.myProcess(self,text)
+        print(text)
+        self.myProcess(text)
 
 class GinzaHttpServer(ThreadingMixIn, HTTPServer):
     def __init__(self, address, handlerClass=GinzaHttpRequestHandler):

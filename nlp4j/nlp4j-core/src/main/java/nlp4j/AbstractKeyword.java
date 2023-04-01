@@ -1,10 +1,9 @@
 package nlp4j;
 
 /**
- * created at: 2022-06024
+ * created on: 2022-06-24
  * 
  * @author Hiroki Oya
- *
  */
 public abstract class AbstractKeyword implements Keyword {
 
@@ -13,18 +12,83 @@ public abstract class AbstractKeyword implements Keyword {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * begin
+	 */
 	protected int begin = BEGIN_INIT;
+
+	/**
+	 * correlation
+	 */
 	protected double correlation = CORRELATION_INIT;
+	/**
+	 * count
+	 */
 	protected long count = COUNT_INIT;
+	/**
+	 * end
+	 */
 	protected int end = END_INIT;
+	/**
+	 * facet
+	 */
 	protected String facet;
+	/**
+	 * lex
+	 */
 	protected String lex;
+	/**
+	 * namespace
+	 */
 	protected String namespace;
+	/**
+	 * reading: 読み
+	 */
 	protected String reading;
+	/**
+	 * sequence: 連番
+	 */
 	protected int sequence = SEQUENCE_INIT;
+	/**
+	 * str
+	 */
 	protected String str;
+	/**
+	 * upos: Universal Part of Speech
+	 */
 	protected String upos;
+	/**
+	 * hitKeyword
+	 */
 	protected Keyword hitKeyword = null;
+
+	/**
+	 * TRUE: (facet is same) and (lex is same)
+	 */
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+
+		if (obj instanceof Keyword) {
+			Keyword kw = (Keyword) obj;
+			// IF(BOTH FACET IS NULL)
+			if (this.facet == null && kw.getFacet() == null) {
+				return this.lex.equals(kw.getLex());
+			} //
+				// ELSE_IF(LEX OR FACE IS NULL)
+			else if (this.lex == null || kw.getLex() == null || this.facet == null || kw.getFacet() == null) {
+				return false;
+			} //
+				// ELSE -> SAME FACET AND SAME LEX
+			else {
+				return this.facet.equals(kw.getFacet()) && this.lex.equals(kw.getLex());
+			}
+		} //
+		else {
+			return super.equals(obj);
+		}
+	}
 
 	@Override
 	public int getBegin() {

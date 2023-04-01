@@ -154,10 +154,6 @@ public class MediaWikiClient {
 		return titles;
 	}
 
-	public void setFetchSubCategory(boolean fetchSubCategory) {
-		this.fetchSubCategory = fetchSubCategory;
-	}
-
 	/**
 	 * <pre>
 	 * Query page titles by Category
@@ -262,6 +258,50 @@ public class MediaWikiClient {
 		} // END OF FOR
 
 		return titles;
+	}
+
+	public void setFetchSubCategory(boolean fetchSubCategory) {
+		this.fetchSubCategory = fetchSubCategory;
+	}
+
+	/**
+	 * <pre>
+	 * https://www.mediawiki.org/wiki/API:Expandtemplates
+	 * </pre>
+	 * 
+	 * @throws IOException
+	 */
+	public void expandTemplates(String wikiText) throws IOException {
+
+		// https://www.mediawiki.org/wiki/API:Categorymembers
+
+		String url = "https://" + host + "/w/api.php";
+
+		// action: query: query Fetch data from and about MediaWiki.
+		// format: One of the following values: json, jsonfm, none,
+		// php, phpfm, rawfm,
+		// xml, xmlfm
+
+		// api.php?action=expandtemplates&text={{Project:Sandbox}}&prop=wikitext [try in
+		// ApiSandbox]
+
+		Map<String, String> params = new LinkedHashMap<>();
+		{
+			params.put("action", "expandtemplates");
+			params.put("text", wikiText);
+			params.put("prop", "wikitext");
+			params.put("format", "json");
+		}
+
+		DefaultNlpServiceResponse res = client.get(url, params);
+
+		// content-type
+		JsonObject jo = res.getAsJsonObject();
+
+		System.err.println(jo);
+
+		System.out.println(jo.get("expandtemplates").getAsJsonObject().get("wikitext").getAsString());
+
 	}
 
 }

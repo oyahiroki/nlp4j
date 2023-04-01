@@ -8,11 +8,14 @@ import junit.framework.TestCase;
 public class MediaWikiClientTestCase extends TestCase {
 
 	/**
-	 * Query "Category:Auto_parts" 英語版 WikiPedia 自動車部品
+	 * <pre>
+	 * 英語版WikipediaのAuto_partsカテゴリーのページを検索する
+	 * Get Page titles of "Category:Auto_parts" from WikiPedia English
+	 * </pre>
 	 * 
 	 * @throws Exception
 	 */
-	public void testMediaWikiClient001() throws Exception {
+	public void testMediaWikiClientGetPageTitlesByCategory001() throws Exception {
 		String host = "en.wikipedia.org";
 		String category = "Category:Auto_parts";
 		MediaWikiClient client = new MediaWikiClient(host);
@@ -108,6 +111,41 @@ public class MediaWikiClientTestCase extends TestCase {
 //		for (String title : categories) {
 //			System.out.println(title);
 //		}
+	}
+
+	public void testExpandTemplates001() throws Exception {
+		String host = "ja.wikipedia.org";
+		MediaWikiClient client = new MediaWikiClient(host);
+		String wikiText = "test";
+		client.expandTemplates(wikiText);
+	}
+
+	public void testExpandTemplates002() throws Exception {
+		
+		// Template:大学
+		// https://ja.wikipedia.org/w/index.php?title=Template:%E5%A4%A7%E5%AD%A6&action=edit
+		
+		String host = "ja.wikipedia.org";
+		MediaWikiClient client = new MediaWikiClient(host);
+		String wikiText = "{{日本の大学\r\n" //
+				+ "| 大学名=同志社大学\r\n" //
+				+ "| ロゴ= [[File:Dousisya univ.svg|210px]]\r\n" //
+				+ "| 画像=170128 Doshisha University Imadegawa Campus Kyoto Japan08s3.jpg\r\n" //
+				+ "| 画像説明=今出川キャンパス（2017年1月）\r\n" //
+				+ "| pxl=250px\r\n" //
+				+ "| 大学設置年=1920年\r\n" //
+				+ "| 創立年=1875年\r\n" //
+				+ "| 学校種別=私立\r\n" //
+				+ "| 設置者=[[学校法人同志社]]\r\n" //
+				+ "| 本部所在地=[[京都府]][[京都市]][[上京区]][[今出川通]][[烏丸通|烏丸]]東入玄武町601番地\r\n" //
+				+ "| 緯度度=35 |緯度分=1 |緯度秒=47.1\r\n" //
+				+ "| 経度度=135 |経度分=45 |経度秒=38.7\r\n" //
+				+ "| キャンパス=[[同志社大学今出川キャンパス|今出川]]（京都府京都市上京区）<br />[[同志社大学新町キャンパス|新町]]（京都府京都市上京区）<br />[[同志社大学室町キャンパス|室町]]（京都府京都市上京区）<br />[[同志社大学京田辺キャンパス|京田辺]]（京都府[[京田辺市]]）<br />学研都市（京都府[[木津川市]]）<br />烏丸（京都府京都市上京区）\r\n" //
+				+ "|学部=[[同志社大学神学部|神学部]]<br />[[同志社大学文学部|文学部]]<br />[[同志社大学社会学部|社会学部]]<br />[[同志社大学法学部|法学部]]<br />[[同志社大学経済学部|経済学部]]<br />[[同志社大学商学部|商学部]]<br />[[同志社大学政策学部|政策学部]]<br />[[同志社大学文化情報学部|文化情報学部]]<br />[[同志社大学理工学部|理工学部]]<br />[[同志社大学大学院生命医科学研究科・生命医科学部|生命医科学部]]<br />[[同志社大学スポーツ健康科学部|スポーツ健康科学部]]<br />[[同志社大学心理学部|心理学部]]<br />グローバル・コミュニケーション学部<br />グローバル地域文化学部\r\n" //
+				+ "|研究科=神学研究科<br />[[同志社大学大学院文学研究科・文学部|文学研究科]]<br />[[同志社大学大学院社会学研究科・社会学部|社会学研究科]]<br />[[同志社大学大学院法学研究科・法学部|法学研究科]]<br /> [[同志社大学大学院経済学研究科・経済学部|経済学研究科]]<br />商学研究科<br />総合政策科学研究科<br />文化情報学研究科<br />理工学研究科<br />[[同志社大学大学院生命医科学研究科・生命医科学部|生命医科学研究科]]<br />スポーツ健康科学研究科<br />心理学研究科<br />グローバル・スタディーズ研究科<br />[[同志社大学法学部|司法研究科]]<br />ビジネス研究科<br />脳科学研究科\r\n" //
+				+ "|ウェブサイト= https://www.doshisha.ac.jp/\r\n" //
+				+ "}}";
+		client.expandTemplates(wikiText);
 	}
 
 }

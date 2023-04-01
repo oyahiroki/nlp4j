@@ -11,12 +11,13 @@ import nlp4j.annotator.DependencyAnnotator;
 public class GinzaPosDependencyAnnotator extends AbstractGinzaAnnotator
 		implements DocumentAnnotator, DependencyAnnotator {
 
-	GinzaNlpServiceViaHttp ginza = new GinzaNlpServiceViaHttp("http://localhost:8888/");
+	private static final String endPoint = "http://localhost:8888/";
+	GinzaNlpServiceViaHttp ginza = new GinzaNlpServiceViaHttp(endPoint);
 
 	@Override
 	public void annotate(Document doc) throws Exception {
 
-		super.annotate(doc);
+//		super.annotate(doc);
 
 		for (String target : super.targets) {
 //			System.err.println("target: " + target);
