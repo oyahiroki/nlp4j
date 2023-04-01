@@ -15,6 +15,12 @@ import com.google.gson.JsonObject;
 import nlp4j.Keyword;
 import nlp4j.impl.DefaultKeywordWithDependency;
 
+/**
+ * Parse GiNZA response
+ * 
+ * @author Hiroki Oya
+ *
+ */
 public class GinzaJsonResponseParser {
 
 	static private Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());

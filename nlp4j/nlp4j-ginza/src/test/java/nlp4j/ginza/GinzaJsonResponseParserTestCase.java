@@ -11,6 +11,11 @@ import nlp4j.KeywordWithDependency;
 
 public class GinzaJsonResponseParserTestCase extends TestCase {
 
+	/**
+	 * Test parsing GiNZA Server response
+	 * 
+	 * @throws Exception
+	 */
 	public void testParseResponse001() throws Exception {
 
 		String fileName = "src/main/resources/nlp4j.ginza/response_ginza_20230401.json";

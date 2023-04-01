@@ -18,6 +18,7 @@ import nlp4j.util.HttpClient;
 
 /**
  * <pre>
+ * GiNZA NLP Service
  * </pre>
  * 
  * @author Hiroki Oya

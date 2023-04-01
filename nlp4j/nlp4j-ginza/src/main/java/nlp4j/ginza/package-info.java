@@ -1,5 +1,5 @@
 /**
- * Package for Ginza NLP https://megagonlabs.github.io/ginza/
+ * Package for Ginza NLP
  * 
  */
 package nlp4j.ginza;

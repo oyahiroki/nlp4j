@@ -8,10 +8,17 @@ import nlp4j.Keyword;
 import nlp4j.NlpServiceResponse;
 import nlp4j.annotator.DependencyAnnotator;
 
+/**
+ * Defalt endPoint: http://localhost:8888/
+ * 
+ * @author Hiroki Oya
+ *
+ */
 public class GinzaPosDependencyAnnotator extends AbstractGinzaAnnotator
 		implements DocumentAnnotator, DependencyAnnotator {
 
-	private static final String endPoint = "http://localhost:8888/";
+	private String endPoint = "http://localhost:8888/";
+
 	GinzaNlpServiceViaHttp ginza = new GinzaNlpServiceViaHttp(endPoint);
 
 	@Override
@@ -31,6 +38,14 @@ public class GinzaPosDependencyAnnotator extends AbstractGinzaAnnotator
 
 		}
 
+	}
+
+	@Override
+	public void setProperty(String key, String value) {
+		super.setProperty(key, value);
+		if ("endpoint".equals(key.toLowerCase())) {
+			this.endPoint = value;
+		}
 	}
 
 }
