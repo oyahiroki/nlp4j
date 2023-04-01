@@ -1,4 +1,4 @@
-# NLP4J for GiNZA
+# NLP4J for GiNZA - GiNZA をJavaから利用する
 
 ## GiNZA Official Site
 
@@ -54,21 +54,19 @@ $ ginza
 7       。      。      PUNCT   補助記号-句点   _       5       punct   _       SpaceAfter=No|BunsetuBILabel=I|BunsetuPositionType=CONT|Reading=。
 ```
 
-
-
-
-
-# How to run GiNZA server
+# How to run GiNZA server - GiNZA Server を起動する
 
 ```
 python nlp4j-ginza-ginzaserver\ginzaserver.py
 ```
 
+Ctrl + C で終了
+
 # Universal Dependency 関連論文
 
 https://www.jstage.jst.go.jp/article/jnlp/26/1/26_3/_pdf
 
-# POS Map
+# POS Map - 品詞の対応
 
 ```
 POS_JP_DICT = {
@@ -92,11 +90,14 @@ POS_JP_DICT = {
     'X': 'その他'
 ```
 
-# GiNZA Memo
+# GiNZA Tips
 
+## メモリサイズ
 
 マルチプロセス実行では1プロセスあたりja_ginzaで数百MB、ja_ginza_electraで数GBのメモリが必要です。
+
 https://megagonlabs.github.io/ginza/command_line_tool.html
+
 
 
 
