@@ -62,12 +62,41 @@ python nlp4j-ginza-ginzaserver\ginzaserver.py
 
 Ctrl + C で終了
 
+# Install GiNZA Server - GiNZA Server をインストールする
+
+```
+pip install git+https://github.com/oyahiroki/ginzaserver
+```
+
+
 # Universal Dependency 関連論文
 
 https://www.jstage.jst.go.jp/article/jnlp/26/1/26_3/_pdf
 
 # POS Map - 品詞の対応
 
+```
+POS	意味
+ADJ	形容詞
+ADP	設置詞
+ADV	副詞
+AUX	助動詞
+CCONJ	接続詞
+DET	限定詞
+INTJ	間投詞
+NOUN	名詞
+NUM	数詞
+PART	助詞
+PRON	代名詞
+PROPN	固有名詞
+PUNCT	句読点
+SCONJ	連結詞
+SYM	シンボル
+VERB	動詞
+X	その他
+```
+
+<!--
 ```
 POS_JP_DICT = {
     'NOUN': '名詞',
@@ -89,6 +118,57 @@ POS_JP_DICT = {
     'SYM': '記号',
     'X': 'その他'
 ```
+-->
+
+# Dependency Relations - 係り受け
+
+```
+係り受けタグ	意味
+acl	名詞の節修飾語
+advcl	副詞節修飾語
+advmod	副詞修飾語
+amod	形容詞修飾語
+appos	同格
+aux	助動詞
+case	格表示
+cc	等位接続詞
+ccomp	補文
+clf	類別詞
+compound	複合名詞
+conj	結合詞
+cop	連結詞
+csubj	主部
+dep	不明な依存関係
+det	限定詞
+discourse	談話要素
+dislocated	転置
+expl	嘘辞
+fixed	固定複数単語表現
+flat	同格複数単語表現
+goeswith	1単語分割表現
+iobj	関節目的語
+list	リスト表現
+mark	接続詞
+nmod	名詞修飾語
+nsubj	主語名詞
+nummod	数詞修飾語
+obj	目的語
+obl	斜格名詞
+orphan	独立関係
+parataxis	並列
+punct	句読点
+reparandum	単語として認識されない単語表現
+root	文の根(ROOTは人為的に付加される)
+vocative	発声関係
+xcomp	補体
+```
+
+## 参照
+
+自然言語処理におけるPOSタグと係り受けタグ一覧
+
+https://qiita.com/kei_0324/items/400f639b2f185b39a0cf
+
 
 # GiNZA Tips
 

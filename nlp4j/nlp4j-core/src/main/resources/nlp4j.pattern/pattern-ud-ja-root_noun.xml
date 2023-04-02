@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<patterns lang="ja">
+
+	<!-- 名詞で終わる（説明文など） -->
+	<pattern facet="pattern.root_noun" value="{0.lex}">
+		<w id="0" facet="NOUN" relation="ROOT">
+		</w>
+	</pattern>
+
+	<!-- 名詞で終わる（説明文など） XXまたはYY -->
+	<pattern facet="pattern.root_noun" value="{4.lex}">
+		<w id="0" facet="NOUN" relation="ROOT">
+			<w id="2" facet="CCONJ" lex="/(又|また)/" relation="cc">
+				<w id="3" facet="ADP" lex="は" />
+			</w>
+			<w id="4" facet="NOUN" relation="nmod">
+			</w>
+		</w>
+	</pattern>
+	<!-- 名詞で終わる（説明文など） XXまたはYY -->
+	<pattern facet="pattern.root_noun" value="{4.lex}">
+		<w id="0" facet="NOUN" relation="ROOT">
+			<w id="2" facet="CCONJ" lex="/(もしくは|あるいは)/" relation="cc">
+			</w>
+			<w id="4" facet="NOUN" relation="nmod">
+			</w>
+		</w>
+	</pattern>
+
+
+</patterns>
+

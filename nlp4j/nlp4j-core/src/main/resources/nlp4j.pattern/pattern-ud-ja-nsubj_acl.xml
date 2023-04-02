@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<patterns lang="ja">
+
+	<!-- XXがYYされるZZ -->
+	<pattern facet="pattern.nsubj_acl" value="{2.lex} ... {1.lex}">
+		<w id="1" facet="VERB" relation="acl">
+			<w id="2" facet="NOUN" relation="nsubj">
+				<w id="3" facet="ADP" relation="case" />
+			</w>
+			<w id="4" facet="AUX" lex="れる" relation="aux" str="れる" />
+		</w>
+	</pattern>
+
+
+
+
+</patterns>
+
