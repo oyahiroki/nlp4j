@@ -22,6 +22,38 @@ public class KeywordWithDependencyParser {
 
 	private static final String LINK = " ... ";
 
+	static public List<Keyword> flatten(KeywordWithDependency kwdRoot, Set<String> targetUPOS) {
+		List<Keyword> kwds = new ArrayList<Keyword>();
+		flatten(kwdRoot, kwds, targetUPOS);
+		return kwds;
+	}
+
+	private static void flatten(KeywordWithDependency kwdRoot, List<Keyword> kwds, Set<String> targetUPOS) {
+
+		if (targetUPOS == null || targetUPOS.contains(kwdRoot.getUPos())) {
+			Keyword k = (new KeywordBuilder())//
+					.lex(kwdRoot.getLex()) //
+					.facet(kwdRoot.getFacet())//
+					.sentenceIndex(kwdRoot.getSentenceIndex()) //
+					.upos(kwdRoot.getUPos()) //
+
+					.build();
+			k.setSentenceIndex(kwdRoot.getSentenceIndex());
+			kwds.add(k);
+
+//			kwds.add((DefaultKeyword) kwdRoot);
+		}
+
+		List<KeywordWithDependency> cc = kwdRoot.getChildren();
+		if (cc == null) {
+			return;
+		} else {
+			for (KeywordWithDependency c : cc) {
+				flatten(c, kwds, targetUPOS);
+			}
+		}
+	}
+
 	static public List<Keyword> parse(KeywordWithDependency kwdRoot, String... ss) {
 		return parse(kwdRoot, false, ss);
 	}
@@ -55,6 +87,7 @@ public class KeywordWithDependencyParser {
 				Keyword kwd = new DefaultKeyword();
 				kwd.setLex(lex2);
 				kwd.setFacet(c.getRelation());
+				kwd.setSentenceIndex(c.getSentenceIndex());
 				kwds.add(kwd);
 			}
 

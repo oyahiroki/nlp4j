@@ -20,37 +20,57 @@ class GinzaHttpRequestHandler(BaseHTTPRequestHandler):
         BaseHTTPRequestHandler.__init__(self,request,client_address,server)
     
     def myProcess(self, text):
-#        print("hi")
         try:
             doc = self.nlp(text)
-            res = []
+            res = {}
+            sents = []
+            res["type"] = "doc"
+            res["sents"] = sents
+            
             for sent in doc.sents:
-                resx = {}
-                res.append(resx)
-                # print(type(sent.raw))
-                # res.append(sent.raw)
-                pps = []
-                resx["paragraphs"] = pps
-                pgps = {}
-                pps.append(pgps)
-                sts = []
-                pgps["sentences"] = sts
-                stcs = {}
-                sts.append(stcs)
-                pgps["raw"] = sent.text
+                ss = {} # sentence
+                sents.append(ss)
                 tokens = []
-                stcs["tokens"] = tokens
-                # res.append(tokens)
+                ss["tokens"] = tokens
                 for token in sent:
                     tk = {}
-                    tk["id"] = token.i
+                    tk["i"] = token.i
                     tk["orth"] = token.orth_
                     tk["tag"] = token.tag_
                     tk["pos"] = token.pos_
                     tk["lemma"] = token.lemma_
-                    tk["head"] = token.head.i
+                    tk["head.i"] = token.head.i
                     tk["dep"] = token.dep_
                     tokens.append(tk)
+
+            # for sent in doc.sents:
+            #     resx = {}
+            #     res.append(resx)
+            #     # print(type(sent.raw))
+            #     # res.append(sent.raw)
+            #     pps = []
+            #     resx["paragraphs"] = pps
+            #     pgps = {}
+            #     pps.append(pgps)
+            #     sts = []
+            #     pgps["sentences"] = sts
+            #     stcs = {}
+            #     sts.append(stcs)
+            #     pgps["raw"] = sent.text
+            #     tokens = []
+            #     stcs["tokens"] = tokens
+            #     # res.append(tokens)
+            #     for token in sent:
+            #         tk = {}
+            #         tk["id"] = token.i
+            #         tk["orth"] = token.orth_
+            #         tk["tag"] = token.tag_
+            #         tk["pos"] = token.pos_
+            #         tk["lemma"] = token.lemma_
+            #         tk["head"] = token.head.i
+            #         tk["dep"] = token.dep_
+            #         tokens.append(tk)
+
             self.send_response(200)
             self.send_header("Content-type","application/json; charset=utf-8")
             self.end_headers()
@@ -103,6 +123,9 @@ class GinzaHttpRequestHandler(BaseHTTPRequestHandler):
 class GinzaHttpServer(ThreadingMixIn, HTTPServer):
     def __init__(self, address, handlerClass=GinzaHttpRequestHandler):
         print("init GinzaHttpServer")
+        # http://127.0.0.1:8888/?text=%E3%81%93%E3%82%8C%E3%81%AF%E3%83%86%E3%82%B9%E3%83%88%E3%81%A7%E3%81%99%E3%80%82
+        print("http://" + address[0] + ":" + str(address[1]) + "/?text=これはテストです。")
+        print("http://" + address[0] + ":" + str(address[1]) + "/?text=%E3%81%93%E3%82%8C%E3%81%AF%E3%83%86%E3%82%B9%E3%83%88%E3%81%A7%E3%81%99%E3%80%82")
         # handlerClass.nlp = spacy.load("ja_ginza") # 従来型モデル
         handlerClass.nlp = spacy.load("ja_ginza_electra") # ja_ginza_electra
         super().__init__(address, handlerClass)

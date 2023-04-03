@@ -15,6 +15,7 @@ import nlp4j.UPOS20;
  *
  */
 public class DefaultKeyword extends AbstractKeyword implements Keyword, Cloneable {
+
 	/**
 	 * 
 	 */
@@ -159,6 +160,12 @@ public class DefaultKeyword extends AbstractKeyword implements Keyword, Cloneabl
 		else if ("sequence".equals(attribute)) {
 			return "" + sequence;
 		} //
+		else if ("paragraph".equals(attribute)) {
+			return "" + paragraphIndex;
+		} //
+		else if ("sentence".equals(attribute)) {
+			return "" + sentenceIndex;
+		} //
 		else {
 			return null;
 		}
@@ -173,6 +180,16 @@ public class DefaultKeyword extends AbstractKeyword implements Keyword, Cloneabl
 	@Override
 	public boolean getFlag() {
 		return this.flag;
+	}
+
+	@Override
+	public int getParagraphIndex() {
+		return paragraphIndex;
+	}
+
+	@Override
+	public int getSentenceIndex() {
+		return this.sentenceIndex;
 	}
 
 	@Override
@@ -205,14 +222,33 @@ public class DefaultKeyword extends AbstractKeyword implements Keyword, Cloneabl
 
 	}
 
+	@Override
+	public void setParagraphIndex(int paragraphIndex) {
+		this.paragraphIndex = paragraphIndex;
+	}
+
+	@Override
+	public void setSentenceIndex(int sentenceIndex) {
+		this.sentenceIndex = sentenceIndex;
+	}
+
 	/**
 	 * @return キーワードの詳細情報文字列
 	 * @since 1.3
 	 */
 	public String toStringDetail() {
-		return this.lex + " [sequence=" + sequence + ", facet=" + facet + ", upos=" + upos + ", lex=" + lex + ", str="
-				+ str + ", reading=" + reading + ", count=" + count + ", begin=" + begin + ", end=" + end
-				+ ", correlation=" + correlation + "]";
+		return this.lex + " [" //
+				+ "sequence=" + sequence //
+				+ ", " + "facet=" + facet //
+				+ ", " + "upos=" + upos //
+				+ ", " + "lex=" + lex //
+				+ ", " + "str=" + str //
+				+ ", " + "reading=" + reading //
+				+ ", " + "count=" + count //
+				+ ", " + "begin=" + begin //
+				+ ", " + "end=" + end //
+				+ ", " + "correlation=" + correlation //
+				+ "]";
 	}
 
 }

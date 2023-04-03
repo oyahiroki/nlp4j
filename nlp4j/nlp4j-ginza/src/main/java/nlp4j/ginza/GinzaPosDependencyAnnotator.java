@@ -33,8 +33,10 @@ public class GinzaPosDependencyAnnotator extends AbstractGinzaAnnotator
 
 			NlpServiceResponse res = ginza.process(text);
 
-			List<Keyword> kwds = res.getKeywords();
-			doc.addKeywords(kwds);
+			if (res != null) {
+				List<Keyword> kwds = res.getKeywords();
+				doc.addKeywords(kwds);
+			}
 
 		}
 

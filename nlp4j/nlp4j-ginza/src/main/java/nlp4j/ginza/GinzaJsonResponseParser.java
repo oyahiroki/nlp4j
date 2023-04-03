@@ -10,6 +10,7 @@ import org.apache.logging.log4j.Logger;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import nlp4j.Keyword;
@@ -31,92 +32,91 @@ public class GinzaJsonResponseParser {
 
 		{
 			Gson gson = new Gson();
-			JsonArray responseJsonArray = gson.fromJson(json, JsonArray.class);
-			logger.info("Response array size: " + responseJsonArray.size());
-			for (int n = 0; n < responseJsonArray.size(); n++) {
 
-				JsonObject responseObj = responseJsonArray.get(n).getAsJsonObject();
-				JsonArray paragraphs = responseObj.get("paragraphs").getAsJsonArray();
-				logger.info("paragraphs.size(): " + paragraphs.size());
-				// FOR_EACH(パラグラフ)
-				for (int idxParagraphs = 0; idxParagraphs < paragraphs.size(); idxParagraphs++) {
+			// GiNZA のレスポンスは JsonObject
+			JsonObject responseDoc = gson.fromJson(json, JsonObject.class);
 
-					JsonObject jsonObjParagraph = paragraphs.get(idxParagraphs).getAsJsonObject();
-					if (logger.isDebugEnabled()) {
-						if (jsonObjParagraph != null) {
-							logger.debug(jsonObjParagraph.toString());
-						}
+			JsonArray sents = responseDoc.get("sents").getAsJsonArray();
+
+			for (int idxSents = 0; idxSents < sents.size(); idxSents++) {
+
+				JsonObject sent = sents.get(idxSents).getAsJsonObject();
+
+				JsonArray tokens = sent.get("tokens").getAsJsonArray();
+
+				HashMap<String, DefaultKeywordWithDependency> mapKwd = new HashMap<>();
+
+				for (int idxToken = 0; idxToken < tokens.size(); idxToken++) {
+					JsonElement token = tokens.get(idxToken);
+
+					DefaultKeywordWithDependency kwd = new DefaultKeywordWithDependency();
+					{
+						kwd.setSentenceIndex(idxSents);
 					}
-
-					// 原文
-//					String raw = jsonObjParagraph.get("raw").getAsString();
-
-					JsonArray sentences = jsonObjParagraph.get("sentences").getAsJsonArray();
-
-					// FOR_EACH(SENTENCE)
-					sentences.forEach(elm -> {
-						HashMap<String, DefaultKeywordWithDependency> mapKwd = new HashMap<>();
-
-						JsonArray tokens = elm.getAsJsonObject().get("tokens").getAsJsonArray();
-
-						// FOR_EACH TOKEN
-						tokens.forEach(token -> {
-							DefaultKeywordWithDependency kwd = new DefaultKeywordWithDependency();
-							JsonObject tk = token.getAsJsonObject();
-							String id = "" + tk.get("id").getAsInt();
-							{
-								// "orth": "今日",
-								String orth = tk.get("orth").getAsString();
-								kwd.setStr(orth);
-							}
-							{
-								// "tag": "名詞-普通名詞-副詞可能",
-								String tag = tk.get("tag").getAsString();
-							}
-							{
-								// "pos": "NOUN",
-								String pos = tk.get("pos").getAsString();
-								kwd.setFacet(pos);
-							}
-							{
-								// "lemma": "今日",
-								String lemma = tk.get("lemma").getAsString();
-								kwd.setLex(lemma);
-							}
-							// "head": 4,
-							String head = "" + tk.get("head").getAsInt();
-							// "dep": "obl"
-							String dep = tk.get("dep").getAsString();
+					JsonObject tk = token.getAsJsonObject();
+					String id = "" + tk.get("i").getAsInt();
+					{
+						// "orth": "今日",
+						String orth = tk.get("orth").getAsString();
+						kwd.setStr(orth);
+					}
+					{
+						// "tag": "名詞-普通名詞-副詞可能",
+						String tag = tk.get("tag").getAsString();
+						kwd.setFacet(tag);
+					}
+					{
+						// "pos": "NOUN",
+						String pos = tk.get("pos").getAsString();
+						kwd.setUPos(pos);
+					}
+					{
+						// "lemma": "今日",
+						String lemma = tk.get("lemma").getAsString();
+						kwd.setLex(lemma);
+					}
+					// "head": 4,
+					String head = "" + tk.get("head.i").getAsInt();
+					// "dep": "obl"
+					String dep = tk.get("dep").getAsString();
 //							String ner = tk.get("ner").getAsString();
 //							kwd.setFacet(tag.substring(0, tag.indexOf("-")));
-							kwd.setRelation(dep);
-							kwd.setDependencyKey(head);
-							mapKwd.put(id, kwd);
-						}); // END_OF FOR_EACH TOKEN
+					kwd.setRelation(dep);
+					kwd.setDependencyKey(head);
+					mapKwd.put(id, kwd);
+				}
 
-						DefaultKeywordWithDependency root = null;
+//						// FOR_EACH TOKEN
+//						tokens.forEach(token -> {
+//						}); // END_OF FOR_EACH TOKEN
 
-						// FOR_EACH ID_OF_MAP
-						for (String id : mapKwd.keySet()) {
+				DefaultKeywordWithDependency root = null;
 
-							DefaultKeywordWithDependency kwd = mapKwd.get(id);
-							String depKey = mapKwd.get(id).getDependencyKey();
-							if (depKey.equals(id) == false) {
-								// 係り受け(Universal Dependency)
-								kwd.setParent(mapKwd.get(depKey));
-							}
-							// root には ID と同じ head がセットされている
-							else {
-								root = kwd;
-							}
+				// FOR_EACH ID_OF_MAP
+				for (String id : mapKwd.keySet()) {
 
-						}
-						// END_OF FOR_EACH ID_OF_MAP
+					DefaultKeywordWithDependency kwd = mapKwd.get(id);
+					String depKey = mapKwd.get(id).getDependencyKey();
+					if (depKey.equals(id) == false) {
+						// 係り受け(Universal Dependency)
+						kwd.setParent(mapKwd.get(depKey));
+					}
+					// root には ID と同じ head がセットされている
+					else {
+						root = kwd;
+					}
 
-						kwds.add(root);
+				}
+				// END_OF FOR_EACH ID_OF_MAP
 
-					}); // END_OF FOR_EACH(SENTENCE)
-				} // END_OF FOR_EACH(パラグラフ)
+				kwds.add(root);
+//					}
+
+//					// FOR_EACH(SENTENCE)
+//					sentences.forEach(elm -> {
+//					}); // END_OF FOR_EACH(SENTENCE)
+
+//				} // END_OF FOR_EACH(パラグラフ)
 			}
 
 		}

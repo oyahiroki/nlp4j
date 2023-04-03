@@ -24,7 +24,7 @@ public interface Keyword extends Serializable, Cloneable {
 	 * @param n
 	 * @since 1.3.1.0
 	 */
-	void addBeginEnd(int n);
+	public void addBeginEnd(int n);
 
 	/**
 	 * キーワードの属性値を返します。<br>
@@ -34,7 +34,7 @@ public interface Keyword extends Serializable, Cloneable {
 	 * @return value 値
 	 * @since 1.2
 	 */
-	String get(String attribute);
+	public String get(String attribute);
 
 	/**
 	 * キーワードの開始位置を返します。<br>
@@ -43,7 +43,7 @@ public interface Keyword extends Serializable, Cloneable {
 	 * @return begin 開始位置
 	 * @since 1.0
 	 */
-	int getBegin();
+	public int getBegin();
 
 	/**
 	 * キーワードの共起性を返します。<br>
@@ -52,7 +52,7 @@ public interface Keyword extends Serializable, Cloneable {
 	 * @return correlation 共起性
 	 * @since 1.0
 	 */
-	double getCorrelation();
+	public double getCorrelation();
 
 	/**
 	 * キーワードのカウントを返します。<br>
@@ -61,7 +61,7 @@ public interface Keyword extends Serializable, Cloneable {
 	 * @return count カウント
 	 * @since 1.0
 	 */
-	long getCount();
+	public long getCount();
 
 	/**
 	 * キーワードの終了位置を返します。<br>
@@ -70,7 +70,7 @@ public interface Keyword extends Serializable, Cloneable {
 	 * @return end 終了位置
 	 * @since 1.0
 	 */
-	int getEnd();
+	public int getEnd();
 
 	/**
 	 * ファセットを返します。<br>
@@ -79,13 +79,13 @@ public interface Keyword extends Serializable, Cloneable {
 	 * @return facet ファセット
 	 * @since 1.0
 	 */
-	String getFacet();
+	public String getFacet();
 
 	/**
 	 * @return フラグ
 	 * @since 1.3
 	 */
-	boolean getFlag();
+	public boolean getFlag();
 
 	/**
 	 * キーワードの正規形を返します。正規形は見出し語とも呼ばれます。<br>
@@ -94,7 +94,7 @@ public interface Keyword extends Serializable, Cloneable {
 	 * @return the lex 正規形
 	 * @since 1.0
 	 */
-	String getLex();
+	public String getLex();
 
 	/**
 	 * キーワードの名前空間を取得します。<br>
@@ -102,7 +102,16 @@ public interface Keyword extends Serializable, Cloneable {
 	 * 
 	 * @since 1.3.1
 	 */
-	String getNamespance();
+	public String getNamespance();
+
+	/**
+	 * パラグラフのインデックスを返します<br>
+	 * Return index of sentence
+	 * 
+	 * @return index of Paragraph
+	 * @since 1.3.7.8
+	 */
+	public int getParagraphIndex();
 
 	/**
 	 * キーワードの「読み」を返します。<br>
@@ -111,7 +120,16 @@ public interface Keyword extends Serializable, Cloneable {
 	 * @return reading 読み
 	 * @since 1.0
 	 */
-	String getReading();
+	public String getReading();
+
+	/**
+	 * 文のインデックスを返します<br>
+	 * Return index of sentence
+	 * 
+	 * @return index of sentence
+	 * @since 1.3.7.8
+	 */
+	public int getSentenceIndex();
 
 	/**
 	 * キーワードの表出文字を返します。<br>
@@ -120,7 +138,7 @@ public interface Keyword extends Serializable, Cloneable {
 	 * @return 表出文字
 	 * @since 1.0
 	 */
-	String getStr();
+	public String getStr();
 
 	/**
 	 * Universal POSを返します。<br>
@@ -129,7 +147,7 @@ public interface Keyword extends Serializable, Cloneable {
 	 * @return Universal POS
 	 * @since 1.3.1.0
 	 */
-	String getUPos();
+	public String getUPos();
 
 	/**
 	 * Return match result of Keyword
@@ -138,7 +156,7 @@ public interface Keyword extends Serializable, Cloneable {
 	 * @return match result
 	 * @since 1.3.1.0
 	 */
-	boolean match(Keyword rule);
+	public boolean match(Keyword rule);
 
 	/**
 	 * キーワードの開始位置をセットします。<br>
@@ -147,7 +165,7 @@ public interface Keyword extends Serializable, Cloneable {
 	 * @param begin 開始位置
 	 * @since 1.0
 	 */
-	void setBegin(int begin);
+	public void setBegin(int begin);
 
 	/**
 	 * キーワードの共起性をセットします。<br>
@@ -156,7 +174,7 @@ public interface Keyword extends Serializable, Cloneable {
 	 * @param d correlation
 	 * @since 1.0
 	 */
-	void setCorrelation(double d);
+	public void setCorrelation(double d);
 
 	/**
 	 * キーワードのカウントをセットします。<br>
@@ -165,7 +183,7 @@ public interface Keyword extends Serializable, Cloneable {
 	 * @param count カウント
 	 * @since 1.0
 	 */
-	void setCount(long count);
+	public void setCount(long count);
 
 	/**
 	 * キーワードの終了位置をセットします。<br>
@@ -174,7 +192,7 @@ public interface Keyword extends Serializable, Cloneable {
 	 * @param end 終了位置
 	 * @since 1.0
 	 */
-	void setEnd(int end);
+	public void setEnd(int end);
 
 	/**
 	 * キーワードのファセットをセットします。<br>
@@ -183,13 +201,13 @@ public interface Keyword extends Serializable, Cloneable {
 	 * @param facet ファセット
 	 * @since 1.0
 	 */
-	void setFacet(String facet);
+	public void setFacet(String facet);
 
 	/**
 	 * @param b フラグ
 	 * @since 1.3
 	 */
-	void setFlag(boolean b);
+	public void setFlag(boolean b);
 
 	/**
 	 * キーワードの正規形をセットします。正規形は見出し語とも呼ばれます。<br>
@@ -198,7 +216,7 @@ public interface Keyword extends Serializable, Cloneable {
 	 * @param lex 正規形
 	 * @since 1.0
 	 */
-	void setLex(String lex);
+	public void setLex(String lex);
 
 	/**
 	 * キーワードの名前空間をセットします。<br>
@@ -207,7 +225,16 @@ public interface Keyword extends Serializable, Cloneable {
 	 * @param namespace
 	 * @since 1.3.1
 	 */
-	void setNamespace(String namespace);
+	public void setNamespace(String namespace);
+
+	/**
+	 * パラグラフのインデックスをセットします<br>
+	 * Set index of Paragraph
+	 * 
+	 * @param paragraphIndex
+	 * @since 1.3.7.8
+	 */
+	public void setParagraphIndex(int paragraphIndex);
 
 	/**
 	 * キーワードの読みをセットします。<br>
@@ -216,7 +243,16 @@ public interface Keyword extends Serializable, Cloneable {
 	 * @param reading 読み
 	 * @since 1.0
 	 */
-	void setReading(String reading);
+	public void setReading(String reading);
+
+	/**
+	 * 文のインデックスをセットします<br>
+	 * Set index of sentence
+	 * 
+	 * @param sentenceIndex
+	 * @since 1.3.7.8
+	 */
+	public void setSentenceIndex(int sentenceIndex);
 
 	/**
 	 * キーワードの表出文字をセットします。<br>
@@ -225,7 +261,7 @@ public interface Keyword extends Serializable, Cloneable {
 	 * @param str 表出文字
 	 * @since 1.0
 	 */
-	void setStr(String str);
+	public void setStr(String str);
 
 	/**
 	 * Universal POSをセットします。<br>
@@ -233,5 +269,5 @@ public interface Keyword extends Serializable, Cloneable {
 	 * 
 	 * @param upos
 	 */
-	void setUPos(String upos);
+	public void setUPos(String upos);
 }

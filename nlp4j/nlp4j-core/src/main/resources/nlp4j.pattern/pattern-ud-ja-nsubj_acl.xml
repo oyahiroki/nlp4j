@@ -3,14 +3,24 @@
 
 	<!-- XXがYYされるZZ -->
 	<pattern facet="pattern.nsubj_acl" value="{2.lex} ... {1.lex}">
-		<w id="1" facet="VERB" relation="acl">
-			<w id="2" facet="NOUN" relation="nsubj">
-				<w id="3" facet="ADP" relation="case" />
+		<w id="1" upos="VERB" relation="acl">
+			<w id="2" upos="NOUN" relation="nsubj">
+				<w id="3" upos="ADP" relation="case" />
 			</w>
-			<w id="4" facet="AUX" lex="れる" relation="aux" str="れる" />
+			<!-- w id="4" upos="AUX" lex="れる" relation="aux" str="れる" / -->
+			
 		</w>
 	</pattern>
 
+	<pattern facet="pattern.nsubj_acl" value="{2.lex} ... {1.str}{5.str}">
+		<w id="1" upos="VERB" relation="acl">
+			<w id="2" upos="NOUN" relation="nsubj">
+				<w id="3" upos="ADP" relation="case" />
+			</w>
+			<!-- w id="4" upos="AUX" lex="れる" relation="aux" str="れる" / -->
+			<w id="5" upos="AUX" lex="/(ない|ず)/" relation="aux" />
+		</w>
+	</pattern>
 
 
 

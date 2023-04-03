@@ -306,32 +306,46 @@ public class DefaultKeywordWithDependency extends DefaultKeyword implements Keyw
 	}
 
 	private void appendAttributes(StringBuffer sb, int depth) {
+		
+		// sequence
 		if (this.sequence != -1) {
 			sb.append("sequence=\"" + this.sequence + "\" "); //
 			sb.append("id=\"" + this.sequence + "\" "); //
 		}
+		// str
 		if (this.str != null) {
 			sb.append("str=\"" + StringEscapeUtils.escapeXml10(this.str) + "\" "); //
 		}
+		// lex
 		if (this.lex != null) {
 			sb.append("lex=\"" + StringEscapeUtils.escapeXml10(this.lex) + "\" "); //
 		}
+		// depth
 		sb.append("depth=\"" + depth + "\" "); //
+		// facet
 		if (this.facet != null) {
 			sb.append("facet=\"" + StringEscapeUtils.escapeXml10(this.facet) + "\" "); //
 		}
+		// upos
 		if (this.upos != null) {
 			sb.append("upos=\"" + StringEscapeUtils.escapeXml10(this.upos) + "\" "); //
 		}
+		if (this.sentenceIndex != -1) {
+			sb.append("sentenceIndex=\"" + this.sentenceIndex + "\" "); //
+		}
+		// begin
 		if (this.begin != -1) {
 			sb.append("begin=\"" + this.begin + "\" "); //
 		}
+		// end
 		if (this.end != -1) {
 			sb.append("end=\"" + end + "\" "); //
 		}
+		// reading
 		if (this.reading != null) {
 			sb.append("reading=\"" + StringEscapeUtils.escapeXml10(this.reading) + "\" "); //
 		}
+		// relation
 		if (this.relation != null) {
 			sb.append("relation=\"" + StringEscapeUtils.escapeXml10(this.relation) + "\" "); //
 		}
@@ -344,42 +358,12 @@ public class DefaultKeywordWithDependency extends DefaultKeyword implements Keyw
 		if (children == null || children.size() == 0) {
 			sb.append("<w "); //
 
-//			if (this.sequence != -1) {
-//				sb.append("sequence=\"" + this.sequence + "\" "); //
-//				sb.append("id=\"" + this.sequence + "\" "); //
-//			}
-//			sb.append("str=\"" + StringEscapeUtils.escapeXml10(this.str) + "\" "); //
-//			sb.append("lex=\"" + StringEscapeUtils.escapeXml10(this.lex) + "\" "); //
-//			sb.append("depth=\"" + depth + "\" "); //
-//			sb.append("facet=\"" + StringEscapeUtils.escapeXml10(this.facet) + "\" "); //
-//			if (this.upos != null) {
-//				sb.append("upos=\"" + StringEscapeUtils.escapeXml10(this.upos) + "\" "); //
-//			}
-//			sb.append("begin=\"" + begin + "\" "); //
-//			sb.append("end=\"" + end + "\" "); //
-//			sb.append("reading=\"" + StringEscapeUtils.escapeXml10(this.reading) + "\" "); //
-
 			appendAttributes(sb, depth);
 
 			sb.append("/>"); // <-
 		} //
 		else {
 			sb.append("<w ");
-
-//			if (this.sequence != -1) {
-//				sb.append("sequence=\"" + this.sequence + "\" "); //
-//				sb.append("id=\"" + this.sequence + "\" "); //
-//			}
-//			sb.append("str=\"" + StringEscapeUtils.escapeXml10(this.str) + "\" "); //
-//			sb.append("lex=\"" + StringEscapeUtils.escapeXml10(this.lex) + "\" "); //
-//			sb.append("depth=\"" + depth + "\" "); //
-//			sb.append("facet=\"" + StringEscapeUtils.escapeXml10(this.facet) + "\" "); //
-//			if (this.upos != null) {
-//				sb.append("upos=\"" + StringEscapeUtils.escapeXml10(this.upos) + "\" "); //
-//			}
-//			sb.append("begin=\"" + begin + "\" "); //
-//			sb.append("end=\"" + end + "\" "); //
-//			sb.append("reading=\"" + StringEscapeUtils.escapeXml10(this.reading) + "\" "); //
 
 			appendAttributes(sb, depth);
 

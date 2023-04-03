@@ -19,14 +19,14 @@ public class KeywordBuilder implements Builder<Keyword> {
 		return this;
 	}
 
-	public KeywordBuilder correlation(double correlation) {
-		this.kwd.setCorrelation(correlation);
-		return this;
-	}
-
 	@Override
 	public Keyword build() {
 		return this.kwd;
+	}
+
+	public KeywordBuilder correlation(double correlation) {
+		this.kwd.setCorrelation(correlation);
+		return this;
 	}
 
 	public KeywordBuilder count(long count) {
@@ -59,8 +59,18 @@ public class KeywordBuilder implements Builder<Keyword> {
 		return this;
 	}
 
+	public KeywordBuilder paragraphIndex(int idx) {
+		this.kwd.setParagraphIndex(idx);
+		return this;
+	}
+
 	public KeywordBuilder reading(String reading) {
 		this.kwd.setReading(reading);
+		return this;
+	}
+
+	public KeywordBuilder sentenceIndex(int idx) {
+		this.kwd.setSentenceIndex(idx);
 		return this;
 	}
 

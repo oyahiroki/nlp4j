@@ -21,10 +21,12 @@ public abstract class AbstractKeyword implements Keyword {
 	 * correlation
 	 */
 	protected double correlation = CORRELATION_INIT;
+
 	/**
 	 * count
 	 */
 	protected long count = COUNT_INIT;
+
 	/**
 	 * end
 	 */
@@ -34,6 +36,10 @@ public abstract class AbstractKeyword implements Keyword {
 	 */
 	protected String facet;
 	/**
+	 * hitKeyword
+	 */
+	protected Keyword hitKeyword = null;
+	/**
 	 * lex
 	 */
 	protected String lex;
@@ -42,9 +48,17 @@ public abstract class AbstractKeyword implements Keyword {
 	 */
 	protected String namespace;
 	/**
+	 * paragraph
+	 */
+	protected int paragraphIndex = -1;
+	/**
 	 * reading: 読み
 	 */
 	protected String reading;
+	/**
+	 * sentence
+	 */
+	protected int sentenceIndex = -1;
 	/**
 	 * sequence: 連番
 	 */
@@ -57,10 +71,6 @@ public abstract class AbstractKeyword implements Keyword {
 	 * upos: Universal Part of Speech
 	 */
 	protected String upos;
-	/**
-	 * hitKeyword
-	 */
-	protected Keyword hitKeyword = null;
 
 	/**
 	 * TRUE: (facet is same) and (lex is same)

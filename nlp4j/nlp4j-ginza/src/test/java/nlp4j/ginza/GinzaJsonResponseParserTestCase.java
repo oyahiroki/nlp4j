@@ -18,7 +18,7 @@ public class GinzaJsonResponseParserTestCase extends TestCase {
 	 */
 	public void testParseResponse001() throws Exception {
 
-		String fileName = "src/main/resources/nlp4j.ginza/response_ginza_20230401.json";
+		String fileName = "src/test/resources/nlp4j.ginza/response_ginza.json";
 
 		String json = FileUtils.readFileToString(new File(fileName), "UTF-8");
 

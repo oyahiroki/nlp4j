@@ -3,15 +3,15 @@
 
 	<!-- かわいい+赤ちゃん -->
 	<pattern facet="pattern.noun_adj" value="{5.lex} ... {1.lex}">
-		<w id="5" facet="NOUN">
-			<w id="1" facet="ADJ" relation="acl">
+		<w id="5" upos="NOUN">
+			<w id="1" upos="ADJ" relation="acl">
 			</w>
 		</w>
 	</pattern>
 	<!-- 赤ちゃん+かわいい -->
 	<pattern facet="pattern.noun_adj" value="{1.lex} ... {5.lex}">
-		<w id="5" facet="ADJ">
-			<w id="1" facet="NOUN" relation="obl">
+		<w id="5" upos="ADJ">
+			<w id="1" upos="NOUN" relation="obl">
 			</w>
 		</w>
 	</pattern>

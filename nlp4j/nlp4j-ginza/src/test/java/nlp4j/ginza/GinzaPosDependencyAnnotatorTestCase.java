@@ -15,10 +15,11 @@ import nlp4j.util.DocumentUtil;
 public class GinzaPosDependencyAnnotatorTestCase extends TestCase {
 
 	public void testAnnotateDocument001() throws Exception {
-		Document doc = new DefaultDocument("今日はいい天気です。明日はいい天気です。");
+		Document doc = new DefaultDocument("今日はいい天気です。昨日は雨だったが、明日はいい天気です。");
 		GinzaPosDependencyAnnotator ann = new GinzaPosDependencyAnnotator();
 		ann.setProperty("target", "text");
 		ann.annotate(doc);
+		// KeywordWithDependency
 		for (KeywordWithDependency kwd : doc.getKeywords(KeywordWithDependency.class)) {
 			System.err.println(kwd.toStringAsXml());
 		}
