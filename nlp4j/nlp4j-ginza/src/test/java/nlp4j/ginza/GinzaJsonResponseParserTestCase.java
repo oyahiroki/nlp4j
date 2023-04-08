@@ -8,6 +8,7 @@ import org.apache.commons.io.FileUtils;
 import junit.framework.TestCase;
 import nlp4j.Keyword;
 import nlp4j.KeywordWithDependency;
+import nlp4j.KeywordWithDependencyParser;
 
 public class GinzaJsonResponseParserTestCase extends TestCase {
 
@@ -29,8 +30,14 @@ public class GinzaJsonResponseParserTestCase extends TestCase {
 		for (Keyword kwd : kwds) {
 			System.err.println(kwd.getLex());
 			if (kwd instanceof KeywordWithDependency) {
+				KeywordWithDependency kd = (KeywordWithDependency) kwd;
 				// 係り受けのツリーを表示する
 				System.err.println(((KeywordWithDependency) kwd).toStringAsXml());
+				List<Keyword> kk = KeywordWithDependencyParser.flatten(kd, null);
+				for (Keyword k : kk) {
+					System.err.println(k.getFacet() + "," + k.getLex() + "," + k.getSequence());
+				}
+
 			}
 		}
 

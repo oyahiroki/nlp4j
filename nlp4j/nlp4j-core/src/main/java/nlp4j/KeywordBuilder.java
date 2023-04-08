@@ -24,6 +24,11 @@ public class KeywordBuilder implements Builder<Keyword> {
 		return this.kwd;
 	}
 
+	public KeywordBuilder sequence(int sequence) {
+		this.kwd.setSequence(sequence);
+		return this;
+	}
+
 	public KeywordBuilder correlation(double correlation) {
 		this.kwd.setCorrelation(correlation);
 		return this;

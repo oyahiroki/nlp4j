@@ -62,12 +62,25 @@ python nlp4j-ginza-ginzaserver\ginzaserver.py
 
 Ctrl + C で終了
 
-# Install GiNZA Server - GiNZA Server をインストールする
+# Install ginzaserver - ginzaserver をインストールする
 
 ```
 pip install git+https://github.com/oyahiroki/ginzaserver
 ```
 
+# Uninstall ginzaserver - ginzaserver をアンインストールする
+
+```
+$ pip uninstall ginzaserver
+Found existing installation: ginzaserver 1.0.0.0
+Uninstalling ginzaserver-1.0.0.0:
+  Would remove:
+    /home/oyahiroki/.local/bin/ginzaserver
+    /home/oyahiroki/.local/lib/python3.10/site-packages/ginzaserver-1.0.0.0.dist-info/*
+    /home/oyahiroki/.local/lib/python3.10/site-packages/ginzaserver/*
+Proceed (Y/n)? Y
+  Successfully uninstalled ginzaserver-1.0.0.0
+```
 
 # Universal Dependency 関連論文
 

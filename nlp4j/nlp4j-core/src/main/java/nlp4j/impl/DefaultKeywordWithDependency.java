@@ -37,41 +37,6 @@ public class DefaultKeywordWithDependency extends DefaultKeyword implements Keyw
 		super();
 	}
 
-	@Override
-	public void addBeginEnd(int n) {
-//		super.addBeginEnd(n);
-		this.begin += n;
-		this.end += n;
-
-		if (this.children != null) {
-			for (int x = 0; x < children.size(); x++) {
-				children.get(x).addBeginEnd(n);
-			}
-		}
-	}
-
-	@Override
-	protected DefaultKeywordWithDependency clone() {
-		DefaultKeywordWithDependency c = (DefaultKeywordWithDependency) super.clone();
-
-		// Initialize c.children becaues c.children copied already
-		c.children = new ArrayList<>();
-
-		c.parent = null;
-
-		{
-			ArrayList<DefaultKeywordWithDependency> list = (ArrayList<DefaultKeywordWithDependency>) this.children
-					.clone();
-			for (DefaultKeywordWithDependency obj : list) {
-				// add cloned object
-				c.children.add(obj.clone());
-			}
-		}
-		c.dependencyKey = this.dependencyKey;
-		c.relation = this.relation;
-		return c;
-	}
-
 	/**
 	 * @param begin 開始位置
 	 * @param end   終了位置
@@ -113,6 +78,19 @@ public class DefaultKeywordWithDependency extends DefaultKeyword implements Keyw
 	}
 
 	@Override
+	public void addBeginEnd(int n) {
+//		super.addBeginEnd(n);
+		this.begin += n;
+		this.end += n;
+
+		if (this.children != null) {
+			for (int x = 0; x < children.size(); x++) {
+				children.get(x).addBeginEnd(n);
+			}
+		}
+	}
+
+	@Override
 	public void addChild(KeywordWithDependency keyword) {
 		this.children.add(keyword);
 		keyword.setParentOnly(this);
@@ -123,6 +101,53 @@ public class DefaultKeywordWithDependency extends DefaultKeyword implements Keyw
 		this.children.add(keyword);
 	}
 
+	private void appendAttributes(StringBuffer sb, int depth) {
+
+		// sequence
+		if (this.sequence != -1) {
+			sb.append("sequence=\"" + this.sequence + "\" "); //
+			sb.append("id=\"" + this.sequence + "\" "); //
+		}
+		// str
+		if (this.str != null) {
+			sb.append("str=\"" + StringEscapeUtils.escapeXml10(this.str) + "\" "); //
+		}
+		// lex
+		if (this.lex != null) {
+			sb.append("lex=\"" + StringEscapeUtils.escapeXml10(this.lex) + "\" "); //
+		}
+		// depth
+		sb.append("depth=\"" + depth + "\" "); //
+		// facet
+		if (this.facet != null) {
+			sb.append("facet=\"" + StringEscapeUtils.escapeXml10(this.facet) + "\" "); //
+		}
+		// upos
+		if (this.upos != null) {
+			sb.append("upos=\"" + StringEscapeUtils.escapeXml10(this.upos) + "\" "); //
+		}
+		if (this.sentenceIndex != -1) {
+			sb.append("sentenceIndex=\"" + this.sentenceIndex + "\" "); //
+		}
+		// begin
+		if (this.begin != -1) {
+			sb.append("begin=\"" + this.begin + "\" "); //
+		}
+		// end
+		if (this.end != -1) {
+			sb.append("end=\"" + end + "\" "); //
+		}
+		// reading
+		if (this.reading != null) {
+			sb.append("reading=\"" + StringEscapeUtils.escapeXml10(this.reading) + "\" "); //
+		}
+		// relation
+		if (this.relation != null) {
+			sb.append("relation=\"" + StringEscapeUtils.escapeXml10(this.relation) + "\" "); //
+		}
+
+	}
+
 	@Override
 	public List<KeywordWithDependency> asList() {
 		List<KeywordWithDependency> ret = new ArrayList<KeywordWithDependency>();
@@ -131,6 +156,28 @@ public class DefaultKeywordWithDependency extends DefaultKeyword implements Keyw
 			ret.addAll(c.asList());
 		}
 		return ret;
+	}
+
+	@Override
+	protected DefaultKeywordWithDependency clone() {
+		DefaultKeywordWithDependency c = (DefaultKeywordWithDependency) super.clone();
+
+		// Initialize c.children becaues c.children copied already
+		c.children = new ArrayList<>();
+
+		c.parent = null;
+
+		{
+			ArrayList<DefaultKeywordWithDependency> list = (ArrayList<DefaultKeywordWithDependency>) this.children
+					.clone();
+			for (DefaultKeywordWithDependency obj : list) {
+				// add cloned object
+				c.children.add(obj.clone());
+			}
+		}
+		c.dependencyKey = this.dependencyKey;
+		c.relation = this.relation;
+		return c;
 	}
 
 	@Override
@@ -243,6 +290,18 @@ public class DefaultKeywordWithDependency extends DefaultKeyword implements Keyw
 	}
 
 	@Override
+	public int size() {
+
+		int size = 1; // this
+
+		for (KeywordWithDependency c : children) {
+			size += c.size();
+		}
+
+		return size;
+	}
+
+	@Override
 	public String toString() {
 		return this.lex + " [" //
 				+ "relation=" + relation + ", " // @since 1.2.1.0
@@ -303,53 +362,6 @@ public class DefaultKeywordWithDependency extends DefaultKeyword implements Keyw
 	@Override
 	public String toStringAsXml() {
 		return XmlUtils.prettyFormatXml(toStringAsXml(0));
-	}
-
-	private void appendAttributes(StringBuffer sb, int depth) {
-		
-		// sequence
-		if (this.sequence != -1) {
-			sb.append("sequence=\"" + this.sequence + "\" "); //
-			sb.append("id=\"" + this.sequence + "\" "); //
-		}
-		// str
-		if (this.str != null) {
-			sb.append("str=\"" + StringEscapeUtils.escapeXml10(this.str) + "\" "); //
-		}
-		// lex
-		if (this.lex != null) {
-			sb.append("lex=\"" + StringEscapeUtils.escapeXml10(this.lex) + "\" "); //
-		}
-		// depth
-		sb.append("depth=\"" + depth + "\" "); //
-		// facet
-		if (this.facet != null) {
-			sb.append("facet=\"" + StringEscapeUtils.escapeXml10(this.facet) + "\" "); //
-		}
-		// upos
-		if (this.upos != null) {
-			sb.append("upos=\"" + StringEscapeUtils.escapeXml10(this.upos) + "\" "); //
-		}
-		if (this.sentenceIndex != -1) {
-			sb.append("sentenceIndex=\"" + this.sentenceIndex + "\" "); //
-		}
-		// begin
-		if (this.begin != -1) {
-			sb.append("begin=\"" + this.begin + "\" "); //
-		}
-		// end
-		if (this.end != -1) {
-			sb.append("end=\"" + end + "\" "); //
-		}
-		// reading
-		if (this.reading != null) {
-			sb.append("reading=\"" + StringEscapeUtils.escapeXml10(this.reading) + "\" "); //
-		}
-		// relation
-		if (this.relation != null) {
-			sb.append("relation=\"" + StringEscapeUtils.escapeXml10(this.relation) + "\" "); //
-		}
-
 	}
 
 	public String toStringAsXml(int depth) {

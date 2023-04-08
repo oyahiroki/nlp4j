@@ -54,7 +54,11 @@ public class GinzaJsonResponseParser {
 						kwd.setSentenceIndex(idxSents);
 					}
 					JsonObject tk = token.getAsJsonObject();
-					String id = "" + tk.get("i").getAsInt();
+					int id_int = tk.get("i").getAsInt();
+					String id = "" + id_int;
+					{
+						kwd.setSequence(id_int);
+					}
 					{
 						// "orth": "今日",
 						String orth = tk.get("orth").getAsString();

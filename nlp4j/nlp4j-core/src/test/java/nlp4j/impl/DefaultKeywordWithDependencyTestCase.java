@@ -58,7 +58,7 @@ public class DefaultKeywordWithDependencyTestCase extends NLP4JTestCase {
 	}
 
 	public void testClone001() throws Exception {
-		
+
 		DefaultKeywordWithDependency kwd1 = new DefaultKeywordWithDependency();
 		{
 			kwd1.setLex("aaa");
@@ -107,6 +107,47 @@ public class DefaultKeywordWithDependencyTestCase extends NLP4JTestCase {
 		System.err.println(kwd1.toStringAsXml());
 
 		assertEquals(1, kwd1.getChildren().size());
+	}
+
+	public void testSize001() {
+		DefaultKeywordWithDependency kwd1 = new DefaultKeywordWithDependency();
+		{
+			kwd1.setLex("aaa");
+		}
+		DefaultKeywordWithDependency kwd2 = new DefaultKeywordWithDependency();
+		{
+			kwd2.setLex("bbb");
+		}
+		kwd1.addChild(kwd2);
+		assertEquals(2, kwd1.size());
+	}
+
+	public void testSize002() {
+		DefaultKeywordWithDependency kwd1 = new DefaultKeywordWithDependency();
+		{
+			kwd1.setLex("aaa");
+		}
+		DefaultKeywordWithDependency kwd2 = new DefaultKeywordWithDependency();
+		{
+			kwd2.setLex("bbb");
+		}
+		kwd1.addChild(kwd2);
+		assertEquals(1, kwd2.size());
+	}
+
+	public void testSize003() {
+		DefaultKeywordWithDependency kwd1 = new DefaultKeywordWithDependency();
+		{
+			kwd1.setLex("aaa");
+		}
+		for (int n = 0; n < 10; n++) {
+			DefaultKeywordWithDependency kwd2 = new DefaultKeywordWithDependency();
+			{
+				kwd2.setLex("bbb" + n);
+			}
+			kwd1.addChild(kwd2);
+		}
+		assertEquals(11, kwd1.size());
 	}
 
 	public void testGetChildren001() {

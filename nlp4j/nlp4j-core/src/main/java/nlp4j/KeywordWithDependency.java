@@ -13,6 +13,14 @@ import java.util.List;
 public interface KeywordWithDependency extends Keyword, Cloneable {
 
 	/**
+	 * ノードのサイズ
+	 * 
+	 * @return
+	 * @since 1.3.7.8
+	 */
+	public int size();
+
+	/**
 	 * 係り受けのラベル
 	 * 
 	 * @return dependency label

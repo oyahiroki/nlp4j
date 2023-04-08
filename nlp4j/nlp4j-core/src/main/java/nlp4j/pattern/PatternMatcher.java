@@ -110,12 +110,16 @@ public class PatternMatcher {
 				if (values.contains(rulePatternValue) == false) {
 					values.add(rulePatternValue);
 					DefaultKeyword newKw = new DefaultKeyword();
-					newKw.setFacet(ruleFacet);
-					newKw.setLex(rulePatternValue);
-					newKw.setBegin(begin);
-					newKw.setEnd(end);
+					{
+						newKw.setFacet(ruleFacet);
+						newKw.setLex(rulePatternValue);
+						newKw.setBegin(begin);
+						newKw.setEnd(end);
+						newKw.setSentenceIndex(targetKeyword.getSentenceIndex());
+					}
 					ret.add(newKw);
 				} // END OF IF
+
 			} // END OF (MATCHALL == TRUE)
 
 		} // END OF FOR EACH TARGET NODE

@@ -2,6 +2,7 @@ package nlp4j;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -24,11 +25,11 @@ public class KeywordWithDependencyParser {
 
 	static public List<Keyword> flatten(KeywordWithDependency kwdRoot, Set<String> targetUPOS) {
 		List<Keyword> kwds = new ArrayList<Keyword>();
-		flatten(kwdRoot, kwds, targetUPOS);
+		flatten(kwdRoot, kwds, targetUPOS, 0);
 		return kwds;
 	}
 
-	private static void flatten(KeywordWithDependency kwdRoot, List<Keyword> kwds, Set<String> targetUPOS) {
+	private static void flatten(KeywordWithDependency kwdRoot, List<Keyword> kwds, Set<String> targetUPOS, int depth) {
 
 		if (targetUPOS == null || targetUPOS.contains(kwdRoot.getUPos())) {
 			Keyword k = (new KeywordBuilder())//
@@ -36,7 +37,7 @@ public class KeywordWithDependencyParser {
 					.facet(kwdRoot.getFacet())//
 					.sentenceIndex(kwdRoot.getSentenceIndex()) //
 					.upos(kwdRoot.getUPos()) //
-
+					.sequence(kwdRoot.getSequence()) //
 					.build();
 			k.setSentenceIndex(kwdRoot.getSentenceIndex());
 			kwds.add(k);
@@ -45,13 +46,24 @@ public class KeywordWithDependencyParser {
 		}
 
 		List<KeywordWithDependency> cc = kwdRoot.getChildren();
-		if (cc == null) {
-			return;
-		} else {
+		if (cc != null) {
 			for (KeywordWithDependency c : cc) {
-				flatten(c, kwds, targetUPOS);
+				flatten(c, kwds, targetUPOS, (depth + 1));
 			}
 		}
+
+		if (depth == 0) {
+			kwds.sort(new Comparator<Keyword>() {
+				@Override
+				public int compare(Keyword o1, Keyword o2) {
+					int i1 = o1.getSequence();
+					int i2 = o2.getSequence();
+					return (i1 - i2);
+				}
+			});
+		}
+
+		return;
 	}
 
 	static public List<Keyword> parse(KeywordWithDependency kwdRoot, String... ss) {

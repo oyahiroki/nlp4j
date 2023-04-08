@@ -11,6 +11,7 @@ import nlp4j.impl.DefaultDocument;
 import nlp4j.pattern.StandardPatternAnnotatorJa;
 import nlp4j.pattern.UserPatternAnnotator;
 import nlp4j.util.DocumentUtil;
+import nlp4j.util.KeywordWithDependencyUtils;
 
 public class GinzaPosDependencyAnnotatorTestCase extends TestCase {
 
@@ -342,6 +343,46 @@ public class GinzaPosDependencyAnnotatorTestCase extends TestCase {
 				System.err.println(kw.getLex() + "," + kw.getFacet());
 			}
 		}
+	}
+
+	public void testAnnotateDocument301() throws Exception {
+		Document doc = new DefaultDocument("私は歩いて学校に行きます。");
+		{
+			GinzaPosDependencyAnnotator ann = new GinzaPosDependencyAnnotator();
+			ann.setProperty("target", "text");
+			ann.annotate(doc);
+		}
+//		System.err.println(DocumentUtil.toJsonPrettyString(doc));
+		for (KeywordWithDependency kwd : doc.getKeywords(KeywordWithDependency.class)) {
+			System.err.println(kwd.toStringAsXml());
+		}
+	}
+
+	public void testAnnotateDocument302() throws Exception {
+		String text = "2022年の流行語大賞は「村神様」「キーウ」「きつねダンス」「スマホショルダー」「てまえどり」「ヤクルト１０００」など。"
+				+ "２０２０年は「３蜜」「あつ森」「アベノマスク」「アマビエ」「鬼滅の刃」「GoToキャンペーン」「ソロキャンプ」「フワちゃん」など。" + "２０１０年は「イクメン」「AKB48」「女子会」など。";
+		Document doc = new DefaultDocument(text);
+		{
+			GinzaPosDependencyAnnotator ann = new GinzaPosDependencyAnnotator();
+			ann.setProperty("target", "text");
+			ann.annotate(doc);
+		}
+//		System.err.println(DocumentUtil.toJsonPrettyString(doc));
+//		for (KeywordWithDependency kwd : doc.getKeywords(KeywordWithDependency.class)) {
+//			System.err.println(kwd.toStringAsXml());
+//		}
+
+		System.err.println("text: " + text);
+
+		for (KeywordWithDependency kwd : doc.getKeywords(KeywordWithDependency.class)) {
+			for (Keyword k : KeywordWithDependencyParser.flatten(kwd, null)) {
+				if (k.getFacet().contains("記号")) {
+					continue;
+				}
+				System.err.println(k.getFacet() + "," + k.getLex());
+			}
+		}
+
 	}
 
 	public void testSetProperty() {

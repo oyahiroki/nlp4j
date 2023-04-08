@@ -132,6 +132,12 @@ public interface Keyword extends Serializable, Cloneable {
 	public int getSentenceIndex();
 
 	/**
+	 * @return 連番
+	 * @since 1.3.7.8
+	 */
+	public int getSequence();
+
+	/**
 	 * キーワードの表出文字を返します。<br>
 	 * Return string of keyword.
 	 * 
@@ -253,6 +259,12 @@ public interface Keyword extends Serializable, Cloneable {
 	 * @since 1.3.7.8
 	 */
 	public void setSentenceIndex(int sentenceIndex);
+
+	/**
+	 * @param sequence 連番
+	 * @since 1.3.7.8
+	 */
+	public void setSequence(int sequence);
 
 	/**
 	 * キーワードの表出文字をセットします。<br>
