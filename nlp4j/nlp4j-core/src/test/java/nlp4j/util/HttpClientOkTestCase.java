@@ -6,31 +6,34 @@ import java.util.HashMap;
 import java.util.Map;
 
 import junit.framework.TestCase;
-import nlp4j.impl.DefaultNlpServiceResponse;
+import nlp4j.NlpServiceResponse;
+import nlp4j.http.HttpClient;
 
-public class HttpClientTestCase extends TestCase {
+public class HttpClientOkTestCase extends TestCase {
 
 	public void testHttpClient() {
 	}
 
 	public void testGetString001() throws Exception {
-		HttpClient httpclient = new HttpClient();
-		DefaultNlpServiceResponse res = httpclient.get("https://nlp4j.org");
+		HttpClient httpclient = new HttpClientOk();
+		NlpServiceResponse res = httpclient.get("https://nlp4j.org");
 		System.err.println(res.getOriginalResponseBody());
+		httpclient.close();
 	}
 
 	public void testGetStringMapOfStringString001() throws Exception {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("test", "123");
-		HttpClient httpclient = new HttpClient();
-		DefaultNlpServiceResponse res = httpclient.get("https://nlp4j.org", map);
+		HttpClient httpclient = new HttpClientOk();
+		NlpServiceResponse res = httpclient.get("https://nlp4j.org", map);
 		System.err.println(res.getOriginalResponseBody());
+		httpclient.close();
 	}
 
 	public void testGetContentLength001() throws Exception {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("test", "123");
-		HttpClient httpclient = new HttpClient();
+		HttpClient httpclient = new HttpClientOk();
 		String url = "https://nlp4j.org";
 		try ( //
 				InputStream is = httpclient.getInputStream(url, null);
@@ -54,7 +57,7 @@ public class HttpClientTestCase extends TestCase {
 			System.err.println("contentLength: " + contentLength);
 
 		}
-
+		httpclient.close();
 	}
 
 	public void testGetInputStream() {

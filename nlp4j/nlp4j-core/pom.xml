@@ -54,7 +54,6 @@
 			<timezone>-9</timezone>
 		</developer>
 	</developers>
-
 	<distributionManagement>
 		<snapshotRepository>
 			<id>ossrh</id>
@@ -70,7 +69,6 @@
             </url>
 		</repository>
 	</distributionManagement>
-
 	<profiles>
 		<profile>
 			<id>release-sign-artifacts</id>
@@ -135,12 +133,10 @@
 			</build>
 		</profile>
 	</profiles>
-
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 	</properties>
-
 	<build>
 		<plugins>
 			<!-- COMPILER -->
@@ -219,6 +215,12 @@
 			<groupId>com.squareup.okhttp3</groupId>
 			<artifactId>okhttp</artifactId>
 			<version>3.14.9</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.apache.httpcomponents.client5/httpclient5 -->
+		<dependency>
+			<groupId>org.apache.httpcomponents.client5</groupId>
+			<artifactId>httpclient5</artifactId>
+			<version>5.2.1</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/com.squareup.okio/okio -->
 		<dependency>

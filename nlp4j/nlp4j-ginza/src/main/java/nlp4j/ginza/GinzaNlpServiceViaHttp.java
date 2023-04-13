@@ -14,7 +14,8 @@ import com.google.gson.JsonObject;
 import nlp4j.Keyword;
 import nlp4j.NlpService;
 import nlp4j.NlpServiceResponse;
-import nlp4j.util.HttpClient;
+import nlp4j.http.HttpClient;
+import nlp4j.util.HttpClientOk;
 
 /**
  * <pre>
@@ -57,7 +58,7 @@ public class GinzaNlpServiceViaHttp implements NlpService {
 		params.put("text", text);
 
 		// Http client
-		HttpClient client = new HttpClient();
+		HttpClient client = new HttpClientOk();
 
 		JsonObject jsonObj = new JsonObject();
 		jsonObj.addProperty("text", text);
