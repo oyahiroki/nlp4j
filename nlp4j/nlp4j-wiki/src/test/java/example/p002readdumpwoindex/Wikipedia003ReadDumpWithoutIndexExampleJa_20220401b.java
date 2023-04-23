@@ -8,6 +8,7 @@ import org.apache.commons.io.FileUtils;
 import nlp4j.wiki.BreakException;
 import nlp4j.wiki.WikiDumpReader;
 import nlp4j.wiki.WikiItemTextParser;
+import nlp4j.wiki.WikiItemTextParserInterface;
 import nlp4j.wiki.WikiPage;
 import nlp4j.wiki.WikiPageHandler;
 import nlp4j.wiki.WikiPageNode;
@@ -47,7 +48,7 @@ public class Wikipedia003ReadDumpWithoutIndexExampleJa_20220401b {
 				} //
 				else {
 //					System.err.println("TITLE: " + page.getTitle());
-					WikiItemTextParser parser = new WikiItemTextParser();
+					WikiItemTextParserInterface parser = new WikiItemTextParser();
 					parser.parse(page.getText());
 
 					WikiPageNode rootNode = parser.getRoot();

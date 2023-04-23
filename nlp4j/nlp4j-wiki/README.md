@@ -14,9 +14,13 @@ Dump file name is: en(wiki|wiktionary)-(YYYYMMDD)-pages-articles-multistream.xml
 
 https://dumps.wikimedia.org/enwiki/
 
+https://dumps.wikimedia.org/jawiki/
+
 ## Wiktionary Dump
 
 https://dumps.wikimedia.org/enwiktionary/
+
+https://dumps.wikimedia.org/jawiktionary/
 
 # Code Example
 

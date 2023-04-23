@@ -3,7 +3,23 @@ package nlp4j.wiki.util;
 import nlp4j.util.StringUtils;
 import nlp4j.wiki.WikiPage;
 
-public class WiktionaryUtils {
+public class WiktionaryJaUtil {
+
+	static public String getRedirectPageTitle(String wikiText) {
+		String t = wikiText.split("\n")[0];
+		int idx1 = t.lastIndexOf("[[");
+		int idx2 = t.lastIndexOf("]]");
+		if (idx1 != -1 && (idx2 > idx1)) {
+			String link = t.substring(idx1, idx2);
+			return link;
+		} else {
+			return null;
+		}
+	}
+
+	static public boolean isRedirectPage(String wikiText) {
+		return wikiText != null && wikiText.startsWith("#転送");
+	}
 
 	static public String extractDefaultSort(WikiPage page) {
 

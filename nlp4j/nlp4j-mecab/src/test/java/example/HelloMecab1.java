@@ -21,6 +21,7 @@ public class HelloMecab1 {
 								+ ",facet=" + kwd.getFacet() //
 								+ ",upos=" + kwd.getUPos() //
 								+ ",reading=" + kwd.getReading() //
+								+ ",sentenceIndex=" + kwd.getSentenceIndex()
 
 				);
 			}

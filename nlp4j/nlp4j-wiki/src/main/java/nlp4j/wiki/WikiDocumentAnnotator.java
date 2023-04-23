@@ -82,7 +82,7 @@ public class WikiDocumentAnnotator extends AbstractDocumentAnnotator implements 
 //			System.err.println("debug: " + wikiText);
 
 			// Wiki形式のテキストをパースする
-			WikiItemTextParser parser = new WikiItemTextParser();
+			WikiItemTextParserInterface parser = new WikiItemTextParser();
 			parser.parse(wikiText);
 
 			// Wiki形式のページからNodeを取得する

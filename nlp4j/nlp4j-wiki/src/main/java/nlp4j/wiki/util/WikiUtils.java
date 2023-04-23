@@ -296,6 +296,8 @@ public class WikiUtils {
 		// 20220618 テンプレートの正規化
 		wikiText = WikiTemplateNormalizer.normalize(wikiText);
 
+		wikiText = wikiText.replaceAll("\\{\\{.*?\\}\\}", "");
+
 		// Set-up a simple wiki configuration
 		WikiConfig config = DefaultConfigEnWp.generate();
 
@@ -303,7 +305,7 @@ public class WikiUtils {
 			final int wrapCol = 1000;
 
 			// Retrieve a page
-			PageTitle pageTitle = PageTitle.make(config, wikiText);
+			PageTitle pageTitle = PageTitle.make(config, "Wiki");
 
 			PageId pageId = new PageId(pageTitle, -1);
 
@@ -319,8 +321,9 @@ public class WikiUtils {
 			return text;
 
 		} catch (Exception e) {
-			return null;
+			e.printStackTrace();
 		}
+		return null;
 	}
 
 }

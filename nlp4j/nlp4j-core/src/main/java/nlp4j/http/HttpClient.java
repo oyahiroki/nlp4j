@@ -5,7 +5,6 @@ import java.io.InputStream;
 import java.util.Map;
 
 import nlp4j.NlpServiceResponse;
-import nlp4j.impl.DefaultNlpServiceResponse;
 
 /**
  * @author Hiroki Oya
@@ -31,11 +30,24 @@ public interface HttpClient extends AutoCloseable {
 	 */
 	NlpServiceResponse get(String url, Map<String, String> params) throws IOException;
 
+	/**
+	 * @return Content length of InputStream
+	 */
 	long getContentLength();
 
+	/**
+	 * GET as InputStream
+	 * 
+	 * @param url
+	 * @param params
+	 * @return
+	 * @throws IOException
+	 */
 	InputStream getInputStream(String url, Map<String, String> params) throws IOException;
 
 	/**
+	 * POST
+	 * 
 	 * @param url             APIのURL
 	 * @param requestHeader   リクエストヘッダ
 	 * @param jsonRequestBody リクエストボディJSON
@@ -46,6 +58,8 @@ public interface HttpClient extends AutoCloseable {
 	NlpServiceResponse post(String url, Map<String, String> requestHeader, String jsonRequestBody) throws IOException;
 
 	/**
+	 * POST
+	 * 
 	 * @param url  APIのURL
 	 * @param json API パラメータ
 	 * @return NLPの結果

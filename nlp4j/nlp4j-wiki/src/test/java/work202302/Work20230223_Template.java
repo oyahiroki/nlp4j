@@ -5,6 +5,7 @@ import java.io.File;
 import junit.framework.TestCase;
 import nlp4j.wiki.WikiDumpReader;
 import nlp4j.wiki.WikiItemTextParser;
+import nlp4j.wiki.WikiItemTextParserInterface;
 import nlp4j.wiki.WikiPage;
 import nlp4j.wiki.WikiPageNode;
 import nlp4j.wiki.util.StringUtils;
@@ -21,7 +22,7 @@ public class Work20230223_Template extends TestCase {
 		try (WikiDumpReader dumpReader = new WikiDumpReader(new File(dir + fileDumpName),
 				new File(dir + fileIndexName));) {
 			WikiPage page = dumpReader.getItem(itemString);
-			WikiItemTextParser parser = new WikiItemTextParser();
+			WikiItemTextParserInterface parser = new WikiItemTextParser();
 			WikiPageNode rootNode = parser.parse(page.getText());
 			System.out.println(rootNode.getText());
 		}
@@ -37,7 +38,7 @@ public class Work20230223_Template extends TestCase {
 		try (WikiDumpReader dumpReader = new WikiDumpReader(new File(dir + fileDumpName),
 				new File(dir + fileIndexName));) {
 			WikiPage page = dumpReader.getItem(itemString);
-			WikiItemTextParser parser = new WikiItemTextParser();
+			WikiItemTextParserInterface parser = new WikiItemTextParser();
 			WikiPageNode rootNode = parser.parse(page.getText());
 			System.out.println(rootNode.getText());
 		}
@@ -57,7 +58,7 @@ public class Work20230223_Template extends TestCase {
 			for (String target : targets) {
 				String itemTitle = itemString + target;
 				WikiPage page = dumpReader.getItem(itemTitle);
-				WikiItemTextParser parser = new WikiItemTextParser();
+				WikiItemTextParserInterface parser = new WikiItemTextParser();
 				WikiPageNode rootNode = parser.parse(page.getText());
 				System.out.println(target);
 				System.out.println("---");

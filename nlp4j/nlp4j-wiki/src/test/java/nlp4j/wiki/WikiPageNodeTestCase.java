@@ -70,7 +70,7 @@ public class WikiPageNodeTestCase extends TestCase {
 
 	public void testGetText001() {
 
-		WikiItemTextParser parser = new WikiItemTextParser();
+		WikiItemTextParserInterface parser = new WikiItemTextParser();
 
 		parser.parse(wikiText);
 
@@ -85,7 +85,7 @@ public class WikiPageNodeTestCase extends TestCase {
 	}
 
 	public void testGetText002() {
-		WikiItemTextParser parser = new WikiItemTextParser();
+		WikiItemTextParserInterface parser = new WikiItemTextParser();
 
 		parser.parse(wikiText);
 
@@ -98,7 +98,7 @@ public class WikiPageNodeTestCase extends TestCase {
 	}
 
 	public void testGetText003() {
-		WikiItemTextParser parser = new WikiItemTextParser();
+		WikiItemTextParserInterface parser = new WikiItemTextParser();
 
 		parser.parse(wikiText);
 
@@ -111,7 +111,7 @@ public class WikiPageNodeTestCase extends TestCase {
 	}
 
 	public void testGetText004() {
-		WikiItemTextParser parser = new WikiItemTextParser();
+		WikiItemTextParserInterface parser = new WikiItemTextParser();
 
 		parser.parse(wikiText);
 
@@ -167,7 +167,7 @@ public class WikiPageNodeTestCase extends TestCase {
 				+ "\r\n" //
 				+ "==脚注==\r\n" //
 				+ "<references/>";
-		WikiItemTextParser parser = new WikiItemTextParser();
+		WikiItemTextParserInterface parser = new WikiItemTextParser();
 		parser.parse(wikiText);
 
 		WikiPageNode rootNode = parser.getRoot();
@@ -238,7 +238,7 @@ public class WikiPageNodeTestCase extends TestCase {
 				+ "==脚注==\r\n" //
 				+ "<references />\r\n" //
 				+ "";
-		WikiItemTextParser parser = new WikiItemTextParser();
+		WikiItemTextParserInterface parser = new WikiItemTextParser();
 		parser.parse(wikiText);
 
 		parser.getWikiPageNodesAsList().stream().forEach(p -> {

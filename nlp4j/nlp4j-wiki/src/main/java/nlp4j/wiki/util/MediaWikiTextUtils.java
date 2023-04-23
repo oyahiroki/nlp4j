@@ -14,6 +14,7 @@ import org.sweble.wikitext.engine.utils.DefaultConfigEnWp;
 import org.sweble.wikitext.example.TextConverter;
 
 import nlp4j.wiki.WikiItemTextParser;
+import nlp4j.wiki.WikiItemTextParserInterface;
 import nlp4j.wiki.WikiPageNode;
 
 public class MediaWikiTextUtils {
@@ -89,7 +90,7 @@ public class MediaWikiTextUtils {
 		if (wikiText == null) {
 			return null;
 		}
-		WikiItemTextParser parser = new WikiItemTextParser();
+		WikiItemTextParserInterface parser = new WikiItemTextParser();
 		parser.parse(wikiText);
 
 		WikiPageNode rootNode = parser.getRoot();

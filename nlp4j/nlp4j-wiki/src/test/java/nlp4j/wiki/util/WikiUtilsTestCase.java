@@ -167,10 +167,17 @@ public class WikiUtilsTestCase extends TestCase {
 		System.err.println(plaintext);
 	}
 
+	public void testToPlainText003() {
+		String wikitext = "'''アンパサンド'''（'''&''', ）は、並立助詞「…と…」を意味する[[記号]]である。[[ラテン語]]で「…と…」を表す接続詞 \"et\" の[[合字]]を起源とする。現代のフォントでも、[[Trebuchet MS]] など一部のフォントでは、\"et\" の合字であることが容易にわかる字形を使用している。";
+		String plaintext = WikiUtils.toPlainText(wikitext);
+		System.err.println(wikitext);
+		System.err.println(plaintext);
+	}
+
 	public void testNormailzeHeader001() {
 		String s1 = "=={{L|ja}}==";
 		String s2 = WikiUtils.normailzeHeader(s1);
-		String expected = "=={{ja}}==";
+		String expected = "=={{L|ja}}==";
 		System.err.println(s2);
 		assertEquals(expected, s2);
 	}

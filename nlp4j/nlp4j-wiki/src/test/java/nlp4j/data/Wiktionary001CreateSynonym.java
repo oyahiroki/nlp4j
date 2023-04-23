@@ -6,6 +6,7 @@ import java.util.List;
 import nlp4j.wiki.BreakException;
 import nlp4j.wiki.WikiDumpReader;
 import nlp4j.wiki.WikiItemTextParser;
+import nlp4j.wiki.WikiItemTextParserInterface;
 import nlp4j.wiki.WikiPage;
 import nlp4j.wiki.WikiPageHandler;
 import nlp4j.wiki.WikiPageNode;
@@ -41,7 +42,7 @@ public class Wiktionary001CreateSynonym {
 
 					String wikiText = page.getText();
 
-					WikiItemTextParser parser = new WikiItemTextParser();
+					WikiItemTextParserInterface parser = new WikiItemTextParser();
 
 					parser.parse(wikiText);
 

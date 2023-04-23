@@ -287,6 +287,35 @@ public class MecabAnnotatorTestCase extends TestCase {
 
 	}
 
+	public void testAnnotateDocument009() throws Exception {
+		// 半角スペースが途中に入っている場合の取り扱い →バラバラになる
+
+		// 自然文のテキスト
+		String text = "今日はいい天気です。明日は晴れるかな。";
+		Document doc = new DefaultDocument();
+		{
+			doc.putAttribute("text", text);
+		}
+		MecabAnnotator annotator = new MecabAnnotator();
+		{
+			annotator.setProperty("target", "text");
+			annotator.setProperty("lexregexfilter", RegexUtils.REGEX_JA_CHARS);
+		}
+		annotator.annotate(doc); // throws Exception
+		System.err.println("Finished : annotation");
+
+		assertNotNull(doc.getKeywords());
+		assertTrue(doc.getKeywords().size() > 0);
+
+		for (Keyword kwd : doc.getKeywords()) {
+			System.err.println("lex=" + kwd.getLex() + ",facet=" + kwd.getFacet() + ",upos=" + kwd.getUPos()
+					+ ",sentence=" + kwd.getSentenceIndex());
+		}
+
+		annotator.close();
+
+	}
+
 	/**
 	 * 「私は学校に行きました\n彼は家で過ごしました。」の形態素解析結果をテスト
 	 * 

@@ -71,6 +71,7 @@ public class MecabAnnotator extends AbstractDocumentAnnotator implements Documen
 	public void annotate(Document doc) throws Exception {
 
 		if (this.tagger == null) {
+			// StandardTagger: cmecab-2.0.jar
 			tagger = new StandardTagger(this.option);
 		}
 
@@ -111,8 +112,12 @@ public class MecabAnnotator extends AbstractDocumentAnnotator implements Documen
 			// 一つずつ形態素をたどりながら、表層形と素性を出力
 			Node node = lattice.bosNode();
 
-			int idx = 0;
+			// 開始位置・終了位置
+			int idxPosition = 0;
+			// 連番
 			int sequence = 1;
+
+			int sentenceIndex = 0;
 
 			// 表層形\t品詞,品詞細分類1,品詞細分類2,品詞細分類3,活用形,活用型,原形,読み,発音
 			// features[0]: 品詞,
@@ -144,10 +149,21 @@ public class MecabAnnotator extends AbstractDocumentAnnotator implements Documen
 
 				DefaultKeyword kwd = new DefaultKeyword();
 
+				{
+					kwd.setNamespace("mecab");
+				}
+
 				// LEX
 				{
 					kwd.setLex(features[6]);
+					kwd.setSentenceIndex(sentenceIndex);
 				}
+				{// sentenceIndex
+					if (kwd.getLex() != null && kwd.getLex().equals("。")) {
+						sentenceIndex++;
+					}
+				}
+
 				// STR
 				{
 					kwd.setStr(surface);
@@ -181,12 +197,12 @@ public class MecabAnnotator extends AbstractDocumentAnnotator implements Documen
 				}
 				// BEGIN
 				{
-					kwd.setBegin(idx);
+					kwd.setBegin(idxPosition);
 				}
 				// END
 				{
-					kwd.setEnd(idx + surface.length());
-					idx += surface.length();
+					kwd.setEnd(idxPosition + surface.length());
+					idxPosition += surface.length();
 				}
 				// SEQUENCE
 				{

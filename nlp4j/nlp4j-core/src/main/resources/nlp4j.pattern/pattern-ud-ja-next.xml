@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<patterns lang="ja">
+
+	<pattern facet="pattern.next.acl" value="{0.lex} ... {1.lex}">
+		<w id="1">
+			<w id="0" relation="acl" />
+		</w>
+	</pattern>
+	<pattern facet="pattern.next.advcl" value="{0.lex} ... {1.lex}">
+		<w id="1">
+			<w id="0" relation="advcl" />
+		</w>
+	</pattern>
+	<pattern facet="pattern.next.advmod"
+		value="{0.lex} ... {1.lex}">
+		<w id="1">
+			<w id="0" relation="advmod" />
+		</w>
+	</pattern>
+	<pattern facet="pattern.next.amod" value="{0.lex} ... {1.lex}">
+		<w id="1">
+			<w id="0" relation="amod" />
+		</w>
+	</pattern>
+	<pattern facet="pattern.next.aux" value="{0.lex} ... {1.lex}">
+		<w id="1">
+			<w id="0" relation="aux" />
+		</w>
+	</pattern>
+	<pattern facet="pattern.next.case" value="{0.lex} ... {1.lex}">
+		<w id="1">
+			<w id="0" relation="case" />
+		</w>
+	</pattern>
+	<pattern facet="pattern.next.cc" value="{0.lex} ... {1.lex}">
+		<w id="1">
+			<w id="0" relation="cc" />
+		</w>
+	</pattern>
+	<pattern facet="pattern.next.ccomp" value="{0.lex} ... {1.lex}">
+		<w id="1">
+			<w id="0" relation="ccomp" />
+		</w>
+	</pattern>
+	<pattern facet="pattern.next.compound"
+		value="{0.lex} ... {1.lex}">
+		<w id="1">
+			<w id="0" relation="compound" />
+		</w>
+	</pattern>
+	<pattern facet="pattern.next.cop" value="{0.lex} ... {1.lex}">
+		<w id="1">
+			<w id="0" relation="cop" />
+		</w>
+	</pattern>
+	<pattern facet="pattern.next.csubj" value="{0.lex} ... {1.lex}">
+		<w id="1">
+			<w id="0" relation="csubj" />
+		</w>
+	</pattern>
+	<!-- dep -->
+	<!-- pattern facet="pattern.next.dep" value="{0.lex} ... {1.lex}">
+		<w id="1">
+			<w id="0" relation="dep" />
+		</w>
+	</pattern -->
+	<pattern facet="pattern.next.det" value="{0.lex} ... {1.lex}">
+		<w id="1">
+			<w id="0" relation="det" />
+		</w>
+	</pattern>
+	<pattern facet="pattern.next.fixed" value="{0.lex} ... {1.lex}">
+		<w id="1">
+			<w id="0" relation="fixed" />
+		</w>
+	</pattern>
+	<pattern facet="pattern.next.mark" value="{0.lex} ... {1.lex}">
+		<w id="1">
+			<w id="0" relation="mark" />
+		</w>
+	</pattern>
+	<pattern facet="pattern.next.nmod" value="{0.lex} ... {1.lex}">
+		<w id="1">
+			<w id="0" relation="nmod" />
+		</w>
+	</pattern>
+	<pattern facet="pattern.next.nsubj" value="{0.lex} ... {1.lex}">
+		<w id="1">
+			<w id="0" relation="nsubj" />
+		</w>
+	</pattern>
+	<pattern facet="pattern.next.nummod"
+		value="{0.lex} ... {1.lex}">
+		<w id="1">
+			<w id="0" relation="nummod" />
+		</w>
+	</pattern>
+	<pattern facet="pattern.next.obj" value="{0.lex} ... {1.lex}">
+		<w id="1">
+			<w id="0" relation="obj" />
+		</w>
+	</pattern>
+	<pattern facet="pattern.next.obl" value="{0.lex} ... {1.lex}">
+		<w id="1">
+			<w id="0" relation="obl" />
+		</w>
+	</pattern>
+	<!-- punct -->
+	<!-- pattern facet="pattern.next.punct" value="{0.lex} ... {1.lex}">
+		<w id="1">
+			<w id="0" relation="punct" />
+		</w>
+	</pattern -->
+	<pattern facet="pattern.next.ROOT" value="{0.lex} ... {1.lex}">
+		<w id="1">
+			<w id="0" relation="ROOT" />
+		</w>
+	</pattern>
+
+</patterns>
+

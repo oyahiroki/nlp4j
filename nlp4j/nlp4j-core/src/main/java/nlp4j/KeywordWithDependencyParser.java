@@ -38,6 +38,7 @@ public class KeywordWithDependencyParser {
 					.sentenceIndex(kwdRoot.getSentenceIndex()) //
 					.upos(kwdRoot.getUPos()) //
 					.sequence(kwdRoot.getSequence()) //
+					.namespace(kwdRoot.getNamespance()) //
 					.build();
 			k.setSentenceIndex(kwdRoot.getSentenceIndex());
 			kwds.add(k);

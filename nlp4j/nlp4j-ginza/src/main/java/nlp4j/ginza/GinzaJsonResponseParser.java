@@ -51,6 +51,9 @@ public class GinzaJsonResponseParser {
 
 					DefaultKeywordWithDependency kwd = new DefaultKeywordWithDependency();
 					{
+						kwd.setNamespace("ginza");
+					}
+					{
 						kwd.setSentenceIndex(idxSents);
 					}
 					JsonObject tk = token.getAsJsonObject();

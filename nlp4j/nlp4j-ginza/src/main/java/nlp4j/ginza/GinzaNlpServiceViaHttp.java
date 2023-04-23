@@ -15,7 +15,7 @@ import nlp4j.Keyword;
 import nlp4j.NlpService;
 import nlp4j.NlpServiceResponse;
 import nlp4j.http.HttpClient;
-import nlp4j.util.HttpClientOk;
+import nlp4j.http.HttpClient5;
 
 /**
  * <pre>
@@ -58,7 +58,7 @@ public class GinzaNlpServiceViaHttp implements NlpService {
 		params.put("text", text);
 
 		// Http client
-		HttpClient client = new HttpClientOk();
+		HttpClient client = new HttpClient5();
 
 		JsonObject jsonObj = new JsonObject();
 		jsonObj.addProperty("text", text);
@@ -74,6 +74,12 @@ public class GinzaNlpServiceViaHttp implements NlpService {
 
 		List<Keyword> kwds = parser.parseResponse(res.getOriginalResponseBody());
 		res.setKeywords(kwds);
+
+		try {
+			client.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 		return res;
 	}

@@ -50,7 +50,7 @@ public class WikiItemTextParserTestCase extends TestCase {
 
 	public void testGetRoot001() {
 
-		WikiItemTextParser parser = new WikiItemTextParser();
+		WikiItemTextParserInterface parser = new WikiItemTextParser();
 
 		parser.parse(wiktinaryText_Gakkou);
 
@@ -82,7 +82,7 @@ public class WikiItemTextParserTestCase extends TestCase {
 
 	public void testGetRoot001b() {
 
-		WikiItemTextParser parser = new WikiItemTextParser();
+		WikiItemTextParserInterface parser = new WikiItemTextParser();
 
 		parser.parse(wiktinaryText_Gakkou);
 
@@ -110,7 +110,7 @@ public class WikiItemTextParserTestCase extends TestCase {
 
 		String wikiText2 = FileUtils.readFileToString(new File("src/test/resources/nlp4j.wiki/wiki-example.txt"),
 				"UTF-8");
-		WikiItemTextParser parser = new WikiItemTextParser();
+		WikiItemTextParserInterface parser = new WikiItemTextParser();
 
 		parser.parse(wikiText2);
 
@@ -163,7 +163,7 @@ public class WikiItemTextParserTestCase extends TestCase {
 
 		try (WikiDumpReader dumpReader = new WikiDumpReader(dumpFile, indexFile);) {
 			WikiPage page = dumpReader.getItem(itemString);
-			WikiItemTextParser parser = new WikiItemTextParser();
+			WikiItemTextParserInterface parser = new WikiItemTextParser();
 			WikiPageNode rootNode = parser.parse(page.getText());
 			System.err.println(WikiPageNodeUtil.toString(rootNode));
 		}
@@ -186,7 +186,7 @@ public class WikiItemTextParserTestCase extends TestCase {
 
 		try (WikiDumpReader dumpReader = new WikiDumpReader(dumpFile, indexFile);) {
 			WikiPage page = dumpReader.getItem(itemString);
-			WikiItemTextParser parser = new WikiItemTextParser();
+			WikiItemTextParserInterface parser = new WikiItemTextParser();
 			WikiPageNode rootNode = parser.parse(page.getText());
 			System.err.println(WikiPageNodeUtil.toString(rootNode));
 		}
@@ -195,7 +195,7 @@ public class WikiItemTextParserTestCase extends TestCase {
 	
 
 	public void testToWikiPageNodeTree() {
-		WikiItemTextParser parser = new WikiItemTextParser();
+		WikiItemTextParserInterface parser = new WikiItemTextParser();
 
 		parser.parse(wiktinaryText_Gakkou);
 

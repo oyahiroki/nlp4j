@@ -15,7 +15,8 @@ public class HelloMecab2Neologd {
 		try (MecabAnnotator ann = new MecabAnnotator();) {
 			{
 				ann.setProperty("target", "text");
-				ann.setProperty("option", "-u " + "/usr/local/MeCab/dic/NEologd/NEologd.20200910.dic");
+//				ann.setProperty("option", "-u " + "/usr/local/MeCab/dic/NEologd/NEologd.20200910.dic");
+				ann.setProperty("option", "-u " + "C:\\usr\\local\\MeCab\\dic\\NEologd\\NEologd.20200910.dic");
 			}
 			ann.annotate(doc); // throws Exception
 			for (Keyword kwd : doc.getKeywords()) {

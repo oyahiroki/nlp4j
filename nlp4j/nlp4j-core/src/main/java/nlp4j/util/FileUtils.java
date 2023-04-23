@@ -66,6 +66,11 @@ public class FileUtils {
 				new OutputStreamWriter(new FileOutputStream(new File(fileName)), StandardCharsets.UTF_8));
 	}
 
+	/**
+	 * @param gzipTextOrPlainTextFile
+	 * @return
+	 * @throws IOException
+	 */
 	static public BufferedReader openTextFileAsBufferedReader(File gzipTextOrPlainTextFile) throws IOException {
 		return openTextFileAsBufferedReader(gzipTextOrPlainTextFile, StandardCharsets.UTF_8);
 	}
@@ -90,6 +95,17 @@ public class FileUtils {
 
 		}
 
+	}
+
+	/**
+	 * @param gzipTextOrPlainTextFile
+	 * @param encoding
+	 * @return
+	 * @throws IOException
+	 */
+	static public BufferedReader openTextFileAsBufferedReader(File gzipTextOrPlainTextFile, String encoding)
+			throws IOException {
+		return openTextFileAsBufferedReader(gzipTextOrPlainTextFile, Charset.forName(encoding));
 	}
 
 }
