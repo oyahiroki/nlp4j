@@ -2,6 +2,7 @@ package nlp4j.ginza;
 
 import junit.framework.TestCase;
 import nlp4j.NlpServiceResponse;
+import nlp4j.util.JsonUtils;
 
 public class GinzaNlpServiceViaHttpTestCase extends TestCase {
 
@@ -11,6 +12,7 @@ public class GinzaNlpServiceViaHttpTestCase extends TestCase {
 		GinzaNlpServiceViaHttp nlp = new GinzaNlpServiceViaHttp(endPoint);
 		NlpServiceResponse res = nlp.process(text);
 		System.err.println(res);
+		System.err.println(JsonUtils.prettyPrint(res.getOriginalResponseBody()));
 	}
 
 	public void testProcess001b() throws Exception {
