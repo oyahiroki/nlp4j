@@ -56,7 +56,7 @@ public class FileUtils {
 	/**
 	 * Returns new PrintWriter of UTF-8
 	 * 
-	 * @param fileName
+	 * @param fileName *.gz | *.txt
 	 * @return
 	 * @throws IOException
 	 * @since 1.3.7.6
@@ -98,7 +98,7 @@ public class FileUtils {
 	}
 
 	/**
-	 * @param gzipTextOrPlainTextFile
+	 * @param gzipTextOrPlainTextFile *.gz | *.txt
 	 * @param encoding
 	 * @return
 	 * @throws IOException
@@ -106,6 +106,17 @@ public class FileUtils {
 	static public BufferedReader openTextFileAsBufferedReader(File gzipTextOrPlainTextFile, String encoding)
 			throws IOException {
 		return openTextFileAsBufferedReader(gzipTextOrPlainTextFile, Charset.forName(encoding));
+	}
+
+	/**
+	 * @param gzipTextOrPlainTextFileName *.gz | *.txt
+	 * @return
+	 * @throws IOException
+	 * @since 1.3.7.8
+	 * 
+	 */
+	static public BufferedReader openTextFileAsBufferedReader(String gzipTextOrPlainTextFileName) throws IOException {
+		return openTextFileAsBufferedReader(new File(gzipTextOrPlainTextFileName), StandardCharsets.UTF_8);
 	}
 
 }

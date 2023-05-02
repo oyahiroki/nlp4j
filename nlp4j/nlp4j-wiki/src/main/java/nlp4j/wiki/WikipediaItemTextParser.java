@@ -38,6 +38,8 @@ public class WikipediaItemTextParser {
 
 	private int level = 0;
 
+	private StringBuilder sbInfobox = new StringBuilder();
+
 	/**
 	 * 
 	 */
@@ -47,6 +49,14 @@ public class WikipediaItemTextParser {
 		wpd.setLevel(0);
 		this.root = wpd;
 		this.ptr = wpd;
+	}
+
+	public String getInfobox() {
+		if (this.sbInfobox == null) {
+			return null;
+		} else {
+			return this.sbInfobox.toString();
+		}
 	}
 
 	/**
@@ -111,7 +121,6 @@ public class WikipediaItemTextParser {
 		}
 
 		boolean isInfobox = false;
-		StringBuilder sbInfobox = new StringBuilder();
 
 		boolean gotAbstract = false;
 
@@ -162,14 +171,20 @@ public class WikipediaItemTextParser {
 			}
 
 			{ // Infobox
+				// Infobox 開始
 				if (line.startsWith("{{Infobox")) {
 					isInfobox = true;
 					sbInfobox.append(line + "\n");
 					continue;
 				}
-				if (isInfobox == true && line.equals("}}")) {
+				if (isInfobox == true && line.equals("}}") == false) {
+					sbInfobox.append(line + "\n");
+					logger.debug("InfoBox: " + sbInfobox);
+					continue;
+				} //
+				else if (isInfobox == true && line.equals("}}")) {
 					isInfobox = false;
-					sbInfobox.append(line);
+					sbInfobox.append(line + "\n");
 
 					logger.debug("InfoBox: " + sbInfobox);
 

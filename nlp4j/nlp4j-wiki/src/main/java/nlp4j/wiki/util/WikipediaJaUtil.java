@@ -33,7 +33,7 @@ public class WikipediaJaUtil {
 		int idx1 = t.lastIndexOf("[[");
 		int idx2 = t.lastIndexOf("]]");
 		if (idx1 != -1 && (idx2 > idx1)) {
-			String link = t.substring(idx1, idx2);
+			String link = t.substring(idx1 + 2, idx2);
 			return link;
 		} else {
 			return null;
