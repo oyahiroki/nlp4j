@@ -10,7 +10,6 @@ import nlp4j.Keyword;
 import nlp4j.KeywordBuilder;
 import nlp4j.impl.DefaultDocument;
 import nlp4j.impl.DefaultKeyword;
-import nlp4j.indexer.SimpleDocumentIndex;
 
 public class SimpleDocumentIndexTestCase extends TestCase {
 
@@ -23,35 +22,69 @@ public class SimpleDocumentIndexTestCase extends TestCase {
 
 		SimpleDocumentIndex index = new SimpleDocumentIndex();
 		{
-			index.addDocument((new DocumentBuilder()).id("001").kw("noun", "TEST1").build());
-			index.addDocument((new DocumentBuilder()).id("002").kw("noun", "TEST1").kw("noun", "TEST2").build());
-			index.addDocument((new DocumentBuilder()).id("003").kw("noun", "TEST1").kw("noun", "TEST2")
-					.kw("noun", "TEST3").build());
-			index.addDocument((new DocumentBuilder()).id("004").kw("noun", "TEST2").build());
-			index.addDocument((new DocumentBuilder()).id("005").kw("noun", "TEST2").build());
+			// 月単位でカウントする
+			index.setProperty(SimpleDocumentIndex.KEY_DATEFIELD, "date,yyyyMM");
 		}
-
-		System.err.println(index.getKeywords().size());
-		index.getKeywords().stream().forEach(kw -> {
-			System.err.println("facet=" + kw.getFacet() + ",lex=" + kw.getLex() + ",count=" + kw.getCount());
-		});
-		{ // 文書の数
+		{
+			// document 001
+			index.addDocument((new DocumentBuilder()).id("001") //
+					.put("date", "2021-01-01") // date
+					.kw("noun", "TEST1") // kw
+					.build());
+			// document 002
+			index.addDocument((new DocumentBuilder()).id("002") //
+					.put("date", "2021-01-01") // date
+					.kw("noun", "TEST1") // kw
+					.kw("noun", "TEST2") // kw
+					.build());
+			// document 003
+			index.addDocument((new DocumentBuilder()).id("003") //
+					.put("date", "2021-01-01") // date
+					.kw("noun", "TEST1") // kw
+					.kw("noun", "TEST2") // kw
+					.kw("noun", "TEST3") // kw
+					.build());
+			// document 004
+			index.addDocument((new DocumentBuilder()).id("004") //
+					.put("date", "2021-02-01") // date
+					.kw("noun", "TEST2") // kw
+					.build());
+			// document 005
+			index.addDocument((new DocumentBuilder()).id("005") //
+					.put("date", "2021-02-01") // date
+					.kw("noun", "TEST2") // kw
+					.build());
+		}
+		{ // 文書の数 NUMBER OF DOCUMENTS
 			System.err.println("文書数: " + index.getDocumentCount());
+		}
+		{ // あるキーワードが含まれる文書の数
+			long count = index.getDocumentCount(new DefaultKeyword("noun", "TEST1"));
+			System.err.println(count);
+		}
+		{ // キーワードの数 NUMBER OF KEYWORDS
+			System.err.println("キーワードの数: " + index.getKeywords().size());
+			{ // キーワードの異なり数
+				long expectedSize = 3;
+				long keywordSize = index.getKeywords().size();
+				System.err.println("キーワードの数: " + keywordSize);
+				assertEquals(expectedSize, keywordSize);
+			}
+		}
+		{ // キーワード毎のカウント COUNT OF KEYWORDS
+			index.getKeywords().stream().forEach(kw -> {
+				System.err.println(
+						"keyword: " + "facet=" + kw.getFacet() + ",lex=" + kw.getLex() + ",count=" + kw.getCount());
+			});
 		}
 		{ // 文書ID のリスト
 			index.getDocumentIds().stream().forEach(id -> {
-				System.err.println("id: " + id);
+				System.err.println("document: id: " + id);
 			});
 		}
 		{ // 文書IDを指定してドキュメント取得
 			Document doc = index.getDocumentById("001");
 			System.err.println(doc);
-		}
-		{ // キーワードの異なり数
-			long expectedSize = 3;
-			long keywordSize = index.getKeywords().size();
-			System.err.println("キーワードの数: " + keywordSize);
-			assertEquals(expectedSize, keywordSize);
 		}
 		{ // キーワードの多い順
 			index.getKeywords().stream().forEach(kw -> {
@@ -69,9 +102,20 @@ public class SimpleDocumentIndexTestCase extends TestCase {
 			System.err.println("IDF(noun,TEST3):" + index.getkeywordIDF(new DefaultKeyword("noun", "TEST3")));
 		}
 		{ // キーワードのTF-IDF
-			System.err.println("TF-IDF(noun,TEST1):" + index.getkeywordTFIDF(new DefaultKeyword("noun", "TEST1"),1));
-			System.err.println("TF-IDF(noun,TEST2):" + index.getkeywordTFIDF(new DefaultKeyword("noun", "TEST2"),1));
-			System.err.println("TF-IDF(noun,TEST3):" + index.getkeywordTFIDF(new DefaultKeyword("noun", "TEST3"),1));
+			System.err.println("TF-IDF(noun,TEST1):" + index.getkeywordTFIDF(new DefaultKeyword("noun", "TEST1"), 1));
+			System.err.println("TF-IDF(noun,TEST2):" + index.getkeywordTFIDF(new DefaultKeyword("noun", "TEST2"), 1));
+			System.err.println("TF-IDF(noun,TEST3):" + index.getkeywordTFIDF(new DefaultKeyword("noun", "TEST3"), 1));
+		}
+		{ // 時系列
+			for (Keyword kwd : index.getDateCountMonth()) {
+				System.err.println(kwd.getFacet() + "," + kwd.getLex() + "," + kwd.getCount());
+			}
+		}
+		{ // 共起キーワード
+			List<Keyword> kwds = index.getRelevantKeywords(new DefaultKeyword("noun", "TEST1"), 0.0);
+			for (Keyword kwd : kwds) {
+				System.err.println(kwd.getLex() + "," + kwd.getCorrelation());
+			}
 		}
 	}
 

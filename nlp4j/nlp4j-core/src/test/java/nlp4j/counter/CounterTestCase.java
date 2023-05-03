@@ -3,6 +3,8 @@ package nlp4j.counter;
 import java.util.List;
 
 import junit.framework.TestCase;
+import nlp4j.Keyword;
+import nlp4j.KeywordBuilder;
 
 public class CounterTestCase extends TestCase {
 
@@ -89,6 +91,19 @@ public class CounterTestCase extends TestCase {
 		}
 		System.err.println("---");
 		System.err.println(counter.getObjectList());
+	}
+
+	public void testCounter004() {
+		Counter<Keyword> counter = new Counter<>();
+		Keyword kwd1 = (new KeywordBuilder()).facet("noun").lex("test").build();
+		Keyword kwd2 = (new KeywordBuilder()).facet("noun").lex("test").build();
+		Keyword kwd3 = (new KeywordBuilder()).facet("noun").lex("test1").build();
+		counter.add(kwd1);
+		counter.add(kwd2);
+		counter.add(kwd3);
+		for (Count<Keyword> ct : counter.getCountListSorted()) {
+			System.err.println(ct);
+		}
 	}
 
 }

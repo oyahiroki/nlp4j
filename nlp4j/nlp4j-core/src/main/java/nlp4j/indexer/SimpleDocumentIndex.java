@@ -17,15 +17,12 @@ import java.util.stream.Collectors;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.google.gson.internal.bind.CollectionTypeAdapterFactory;
-
 import nlp4j.Document;
 import nlp4j.Keyword;
 import nlp4j.counter.Counter;
 import nlp4j.impl.DefaultKeyword;
 import nlp4j.util.DateUtils;
 import nlp4j.util.FacetUtils;
-import nlp4j.util.KeywordUtil;
 
 /**
  * シンプルなドキュメントインデックスのクラスです。<br>
@@ -171,11 +168,6 @@ public class SimpleDocumentIndex extends AbstractDocumentIndexer implements Docu
 
 	}
 
-	public long getKeywordCount(Keyword kwd) {
-		Long kwCount = keywordCount.get(kwd);
-		return (kwCount != null) ? kwCount : 0;
-	}
-
 	private void countKeyword(Keyword kwd) {
 		{
 			keywords.add(kwd);
@@ -294,11 +286,8 @@ public class SimpleDocumentIndex extends AbstractDocumentIndexer implements Docu
 		return getDateCount("YYYY");
 	}
 
-	/**
-	 * @return document IDs ドキュメントIDのリスト
-	 */
-	public List<String> getDocumentIds() {
-		return this.docids;
+	public Document getDocumentById(String id) {
+		return this.map_docid_document.get(id);
 	}
 
 	/**
@@ -306,6 +295,17 @@ public class SimpleDocumentIndex extends AbstractDocumentIndexer implements Docu
 	 */
 	public long getDocumentCount() {
 		return this.docids.size();
+	}
+
+	public long getDocumentCount(Keyword kwd) {
+		return getDocumentidsByKeyword(kwd).size();
+	}
+
+	/**
+	 * @return document IDs ドキュメントIDのリスト
+	 */
+	public List<String> getDocumentIds() {
+		return this.docids;
 	}
 
 	/**
@@ -346,10 +346,6 @@ public class SimpleDocumentIndex extends AbstractDocumentIndexer implements Docu
 		}
 	}
 
-	public Document getDocumentById(String id) {
-		return this.map_docid_document.get(id);
-	}
-
 	/**
 	 * @since 20220115
 	 * @return count of documents
@@ -387,6 +383,22 @@ public class SimpleDocumentIndex extends AbstractDocumentIndexer implements Docu
 			return new ArrayList<Keyword>();
 		}
 
+	}
+
+	public long getKeywordCount(Keyword kwd) {
+		Long kwCount = keywordCount.get(kwd);
+		return (kwCount != null) ? kwCount : 0;
+	}
+
+	/**
+	 * @param Keyword
+	 * @return IDF of keyword
+	 */
+	public double getkeywordIDF(Keyword kwd) {
+		long doc_count = (this.getDocumentCount() != -1) ? this.getDocumentCount() : 0;
+		long kwd_count = (this.getKeywordCount(kwd) != -1) ? this.getKeywordCount(kwd) : 0;
+		double d = Math.log10((double) doc_count / ((double) kwd_count + 1.0d));
+		return d;
 	}
 
 	/**
@@ -488,29 +500,15 @@ public class SimpleDocumentIndex extends AbstractDocumentIndexer implements Docu
 		return keywords;
 	}
 
-	@Override
-	public void setProperty(String key, String value) {
-		super.setProperty(key, value);
-		if (KEY_DATEFIELD.equals(key)) {
-			if (value.split(",").length > 1) {
-				this.dateField = value.split(",")[0];
-				this.dateFieldFormat = value.split(",")[1];
-			} else {
-
-			}
-		}
-	}
-
-	@Override
-	public String toString() {
-		return "SimpleDocumentIndex [" //
-				+ "mapDocument.size=" + map_docid_document.keySet().size() //
-				+ ", mapKeywordCount.size=" + mapFacetKeywordCount.keySet().size()//
-				+ "]";
-	}
-
-	public long getDocumentCount(Keyword kwd) {
-		return getDocumentidsByKeyword(kwd).size();
+	/**
+	 * @param kwd   Keyword
+	 * @param count count of keyword in a document
+	 * @return IDF of keyword
+	 */
+	public double getkeywordTFIDF(Keyword kwd, long count) {
+		double tf = (double) count / (double) this.getDocumentCount();
+		double idf = this.getkeywordIDF(kwd);
+		return tf * idf;
 	}
 
 	public List<Keyword> getRelevantKeywords(Keyword kwd, double minimumCorrelation) {
@@ -577,26 +575,25 @@ public class SimpleDocumentIndex extends AbstractDocumentIndexer implements Docu
 		return kk;
 	}
 
-	/**
-	 * @param Keyword
-	 * @return IDF of keyword
-	 */
-	public double getkeywordIDF(Keyword kwd) {
-		long doc_count = (this.getDocumentCount() != -1) ? this.getDocumentCount() : 0;
-		long kwd_count = (this.getKeywordCount(kwd) != -1) ? this.getKeywordCount(kwd) : 0;
-		double d = Math.log10((double) doc_count / ((double) kwd_count + 1.0d));
-		return d;
+	@Override
+	public void setProperty(String key, String value) {
+		super.setProperty(key, value);
+		if (KEY_DATEFIELD.equals(key)) {
+			if (value.split(",").length > 1) {
+				this.dateField = value.split(",")[0];
+				this.dateFieldFormat = value.split(",")[1];
+			} else {
+
+			}
+		}
 	}
 
-	/**
-	 * @param kwd   Keyword
-	 * @param count count of keyword in a document
-	 * @return IDF of keyword
-	 */
-	public double getkeywordTFIDF(Keyword kwd, long count) {
-		double tf = (double) count / (double) this.getDocumentCount();
-		double idf = this.getkeywordIDF(kwd);
-		return tf * idf;
+	@Override
+	public String toString() {
+		return "SimpleDocumentIndex [" //
+				+ "mapDocument.size=" + map_docid_document.keySet().size() //
+				+ ", mapKeywordCount.size=" + mapFacetKeywordCount.keySet().size()//
+				+ "]";
 	}
 
 }

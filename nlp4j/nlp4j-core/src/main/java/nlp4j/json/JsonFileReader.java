@@ -24,28 +24,62 @@ import com.google.gson.JsonObject;
  * @since 1.3.7.4
  *
  */
-public class JsonFileReader {
+public class JsonFileReader implements AutoCloseable {
 
-	BufferedReader br;
+	private int countLine = 0;
+	private int maxLines = -1;
+	private BufferedReader br;
 
 	public JsonFileReader(File jsonFile) throws IOException {
+		init(jsonFile, -1);
+	}
 
+	/**
+	 * @param jsonFile
+	 * @param maxLines 最大読み込み行数
+	 * @throws IOException
+	 */
+	public JsonFileReader(File jsonFile, int maxLines) throws IOException {
+		init(jsonFile, maxLines);
+	}
+
+	private void init(File jsonFile, int maxLines) throws FileNotFoundException, IOException {
+		this.maxLines = maxLines;
 		if (jsonFile.exists() == false) {
 			throw new FileNotFoundException(jsonFile.getAbsolutePath());
 		}
 
+		// OPEN AS ZGIP
 		if (jsonFile.getAbsolutePath().endsWith(".gz")) {
-			br = new BufferedReader(
-					new InputStreamReader(new GZIPInputStream(new FileInputStream(jsonFile)), StandardCharsets.UTF_8));
-		} else {
-			br = new BufferedReader(new InputStreamReader(new FileInputStream(jsonFile), StandardCharsets.UTF_8));
+			br = new BufferedReader( //
+					new InputStreamReader( //
+							new GZIPInputStream( //
+									new FileInputStream(jsonFile)),
+							StandardCharsets.UTF_8));
 		}
+		// OPEN AS PLAIN TEXT
+		else {
+			br = new BufferedReader( //
+					new InputStreamReader( //
+							new FileInputStream(jsonFile), StandardCharsets.UTF_8));
+		}
+	}
 
+	@Override
+	public void close() throws Exception {
+		if (br != null) {
+			br.close();
+		}
 	}
 
 	public JsonObject next() throws IOException {
 
+		if ((maxLines > 0) && (countLine >= maxLines)) {
+			return null;
+		}
+
 		String line = br.readLine();
+		countLine++;
 
 		if (line == null) {
 			return null;
@@ -54,6 +88,10 @@ public class JsonFileReader {
 			return jsonObject;
 		}
 
+	}
+
+	public void setMaxLines(int maxLines) {
+		this.maxLines = maxLines;
 	}
 
 }
