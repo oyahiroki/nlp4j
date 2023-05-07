@@ -1,0 +1,108 @@
+{
+  "type": "doc",
+  "sents": [
+    {
+      "tokens": [
+        {
+          "i": 0,
+          "orth": "私",
+          "tag": "代名詞",
+          "pos": "PRON",
+          "lemma": "私",
+          "head.i": 8,
+          "dep": "nsubj"
+        },
+        {
+          "i": 1,
+          "orth": "は",
+          "tag": "助詞-係助詞",
+          "pos": "ADP",
+          "lemma": "は",
+          "head.i": 0,
+          "dep": "case"
+        },
+        {
+          "i": 2,
+          "orth": "朝",
+          "tag": "名詞-普通名詞-副詞可能",
+          "pos": "NOUN",
+          "lemma": "朝",
+          "head.i": 4,
+          "dep": "obl"
+        },
+        {
+          "i": 3,
+          "orth": "に",
+          "tag": "助詞-格助詞",
+          "pos": "ADP",
+          "lemma": "に",
+          "head.i": 2,
+          "dep": "case"
+        },
+        {
+          "i": 4,
+          "orth": "歩い",
+          "tag": "動詞-一般",
+          "pos": "VERB",
+          "lemma": "歩く",
+          "head.i": 8,
+          "dep": "advcl"
+        },
+        {
+          "i": 5,
+          "orth": "て",
+          "tag": "助詞-接続助詞",
+          "pos": "SCONJ",
+          "lemma": "て",
+          "head.i": 4,
+          "dep": "mark"
+        },
+        {
+          "i": 6,
+          "orth": "学校",
+          "tag": "名詞-普通名詞-一般",
+          "pos": "NOUN",
+          "lemma": "学校",
+          "head.i": 8,
+          "dep": "obl"
+        },
+        {
+          "i": 7,
+          "orth": "に",
+          "tag": "助詞-格助詞",
+          "pos": "ADP",
+          "lemma": "に",
+          "head.i": 6,
+          "dep": "case"
+        },
+        {
+          "i": 8,
+          "orth": "行き",
+          "tag": "動詞-非自立可能",
+          "pos": "VERB",
+          "lemma": "行く",
+          "head.i": 8,
+          "dep": "ROOT"
+        },
+        {
+          "i": 9,
+          "orth": "ます",
+          "tag": "助動詞",
+          "pos": "AUX",
+          "lemma": "ます",
+          "head.i": 8,
+          "dep": "aux"
+        },
+        {
+          "i": 10,
+          "orth": "。",
+          "tag": "補助記号-句点",
+          "pos": "PUNCT",
+          "lemma": "。",
+          "head.i": 8,
+          "dep": "punct"
+        }
+      ]
+    }
+  ]
+}

@@ -11,21 +11,25 @@ public class GinzaNlpServiceViaHttpTestCase extends TestCase {
 		String endPoint = "http://localhost:8888/";
 		GinzaNlpServiceViaHttp nlp = new GinzaNlpServiceViaHttp(endPoint);
 		NlpServiceResponse res = nlp.process(text);
-		System.err.println(res);
+//		System.err.println(res);
 		System.err.println(JsonUtils.prettyPrint(res.getOriginalResponseBody()));
 	}
 
-	public void testProcess001b() throws Exception {
+	public void testProcess002() throws Exception {
 		String text = "今日はとてもいい天気です。\n\n明日は晴れるかな。";
 		String endPoint = "http://localhost:8888/";
 		GinzaNlpServiceViaHttp nlp = new GinzaNlpServiceViaHttp(endPoint);
-		nlp.process(text);
+		NlpServiceResponse res = nlp.process(text);
+//		System.err.println(res);
+		System.err.println(JsonUtils.prettyPrint(res.getOriginalResponseBody()));
 	}
 
-	public void testProcess002() throws Exception {
+	public void testProcess003() throws Exception {
 		String text = "私は朝に歩いて学校に行きます。";
 		String endPoint = "http://localhost:8888/";
 		GinzaNlpServiceViaHttp nlp = new GinzaNlpServiceViaHttp(endPoint);
-		nlp.process(text);
+		NlpServiceResponse res = nlp.process(text);
+//		System.err.println(res);
+		System.err.println(JsonUtils.prettyPrint(res.getOriginalResponseBody()));
 	}
 }

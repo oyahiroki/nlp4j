@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<patterns lang="ja">
+
+	<pattern facet="pattern.relation"
+		value="{0.lex} ({1.relation}) {1.lex}">
+		<w id="0">
+			<w id="1" />
+		</w>
+	</pattern>
+
+</patterns>
+

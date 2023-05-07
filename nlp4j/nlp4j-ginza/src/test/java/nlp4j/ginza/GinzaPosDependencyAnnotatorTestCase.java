@@ -8,6 +8,7 @@ import nlp4j.Keyword;
 import nlp4j.KeywordWithDependency;
 import nlp4j.KeywordWithDependencyParser;
 import nlp4j.impl.DefaultDocument;
+import nlp4j.impl.DefaultKeyword;
 import nlp4j.pattern.StandardPatternAnnotatorJa;
 import nlp4j.pattern.UserPatternAnnotator;
 import nlp4j.util.DocumentUtil;
@@ -342,6 +343,42 @@ public class GinzaPosDependencyAnnotatorTestCase extends TestCase {
 			for (Keyword kw : kwds) {
 				System.err.println(kw.getLex() + "," + kw.getFacet());
 			}
+		}
+	}
+
+	/**
+	 * <pre>
+	 * test {0.relation} for pattern value
+	 * created on: 2023-05-08
+	 * </pre>
+	 * 
+	 * @throws Exception
+	 */
+	public void testAnnotateDocument209() throws Exception {
+		Document doc = new DefaultDocument("私は学校に行く");
+		{
+			GinzaPosDependencyAnnotator ann = new GinzaPosDependencyAnnotator();
+			ann.setProperty("target", "text");
+			ann.annotate(doc);
+		}
+		{
+			UserPatternAnnotator ann = new UserPatternAnnotator();
+			ann.setProperty("resource", "nlp4j.pattern/pattern-ud-ja-relation.xml");
+			ann.setProperty("target", "text");
+			ann.annotate(doc);
+
+		}
+		System.err.println(DocumentUtil.toJsonPrettyString(doc));
+		for (KeywordWithDependency kwd : doc.getKeywords(KeywordWithDependency.class)) {
+			System.err.println(kwd.toStringAsXml());
+			List<Keyword> kwds = KeywordWithDependencyParser.parse(kwd);
+			for (Keyword kw : kwds) {
+				System.err.println(kw.getLex() + "," + kw.getFacet());
+			}
+		}
+		System.err.println("---");
+		for (Keyword kw : doc.getKeywords(DefaultKeyword.class)) {
+			System.err.println(kw.getLex() + "," + kw.getFacet());
 		}
 	}
 

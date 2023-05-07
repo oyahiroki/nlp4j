@@ -67,10 +67,13 @@ public class PatternMatcher {
 				int end = -1;
 
 				while (matcher.find() == true) {
+					// example_of_group: {0.lex}
 					String group = matcher.group();
 					logger.debug("group=" + group);
 
+					// example_of_id: 0
 					String id = group.substring(1, group.indexOf("."));
+					// example_of_att: lex
 					String att = group.substring(group.indexOf(".") + 1, group.length() - 1);
 
 					logger.debug("id=" + id + ",att=" + att);
@@ -99,6 +102,12 @@ public class PatternMatcher {
 						if ("str".equals(att)) {
 							v = hitKeyword.getStr();
 						}
+
+						if ("relation".equals(att) && (hitKeyword instanceof KeywordWithDependency)) {
+							KeywordWithDependency kwdwd = ((KeywordWithDependency) hitKeyword);
+							v = kwdwd.getRelation();
+						}
+
 						if (v != null) {
 							rulePatternValue = rulePatternValue.replace(group, v);
 						}
