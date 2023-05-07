@@ -24,7 +24,11 @@ public class PatternMatcher {
 
 	static private final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
-	static private java.util.regex.Pattern matchPattern = java.util.regex.Pattern.compile("\\{.*?\\}");
+	/**
+	 * {.*?} にマッチする Matcher
+	 */
+	static private java.util.regex.Pattern matchPattern //
+			= java.util.regex.Pattern.compile("\\{.*?\\}");
 
 	/**
 	 * @param targetKeyword
@@ -96,16 +100,18 @@ public class PatternMatcher {
 						}
 
 						String v = null;
-						if ("lex".equals(att)) {
-							v = hitKeyword.getLex();
-						}
-						if ("str".equals(att)) {
-							v = hitKeyword.getStr();
-						}
-
-						if ("relation".equals(att) && (hitKeyword instanceof KeywordWithDependency)) {
-							KeywordWithDependency kwdwd = ((KeywordWithDependency) hitKeyword);
-							v = kwdwd.getRelation();
+						{
+							if ("lex".equals(att)) {
+								v = hitKeyword.getLex();
+							} //
+							else if ("str".equals(att)) {
+								v = hitKeyword.getStr();
+							} //
+							else if ("relation".equals(att) //
+									&& (hitKeyword instanceof KeywordWithDependency)) {
+								KeywordWithDependency kwdwd = ((KeywordWithDependency) hitKeyword);
+								v = kwdwd.getRelation();
+							}
 						}
 
 						if (v != null) {
