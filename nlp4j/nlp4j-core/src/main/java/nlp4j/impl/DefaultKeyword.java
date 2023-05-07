@@ -78,6 +78,9 @@ public class DefaultKeyword extends AbstractKeyword implements Keyword, Cloneabl
 		this.str = lex;
 	}
 
+	/**
+	 * @param n shift size of begin and end index
+	 */
 	public void addBeginEnd(int n) {
 		this.begin += n;
 		this.end += n;
@@ -89,26 +92,37 @@ public class DefaultKeyword extends AbstractKeyword implements Keyword, Cloneabl
 		try {
 			DefaultKeyword c = (DefaultKeyword) super.clone();
 			{
+				// begin
 				c.begin = this.begin;
+				// correlation
 				c.correlation = this.correlation;
+				// count
 				c.count = this.count;
+				// facet
 				if (this.facet != null) {
 					c.facet = new String(this.facet);
 				}
+				// flag
 				c.flag = this.flag;
+				// lex
 				if (this.lex != null) {
 					c.lex = new String(this.lex);
 				}
+				// namespace
 				if (this.namespace != null) {
 					c.namespace = new String(this.namespace);
 				}
+				// reading
 				if (this.reading != null) {
 					c.reading = new String(this.reading);
 				}
+				// sequence
 				c.sequence = this.sequence;
+				// str
 				if (this.str != null) {
 					c.str = this.str;
 				}
+				// upos
 				if (this.upos != null) {
 					c.upos = this.upos;
 				}

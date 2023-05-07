@@ -39,19 +39,24 @@ public class SimpleDocumentIndex extends AbstractDocumentIndexer implements Docu
 	static public final String KEY_DATEFIELD = "datefield";
 
 	/**
+	 * <pre>
+	 * ID -> DOC
 	 * Map of (Document ID -> Document Object)
+	 * </pre>
 	 */
 	private HashMap<String, Document> map_docid_document = new HashMap<>();
 
 	// <String facet, HashMap <String lex, Long count>>
+	// ファセット毎のキーワードのカウント
 	private HashMap<String, HashMap<String, Long>> mapFacetKeywordCount = new HashMap<>();
 
 	// facet -> (value, count)
 	private HashMap<String, Counter<String>> mapItemCount = new HashMap<>();
 
+	// ファセットを区別しないキーワードのカウント
 	private HashMap<Keyword, Long> keywordCount = new HashMap<Keyword, Long>();
 
-	private ArrayList<Keyword> keywords = new ArrayList<>();
+//	private ArrayList<Keyword> keywords = new ArrayList<>();
 
 	// LIST OF DOCUMENT ID
 	private List<String> docids = new ArrayList<>();
@@ -81,6 +86,7 @@ public class SimpleDocumentIndex extends AbstractDocumentIndexer implements Docu
 		} //
 		else {
 			logger.warn("ID is null: " + doc);
+			throw new IllegalArgumentException("Document ID should be set. " + doc.toString());
 		}
 
 		{ // COUNT ITEM
@@ -170,7 +176,7 @@ public class SimpleDocumentIndex extends AbstractDocumentIndexer implements Docu
 
 	private void countKeyword(Keyword kwd) {
 		{
-			keywords.add(kwd);
+//			keywords.add(kwd);
 		}
 		{
 			Long kwCount = keywordCount.get(kwd);
@@ -491,14 +497,14 @@ public class SimpleDocumentIndex extends AbstractDocumentIndexer implements Docu
 		return kwds2;
 	}
 
-	/**
-	 * カウント無しキーワードのリストを返します。
-	 * 
-	 * @return Keywords
-	 */
-	public List<Keyword> getKeywordsWithoutCount() {
-		return keywords;
-	}
+//	/**
+//	 * カウント無しキーワードのリストを返します。
+//	 * 
+//	 * @return Keywords
+//	 */
+//	public List<Keyword> getKeywordsWithoutCount() {
+//		return keywords;
+//	}
 
 	/**
 	 * @param kwd   Keyword

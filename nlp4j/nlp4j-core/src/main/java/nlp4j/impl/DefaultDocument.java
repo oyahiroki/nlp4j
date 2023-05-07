@@ -172,7 +172,14 @@ public class DefaultDocument implements Document {
 		}
 	}
 
-	@Override
+	/**
+	 * <pre>
+	 * "id"属性がセットされている場合はその値を返す
+	 * "id"属性がセットされていない場合はクラス名+Hash値を返す
+	 * CASE ID is set, return value of id
+	 * CASE ID is not set, return Class name + Hash value (Object#toString())
+	 * </pre>
+	 */
 	public String getId() {
 
 		if (attributes.get(KEY_ID) != null) {

@@ -8,13 +8,19 @@ Universal Dependenciesに基づくオープンソース日本語NLPライブラ�
 
 https://megagonlabs.github.io/ginza/
 
-# How to install GiNZA - GiNZAのインストール方法
+# 前提
+
+GiNZA をインストールしておく
+
+## How to install GiNZA - GiNZAのインストール方法
 
 ```
 $ pip install -U ginza ja_ginza_electra
 ```
 
 詳しくは公式ページ https://megagonlabs.github.io/ginza/ を参照
+
+### Tips: nvcc で cuda のバージョンを表示する
 
 ```
 $ nvcc -V
@@ -32,6 +38,8 @@ Built on Thu_Nov_18_09:45:30_PST_2021
 Cuda compilation tools, release 11.5, V11.5.119
 Build cuda_11.5.r11.5/compiler.30672275_0
 ```
+
+## Try GiNZA - GiNZA を試す
 
 ```
 $ ginza
@@ -54,6 +62,12 @@ $ ginza
 7       。      。      PUNCT   補助記号-句点   _       5       punct   _       SpaceAfter=No|BunsetuBILabel=I|BunsetuPositionType=CONT|Reading=。
 ```
 
+# Install ginzaserver - ginzaserver をインストールする
+
+```
+pip install git+https://github.com/oyahiroki/ginzaserver
+```
+
 # How to run GiNZA server - GiNZA Server を起動する
 
 ```
@@ -62,11 +76,6 @@ python nlp4j-ginza-ginzaserver\ginzaserver.py
 
 Ctrl + C で終了
 
-# Install ginzaserver - ginzaserver をインストールする
-
-```
-pip install git+https://github.com/oyahiroki/ginzaserver
-```
 
 # Uninstall ginzaserver - ginzaserver をアンインストールする
 
@@ -108,30 +117,6 @@ SYM	シンボル
 VERB	動詞
 X	その他
 ```
-
-<!--
-```
-POS_JP_DICT = {
-    'NOUN': '名詞',
-    'PROPN': '固有名詞',
-    'VERB': '動詞',
-    'ADJ': '形容詞',
-    'ADV': '副詞',
-    'CCONJ': '接続詞',
-    'INTJ': '間投詞',
-    'PRON': '代名詞',
-    'NUM': '数詞',
-    'AUX': '助動詞',
-    'CONJ': '接続詞',
-    'SCONJ': '従属接続詞',
-    'DET': '限定詞',
-    'ADP': '接置詞',
-    'PART': '接辞',
-    'PUNCT': '句読点',
-    'SYM': '記号',
-    'X': 'その他'
-```
--->
 
 # Dependency Relations - 係り受け
 

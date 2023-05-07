@@ -11,6 +11,8 @@ import nlp4j.test.NLP4JTestCase;
  */
 public class DefaultKeywordTestCase extends NLP4JTestCase {
 
+	Class<DefaultKeyword> target = DefaultKeyword.class;
+
 	public DefaultKeywordTestCase() {
 		target = DefaultKeyword.class;
 	}

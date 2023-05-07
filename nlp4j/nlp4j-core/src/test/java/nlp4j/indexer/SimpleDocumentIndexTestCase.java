@@ -321,6 +321,21 @@ public class SimpleDocumentIndexTestCase extends TestCase {
 		}
 	}
 
+	public void testAddDocument007() {
+
+		SimpleDocumentIndex index = new SimpleDocumentIndex();
+		{
+			index.addDocument((new DocumentBuilder()).id("001").kw("noun", "TEST").build());
+			index.addDocument((new DocumentBuilder()).id("002").kw("noun", "TEST").build());
+			index.addDocument((new DocumentBuilder()).id("003").kw("verb", "TEST").build());
+		}
+
+		System.err.println(index.getKeywords().size());
+		index.getKeywords().stream().forEach(kw -> {
+			System.err.println("facet=" + kw.getFacet() + ",lex=" + kw.getLex() + ",count=" + kw.getCount());
+		});
+	}
+
 	public void testAddDocuments() {
 		DefaultDocument d1 = new DefaultDocument();
 		{
@@ -380,7 +395,7 @@ public class SimpleDocumentIndexTestCase extends TestCase {
 		assertEquals(expectedCount, keywordCount);
 	}
 
-	public void testGetKeywordsString() {
+	public void testGetKeywordsString001() {
 		DefaultDocument d1 = new DefaultDocument();
 		{
 			Keyword kw = new DefaultKeyword();
@@ -412,6 +427,20 @@ public class SimpleDocumentIndexTestCase extends TestCase {
 			System.err.println(kwds);
 			assertEquals(0, kwds.size());
 		}
+	}
+
+	public void testGetKeywordsString002() {
+
+		SimpleDocumentIndex index = new SimpleDocumentIndex();
+		{
+			index.addDocument((new DocumentBuilder()).id("001").kw("noun", "TEST").build());
+			index.addDocument((new DocumentBuilder()).id("002").kw("noun", "TEST").build());
+			index.addDocument((new DocumentBuilder()).id("003").kw("verb", "TEST").build());
+		}
+		String facet = "noun";
+		index.getKeywords(facet).stream().forEach(kw -> {
+			System.err.println("facet=" + kw.getFacet() + ",lex=" + kw.getLex() + ",count=" + kw.getCount());
+		});
 	}
 
 	/**
