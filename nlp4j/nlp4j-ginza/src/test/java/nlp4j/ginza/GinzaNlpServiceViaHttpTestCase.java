@@ -32,4 +32,13 @@ public class GinzaNlpServiceViaHttpTestCase extends TestCase {
 //		System.err.println(res);
 		System.err.println(JsonUtils.prettyPrint(res.getOriginalResponseBody()));
 	}
+
+	public void testProcess010() throws Exception {
+		String text = "立地は悪いが食事は美味しい";
+		String endPoint = "http://localhost:8888/";
+		GinzaNlpServiceViaHttp nlp = new GinzaNlpServiceViaHttp(endPoint);
+		NlpServiceResponse res = nlp.process(text);
+//		System.err.println(res);
+		System.err.println(JsonUtils.prettyPrint(res.getOriginalResponseBody()));
+	}
 }

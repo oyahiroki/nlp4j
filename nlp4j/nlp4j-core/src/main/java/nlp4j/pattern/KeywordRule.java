@@ -72,50 +72,74 @@ public class KeywordRule extends DefaultKeywordWithDependency {
 //				}
 //			}
 //		}
-		if (this.facet != null) {
-			if (target.getFacet() == null) {
+
+		{ // facet
+			boolean b = notMatch(this.facet, target.getFacet());
+			if (b == false) {
 				return false;
-			} //
-			else {
-				boolean b = this.facet.equals(target.getFacet());
-				if (b == false) {
-					return false;
-				}
 			}
+//			if (this.facet != null) {
+//			if (target.getFacet() == null) {
+//				return false;
+//			} //
+//			else {
+//				boolean b = this.facet.equals(target.getFacet());
+//				if (b == false) {
+//					return false;
+//				}
+//			}
+//		}
 		}
 
-		if (this.lex != null) {
-			if (target.getLex() == null) {
+		{ // lex
+			boolean b = notMatch(this.lex, target.getLex());
+			if (b == false) {
 				return false;
 			}
-			// ELSE(lex is not null)
-			else {
-				// REGEX
-				if (this.lex.startsWith("/") && this.lex.endsWith("/") && this.lex.length() > 2) {
-					String ruleRegex = this.lex.substring(1, this.lex.length() - 1);
-					if (target.getLex().matches(ruleRegex) == false) {
-						return false;
-					}
-				} //
-				else {
-					if (target.getLex().equals(this.lex) == false) {
-						return false;
-					}
-				}
-
-			}
+//			if (this.lex != null) {
+//			if (target.getLex() == null) {
+//				return false;
+//			}
+//			// ELSE(lex is not null)
+//			else {
+//				// REGEX
+//
+//				boolean b = notMatch(this.lex, target.getLex());
+//				if (b == false) {
+//					return false;
+//				}
+//
+////				if (isRegex(this.lex)) {
+////					String ruleRegex = getAsRegex(this.lex);
+////					if (target.getLex().matches(ruleRegex) == false) {
+////						return false;
+////					}
+////				} //
+////				else {
+////					if (target.getLex().equals(this.lex) == false) {
+////						return false;
+////					}
+////				}
+//
+//			}
+//		}
 		}
-
-		if (this.reading != null) {
-			if (target.getReading() == null) {
+		{ // reading
+			boolean b = notMatch(this.reading, target.getReading());
+			if (b == false) {
 				return false;
-			} //
-			else {
-				boolean b = this.reading.equals(target.getReading());
-				if (b == false) {
-					return false;
-				}
 			}
+//			if (this.reading != null) {
+//				if (target.getReading() == null) {
+//					return false;
+//				} //
+//				else {
+//					boolean b = this.reading.equals(target.getReading());
+//					if (b == false) {
+//						return false;
+//					}
+//				}
+//			}
 		}
 
 		if (this.relation != null) {
@@ -143,39 +167,51 @@ public class KeywordRule extends DefaultKeywordWithDependency {
 //			}
 //		}
 
-		if (this.str != null) {
-			if (target.getStr() == null) {
+		{ // str
+			boolean b = notMatch(this.str, target.getStr());
+			if (b == false) {
 				return false;
-			} //
-			else {
-				boolean b = this.str.equals(target.getStr());
-				if (b == false) {
-					return b;
-				}
 			}
+//			if (this.str != null) {
+//				if (target.getStr() == null) {
+//					return false;
+//				} //
+//				else {
+//					boolean b = this.str.equals(target.getStr());
+//					if (b == false) {
+//						return b;
+//					}
+//				}
+//			}
 		}
 
-		if (target.getUPos() != null) {
-			if (this.getUPos() == null) {
-			} //
-			else {
-				if (this.getUPos().equals(target.getUPos()) == false) {
-					return false;
-				}
+		{ // upos
+			boolean b = notMatch(this.getUPos(), target.getUPos());
+			if (b == false) {
+				return false;
 			}
+//			if (target.getUPos() != null) {
+//			if (this.getUPos() == null) {
+//			} //
+//			else {
+//				if (this.getUPos().equals(target.getUPos()) == false) {
+//					return false;
+//				}
+//			}
+//		}
 		}
 
-		if (this.upos != null) {
-			if (target.getUPos() == null) {
-				return false;
-			} //
-			else {
-				boolean b = this.upos.equals(target.getUPos());
-				if (b == false) {
-					return false;
-				}
-			}
-		}
+//		if (this.upos != null) {
+//			if (target.getUPos() == null) {
+//				return false;
+//			} //
+//			else {
+//				boolean b = this.upos.equals(target.getUPos());
+//				if (b == false) {
+//					return false;
+//				}
+//			}
+//		}
 
 		// hit is true
 
@@ -192,6 +228,37 @@ public class KeywordRule extends DefaultKeywordWithDependency {
 		}
 
 		return true;
+	}
+
+	static private boolean notMatch(String s1, String s2) {
+
+		if (s1 != null) {
+			if (s2 == null) {
+				return false;
+			} //
+			else {
+				if (isRegex(s1)) {
+					String ruleRegex = getAsRegex(s1);
+					if (s2.matches(ruleRegex) == false) {
+						return false;
+					}
+				} //
+				else {
+					if (s2.equals(s1) == false) {
+						return false;
+					}
+				}
+			}
+		}
+		return true;
+	}
+
+	static private String getAsRegex(String s) {
+		return (s != null && s.length() > 2) ? s.substring(1, s.length() - 1) : null;
+	}
+
+	static private boolean isRegex(String s) {
+		return (s != null) && s.startsWith("/") && s.endsWith("/") && (s.length() > 2);
 	}
 
 	public void setHitKeywordNull() {

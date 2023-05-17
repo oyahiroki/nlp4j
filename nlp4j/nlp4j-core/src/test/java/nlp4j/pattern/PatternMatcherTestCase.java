@@ -172,6 +172,38 @@ public class PatternMatcherTestCase extends NLP4JTestCase {
 
 	}
 
+	public void testMatchJa005() throws Exception {
+
+		int expectedKeywordSize = 1;
+		// ショックアブソーバーからオイルが漏れた
+		List<KeywordWithDependency> kwds1 = KeywordUtil
+				.fromXml(new File("src/test/resources/nlp4j.pattern/keyword-ja-001.xml"));
+
+		KeywordWithDependency kwd = kwds1.get(0);
+
+		File xml = new File("src/test/resources/nlp4j.pattern/pattern-test-ja-005-regex.xml");
+		List<Pattern> patterns = PatternReader.readFromXml(xml);
+
+		List<Keyword> kwds = new ArrayList<Keyword>();
+
+		for (Pattern pattern : patterns) {
+			List<Keyword> kwds0 = PatternMatcher.match(kwd, pattern); // <-- Test Target
+			if (kwds0 != null) {
+				kwds.addAll(kwds0);
+			}
+		}
+
+		logger.info("--- extracted Keywords");
+
+		assertEquals(expectedKeywordSize, kwds.size());
+
+		for (Keyword kw : kwds) {
+			System.err.println("facet=" + kw.getFacet() + ",lex=" + kw.getLex() + ",begin=" + kw.getBegin() + ",end="
+					+ kw.getEnd());
+		}
+
+	}
+
 	public void testMatchEn001() throws Exception {
 
 		description = "Extract ADJ ... NOUN (1)";

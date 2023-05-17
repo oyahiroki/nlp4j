@@ -1,10 +1,6 @@
 package nlp4j.pattern;
 
-import java.lang.invoke.MethodHandles;
 import java.util.HashMap;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import nlp4j.Keyword;
 import nlp4j.KeywordWithDependency;
@@ -17,7 +13,7 @@ import nlp4j.KeywordWithDependency;
  */
 public class Pattern implements Cloneable {
 
-	static private final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
+//	static private final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
 	String facet;
 

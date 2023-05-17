@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<patterns lang="ja">
+
+	<!-- 彼は勉強しない -->
+	<pattern facet="pattern.nsubj_not_001a"
+		value="{1.lex} ... {0.str}{2.lex}-{3.lex}">
+		<w id="0" facet="名詞-普通名詞-サ変可能" upos="VERB">
+			<w id="1" relation="nsubj" />
+			<w id="2" lex="する" />
+			<w id="3" lex="ない" />
+		</w>
+	</pattern>
+	
+	<pattern facet="pattern.nsubj_not_002"
+		value="{1.lex} ... {0.str}-{3.lex}">
+		<w id="0" facet="/(動詞-非自立可能)|(動詞-一般)/" upos="VERB">
+			<w id="1" facet="/(代名詞)|(名詞.*)/" relation="nsubj" />
+			<w id="3" lex="ない" />
+		</w>
+	</pattern>
+	
+	<pattern facet="pattern.nsubj_not_002b"
+		value="{1.lex} ... {0.str}-{3.lex}">
+		<w id="0" facet="動詞-非自立可能" upos="VERB">
+			<w id="3" lex="ない" />
+			<w id="1" facet="/(代名詞)|(名詞.*)/" relation="nsubj" />
+		</w>
+	</pattern>
+	<pattern facet="pattern.nsubj_not_002c"
+		value="{2.lex}{1.lex} ... {0.str}-{3.lex}">
+		<w id="0" facet="動詞-非自立可能" upos="VERB">
+			<w id="1" facet="/(接尾辞.*)/" relation="nsubj">
+				<w id="2" relation="nmod" />
+			</w>
+			<w id="3" lex="ない" />
+		</w>
+	</pattern>
+
+	<pattern facet="pattern.obl_not"
+		value="{1.lex} ... {0.str}-{2.lex}">
+		<w id="0" upos="VERB">
+			<w id="1" relation="obl" />
+			<w id="2" lex="ない" />
+		</w>
+	</pattern>
+	<pattern facet="pattern.verb_not" value="{0.str}-{2.lex}">
+		<w id="0" upos="VERB">
+			<w id="2" lex="ない" />
+		</w>
+	</pattern>
+
+	<pattern facet="pattern.advcl_not"
+		value="{2.lex} ... {1.str}-{0.lex}">
+		<w id="0" str="ない">
+			<w id="1" relation="advcl">
+				<w id="2" relation="nsubj" />
+			</w>
+		</w>
+	</pattern>
+
+</patterns>
+

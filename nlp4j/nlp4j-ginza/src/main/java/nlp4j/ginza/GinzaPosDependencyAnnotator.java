@@ -23,30 +23,27 @@ public class GinzaPosDependencyAnnotator extends AbstractGinzaAnnotator
 
 	@Override
 	public void annotate(Document doc) throws Exception {
-
-//		super.annotate(doc);
-
 		for (String target : super.targets) {
-//			System.err.println("target: " + target);
-
 			String text = doc.getAttributeAsString(target);
-
-			NlpServiceResponse res = ginza.process(text);
-
+			NlpServiceResponse res = ginza.process(text); // throws IOException
 			if (res != null) {
 				List<Keyword> kwds = res.getKeywords();
 				doc.addKeywords(kwds);
 			}
-
 		}
-
 	}
 
-	@Override
+	/**
+	 * Example: endPoint = http://localhost:8888/
+	 * 
+	 * @param key   : "endPoint"
+	 * @param value : like "http://localhost:8888/"
+	 */
 	public void setProperty(String key, String value) {
 		super.setProperty(key, value);
 		if ("endpoint".equals(key.toLowerCase())) {
 			this.endPoint = value;
+			this.ginza = new GinzaNlpServiceViaHttp(this.endPoint);
 		}
 	}
 

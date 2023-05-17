@@ -63,24 +63,33 @@ public class GinzaNlpServiceViaHttp implements NlpService {
 		JsonObject jsonObj = new JsonObject();
 		jsonObj.addProperty("text", text);
 
-		NlpServiceResponse res = client.post(this.endPoint, jsonObj.toString());
-
-		if (logger.isDebugEnabled()) {
-			logger.debug("debug is enabled");
-			logger.debug(res.getOriginalResponseBody());
-		}
-
-		GinzaJsonResponseParser parser = new GinzaJsonResponseParser();
-
-		List<Keyword> kwds = parser.parseResponse(res.getOriginalResponseBody());
-		res.setKeywords(kwds);
-
+		// client.post throws IOException
 		try {
-			client.close();
-		} catch (Exception e) {
-			e.printStackTrace();
+			NlpServiceResponse res = client.post(this.endPoint, jsonObj.toString());
+
+			if (logger.isDebugEnabled()) {
+				logger.debug("debug is enabled");
+				logger.debug(res.getOriginalResponseBody());
+			}
+
+			GinzaJsonResponseParser parser = new GinzaJsonResponseParser();
+
+			List<Keyword> kwds = parser.parseResponse(res.getOriginalResponseBody());
+			res.setKeywords(kwds);
+
+			return res;
+		} catch (IOException e) {
+//			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				client.close();
+			} //
+			catch (Exception e) {
+//				e.printStackTrace();
+				throw new IOException(e);
+			}
 		}
 
-		return res;
 	}
 }

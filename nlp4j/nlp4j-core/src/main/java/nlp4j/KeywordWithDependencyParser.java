@@ -29,6 +29,12 @@ public class KeywordWithDependencyParser {
 		return kwds;
 	}
 
+	static public List<Keyword> flatten(KeywordWithDependency kwdRoot) {
+		List<Keyword> kwds = new ArrayList<Keyword>();
+		flatten(kwdRoot, kwds, null, 0);
+		return kwds;
+	}
+
 	private static void flatten(KeywordWithDependency kwdRoot, List<Keyword> kwds, Set<String> targetUPOS, int depth) {
 
 		if (targetUPOS == null || targetUPOS.contains(kwdRoot.getUPos())) {
