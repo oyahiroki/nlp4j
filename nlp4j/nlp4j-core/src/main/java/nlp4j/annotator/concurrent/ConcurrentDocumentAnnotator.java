@@ -85,7 +85,7 @@ public class ConcurrentDocumentAnnotator extends AbstractDocumentAnnotator imple
 						ann = this.anns.get(0);
 					}
 
-					Document doc = docs.get(n);
+					Document doc = dd.get(n);
 					{
 						AnnotateCall p1 = new AnnotateCall(ann, doc, n);
 						taskList.add(executor.submit(p1));

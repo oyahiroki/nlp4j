@@ -58,7 +58,7 @@ public abstract class AbstractDocumentAnnotator implements DocumentAnnotator {
 		for (Document doc : docs) {
 			countDoc++;
 			if (countDoc == 1 || (countDoc != 0 && countDoc % 100 == 0)) {
-				logger.info("Processing ... " + countDoc);
+				logger.debug("Processing ... " + countDoc);
 			}
 			annotate(doc);
 		}

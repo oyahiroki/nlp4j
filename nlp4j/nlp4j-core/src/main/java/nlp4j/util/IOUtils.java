@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
 /**
@@ -15,16 +16,19 @@ public class IOUtils {
 
 	/**
 	 * @param fileName
-	 * @return PrintWriter of UTF-8 text file with autoflush
+	 * @return PrintWriter, append=true, charset=UTF-8, autoFlush=true text file
 	 * @throws IOException
 	 */
 	static public PrintWriter printWriter(String fileName) throws IOException {
+		Charset charset = StandardCharsets.UTF_8;
+		boolean append = true;
+		boolean autoflush = true;
 		return new PrintWriter( //
 				new OutputStreamWriter( //
 						new FileOutputStream( //
-								new File(fileName)),
-						StandardCharsets.UTF_8),
-				true);
+								new File(fileName), append),
+						charset), //
+				autoflush); //
 	}
 
 }

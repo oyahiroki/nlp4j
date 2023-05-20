@@ -2,7 +2,7 @@
 <patterns lang="ja">
 
 	<!-- 彼は勉強しない -->
-	<pattern facet="pattern.nsubj_not_001a"
+	<pattern facet="pattern.nsubj_not"
 		value="{1.lex} ... {0.str}{2.lex}-{3.lex}">
 		<w id="0" facet="名詞-普通名詞-サ変可能" upos="VERB">
 			<w id="1" relation="nsubj" />
@@ -10,23 +10,23 @@
 			<w id="3" lex="ない" />
 		</w>
 	</pattern>
-	
-	<pattern facet="pattern.nsubj_not_002"
+
+	<pattern facet="pattern.nsubj_not"
 		value="{1.lex} ... {0.str}-{3.lex}">
 		<w id="0" facet="/(動詞-非自立可能)|(動詞-一般)/" upos="VERB">
 			<w id="1" facet="/(代名詞)|(名詞.*)/" relation="nsubj" />
 			<w id="3" lex="ない" />
 		</w>
 	</pattern>
-	
-	<pattern facet="pattern.nsubj_not_002b"
+
+	<pattern facet="pattern.nsubj_not"
 		value="{1.lex} ... {0.str}-{3.lex}">
 		<w id="0" facet="動詞-非自立可能" upos="VERB">
 			<w id="3" lex="ない" />
 			<w id="1" facet="/(代名詞)|(名詞.*)/" relation="nsubj" />
 		</w>
 	</pattern>
-	<pattern facet="pattern.nsubj_not_002c"
+	<pattern facet="pattern.nsubj_not"
 		value="{2.lex}{1.lex} ... {0.str}-{3.lex}">
 		<w id="0" facet="動詞-非自立可能" upos="VERB">
 			<w id="1" facet="/(接尾辞.*)/" relation="nsubj">
