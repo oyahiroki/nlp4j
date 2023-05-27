@@ -1,8 +1,8 @@
 package example;
 
 import nlp4j.Keyword;
-import nlp4j.impl.DefaultNlpServiceResponse;
-import nlp4j.yhoo_jp.YJpMaService;
+import nlp4j.NlpServiceResponse;
+import nlp4j.yhoo_jp.YJpMaServiceV2;
 
 /**
  * Yahoo! Japan の日本語形態素解析サービスを利用するサンプルです。<br>
@@ -38,9 +38,9 @@ public class YJpMorphologicalAnalysisExampleMain2 {
 		// 自然文のテキスト
 		String text = "日産自動車はEVを作ります。";
 		// 日本語形態素解析
-		YJpMaService service = new YJpMaService();
+		YJpMaServiceV2 service = new YJpMaServiceV2();
 		// 形態素解析の結果を取得する
-		DefaultNlpServiceResponse response = service.process(text);
+		NlpServiceResponse response = service.process(text);
 		// すべてのキーワードを出力する
 		for (Keyword kwd : response.getKeywords()) {
 			System.out.println(kwd);

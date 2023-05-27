@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.xml.parsers.SAXParser;
@@ -17,8 +18,8 @@ import nlp4j.DefaultEnv;
 import nlp4j.Keyword;
 import nlp4j.Nlp4JRuntimeException;
 import nlp4j.NlpService;
-import nlp4j.impl.DefaultNlpServiceResponse;
-import nlp4j.util.HttpClient;
+import nlp4j.NlpServiceResponse;
+import nlp4j.http.HttpClient5;
 
 /**
  * Yahoo! Japan 日本語形態素解析を利用するサービスです。<br>
@@ -27,12 +28,18 @@ import nlp4j.util.HttpClient;
  * <pre>
  * Yahoo! Japan Morphological analysis 日本語形態素解析
  * https://developer.yahoo.co.jp/webapi/jlp/ma/v1/parse.html
+ * 
+ * 2022-07-14
+ * 【重要】日本語形態素解析・自然言語理解API V2 リリースのお知らせ
+ * https://developer.yahoo.co.jp/changelog/2022-07-14-jlp.html
+ * V1終了予定時期につきましては2022年11月末を予定しております。
  * </pre>
  * 
  * @author Hiroki Oya
  * @since 1.0
  * @version 1.0
- *
+ * 
+ * @deprecated
  */
 public class YJpMaService implements NlpService {
 
@@ -54,8 +61,10 @@ public class YJpMaService implements NlpService {
 			// throw new RuntimeException("no appid");
 			appID = DefaultEnv.YHOO_JP_API_ID;
 			if (alerted == false) {
-				Nlp4JRuntimeException e = new Nlp4JRuntimeException("Please get your own APP_ID for Yahoo! Japan API "
-						+ "and set as Dyhoo_jp.appid={your_app_id} " + "- https://e.developer.yahoo.co.jp/dashboard/");
+				Nlp4JRuntimeException e = new Nlp4JRuntimeException( //
+						"Please get your own APP_ID for Yahoo! Japan API " //
+								+ "and set as Dyhoo_jp.appid={your_app_id} " //
+								+ "- https://e.developer.yahoo.co.jp/dashboard/");
 				System.err.println("WARNING: " + e.getMessage());
 				alerted = true;
 			}
@@ -67,7 +76,7 @@ public class YJpMaService implements NlpService {
 	 * @return 自然言語処理結果
 	 * @throws IOException 例外発生時にスローされる
 	 */
-	public DefaultNlpServiceResponse process(String text) throws IOException {
+	public NlpServiceResponse process(String text) throws IOException {
 
 		if (text == null || text.isEmpty() || text.trim().isEmpty()) {
 			return null;
@@ -99,8 +108,8 @@ public class YJpMaService implements NlpService {
 		params.put("uniq_filter", "1|2|3|4|5|6|7|8|9|10|11|12|13");
 		params.put("sentence", text);
 
-		HttpClient client = new HttpClient();
-		DefaultNlpServiceResponse res = client.get(url, params);
+		nlp4j.http.HttpClient client = new HttpClient5();
+		NlpServiceResponse res = client.get(url, params);
 		logger.debug(res);
 
 //		String s2 = XmlUtils.prettyFormatXml(res);
@@ -131,8 +140,8 @@ public class YJpMaService implements NlpService {
 	 * @return 日本語形態素解析の結果
 	 * @throws IOException IOで発生した例外
 	 */
-	public ArrayList<Keyword> getKeywords(String text) throws IOException {
-		DefaultNlpServiceResponse r = process(text);
+	public List<Keyword> getKeywords(String text) throws IOException {
+		NlpServiceResponse r = process(text);
 		if (r != null) {
 			return r.getKeywords();
 		} else {

@@ -46,7 +46,7 @@ public class Nokku33 {
 //			System.err.println(kwd);
 //		}
 
-		List<Keyword> kwds = index.getKeywordsWithoutCount();
+		List<Keyword> kwds = index.getKeywords();
 
 		String meishi = null;
 

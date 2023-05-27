@@ -2,7 +2,7 @@ package nlp4j.yhoo_jp;
 
 import java.io.IOException;
 import java.lang.invoke.MethodHandles;
-import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -31,7 +31,7 @@ public class YjpAllAnnotator extends AbstractDocumentAnnotator implements Docume
 	YJpDaServiceV2 service1 = new YJpDaServiceV2();
 
 	// 日本語形態素解析
-	YJpMaService service2 = new YJpMaService();
+	YJpMaServiceV2 service2 = new YJpMaServiceV2();
 
 	@Override
 	public void annotate(Document doc) throws IOException {
@@ -41,14 +41,14 @@ public class YjpAllAnnotator extends AbstractDocumentAnnotator implements Docume
 			String text = doc.getText();
 
 			// 係り受け解析の結果を取得する
-			ArrayList<KeywordWithDependency> kwdsDa = service1.getKeywords(text); // throws IOException
+			List<KeywordWithDependency> kwdsDa = service1.getKeywords(text); // throws IOException
 			// 係り受け解析の結果を出力する
 //			for (KeywordWithDependency kw : kwdsDa) {
 //				System.err.println(kw.toStringAsXml());
 //			}
 
 			// 形態素解析の結果を取得する
-			ArrayList<Keyword> kwdsMa = service2.getKeywords(text);
+			List<Keyword> kwdsMa = service2.getKeywords(text);
 			// すべてのキーワードを出力する
 			for (Keyword kwd : kwdsMa) {
 				doc.addKeyword(kwd);

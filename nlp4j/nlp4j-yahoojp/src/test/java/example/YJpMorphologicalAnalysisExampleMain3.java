@@ -1,9 +1,9 @@
 package example;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import nlp4j.Keyword;
-import nlp4j.yhoo_jp.YJpMaService;
+import nlp4j.yhoo_jp.YJpMaServiceV2;
 
 /**
  * Yahoo! Japan の日本語形態素解析サービスを利用するサンプルです。<br>
@@ -42,9 +42,9 @@ public class YJpMorphologicalAnalysisExampleMain3 {
 		// 自然文のテキスト
 		String text = "今日は走って学校に行きました。";
 		// 日本語形態素解析
-		YJpMaService service = new YJpMaService();
+		YJpMaServiceV2 service = new YJpMaServiceV2();
 		// 形態素解析の結果を取得する
-		ArrayList<Keyword> kwds = service.getKeywords(text);
+		List<Keyword> kwds = service.getKeywords(text);
 		// すべてのキーワードを出力する
 		for (Keyword kwd : kwds) {
 			System.out.println(kwd);

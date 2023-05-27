@@ -1,14 +1,14 @@
 package nlp4j.annotator;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import junit.framework.TestCase;
 import nlp4j.Document;
 import nlp4j.DocumentAnnotator;
 import nlp4j.DocumentAnnotatorPipeline;
+import nlp4j.DocumentBuilder;
 import nlp4j.Keyword;
-import nlp4j.crawler.Crawler;
-import nlp4j.crawler.TextFileLineSeparatedCrawler;
 import nlp4j.impl.DefaultDocument;
 import nlp4j.impl.DefaultDocumentAnnotatorPipeline;
 import nlp4j.impl.DefaultKeyword;
@@ -114,23 +114,20 @@ public class KeywordSequencePatternAnnotatorTestCase extends TestCase {
 		System.err.println("</抽出されたキーワード>");
 	}
 
-	/**
-	 * @throws Exception 例外発生時
-	 */
-	public void testAnnotateDocument003() throws Exception {
+	public void testAnnotateDocument003b() throws Exception {
 
 		String rule = "[{facet:'名詞'},{lex:'の'},{facet:'名詞'}]";
 		String facet = "word_nn_no_nn";
 		String value = "${0.lex}-${1.lex}-${2.lex}";
 
 		// NLP4Jが提供するテキストファイルのクローラーを利用する
-		Crawler crawler = new TextFileLineSeparatedCrawler();
-		crawler.setProperty("file", "src/test/resources/nlp4j.crawler/neko_short_utf8.txt");
-		crawler.setProperty("encoding", "UTF-8");
-		crawler.setProperty("target", "text");
 
 		// ドキュメントのクロール
-		List<Document> docs = crawler.crawlDocuments();
+		List<Document> docs = new ArrayList<>();
+		{
+			Document doc = (new DocumentBuilder()).text("卵の殻").build();
+			docs.add(doc);
+		}
 
 		// NLPパイプライン（複数の処理をパイプラインとして連結することで処理する）の定義
 		DocumentAnnotatorPipeline pipeline = new DefaultDocumentAnnotatorPipeline();

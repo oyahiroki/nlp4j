@@ -17,8 +17,7 @@ import nlp4j.Keyword;
 import nlp4j.KeywordWithDependency;
 import nlp4j.NlpService;
 import nlp4j.NlpServiceResponse;
-import nlp4j.impl.DefaultNlpServiceResponse;
-import nlp4j.util.HttpClient;
+import nlp4j.http.HttpClient5;
 
 /**
  * Yahoo! Japan dependency analysis 日本語係り受け解析 <br>
@@ -88,34 +87,34 @@ public class YJpDaServiceV2 implements NlpService {
 			requestBodyJson.add("params", params);
 		}
 
-		HttpClient client = new HttpClient();
+		try (nlp4j.http.HttpClient client = new HttpClient5();) {
+			// User-Agent: Yahoo AppID: <あなたのアプリケーションID>
 
-		// User-Agent: Yahoo AppID: <あなたのアプリケーションID>
+			NlpServiceResponse res = client.post(url, requestHeader, requestBodyJson.toString());
 
-		DefaultNlpServiceResponse res = client.post(url, requestHeader, requestBodyJson.toString());
+			logger.debug(res);
+			logger.debug(res.getOriginalResponseBody());
 
-		logger.debug(res);
-		logger.debug(res.getOriginalResponseBody());
+			Gson gson = new Gson();
 
-		Gson gson = new Gson();
+			JsonObject responseJson = gson.fromJson(res.getOriginalResponseBody(), JsonObject.class);
 
-		JsonObject responseJson = gson.fromJson(res.getOriginalResponseBody(), JsonObject.class);
+			YJpDaServiceResponseHandlerV2 handler = new YJpDaServiceResponseHandlerV2(text);
 
-		YJpDaServiceResponseHandlerV2 handler = new YJpDaServiceResponseHandlerV2(text);
+			handler.parseJson(responseJson.toString());
 
-		handler.parseJson(responseJson.toString());
+			ArrayList<KeywordWithDependency> roots = handler.getRoots();
 
-		ArrayList<KeywordWithDependency> roots = handler.getRoots();
-
-		try {
 			ArrayList<Keyword> kwds = new ArrayList<Keyword>();
 			kwds.addAll(roots);
 			res.setKeywords(kwds);
+
+			return res;
+
 		} catch (Exception e) {
 			throw new IOException(e);
 		}
 
-		return res;
 	}
 
 	/**

@@ -5,7 +5,6 @@ import nlp4j.Document;
 import nlp4j.DocumentAnnotator;
 import nlp4j.Keyword;
 import nlp4j.impl.DefaultDocument;
-import nlp4j.yhoo_jp.YJpMaAnnotator;
 
 /**
  * TestCase for YJpMaAnnotator
@@ -41,7 +40,8 @@ public class YJpMaAnnotatorTestCase extends TestCase {
 		assertEquals("は", doc.getKeywords().get(1).getLex());
 		assertEquals("いい", doc.getKeywords().get(2).getLex());
 		assertEquals("天気", doc.getKeywords().get(3).getLex());
-		assertEquals("です", doc.getKeywords().get(4).getLex());
+//		assertEquals("です", doc.getKeywords().get(4).getLex()); // V1
+		assertEquals("だ", doc.getKeywords().get(4).getLex()); // V2
 		assertEquals("。", doc.getKeywords().get(5).getLex());
 
 	}
@@ -75,8 +75,9 @@ public class YJpMaAnnotatorTestCase extends TestCase {
 		assertEquals("を", doc.getKeywords().get(4).getLex());
 		assertEquals("拾う", doc.getKeywords().get(5).getLex());
 		assertEquals("ます", doc.getKeywords().get(6).getLex());
-		assertEquals("た", doc.getKeywords().get(7).getLex());
-		assertEquals("。", doc.getKeywords().get(8).getLex());
+//		assertEquals("た", doc.getKeywords().get(7).getLex()); // V1
+//		assertEquals("。", doc.getKeywords().get(8).getLex()); // V1
+		assertEquals("。", doc.getKeywords().get(7).getLex()); // V1
 	}
 
 	/**
@@ -107,8 +108,9 @@ public class YJpMaAnnotatorTestCase extends TestCase {
 		assertEquals("に", doc.getKeywords().get(3).getLex());
 		assertEquals("行く", doc.getKeywords().get(4).getLex());
 		assertEquals("ます", doc.getKeywords().get(5).getLex());
-		assertEquals("た", doc.getKeywords().get(6).getLex());
-		assertEquals("。", doc.getKeywords().get(7).getLex());
+//		assertEquals("た", doc.getKeywords().get(6).getLex()); // V1
+//		assertEquals("。", doc.getKeywords().get(7).getLex()); // V1
+		assertEquals("。", doc.getKeywords().get(6).getLex()); // V2
 	}
 
 	/**
@@ -139,8 +141,10 @@ public class YJpMaAnnotatorTestCase extends TestCase {
 		assertEquals("を", doc.getKeywords().get(3).getLex());
 		assertEquals("買う", doc.getKeywords().get(4).getLex());
 		assertEquals("ます", doc.getKeywords().get(5).getLex());
-		assertEquals("た", doc.getKeywords().get(6).getLex());
-		assertEquals("。", doc.getKeywords().get(7).getLex());
+//		assertEquals("た", doc.getKeywords().get(6).getLex()); // V1
+//		assertEquals("。", doc.getKeywords().get(7).getLex()); // V1
+
+		assertEquals("。", doc.getKeywords().get(6).getLex()); // V2
 
 	}
 
@@ -154,7 +158,8 @@ public class YJpMaAnnotatorTestCase extends TestCase {
 		// 自然文のテキスト
 		String text = "今日はいい天気です。明日は学校に行きます。";
 		// 形態素原形
-		String[] expect = "今日/は/いい/天気/です/。/明日/は/学校/に/行く/ます/。".split("/");
+//		String[] expected = "今日/は/いい/天気/です/。/明日/は/学校/に/行く/ます/。".split("/");
+		String[] expected = "今日/は/いい/天気/だ/。/明日/は/学校/に/行く/ます/。".split("/");
 
 		Document doc = new DefaultDocument();
 		doc.putAttribute("text", text);
@@ -170,8 +175,8 @@ public class YJpMaAnnotatorTestCase extends TestCase {
 			System.err.println(kwd);
 		}
 
-		for (int n = 0; n < expect.length; n++) {
-			assertEquals(expect[n], doc.getKeywords().get(n).getLex());
+		for (int n = 0; n < expected.length; n++) {
+			assertEquals(expected[n], doc.getKeywords().get(n).getLex());
 		}
 
 	}

@@ -1,6 +1,7 @@
 package nlp4j.yhoo_jp;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import junit.framework.TestCase;
 import nlp4j.Document;
@@ -105,9 +106,9 @@ public class YJpDaAnnotatorV2TestCase extends TestCase {
 			}
 
 			// 日本語形態素解析
-			YJpMaService service2 = new YJpMaService();
+			YJpMaServiceV2 service2 = new YJpMaServiceV2();
 			// 形態素解析の結果を取得する
-			ArrayList<Keyword> kwdsMa = service2.getKeywords(text);
+			List<Keyword> kwdsMa = service2.getKeywords(text);
 			// すべてのキーワードを出力する
 			for (Keyword kwd : kwdsMa) {
 				System.err.println(kwd);

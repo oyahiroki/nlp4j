@@ -46,7 +46,7 @@ public class Nokku31 {
 //			System.err.println(kwd);
 //		}
 
-		List<Keyword> kwds = index.getKeywordsWithoutCount();
+		List<Keyword> kwds = index.getKeywords();
 		kwds = kwds.stream() //
 				.filter(o -> o.getFacet().equals("動詞")) // 品詞が動詞
 				.collect(Collectors.toList());

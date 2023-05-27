@@ -100,8 +100,8 @@ public class YJpDaServiceResponseHandlerV2 /* extends AbstractXmlHandler */ {
 				String tokenPos = token.get(3).getAsString();
 				String tokenFeature = token.get(4).getAsString();
 
-				String katsuyou1 = token.get(5).getAsString();
-				String katsuyou2 = token.get(6).getAsString();
+//				String katsuyou1 = token.get(5).getAsString();
+//				String katsuyou2 = token.get(6).getAsString();
 
 				kwd.setLex(tokenSurface);
 				kwd.setReading(tokenReading);
