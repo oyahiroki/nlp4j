@@ -1,0 +1,5 @@
+/target/
+.classpath
+.project
+/system_core.dic
+/system_full.dic

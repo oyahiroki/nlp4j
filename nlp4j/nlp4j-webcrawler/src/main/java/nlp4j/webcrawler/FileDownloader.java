@@ -44,10 +44,10 @@ public class FileDownloader {
 	 * @param overwrite file
 	 * @throws IOException on HTTP Response code not 200
 	 */
-	public void download(String url, File outFile, boolean overwirte) throws IOException {
+	public void download(String url, File outFile, boolean overwrite) throws IOException {
 
 		// IF(overwirte == FALSE) THEN
-		if (overwirte == false) {
+		if (overwrite == false) {
 			if (outFile.exists() == true) {
 				logger.info("Already exists: " + outFile.getAbsolutePath());
 //				throw new IOException("Already exists: " + outFile.getAbsolutePath());
