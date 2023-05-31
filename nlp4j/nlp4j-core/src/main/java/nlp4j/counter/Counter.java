@@ -112,6 +112,26 @@ public class Counter<T> {
 	}
 
 	/**
+	 * Sort by count
+	 * 
+	 * @return
+	 */
+	public List<Count<T>> getCountListSortedAsc() {
+		List<T> objList = getObjectList();
+		Collections.sort(objList, new Comparator<T>() {
+			@Override
+			public int compare(T o1, T o2) {
+				return (getCount(o2) - getCount(o1)) * (-1);
+			}
+		});
+		ArrayList<Count<T>> counts = new ArrayList<Count<T>>();
+		for (T o : objList) {
+			counts.add(new Count<T>(o, getCount(o)));
+		}
+		return counts;
+	}
+
+	/**
 	 * Sort by value
 	 * 
 	 * @return

@@ -128,7 +128,8 @@ public class WikiItemTextParser implements WikiItemTextParserInterface {
 				// {{wikipedia|記事名}}
 				// {{wikipedia|記事名|表示名}}
 				// TODO Wikipedia リンクの処理
-				System.err.println("wikipedia: " + line);
+//				System.err.println("wikipedia: " + line);
+
 			}
 
 			// is header

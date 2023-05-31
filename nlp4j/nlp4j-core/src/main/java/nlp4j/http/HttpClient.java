@@ -1,5 +1,6 @@
 package nlp4j.http;
 
+import java.io.Closeable;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Map;
@@ -10,7 +11,7 @@ import nlp4j.NlpServiceResponse;
  * @author Hiroki Oya
  * @since 1.3.7.8
  */
-public interface HttpClient extends AutoCloseable {
+public interface HttpClient extends Closeable {
 
 	/**
 	 * created on 2020-04-29

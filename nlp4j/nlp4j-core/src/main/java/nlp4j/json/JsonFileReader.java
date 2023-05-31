@@ -1,6 +1,7 @@
 package nlp4j.json;
 
 import java.io.BufferedReader;
+import java.io.Closeable;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -24,7 +25,7 @@ import com.google.gson.JsonObject;
  * @since 1.3.7.4
  *
  */
-public class JsonFileReader implements AutoCloseable {
+public class JsonFileReader implements Closeable {
 
 	private int countLine = 0;
 	private int maxLines = -1;
@@ -66,7 +67,7 @@ public class JsonFileReader implements AutoCloseable {
 	}
 
 	@Override
-	public void close() throws Exception {
+	public void close() throws IOException {
 		if (br != null) {
 			br.close();
 		}
