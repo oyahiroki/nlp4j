@@ -39,6 +39,16 @@ public class KeywordBuilder implements Builder<Keyword> {
 		return this;
 	}
 
+	/**
+	 * @param count2
+	 * @return
+	 * @since 1.3.7.9
+	 */
+	public KeywordBuilder count2(long count2) {
+		this.kwd.setCount2(count2);
+		return this;
+	}
+
 	public KeywordBuilder end(int end) {
 		this.kwd.setEnd(end);
 		return this;

@@ -1,6 +1,7 @@
 package nlp4j.sudachi;
 
 import java.io.Closeable;
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -33,22 +34,38 @@ public class SudachiAnnotator extends AbstractDocumentAnnotator implements Docum
 
 	private Tokenizer tokenizer = null;
 
+	private String posRegex;
+
 	static public String DEFAULT_FULLDIC = "system_full.dic";
 
 	public SudachiAnnotator() {
 		super();
-		initTokenizer(DEFAULT_FULLDIC);
+//		initTokenizer(DEFAULT_FULLDIC);
 	}
 
-	@Override
+	/**
+	 * <pre>
+	 * systemDict=system_core.dic
+	 * systemDict=system_full.dic
+	 * </pre>
+	 * 
+	 * @param key : systemDict
+	 * @param
+	 */
 	public void setProperty(String key, String value) {
 		super.setProperty(key, value);
 		if ("systemDict".equals(key)) {
 			initTokenizer(value);
+		} else if ("pos".equals(key)) {
+			this.posRegex = value;
 		}
 	}
 
 	private void initTokenizer(String systemDict) {
+		if ((new File(systemDict)).exists() == false) {
+			logger.info("File not found: " + (new File(systemDict)).getAbsolutePath());
+			return;
+		}
 		String settings = "{" + "\"systemDict\":\"" + systemDict + "\"" + "}";
 		// 形態素解析器の用意
 		Dictionary dictionary = null;
@@ -65,8 +82,6 @@ public class SudachiAnnotator extends AbstractDocumentAnnotator implements Docum
 
 	@Override
 	public void annotate(Document doc) throws Exception {
-
-		logger.info("processing document");
 
 		for (String target : super.targets) {
 			String text = doc.getAttributeAsString(target);
@@ -94,6 +109,14 @@ public class SudachiAnnotator extends AbstractDocumentAnnotator implements Docum
 							.reading(morpheme.readingForm()) //
 							.sentenceIndex(sentenceIndex) //
 							.build();
+
+					if (this.posRegex != null) {
+						String pos = kwd.getFacet();
+						if (pos.matches(this.posRegex) == false) {
+							continue;
+						}
+					}
+
 					doc.addKeyword(kwd);
 				} // END_OF_FOR_EACH(Morphoeme)
 			}

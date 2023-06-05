@@ -12,4 +12,13 @@ public class TextUtilsTestCase extends TestCase {
 		assertEquals("ABC", s2);
 	}
 
+	public void testNString001() throws Exception {
+		String text = "ＡＢＣ(xyz)１２３(zzz)";
+
+		String text2 = TextUtils.n(text).nfkc().removeBrackets().get();
+
+		System.err.println(text2);
+
+	}
+
 }

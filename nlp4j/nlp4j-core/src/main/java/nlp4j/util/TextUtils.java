@@ -23,6 +23,16 @@ public class TextUtils {
 		return Normalizer.normalize(s, Normalizer.Form.NFKC);
 	}
 
+	/**
+	 * Get new instance of {@link TextUtils}
+	 * 
+	 * @param s
+	 * @return
+	 */
+	static public TextUtils n(String s) {
+		return new TextUtils(s);
+	}
+
 	private String s;
 
 	/**
@@ -57,6 +67,19 @@ public class TextUtils {
 	public TextUtils removeNewline() {
 		this.s = s.replace("\r", "");
 		this.s = s.replace("\n", "");
+		return this;
+	}
+
+	/**
+	 * <pre>
+	 * Input Example: "aaa(bbb)ccc" 
+	 * Output Example: "aaaccc"
+	 * </pre>
+	 * 
+	 * @return
+	 */
+	public TextUtils removeBrackets() {
+		this.s = this.s.replaceAll("\\(.*?\\)", "");
 		return this;
 	}
 

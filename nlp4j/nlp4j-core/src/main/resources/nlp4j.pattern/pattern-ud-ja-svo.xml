@@ -2,16 +2,20 @@
 <patterns lang="ja">
 
 	<pattern facet="pattern.svo"
-		value="{1.lex} ... {3.lex} ... {5.lex}">
-		<w id="5">
-			<w id="1" relation="nsubj">
-				<w id="2" lex="/(が|は)/" />
-			</w>
-			<w id="3" relation="obj">
-				<w id="4" lex="を" />
-			</w>
+		value="{1.lex} ... {2.lex} ... {3.lex}">
+		<w id="2" upos="VERB">
+			<w id="1" relation="nsubj" />
+			<w id="3" relation="obj" />
 		</w>
 	</pattern>
+	<pattern facet="pattern.svo"
+		value="{1.lex} ... {2.lex} ... {3.lex}">
+		<w id="2" upos="VERB">
+			<w id="3" relation="obj" />
+			<w id="1" relation="nsubj" />
+		</w>
+	</pattern>
+
 
 </patterns>
 

@@ -64,6 +64,15 @@ public interface Keyword extends Serializable, Cloneable {
 	public long getCount();
 
 	/**
+	 * キーワードのカウントを返します。<br>
+	 * Return keyword count.
+	 * 
+	 * @return count カウント
+	 * @since 1.3.7.9
+	 */
+	public long getCount2();
+
+	/**
 	 * キーワードの終了位置を返します。<br>
 	 * Return end of keyword.
 	 * 
@@ -190,6 +199,15 @@ public interface Keyword extends Serializable, Cloneable {
 	 * @since 1.0
 	 */
 	public void setCount(long count);
+
+	/**
+	 * キーワードのカウントをセットします。<br>
+	 * Set count of keyword.
+	 * 
+	 * @param count カウント
+	 * @since 1.3.7.2
+	 */
+	public void setCount2(long count);
 
 	/**
 	 * キーワードの終了位置をセットします。<br>

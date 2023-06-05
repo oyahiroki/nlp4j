@@ -1,5 +1,6 @@
 package nlp4j.util;
 
+import java.io.PrintWriter;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -12,6 +13,34 @@ import nlp4j.Keyword;
  * @author Hiroki Oya
  */
 public class KeywordsUtil {
+
+	static public String toLexArray(List<Keyword> kwds) {
+		return toLex(kwds, ", ");
+	}
+
+	static public void println(List<Keyword> kwds) {
+		println(kwds, new PrintWriter(System.err, true));
+	}
+
+	static public void println(List<Keyword> kwds, PrintWriter pw) {
+		for (Keyword kwd : kwds) {
+			pw.println(kwd.toString());
+		}
+	}
+
+	static public String toLex(List<Keyword> kwds, String delimiter) {
+		if (kwds == null || kwds.size() == 0) {
+			return "";
+		}
+		StringBuilder sb = new StringBuilder();
+		for (Keyword kwd : kwds) {
+			if (sb.length() > 0) {
+				sb.append(delimiter);
+			}
+			sb.append(kwd.getLex());
+		}
+		return sb.toString();
+	}
 
 	static public void sortByCorrelationAsc(List<Keyword> kwds) {
 		Collections.sort(kwds, new Comparator<Keyword>() {

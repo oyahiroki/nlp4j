@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<patterns lang="ja">
+
+	<!-- XXのようなYY -->
+	<pattern facet="pattern.wiktionary" value="{3.lex}のような{1.lex}">
+		<w id="1" upos="NOUN">
+			<w id="2" lex="よう">
+				<w id="3" upos="NOUN">
+					<w id="4" lex="の" />
+				</w>
+				<w id="5" str="な" />
+			</w>
+		</w>
+	</pattern>
+
+	<pattern facet="pattern.wiktionary"
+		value="{1.lex}が{3.lex}を{2.lex}">
+		<w id="2" upos="VERB">
+			<w id="1" relation="nsubj" />
+			<w id="3" relation="obj" />
+		</w>
+	</pattern>
+
+	<pattern facet="pattern.wiktionary"
+		value="{1.lex}が{3.lex}を{2.lex}">
+		<w id="2" upos="VERB">
+			<w id="3" relation="obj" />
+			<w id="1" relation="nsubj" />
+		</w>
+	</pattern>
+
+	<pattern facet="pattern.wiktinary" value="{2.lex}が{1.lex}">
+		<w id="1" upos="NOUN">
+			<w id="2" relation="nsubj" />
+		</w>
+	</pattern>
+
+	<pattern facet="pattern.wiktionary" value="{2.lex}を{1.lex}">
+		<w id="1" upos="VERB">
+			<w id="2" relation="obj">
+			</w>
+		</w>
+	</pattern>
+
+	<!-- 水の色 -->
+	<pattern facet="pattern.wiktionary" value="{2.lex}の{1.lex}">
+		<w id="1" relation="obl" upos="NOUN" lex="/!(つ)/">
+			<w id="2" upos="NOUN">
+				<w id="3" str="の" upos="ADP" />
+			</w>
+		</w>
+	</pattern>
+	<!-- XXやYYのZZ -->
+	<pattern facet="pattern.wiktionary" value="{3.lex}の{1.lex}">
+		<w id="1" upos="NOUN">
+			<w id="2" upos="NOUN">
+				<w id="3" upos="NOUN">
+					<w id="4" lex="や" />
+				</w>
+				<w id="5" lex="の" />
+			</w>
+		</w>
+	</pattern>
+
+
+	<pattern facet="pattern.wiktionary" value="{3.lex}を{2.lex}こと">
+		<w id="1" lex="こと">
+			<w id="2" relation="acl" upos="VERB">
+				<w id="3" relation="obj" upos="NOUN">
+					<w id="4" lex="を" />
+				</w>
+			</w>
+		</w>
+
+	</pattern>
+	<pattern facet="pattern.wiktionary" value="{2.lex}こと">
+		<w id="1" lex="こと">
+			<w id="2" relation="acl" upos="VERB" lex="/!(する)/">
+			</w>
+		</w>
+
+	</pattern>
+
+	<!-- XXの一つ -->
+	<pattern facet="pattern.wiktionary"
+		value="{0.lex}{1.lex}{2.lex}{3.lex}">
+		<w id="3" lex="つ">
+			<w id="0" upos="NOUN">
+				<w id="1" lex="の" />
+			</w>
+			<w id="2" upos="NUM" />
+		</w>
+	</pattern>
+	<pattern facet="pattern.wiktionary" value="{0.lex}">
+		<w id="3" lex="つ">
+			<w id="0" upos="NOUN">
+				<w id="1" lex="の" />
+			</w>
+			<w id="2" upos="NUM" />
+		</w>
+	</pattern>
+
+	<!-- 孤立無援の状態 -->
+	<pattern facet="pattern.wiktionary"
+		value="{3.lex}{2.lex}の{1.lex}">
+		<w id="1" upos="NOUN">
+			<w id="2" upos="NOUN">
+				<w id="3" upos="NOUN" />
+			</w>
+			<w id="4" lex="の" />
+		</w>
+	</pattern>
+	<!-- 無援の状態 -->
+	<pattern facet="pattern.wiktionary" value="{2.lex}の{1.lex}">
+		<w id="1" upos="NOUN" lex="/!(もの|つ|事|こと|物|者|人)/">
+			<w id="2" upos="NOUN">
+				<w id="4" lex="の" />
+			</w>
+
+		</w>
+	</pattern>
+
+	<!-- 戻らない -->
+	<pattern facet="pattern.wiktionary" value="{1.str}ない">
+		<w id="1" upos="VERB" lex="/!(する)/">
+			<w id="2" lex="ない" />
+		</w>
+
+	</pattern>
+
+	<!-- XXのこと -->
+	<pattern facet="pattern.wiktionary" value="{2.lex}">
+		<w id="1" lex="こと">
+			<w id="2">
+				<w lex="の" />
+			</w>
+		</w>
+	</pattern>
+
+	<!-- 数値 -->
+	<pattern facet="pattern.wiktionary" value="{2.lex}{3.lex}">
+		<w id="1">
+			<w id="2" upos="NUM" />
+			<w id="3" relation="compound" upos="NOUN" />
+		</w>
+	</pattern>
+
+	<!-- ROOT -->
+	<pattern facet="pattern.wiktionary" value="{0.lex}">
+		<w id="0" lex="/!(もの|つ|事|こと|物|者|人)/" />
+	</pattern>
+
+</patterns>
+

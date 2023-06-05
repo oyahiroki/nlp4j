@@ -15,9 +15,22 @@ import java.nio.charset.StandardCharsets;
 public class IOUtils {
 
 	/**
+	 * Short name of {@link IOUtils#printWriter(String) }
+	 * 
+	 * @param fileName of print writer
+	 * @return
+	 * @throws IOException
+	 * @since 1.3.7.9
+	 */
+	static public PrintWriter pw(String fileName) throws IOException {
+		return printWriter(fileName);
+	}
+
+	/**
 	 * @param fileName
 	 * @return PrintWriter, append=true, charset=UTF-8, autoFlush=true text file
 	 * @throws IOException
+	 * @since 1.3.7.8
 	 */
 	static public PrintWriter printWriter(String fileName) throws IOException {
 		Charset charset = StandardCharsets.UTF_8;

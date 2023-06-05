@@ -28,6 +28,11 @@ public abstract class AbstractKeyword implements Keyword {
 	protected long count = COUNT_INIT;
 
 	/**
+	 * count
+	 */
+	protected long count2 = COUNT_INIT;
+
+	/**
 	 * end
 	 */
 	protected int end = END_INIT;
@@ -113,6 +118,11 @@ public abstract class AbstractKeyword implements Keyword {
 	@Override
 	public long getCount() {
 		return this.count;
+	}
+
+	@Override
+	public long getCount2() {
+		return this.count2;
 	}
 
 	@Override
@@ -211,6 +221,11 @@ public abstract class AbstractKeyword implements Keyword {
 	@Override
 	public void setCount(long count) {
 		this.count = count;
+	}
+
+	@Override
+	public void setCount2(long count2) {
+		this.count2 = count2;
 	}
 
 	@Override
