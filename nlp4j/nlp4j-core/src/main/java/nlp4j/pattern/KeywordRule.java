@@ -14,6 +14,37 @@ import nlp4j.impl.DefaultKeywordWithDependency;
  */
 public class KeywordRule extends DefaultKeywordWithDependency {
 
+	static private String getAsRegex(String s) {
+		return (s != null && s.length() > 2) ? s.substring(1, s.length() - 1) : null;
+	}
+
+	static private boolean isRegex(String s) {
+		return (s != null) && s.startsWith("/") && s.endsWith("/") && (s.length() > 2);
+	}
+
+	static private boolean notMatch(String s1, String s2) {
+
+		if (s1 != null) {
+			if (s2 == null) {
+				return false;
+			} //
+			else {
+				if (isRegex(s1)) {
+					String ruleRegex = getAsRegex(s1);
+					if (s2.matches(ruleRegex) == false) {
+						return false;
+					}
+				} //
+				else {
+					if (s2.equals(s1) == false) {
+						return false;
+					}
+				}
+			}
+		}
+		return true;
+	}
+
 	private String id;
 
 	private String lang;
@@ -228,37 +259,6 @@ public class KeywordRule extends DefaultKeywordWithDependency {
 		}
 
 		return true;
-	}
-
-	static private boolean notMatch(String s1, String s2) {
-
-		if (s1 != null) {
-			if (s2 == null) {
-				return false;
-			} //
-			else {
-				if (isRegex(s1)) {
-					String ruleRegex = getAsRegex(s1);
-					if (s2.matches(ruleRegex) == false) {
-						return false;
-					}
-				} //
-				else {
-					if (s2.equals(s1) == false) {
-						return false;
-					}
-				}
-			}
-		}
-		return true;
-	}
-
-	static private String getAsRegex(String s) {
-		return (s != null && s.length() > 2) ? s.substring(1, s.length() - 1) : null;
-	}
-
-	static private boolean isRegex(String s) {
-		return (s != null) && s.startsWith("/") && s.endsWith("/") && (s.length() > 2);
 	}
 
 	public void setHitKeywordNull() {

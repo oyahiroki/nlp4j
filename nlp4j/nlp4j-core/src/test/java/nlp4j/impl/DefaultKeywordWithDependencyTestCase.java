@@ -21,6 +21,36 @@ public class DefaultKeywordWithDependencyTestCase extends NLP4JTestCase {
 		target = DefaultKeywordWithDependency.class;
 	}
 
+	public void test001() throws Exception {
+		DefaultKeywordWithDependency kwd1 = new DefaultKeywordWithDependency();
+		{
+			kwd1.setLex("a");
+		}
+		DefaultKeywordWithDependency kwd2 = new DefaultKeywordWithDependency();
+		{
+			kwd2.setLex("b");
+			kwd1.addChild(kwd2);
+		}
+		DefaultKeywordWithDependency kwd3 = new DefaultKeywordWithDependency();
+		{
+			kwd3.setLex("c");
+			kwd1.addChild(kwd3);
+		}
+		DefaultKeywordWithDependency kwd4 = new DefaultKeywordWithDependency();
+		{
+			kwd4.setLex("d");
+			kwd3.addChild(kwd4);
+		}
+		DefaultKeywordWithDependency kwd5 = new DefaultKeywordWithDependency();
+		{
+			kwd5.setLex("e");
+			kwd3.addChild(kwd5);
+		}
+
+		System.err.println(kwd1.toStringAsXml());
+
+	}
+
 	public void testEqualsObject001() {
 		description = "Test for equals()";
 		Keyword kwd = new DefaultKeywordWithDependency();

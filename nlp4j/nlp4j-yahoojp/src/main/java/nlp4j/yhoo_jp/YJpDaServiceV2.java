@@ -20,11 +20,11 @@ import nlp4j.NlpServiceResponse;
 import nlp4j.http.HttpClient5;
 
 /**
- * Yahoo! Japan dependency analysis 日本語係り受け解析 <br>
+ * Yahoo! Japan dependency analysis 日本語係り受け解析 V2<br>
  * NLP Service of Yahoo! Japan dependency analysis.
  * 
  * <pre>
- * https://developer.yahoo.co.jp/webapi/jlp/da/v1/parse.html
+ * https://developer.yahoo.co.jp/webapi/jlp/da/v2/parse.html
  * </pre>
  * 
  * 

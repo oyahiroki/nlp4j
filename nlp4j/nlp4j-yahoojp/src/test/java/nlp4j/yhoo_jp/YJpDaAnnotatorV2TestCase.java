@@ -88,6 +88,43 @@ public class YJpDaAnnotatorV2TestCase extends TestCase {
 
 	}
 
+	public void testAnnotateDocument002b() throws Exception {
+		// 自然文のテキスト
+		String text = "私は走って学校に行きます。";
+		// 係り受け解析
+		YJpDaServiceV2 service = new YJpDaServiceV2();
+		// 係り受け解析の結果を取得する
+		NlpServiceResponse res = service.process(text);
+		for (Keyword kwd : res.getKeywords()) {
+			System.err.println(((KeywordWithDependency) kwd).toStringAsXml());
+		}
+	}
+
+	public void testAnnotateDocument002c() throws Exception {
+		// 自然文のテキスト
+		String text = "明日は必ずいい天気になります。";
+		// 係り受け解析
+		YJpDaServiceV2 service = new YJpDaServiceV2();
+		// 係り受け解析の結果を取得する
+		NlpServiceResponse res = service.process(text);
+		for (Keyword kwd : res.getKeywords()) {
+			System.err.println(((KeywordWithDependency) kwd).toStringAsXml());
+		}
+	}
+
+	//
+	public void testAnnotateDocument002d() throws Exception {
+		// 自然文のテキスト
+		String text = "うちの庭には二羽鶏がいます"; // 公式の例
+		// 係り受け解析
+		YJpDaServiceV2 service = new YJpDaServiceV2();
+		// 係り受け解析の結果を取得する
+		NlpServiceResponse res = service.process(text);
+		for (Keyword kwd : res.getKeywords()) {
+			System.err.println(((KeywordWithDependency) kwd).toStringAsXml());
+		}
+	}
+
 	public void testAnnotateDocument003() {
 		try {
 

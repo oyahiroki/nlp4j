@@ -97,6 +97,12 @@ public interface Keyword extends Serializable, Cloneable {
 	public boolean getFlag();
 
 	/**
+	 * @return ID of this keyword
+	 * @since 1.3.7.9
+	 */
+	public String getId();
+
+	/**
 	 * キーワードの正規形を返します。正規形は見出し語とも呼ばれます。<br>
 	 * Return normalized string.
 	 * 
@@ -232,6 +238,12 @@ public interface Keyword extends Serializable, Cloneable {
 	 * @since 1.3
 	 */
 	public void setFlag(boolean b);
+
+	/**
+	 * @param id of this keyword
+	 * @since 1.3.7.9
+	 */
+	public void setId(String id);
 
 	/**
 	 * キーワードの正規形をセットします。正規形は見出し語とも呼ばれます。<br>

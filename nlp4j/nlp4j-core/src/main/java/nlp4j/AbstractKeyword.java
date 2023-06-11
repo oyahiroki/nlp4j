@@ -12,6 +12,8 @@ public abstract class AbstractKeyword implements Keyword {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	private String id = null;
+
 	/**
 	 * begin
 	 */
@@ -36,10 +38,12 @@ public abstract class AbstractKeyword implements Keyword {
 	 * end
 	 */
 	protected int end = END_INIT;
+
 	/**
 	 * facet
 	 */
 	protected String facet;
+
 	/**
 	 * hitKeyword
 	 */
@@ -76,7 +80,6 @@ public abstract class AbstractKeyword implements Keyword {
 	 * upos: Universal Part of Speech
 	 */
 	protected String upos;
-
 	/**
 	 * TRUE: (facet is same) and (lex is same)
 	 */
@@ -104,7 +107,6 @@ public abstract class AbstractKeyword implements Keyword {
 			return super.equals(obj);
 		}
 	}
-
 	@Override
 	public int getBegin() {
 		return begin;
@@ -133,6 +135,10 @@ public abstract class AbstractKeyword implements Keyword {
 	@Override
 	public String getFacet() {
 		return facet;
+	}
+
+	public String getId() {
+		return id;
 	}
 
 	@Override
@@ -231,6 +237,10 @@ public abstract class AbstractKeyword implements Keyword {
 	@Override
 	public void setEnd(int end) {
 		this.end = end;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	@Override
