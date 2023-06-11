@@ -35,4 +35,8 @@ public class CharacterUtils {
 		return new String(chars);
 	}
 
+	static public boolean isKanji(char c) {
+		return (UnicodeBlock.of(c) == UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS);
+	}
+
 }

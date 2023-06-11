@@ -20,10 +20,11 @@ import nlp4j.NlpService;
 import nlp4j.NlpServiceResponse;
 import nlp4j.http.HttpClient5;
 import nlp4j.impl.DefaultKeyword;
+import nlp4j.util.JsonUtils;
 
 /**
- * Yahoo! Japan dependency analysis 日本語係り受け解析 V2<br>
- * NLP Service of Yahoo! Japan dependency analysis.
+ * Yahoo! Japan が提供する日本語形態素解析を利用するアノテーターです。 <br>
+ * Document annotator for Yahoo! Japan Morphological analysis
  * 
  * <pre>
  * https://developer.yahoo.co.jp/webapi/jlp/ma/v2/parse.html
@@ -43,7 +44,7 @@ public class YJpMaServiceV2 implements NlpService {
 	static final String baseUrl = "https://jlp.yahooapis.jp/MAService/V2/parse";
 
 	/**
-	 * Yahoo! Japan dependency analysis 日本語係り受け解析
+	 * Yahoo! Japan が提供する日本語形態素解析を利用するアノテーター
 	 */
 	public YJpMaServiceV2() {
 
@@ -84,20 +85,22 @@ public class YJpMaServiceV2 implements NlpService {
 		requestHeader.put("User-Agent", "Yahoo AppID: " + appID);
 
 		JsonObject requestBodyJson = new JsonObject();
-		// id (required)
-		requestBodyJson.addProperty("id", "1");
-		// jsonrpc (required)
-		requestBodyJson.addProperty("jsonrpc", "2.0");
-		// method (required)
-		requestBodyJson.addProperty("method", "jlp.daservice.parse");
-		// params (required)
 		{
-			JsonObject params = new JsonObject();
-			params.addProperty("q", text);
-			requestBodyJson.add("params", params);
+			// id (required)
+			requestBodyJson.addProperty("id", "1");
+			// jsonrpc (required)
+			requestBodyJson.addProperty("jsonrpc", "2.0");
+			// method (required)
+			requestBodyJson.addProperty("method", "jlp.daservice.parse");
+			// params (required)
+			{
+				JsonObject params = new JsonObject();
+				params.addProperty("q", text);
+				requestBodyJson.add("params", params);
+			}
+			// params/context (optional)
+			// for user defined dictionary
 		}
-		// params/context (optional)
-		// for user defined dictionary
 
 		try (nlp4j.http.HttpClient client = new HttpClient5();) {
 			// User-Agent: Yahoo AppID: <あなたのアプリケーションID>

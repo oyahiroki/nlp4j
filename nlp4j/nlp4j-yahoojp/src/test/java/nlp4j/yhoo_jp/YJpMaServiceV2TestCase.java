@@ -11,7 +11,13 @@ public class YJpMaServiceV2TestCase extends TestCase {
 		YJpMaServiceV2 yj = new YJpMaServiceV2();
 		NlpServiceResponse res = yj.process(text);
 		for (Keyword kwd : res.getKeywords()) {
-			System.err.println(kwd + ",upos=" + kwd.getUPos());
+			System.err.println( //
+					"begin=" + kwd.getBegin() //
+							+ ", end=" + kwd.getEnd() //
+							+ ", facet=" + kwd.getFacet() //
+							+ ", lex=" + kwd.getLex() //
+							+ ", str=" + kwd.getStr() //
+							+ ",upos=" + kwd.getUPos());
 		}
 	}
 

@@ -10,13 +10,13 @@ import junit.framework.TestCase;
 public class StringUtilsTestCase extends TestCase {
 
 	public void testCharAt001() {
-		String s = "😀😀😀";
+		String s = "😀😀😀"; // EMOJI SMILE
 		String c0 = StringUtils.charAt(s, 0);
-		assertEquals("😀", c0);
+		assertEquals("😀", c0);// EMOJI SMILE
 		String c1 = StringUtils.charAt(s, 1);
-		assertEquals("😀", c1);
+		assertEquals("😀", c1);// EMOJI SMILE
 		String c2 = StringUtils.charAt(s, 2);
-		assertEquals("😀", c2);
+		assertEquals("😀", c2);// EMOJI SMILE
 	}
 
 	public void testFilter() {
@@ -62,26 +62,44 @@ public class StringUtilsTestCase extends TestCase {
 	}
 
 	/**
-	 * ひらがな → カタカナ
+	 * 漢字判定
 	 */
-	public void testToJaKatakanaFromHiragana001() {
-		String s1 = "あいうえおABC";
-		String s2 = StringUtils.toJaKatakanaFromHiragana(s1);
-		String expected = "アイウエオABC";
-		assertEquals(expected, s2);
+	public void testIsKanji001() {
+		String s = "漢字"; // KANJI ONLY
+		boolean b = StringUtils.isKanji(s);
+		boolean expected = true;
+		assertEquals(expected, b);
 	}
 
 	/**
-	 * カタカナ → ひらがな
+	 * 漢字判定
 	 */
-	public void testToJaHiraganaFromKatakana001() {
-		String s1 = "アイウエオABC";
-		String s2 = StringUtils.toJaHiraganaFromKatakana(s1);
-		String expected = "あいうえおABC";
-		assertEquals(expected, s2);
+	public void testIsKanji002() {
+		String s = "漢字とひらがな"; // KANJI-HIRAGANA
+		boolean b = StringUtils.isKanji(s);
+		boolean expected = false;
+		assertEquals(expected, b);
 	}
 
-	// 0.00004707386081488301
+	/**
+	 * 漢字判定
+	 */
+	public void testIsKanji003() {
+		String s = "漢字ABC"; // KANJI-ALPHABET
+		boolean b = StringUtils.isKanji(s);
+		boolean expected = false;
+		assertEquals(expected, b);
+	}
+
+	/**
+	 * 漢字判定
+	 */
+	public void testIsKanji004() {
+		String s = "한글"; // HAN-GUL
+		boolean b = StringUtils.isKanji(s);
+		boolean expected = false;
+		assertEquals(expected, b);
+	}
 
 	public void testLength001() {
 		String s = "ABC";
@@ -94,6 +112,8 @@ public class StringUtilsTestCase extends TestCase {
 		int len = StringUtils.length(s);
 		assertEquals(3, len);
 	}
+
+	// 0.00004707386081488301
 
 	public void testLength003() {
 		String s = "𩸽𩸽𩸽";
@@ -198,6 +218,26 @@ public class StringUtilsTestCase extends TestCase {
 		String s2 = StringUtils.toHexUnicode(s);
 		System.err.println(s2);
 		assertEquals("\\ud842\\udfb7\\u7530", s2);
+	}
+
+	/**
+	 * カタカナ → ひらがな
+	 */
+	public void testToJaHiraganaFromKatakana001() {
+		String s1 = "アイウエオABC";
+		String s2 = StringUtils.toJaHiraganaFromKatakana(s1);
+		String expected = "あいうえおABC";
+		assertEquals(expected, s2);
+	}
+
+	/**
+	 * ひらがな → カタカナ
+	 */
+	public void testToJaKatakanaFromHiragana001() {
+		String s1 = "あいうえおABC";
+		String s2 = StringUtils.toJaKatakanaFromHiragana(s1);
+		String expected = "アイウエオABC";
+		assertEquals(expected, s2);
 	}
 
 	public void testToStringDouble001() {

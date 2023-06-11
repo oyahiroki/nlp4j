@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 import java.util.List;
@@ -20,6 +21,18 @@ public class TextFileUtils {
 	 */
 	static public BufferedReader openPlainTextFileAsBufferedReader(File plainTextFile) throws IOException {
 		return new BufferedReader(new InputStreamReader(new FileInputStream(plainTextFile), StandardCharsets.UTF_8));
+	}
+
+	/**
+	 * @param plainTextFile Plain Text File (*.txt)
+	 * @param encoding      encoding of text file
+	 * @return BufferedReader
+	 * @return
+	 * @throws IOException on IO Error
+	 */
+	static public BufferedReader openPlainTextFileAsBufferedReader(File plainTextFile, String encoding)
+			throws IOException {
+		return new BufferedReader(new InputStreamReader(new FileInputStream(plainTextFile), Charset.forName(encoding)));
 	}
 
 	static public void sortLinesByValue(File inFile, File outFile) throws IOException {

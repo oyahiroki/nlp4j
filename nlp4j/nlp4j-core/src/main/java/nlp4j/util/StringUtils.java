@@ -1,5 +1,6 @@
 package nlp4j.util;
 
+import java.lang.Character.UnicodeBlock;
 import java.math.BigDecimal;
 import java.nio.charset.Charset;
 import java.nio.charset.CharsetEncoder;
@@ -215,6 +216,22 @@ public class StringUtils {
 	 */
 	static public String toString(double d) {
 		return BigDecimal.valueOf(d).toPlainString();
+	}
+
+	/**
+	 * Check all of charcters are in Kanji
+	 * 
+	 * @param s
+	 * @return
+	 */
+	static public boolean isKanji(String s) {
+		for (int n = 0; n < s.length(); n++) {
+			char c = s.charAt(n);
+			if (UnicodeBlock.of(c) != UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 }
