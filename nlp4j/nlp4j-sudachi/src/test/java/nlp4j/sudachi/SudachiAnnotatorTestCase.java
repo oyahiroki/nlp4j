@@ -10,6 +10,7 @@ public class SudachiAnnotatorTestCase extends TestCase {
 
 	public void testAnnotateDocument001() throws Exception {
 		SudachiAnnotator ann = new SudachiAnnotator();
+		ann.setProperty("systemDict", "system_full.dic");
 		ann.setProperty("target", "text");
 		try (KeywordParser parser = new KeywordParser(ann);) {
 			List<Keyword> kwds = parser.parse("今日はいい天気です。走って学校に行きました。");
@@ -34,6 +35,7 @@ public class SudachiAnnotatorTestCase extends TestCase {
 
 	public void testAnnotateDocument003() throws Exception {
 		SudachiAnnotator ann = new SudachiAnnotator();
+		ann.setProperty("systemDict", "/usr/local/sudachi/system_full.dic");
 		ann.setProperty("target", "text");
 		try (KeywordParser parser = new KeywordParser(ann);) {
 			List<Keyword> kwds = parser.parse("日本アイ・ビー・エム株式会社。機動戦士ガンダム。");

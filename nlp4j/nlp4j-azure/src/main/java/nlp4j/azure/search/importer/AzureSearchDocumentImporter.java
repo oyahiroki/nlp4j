@@ -49,7 +49,7 @@ public class AzureSearchDocumentImporter extends AbstractDocumentImporter implem
 				{ // Convert ID to String
 					Object idObj = requestDoc.get("id");
 					if (idObj != null && (idObj instanceof String) == false) {
-						requestDoc.addProperty("id", idObj.toString());
+						requestDoc.addProperty("id", idObj.toString().replace("\"", ""));
 					}
 				}
 
