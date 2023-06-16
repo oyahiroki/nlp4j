@@ -51,6 +51,9 @@ public abstract class AbstractDocumentImporter implements DocumentImporter {
 		}
 	}
 
+	/**
+	 * supported parameter: "debug"
+	 */
 	@Override
 	public void setProperty(String key, String value) {
 		if (value == null) {
@@ -68,8 +71,10 @@ public abstract class AbstractDocumentImporter implements DocumentImporter {
 	 * @param doc target Document to print debug
 	 */
 	public void debugPrint(Document doc) {
-		System.err.println("debug ...");
+		logger.info("debug");
+		System.err.println("<debug>");
 		System.err.println(JsonUtils.prettyPrint(DocumentUtil.toJsonObject(doc)));
+		System.err.println("</debug>");
 	}
 
 }

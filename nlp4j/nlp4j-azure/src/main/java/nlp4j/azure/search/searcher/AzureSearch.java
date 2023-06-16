@@ -5,6 +5,8 @@ import java.lang.invoke.MethodHandles;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -28,6 +30,8 @@ public class AzureSearch extends AbstractDocumentSearcher implements DocumentSea
 
 	static private Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
+	DecimalFormat df = new DecimalFormat("#.####");
+
 	/**
 	 * @param requestObj リクエストオブジェクト
 	 * @return response from Azure Search
@@ -43,7 +47,7 @@ public class AzureSearch extends AbstractDocumentSearcher implements DocumentSea
 	}
 
 	/**
-	 * @param json リクエストJSOｎ
+	 * @param json リクエストJSON
 	 * @return response from Azure Search
 	 * @throws IOException 例外発生時
 	 */
@@ -56,44 +60,6 @@ public class AzureSearch extends AbstractDocumentSearcher implements DocumentSea
 			throw new IOException(e);
 		}
 	}
-
-	public JsonObject searchDeviation(String json1date, String json2facet) throws IOException {
-		Gson gson = new Gson();
-		try {
-			JsonObject json1 = gson.fromJson(json1date, JsonObject.class);
-			JsonObject json2 = gson.fromJson(json2facet, JsonObject.class);
-			return searchDeviation(json1, json2);
-		} catch (JsonSyntaxException e) {
-			throw new IOException(e);
-		}
-	}
-
-	/**
-	 * @param json1date '@@view':'deviations'
-	 * @return deviations view
-	 * @throws IOException on Error
-	 */
-	public JsonObject searchDeviation(String json1date) throws IOException {
-		Gson gson = new Gson();
-		try {
-			JsonObject json1 = gson.fromJson(json1date, JsonObject.class);
-
-			if (json1.get("@@view") == null || json1.get("@@view").getAsString().equals("deviations") == false) {
-				throw new IOException("invalid parameters");
-			}
-
-			JsonObject json2 = gson.fromJson(json1date, JsonObject.class);
-
-			json1.remove("@@view");
-			json2.remove("@@view");
-
-			return searchDeviation(json1, json2);
-		} catch (JsonSyntaxException e) {
-			throw new IOException(e);
-		}
-	}
-
-	DecimalFormat df = new DecimalFormat("#.####");
 
 	public JsonObject searchDeviation(JsonObject jsonObj1, JsonObject jsonObj2) throws IOException {
 
@@ -259,6 +225,138 @@ public class AzureSearch extends AbstractDocumentSearcher implements DocumentSea
 		}
 
 		return res;
+	}
+
+	/**
+	 * @param json1date '@@view':'deviations'
+	 * @return deviations view
+	 * @throws IOException on Error
+	 */
+	public JsonObject searchDeviation(String json1date) throws IOException {
+		Gson gson = new Gson();
+		try {
+			JsonObject json1 = gson.fromJson(json1date, JsonObject.class);
+
+			if (json1.get("@@view") == null || json1.get("@@view").getAsString().equals("deviations") == false) {
+				throw new IOException("invalid parameters");
+			}
+
+			JsonObject json2 = gson.fromJson(json1date, JsonObject.class);
+
+			json1.remove("@@view");
+			json2.remove("@@view");
+
+			return searchDeviation(json1, json2);
+		} catch (JsonSyntaxException e) {
+			throw new IOException(e);
+		}
+	}
+
+	public JsonObject searchDeviation(String json1date, String json2facet) throws IOException {
+		Gson gson = new Gson();
+		try {
+			JsonObject json1 = gson.fromJson(json1date, JsonObject.class);
+			JsonObject json2 = gson.fromJson(json2facet, JsonObject.class);
+			return searchDeviation(json1, json2);
+		} catch (JsonSyntaxException e) {
+			throw new IOException(e);
+		}
+	}
+
+	public JsonObject searchFacet(String q, String facet) throws IOException {
+
+		// 全文書数
+		int count_of_documents_all = -1;
+		// クエリー時の文書数
+		int count_of_documents_query = -1;
+
+		// 全件でのキーワード数
+		Map<String, Integer> countAll = new HashMap<>();
+
+		Map<String, Integer> countMap = new HashMap<>();
+
+		{ // query all 全件検索
+			String json = "{" //
+					+ "'count':true, " //
+					+ "'search':'*', " //
+					+ "'facets':['" + facet + ",count:1000'], " //
+					+ "'top':0 " //
+					+ "}";
+			JsonObject requestObj = (new Gson()).fromJson(json, JsonObject.class);
+			JsonObject res = this.search(requestObj);
+//			System.out.println(JsonUtils.prettyPrint(res));
+			{
+				count_of_documents_all = res.get("@odata.count").getAsInt();
+			}
+			JsonArray facetCount = res.get("@search.facets").getAsJsonObject().get(facet).getAsJsonArray();
+			for (int n = 0; n < facetCount.size(); n++) {
+				int count = facetCount.get(n).getAsJsonObject().get("count").getAsInt();
+				String value = facetCount.get(n).getAsJsonObject().get("value").getAsString();
+				countAll.put(value, count);
+			}
+		}
+
+		Map<String, Double> keywords_query = new HashMap<>();
+
+		{ // query facet
+			String json = "{'count':true, 'search':'" + q + "', 'facets':['" + facet + ",count:200'], 'top':0 }";
+			JsonObject requestObj = (new Gson()).fromJson(json, JsonObject.class);
+			JsonObject res = this.search(requestObj);
+//			System.out.println(JsonUtils.prettyPrint(res));
+			{
+				count_of_documents_query = res.get("@odata.count").getAsInt();
+			}
+			JsonArray facet_count_keywords = res.get("@search.facets").getAsJsonObject().get(facet).getAsJsonArray();
+			for (int n = 0; n < facet_count_keywords.size(); n++) {
+
+				JsonObject facet_count_kwd = facet_count_keywords.get(n).getAsJsonObject();
+
+				int kw_count_q = facet_count_kwd.get("count").getAsInt();
+				String kw_value = facet_count_kwd.get("value").getAsString();
+
+				countMap.put(kw_value, kw_count_q);
+
+				int kw_count_all = (countAll.get(kw_value) != null) ? countAll.get(kw_value) : 1;
+
+				double d1 = (double) kw_count_q;
+				double d2 = (double) kw_count_all;
+				double d3 = (double) count_of_documents_query;
+				double d4 = (double) count_of_documents_all;
+				double w = Math.floor((d1 / d2) / (d3 / d4) * 1000) / 1000;
+
+//				System.out.println("" + kw_value + ", " + kw_count_all + " -> " + kw_count_q + " " + w);
+
+				keywords_query.put(kw_value, w);
+
+			}
+		}
+		List<Map.Entry<String, Double>> ww = new ArrayList<>(keywords_query.entrySet());
+
+//		ww.sort(Map.Entry.<String, Double>comparingByValue().reversed());
+		ww.sort(Map.Entry.<String, Double>comparingByValue());
+
+		JsonArray arr = new JsonArray();
+
+		for (Map.Entry<String, Double> ee : ww) {
+			System.err.println("" + ee.getKey() + "," + ee.getValue());
+			JsonObject o = new JsonObject();
+			o.addProperty("value", ee.getKey());
+			o.addProperty("count", countMap.get(ee.getKey()));
+			o.addProperty("weight", ee.getValue());
+			arr.add(o);
+		}
+
+//		System.out.println(arr);
+		for (int n = 0; n < arr.size(); n++) {
+			System.out.println(arr.get(n).getAsJsonObject());
+		}
+
+//		System.err.println("count(*)" + count_of_documents_all);
+//		System.err.println("count(q)" + count_of_documents_query);
+//		System.err.println(countAll.size());
+
+		return null;
+
 	}
 
 }

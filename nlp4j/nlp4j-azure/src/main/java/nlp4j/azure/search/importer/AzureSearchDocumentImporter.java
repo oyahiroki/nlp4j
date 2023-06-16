@@ -33,10 +33,10 @@ public class AzureSearchDocumentImporter extends AbstractDocumentImporter implem
 	@Override
 	public void importDocument(Document doc) throws IOException {
 
-//		if (super.debug == true) {
-//			super.debugPrint(doc);
-//			return;
-//		}
+		if (super.debug == true) {
+			super.debugPrint(doc);
+			return;
+		}
 
 		AzureSearchClient az = new AzureSearchClient(super.props);
 
