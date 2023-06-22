@@ -252,8 +252,9 @@ public class DefaultKeyword extends AbstractKeyword implements Keyword, Cloneabl
 	 */
 	public String toStringDetail() {
 		return this.lex + " [" //
-				+ "sequence=" + sequence //
-				+ ", " + "facet=" + facet //
+				+ ((sequence != -1) ? (", sequence=" + sequence) : "") //
+				+ ((facet != null) ? (", facet=" + facet) : "") //
+				+ ((upos != null) ? (", upos=" + upos) : "") //
 				+ ", " + "upos=" + upos //
 				+ ", " + "lex=" + lex //
 				+ ", " + "str=" + str //

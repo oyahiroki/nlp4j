@@ -80,6 +80,7 @@ public abstract class AbstractKeyword implements Keyword {
 	 * upos: Universal Part of Speech
 	 */
 	protected String upos;
+
 	/**
 	 * TRUE: (facet is same) and (lex is same)
 	 */
@@ -107,6 +108,7 @@ public abstract class AbstractKeyword implements Keyword {
 			return super.equals(obj);
 		}
 	}
+
 	@Override
 	public int getBegin() {
 		return begin;
@@ -282,18 +284,16 @@ public abstract class AbstractKeyword implements Keyword {
 
 	@Override
 	public String toString() {
+
+		StringBuilder sb = new StringBuilder();
+		sb.append(((facet != null) ? ("facet='" + facet + "'") : ""));
+
 		return //
-		this.lex //
-				+ " [" //
-//				+ "sequence=" + sequence //
-				+ "facet=" + facet //
-				+ ", lex=" + lex //
-				+ ", str=" + str //
-//				+ ", reading="+ reading  //
-//				+ ", count=" + count  //
-//				+ ", begin=" + begin  //
-//				+ ", end=" + end  //
-//				+ ", correlation=" + correlation //
+		"[" //
+				+ ((facet != null) ? ("facet=" + facet + " ") : "") //
+				+ ((upos != null) ? ("upos=" + upos + " ") : "") //
+				+ ((lex != null) ? ("lex=" + lex + " ") : "") //
+				+ ((str != null) ? ("str=" + str + " ") : "") //
 				+ "]";
 	}
 }

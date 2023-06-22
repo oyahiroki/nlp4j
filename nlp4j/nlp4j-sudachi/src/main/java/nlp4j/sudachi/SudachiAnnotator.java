@@ -20,7 +20,10 @@ import nlp4j.Keyword;
 import nlp4j.KeywordBuilder;
 
 /**
+ * <pre>
  * Sudachi Annotator
+ * https://github.com/WorksApplications/Sudachi#sudachi-%E6%97%A5%E6%9C%AC%E8%AA%9Ereadme
+ * </pre>
  * 
  * @author Hiroki Oya
  * @since 0.1.0.0
@@ -30,7 +33,7 @@ public class SudachiAnnotator extends AbstractDocumentAnnotator implements Docum
 
 	static private final Logger logger = LogManager.getLogger(SudachiAnnotator.class);
 
-	final private Tokenizer.SplitMode mode = Tokenizer.SplitMode.C;
+	private Tokenizer.SplitMode mode = Tokenizer.SplitMode.C;
 
 	private Tokenizer tokenizer = null;
 
@@ -47,6 +50,9 @@ public class SudachiAnnotator extends AbstractDocumentAnnotator implements Docum
 	 * <pre>
 	 * systemDict=system_core.dic
 	 * systemDict=system_full.dic
+	 * mode=A
+	 * mode=B
+	 * mode=C
 	 * </pre>
 	 * 
 	 * @param key : systemDict
@@ -56,9 +62,23 @@ public class SudachiAnnotator extends AbstractDocumentAnnotator implements Docum
 		super.setProperty(key, value);
 		if ("systemDict".equals(key)) {
 			initTokenizer(value);
-		} else if ("pos".equals(key)) {
+		} //
+		else if ("pos".equals(key)) {
 			this.posRegex = value;
+		} //
+		else if ("mode".equals(key)) {
+			if ("A".equals(value)) {
+				this.mode = Tokenizer.SplitMode.A; // short
+			} //
+			else if ("B".equals(value)) {
+				this.mode = Tokenizer.SplitMode.B; // middle
+			} //
+			else if ("C".equals(value)) {
+				this.mode = Tokenizer.SplitMode.C; // long
+			}
+
 		}
+
 	}
 
 	private void initTokenizer(String systemDict) {

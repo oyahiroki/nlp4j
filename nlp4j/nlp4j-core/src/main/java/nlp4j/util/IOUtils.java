@@ -33,13 +33,41 @@ public class IOUtils {
 	 * @since 1.3.7.8
 	 */
 	static public PrintWriter printWriter(String fileName) throws IOException {
-		Charset charset = StandardCharsets.UTF_8;
+		File file = new File(fileName);
 		boolean append = true;
+		Charset charset = StandardCharsets.UTF_8;
 		boolean autoflush = true;
+		return printWriter(file, append, charset, autoflush);
+	}
+
+	/**
+	 * @param file
+	 * @return
+	 * @throws IOException
+	 * @since 1.3.7.9
+	 */
+	static public PrintWriter printWriter(File file) throws IOException {
+		boolean append = true;
+		Charset charset = StandardCharsets.UTF_8;
+		boolean autoflush = true;
+		return printWriter(file, append, charset, autoflush);
+	}
+
+	/**
+	 * @param file
+	 * @param append
+	 * @param charset
+	 * @param autoflush
+	 * @return
+	 * @throws IOException
+	 * @since 1.3.7.9
+	 */
+	static public PrintWriter printWriter(File file, boolean append, Charset charset, boolean autoflush)
+			throws IOException {
 		return new PrintWriter( //
 				new OutputStreamWriter( //
 						new FileOutputStream( //
-								new File(fileName), append),
+								file, append),
 						charset), //
 				autoflush); //
 	}
