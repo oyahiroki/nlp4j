@@ -3,7 +3,11 @@ package nlp4j.wiki.client;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+
 import junit.framework.TestCase;
+import nlp4j.util.JsonUtils;
 
 public class MediaWikiClientTestCase extends TestCase {
 
@@ -113,6 +117,25 @@ public class MediaWikiClientTestCase extends TestCase {
 //		}
 	}
 
+	public void testMediaWikiClient110() throws Exception {
+		String host = "ja.wiktionary.org";
+		String q = "学校";
+
+		MediaWikiClient client = new MediaWikiClient(host);
+		client.setFetchSubCategory(true);
+
+		JsonObject res = client.search(q);
+
+		System.err.println(JsonUtils.prettyPrint(res));
+
+		JsonArray results = res.get("query").getAsJsonObject().get("search").getAsJsonArray();
+		for (int n = 0; n < results.size(); n++) {
+			System.err.println(results.get(n).getAsJsonObject().get("title").getAsString());
+			System.err.println(results.get(n).getAsJsonObject().get("snippet").getAsString());
+		}
+
+	}
+
 	public void testExpandTemplates001() throws Exception {
 		String host = "ja.wikipedia.org";
 		MediaWikiClient client = new MediaWikiClient(host);
@@ -121,10 +144,10 @@ public class MediaWikiClientTestCase extends TestCase {
 	}
 
 	public void testExpandTemplates002() throws Exception {
-		
+
 		// Template:大学
 		// https://ja.wikipedia.org/w/index.php?title=Template:%E5%A4%A7%E5%AD%A6&action=edit
-		
+
 		String host = "ja.wikipedia.org";
 		MediaWikiClient client = new MediaWikiClient(host);
 		String wikiText = "{{日本の大学\r\n" //

@@ -14,7 +14,9 @@ import java.util.List;
  * @since 1.3.2
  */
 public class Counter<T> {
+	int countAll = 0;
 	HashMap<T, Integer> objCounter;
+	private String description;
 
 	/**
 	 * Constructor
@@ -23,10 +25,16 @@ public class Counter<T> {
 		this.objCounter = new HashMap<T, Integer>();
 	}
 
+	public Counter(String description) {
+		this.objCounter = new HashMap<T, Integer>();
+		this.description = description;
+	}
+
 	/**
 	 * @param obj to be counted
 	 */
 	public void add(T obj) {
+		countAll++;
 		Integer count = objCounter.get(obj);
 		// IF(COUNT != NULL) THEN
 		if (count != null) {
@@ -38,15 +46,13 @@ public class Counter<T> {
 		}
 	}
 
-	public void increment(T obj) {
-		add(obj);
-	}
-
 	public void decrement(T obj) {
+
 		Integer count = objCounter.get(obj);
 		// IF(COUNT != NULL) THEN
 		if (count != null && count > 1) {
 			objCounter.put(obj, count - 1);
+			countAll--;
 		}
 		// ELSE
 		else {
@@ -71,6 +77,64 @@ public class Counter<T> {
 	}
 
 	/**
+	 * Sort by value
+	 * 
+	 * @return
+	 */
+	public List<Count<T>> getCountList() {
+		List<T> objList = getObjectList();
+		ArrayList<Count<T>> counts = new ArrayList<Count<T>>();
+		for (T o : objList) {
+			counts.add(new Count<T>(o, getCount(o)));
+		}
+		return counts;
+	}
+
+	/**
+	 * Sort by count 降順(DESC)
+	 * 
+	 * @return
+	 */
+	public List<Count<T>> getCountListSorted() {
+		List<T> objList = getObjectList();
+		Collections.sort(objList, new Comparator<T>() {
+			@Override
+			public int compare(T o1, T o2) {
+				return getCount(o2) - getCount(o1);
+			}
+		});
+		ArrayList<Count<T>> counts = new ArrayList<Count<T>>();
+		for (T o : objList) {
+			counts.add(new Count<T>(o, getCount(o)));
+		}
+		return counts;
+	}
+
+	/**
+	 * Sort by count 昇順(ASC)
+	 * 
+	 * @return
+	 */
+	public List<Count<T>> getCountListSortedAsc() {
+		List<T> objList = getObjectList();
+		Collections.sort(objList, new Comparator<T>() {
+			@Override
+			public int compare(T o1, T o2) {
+				return (getCount(o2) - getCount(o1)) * (-1);
+			}
+		});
+		ArrayList<Count<T>> counts = new ArrayList<Count<T>>();
+		for (T o : objList) {
+			counts.add(new Count<T>(o, getCount(o)));
+		}
+		return counts;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	/**
 	 * @return Object as List
 	 */
 	public List<T> getObjectList() {
@@ -91,57 +155,27 @@ public class Counter<T> {
 		return objList;
 	}
 
-	/**
-	 * Sort by count
-	 * 
-	 * @return
-	 */
-	public List<Count<T>> getCountListSorted() {
-		List<T> objList = getObjectList();
-		Collections.sort(objList, new Comparator<T>() {
-			@Override
-			public int compare(T o1, T o2) {
-				return getCount(o2) - getCount(o1);
-			}
-		});
-		ArrayList<Count<T>> counts = new ArrayList<Count<T>>();
-		for (T o : objList) {
-			counts.add(new Count<T>(o, getCount(o)));
-		}
-		return counts;
+	public void increment(T obj) {
+		add(obj);
 	}
 
 	/**
-	 * Sort by count
+	 * created on : 2023-06-25
 	 * 
-	 * @return
+	 * @since 1.3.7.9
 	 */
-	public List<Count<T>> getCountListSortedAsc() {
-		List<T> objList = getObjectList();
-		Collections.sort(objList, new Comparator<T>() {
-			@Override
-			public int compare(T o1, T o2) {
-				return (getCount(o2) - getCount(o1)) * (-1);
-			}
-		});
-		ArrayList<Count<T>> counts = new ArrayList<Count<T>>();
-		for (T o : objList) {
-			counts.add(new Count<T>(o, getCount(o)));
+	public void print() {
+		if (this.description != null) {
+			System.out.println(this.description);
 		}
-		return counts;
+		List<Count<T>> list = getCountListSorted();
+		for (Count<T> c : list) {
+			System.out.println("value=" + c.getValue() + ",count=" + c.getCount() + ",ratio="
+					+ String.format("%.2f", ((double) c.getCount() / countAll * 100)));
+		}
 	}
 
-	/**
-	 * Sort by value
-	 * 
-	 * @return
-	 */
-	public List<Count<T>> getCountList() {
-		List<T> objList = getObjectList();
-		ArrayList<Count<T>> counts = new ArrayList<Count<T>>();
-		for (T o : objList) {
-			counts.add(new Count<T>(o, getCount(o)));
-		}
-		return counts;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 }

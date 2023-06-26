@@ -21,6 +21,7 @@ import nlp4j.util.JsonUtils;
  * <pre>
  * Media Wiki API Client
  * https://www.mediawiki.org/wiki/API:Tutorial/en
+ * API:チュートリアル
  * https://www.mediawiki.org/wiki/API:Tutorial/ja
  * 
  * created at: 2022-03-03
@@ -302,6 +303,35 @@ public class MediaWikiClient {
 
 		System.out.println(jo.get("expandtemplates").getAsJsonObject().get("wikitext").getAsString());
 
+	}
+
+	/**
+	 * 
+	*/
+	public JsonObject search(String q) throws IOException {
+
+		String url = "https://" + host + "/w/api.php";
+
+		// action: query: query Fetch data from and about MediaWiki.
+		// format: One of the following values: json, jsonfm, none,
+		// php, phpfm, rawfm,
+		// xml, xmlfm
+
+		Map<String, String> params = new LinkedHashMap<>();
+		{
+			params.put("action", "query");
+			params.put("list", "search");
+			params.put("srsearch", q);
+			params.put("format", "json");
+			params.put("utf8", "1");
+		}
+
+		DefaultNlpServiceResponse res = client.get(url, params);
+
+		// content-type
+		JsonObject jo = res.getAsJsonObject();
+
+		return jo;
 	}
 
 }
