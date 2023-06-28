@@ -31,6 +31,8 @@ public interface HttpClient extends Closeable {
 	 */
 	NlpServiceResponse get(String url, Map<String, String> params) throws IOException;
 
+	NlpServiceResponse get(String url, Map<String, String> headers, Map<String, String> params) throws IOException;
+
 	/**
 	 * @return Content length of InputStream
 	 */

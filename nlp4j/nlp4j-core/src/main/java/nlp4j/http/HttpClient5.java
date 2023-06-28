@@ -59,7 +59,14 @@ public class HttpClient5 implements HttpClient {
 	}
 
 	@Override
-	public DefaultNlpServiceResponse get(String url, Map<String, String> params) throws IOException {
+	public NlpServiceResponse get(String url, Map<String, String> params) throws IOException {
+		return get(url, null, params);
+	}
+
+	@Override
+	public NlpServiceResponse get(String url, Map<String, String> headers, Map<String, String> params)
+			throws IOException {
+
 		int code = -1;
 		String body = null;
 
@@ -70,9 +77,11 @@ public class HttpClient5 implements HttpClient {
 			throw new IOException(e1);
 		}
 
-		for (String key : params.keySet()) {
-
-			uriBuilder.addParameter(key, params.get(key));
+		// パラメーター処理
+		if (params != null) {
+			for (String key : params.keySet()) {
+				uriBuilder.addParameter(key, params.get(key));
+			}
 		}
 
 		HttpGet httpGet;
@@ -81,6 +90,15 @@ public class HttpClient5 implements HttpClient {
 		} catch (URISyntaxException e1) {
 			throw new IOException(e1);
 		}
+
+		// ヘッダー処理
+		if (headers != null) {
+			for (String key : headers.keySet()) {
+				String value = headers.get(key);
+				httpGet.addHeader(key, value);
+			}
+		}
+
 		// The underlying HTTP connection is still held by the response object
 		// to allow the response content to be streamed directly from the network
 		// socket.
@@ -103,6 +121,7 @@ public class HttpClient5 implements HttpClient {
 		DefaultNlpServiceResponse res = new DefaultNlpServiceResponse(code, body);
 
 		return res;
+
 	}
 
 	@Override

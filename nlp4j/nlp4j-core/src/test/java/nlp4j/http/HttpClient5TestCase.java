@@ -31,7 +31,7 @@ public class HttpClient5TestCase extends TestCase {
 		params.put("param1", "value1");
 
 		try (HttpClient5 client = new HttpClient5();) {
-			DefaultNlpServiceResponse res = client.get(url, params);
+			NlpServiceResponse res = client.get(url, params);
 			System.err.println(res.getOriginalResponseBody());
 		}
 

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -13,6 +14,15 @@ import com.google.gson.JsonObject;
  * @since 1.3.7.5
  */
 public class JsonObjectUtils {
+
+	/**
+	 * @param json
+	 * @return
+	 * @since 1.3.7.9
+	 */
+	static public JsonObject fromJson(String json) {
+		return (new Gson()).fromJson(json, JsonObject.class);
+	}
 
 	/**
 	 * @param jsonObject Target Object
@@ -29,24 +39,6 @@ public class JsonObjectUtils {
 			return ss;
 		} else {
 			return new ArrayList<>();
-		}
-	}
-
-	/**
-	 * created on 2023-01-19
-	 * 
-	 * @param list
-	 * @return
-	 */
-	static public JsonArray toJsonArray(List<String> list) {
-		if (list == null) {
-			return null;
-		} else {
-			JsonArray arr = new JsonArray();
-			for (String s : list) {
-				arr.add(s);
-			}
-			return arr;
 		}
 	}
 
@@ -92,6 +84,24 @@ public class JsonObjectUtils {
 			arr.set(n, arr2.get(n));
 		}
 
+	}
+
+	/**
+	 * created on 2023-01-19
+	 * 
+	 * @param list
+	 * @return
+	 */
+	static public JsonArray toJsonArray(List<String> list) {
+		if (list == null) {
+			return null;
+		} else {
+			JsonArray arr = new JsonArray();
+			for (String s : list) {
+				arr.add(s);
+			}
+			return arr;
+		}
 	}
 
 }
