@@ -28,7 +28,7 @@ public class IOUtils {
 
 	/**
 	 * @param fileName
-	 * @return PrintWriter, append=true, charset=UTF-8, autoFlush=true text file
+	 * @return PrintWriter (output=file, append=true, charset=UTF-8, autoFlush=true)
 	 * @throws IOException
 	 * @since 1.3.7.8
 	 */
@@ -42,7 +42,7 @@ public class IOUtils {
 
 	/**
 	 * @param file
-	 * @return
+	 * @return PrintWriter (output=file, append=true, autoflush=true, charset=UTF-8)
 	 * @throws IOException
 	 * @since 1.3.7.9
 	 */

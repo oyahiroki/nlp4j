@@ -175,6 +175,23 @@ public class Counter<T> {
 		}
 	}
 
+	/**
+	 * created on : 2023-07-04
+	 * 
+	 * @since 1.3.7.9
+	 */
+	public void printValues(String delimiter) {
+		if (this.description != null) {
+			System.out.println(this.description);
+		}
+		List<T> values = getObjectListSorted();
+		List<String> valuesString = new ArrayList<>(values.size());
+		values.forEach(v -> {
+			valuesString.add(v.toString());
+		});
+		System.out.println(String.join(delimiter, valuesString));
+	}
+
 	public void setDescription(String description) {
 		this.description = description;
 	}

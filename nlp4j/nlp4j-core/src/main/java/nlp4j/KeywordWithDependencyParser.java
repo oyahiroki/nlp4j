@@ -74,7 +74,8 @@ public class KeywordWithDependencyParser {
 	}
 
 	static public List<Keyword> parse(KeywordWithDependency kwdRoot, String... ss) {
-		return parse(kwdRoot, false, ss);
+		boolean reverse = false;
+		return parse(kwdRoot, reverse, ss);
 	}
 
 	/**
@@ -104,9 +105,11 @@ public class KeywordWithDependencyParser {
 				}
 
 				Keyword kwd = new DefaultKeyword();
-				kwd.setLex(lex2);
-				kwd.setFacet(c.getRelation());
-				kwd.setSentenceIndex(c.getSentenceIndex());
+				{
+					kwd.setLex(lex2);
+					kwd.setFacet("pattern." + c.getRelation());
+					kwd.setSentenceIndex(c.getSentenceIndex());
+				}
 				kwds.add(kwd);
 			}
 

@@ -14,16 +14,29 @@ import java.util.ArrayList;
  */
 public class StringUtils {
 
+	private static final String regex_kana = "^([\u3040-\u309F]|[\u30A1-\u30FA])+$";
+	private static final String regex_katakana = "^[ァ-ヶー]*$";
+	private static final String regex_hiragana = "^[\u3040-\u309F]+$";
+
 	static public boolean isJaHiragana(String s) {
-		return s.matches("^[\u3040-\u309F]+$");
+		return s.matches(regex_hiragana);
 	}
 
 	static public boolean isJaKatakana(String s) {
-		return s.matches("^[ァ-ヶー]*$");
+		return s.matches(regex_katakana);
 	}
 
 	static public boolean isJaKana(String s) {
-		return s.matches("^([\u3040-\u309F]|[\u30A1-\u30FA])+$");
+		return s.matches(regex_kana);
+	}
+
+	static public String substringBefore(String s, String str) {
+		int idx = s.indexOf("#");
+		if (idx != -1) {
+			return s.substring(0, idx);
+		} else {
+			return s;
+		}
 	}
 
 	/**

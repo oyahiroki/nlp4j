@@ -15,6 +15,40 @@ import org.apache.commons.io.FileUtils;
 public class TextFileUtils {
 
 	/**
+	 * @param n
+	 * @param textFile
+	 * @throws IOException
+	 * @since 1.3.7.9
+	 */
+	static public void head(int n, File textFile) throws IOException {
+		if (n <= 0) {
+			return;
+		}
+		try (BufferedReader br = nlp4j.util.FileUtils.openTextFileAsBufferedReader(textFile);) {
+			String line;
+			int count = 0;
+			while ((line = br.readLine()) != null) {
+				count++;
+				System.out.println(line);
+				if (count >= n) {
+					return;
+				}
+			}
+		}
+
+	}
+
+	static public int wc_l(File textFile) throws IOException {
+		int count = 0;
+		try (BufferedReader br = nlp4j.util.FileUtils.openTextFileAsBufferedReader(textFile);) {
+			while ((br.readLine()) != null) {
+				count++;
+			}
+		}
+		return count;
+	}
+
+	/**
 	 * @param plainTextFile Plain Text File (*.txt)
 	 * @return BufferedReader
 	 * @throws IOException on IO Error

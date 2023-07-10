@@ -9,15 +9,41 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.io.SequenceInputStream;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.zip.GZIPInputStream;
+
+import org.apache.commons.io.IOUtils;
 
 /**
  * @author Hiroki Oya
  *
  */
 public class FileUtils {
+
+	/**
+	 * @param fromFiles
+	 * @param toFile
+	 * @return the number of bytes copied, or -1 if greater than Integer.MAX_VALUE.
+	 * @throws IOException
+	 * @since 1.3.7.9
+	 */
+	static public int concat(List<File> fromFiles, File toFile) throws IOException {
+		List<FileInputStream> fiss = new ArrayList<>();
+		for (File fromFile : fromFiles) {
+			fiss.add(new FileInputStream(fromFile));
+		}
+		// the number of bytes copied, or -1 if greater than Integer.MAX_VALUE.
+		int number_of_bytes_copied = -1;
+		try (SequenceInputStream sis = new SequenceInputStream(Collections.enumeration(fiss));) {
+			number_of_bytes_copied = IOUtils.copy(sis, new FileOutputStream(toFile));
+			return number_of_bytes_copied;
+		}
+	}
 
 	/**
 	 * Returns line count of a text file

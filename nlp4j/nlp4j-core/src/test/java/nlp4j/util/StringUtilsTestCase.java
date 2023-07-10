@@ -113,8 +113,6 @@ public class StringUtilsTestCase extends TestCase {
 		assertEquals(3, len);
 	}
 
-	// 0.00004707386081488301
-
 	public void testLength003() {
 		String s = "𩸽𩸽𩸽";
 		int len = StringUtils.length(s);
@@ -122,6 +120,22 @@ public class StringUtilsTestCase extends TestCase {
 		assertEquals(3, len);
 		System.err.println("len0=" + len0);
 		assertTrue(len != len0);
+	}
+
+	public void testSubstringBefore001() {
+		String s = "ABC#123";
+		String s2 = StringUtils.substringBefore(s, "#");
+		String expected = "ABC";
+		assertEquals(expected, s2);
+	}
+
+	// 0.00004707386081488301
+
+	public void testSubstringBefore002() {
+		String s = "ABC";
+		String s2 = StringUtils.substringBefore(s, "#");
+		String expected = "ABC";
+		assertEquals(expected, s2);
 	}
 
 	public void testSubstringStringIntInt001() {

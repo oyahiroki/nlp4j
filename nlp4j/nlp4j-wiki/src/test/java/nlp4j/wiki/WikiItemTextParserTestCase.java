@@ -48,6 +48,58 @@ public class WikiItemTextParserTestCase extends TestCase {
 			+ "[[Category:HSKレベル1級|xue2xiao4]]\r\n" //
 			+ "[[Category:HSKレベル甲|xue2xiao4]]";
 
+	private final String wiktinaryText_example = "{{Wikipedia|学校}}\r\n" //
+			+ "=={{ja}}==\r\n" //
+			+ "[[Category:{{ja}}]]\r\n" //
+			+ "==={{noun}}===\r\n" //
+			+ "[[Category:{{ja}}_{{noun}}]]\r\n" //
+			+ "[[Category:{{ja}}_学校|*]]\r\n" //
+			+ "'''[[学]][[校]]'''（がっこう　旧字体:[[學校]]）\r\n" //
+			+ "#なんらかの[[教育]]が体系的に行われる[[組織]]又はその[[設備]]。[[学舎]]、[[まなびや]]。\r\n" //
+			+ "===={{rel}}====\r\n" //
+			+ "* [[学校教育]]\r\n" //
+			+ "* [[幼稚園]]\r\n" //
+			+ "* [[小学校]]\r\n" //
+			+ "=={{zho}}==\r\n" //
+			+ "[[category:{{zho}}|xue2xiao4]]\r\n" //
+			+ "==={{noun}}===\r\n" //
+			+ "[[Category:{{zho}}_{{noun}}|xue2xiao4]]\r\n" //
+			+ "[[Category:HSKレベル甲|xue2xiao4]]";
+
+	public void testGetRoot000() {
+
+		WikiItemTextParserInterface parser = new WikiItemTextParser();
+
+		parser.parse(wiktinaryText_example);
+
+		WikiPageNode rootNode = parser.getRoot();
+		{
+			System.err.println("<root>");
+			System.err.println(rootNode.getText());
+			System.err.println("</root>");
+			// {{Wikipedia|学校}}
+			// {{ja-DEFAULTSORT|がっこう}}
+			System.err.println("<descendant>");
+			System.err.println(rootNode.getTextDescendant());
+			System.err.println("</descendant>");
+		}
+
+		System.err.println("---");
+		{
+			List<WikiPageNode> nodes = rootNode.get("=={{ja}}==");
+			System.err.println(nodes.get(0).getText());
+			// [[Category:{{ja}}]]
+		}
+		System.err.println("---");
+		{
+			List<WikiPageNode> nodes = rootNode.get("=={{ja}}==/==={{noun}}===");
+			System.err.println(nodes.get(0).getText());
+			// [[Category:{{ja}}]]
+		}
+		System.err.println("---");
+
+	}
+
 	public void testGetRoot001() {
 
 		WikiItemTextParserInterface parser = new WikiItemTextParser();
@@ -191,8 +243,6 @@ public class WikiItemTextParserTestCase extends TestCase {
 			System.err.println(WikiPageNodeUtil.toString(rootNode));
 		}
 	}
-
-	
 
 	public void testToWikiPageNodeTree() {
 		WikiItemTextParserInterface parser = new WikiItemTextParser();

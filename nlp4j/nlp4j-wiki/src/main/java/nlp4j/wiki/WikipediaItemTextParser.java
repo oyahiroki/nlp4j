@@ -106,7 +106,7 @@ public class WikipediaItemTextParser {
 	 */
 	public WikiPageNode parse(String wikiItemText, JsonObject page) {
 
-		{ // normalize new line
+		{ // normalize new line 改行コードを統一する
 			int n1 = wikiItemText.length();
 			wikiItemText = wikiItemText.replace("\r\n", "\n");
 			int n2 = wikiItemText.length();

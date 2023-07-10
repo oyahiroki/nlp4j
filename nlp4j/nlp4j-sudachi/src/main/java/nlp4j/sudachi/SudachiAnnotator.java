@@ -50,9 +50,9 @@ public class SudachiAnnotator extends AbstractDocumentAnnotator implements Docum
 	 * <pre>
 	 * systemDict=system_core.dic
 	 * systemDict=system_full.dic
-	 * mode=A
-	 * mode=B
-	 * mode=C
+	 * mode=A (short)
+	 * mode=B (middle)
+	 * mode=C (long)
 	 * </pre>
 	 * 
 	 * @param key : systemDict
@@ -108,7 +108,13 @@ public class SudachiAnnotator extends AbstractDocumentAnnotator implements Docum
 
 			int sentenceIndex = -1;
 			// FOR_EACH(Sentence)
-			for (List<Morpheme> list : tokenizer.tokenizeSentences(mode, text)) {
+			for (List<Morpheme> list :
+//				Exception in thread "main" java.lang.IllegalStateException: EOS isn't connected to BOS
+//				at com.worksap.nlp.sudachi.LatticeImpl.getBestPath(LatticeImpl.java:150)
+//				at com.worksap.nlp.sudachi.JapaneseTokenizer.tokenizeSentence(JapaneseTokenizer.java:197)
+//				at com.worksap.nlp.sudachi.JapaneseTokenizer.tokenizeSentences(JapaneseTokenizer.java:102)
+			tokenizer.tokenizeSentences(mode, text) // throws IllegalStateException
+			) {
 				sentenceIndex++;
 				// FOR_EACH(Morpheme)
 				for (Morpheme morpheme : list) {

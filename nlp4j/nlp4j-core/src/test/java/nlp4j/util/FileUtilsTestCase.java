@@ -4,10 +4,25 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
 
 import junit.framework.TestCase;
 
 public class FileUtilsTestCase extends TestCase {
+
+	public void testConcatFiles001() throws Exception {
+
+		List<File> fromFiles = new ArrayList<>();
+		File toFile = File.createTempFile("text", ".txt");
+
+		fromFiles.add(new File("src/test/resources/nlp4j.util/file1.txt"));
+		fromFiles.add(new File("src/test/resources/nlp4j.util/file2.txt"));
+
+		FileUtils.concat(fromFiles, toFile);
+
+		System.err.println(toFile.getAbsolutePath());
+	}
 
 	public void testLineCount001() throws Exception {
 		File file = new File("src/test/resources/nlp4j.util/FileUtilsTest.txt");

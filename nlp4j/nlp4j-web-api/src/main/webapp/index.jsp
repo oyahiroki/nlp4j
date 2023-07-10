@@ -1,6 +1,6 @@
 <html>
 <body>
 	<h1>Hello World!</h1>
-	<h2><%=new java.util.Date()%></h2>
+	<h2><%=%></h2>
 </body>
 </html>

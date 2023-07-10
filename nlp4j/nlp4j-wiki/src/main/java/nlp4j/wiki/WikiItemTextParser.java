@@ -11,8 +11,9 @@ import nlp4j.wiki.util.StringUtils;
 import nlp4j.wiki.util.WikiUtils;
 
 /**
- * <pre>
- * </pre>
+ * Wiki形式のテキストについて見出しの親子関係を考慮してパースするクラス<br>
+ * A class that parses text in Wiki format, taking into account the parent-child
+ * relationship of the headings contained in the text.
  * 
  * created on 2021-07-26
  * 
@@ -35,7 +36,9 @@ public class WikiItemTextParser implements WikiItemTextParserInterface {
 	private int level = 0;
 
 	/**
-	 * 
+	 * Wiki形式のテキストについて見出しの親子関係を考慮してパースするクラス<br>
+	 * A class that parses text in Wiki format, taking into account the parent-child
+	 * relationship of the headings contained in the text.
 	 */
 	public WikiItemTextParser() {
 		super();

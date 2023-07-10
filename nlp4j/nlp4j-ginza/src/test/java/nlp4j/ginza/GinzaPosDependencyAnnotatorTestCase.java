@@ -8,6 +8,7 @@ import nlp4j.Keyword;
 import nlp4j.KeywordWithDependency;
 import nlp4j.KeywordWithDependencyParser;
 import nlp4j.impl.DefaultDocument;
+import nlp4j.impl.DefaultKeyword;
 import nlp4j.pattern.StandardPatternAnnotatorJa;
 import nlp4j.util.DocumentUtil;
 
@@ -49,6 +50,25 @@ public class GinzaPosDependencyAnnotatorTestCase extends TestCase {
 			for (Keyword kw : kwds) {
 				System.err.println(kw.getLex() + "," + kw.getFacet());
 			}
+		}
+	}
+
+	public void testAnnotateDocument011() throws Exception {
+		Document doc = new DefaultDocument("私は歩いて学校に行きます。");
+		GinzaPosDependencyAnnotator ann = new GinzaPosDependencyAnnotator();
+		ann.setProperty("target", "text");
+		ann.setProperty("extract_keyword", "true");
+		ann.annotate(doc);
+		for (KeywordWithDependency kwd : doc.getKeywords(KeywordWithDependency.class)) {
+			System.err.println(kwd.toStringAsXml());
+			List<Keyword> kwds = KeywordWithDependencyParser.parse(kwd, "nsubj", "obl");
+			for (Keyword kw : kwds) {
+				System.err.println(kw.getLex() + "," + kw.getFacet());
+			}
+		}
+		System.err.println("---");
+		for (DefaultKeyword kwd : doc.getKeywords(DefaultKeyword.class)) {
+			System.err.println(kwd.toString());
 		}
 	}
 
