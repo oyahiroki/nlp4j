@@ -13,7 +13,7 @@ public class Example101Read_WikipediaDumpJa {
 		// Wiktionary のページタイトルを指定して取得する
 
 		// Wiktionary Page Title
-		String itemString = "学校";
+		String itemString = "任天堂";
 
 		// Index File
 		String indexFileName = "/usr/local/wiki/jawiki/20221101/jawiki-20221101-pages-articles-multistream-index.txt.bz2";
@@ -32,8 +32,6 @@ public class Example101Read_WikipediaDumpJa {
 
 			// ページが存在しない
 			if (page == null) {
-				System.err.println("Not found: " + itemString);
-				// 終了
 				return;
 			}
 
@@ -60,12 +58,13 @@ public class Example101Read_WikipediaDumpJa {
 			page.getNodes().forEach(node -> {
 				System.err.println("node.title: " + node.getTitle());
 				System.err.println("node.header: " + node.getHeader());
+				System.err.println("node.level: " + node.getLevel());
 				{
-					String text = StringUtils.chop(node.getText(), 32).replace("\n", "\\n");
+					String text = StringUtils.chop(node.getText(), 64).replace("\n", "\\n");
 					System.err.println("node.text:" + text);
 				}
 				{
-					String plainText = StringUtils.chop(node.getPlainText(), 32).replace("\n", "\\n");
+					String plainText = StringUtils.chop(node.getPlainText(), 64).replace("\n", "\\n");
 					System.err.println("node.plainText:" + plainText);
 				}
 

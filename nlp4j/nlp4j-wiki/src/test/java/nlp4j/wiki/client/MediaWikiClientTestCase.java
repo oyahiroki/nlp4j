@@ -22,12 +22,13 @@ public class MediaWikiClientTestCase extends TestCase {
 	public void testMediaWikiClientGetPageTitlesByCategory001() throws Exception {
 		String host = "en.wikipedia.org";
 		String category = "Category:Auto_parts";
-		MediaWikiClient client = new MediaWikiClient(host);
-		List<String> titles = client.getPageTitlesByCategory(category);
-		for (String title : titles) {
-			System.out.println(title);
+		try (MediaWikiClient client = new MediaWikiClient(host);) {
+			List<String> titles = client.getPageTitlesByCategory(category);
+			for (String title : titles) {
+				System.out.println(title);
+			}
+			System.out.println(titles.size());
 		}
-		System.out.println(titles.size());
 	}
 
 	/**

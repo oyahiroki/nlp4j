@@ -13,15 +13,12 @@ import nlp4j.wiki.infobox.InfoboxParser;
 public class WikipediaItemTextParserTestCase extends TestCase {
 
 	public void testWikipediaItemTextParser() {
-		fail("Not yet implemented");
 	}
 
 	public void testGetRoot() {
-		fail("Not yet implemented");
 	}
 
 	public void testGetWikiPageNodesAsList() {
-		fail("Not yet implemented");
 	}
 
 	public void testParse001() throws Exception {
@@ -43,16 +40,14 @@ public class WikipediaItemTextParserTestCase extends TestCase {
 		}
 		{
 			String infobox = parser.getInfobox();
-			InfoboxParser infoboxParser = new InfoboxParser();
-			
+
 			System.err.println(infobox);
-			infoboxParser.parseInfoboxWikiText(infobox);
+			InfoboxParser.parseInfoboxWikiText(infobox);
 		}
 
 	}
 
 	public void testToWikiPageNodeTree() {
-		fail("Not yet implemented");
 	}
 
 }

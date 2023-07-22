@@ -1,5 +1,6 @@
 package nlp4j.wiki.client;
 
+import java.io.Closeable;
 import java.io.IOException;
 import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
@@ -30,7 +31,7 @@ import nlp4j.util.JsonUtils;
  * @author Hiroki Oya
  *
  */
-public class MediaWikiClient {
+public class MediaWikiClient implements Closeable {
 
 	static private Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 	/**
@@ -98,10 +99,10 @@ public class MediaWikiClient {
 
 			Map<String, String> params = new LinkedHashMap<>();
 			{
-				params.put("format", "json");
 				params.put("action", "query");
 				params.put("list", "categorymembers");// https://www.mediawiki.org/wiki/API:Categorymembers
 				params.put("cmtitle", category);
+				params.put("format", "json");
 				params.put("cmlimit", "500");
 				params.put("cmsort", "sortkey");
 				params.put("cmprop", "ids|title|sortkey|sortkeyprefix|type|timestamp");
@@ -112,13 +113,17 @@ public class MediaWikiClient {
 
 			// content-type
 			JsonObject jo = res.getAsJsonObject();
+
+//			System.err.println(JsonUtils.prettyPrint(res.getOriginalResponseBody()));
+//			System.err.println(JsonUtils.prettyPrint(jo));
+
 			{ // list pages
 				JsonArray pages = jo.get("query").getAsJsonObject().get("categorymembers").getAsJsonArray();
 
 				if (logger.isDebugEnabled()) {
 					logger.debug(JsonUtils.prettyPrint(pages));
 				}
-				System.err.println(JsonUtils.prettyPrint(pages));
+//				System.err.println(JsonUtils.prettyPrint(pages));
 
 				for (int n = 0; n < pages.size(); n++) {
 					String type = pages.get(n).getAsJsonObject().get("type").getAsString();
@@ -332,6 +337,14 @@ public class MediaWikiClient {
 		JsonObject jo = res.getAsJsonObject();
 
 		return jo;
+	}
+
+	@Override
+	public void close() throws IOException {
+		if (this.client != null) {
+			this.client.close();
+		}
+
 	}
 
 }

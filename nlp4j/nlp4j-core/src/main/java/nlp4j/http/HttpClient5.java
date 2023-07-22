@@ -4,14 +4,20 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.hc.client5.http.classic.methods.HttpGet;
 import org.apache.hc.client5.http.classic.methods.HttpPost;
+
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
 import org.apache.hc.client5.http.impl.classic.HttpClients;
 import org.apache.hc.core5.http.ContentType;
+import org.apache.hc.core5.http.Header;
 import org.apache.hc.core5.http.HttpEntity;
 import org.apache.hc.core5.http.ParseException;
 import org.apache.hc.core5.http.io.entity.EntityUtils;
@@ -64,7 +70,7 @@ public class HttpClient5 implements HttpClient {
 	}
 
 	@Override
-	public NlpServiceResponse get(String url, Map<String, String> headers, Map<String, String> params)
+	public NlpServiceResponse get(String url, Map<String, String> requestHeaders, Map<String, String> params)
 			throws IOException {
 
 		int code = -1;
@@ -92,12 +98,14 @@ public class HttpClient5 implements HttpClient {
 		}
 
 		// ヘッダー処理
-		if (headers != null) {
-			for (String key : headers.keySet()) {
-				String value = headers.get(key);
+		if (requestHeaders != null) {
+			for (String key : requestHeaders.keySet()) {
+				String value = requestHeaders.get(key);
 				httpGet.addHeader(key, value);
 			}
 		}
+
+		Map<String, List<String>> responseHeaders = new HashMap<>();
 
 		// The underlying HTTP connection is still held by the response object
 		// to allow the response content to be streamed directly from the network
@@ -113,12 +121,26 @@ public class HttpClient5 implements HttpClient {
 			// do something useful with the response body
 			// and ensure it is fully consumed
 			body = EntityUtils.toString(entity1);
+
+			Iterator<Header> it = response1.headerIterator();
+
+			while (it.hasNext()) {
+				Header header = it.next();
+				String name = header.getName();
+				String value = header.getValue();
+				if (responseHeaders.get(name) == null) {
+					responseHeaders.put(name, new ArrayList<>());
+				}
+				responseHeaders.get(name).add(value);
+			}
+
 			EntityUtils.consume(entity1);
 		} catch (ParseException e) {
 			throw new IOException(e);
 		}
 
 		DefaultNlpServiceResponse res = new DefaultNlpServiceResponse(code, body);
+		res.setHeaders(responseHeaders);
 
 		return res;
 

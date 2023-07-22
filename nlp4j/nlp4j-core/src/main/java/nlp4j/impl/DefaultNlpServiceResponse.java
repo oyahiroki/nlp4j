@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonSyntaxException;
 
 import nlp4j.Keyword;
 import nlp4j.NlpServiceResponse;
@@ -57,10 +58,19 @@ public class DefaultNlpServiceResponse implements NlpServiceResponse {
 			Gson gson = new Gson();
 			JsonObject jo = gson.fromJson(this.originalResponseBody, JsonObject.class);
 			return jo;
-		} else {
+		} //
+		else if (this.originalResponseBody != null) {
+			try {
+				Gson gson = new Gson();
+				JsonObject jo = gson.fromJson(this.originalResponseBody, JsonObject.class);
+				return jo;
+			} catch (JsonSyntaxException e) {
+				return null;
+			}
+		} //
+		else {
 			return null;
 		}
-
 	}
 
 	/**
