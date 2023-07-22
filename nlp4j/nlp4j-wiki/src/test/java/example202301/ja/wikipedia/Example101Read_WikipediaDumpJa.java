@@ -58,9 +58,18 @@ public class Example101Read_WikipediaDumpJa {
 			} // END_OF_IF(ページが存在する)
 
 			page.getNodes().forEach(node -> {
-				System.err.println("header: " + node.getHeader());
-				String text = StringUtils.chop(node.getText(), 32).replace("\n", "");
-				System.err.println("text:" + text);
+				System.err.println("node.title: " + node.getTitle());
+				System.err.println("node.header: " + node.getHeader());
+				{
+					String text = StringUtils.chop(node.getText(), 32).replace("\n", "\\n");
+					System.err.println("node.text:" + text);
+				}
+				{
+					String plainText = StringUtils.chop(node.getPlainText(), 32).replace("\n", "\\n");
+					System.err.println("node.plainText:" + plainText);
+				}
+
+				node.getPlainText();
 
 			});
 

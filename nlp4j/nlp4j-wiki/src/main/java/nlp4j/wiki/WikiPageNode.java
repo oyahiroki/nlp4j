@@ -3,18 +3,23 @@ package nlp4j.wiki;
 import java.util.ArrayList;
 import java.util.List;
 
+import nlp4j.wiki.util.MediaWikiTextUtils;
+
 public class WikiPageNode {
 
-	// 見出し
-	String header;
+	// ページタイトル WikiPage Title
+	private String title;
 
-	StringBuilder text = new StringBuilder();
+	// header見出し
+	private String header;
+
+	private StringBuilder text = new StringBuilder();
 
 	private int level = -1;
 
 	private WikiPageNode parent;
 
-	ArrayList<WikiPageNode> children = new ArrayList<WikiPageNode>();
+	private ArrayList<WikiPageNode> children = new ArrayList<WikiPageNode>();
 
 	private String[] spells;
 
@@ -166,6 +171,15 @@ public class WikiPageNode {
 		}
 	}
 
+	public String getPlainText() {
+		if (this.text == null || this.text.length() == 0) {
+			return "";
+		} else {
+			String title2 = (this.title != null) ? this.title : "dummy";
+			return MediaWikiTextUtils.toPlainText(title2, this.text.toString());
+		}
+	}
+
 	public String[] getSpells() {
 		return spells;
 	}
@@ -194,6 +208,10 @@ public class WikiPageNode {
 		}
 
 		return sb.toString();
+	}
+
+	public String getTitle() {
+		return title;
 	}
 
 	private String join(String[] paths, int idx) {
@@ -238,6 +256,10 @@ public class WikiPageNode {
 
 	public void setSpells(String[] spells) {
 		this.spells = spells;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	@Override

@@ -35,6 +35,8 @@ public class WikiItemTextParser implements WikiItemTextParserInterface {
 
 	private int level = 0;
 
+	private String title;
+
 	/**
 	 * Wiki形式のテキストについて見出しの親子関係を考慮してパースするクラス<br>
 	 * A class that parses text in Wiki format, taking into account the parent-child
@@ -160,6 +162,7 @@ public class WikiItemTextParser implements WikiItemTextParserInterface {
 				int lvl = getLevel(line);
 
 				WikiPageNode wpd = new WikiPageNode();
+				wpd.setTitle(this.title);
 
 				{ // normalize header
 					String normailzedHeader = WikiUtils.normailzeHeader(line);
@@ -208,6 +211,7 @@ public class WikiItemTextParser implements WikiItemTextParserInterface {
 		if (page == null) {
 			return null;
 		} else {
+			this.title = page.getTitle();
 			return parse(page.getText());
 		}
 	}

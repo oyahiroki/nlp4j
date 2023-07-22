@@ -115,7 +115,7 @@ public class WikiPage {
 	public List<WikiPageNode> getNodes() {
 
 		WikiItemTextParserInterface parser = new WikiItemTextParser();
-		parser.parse(this.getText());
+		parser.parse(this);
 
 		return parser.getWikiPageNodesAsList();
 
