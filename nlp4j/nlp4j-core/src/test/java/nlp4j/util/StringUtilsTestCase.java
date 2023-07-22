@@ -19,6 +19,20 @@ public class StringUtilsTestCase extends TestCase {
 		assertEquals("😀", c2);// EMOJI SMILE
 	}
 
+	public void testChopString001() {
+		String s = "1234567890";
+		String s2 = StringUtils.chop(s, 3);
+		String expected = "123";
+		assertEquals(expected, s2);
+	}
+
+	public void testChopString002() {
+		String s = "123";
+		String s2 = StringUtils.chop(s, 5);
+		String expected = "123";
+		assertEquals(expected, s2);
+	}
+
 	public void testFilter() {
 		String s = "𩸽ほっけ"; // 𩸽 is not defined in MS932
 		String s2 = StringUtils.filter(s, "MS932");

@@ -4,10 +4,9 @@ import java.io.IOException;
 
 import com.google.gson.JsonObject;
 
+import nlp4j.http.HttpClient5;
 import nlp4j.impl.DefaultNlpServiceResponse;
-import nlp4j.util.HttpClient;
 import nlp4j.util.JsonUtils;
-import nlp4j.util.XmlUtils;
 
 public class HelloWikiApi5 {
 
@@ -50,21 +49,22 @@ public class HelloWikiApi5 {
 		// format: One of the following values: json, jsonfm, none, php, phpfm, rawfm,
 		// xml, xmlfm
 
-		HttpClient client = new HttpClient();
-		System.err.println(url);
-		DefaultNlpServiceResponse res = client.get(url);
+		try (HttpClient5 client = new HttpClient5();) {
+			System.err.println(url);
+			DefaultNlpServiceResponse res = client.get(url);
 
-		System.err.println(res.getResponseCode());
+			System.err.println(res.getResponseCode());
 
-		System.err.println(res.getHeaders());
+			System.err.println(res.getHeaders());
 
-		// content-type
+			// content-type
 
-		JsonObject jo = res.getAsJsonObject();
-		System.err.println(JsonUtils.prettyPrint(jo));
+			JsonObject jo = res.getAsJsonObject();
+			System.err.println(JsonUtils.prettyPrint(jo));
 
-//		System.err.println(JsonUtils.prettyPrint(res.getOriginalResponseBody()));
-//		System.err.println(XmlUtils.prettyFormatXml(res.getOriginalResponseBody()));
+//	System.err.println(JsonUtils.prettyPrint(res.getOriginalResponseBody()));
+//	System.err.println(XmlUtils.prettyFormatXml(res.getOriginalResponseBody()));
+		}
 
 	}
 

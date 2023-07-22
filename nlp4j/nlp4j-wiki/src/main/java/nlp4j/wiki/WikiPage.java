@@ -107,6 +107,21 @@ public class WikiPage {
 	}
 
 	/**
+	 * created on: 2023-07-22
+	 * 
+	 * @return
+	 * 
+	 */
+	public List<WikiPageNode> getNodes() {
+
+		WikiItemTextParserInterface parser = new WikiItemTextParser();
+		parser.parse(this.getText());
+
+		return parser.getWikiPageNodesAsList();
+
+	}
+
+	/**
 	 * @return Parent ID of the page
 	 */
 	public String getParentId() {

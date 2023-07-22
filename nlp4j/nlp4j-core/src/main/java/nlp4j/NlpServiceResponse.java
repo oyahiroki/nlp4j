@@ -2,6 +2,8 @@ package nlp4j;
 
 import java.util.List;
 
+import com.google.gson.JsonObject;
+
 /**
  * 自然言語処理の結果. <br>
  * NLP Response.
@@ -11,6 +13,14 @@ import java.util.List;
  *
  */
 public interface NlpServiceResponse extends Response {
+
+	/**
+	 * created on: 2023-07-22
+	 * 
+	 * @return response as JsonObject
+	 * @since 1.3.7.9
+	 */
+	public JsonObject getAsJsonObject();
 
 	/**
 	 * 自然言語処理サービスが返したレスポンスを返します。

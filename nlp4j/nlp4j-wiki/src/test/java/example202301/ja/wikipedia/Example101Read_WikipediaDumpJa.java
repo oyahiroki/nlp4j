@@ -2,15 +2,15 @@ package example202301.ja.wikipedia;
 
 import java.io.File;
 
+import nlp4j.util.StringUtils;
 import nlp4j.wiki.WikiDumpReader;
 import nlp4j.wiki.WikiPage;
 
 public class Example101Read_WikipediaDumpJa {
 
 	public static void main(String[] args) throws Exception {
-		// Language: en
-		// Media: wiktionary
-		// Version: 20220501 (May 1 2022)
+
+		// Wiktionary のページタイトルを指定して取得する
 
 		// Wiktionary Page Title
 		String itemString = "学校";
@@ -27,35 +27,43 @@ public class Example101Read_WikipediaDumpJa {
 		System.err.println(dumpFile.getAbsolutePath());
 
 		try (WikiDumpReader dumpReader = new WikiDumpReader(dumpFile, indexFile);) {
-			{
-				WikiPage page = dumpReader.getItem(itemString);
-				if (page == null) {
-					System.err.println("Not found: " + itemString);
-				} //
-				else {
-					System.err.println("---");
-					System.err.println("title: " + page.getTitle());
-					System.err.println("---");
-					System.err.println(page.getTimestamp());
-					System.err.println("---");
-					System.err.println("redirect: " + page.isRediect());
-					if (page.isRediect()) {
-						System.err.println("This page is redirected to: " + page.getRediect_title());
-					}
-					//
-					else {
-						System.err.println("---");
-						System.err.println("categories: " + page.getCategoryTags());
-						System.err.println("<text>");
-						System.err.println(page.getText()); // <text>...</text>
-						System.err.println("</text>");
-						System.err.println("---");
-						System.err.println("<xml>");
-						System.err.println(page.getXml()); // <page>...</page>
-						System.err.println("</xml>");
-					}
-				}
+			// ページの情報を取得する
+			WikiPage page = dumpReader.getItem(itemString);
+
+			// ページが存在しない
+			if (page == null) {
+				System.err.println("Not found: " + itemString);
+				// 終了
+				return;
 			}
+
+			{ // IF(ページが存在する)
+				System.err.println("title: " + page.getTitle());
+				System.err.println("timestamp: " + page.getTimestamp());
+				System.err.println("redirect: " + page.isRediect());
+				if (page.isRediect()) {
+					System.err.println("This page is redirected to: " + page.getRediect_title());
+					return;
+				}
+				//
+				else {
+					System.err.println("categories: " + page.getCategoryTags());
+					System.err.println("<text>");
+					System.err.println(page.getText()); // <text>...</text>
+					System.err.println("</text>");
+					System.err.println("<xml>");
+					System.err.println(page.getXml()); // <page>...</page>
+					System.err.println("</xml>");
+				}
+			} // END_OF_IF(ページが存在する)
+
+			page.getNodes().forEach(node -> {
+				System.err.println("header: " + node.getHeader());
+				String text = StringUtils.chop(node.getText(), 32).replace("\n", "");
+				System.err.println("text:" + text);
+
+			});
+
 		}
 
 	}

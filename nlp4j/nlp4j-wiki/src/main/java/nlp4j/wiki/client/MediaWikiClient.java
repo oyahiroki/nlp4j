@@ -13,8 +13,8 @@ import org.apache.logging.log4j.Logger;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
-import nlp4j.impl.DefaultNlpServiceResponse;
-import nlp4j.util.HttpClient;
+import nlp4j.NlpServiceResponse;
+import nlp4j.http.HttpClient5;
 import nlp4j.util.JsonUtils;
 
 /**
@@ -52,7 +52,7 @@ public class MediaWikiClient {
 
 	private static final int MAX_QUERY_COUNT = 100;
 
-	private HttpClient client = new HttpClient();
+	private HttpClient5 client = new HttpClient5();
 
 	private String host;
 
@@ -108,7 +108,7 @@ public class MediaWikiClient {
 				params.put("cmstarthexsortkey", from);
 			}
 
-			DefaultNlpServiceResponse res = client.get(url, params);
+			NlpServiceResponse res = client.get(url, params);
 
 			// content-type
 			JsonObject jo = res.getAsJsonObject();
@@ -203,7 +203,7 @@ public class MediaWikiClient {
 				params.put("cmstarthexsortkey", from);
 			}
 
-			DefaultNlpServiceResponse res = client.get(url, params);
+			NlpServiceResponse res = client.get(url, params);
 
 			// content-type
 			JsonObject jo = res.getAsJsonObject();
@@ -294,7 +294,7 @@ public class MediaWikiClient {
 			params.put("format", "json");
 		}
 
-		DefaultNlpServiceResponse res = client.get(url, params);
+		NlpServiceResponse res = client.get(url, params);
 
 		// content-type
 		JsonObject jo = res.getAsJsonObject();
@@ -326,7 +326,7 @@ public class MediaWikiClient {
 			params.put("utf8", "1");
 		}
 
-		DefaultNlpServiceResponse res = client.get(url, params);
+		NlpServiceResponse res = client.get(url, params);
 
 		// content-type
 		JsonObject jo = res.getAsJsonObject();

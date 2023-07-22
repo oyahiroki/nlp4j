@@ -13,7 +13,7 @@ import org.apache.solr.common.params.MultiMapSolrParams;
  * Example of facet search
  *
  */
-public class HelloSolrHttpClient2 {
+public class HelloSolr8HttpClientQuery2 {
 
 	public static void main(String[] args) throws Exception {
 

@@ -10,10 +10,8 @@ import org.apache.commons.io.FileUtils;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
+import nlp4j.http.HttpClient5;
 import nlp4j.impl.DefaultNlpServiceResponse;
-import nlp4j.util.HttpClient;
-import nlp4j.util.JsonUtils;
-import nlp4j.util.XmlUtils;
 
 public class HelloWikiApi6 {
 
@@ -29,7 +27,7 @@ public class HelloWikiApi6 {
 		List<String> titles = new ArrayList<>();
 
 		String category = "Category:en:Medicine";
-		
+
 		category = "Category:en:Auto_parts";
 
 		for (int x = 0; x < 100; x++) {
@@ -49,33 +47,35 @@ public class HelloWikiApi6 {
 			// action: query: query Fetch data from and about MediaWiki.
 			// format: One of the following values: json, jsonfm, none, php, phpfm, rawfm,
 			// xml, xmlfm
-			HttpClient client = new HttpClient();
-			DefaultNlpServiceResponse res = client.get(url);
-			// content-type
-			JsonObject jo = res.getAsJsonObject();
-			{ // list pages
-				JsonArray pages = jo.get("query").getAsJsonObject().get("categorymembers").getAsJsonArray();
-				for (int n = 0; n < pages.size(); n++) {
-					String title = pages.get(n).getAsJsonObject().get("title").getAsString();
-					System.err.println(title);
-					if (titles.contains(title) == false) {
-						titles.add(title);
+			try (HttpClient5 client = new HttpClient5();) {
+				DefaultNlpServiceResponse res = client.get(url);
+				// content-type
+				JsonObject jo = res.getAsJsonObject();
+				{ // list pages
+					JsonArray pages = jo.get("query").getAsJsonObject().get("categorymembers").getAsJsonArray();
+					for (int n = 0; n < pages.size(); n++) {
+						String title = pages.get(n).getAsJsonObject().get("title").getAsString();
+						System.err.println(title);
+						if (titles.contains(title) == false) {
+							titles.add(title);
+						}
 					}
+					System.err.println(titles.size());
 				}
-				System.err.println(titles.size());
-			}
-			{ // fetch continue
-				if (jo.get("continue") == null) {
-					break;
+				{ // fetch continue
+					if (jo.get("continue") == null) {
+						break;
+					}
+					String cmcontinue = jo.get("continue").getAsJsonObject().get("cmcontinue").getAsString()
+							.split("\\|")[1];
+					System.err.println(cmcontinue);
+					from = cmcontinue;
 				}
-				String cmcontinue = jo.get("continue").getAsJsonObject().get("cmcontinue").getAsString()
-						.split("\\|")[1];
-				System.err.println(cmcontinue);
-				from = cmcontinue;
-			}
 
-//			System.err.println(JsonUtils.prettyPrint(res.getOriginalResponseBody()));
-//			System.err.println(XmlUtils.prettyFormatXml(res.getOriginalResponseBody()));
+//	System.err.println(JsonUtils.prettyPrint(res.getOriginalResponseBody()));
+//	System.err.println(XmlUtils.prettyFormatXml(res.getOriginalResponseBody()));
+
+			}
 
 		}
 

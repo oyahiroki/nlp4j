@@ -128,13 +128,32 @@ public class StringUtils {
 		return s.codePointCount(0, s.length());
 	}
 
+	static public String chop(String s, int maximumLength) {
+		if (s == null) {
+			return null;
+		} //
+		else if (maximumLength < 0) {
+			return "";
+		} //
+		else {
+			if (s.length() > maximumLength) {
+				return s.substring(0, maximumLength);
+			} else {
+				return s;
+			}
+		}
+	}
+
 	/**
+	 * <pre>
+	 * substring by code points
 	 * created at: 2022-05-22
+	 * </pre>
 	 * 
 	 * @param s
 	 * @param startIndex index by codePointOffset
 	 * @param endIndex   index by codePointOffset
-	 * @return
+	 * @return substring by code points
 	 */
 	static public String substring(String s, int startIndex, int endIndex) {
 		int startIndexSurrogate = s.offsetByCodePoints(0, startIndex);

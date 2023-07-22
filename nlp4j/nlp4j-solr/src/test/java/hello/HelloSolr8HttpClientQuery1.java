@@ -8,7 +8,7 @@ import org.apache.solr.client.solrj.impl.HttpSolrClient;
 import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.common.params.MultiMapSolrParams;
 
-public class HelloSolrHttpClient1 {
+public class HelloSolr8HttpClientQuery1 {
 
 	public static void main(String[] args) throws Exception {
 

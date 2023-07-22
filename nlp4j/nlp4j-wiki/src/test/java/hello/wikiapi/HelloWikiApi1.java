@@ -2,8 +2,8 @@ package hello.wikiapi;
 
 import java.io.IOException;
 
+import nlp4j.http.HttpClient5;
 import nlp4j.impl.DefaultNlpServiceResponse;
-import nlp4j.util.HttpClient;
 
 public class HelloWikiApi1 {
 
@@ -19,17 +19,16 @@ public class HelloWikiApi1 {
 				+ "&titles=urolithiasis";//
 
 		// action: query: query Fetch data from and about MediaWiki.
-		// format: One of the following values: json, jsonfm, none, php, phpfm, rawfm, xml, xmlfm
-		
-		HttpClient client = new HttpClient();
-		System.err.println(url);
-		DefaultNlpServiceResponse res = client.get(url);
+		// format: One of the following values: json, jsonfm, none, php, phpfm, rawfm,
+		// xml, xmlfm
 
-		System.err.println(res.getResponseCode());
-
-		System.err.println(res.getHeaders());
-
-		System.err.println(res.getOriginalResponseBody());
+		try (HttpClient5 client = new HttpClient5();) {
+			System.err.println(url);
+			DefaultNlpServiceResponse res = client.get(url);
+			System.err.println(res.getResponseCode());
+			System.err.println(res.getHeaders());
+			System.err.println(res.getOriginalResponseBody());
+		}
 
 	}
 
