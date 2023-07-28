@@ -24,6 +24,7 @@
 形容詞	{{adj}}
 {{adjective}}	{{adj}}
 副詞	{{adverb}}
+{{adv}}	{{adverb}}
 助詞	{{parti}}
 形容動詞	{{adjectivenoun}}
 自動詞	{{intrverb}}

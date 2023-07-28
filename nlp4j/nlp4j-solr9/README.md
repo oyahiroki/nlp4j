@@ -27,6 +27,35 @@ C:\usr\local\solr-9.3.0>bin\solr
 Please set the JAVA_HOME environment variable to the path where you installed Java 1.8+
 ```
 
+### 起動 start
+
+```
+> bin\solr start
+```
+
+### コアの作成 create core
+
+```
+> bin\solr create_core -c sandbox
+```
+
+### フィールドの定義
+
+managed-schema.xml に以下の定義を追加する。（手作業でないとできないっぽい）
+
+```
+<field name="vector" type="knn_vector" indexed="true" stored="false" /> <!-- フィールド定義 -->
+```
+
+```
+<fieldType name="knn_vector" class="solr.DenseVectorField" vectorDimension="4" similarityFunction="cosine" /> <!-- 型定義 -->
+```
+
+
+## 参照
+
+
+
 ## インストール(docker)
 
 ```
