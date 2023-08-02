@@ -12,8 +12,6 @@ import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import nlp4j.util.HttpClient;
-
 /**
  * <pre>
  * Data downloader
@@ -64,7 +62,7 @@ public class FileDownloader {
 
 		}
 
-		HttpClient client = new HttpClient();
+		nlp4j.http.HttpClient5 client = new nlp4j.http.HttpClient5();
 
 		logger.info("accessing: " + url);
 

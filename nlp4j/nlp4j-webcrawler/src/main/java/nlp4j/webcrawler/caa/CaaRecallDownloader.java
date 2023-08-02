@@ -11,8 +11,8 @@ import org.apache.logging.log4j.Logger;
 
 import nlp4j.Document;
 import nlp4j.crawler.Crawler;
+import nlp4j.http.HttpClient5;
 import nlp4j.impl.DefaultNlpServiceResponse;
-import nlp4j.util.HttpClient;
 import nlp4j.webcrawler.AbstractWebCrawler;
 
 public class CaaRecallDownloader extends AbstractWebCrawler implements Crawler {
@@ -73,7 +73,7 @@ public class CaaRecallDownloader extends AbstractWebCrawler implements Crawler {
 				throw new RuntimeException(e1);
 			}
 
-			HttpClient client = new HttpClient();
+			HttpClient5 client = new HttpClient5();
 
 			try {
 
