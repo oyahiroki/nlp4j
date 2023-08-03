@@ -27,8 +27,14 @@ public class MainChatGPT {
 			String model = "gpt-3.5-turbo";
 			String system_content = "You are a helpful assistant.";
 //			String user_content = "こんにちは！";
-			String user_content = "以下を１文に要約してください。要約した文のみを返してください。\n" + "\n" + "今日は晴れです。\n" + "今日は日曜日です。\n"
-					+ "明日は雨が降るでしょう\n" + "今日は2023年6月28日です。" + "";
+			String user_content = "以下を１文に要約してください。要約した文のみを返してください。\n" //
+					+ "\n" //
+					+ "今日は晴れです。\n" //
+					+ "今日は日曜日です。\n" //
+					+ "明日は雨が降るでしょう\n" //
+					+ "今日は2023年6月28日です。" //
+					+ "";
+
 			String json = "{" //
 					+ "\"model\": \"" + model + "\"," //
 					+ "\"messages\": [" //

@@ -23,6 +23,40 @@ public class OpenAI {
 		this.configuration = configuration;
 	}
 
+	public JsonObject embeddings() throws IOException {
+
+		try (HttpClient5 client = new HttpClient5();) {
+			Map<String, String> header = new HashMap<>();
+			{
+				header.put("Authorization", "Bearer " + this.configuration.getApiKey());
+				header.put("Content-Type", "application/json");
+			}
+
+			String url = "https://api.openai.com/v1/embeddings";
+
+			JsonObject requestBody = new JsonObject();
+			{
+				requestBody.addProperty("input", "今日はいい天気です。");
+				requestBody.addProperty("model", "text-embedding-ada-002");
+			}
+
+			NlpServiceResponse res = client.post(url, header, requestBody.toString());
+
+			Gson gson = new Gson();
+
+			JsonObject jo = gson.fromJson(res.getOriginalResponseBody(), JsonObject.class);
+
+			System.err.println(res.getOriginalResponseBody());
+
+			System.err.println(
+					jo.get("data").getAsJsonArray().get(0).getAsJsonObject().get("embedding").getAsJsonArray().size());
+
+		}
+
+		return null;
+
+	}
+
 	/**
 	 * see https://platform.openai.com/docs/api-reference/models/list
 	 * 
@@ -34,7 +68,9 @@ public class OpenAI {
 		HttpClient5 client = new HttpClient5();
 
 		Map<String, String> header = new HashMap<>();
-		header.put("Authorization", "Bearer " + this.configuration.getApiKey());
+		{
+			header.put("Authorization", "Bearer " + this.configuration.getApiKey());
+		}
 
 		String url = "https://api.openai.com" + "/v1/models";
 
