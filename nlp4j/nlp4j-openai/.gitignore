@@ -35,3 +35,5 @@ Thumbs.db
 /target/
 /docs/
 /jar/
+/README_private.md
+/env.txt
