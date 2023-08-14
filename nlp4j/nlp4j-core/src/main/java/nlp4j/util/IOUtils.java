@@ -8,6 +8,8 @@ import java.io.PrintWriter;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
+import org.apache.commons.io.FileUtils;
+
 /**
  * @author Hiroki Oya
  * @since 1.3.7.8
@@ -54,7 +56,7 @@ public class IOUtils {
 	}
 
 	/**
-	 * @param file
+	 * @param file      : directory created if not exists
 	 * @param append
 	 * @param charset
 	 * @param autoflush
@@ -64,6 +66,14 @@ public class IOUtils {
 	 */
 	static public PrintWriter printWriter(File file, boolean append, Charset charset, boolean autoflush)
 			throws IOException {
+
+		// file.isFile() はファイルが存在しない場合は false を返す
+
+		// 2023-08-14
+		if (file.getParentFile().exists() == false) {
+			FileUtils.forceMkdirParent(file);
+		}
+
 		return new PrintWriter( //
 				new OutputStreamWriter( //
 						new FileOutputStream( //

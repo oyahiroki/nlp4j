@@ -96,4 +96,67 @@ public class SudachiAnnotatorTestCase extends TestCase {
 		}
 	}
 
+	public void testAnnotateDocument102() throws Exception {
+		String text = "韓国をハングルで書くと한국です。";
+		String mode = "C";
+		int expected_keyword_size = 9;
+		String expected_facet = "補助記号";
+		SudachiAnnotator ann = new SudachiAnnotator();
+		{
+			ann.setProperty("systemDict", "/usr/local/sudachi/system_full.dic");
+			ann.setProperty("target", "text");
+			ann.setProperty("mode", mode);
+		}
+		try (KeywordParser parser = new KeywordParser(ann);) {
+			List<Keyword> kwds = parser.parse(text);
+			for (Keyword kwd : kwds) {
+				System.err.println(kwd.toString());
+			}
+			assertEquals(expected_facet, kwds.get(6).getFacet());
+			assertEquals(expected_keyword_size, kwds.size());
+		}
+	}
+
+	public void testAnnotateDocument103() throws Exception {
+		String text = "アイビーエムをアルファベットで書くとIBMです。";
+		String mode = "C";
+		int expected_keyword_size = 9;
+		String expected_facet = "名詞";
+		SudachiAnnotator ann = new SudachiAnnotator();
+		{
+			ann.setProperty("systemDict", "/usr/local/sudachi/system_full.dic");
+			ann.setProperty("target", "text");
+			ann.setProperty("mode", mode);
+		}
+		try (KeywordParser parser = new KeywordParser(ann);) {
+			List<Keyword> kwds = parser.parse(text);
+			for (Keyword kwd : kwds) {
+				System.err.println(kwd.toString());
+			}
+			assertEquals(expected_facet, kwds.get(6).getFacet());
+			assertEquals(expected_keyword_size, kwds.size());
+		}
+	}
+
+	public void testAnnotateDocument104() throws Exception {
+		String text = "This is test.";
+		String mode = "C";
+		int expected_keyword_size = 6;
+		String expected_facet = "名詞";
+		SudachiAnnotator ann = new SudachiAnnotator();
+		{
+			ann.setProperty("systemDict", "/usr/local/sudachi/system_full.dic");
+			ann.setProperty("target", "text");
+			ann.setProperty("mode", mode);
+		}
+		try (KeywordParser parser = new KeywordParser(ann);) {
+			List<Keyword> kwds = parser.parse(text);
+			for (Keyword kwd : kwds) {
+				System.err.println(kwd.toString());
+			}
+			assertEquals(expected_facet, kwds.get(4).getFacet());
+			assertEquals(expected_keyword_size, kwds.size());
+		}
+	}
+
 }

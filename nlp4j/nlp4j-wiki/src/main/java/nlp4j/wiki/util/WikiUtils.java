@@ -326,4 +326,16 @@ public class WikiUtils {
 		return null;
 	}
 
+	static public String toPlainText2(String wikiText) {
+		String t = toPlainText(wikiText); //
+		if (t == null) {
+			return null;
+		} else {
+			return t.replace("**", "").replace("-", "") //
+					.replace("[[Category:_]]", "")//
+					.replaceAll("\\[\\[.*?\\]\\]", "") //
+					.trim();
+		}
+	}
+
 }

@@ -107,6 +107,15 @@ public class WikiPage {
 	}
 
 	/**
+	 * created on: 2023-08-14
+	 * 
+	 * @return Namespace of this page
+	 */
+	public Integer getNamespaceAsInt() {
+		return Integer.parseInt(namespace);
+	}
+
+	/**
 	 * created on: 2023-07-22
 	 * 
 	 * @return
