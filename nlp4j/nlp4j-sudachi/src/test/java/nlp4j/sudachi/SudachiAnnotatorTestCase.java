@@ -5,6 +5,7 @@ import java.util.List;
 import junit.framework.TestCase;
 import nlp4j.Keyword;
 import nlp4j.KeywordParser;
+import nlp4j.test.TestUtils;
 
 public class SudachiAnnotatorTestCase extends TestCase {
 
@@ -51,7 +52,7 @@ public class SudachiAnnotatorTestCase extends TestCase {
 
 	public void testAnnotateDocument004() throws Exception {
 		String text = "目玉焼きに塩胡椒で味を付ける";
-		String mode = "A";
+		String mode = "A"; // A: Short
 		int expected_keyword_size = 9;
 		SudachiAnnotator ann = new SudachiAnnotator();
 		ann.setProperty("systemDict", "/usr/local/sudachi/system_full.dic");
@@ -62,12 +63,47 @@ public class SudachiAnnotatorTestCase extends TestCase {
 			for (Keyword kwd : kwds) {
 				System.err.println(kwd.toString());
 			}
+			assertEquals("目玉", kwds.get(0).getLex());
+			assertEquals("焼き", kwds.get(1).getLex());
+			assertEquals("に", kwds.get(2).getLex());
+			assertEquals("塩", kwds.get(3).getLex());
+			assertEquals("胡椒", kwds.get(4).getLex());
+			assertEquals("で", kwds.get(5).getLex());
+			assertEquals("味", kwds.get(6).getLex());
+			assertEquals("を", kwds.get(7).getLex());
+			assertEquals("付ける", kwds.get(8).getLex());
 			assertEquals(expected_keyword_size, kwds.size());
 		}
 	}
 
 	public void testAnnotateDocument005() throws Exception {
 		String text = "目玉焼きに塩胡椒で味を付ける";
+		String mode = "C"; // C: Long
+		int expected_keyword_size = 7;
+		SudachiAnnotator ann = new SudachiAnnotator();
+		ann.setProperty("systemDict", "/usr/local/sudachi/system_full.dic");
+		ann.setProperty("target", "text");
+		ann.setProperty("mode", mode);
+		try (KeywordParser parser = new KeywordParser(ann);) {
+			List<Keyword> kwds = parser.parse(text);
+			for (Keyword kwd : kwds) {
+				System.err.println(kwd.toString());
+			}
+			assertEquals("目玉焼き", kwds.get(0).getLex());
+			assertEquals("に", kwds.get(1).getLex());
+			assertEquals("塩胡椒", kwds.get(2).getLex());
+			assertEquals("で", kwds.get(3).getLex());
+			assertEquals("味", kwds.get(4).getLex());
+			assertEquals("を", kwds.get(5).getLex());
+			assertEquals("付ける", kwds.get(6).getLex());
+			assertEquals(expected_keyword_size, kwds.size());
+		}
+	}
+
+	public void testAnnotateDocument006() throws Exception {
+		TestUtils.setLevelDebug();
+		// 固有名詞の扱いを確認する
+		String text = "京都は日本の都市である";
 		String mode = "C";
 		int expected_keyword_size = 7;
 		SudachiAnnotator ann = new SudachiAnnotator();
@@ -79,6 +115,13 @@ public class SudachiAnnotatorTestCase extends TestCase {
 			for (Keyword kwd : kwds) {
 				System.err.println(kwd.toString());
 			}
+			assertEquals("京都", kwds.get(0).getLex());
+			assertEquals("は", kwds.get(1).getLex());
+			assertEquals("日本", kwds.get(2).getLex());
+			assertEquals("の", kwds.get(3).getLex());
+			assertEquals("都市", kwds.get(4).getLex());
+			assertEquals("だ", kwds.get(5).getLex());
+			assertEquals("ある", kwds.get(6).getLex());
 			assertEquals(expected_keyword_size, kwds.size());
 		}
 	}
@@ -121,7 +164,7 @@ public class SudachiAnnotatorTestCase extends TestCase {
 		String text = "アイビーエムをアルファベットで書くとIBMです。";
 		String mode = "C";
 		int expected_keyword_size = 9;
-		String expected_facet = "名詞";
+		String expected_facet = "固有名詞";
 		SudachiAnnotator ann = new SudachiAnnotator();
 		{
 			ann.setProperty("systemDict", "/usr/local/sudachi/system_full.dic");

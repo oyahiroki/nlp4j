@@ -185,6 +185,11 @@ public class DefaultKeyword extends AbstractKeyword implements Keyword, Cloneabl
 		}
 	}
 
+	@Override
+	public String getFacet2() {
+		return this.facet2;
+	}
+
 	/**
 	 * フラグを返します。
 	 * 
@@ -231,6 +236,11 @@ public class DefaultKeyword extends AbstractKeyword implements Keyword, Cloneabl
 	}
 
 	@Override
+	public void setFacet2(String facet) {
+		this.facet2 = facet;
+	}
+
+	@Override
 	public void setFlag(boolean b) {
 		this.flag = b;
 
@@ -254,8 +264,8 @@ public class DefaultKeyword extends AbstractKeyword implements Keyword, Cloneabl
 		return this.lex + " [" //
 				+ ((sequence != -1) ? (", sequence=" + sequence) : "") //
 				+ ((facet != null) ? (", facet=" + facet) : "") //
+				+ ((facet2 != null) ? (", facet2=" + facet2) : "") //
 				+ ((upos != null) ? (", upos=" + upos) : "") //
-				+ ", " + "upos=" + upos //
 				+ ", " + "lex=" + lex //
 				+ ", " + "str=" + str //
 				+ ", " + "reading=" + reading //

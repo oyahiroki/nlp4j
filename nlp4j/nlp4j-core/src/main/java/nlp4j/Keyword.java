@@ -91,6 +91,15 @@ public interface Keyword extends Serializable, Cloneable {
 	public String getFacet();
 
 	/**
+	 * ファセットを返します。<br>
+	 * Return facet.
+	 * 
+	 * @return facet ファセット
+	 * @since 1.3.7.10
+	 */
+	public String getFacet2();
+
+	/**
 	 * @return フラグ
 	 * @since 1.3
 	 */
@@ -232,6 +241,15 @@ public interface Keyword extends Serializable, Cloneable {
 	 * @since 1.0
 	 */
 	public void setFacet(String facet);
+
+	/**
+	 * キーワードのファセットをセットします。<br>
+	 * Set facet of keyword.
+	 * 
+	 * @param facet ファセット
+	 * @since 1.3.7.10
+	 */
+	public void setFacet2(String facet);
 
 	/**
 	 * @param b フラグ

@@ -119,18 +119,28 @@ public class SudachiAnnotator extends AbstractDocumentAnnotator implements Docum
 				// FOR_EACH(Morpheme)
 				for (Morpheme morpheme : list) {
 					logger.debug( //
-							morpheme.begin() + "\t" //
+							"" //
+									+ morpheme.begin() + "\t" //
 									+ morpheme.end() + "\t" //
 									+ morpheme.surface() + "\t" // 表層形
 									+ String.join("-", morpheme.partOfSpeech()) + "," // 品詞
 									+ morpheme.dictionaryForm() + "," // 原形
 									+ morpheme.readingForm() + "," // 読み
-									+ morpheme.normalizedForm()); // 正規形
+									+ morpheme.normalizedForm() // 正規形
+					); // END_OF_DEBUG
 
-					Keyword kwd = (new KeywordBuilder()).begin(morpheme.begin()) //
+					String facet = morpheme.partOfSpeech().get(0);
+					String facet2 = String.join("-", morpheme.partOfSpeech());
+					if (facet2.startsWith("名詞-固有名詞")) {
+						facet = "固有名詞";
+					}
+
+					Keyword kwd = (new KeywordBuilder()) //
+							.begin(morpheme.begin()) //
 							.end(morpheme.end()) //
 							.str(morpheme.surface()) //
-							.facet(morpheme.partOfSpeech().get(0)) //
+							.facet(facet) //
+							.facet2(facet2) //
 							.lex(morpheme.dictionaryForm()) //
 							.reading(morpheme.readingForm()) //
 							.sentenceIndex(sentenceIndex) //

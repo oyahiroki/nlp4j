@@ -419,7 +419,7 @@ public class MediaWikiTextUtils {
 			{
 				text = text //
 						.replace("\n\n", " ") // 連続する改行を半角空白にする
-						.replace("\n", "") // 改行を除去
+//						.replace("\n", "") // 改行を除去 // TODO 2023-08-15
 //						.replaceAll("\\[\\[.*?\\]\\]", "") //
 						.replaceAll("（.*?）", "") // カッコ注釈を外す
 						.replaceAll("\\(.*?\\)", "") // カッコ注釈を外す

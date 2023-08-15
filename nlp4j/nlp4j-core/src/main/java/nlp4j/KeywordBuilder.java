@@ -59,6 +59,16 @@ public class KeywordBuilder implements Builder<Keyword> {
 		return this;
 	}
 
+	/**
+	 * @param facet
+	 * @return
+	 * @since 1.3.7.10
+	 */
+	public KeywordBuilder facet2(String facet) {
+		this.kwd.setFacet2(facet);
+		return this;
+	}
+
 	public KeywordBuilder flag(boolean flag) {
 		this.kwd.setFlag(flag);
 		return this;

@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"nlp4j.sudachi"},{"l":"すべてのパッケージ","u":"allpackages-index.html"}];updateSearchResults();

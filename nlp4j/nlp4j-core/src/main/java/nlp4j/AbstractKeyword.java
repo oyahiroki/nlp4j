@@ -45,6 +45,10 @@ public abstract class AbstractKeyword implements Keyword {
 	protected String facet;
 
 	/**
+	 * facet
+	 */
+	protected String facet2;
+	/**
 	 * hitKeyword
 	 */
 	protected Keyword hitKeyword = null;
@@ -286,14 +290,20 @@ public abstract class AbstractKeyword implements Keyword {
 	public String toString() {
 
 		StringBuilder sb = new StringBuilder();
-		sb.append(((facet != null) ? ("facet='" + facet + "'") : ""));
+		sb.append(((facet != null) ? ("facet=" + facet + " ") : ""));
+		sb.append(((facet2 != null) ? ("facet2=" + facet2 + " ") : ""));
+		sb.append(((facet2 != null) ? ("upos=" + upos + " ") : ""));
+		sb.append(((lex != null) ? ("lex=" + lex + " ") : ""));
+		sb.append(((str != null) ? ("lex=" + str + " ") : ""));
 
-		return //
-		"[" //
-				+ ((facet != null) ? ("facet=" + facet + " ") : "") //
-				+ ((upos != null) ? ("upos=" + upos + " ") : "") //
-				+ ((lex != null) ? ("lex=" + lex + " ") : "") //
-				+ ((str != null) ? ("str=" + str + " ") : "") //
-				+ "]";
+		return "[" + sb.toString().trim() + "]";
+
+//		return //
+//		"[" //
+//				+ ((facet != null) ? ("facet=" + facet + " ") : "") //
+//				+ ((upos != null) ? ("upos=" + upos + " ") : "") //
+//				+ ((lex != null) ? ("lex=" + lex + " ") : "") //
+//				+ ((str != null) ? ("str=" + str + " ") : "") //
+//				+ "]";
 	}
 }
