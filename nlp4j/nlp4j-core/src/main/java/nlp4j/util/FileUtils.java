@@ -13,6 +13,7 @@ import java.io.SequenceInputStream;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.zip.GZIPInputStream;
@@ -24,6 +25,15 @@ import org.apache.commons.io.IOUtils;
  *
  */
 public class FileUtils {
+
+	static public void write(File file, Collection<String> data, String charsetName, boolean append)
+			throws IOException {
+		StringBuilder sbData = new StringBuilder();
+		for (String d : data) {
+			sbData.append(d + "\n");
+		}
+		org.apache.commons.io.FileUtils.write(file, sbData.toString(), charsetName, append);
+	}
 
 	/**
 	 * @param fromFiles
