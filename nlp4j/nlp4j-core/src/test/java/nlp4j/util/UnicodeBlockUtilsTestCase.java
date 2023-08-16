@@ -101,7 +101,7 @@ public class UnicodeBlockUtilsTestCase extends TestCase {
 		String s = "これは日本語デス。";
 		boolean b = UnicodeBlockUtils.contains(s, UnicodeBlock.HIRAGANA, UnicodeBlock.KATAKANA,
 				UnicodeBlockUtils.KANJI);
-		boolean expected = false;
+		boolean expected = true;
 		assertEquals(expected, b);
 	}
 
