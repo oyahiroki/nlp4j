@@ -1,8 +1,12 @@
 package nlp4j.util;
 
+import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -15,6 +19,8 @@ import com.google.gson.JsonObject;
  */
 public class JsonObjectUtils {
 
+	static private final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
+
 	/**
 	 * @param json
 	 * @return
@@ -25,12 +31,53 @@ public class JsonObjectUtils {
 	}
 
 	/**
-	 * @param jsonObject Target Object
+	 * created on: 2023-08-15
+	 * 
+	 * @param jo         that contains 2D Array of String
 	 * @param memberName
+	 * @since 1.3.7.10
+	 * @return as List of String
+	 */
+	static public List<String> get2DArrayAsList(JsonObject jo, String memberName) {
+		List<String> ss = new ArrayList<>();
+		JsonArray arr1 = (jo.get(memberName) != null && jo.get(memberName).isJsonArray())
+				? jo.get(memberName).getAsJsonArray()
+				: null;
+		if (arr1 != null) {
+			for (int n = 0; n < arr1.size(); n++) {
+				ss.addAll(getAsList(arr1.get(n).getAsJsonArray()));
+			}
+			return ss;
+		} else {
+			logger.warn("size=0, member=" + memberName);
+			return new ArrayList<>();
+		}
+	}
+
+	/**
+	 * @param arr
+	 * @return
+	 * @since 1.3.7.12
+	 */
+	static public List<String> getAsList(JsonArray arr) {
+		List<String> ss = new ArrayList<>(arr.size());
+		for (int n = 0; n < arr.size(); n++) {
+			if (arr.get(n).isJsonPrimitive()) {
+				ss.add(arr.get(n).getAsString());
+			}
+		}
+		return ss;
+	}
+
+	/**
+	 * @param jo                    Target Object
+	 * @param memberNameOfJsonArray
 	 * @return as List of String, Not null
 	 */
-	static public List<String> getAsList(JsonObject jsonObject, String memberName) {
-		JsonArray arr = (jsonObject.get(memberName) != null) ? jsonObject.get(memberName).getAsJsonArray() : null;
+	static public List<String> getAsList(JsonObject jo, String memberNameOfJsonArray) {
+		JsonArray arr = (jo.get(memberNameOfJsonArray) != null && jo.get(memberNameOfJsonArray).isJsonArray())
+				? jo.get(memberNameOfJsonArray).getAsJsonArray()
+				: null;
 		if (arr != null) {
 			List<String> ss = new ArrayList<>(arr.size());
 			for (int n = 0; n < arr.size(); n++) {
@@ -38,30 +85,7 @@ public class JsonObjectUtils {
 			}
 			return ss;
 		} else {
-			return new ArrayList<>();
-		}
-	}
-
-	/**
-	 * created on: 2023-08-15
-	 * 
-	 * @param jsonObject that contains 2D Array of String
-	 * @param memberName
-	 * @since 1.3.7.10
-	 * @return as List of String
-	 */
-	static public List<String> get2DArrayAsList(JsonObject jsonObject, String memberName) {
-		List<String> ss = new ArrayList<>();
-		JsonArray arr1 = (jsonObject.get(memberName) != null) ? jsonObject.get(memberName).getAsJsonArray() : null;
-		if (arr1 != null) {
-			for (int n = 0; n < arr1.size(); n++) {
-				JsonArray arr2 = arr1.get(n).getAsJsonArray();
-				for (int x = 0; x < arr2.size(); x++) {
-					ss.add(arr2.get(x).getAsString());
-				}
-			}
-			return ss;
-		} else {
+			logger.warn("size=0, member=" + memberNameOfJsonArray);
 			return new ArrayList<>();
 		}
 	}
@@ -126,6 +150,13 @@ public class JsonObjectUtils {
 			}
 			return arr;
 		}
+	}
+
+	public static boolean isTrue(JsonObject jo, String string) {
+
+		return jo.get(string) != null //
+				&& jo.get(string).isJsonPrimitive() //
+				&& (jo.get(string).getAsBoolean() == true);
 	}
 
 }
