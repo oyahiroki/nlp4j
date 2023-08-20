@@ -49,7 +49,7 @@ public class JsonObjectUtils {
 			}
 			return ss;
 		} else {
-			logger.warn("size=0, member=" + memberName);
+//			logger.warn("size=0, member=" + memberName);
 			return new ArrayList<>();
 		}
 	}
@@ -85,7 +85,7 @@ public class JsonObjectUtils {
 			}
 			return ss;
 		} else {
-			logger.warn("size=0, member=" + memberNameOfJsonArray);
+//			logger.warn("size=0, member=" + memberNameOfJsonArray);
 			return new ArrayList<>();
 		}
 	}
