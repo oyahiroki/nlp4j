@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.util.List;
 
 import info.bliki.wiki.model.WikiModel;
+import nlp4j.wiki.util.MediaWikiPageUtils;
 import nlp4j.wiki.util.MediaWikiTextUtils;
+import nlp4j.wiki.util.WikiUtils;
 
 /**
  * <pre>
@@ -349,6 +351,16 @@ public class WikiPage {
 				+ "text=" + t + ", "//
 				+ "xml=" + x //
 				+ "]";
+	}
+
+	/**
+	 * created on: 2023-08-19
+	 * 
+	 * @return
+	 */
+	public List<String> getWikiLinks() {
+		List<String> links = MediaWikiTextUtils.getWikiPageLinks(this.text);
+		return links;
 	}
 
 }

@@ -120,7 +120,8 @@ public class MediaWikiTextUtils {
 			while (m.find()) {
 				String g = m.group();
 				if (g.length() > 4) {
-					ss.add(g.substring(2, g.length() - 2));
+					String s = g.substring(2, g.length() - 2);
+					ss.add(s);
 				}
 			}
 		}

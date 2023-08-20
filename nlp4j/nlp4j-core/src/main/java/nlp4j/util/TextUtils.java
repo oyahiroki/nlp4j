@@ -84,6 +84,16 @@ public class TextUtils {
 	}
 
 	/**
+	 * created on: 2023-08-19
+	 * 
+	 * @param s
+	 * @return
+	 */
+	static public String removeBrackets(String s) {
+		return s.replaceAll("\\(.*?\\)", "");
+	}
+
+	/**
 	 * Remove '\t'
 	 * 
 	 * @return this
