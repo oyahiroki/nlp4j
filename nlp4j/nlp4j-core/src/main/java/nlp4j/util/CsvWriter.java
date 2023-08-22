@@ -32,12 +32,25 @@ public class CsvWriter implements Closeable {
 	 */
 	public CsvWriter(File outCsvFile) throws IOException {
 		super();
-
 		this.outCsvFile = outCsvFile;
+		boolean append = false;
+		printer = new CSVPrinter( //
+				new OutputStreamWriter(new FileOutputStream(outCsvFile, append), this.encoding), CSVFormat.EXCEL);
+	}
 
-		printer = new CSVPrinter(new OutputStreamWriter(new FileOutputStream(outCsvFile), this.encoding),
-				CSVFormat.EXCEL);
-
+	/**
+	 * CSV Writer
+	 * 
+	 * @param outCsvFile
+	 * @param append
+	 * @throws IOException
+	 * @since 1.3.7.12
+	 */
+	public CsvWriter(File outCsvFile, boolean append) throws IOException {
+		super();
+		this.outCsvFile = outCsvFile;
+		printer = new CSVPrinter( //
+				new OutputStreamWriter(new FileOutputStream(outCsvFile, append), this.encoding), CSVFormat.EXCEL);
 	}
 
 	/**
