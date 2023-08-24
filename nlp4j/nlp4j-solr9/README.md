@@ -33,19 +33,34 @@ Please set the JAVA_HOME environment variable to the path where you installed Ja
 > bin\solr start
 ```
 
+### 起動 stop
+
+```
+> bin\solr stop -all
+```
+
 ### コアの作成 create core
 
 ```
 > bin\solr create_core -c sandbox
 ```
 
+server/solr/sandbox が作成される
+
+server/solr/sandbox/conf/managed-schema.xml を編集してフィールドを定義する
+
+
 ### フィールドの定義
 
 managed-schema.xml に以下の定義を追加する。（手作業でないとできないっぽい）
 
+#### 定義1
+
 ```
 <field name="vector" type="knn_vector" indexed="true" stored="false" /> <!-- フィールド定義 -->
 ```
+
+#### 定義2
 
 ```
 <fieldType name="knn_vector" class="solr.DenseVectorField" vectorDimension="4" similarityFunction="cosine" /> <!-- 型定義 -->

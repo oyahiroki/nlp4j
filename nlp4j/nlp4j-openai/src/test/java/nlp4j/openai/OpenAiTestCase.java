@@ -21,15 +21,17 @@ public class OpenAiTestCase extends TestCase {
 
 		System.err.println(configuration);
 
-		OpenAI openai = new OpenAI(configuration);
+		try (OpenAI openai = new OpenAI(organization, apiKey);) {
+			JsonObject jo = openai.embeddings(text);
 
-		JsonObject jo = openai.embeddings(text);
-
-//		System.err.println(jo.toString());
 //
 //		// 1536
 //		System.err.println(
 //				jo.get("data").getAsJsonArray().get(0).getAsJsonObject().get("embedding").getAsJsonArray().size());
+
+			System.err.println(jo.toString());
+
+		}
 
 	}
 
