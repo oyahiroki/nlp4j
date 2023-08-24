@@ -13,6 +13,7 @@
 	<!-- JAR -->
 	<packaging>jar</packaging>
 	<name>nlp4j-core</name>
+	<!-- https://mvnrepository.com/artifact/org.nlp4j/nlp4j-core -->
 	<!-- 1.3.3.0 : 2021-09-20 -->
 	<!-- 1.3.4.0 : 2021-12-29 -->
 	<!-- 1.3.5.0 : 2022-03-04 -->

@@ -2,6 +2,7 @@ package examples;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import nlp4j.util.CsvWriter;
 import nlp4j.wiki.BreakException;
@@ -9,7 +10,7 @@ import nlp4j.wiki.WikiDumpReader;
 import nlp4j.wiki.WikiPage;
 import nlp4j.wiki.WikiPageHandler;
 
-public class WikipediaJaDumpToCsv {
+public class WikipediaJaDumpToCsv_V3 {
 
 	public static void main(String[] args) throws Exception {
 
@@ -22,7 +23,7 @@ public class WikipediaJaDumpToCsv {
 
 		String dumpFileName = dir + lang + media + "-20230101-pages-articles-multistream.xml.bz2";
 
-		String out_csvFileName = dir + lang + media + "-20230101-pages-abstract.csv";
+		String out_csvFileName = dir + lang + media + "-20230101-pages-id_abstract_categories.csv";
 
 		CsvWriter csv_writer = new CsvWriter(new File(out_csvFileName));
 
@@ -40,12 +41,14 @@ public class WikipediaJaDumpToCsv {
 					if (count % 1000 == 0) {
 						System.err.println(count);
 					}
-
+					String id = page.getId();
 					String title = page.getTitle();
 					String abst_text = page.getRootNodePlainText();
+					List<String> cc = page.getCategoryTags();
+					String categories = (cc == null) ? "" : cc.toString();
 
 					try {
-						csv_writer.write(title, abst_text);
+						csv_writer.write(id, title, abst_text, categories);
 					} catch (IOException e) {
 						System.err.println("title: " + title);
 						e.printStackTrace();
