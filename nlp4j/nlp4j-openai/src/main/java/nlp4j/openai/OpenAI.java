@@ -1,4 +1,4 @@
-package nlp4j.chatgpt;
+package nlp4j.openai;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -23,7 +23,7 @@ public class OpenAI {
 		this.configuration = configuration;
 	}
 
-	public JsonObject embeddings() throws IOException {
+	public JsonObject embeddings(String text) throws IOException {
 
 		try (HttpClient5 client = new HttpClient5();) {
 			Map<String, String> header = new HashMap<>();
@@ -31,29 +31,21 @@ public class OpenAI {
 				header.put("Authorization", "Bearer " + this.configuration.getApiKey());
 				header.put("Content-Type", "application/json");
 			}
-
 			String url = "https://api.openai.com/v1/embeddings";
-
 			JsonObject requestBody = new JsonObject();
 			{
-				requestBody.addProperty("input", "今日はいい天気です。");
+				requestBody.addProperty("input", text);
 				requestBody.addProperty("model", "text-embedding-ada-002");
 			}
-
 			NlpServiceResponse res = client.post(url, header, requestBody.toString());
-
 			Gson gson = new Gson();
-
 			JsonObject jo = gson.fromJson(res.getOriginalResponseBody(), JsonObject.class);
-
 			System.err.println(res.getOriginalResponseBody());
-
-			System.err.println(
-					jo.get("data").getAsJsonArray().get(0).getAsJsonObject().get("embedding").getAsJsonArray().size());
-
+//			// 1536
+//			System.err.println(
+//					jo.get("data").getAsJsonArray().get(0).getAsJsonObject().get("embedding").getAsJsonArray().size());
+			return jo;
 		}
-
-		return null;
 
 	}
 

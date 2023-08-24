@@ -1,4 +1,4 @@
-package nlp4j.chatgpt;
+package nlp4j.openai;
 
 import com.google.gson.JsonObject;
 
