@@ -1,5 +1,8 @@
 package nlp4j;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * created on: 2022-06-24
  * 
@@ -11,6 +14,18 @@ public abstract class AbstractKeyword implements Keyword {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+
+	static private void addIfNotNull(List<String> ss, String name, int value) {
+		if (value != -1) {
+			ss.add(name + "=" + value);
+		}
+	}
+
+	static private void addIfNotNull(List<String> ss, String name, String value) {
+		if (value != null) {
+			ss.add(name + "=" + value);
+		}
+	}
 
 	private String id = null;
 
@@ -38,12 +53,10 @@ public abstract class AbstractKeyword implements Keyword {
 	 * end
 	 */
 	protected int end = END_INIT;
-
 	/**
 	 * facet
 	 */
 	protected String facet;
-
 	/**
 	 * facet
 	 */
@@ -76,10 +89,12 @@ public abstract class AbstractKeyword implements Keyword {
 	 * sequence: 連番
 	 */
 	protected int sequence = SEQUENCE_INIT;
+
 	/**
 	 * str
 	 */
 	protected String str;
+
 	/**
 	 * upos: Universal Part of Speech
 	 */
@@ -271,7 +286,6 @@ public abstract class AbstractKeyword implements Keyword {
 	 */
 	public void setSequence(int sequence) {
 		this.sequence = sequence;
-
 	}
 
 	/**
@@ -288,22 +302,14 @@ public abstract class AbstractKeyword implements Keyword {
 
 	@Override
 	public String toString() {
-
-		StringBuilder sb = new StringBuilder();
-		sb.append(((facet != null) ? ("facet=" + facet + " ") : ""));
-		sb.append(((facet2 != null) ? ("facet2=" + facet2 + " ") : ""));
-		sb.append(((facet2 != null) ? ("upos=" + upos + " ") : ""));
-		sb.append(((lex != null) ? ("lex=" + lex + " ") : ""));
-		sb.append(((str != null) ? ("lex=" + str + " ") : ""));
-
-		return "[" + sb.toString().trim() + "]";
-
-//		return //
-//		"[" //
-//				+ ((facet != null) ? ("facet=" + facet + " ") : "") //
-//				+ ((upos != null) ? ("upos=" + upos + " ") : "") //
-//				+ ((lex != null) ? ("lex=" + lex + " ") : "") //
-//				+ ((str != null) ? ("str=" + str + " ") : "") //
-//				+ "]";
+		List<String> ss = new ArrayList<>();
+		addIfNotNull(ss, "begin", begin);
+		addIfNotNull(ss, "end", end);
+		addIfNotNull(ss, "facet", facet);
+		addIfNotNull(ss, "facet2", facet2);
+		addIfNotNull(ss, "upos", upos);
+		addIfNotNull(ss, "lex", lex);
+		addIfNotNull(ss, "str", str);
+		return "[" + String.join(",", ss) + "]";
 	}
 }

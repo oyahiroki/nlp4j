@@ -3,6 +3,9 @@ package nlp4j.trie;
 import java.util.HashMap;
 import java.util.Map;
 
+import nlp4j.Keyword;
+import nlp4j.KeywordBuilder;
+
 /**
  * <pre>
  * Trie Tree
@@ -44,38 +47,79 @@ public class Trie {
 	}
 
 	public TrieSearchResult search(String s) {
-		TrieSearchResult result = new TrieSearchResult();
+		TrieSearchResult result = new TrieSearchResult(s);
 
-		Trie ptr = this;
-//		if (ptr != null && ptr.children != null) {
-//			System.err.println("children.size: " + ptr.children.size() + " " + ptr.children.keySet());
-//		}
-		for (int n = 0; n < s.length(); n++) {
-			char c = s.charAt(n);
-			ptr = ptr.children.get(c);
-			if (ptr == null) {
-//				return false;
-//				System.err.println("not found: " + c);
-//				System.err.println("found: " + false);
-				return result;
-			} else {
-				//
-//				System.err.println("continue: " + c);
-//				System.err.println("isLeaf: " + ptr.isLeaf);
-				if (ptr.isLeaf) {
-					result.addIndex(n);
-				}
-				if (ptr != null && ptr.children != null) {
-//					System.err.println("children.size: " + ptr.children.size() + " " + ptr.children.keySet());
+		for (int begin = 0; begin < s.length(); begin++) {
+
+			Trie ptr = this;
+//			if (ptr != null && ptr.children != null) {
+//				System.err.println("children.size: " + ptr.children.size() + " " + ptr.children.keySet());
+//			}
+			for (int n = begin; n < s.length(); n++) {
+				char c = s.charAt(n);
+//				System.err.println("char: " + c);
+				ptr = ptr.children.get(c);
+				if (ptr == null) {
+//					return false;
+//					System.err.println("not found: " + c);
+//					System.err.println("found: " + false);
+//					return result;
+					break;
+				} else {
+					//
+//					System.err.println("continue: " + c);
+//					System.err.println("isLeaf: " + ptr.isLeaf);
+					if (ptr.isLeaf == true) {
+//						System.err.println("c:" + c);
+//						System.err.println("HIT: " + s.subSequence(begin, n + 1));
+
+						String lex = s.substring(begin, n + 1);
+
+						Keyword kwd = (new KeywordBuilder()).lex(lex).begin(begin).end(n + 1).build();
+
+						result.addKeyword(kwd);
+
+//						result.addIndex(n + 1);
+					}
+					if (ptr != null && ptr.children != null) {
+//						System.err.println("children.size: " + ptr.children.size() + " " + ptr.children.keySet());
+					}
 				}
 			}
+
 		}
+
+//		Trie ptr = this;
+////		if (ptr != null && ptr.children != null) {
+////			System.err.println("children.size: " + ptr.children.size() + " " + ptr.children.keySet());
+////		}
+//		for (int n = 0; n < s.length(); n++) {
+//			char c = s.charAt(n);
+//			ptr = ptr.children.get(c);
+//			if (ptr == null) {
+////				return false;
+////				System.err.println("not found: " + c);
+////				System.err.println("found: " + false);
+//				return result;
+//			} else {
+//				//
+////				System.err.println("continue: " + c);
+////				System.err.println("isLeaf: " + ptr.isLeaf);
+//				if (ptr.isLeaf == true) {
+////					System.err.println("c:" + c);
+//					result.addIndex(n + 1);
+//				}
+//				if (ptr != null && ptr.children != null) {
+////					System.err.println("children.size: " + ptr.children.size() + " " + ptr.children.keySet());
+//				}
+//			}
+//		}
 
 //		return ptr.isLeaf;
 
-		result.setFound(ptr.isLeaf);
+//		result.setFound(ptr.isLeaf);
 
-		System.err.println("found: " + ptr.isLeaf);
+//		System.err.println("found: " + ptr.isLeaf);
 
 		return result;
 	}

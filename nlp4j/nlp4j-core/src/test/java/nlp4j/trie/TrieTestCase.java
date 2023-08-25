@@ -48,24 +48,35 @@ public class TrieTestCase extends TestCase {
 	public void testSearch001() throws Exception {
 
 		Trie trie = new Trie();
-
-		trie.insert("テスト");
-		trie.insert("テストケース");
-		trie.insert("株式会社");
-		trie.insert("株式");
-		trie.insert("会社");
-		trie.insert("自動");
-		trie.insert("自動車");
-		trie.insert("自動車会");
-		trie.insert("自動車会社");
-		trie.insert("自動車会社社員");
-		trie.insert("自動運転");
+		{ // 辞書の追加
+			trie.insert("AB");
+			trie.insert("BCD");
+			trie.insert("CDE");
+			trie.insert("XX");
+		}
 
 		{
-			TrieSearchResult result = trie.search("自動車会社");
-			System.err.println(result);
+			TrieSearchResult result = trie.search("ABCDE");
+			System.err.println(result.getKeywords());
 		}
-		System.err.println("---");
+	}
+
+	public void testSearch002() throws Exception {
+
+		Trie trie = new Trie();
+		{ // 辞書の追加
+			trie.insert("テスト");
+			trie.insert("テストケース");
+			trie.insert("株式会社");
+			trie.insert("株式");
+			trie.insert("会社");
+			trie.insert("自動");
+			trie.insert("自動車");
+			trie.insert("自動車会");
+			trie.insert("自動車会社");
+			trie.insert("自動車会社社員");
+			trie.insert("自動運転");
+		}
 		{
 			TrieSearchResult result = trie.search("自動車会社x");
 			System.err.println(result);

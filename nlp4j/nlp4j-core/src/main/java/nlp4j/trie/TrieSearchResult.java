@@ -3,6 +3,8 @@ package nlp4j.trie;
 import java.util.ArrayList;
 import java.util.List;
 
+import nlp4j.Keyword;
+
 /**
  * <pre>
  * Trie Tree Search Result
@@ -15,25 +17,20 @@ import java.util.List;
  */
 public class TrieSearchResult {
 
-	List<Integer> indexes = new ArrayList<>();
+	List<Keyword> kwds = new ArrayList<>();
 
-	boolean found = false;
+	private String s;
 
-	public void addIndex(int idx) {
-		indexes.add(idx);
+	public TrieSearchResult(String s) {
+		this.s = s;
 	}
 
-	public boolean isFound() {
-		return found;
+	public void addKeyword(Keyword kwd) {
+		this.kwds.add(kwd);
 	}
 
-	public void setFound(boolean found) {
-		this.found = found;
-	}
-
-	@Override
-	public String toString() {
-		return "TrieSearchResult [found=" + found + ", indexes=" + indexes + "]";
+	public List<Keyword> getKeywords() {
+		return this.kwds;
 	}
 
 }
