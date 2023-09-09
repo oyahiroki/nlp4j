@@ -1,6 +1,7 @@
 package nlp4j.trie;
 
 import junit.framework.TestCase;
+import nlp4j.Keyword;
 
 public class TrieTestCase extends TestCase {
 
@@ -8,8 +9,8 @@ public class TrieTestCase extends TestCase {
 
 		Trie trie = new Trie();
 
-		trie.insert("テスト");
-		trie.insert("テストケース");
+		trie.insert("テスト", false, "noun");
+		trie.insert("テストケース", false, "noun");
 		trie.insert("株式会社");
 		trie.insert("株式");
 		trie.insert("会社");
@@ -49,19 +50,49 @@ public class TrieTestCase extends TestCase {
 
 		Trie trie = new Trie();
 		{ // 辞書の追加
-			trie.insert("AB");
-			trie.insert("BCD");
-			trie.insert("CDE");
+			trie.insert("A", false, "facet1");
+			trie.insert("AB", true, "facet2"); // overwrite(長いもの勝ち)の設定は上書きされる
+			trie.insert("ABC", false, "facet2");
+			trie.insert("BCD", false, "facet2");
+			trie.insert("CD", false, "facet2");
+			trie.insert("CDE", false, "facet3");
+			trie.insert("EFG", false, "facet3");
+			trie.insert("E", true, "facet3");
+			trie.insert("XX", false, "facetx");
+		}
+		trie.print();
+
+		{
+			TrieSearchResult result = trie.search("ABCDE");
+			for (Keyword found : result.getKeywords()) {
+				System.err.println(found);
+			}
+		}
+	}
+
+	public void testSearch002() throws Exception {
+
+		Trie trie = new Trie();
+		{ // 辞書の追加
+			trie.insert("AB", true, "facet1");
+			trie.insert("AB", true, "facet2");
+			trie.insert("ABC", false, "facet2");
+			trie.insert("BC", true, "facet1");
+			trie.insert("BC", false, "facet2");
+			trie.insert("BCD", false, "facet2");
+			trie.insert("CDE", false, "facet3");
 			trie.insert("XX");
 		}
 
 		{
 			TrieSearchResult result = trie.search("ABCDE");
-			System.err.println(result.getKeywords());
+			for (Keyword found : result.getKeywords()) {
+				System.err.println(found);
+			}
 		}
 	}
 
-	public void testSearch002() throws Exception {
+	public void testSearch003() throws Exception {
 
 		Trie trie = new Trie();
 		{ // 辞書の追加

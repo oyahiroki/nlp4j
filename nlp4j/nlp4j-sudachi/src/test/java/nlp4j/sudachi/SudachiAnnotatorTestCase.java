@@ -126,6 +126,24 @@ public class SudachiAnnotatorTestCase extends TestCase {
 		}
 	}
 
+	public void testAnnotateDocument007() throws Exception {
+		TestUtils.setLevelDebug();
+		// 固有名詞の扱いを確認する
+		String text = "赤いスイートピー";
+		String mode = "C";
+		int expected_keyword_size = 7;
+		SudachiAnnotator ann = new SudachiAnnotator();
+		ann.setProperty("systemDict", "/usr/local/sudachi/system_full.dic");
+		ann.setProperty("target", "text");
+		ann.setProperty("mode", mode);
+		try (KeywordParser parser = new KeywordParser(ann);) {
+			List<Keyword> kwds = parser.parse(text);
+			for (Keyword kwd : kwds) {
+				System.err.println(kwd.toString());
+			}
+		}
+	}
+
 	public void testAnnotateDocument101() throws Exception {
 		SudachiAnnotator ann = new SudachiAnnotator();
 		ann.setProperty("systemDict", "system_core.dic");

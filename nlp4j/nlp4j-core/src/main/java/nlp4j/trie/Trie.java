@@ -1,7 +1,12 @@
 package nlp4j.trie;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
+
+import com.google.gson.JsonObject;
 
 import nlp4j.Keyword;
 import nlp4j.KeywordBuilder;
@@ -22,16 +27,14 @@ public class Trie {
 
 	private Map<Character, Trie> children = new HashMap<>();
 
-	public void insert(String s) {
-		Trie ptr = this;
-		for (int n = 0; n < s.length(); n++) {
-			char c = s.charAt(n);
-			if (ptr.children.containsKey(c) == false) {
-				ptr.children.put(c, new Trie());
-			}
-			ptr = ptr.children.get(c);
-		}
-		ptr.isLeaf = true;
+	// ファセット(複数)
+	private final List<String> facets = new ArrayList<>();
+
+	// さらに長いキーワードがあればそちらを優先するか
+	private boolean overwrittern = true;
+
+	public boolean isOverwrittern() {
+		return overwrittern;
 	}
 
 	public boolean contains(String s) {
@@ -46,6 +49,56 @@ public class Trie {
 		return ptr.isLeaf;
 	}
 
+	public List<String> getFacets() {
+		return facets;
+	}
+
+	public void insert(String s) {
+		insert(s, false, null);
+	}
+
+	public void insert(String s, boolean overwrittern, String facet) {
+		Trie ptr = this;
+
+		// FOR_EACH(CHARACTER)
+		for (int n = 0; n < s.length(); n++) {
+			char c = s.charAt(n);
+			if (ptr.children.containsKey(c) == false) {
+				ptr.children.put(c, new Trie());
+			}
+			ptr = ptr.children.get(c);
+		} // END_OF_FOR_EACH(CHARACTER)
+
+		// 先端ノード
+		ptr.isLeaf = true;
+		ptr.overwrittern = overwrittern;
+
+		if (facet != null) {
+			ptr.facets.add(facet);
+		}
+	}
+
+	public void print() {
+		this.print(0, null);
+	}
+
+	private void print(int depth, Character c) {
+
+		Trie ptr = this;
+
+		String indent = "";
+		for (int n = 0; n < depth; n++) {
+			indent += " ";
+		}
+
+		System.err.println(indent + ptr.toString(c));
+
+		for (Character cx : this.children.keySet()) {
+			children.get(cx).print(depth + 1, cx);
+		}
+
+	}
+
 	public TrieSearchResult search(String s) {
 		TrieSearchResult result = new TrieSearchResult(s);
 
@@ -55,6 +108,10 @@ public class Trie {
 //			if (ptr != null && ptr.children != null) {
 //				System.err.println("children.size: " + ptr.children.size() + " " + ptr.children.keySet());
 //			}
+
+			Map<Keyword, Boolean> kk = new LinkedHashMap<>();
+
+			// 開始位置
 			for (int n = begin; n < s.length(); n++) {
 				char c = s.charAt(n);
 //				System.err.println("char: " + c);
@@ -69,25 +126,68 @@ public class Trie {
 					//
 //					System.err.println("continue: " + c);
 //					System.err.println("isLeaf: " + ptr.isLeaf);
+
 					if (ptr.isLeaf == true) {
+
+						{
+							List<Keyword> toberemoved = new ArrayList<>();
+							for (Keyword k : kk.keySet()) {
+								boolean b = kk.get(k);
+								if (b == true) {
+									toberemoved.add(k);
+								}
+							}
+							for (Keyword k : toberemoved) {
+								kk.remove(k);
+							}
+						}
+
 //						System.err.println("c:" + c);
 //						System.err.println("HIT: " + s.subSequence(begin, n + 1));
 
-						String lex = s.substring(begin, n + 1);
+						List<String> facets = ptr.getFacets();
 
-						Keyword kwd = (new KeywordBuilder()).lex(lex).begin(begin).end(n + 1).build();
-
-						result.addKeyword(kwd);
+						// ファセット定義なし
+						if (facets == null || facets.size() == 0) {
+							String lex = s.substring(begin, n + 1);
+							Keyword kwd = (new KeywordBuilder()) //
+									.lex(lex) //
+									.begin(begin) //
+									.end(n + 1) //
+									.build();
+							// 結果を追加
+//							result.addKeyword(kwd);
+							kk.put(kwd, ptr.isOverwrittern());
+						} //
+							// ファセット定義あり
+						else {
+							for (String facet : facets) {
+								String lex = s.substring(begin, n + 1);
+								Keyword kwd = (new KeywordBuilder()) //
+										.lex(lex) //
+										.begin(begin) //
+										.end(n + 1) //
+										.facet(facet) //
+										.build();
+								// 結果を追加
+//								result.addKeyword(kwd);
+								kk.put(kwd, ptr.isOverwrittern());
+							}
+						}
 
 //						result.addIndex(n + 1);
 					}
 					if (ptr != null && ptr.children != null) {
 //						System.err.println("children.size: " + ptr.children.size() + " " + ptr.children.keySet());
 					}
-				}
+				} // END_OF_ELSE
+
+			} // END_OF_FOR
+			for (Keyword k : kk.keySet()) {
+				result.addKeyword(k);
 			}
 
-		}
+		} // END_OF_FOR
 
 //		Trie ptr = this;
 ////		if (ptr != null && ptr.children != null) {
@@ -124,43 +224,36 @@ public class Trie {
 		return result;
 	}
 
-	public void print() {
-		this.print(0, null);
-	}
-
 	@Override
 	public String toString() {
 		return "Trie [isLeaf=" + isLeaf + ", children=" + children.keySet() + "]";
 	}
 
 	public String toString(Character c) {
-		return
-//				"Trie "
-		"" //
-				+ "[" + "" + ((c == null) ? "*" : c) + " " //
-				// + "isLeaf="
-				+ (isLeaf ? "*" : "-") //
-//				+ ", " //
-//				+ "children=" 
-//				+ children.keySet() 
-				+ "]";
-	}
+//		JsonObject jo = new JsonObject();
+//		if (c == null) {
+//			jo.addProperty("c", "null");
+//		} else {
+//			jo.addProperty("c", c);
+//		}
+//		jo.addProperty("isLeaf", this.isLeaf);
+//		return jo.toString();
 
-	private void print(int depth, Character c) {
-
-		Trie ptr = this;
-
-		String indent = "";
-		for (int n = 0; n < depth; n++) {
-			indent += " ";
+		StringBuilder sb = new StringBuilder();
+		sb.append("[");
+		if (c == null) {
+			sb.append("* ");
+		} else {
+			sb.append(c + " ");
 		}
-
-		System.err.println(indent + ptr.toString(c));
-
-		for (Character cx : this.children.keySet()) {
-			children.get(cx).print(depth + 1, cx);
+		if (isLeaf) {
+			sb.append("*");
+		} else {
+			sb.append("-");
 		}
+		sb.append("]");
 
+		return sb.toString();
 	}
 
 }
