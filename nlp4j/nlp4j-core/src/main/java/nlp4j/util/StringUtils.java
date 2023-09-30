@@ -14,68 +14,9 @@ import java.util.ArrayList;
  */
 public class StringUtils {
 
+	private static final String regex_hiragana = "^[\u3040-\u309F]+$";
 	private static final String regex_kana = "^([\u3040-\u309F]|[\u30A1-\u30FA])+$";
 	private static final String regex_katakana = "^[ァ-ヶー]*$";
-	private static final String regex_hiragana = "^[\u3040-\u309F]+$";
-
-	static public boolean isJaHiragana(String s) {
-		return s.matches(regex_hiragana);
-	}
-
-	static public boolean isJaKatakana(String s) {
-		return s.matches(regex_katakana);
-	}
-
-	static public boolean isJaKana(String s) {
-		return s.matches(regex_kana);
-	}
-
-	static public String substringBefore(String s, String str) {
-		int idx = s.indexOf("#");
-		if (idx != -1) {
-			return s.substring(0, idx);
-		} else {
-			return s;
-		}
-	}
-
-	/**
-	 * ひらがな → カタカナ
-	 * 
-	 * @param s
-	 * @return
-	 */
-	static public String toJaKatakanaFromHiragana(String s) {
-		StringBuilder sb = new StringBuilder();
-		for (int i = 0; i < s.length(); i++) {
-			char c = s.charAt(i);
-			if ((c >= 0x3041) && (c <= 0x3093)) {
-				sb.append((char) (c + 0x60));
-			} else {
-				sb.append(c);
-			}
-		}
-		return sb.toString();
-	}
-
-	/**
-	 * カタカナ → ひらがな
-	 * 
-	 * @param s
-	 * @return
-	 */
-	static public String toJaHiraganaFromKatakana(String s) {
-		StringBuilder sb = new StringBuilder();
-		for (int i = 0; i < s.length(); i++) {
-			char c = s.charAt(i);
-			if ((c >= 0x30a1) && (c <= 0x30f3)) {
-				sb.append((char) (c - 0x60));
-			} else {
-				sb.append(c);
-			}
-		}
-		return sb.toString();
-	}
 
 	static public String charAt(String s, int n) {
 		int len = s.length();
@@ -86,6 +27,22 @@ public class StringUtils {
 			}
 		}
 		return null;
+	}
+
+	static public String chop(String s, int maximumLength) {
+		if (s == null) {
+			return null;
+		} //
+		else if (maximumLength < 0) {
+			return "";
+		} //
+		else {
+			if (s.length() > maximumLength) {
+				return s.substring(0, maximumLength);
+			} else {
+				return s;
+			}
+		}
 	}
 
 	/**
@@ -117,6 +74,66 @@ public class StringUtils {
 		return sb.toString();
 	}
 
+	static public boolean isJaHiragana(String s) {
+		return s.matches(regex_hiragana);
+	}
+
+	static public boolean isJaKana(String s) {
+		return s.matches(regex_kana);
+	}
+
+	static public boolean isJaKatakana(String s) {
+		return s.matches(regex_katakana);
+	}
+
+	/**
+	 * Check all of charcters are in Kanji
+	 * 
+	 * @param s
+	 * @return
+	 */
+	static public boolean isKanji(String s) {
+		for (int n = 0; n < s.length(); n++) {
+			char c = s.charAt(n);
+			if (UnicodeBlock.of(c) != UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	/**
+	 * 文字列が数値であるかをチェックする
+	 * 
+	 * @param input
+	 * @return
+	 */
+	public static boolean isNumeric(String input) {
+		if (input == null || input.isEmpty()) {
+			return false;
+		}
+		for (char c : input.toCharArray()) {
+			if (!Character.isDigit(c)) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	/**
+	 * アルファベット１文字かどうかを判定する
+	 * 
+	 * @param s
+	 * @return
+	 */
+	static public boolean isSingleAlphabet(String s) {
+		if (s == null || s.length() != 1) {
+			return false;
+		}
+		char c = s.charAt(0);
+		return (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z');
+	}
+
 	/**
 	 * Return length of string in consideration of code point.<br>
 	 * コードポイントを考慮した文字列長さを返します.
@@ -126,22 +143,6 @@ public class StringUtils {
 	 */
 	static public int length(String s) {
 		return s.codePointCount(0, s.length());
-	}
-
-	static public String chop(String s, int maximumLength) {
-		if (s == null) {
-			return null;
-		} //
-		else if (maximumLength < 0) {
-			return "";
-		} //
-		else {
-			if (s.length() > maximumLength) {
-				return s.substring(0, maximumLength);
-			} else {
-				return s;
-			}
-		}
 	}
 
 	/**
@@ -160,6 +161,15 @@ public class StringUtils {
 		int endIndexSurrogate = s.offsetByCodePoints(0, endIndex);
 		String s2 = s.substring(startIndexSurrogate, endIndexSurrogate);
 		return s2;
+	}
+
+	static public String substringBefore(String s, String str) {
+		int idx = s.indexOf("#");
+		if (idx != -1) {
+			return s.substring(0, idx);
+		} else {
+			return s;
+		}
 	}
 
 	/**
@@ -242,28 +252,50 @@ public class StringUtils {
 	}
 
 	/**
+	 * カタカナ → ひらがな
+	 * 
+	 * @param s
+	 * @return
+	 */
+	static public String toJaHiraganaFromKatakana(String s) {
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < s.length(); i++) {
+			char c = s.charAt(i);
+			if ((c >= 0x30a1) && (c <= 0x30f3)) {
+				sb.append((char) (c - 0x60));
+			} else {
+				sb.append(c);
+			}
+		}
+		return sb.toString();
+	}
+
+	/**
+	 * ひらがな → カタカナ
+	 * 
+	 * @param s
+	 * @return
+	 */
+	static public String toJaKatakanaFromHiragana(String s) {
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < s.length(); i++) {
+			char c = s.charAt(i);
+			if ((c >= 0x3041) && (c <= 0x3093)) {
+				sb.append((char) (c + 0x60));
+			} else {
+				sb.append(c);
+			}
+		}
+		return sb.toString();
+	}
+
+	/**
 	 * @param d
 	 * @return plain string of double value like (0.00004707386081488301) not in
 	 *         exponential notation
 	 */
 	static public String toString(double d) {
 		return BigDecimal.valueOf(d).toPlainString();
-	}
-
-	/**
-	 * Check all of charcters are in Kanji
-	 * 
-	 * @param s
-	 * @return
-	 */
-	static public boolean isKanji(String s) {
-		for (int n = 0; n < s.length(); n++) {
-			char c = s.charAt(n);
-			if (UnicodeBlock.of(c) != UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS) {
-				return false;
-			}
-		}
-		return true;
 	}
 
 }

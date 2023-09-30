@@ -115,6 +115,34 @@ public class StringUtilsTestCase extends TestCase {
 		assertEquals(expected, b);
 	}
 
+	public void testIsNumeric001() {
+		String s = "100";
+		boolean expected = true;
+		boolean b = StringUtils.isNumeric(s);
+		assertEquals(expected, b);
+	}
+
+	public void testIsNumeric002() {
+		String s = "100.0";
+		boolean expected = false;
+		boolean b = StringUtils.isNumeric(s);
+		assertEquals(expected, b);
+	}
+
+	public void testIsNumeric003() {
+		String s = "a";
+		boolean expected = false;
+		boolean b = StringUtils.isNumeric(s);
+		assertEquals(expected, b);
+	}
+
+	public void testIsNumeric004() {
+		String s = "-1";
+		boolean expected = false;
+		boolean b = StringUtils.isNumeric(s);
+		assertEquals(expected, b);
+	}
+
 	public void testLength001() {
 		String s = "ABC";
 		int len = StringUtils.length(s);

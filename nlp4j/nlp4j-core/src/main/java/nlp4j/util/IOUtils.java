@@ -17,32 +17,6 @@ import org.apache.commons.io.FileUtils;
 public class IOUtils {
 
 	/**
-	 * Short name of {@link IOUtils#printWriter(String) }
-	 * 
-	 * @param fileName of print writer
-	 * @return
-	 * @throws IOException
-	 * @since 1.3.7.9
-	 */
-	static public PrintWriter pw(String fileName) throws IOException {
-		return printWriter(fileName);
-	}
-
-	/**
-	 * @param fileName
-	 * @return PrintWriter (output=file, append=true, charset=UTF-8, autoFlush=true)
-	 * @throws IOException
-	 * @since 1.3.7.8
-	 */
-	static public PrintWriter printWriter(String fileName) throws IOException {
-		File file = new File(fileName);
-		boolean append = true;
-		Charset charset = StandardCharsets.UTF_8;
-		boolean autoflush = true;
-		return printWriter(file, append, charset, autoflush);
-	}
-
-	/**
 	 * @param file
 	 * @return PrintWriter (output=file, append=true, autoflush=true, charset=UTF-8)
 	 * @throws IOException
@@ -80,6 +54,60 @@ public class IOUtils {
 								file, append),
 						charset), //
 				autoflush); //
+	}
+
+	/**
+	 * @param fileName
+	 * @return PrintWriter (output=file, append=true, charset=UTF-8, autoFlush=true)
+	 * @throws IOException
+	 * @since 1.3.7.8
+	 */
+	static public PrintWriter printWriter(String fileName) throws IOException {
+		File file = new File(fileName);
+		boolean append = true;
+		Charset charset = StandardCharsets.UTF_8;
+		boolean autoflush = true;
+		return printWriter(file, append, charset, autoflush);
+	}
+
+	/**
+	 * @param file
+	 * @return PrintWriter (output=file, append=true, autoflush=true, charset=UTF-8)
+	 * @throws IOException
+	 * @since 1.3.7.12
+	 */
+	static public PrintWriter pw(File file) throws IOException {
+		return printWriter(file);
+	}
+
+	/**
+	 * Short name of {@link IOUtils#printWriter(String) }
+	 * 
+	 * @param fileName of print writer
+	 * @return
+	 * @throws IOException
+	 * @since 1.3.7.9
+	 */
+	static public PrintWriter pw(String fileName) throws IOException {
+		return printWriter(fileName);
+	}
+
+	/**
+	 * @return System Error
+	 * @throws IOException
+	 * @since 1.3.7.12
+	 */
+	static public PrintWriter pwSystemErr() throws IOException {
+		return new PrintWriter(System.err, true);
+	}
+
+	/**
+	 * @return System Out
+	 * @throws IOException
+	 * @since 1.3.7.12
+	 */
+	static public PrintWriter pwSystemOut() throws IOException {
+		return new PrintWriter(System.out, true);
 	}
 
 }

@@ -35,4 +35,10 @@ http://sudachi.s3-website-ap-northeast-1.amazonaws.com/sudachidict/
 
 https://www.mlab.im.dendai.ac.jp/~yamada/ir/MorphologicalAnalyzer/Sudachi.html
 
+# Release
+
+1.0.0.0 Initial Release
+
+1.1.1.0 Added new property option "stopWords"
+
 

@@ -12,6 +12,7 @@ import java.util.zip.GZIPInputStream;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonSyntaxException;
 
 /**
  * <pre>
@@ -85,8 +86,12 @@ public class JsonFileReader implements Closeable {
 		if (line == null) {
 			return null;
 		} else {
-			JsonObject jsonObject = (new Gson()).fromJson(line, JsonObject.class);
-			return jsonObject;
+			try {
+				JsonObject jsonObject = (new Gson()).fromJson(line, JsonObject.class); // throws JsonSyntaxException
+				return jsonObject;
+			} catch (JsonSyntaxException e) {
+				throw new IOException(e);
+			}
 		}
 
 	}

@@ -1,6 +1,8 @@
 package nlp4j.sudachi;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import junit.framework.TestCase;
 import nlp4j.Keyword;
@@ -141,6 +143,166 @@ public class SudachiAnnotatorTestCase extends TestCase {
 			for (Keyword kwd : kwds) {
 				System.err.println(kwd.toString());
 			}
+		}
+	}
+
+	public void testAnnotateDocument008() throws Exception {
+		TestUtils.setLevelDebug();
+		// 固有名詞の扱いを確認する
+		String text = "こどもの日";
+		String mode = "C";
+		SudachiAnnotator ann = new SudachiAnnotator();
+		ann.setProperty("systemDict", "/usr/local/sudachi/system_full.dic");
+		ann.setProperty("target", "text");
+		ann.setProperty("mode", mode);
+		try (KeywordParser parser = new KeywordParser(ann);) {
+			List<Keyword> kwds = parser.parse(text);
+			for (Keyword kwd : kwds) {
+				System.err.println(kwd.toString());
+			}
+		}
+	}
+
+	public void testAnnotateDocument009() throws Exception {
+		TestUtils.setLevelDebug();
+		// 固有名詞の扱いを確認する
+		String text = "国の一覧";
+		String mode = "C";
+		SudachiAnnotator ann = new SudachiAnnotator();
+		ann.setProperty("systemDict", "/usr/local/sudachi/system_full.dic");
+		ann.setProperty("target", "text");
+		ann.setProperty("mode", mode);
+		try (KeywordParser parser = new KeywordParser(ann);) {
+			List<Keyword> kwds = parser.parse(text);
+			for (Keyword kwd : kwds) {
+				System.err.println(kwd.toString());
+			}
+		}
+	}
+
+	public void testAnnotateDocument010() throws Exception {
+		TestUtils.setLevelDebug();
+		// 固有名詞の扱いを確認する
+		String text = "高橋留美子";
+		{
+			String mode = "A";
+			SudachiAnnotator ann = new SudachiAnnotator();
+			ann.setProperty("systemDict", "/usr/local/sudachi/system_full.dic");
+			ann.setProperty("target", "text");
+			ann.setProperty("mode", mode);
+			try (KeywordParser parser = new KeywordParser(ann);) {
+				List<Keyword> kwds = parser.parse(text);
+				for (Keyword kwd : kwds) {
+					System.err.println(kwd.toString());
+				}
+			}
+		}
+		System.err.println("---");
+		{
+			String mode = "C";
+			SudachiAnnotator ann = new SudachiAnnotator();
+			ann.setProperty("systemDict", "/usr/local/sudachi/system_full.dic");
+			ann.setProperty("target", "text");
+			ann.setProperty("mode", mode);
+			try (KeywordParser parser = new KeywordParser(ann);) {
+				List<Keyword> kwds = parser.parse(text);
+				for (Keyword kwd : kwds) {
+					System.err.println(kwd.toString());
+				}
+			}
+		}
+	}
+
+	public void testAnnotateDocument011() throws Exception {
+		TestUtils.setLevelDebug();
+		// 複合名詞の扱い
+		String text = "コケ植物";
+		String mode = "C";
+		SudachiAnnotator ann = new SudachiAnnotator();
+		ann.setProperty("systemDict", "/usr/local/sudachi/system_full.dic");
+		ann.setProperty("target", "text");
+		ann.setProperty("mode", mode);
+		try (KeywordParser parser = new KeywordParser(ann);) {
+			List<Keyword> kwds = parser.parse(text);
+			for (Keyword kwd : kwds) {
+				System.err.println(kwd.toString());
+			}
+		}
+	}
+
+	public void testAnnotateDocument012() throws Exception {
+		TestUtils.setLevelDebug();
+		// 複合名詞の扱い
+		String text = "(カッコ)";
+		String mode = "C";
+		SudachiAnnotator ann = new SudachiAnnotator();
+		ann.setProperty("systemDict", "/usr/local/sudachi/system_full.dic");
+		ann.setProperty("target", "text");
+		ann.setProperty("mode", mode);
+		try (KeywordParser parser = new KeywordParser(ann);) {
+			List<Keyword> kwds = parser.parse(text);
+			for (Keyword kwd : kwds) {
+				System.err.println(kwd.toString());
+			}
+		}
+	}
+
+	public void testAnnotateDocument013() throws Exception {
+		TestUtils.setLevelDebug();
+		// 固有名詞の扱いを確認する
+		String text = "うる星やつら";
+		{
+			String mode = "A";
+			SudachiAnnotator ann = new SudachiAnnotator();
+			ann.setProperty("systemDict", "/usr/local/sudachi/system_full.dic");
+			ann.setProperty("target", "text");
+			ann.setProperty("mode", mode);
+			try (KeywordParser parser = new KeywordParser(ann);) {
+				List<Keyword> kwds = parser.parse(text);
+				for (Keyword kwd : kwds) {
+					System.err.println(kwd.toString());
+				}
+			}
+		}
+	}
+
+	public void testAnnotateDocument014_StopWords() throws Exception {
+		TestUtils.setLevelDebug();
+		String text = "私は失敗をすることがある";
+		{
+			String mode = "A";
+			SudachiAnnotator ann = new SudachiAnnotator();
+			ann.setProperty("systemDict", "/usr/local/sudachi/system_full.dic");
+			ann.setProperty("target", "text");
+			ann.setProperty("mode", mode);
+			try (KeywordParser parser = new KeywordParser(ann);) {
+				List<Keyword> kwds = parser.parse(text);
+				for (Keyword kwd : kwds) {
+					System.err.println(kwd.toString());
+				}
+			}
+		}
+		System.err.println("---");
+		{
+			String mode = "A";
+			SudachiAnnotator ann = new SudachiAnnotator();
+			ann.setProperty("systemDict", "/usr/local/sudachi/system_full.dic");
+			ann.setProperty("target", "text");
+			ann.setProperty("mode", mode);
+			ann.setProperty("stopWords", "する,こと,ある");
+			Set<String> ss = new HashSet<>();
+			try (KeywordParser parser = new KeywordParser(ann);) {
+				List<Keyword> kwds = parser.parse(text);
+				for (Keyword kwd : kwds) {
+					System.err.println(kwd.toString());
+					ss.add(kwd.getLex());
+				}
+			}
+			assertEquals(true, ss.contains("私"));
+			assertEquals(true, ss.contains("失敗"));
+			assertEquals(false, ss.contains("する"));
+			assertEquals(false, ss.contains("こと"));
+			assertEquals(false, ss.contains("ある"));
 		}
 	}
 

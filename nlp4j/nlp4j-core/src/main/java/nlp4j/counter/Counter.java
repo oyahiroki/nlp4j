@@ -1,5 +1,6 @@
 package nlp4j.counter;
 
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -165,14 +166,26 @@ public class Counter<T> {
 	 * @since 1.3.7.9
 	 */
 	public void print() {
+
+		print(new PrintWriter(System.out, true));
+
+	}
+
+	/**
+	 * created on : 2023-09-30
+	 * 
+	 * @since 1.3.7.12
+	 */
+	public void print(PrintWriter pw) {
 		if (this.description != null) {
-			System.out.println(this.description);
+			pw.println(this.description);
 		}
 		List<Count<T>> list = getCountListSorted();
 		for (Count<T> c : list) {
-			System.out.println("value=" + c.getValue() + ",count=" + c.getCount() + ",ratio="
+			pw.println("value=" + c.getValue() + ",count=" + c.getCount() + ",ratio="
 					+ String.format("%.2f", ((double) c.getCount() / countAll * 100)));
 		}
+
 	}
 
 	/**

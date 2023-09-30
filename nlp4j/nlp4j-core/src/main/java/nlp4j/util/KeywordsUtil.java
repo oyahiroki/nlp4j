@@ -14,8 +14,22 @@ import nlp4j.Keyword;
  */
 public class KeywordsUtil {
 
-	static public String toLexArray(List<Keyword> kwds) {
-		return toLex(kwds, ", ");
+	/**
+	 * 
+	 * @param kwds
+	 * @param facet
+	 * @return
+	 * @since 1.3.7.12
+	 */
+	static public boolean isSameFacet(List<Keyword> kwds, String facet) {
+
+		for (Keyword kwd : kwds) {
+			String f = kwd.getFacet();
+			if (f == null || f.equals(facet) == false) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 	static public void println(List<Keyword> kwds) {
@@ -26,20 +40,6 @@ public class KeywordsUtil {
 		for (Keyword kwd : kwds) {
 			pw.println(kwd.toString());
 		}
-	}
-
-	static public String toLex(List<Keyword> kwds, String delimiter) {
-		if (kwds == null || kwds.size() == 0) {
-			return "";
-		}
-		StringBuilder sb = new StringBuilder();
-		for (Keyword kwd : kwds) {
-			if (sb.length() > 0) {
-				sb.append(delimiter);
-			}
-			sb.append(kwd.getLex());
-		}
-		return sb.toString();
 	}
 
 	static public void sortByCorrelationAsc(List<Keyword> kwds) {
@@ -96,6 +96,24 @@ public class KeywordsUtil {
 				return (int) diff;
 			}
 		});
+	}
+
+	static public String toLex(List<Keyword> kwds, String delimiter) {
+		if (kwds == null || kwds.size() == 0) {
+			return "";
+		}
+		StringBuilder sb = new StringBuilder();
+		for (Keyword kwd : kwds) {
+			if (sb.length() > 0) {
+				sb.append(delimiter);
+			}
+			sb.append(kwd.getLex());
+		}
+		return sb.toString();
+	}
+
+	static public String toLexArray(List<Keyword> kwds) {
+		return toLex(kwds, ", ");
 	}
 
 }

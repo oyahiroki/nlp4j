@@ -4,6 +4,7 @@ import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -90,6 +91,13 @@ public class JsonObjectUtils {
 		}
 	}
 
+	public static boolean isTrue(JsonObject jo, String string) {
+
+		return jo.get(string) != null //
+				&& jo.get(string).isJsonPrimitive() //
+				&& (jo.get(string).getAsBoolean() == true);
+	}
+
 	/**
 	 * @param arr to be sorted
 	 * @param key to sort
@@ -152,11 +160,43 @@ public class JsonObjectUtils {
 		}
 	}
 
-	public static boolean isTrue(JsonObject jo, String string) {
+	/**
+	 * created on 2023-09-13
+	 * 
+	 * @param ss
+	 * @return
+	 * @since 1.3.7.12
+	 */
+	static public JsonArray toJsonArray(Set<String> ss) {
+		if (ss == null) {
+			return null;
+		} else {
+			JsonArray arr = new JsonArray();
+			for (String s : ss) {
+				arr.add(s);
+			}
+			return arr;
+		}
+	}
 
-		return jo.get(string) != null //
-				&& jo.get(string).isJsonPrimitive() //
-				&& (jo.get(string).getAsBoolean() == true);
+	/**
+	 * created on 2023-09-17
+	 * 
+	 * @param ss
+	 * @return
+	 * @since 1.3.7.12
+	 */
+	public static JsonArray toJsonArray(String[] ss) {
+		if (ss == null) {
+			return null;
+		} else {
+			JsonArray arr = new JsonArray();
+			for (String s : ss) {
+				arr.add(s);
+			}
+			return arr;
+		}
+
 	}
 
 }

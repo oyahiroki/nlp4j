@@ -3,7 +3,10 @@ package nlp4j.sudachi;
 import java.io.Closeable;
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -41,6 +44,8 @@ public class SudachiAnnotator extends AbstractDocumentAnnotator implements Docum
 
 	static public String DEFAULT_FULLDIC = "system_full.dic";
 
+	Set<String> stopWords = new HashSet<>();
+
 	public SudachiAnnotator() {
 		super();
 //		initTokenizer(DEFAULT_FULLDIC);
@@ -60,12 +65,14 @@ public class SudachiAnnotator extends AbstractDocumentAnnotator implements Docum
 	 */
 	public void setProperty(String key, String value) {
 		super.setProperty(key, value);
+		// 辞書のファイルパス
 		if ("systemDict".equals(key)) {
 			initTokenizer(value);
 		} //
 		else if ("pos".equals(key)) {
 			this.posRegex = value;
 		} //
+			// 形態素解析モード
 		else if ("mode".equals(key)) {
 			if ("A".equals(value)) {
 				this.mode = Tokenizer.SplitMode.A; // short
@@ -76,9 +83,10 @@ public class SudachiAnnotator extends AbstractDocumentAnnotator implements Docum
 			else if ("C".equals(value)) {
 				this.mode = Tokenizer.SplitMode.C; // long
 			}
-
+		} //
+		else if ("stopwords".equals(key.toLowerCase())) {
+			this.stopWords = new HashSet<>(Arrays.asList(value.split(",")));
 		}
-
 	}
 
 	private void initTokenizer(String systemDict) {
@@ -149,6 +157,13 @@ public class SudachiAnnotator extends AbstractDocumentAnnotator implements Docum
 					if (this.posRegex != null) {
 						String pos = kwd.getFacet();
 						if (pos.matches(this.posRegex) == false) {
+							continue;
+						}
+					}
+					// 2023-09-24
+					if (this.stopWords.size() > 0) {
+						String lex = kwd.getLex();
+						if (stopWords.contains(lex)) {
 							continue;
 						}
 					}
