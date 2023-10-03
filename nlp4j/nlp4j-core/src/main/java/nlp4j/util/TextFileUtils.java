@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.Collections;
@@ -21,6 +22,17 @@ public class TextFileUtils {
 	 * @since 1.3.7.9
 	 */
 	static public void head(int n, File textFile) throws IOException {
+		head(n, textFile, new PrintWriter(System.out, true));
+	}
+
+	/**
+	 * @param n
+	 * @param textFile
+	 * @param pw
+	 * @throws IOException
+	 * @since 1.3.7.12
+	 */
+	static public void head(int n, File textFile, PrintWriter pw) throws IOException {
 		if (n <= 0) {
 			return;
 		}
@@ -29,23 +41,12 @@ public class TextFileUtils {
 			int count = 0;
 			while ((line = br.readLine()) != null) {
 				count++;
-				System.out.println(line);
+				pw.println(line);
 				if (count >= n) {
 					return;
 				}
-			}
-		}
-
-	}
-
-	static public int wc_l(File textFile) throws IOException {
-		int count = 0;
-		try (BufferedReader br = nlp4j.util.FileUtils.openTextFileAsBufferedReader(textFile);) {
-			while ((br.readLine()) != null) {
-				count++;
-			}
-		}
-		return count;
+			} // END_OF(WHILE)
+		} // END_OF(TRY)
 	}
 
 	/**
@@ -78,6 +79,16 @@ public class TextFileUtils {
 		List<String> lines = FileUtils.readLines(inFile, inFileEncoding);
 		Collections.sort(lines);
 		FileUtils.writeLines(outFile, outFileEncoding, lines, "\n", append);
+	}
+
+	static public int wc_l(File textFile) throws IOException {
+		int count = 0;
+		try (BufferedReader br = nlp4j.util.FileUtils.openTextFileAsBufferedReader(textFile);) {
+			while ((br.readLine()) != null) {
+				count++;
+			}
+		}
+		return count;
 	}
 
 	/**
