@@ -1,8 +1,8 @@
 package nlp4j.io;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
 /**
  * Created on: 2023-10-03
@@ -16,7 +16,7 @@ public class LimitedLineBufferedReader extends BufferedReader {
 	// 読み込んだファイルの行数
 	private int linesRead;
 
-	public LimitedLineBufferedReader(FileReader in, int maxLines) {
+	public LimitedLineBufferedReader(InputStreamReader in, int maxLines) {
 		super(in);
 		this.maxLines = maxLines;
 		this.linesRead = 0;

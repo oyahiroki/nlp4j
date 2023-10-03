@@ -13,6 +13,8 @@ import java.util.List;
 
 import org.apache.commons.io.FileUtils;
 
+import nlp4j.io.LimitedLineBufferedReader;
+
 public class TextFileUtils {
 
 	/**
@@ -56,6 +58,18 @@ public class TextFileUtils {
 	 */
 	static public BufferedReader openPlainTextFileAsBufferedReader(File plainTextFile) throws IOException {
 		return new BufferedReader(new InputStreamReader(new FileInputStream(plainTextFile), StandardCharsets.UTF_8));
+	}
+
+	/**
+	 * @param plainTextFile Plain Text File (*.txt)
+	 * @param maxLines
+	 * @return BufferedReader
+	 * @throws IOException on IO Error
+	 */
+	static public BufferedReader openPlainTextFileAsBufferedReader(File plainTextFile, int maxLines)
+			throws IOException {
+		return new LimitedLineBufferedReader(
+				new InputStreamReader(new FileInputStream(plainTextFile), StandardCharsets.UTF_8), maxLines);
 	}
 
 	/**
