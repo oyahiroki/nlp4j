@@ -194,15 +194,31 @@ public class Counter<T> {
 	 * @since 1.3.7.9
 	 */
 	public void printValues(String delimiter) {
+//		if (this.description != null) {
+//			System.out.println(this.description);
+//		}
+//		List<T> values = getObjectListSorted();
+//		List<String> valuesString = new ArrayList<>(values.size());
+//		values.forEach(v -> {
+//			valuesString.add(v.toString());
+//		});
+//		System.out.println(String.join(delimiter, valuesString));
+		System.out.println(toValues(delimiter));
+	}
+
+	public String toValues(String delimiter) {
+		StringBuilder sb = new StringBuilder();
+
 		if (this.description != null) {
-			System.out.println(this.description);
+			sb.append(this.description + "\n");
 		}
 		List<T> values = getObjectListSorted();
 		List<String> valuesString = new ArrayList<>(values.size());
 		values.forEach(v -> {
 			valuesString.add(v.toString());
 		});
-		System.out.println(String.join(delimiter, valuesString));
+		sb.append(String.join(delimiter, valuesString) + "\n");
+		return sb.toString();
 	}
 
 	public void setDescription(String description) {

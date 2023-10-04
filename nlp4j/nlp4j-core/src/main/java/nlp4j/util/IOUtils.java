@@ -3,12 +3,19 @@ package nlp4j.util;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.io.PrintStream;
 import java.io.PrintWriter;
+import java.io.Writer;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
 import org.apache.commons.io.FileUtils;
+
+import nlp4j.io.MultiOutputStream;
+import nlp4j.io.MultiWriter;
+import nlp4j.io.NoCloseWriter;
 
 /**
  * @author Hiroki Oya
@@ -50,10 +57,39 @@ public class IOUtils {
 
 		return new PrintWriter( //
 				new OutputStreamWriter( //
-						new FileOutputStream( //
-								file, append),
-						charset), //
+						new FileOutputStream(file, append) //
+						, charset) // OutputStreamWriter
+				, //
 				autoflush); //
+	}
+
+	/**
+	 * @param outFile
+	 * @param ps
+	 * @return
+	 * @throws IOException
+	 * @since 1.3.7.12
+	 */
+	static public PrintWriter printWriter(File outFile, PrintStream ps) throws IOException {
+		boolean append = true;
+		boolean autoflush = true;
+		Writer w1 = new PrintWriter(
+				new OutputStreamWriter(new FileOutputStream(outFile, append), StandardCharsets.UTF_8), autoflush);
+		Writer w2 = new NoCloseWriter(ps);
+		Writer w = new MultiWriter(w1, w2);
+		PrintWriter pw = new PrintWriter(w);
+		return pw;
+	}
+
+	/**
+	 * @param outputStreams
+	 * @return
+	 * @throws IOException
+	 * @since 1.3.7.12
+	 */
+	static public PrintWriter printWriter(OutputStream... outputStreams) throws IOException {
+		PrintWriter pw = new PrintWriter(new MultiOutputStream(outputStreams));
+		return pw;
 	}
 
 	/**
@@ -78,6 +114,27 @@ public class IOUtils {
 	 */
 	static public PrintWriter pw(File file) throws IOException {
 		return printWriter(file);
+	}
+
+	/**
+	 * @param outFile
+	 * @param ps
+	 * @return
+	 * @throws IOException
+	 * @since 1.3.7.12
+	 */
+	static public PrintWriter pw(File outFile, PrintStream ps) throws IOException {
+		return printWriter(outFile, ps);
+	}
+
+	/**
+	 * @param outputStreams
+	 * @return
+	 * @throws IOException
+	 * @since 1.3.7.12
+	 */
+	static public PrintWriter pw(OutputStream... outputStreams) throws IOException {
+		return printWriter(outputStreams);
 	}
 
 	/**

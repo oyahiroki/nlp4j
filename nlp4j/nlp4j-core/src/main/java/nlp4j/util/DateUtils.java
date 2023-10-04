@@ -76,6 +76,14 @@ public class DateUtils {
 	}
 
 	/**
+	 * @return Date in yyyyMMdd-HHmmss
+	 * @since 1.3.7.12
+	 */
+	static public String get_yyyyMMdd_HHmmss(long time_ms) {
+		return sdf_yyyyMMdd_HHmmss.format(new Date(time_ms));
+	}
+
+	/**
 	 * <pre>
 	 * </pre>
 	 * 
