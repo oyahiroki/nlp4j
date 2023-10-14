@@ -177,18 +177,42 @@ public class Counter<T> {
 	 * @since 1.3.7.12
 	 */
 	public void print(PrintWriter pw) {
-		if (this.description != null) {
-			pw.println(this.description);
-		}
-		List<Count<T>> list = getCountListSorted();
-		for (Count<T> c : list) {
-			pw.println("value=" + c.getValue() + ",count=" + c.getCount() + ",ratio="
-					+ String.format("%.2f", ((double) c.getCount() / countAll * 100)));
-		}
+//		if (this.description != null) {
+//			pw.println(this.description);
+//		}
+//		List<Count<T>> list = getCountListSorted();
+//		for (Count<T> c : list) {
+//			pw.println("value=" + c.getValue() + ",count=" + c.getCount() + ",ratio="
+//					+ String.format("%.2f", ((double) c.getCount() / countAll * 100)));
+//		}
+		pw.println(this.toString());
 
 	}
 
 	/**
+	 * created on : 2023-10-09
+	 * 
+	 * @since 1.3.7.12
+	 */
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		if (this.description != null) {
+			sb.append(this.description + "\n");
+		}
+		List<Count<T>> list = getCountListSorted();
+		if (list != null) {
+			for (Count<T> c : list) {
+				sb.append("value=" + c.getValue() + ",count=" + c.getCount() + ",ratio="
+						+ String.format("%.2f", ((double) c.getCount() / countAll * 100)) + "\n");
+			}
+		}
+		return sb.toString();
+	}
+
+	/**
+	 * Print values only, count not printed <br/>
+	 * <br/>
 	 * created on : 2023-07-04
 	 * 
 	 * @since 1.3.7.9
@@ -206,6 +230,10 @@ public class Counter<T> {
 		System.out.println(toValues(delimiter));
 	}
 
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
 	public String toValues(String delimiter) {
 		StringBuilder sb = new StringBuilder();
 
@@ -219,9 +247,5 @@ public class Counter<T> {
 		});
 		sb.append(String.join(delimiter, valuesString) + "\n");
 		return sb.toString();
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
 	}
 }

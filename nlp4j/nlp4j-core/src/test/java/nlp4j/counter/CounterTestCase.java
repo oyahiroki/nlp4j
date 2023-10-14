@@ -1,10 +1,12 @@
 package nlp4j.counter;
 
+import java.io.PrintWriter;
 import java.util.List;
 
 import junit.framework.TestCase;
 import nlp4j.Keyword;
 import nlp4j.KeywordBuilder;
+import nlp4j.util.IOUtils;
 
 public class CounterTestCase extends TestCase {
 
@@ -104,6 +106,56 @@ public class CounterTestCase extends TestCase {
 		for (Count<Keyword> ct : counter.getCountListSorted()) {
 			System.err.println(ct);
 		}
+	}
+
+	public void testPrint001() {
+		String s1 = "aaa";
+		String s2 = "bbb";
+		String s3 = "ccc";
+
+		PrintWriter pw = IOUtils.pwSystemErr();
+
+		Counter<String> counter = new Counter<>();
+		counter.add(s1); // 1
+		counter.add(s1); // 2
+		counter.add(s1); // 3
+		counter.add(s2); // 1
+		counter.add(s2); // 2
+		counter.add(s3); // 1
+
+		counter.print(pw);
+	}
+
+	public void testPrintValues001() {
+		String s1 = "aaa";
+		String s2 = "bbb";
+		String s3 = "ccc";
+
+		Counter<String> counter = new Counter<>();
+		counter.add(s1); // 1
+		counter.add(s1); // 2
+		counter.add(s1); // 3
+		counter.add(s2); // 1
+		counter.add(s2); // 2
+		counter.add(s3); // 1
+
+		counter.printValues(",");
+	}
+
+	public void testToString001() {
+		String s1 = "aaa";
+		String s2 = "bbb";
+		String s3 = "ccc";
+
+		Counter<String> counter = new Counter<>();
+		counter.add(s1); // 1
+		counter.add(s1); // 2
+		counter.add(s1); // 3
+		counter.add(s2); // 1
+		counter.add(s2); // 2
+		counter.add(s3); // 1
+
+		System.out.println(counter.toString());
 	}
 
 }

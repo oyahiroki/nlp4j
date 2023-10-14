@@ -154,7 +154,7 @@ public class IOUtils {
 	 * @throws IOException
 	 * @since 1.3.7.12
 	 */
-	static public PrintWriter pwSystemErr() throws IOException {
+	static public PrintWriter pwSystemErr() {
 		return new PrintWriter(System.err, true);
 	}
 
@@ -163,7 +163,7 @@ public class IOUtils {
 	 * @throws IOException
 	 * @since 1.3.7.12
 	 */
-	static public PrintWriter pwSystemOut() throws IOException {
+	static public PrintWriter pwSystemOut() {
 		return new PrintWriter(System.out, true);
 	}
 
