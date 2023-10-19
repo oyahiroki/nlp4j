@@ -112,8 +112,18 @@ public class KeywordsUtil {
 		return sb.toString();
 	}
 
-	static public String toLexArray(List<Keyword> kwds) {
-		return toLex(kwds, ", ");
+	static public String[] toLexArray(List<Keyword> kwds) {
+		if (kwds == null) {
+			return null;
+		}
+		if (kwds.size() == 0) {
+			return new String[0];
+		}
+		String[] ss = new String[kwds.size()];
+		for (int n = 0; n < kwds.size(); n++) {
+			ss[n] = kwds.get(n).getLex();
+		}
+		return ss;
 	}
 
 }
