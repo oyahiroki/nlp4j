@@ -16,7 +16,7 @@ Document search: [apache solr](https://github.com/oyahiroki/nlp4j/tree/master/nl
 ## Maven
 
 ```xml
-<!-- https://mvnrepository.com/artifact/org.nlp4j/nlp4j-stanford -->
+<!-- https://mvnrepository.com/artifact/org.nlp4j/nlp4j-core -->
 <dependency>
     <groupId>org.nlp4j</groupId>
     <artifactId>nlp4j-core</artifactId>
