@@ -13,6 +13,9 @@ import java.nio.charset.StandardCharsets;
 
 import org.apache.commons.io.FileUtils;
 
+import nlp4j.io.DevNullOutputStream;
+import nlp4j.io.DevNullPrintWriter;
+import nlp4j.io.MultiIOException;
 import nlp4j.io.MultiOutputStream;
 import nlp4j.io.MultiWriter;
 import nlp4j.io.NoCloseWriter;
@@ -22,6 +25,72 @@ import nlp4j.io.NoCloseWriter;
  * @since 1.3.7.8
  */
 public class IOUtils {
+
+	/**
+	 * created on: 2023-10-22
+	 * 
+	 * @return Empty PrintWriter
+	 * @throws IOException
+	 * @since 1.3.7.12
+	 */
+	static public PrintWriter empty() throws IOException {
+		return new DevNullPrintWriter(new DevNullOutputStream());
+	}
+
+	/**
+	 * Flush writers
+	 * 
+	 * @param ww
+	 * @throws IOException
+	 * @since 1.3.7.12
+	 */
+	static public void flush(Writer... ww) throws IOException {
+		MultiIOException ee = new MultiIOException();
+		for (Writer w : ww) {
+			try {
+				w.flush();
+			} catch (IOException e) {
+				ee.addException(e);
+			}
+		}
+		if (ee.size() > 0) {
+			throw ee;
+		}
+	}
+
+	/**
+	 * Flush and Close writers
+	 * 
+	 * @param ww
+	 * @throws IOException
+	 * @since 1.3.7.12
+	 */
+	static public void flushClose(Writer... ww) throws IOException {
+		MultiIOException ee = new MultiIOException();
+		for (Writer w : ww) {
+			try {
+				w.flush();
+				w.close();
+
+			} catch (IOException e) {
+				ee.addException(e);
+			}
+		}
+		if (ee.size() > 0) {
+			throw ee;
+		}
+	}
+
+	/**
+	 * created on: 2023-10-22
+	 * 
+	 * @return Empty PrintWriter
+	 * @throws IOException
+	 * @since 1.3.7.12
+	 */
+	static public PrintWriter printWriter() throws IOException {
+		return empty();
+	}
 
 	/**
 	 * @param file
@@ -104,6 +173,17 @@ public class IOUtils {
 		Charset charset = StandardCharsets.UTF_8;
 		boolean autoflush = true;
 		return printWriter(file, append, charset, autoflush);
+	}
+
+	/**
+	 * created on: 2023-10-22
+	 * 
+	 * @return Empty PrintWriter
+	 * @throws IOException
+	 * @since 1.3.7.12
+	 */
+	static public PrintWriter pw() throws IOException {
+		return empty();
 	}
 
 	/**
