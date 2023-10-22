@@ -198,15 +198,12 @@ File dumpFile = new File(dir + "enwiki-20230101-pages-articles-multistream.xml.b
 try (WikiDumpReader dumpReader = new WikiDumpReader(dumpFile, indexFile);) {
 
 	WikiPage page = dumpReader.getItem(itemString);
-
 	System.out.println(page.getRootNodePlainText());
-
 // Expected output:
 // is a Japanese multinational video game company headquartered
 // in Kyoto, Japan. It develops video games and video game consoles ...
 
 	System.out.println("<text>\n" + page.getText() + "\n</text>");
-
 // {{Short description|Japanese video game company}} <!-- popup
 //  [[File:Nintendo.svg]] --> {{Pp-vandalism|small=yes}} {{Use dmy
 //  dates|date=October 2022}} {{Use American English|date=November 2020}}
