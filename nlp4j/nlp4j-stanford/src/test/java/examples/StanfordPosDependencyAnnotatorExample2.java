@@ -1,4 +1,4 @@
-package nlp4j.stanford.examples;
+package examples;
 
 import nlp4j.Document;
 import nlp4j.Keyword;
