@@ -16,16 +16,12 @@ Document search: [apache solr](https://github.com/oyahiroki/nlp4j/tree/master/nl
 ## Maven
 
 ```xml
-<!-- https://mvnrepository.com/artifact/org.nlp4j/nlp4j-core -->
-<dependency>
-    <groupId>org.nlp4j</groupId>
-    <artifactId>nlp4j-core</artifactId>
-    <version>[1.3.1.0,)</version>
-</dependency>
+<!-- for English NLP -->
+<!-- https://mvnrepository.com/artifact/org.nlp4j/nlp4j-stanford -->
 <dependency>
     <groupId>org.nlp4j</groupId>
     <artifactId>nlp4j-stanford</artifactId>
-    <version>[1.3.0.0,)</version>
+    <version>1.3.5.0</version>
 </dependency>
 <!-- https://mvnrepository.com/artifact/edu.stanford.nlp/stanford-corenlp -->
 <dependency>
@@ -44,36 +40,25 @@ Document search: [apache solr](https://github.com/oyahiroki/nlp4j/tree/master/nl
 </dependency>
 ```
 
-## Code
+## Code for simple English Morphological analysis
 
 ```java
-import nlp4j.Document;
-import nlp4j.Keyword;
-import nlp4j.impl.DefaultDocument;
-import nlp4j.stanford.StanfordPosAnnotator;
-public class StanfordPosAnnotatorExample0 {
-    public static void main(String[] args) throws Exception {
-        Document doc = new DefaultDocument();
-            doc.putAttribute("text", "I eat sushi with chopsticks.");
-        StanfordPosAnnotator ann = new StanfordPosAnnotator();
-            ann.setProperty("target", "text");
-        ann.annotate(doc); // do annotation
-        for (Keyword kwd : doc.getKeywords()) {
-            System.err.println(kwd);
-        }
-    }
-}
-```
+String text = "I eat sushi with chopsticks.";
+DocumentAnnotator ann = (new DocumentAnnotatorBuilder<>(StanfordPosAnnotator.class)).set("target", "text")
+		.build();
+Document doc = (new DocumentBuilder()).text(text).build();
+ann.annotate(doc);
+doc.getKeywords().forEach(kwd -> {
+	System.out.println(kwd.getBegin() + "," + kwd.getEnd() + "," + kwd.getFacet() + "," + kwd.getLex());
+});
 
-## Output
-
-```
-I [facet=word.PRP, str=I]
-eat [facet=word.VBP, str=eat]
-sushi [facet=word.NN, str=sushi]
-with [facet=word.IN, str=with]
-chopstick [facet=word.NNS, str=chopsticks]
-. [facet=word.., str=.]
+// Expected output:
+// 0,1,word.PRP,I
+// 2,5,word.VBP,eat
+// 6,11,word.NN,sushi
+// 12,16,word.IN,with
+// 17,27,word.NNS,chopstick
+// 27,28,word..,.
 ```
 
 # See also

@@ -8,16 +8,16 @@ import nlp4j.stanford.StanfordPosAnnotator;
 
 public class HelloNLP4jStanford001 {
 
-	public static void main(String[] args) throws Exception {
-		String text = "I eat sushi with chopsticks.";
-		DocumentAnnotator ann = (new DocumentAnnotatorBuilder<>(StanfordPosAnnotator.class)).set("target", "text")
-				.build();
-		Document doc = (new DocumentBuilder()).text(text).build();
-		ann.annotate(doc);
-		doc.getKeywords().forEach(kwd -> {
-			System.out.println(kwd.getBegin() + "," + kwd.getEnd() + "," + kwd.getFacet() + "," + kwd.getLex());
-		});
-	}
+public static void main(String[] args) throws Exception {
+String text = "I eat sushi with chopsticks.";
+DocumentAnnotator ann = (new DocumentAnnotatorBuilder<>(StanfordPosAnnotator.class)).set("target", "text")
+		.build();
+Document doc = (new DocumentBuilder()).text(text).build();
+ann.annotate(doc);
+doc.getKeywords().forEach(kwd -> {
+	System.out.println(kwd.getBegin() + "," + kwd.getEnd() + "," + kwd.getFacet() + "," + kwd.getLex());
+});
+}
 }
 
 // Expected output:
