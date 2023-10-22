@@ -22,7 +22,7 @@ public class StanfordPosDependencyAnnotatorExample2 {
 			if (kwd instanceof KeywordWithDependency) {
 				KeywordWithDependency kd = (KeywordWithDependency) kwd;
 				// Print dependency as a XML
-				System.err.println(kd.toStringAsXml());
+				System.out.println(kd.toStringAsXml());
 				print(kd);
 			}
 		}
@@ -31,10 +31,27 @@ public class StanfordPosDependencyAnnotatorExample2 {
 
 	private static void print(KeywordWithDependency kd) {
 		kd.getChildren().forEach(kwd -> {
-			System.err.println(kd.getLex() + " -> (" + kwd.getRelation() + ") " + kwd.getLex());
+			System.out.println(kd.getLex() + " -> (" + kwd.getRelation() + ") " + kwd.getLex());
 			print(kwd);
 		});
 
 	}
 
 }
+
+// Expected output:
+// <?xml version="1.0" encoding="UTF-8"?>
+// <w begin="2" depth="0" end="5" facet="VBP" id="0" lex="eat" relation="root" sequence="0" str="eat">
+//     <w begin="0" depth="1" end="1" facet="PRP" id="1" lex="I" relation="nsubj" sequence="1" str="I"/>
+//     <w begin="6" depth="1" end="11" facet="NN" id="2" lex="sushi" relation="obj" sequence="2" str="sushi"/>
+//     <w begin="17" depth="1" end="27" facet="NNS" id="3" lex="chopstick" relation="obl" sequence="3" str="chopsticks">
+//         <w begin="12" depth="2" end="16" facet="IN" id="4" lex="with" relation="case" sequence="4" str="with"/>
+//     </w>
+//     <w begin="27" depth="1" end="28" facet="." id="5" lex="." relation="punct" sequence="5" str="."/>
+// </w>
+//
+// eat -> (nsubj) I
+// eat -> (obj) sushi
+// eat -> (obl) chopstick
+// chopstick -> (case) with
+// eat -> (punct) .
