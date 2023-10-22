@@ -147,6 +147,33 @@ private static void print(KeywordWithDependency kd) {
 
 ```
 
+## Code for Stanford NLP Open IE(Information Extraction), Triples, Clauses
+
+```java
+StanfordOpenIEAnnotator ann = new StanfordOpenIEAnnotator();
+ann.setProperty("target", "text");
+
+Document doc = new DefaultDocument();
+doc.putAttribute("text", //
+		"Mount Fuji, located on the island of Honshu, " //
+				+ "is the highest mountain in Japan. ");
+
+ann.annotate(doc);
+doc.getKeywords().forEach(kwd -> System.out.println(kwd.getFacet() + "," + kwd.getLex()));
+
+// Expected Output
+// pattern.oie.triple,mount fuji , is highest mountain in , japan
+// pattern.oie.triple,mount fuji , is mountain in , japan
+// pattern.oie.triple,mount fuji , is , mountain
+// pattern.oie.triple,mount fuji , is , highest mountain
+// pattern.oie.triple,mount fuji , located on , island honshu
+// pattern.oie.triple,highest mountain , is in , japan
+// pattern.oie.triple,mount fuji , located on , island
+// pattern.oie.clause,Mount Fuji located on the island of Honshu is the highest mountain in Japan
+// pattern.oie.clause,Mount Fuji located on the island of Honshu
+```
+
+
 # See also
 
 Natural Language Processing with Groovy, OpenNLP, CoreNLP, Nlp4j, Datumbox, Smile, Spark NLP, DJL and TensorFlow
