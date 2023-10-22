@@ -19,16 +19,12 @@ public class ReadWikipediaDump1 {
 	public static void main(String[] args) throws Exception {
 
 		String dir = "/usr/local/wiki/enwiki/20230101/";
-
-		String dumpIndexFileName = dir + "enwiki-20230101-pages-articles-multistream-index.txt.bz2";
-		String dumpFileName = dir + "enwiki-20230101-pages-articles-multistream.xml.bz2";
-
 		String itemString = "Nintendo";
 
 		// Index File
-		File indexFile = new File(dumpIndexFileName);
+		File indexFile = new File(dir + "enwiki-20230101-pages-articles-multistream-index.txt.bz2");
 		// Dump File
-		File dumpFile = new File(dumpFileName);
+		File dumpFile = new File(dir + "enwiki-20230101-pages-articles-multistream.xml.bz2");
 
 		try (WikiDumpReader dumpReader = new WikiDumpReader(dumpFile, indexFile);) {
 
@@ -37,23 +33,23 @@ public class ReadWikipediaDump1 {
 			System.out.println("<root_node_text>");
 			System.out.println(page.getRootNodePlainText());
 			System.out.println("</root_node_text>");
-			/*
-			 * <root_node_text> is a Japanese multinational video game company headquartered
-			 * in Kyoto, Japan. It develops video games and video game consoles ...
-			 * </root_node_text>
-			 * 
-			 */
+//			/*
+//			 * <root_node_text> is a Japanese multinational video game company headquartered
+//			 * in Kyoto, Japan. It develops video games and video game consoles ...
+//			 * </root_node_text>
+//			 * 
+//			 */
 			System.out.println("<text>\n" + page.getText() + "\n</text>");
-			/*
-			 * <text> {{Short description|Japanese video game company}} <!-- popup
-			 * [[File:Nintendo.svg]] --> {{Pp-vandalism|small=yes}} {{Use dmy
-			 * dates|date=October 2022}} {{Use American English|date=November 2020}}
-			 * {{Infobox company | name = Nintendo Co., Ltd. | logo = Nintendo.svg |
-			 * logo_alt = Logo in white on red background since 2016 | logo_caption = Logo
-			 * in white on red background since 2016 | image =
-			 * Nintendo_Headquarters_-_panoramio.jpg ... </text>
-			 * 
-			 */
+//			/*
+//			 * <text> {{Short description|Japanese video game company}} <!-- popup
+//			 * [[File:Nintendo.svg]] --> {{Pp-vandalism|small=yes}} {{Use dmy
+//			 * dates|date=October 2022}} {{Use American English|date=November 2020}}
+//			 * {{Infobox company | name = Nintendo Co., Ltd. | logo = Nintendo.svg |
+//			 * logo_alt = Logo in white on red background since 2016 | logo_caption = Logo
+//			 * in white on red background since 2016 | image =
+//			 * Nintendo_Headquarters_-_panoramio.jpg ... </text>
+//			 * 
+//			 */
 
 //			System.out.println("<xml>\n" + page.getXml() + "\n</xml>");
 		}

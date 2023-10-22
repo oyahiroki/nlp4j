@@ -13,7 +13,7 @@ Wikipedia dump file parser, mediawiki api client: [wiki](https://github.com/oyah
 Data crawling: [twitter](https://github.com/oyahiroki/nlp4j/tree/master/nlp4j/nlp4j-twitter4j), [webcrawler](https://github.com/oyahiroki/nlp4j/tree/master/nlp4j/nlp4j-webcrawler), [wikipedia dump](https://github.com/oyahiroki/nlp4j/tree/master/nlp4j/nlp4j-wiki)  
 Document search: [apache solr](https://github.com/oyahiroki/nlp4j/tree/master/nlp4j/nlp4j-solr), [azure](https://github.com/oyahiroki/nlp4j/tree/master/nlp4j/nlp4j-azure)  
 
-## Maven
+## Maven for English NLP
 
 ```xml
 <!-- for English NLP -->
@@ -171,6 +171,51 @@ doc.getKeywords().forEach(kwd -> System.out.println(kwd.getFacet() + "," + kwd.g
 // pattern.oie.triple,mount fuji , located on , island
 // pattern.oie.clause,Mount Fuji located on the island of Honshu is the highest mountain in Japan
 // pattern.oie.clause,Mount Fuji located on the island of Honshu
+```
+
+## Maven for Reading Wikipedia Dump
+
+```xml
+<!-- https://mvnrepository.com/artifact/org.nlp4j/nlp4j-wiki -->
+<dependency>
+    <groupId>org.nlp4j</groupId>
+    <artifactId>nlp4j-wiki</artifactId>
+    <version>1.1.0.0</version>
+</dependency>
+
+```
+
+## Code for reading Wikipedia Dump
+
+```java
+String itemString = "Nintendo";
+String dir = "/usr/local/wiki/enwiki/20230101/";
+// Index File
+File indexFile = new File(dir + "enwiki-20230101-pages-articles-multistream-index.txt.bz2");
+// Dump File
+File dumpFile = new File(dir + "enwiki-20230101-pages-articles-multistream.xml.bz2");
+
+try (WikiDumpReader dumpReader = new WikiDumpReader(dumpFile, indexFile);) {
+
+	WikiPage page = dumpReader.getItem(itemString);
+
+	System.out.println(page.getRootNodePlainText());
+
+// Expected output:
+// is a Japanese multinational video game company headquartered
+// in Kyoto, Japan. It develops video games and video game consoles ...
+
+	System.out.println("<text>\n" + page.getText() + "\n</text>");
+
+// {{Short description|Japanese video game company}} <!-- popup
+//  [[File:Nintendo.svg]] --> {{Pp-vandalism|small=yes}} {{Use dmy
+//  dates|date=October 2022}} {{Use American English|date=November 2020}}
+//  {{Infobox company | name = Nintendo Co., Ltd. | logo = Nintendo.svg |
+//  logo_alt = Logo in white on red background since 2016 | logo_caption = Logo
+//  in white on red background since 2016 | image =
+//  Nintendo_Headquarters_-_panoramio.jpg ... 
+
+}
 ```
 
 
