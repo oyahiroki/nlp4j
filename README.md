@@ -13,7 +13,7 @@ Wikipedia dump file parser, mediawiki api client: [wiki](https://github.com/oyah
 Data crawling: [twitter](https://github.com/oyahiroki/nlp4j/tree/master/nlp4j/nlp4j-twitter4j), [webcrawler](https://github.com/oyahiroki/nlp4j/tree/master/nlp4j/nlp4j-webcrawler), [wikipedia dump](https://github.com/oyahiroki/nlp4j/tree/master/nlp4j/nlp4j-wiki)  
 Document search: [apache solr](https://github.com/oyahiroki/nlp4j/tree/master/nlp4j/nlp4j-solr), [azure](https://github.com/oyahiroki/nlp4j/tree/master/nlp4j/nlp4j-azure)  
 
-## Maven for English NLP
+## NLP4J Maven for English NLP
 
 ```xml
 <!-- for English NLP -->
@@ -40,7 +40,7 @@ Document search: [apache solr](https://github.com/oyahiroki/nlp4j/tree/master/nl
 </dependency>
 ```
 
-## Code for simple English Morphological analysis
+## NLP4J Code for simple English Morphological analysis
 
 ```java
 String text = "I eat sushi with chopsticks.";
@@ -61,7 +61,7 @@ doc.getKeywords().forEach(kwd -> {
 // 27,28,word..,.
 ```
 
-## Code for simple English Syntax analysis
+## NLP4J Code for simple English Syntax analysis
 
 ```java
 StanfordPosDependencyAnnotator ann = new StanfordPosDependencyAnnotator();
@@ -101,7 +101,7 @@ doc.getKeywords().forEach(kwd -> {
 
 ```
 
-## Code for simple English Syntax analysis (2)
+## NLP4J Code for simple English Syntax analysis (2)
 
 ```java
 public static void main(String[] args) throws Exception {
@@ -147,7 +147,7 @@ private static void print(KeywordWithDependency kd) {
 
 ```
 
-## Code for Stanford NLP Open IE(Information Extraction), Triples, Clauses
+## NLP4J Code for Stanford NLP Open IE(Information Extraction), Triples, Clauses
 
 ```java
 StanfordOpenIEAnnotator ann = new StanfordOpenIEAnnotator();
@@ -173,7 +173,7 @@ doc.getKeywords().forEach(kwd -> System.out.println(kwd.getFacet() + "," + kwd.g
 // pattern.oie.clause,Mount Fuji located on the island of Honshu
 ```
 
-## Maven for Reading Wikipedia Dump
+## NLP4J Maven for Reading Wikipedia Dump
 
 ```xml
 <!-- https://mvnrepository.com/artifact/org.nlp4j/nlp4j-wiki -->
@@ -185,7 +185,7 @@ doc.getKeywords().forEach(kwd -> System.out.println(kwd.getFacet() + "," + kwd.g
 
 ```
 
-## Code for reading Wikipedia Dump
+## NLP4J Code for reading Wikipedia Dump
 
 ```java
 String itemString = "Nintendo";
