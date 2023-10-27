@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.net.URL;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.Collections;
@@ -52,24 +53,58 @@ public class TextFileUtils {
 	}
 
 	/**
-	 * @param plainTextFile Plain Text File (*.txt)
+	 * @param plainTextFile Plain Text File (*.txt) (*.gz since 1.3.7.12)
 	 * @return BufferedReader
 	 * @throws IOException on IO Error
 	 */
 	static public BufferedReader openPlainTextFileAsBufferedReader(File plainTextFile) throws IOException {
-		return new BufferedReader(new InputStreamReader(new FileInputStream(plainTextFile), StandardCharsets.UTF_8));
+		// IF(*.gz) THEN
+		if (plainTextFile != null && plainTextFile.getName().endsWith(".gz")) {
+			return GZIPFileUtils.openGZIPFileAsBufferedReader(plainTextFile);
+		}
+		// ELSE (*.txt is expected)
+		else {
+			return new BufferedReader(
+					new InputStreamReader(new FileInputStream(plainTextFile), StandardCharsets.UTF_8));
+		}
 	}
 
 	/**
-	 * @param plainTextFile Plain Text File (*.txt)
+	 * @param textFileUrl
+	 * @return
+	 * @throws IOException
+	 * @since 1.3.7.12
+	 */
+	static public BufferedReader openPlainTextFileAsBufferedReader(URL textFileUrl) throws IOException {
+		// IF(*.gz) THEN
+		if (textFileUrl != null && textFileUrl.getFile().endsWith(".gz")) {
+			return GZIPFileUtils.openGZIPFileAsBufferedReader(textFileUrl);
+		}
+		// ELSE (*.txt is expected)
+		else {
+			return new BufferedReader(new InputStreamReader(textFileUrl.openStream(), StandardCharsets.UTF_8));
+		}
+	}
+
+	/**
+	 * @param plainTextFile Plain Text File (*.txt)(*.gz since 1.3.7.12)
 	 * @param maxLines
 	 * @return BufferedReader
 	 * @throws IOException on IO Error
 	 */
 	static public BufferedReader openPlainTextFileAsBufferedReader(File plainTextFile, int maxLines)
 			throws IOException {
-		return new LimitedLineBufferedReader(
-				new InputStreamReader(new FileInputStream(plainTextFile), StandardCharsets.UTF_8), maxLines);
+		// IF(*.gz) THEN
+		if (plainTextFile != null && plainTextFile.getName().endsWith(".gz")) {
+			return new LimitedLineBufferedReader(GZIPFileUtils.openGZIPFileAsInputStreamReader(plainTextFile),
+					maxLines);
+		}
+		// ELSE (*.txt is expected)
+		else {
+			return new LimitedLineBufferedReader(
+					new InputStreamReader(new FileInputStream(plainTextFile), StandardCharsets.UTF_8), maxLines);
+		}
+
 	}
 
 	/**

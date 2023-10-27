@@ -1,0 +1,4 @@
+# JavadocのHTMLを無視する
+
+docs/* linguist-vendored
+

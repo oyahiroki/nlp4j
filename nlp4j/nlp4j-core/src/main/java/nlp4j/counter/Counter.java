@@ -35,15 +35,23 @@ public class Counter<T> {
 	 * @param obj to be counted
 	 */
 	public void add(T obj) {
-		countAll++;
+		add(obj, 1);
+	}
+
+	/**
+	 * @param obj to be counted
+	 * @param cnt count of object
+	 */
+	public void add(T obj, int cnt) {
+		countAll += cnt;
 		Integer count = objCounter.get(obj);
 		// IF(COUNT != NULL) THEN
 		if (count != null) {
-			objCounter.put(obj, count + 1);
+			objCounter.put(obj, count + cnt);
 		}
 		// ELSE
 		else {
-			objCounter.put(obj, 1);
+			objCounter.put(obj, cnt);
 		}
 	}
 
