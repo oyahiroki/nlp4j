@@ -1,0 +1,9 @@
+# JavadocのHTMLを無視する
+
+nlp4j/nlp4j-core/docs/* linguist-vendored
+nlp4j/nlp4j-ginza/docs/* linguist-vendored
+nlp4j/nlp4j-sudachi/docs/* linguist-vendored
+nlp4j/nlp4j-webcrawler/docs/* linguist-vendored
+nlp4j/nlp4j-webcrawler-mlit/docs/* linguist-vendored
+nlp4j/nlp4j-wiki/docs/* linguist-vendored
+nlp4j/nlp4j-yahoojp/docs/* linguist-vendored
