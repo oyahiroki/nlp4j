@@ -2,6 +2,7 @@ package nlp4j.llm.embeddings;
 
 import java.io.IOException;
 import java.lang.invoke.MethodHandles;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,6 +18,7 @@ import nlp4j.NlpService;
 import nlp4j.NlpServiceResponse;
 import nlp4j.http.HttpClient;
 import nlp4j.http.HttpClient5;
+import nlp4j.util.JsonObjectUtils;
 import nlp4j.util.JsonUtils;
 
 /**
@@ -50,7 +52,7 @@ public class SemanticSearchServiceViaHttp implements NlpService {
 	 * @return
 	 * @throws IOException
 	 */
-	public NlpServiceResponse process(String text) throws IOException {
+	public NlpServiceResponse process(String text, List<String> ss) throws IOException {
 
 		if (text == null || text.isEmpty() || text.trim().isEmpty()) {
 			return null;
@@ -62,12 +64,14 @@ public class SemanticSearchServiceViaHttp implements NlpService {
 		// Http client
 		HttpClient client = new HttpClient5();
 
-		JsonObject jsonObj = new JsonObject();
-		jsonObj.addProperty("text", text);
+		JsonObject requestbody_json = new JsonObject();
+		requestbody_json.addProperty("s", text);
+
+		requestbody_json.add("tt", JsonObjectUtils.toJsonArray(ss));
 
 		// client.post throws IOException
 		try {
-			NlpServiceResponse res = client.post(this.endPoint, jsonObj.toString());
+			NlpServiceResponse res = client.post(this.endPoint, requestbody_json.toString());
 
 			if (logger.isDebugEnabled()) {
 				logger.debug("debug is enabled");
@@ -95,9 +99,13 @@ public class SemanticSearchServiceViaHttp implements NlpService {
 
 	static public void main(String[] args) throws Exception {
 		String text = "今日はとてもいい天気です。";
+		List<String> ss = new ArrayList<>();
+//		ss.add("今日はとてもいい天気です。");
+//		ss.add("明日はとてもいい天気です。");
+		ss.add("私は学校に行きます。");
 		String endPoint = "http://localhost:8888/";
 		SemanticSearchServiceViaHttp nlp = new SemanticSearchServiceViaHttp(endPoint);
-		NlpServiceResponse res = nlp.process(text);
+		NlpServiceResponse res = nlp.process(text, ss);
 //		System.err.println(res);
 		System.err.println(JsonUtils.prettyPrint(res.getOriginalResponseBody()));
 	}
