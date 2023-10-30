@@ -1,5 +1,6 @@
 package nlp4j.llm.embeddings;
 
+import java.io.Closeable;
 import java.io.IOException;
 import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
@@ -31,9 +32,12 @@ import nlp4j.util.JsonUtils;
  * @created on 2023-09-29
  *
  */
-public class SemanticSearchServiceViaHttp implements NlpService {
+public class SemanticSearchServiceViaHttp implements NlpService, Closeable {
 
 	static private final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
+
+	// Http client
+	private final HttpClient client = new HttpClient5();
 
 	private String endPoint;
 
@@ -61,9 +65,6 @@ public class SemanticSearchServiceViaHttp implements NlpService {
 		Map<String, String> params = new HashMap<>();
 		params.put("text", text);
 
-		// Http client
-		HttpClient client = new HttpClient5();
-
 		JsonObject requestbody_json = new JsonObject();
 		requestbody_json.addProperty("s", text);
 
@@ -86,27 +87,39 @@ public class SemanticSearchServiceViaHttp implements NlpService {
 //			e.printStackTrace();
 			throw e;
 		} finally {
-			try {
-				client.close();
-			} //
-			catch (Exception e) {
-//				e.printStackTrace();
-				throw new IOException(e);
-			}
+//			try {
+//				client.close();
+//			} //
+//			catch (Exception e) {
+////				e.printStackTrace();
+//				throw new IOException(e);
+//			}
 		}
 
 	}
 
 	static public void main(String[] args) throws Exception {
-		String text = "今日はとてもいい天気です。";
-		List<String> ss = new ArrayList<>();
+		long time1 = System.currentTimeMillis();
+		String endPoint = "http://localhost:8888/";
+		try (SemanticSearchServiceViaHttp nlp = new SemanticSearchServiceViaHttp(endPoint);) {
+			for (int n = 0; n < 10; n++) {
+				String text = "今日はとてもいい天気です。";
+				List<String> ss = new ArrayList<>();
 //		ss.add("今日はとてもいい天気です。");
 //		ss.add("明日はとてもいい天気です。");
-		ss.add("私は学校に行きます。");
-		String endPoint = "http://localhost:8888/";
-		SemanticSearchServiceViaHttp nlp = new SemanticSearchServiceViaHttp(endPoint);
-		NlpServiceResponse res = nlp.process(text, ss);
+				ss.add("私は学校に行きます。");
+				NlpServiceResponse res = nlp.process(text, ss);
 //		System.err.println(res);
-		System.err.println(JsonUtils.prettyPrint(res.getOriginalResponseBody()));
+				System.err.println(JsonUtils.prettyPrint(res.getOriginalResponseBody()));
+			} // 747, 704
+
+		}
+		long time2 = System.currentTimeMillis();
+		System.err.println("time: " + (time2 - time1));
+	}
+
+	@Override
+	public void close() throws IOException {
+		client.close();
 	}
 }
