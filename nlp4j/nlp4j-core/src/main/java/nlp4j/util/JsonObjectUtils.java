@@ -199,4 +199,28 @@ public class JsonObjectUtils {
 
 	}
 
+	public static String join(String string, JsonArray arr) {
+		List<String> list = new ArrayList<>();
+		for (int n = 0; n < arr.size(); n++) {
+			list.add(arr.get(n).getAsString());
+		}
+		return String.join(string, list);
+	}
+
+	/**
+	 * @param string
+	 * @param arr
+	 * @return
+	 */
+	public static String join_unique(String string, JsonArray arr) {
+		List<String> list = new ArrayList<>();
+		for (int n = 0; n < arr.size(); n++) {
+			String s = arr.get(n).getAsString();
+			if (list.contains(s) == false) {
+				list.add(s);
+			}
+		}
+		return String.join(string, list);
+	}
+
 }

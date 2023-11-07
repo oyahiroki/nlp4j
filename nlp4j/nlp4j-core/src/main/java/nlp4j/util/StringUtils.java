@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import java.nio.charset.Charset;
 import java.nio.charset.CharsetEncoder;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * created on 2021-07-24
@@ -132,6 +133,32 @@ public class StringUtils {
 		}
 		char c = s.charAt(0);
 		return (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z');
+	}
+
+	/**
+	 * @param delimiter
+	 * @param list
+	 * @return
+	 */
+	public static String join(String delimiter, List<String> list) {
+		return String.join(delimiter, list);
+	}
+
+	/**
+	 * Join String list uniquely
+	 * 
+	 * @param delimiter
+	 * @param list
+	 * @return
+	 */
+	public static String join_unique(String delimiter, List<String> list) {
+		List<String> ss = new ArrayList<>();
+		for (String s : list) {
+			if (ss.contains(s) == false) {
+				ss.add(s);
+			}
+		}
+		return String.join(delimiter, ss);
 	}
 
 	/**

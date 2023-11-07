@@ -3,6 +3,7 @@ package nlp4j.impl;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.LinkedHashMap;
@@ -324,6 +325,28 @@ public class DefaultDocument implements Document {
 			}
 		}
 		return b;
+	}
+
+	@Override
+	public List<Object> getAttributeAsList(String key) {
+		Object o = attributes.get(key);
+		if (o instanceof List<?>) {
+			return (List<Object>) o;
+		}
+		if (o instanceof Object[]) {
+			return Arrays.asList((Object[]) o);
+		}
+		return null;
+	}
+
+	@Override
+	public List<Number> getAttributeAsListNumbers(String key) {
+		Object o = attributes.get(key);
+		if (o instanceof Number[]) {
+			return Arrays.asList((Number[]) o);
+		}
+		return null;
+
 	}
 
 }

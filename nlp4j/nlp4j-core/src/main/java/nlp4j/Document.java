@@ -42,6 +42,20 @@ public interface Document {
 	Object getAttribute(String key);
 
 	/**
+	 * @param key
+	 * @return as list of object
+	 * @since 1.3.7.12 (2023-11-07)
+	 */
+	List<Object> getAttributeAsList(String key);
+
+	/**
+	 * @param key
+	 * @return as list of numbers
+	 * @since 1.3.7.12 (2023-11-07)
+	 */
+	List<Number> getAttributeAsListNumbers(String key);
+
+	/**
 	 * 属性を返します。<br>
 	 * Return Attribute value.
 	 * 

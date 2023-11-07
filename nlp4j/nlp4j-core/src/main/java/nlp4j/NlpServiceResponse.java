@@ -39,6 +39,12 @@ public interface NlpServiceResponse extends Response {
 	public int getResponseCode();
 
 	/**
+	 * @return response code is 200 or not
+	 * @since 1.3.7.12 (2023-11-07)
+	 */
+	public boolean ok();
+
+	/**
 	 * 自然言語処理サービスが返したキーワードを返します。
 	 * 
 	 * @return 自然言語処理サービスが返したキーワード

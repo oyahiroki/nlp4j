@@ -167,4 +167,10 @@ public class DefaultNlpServiceResponse implements NlpServiceResponse {
 				+ originalResponseBody + "]";
 	}
 
+	@Override
+	public boolean ok() {
+		int code = getResponseCode();
+		return (code >= 200 && code < 300);
+	}
+
 }

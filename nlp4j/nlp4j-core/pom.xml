@@ -235,6 +235,20 @@
 			<artifactId>httpclient5</artifactId>
 			<version>5.2.1</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-simple -->
+		<!-- dependency -->
+			<!-- groupId>org.slf4j</groupId -->
+			<!-- artifactId>slf4j-simple</artifactId -->
+			<!-- version>1.7.36</version -->
+			<!-- scope>test</scope -->
+		<!-- /dependency -->
+		<!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-nop -->
+		<dependency>
+		    <groupId>org.slf4j</groupId>
+		    <artifactId>slf4j-nop</artifactId>
+		    <version>2.0.9</version>
+		</dependency>
+
 		<!-- https://mvnrepository.com/artifact/com.squareup.okio/okio -->
 		<!-- dependency -->
 		<!-- groupId>com.squareup.okio</groupId -->
