@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 
@@ -64,6 +65,28 @@ public class DefaultNlpServiceResponse implements NlpServiceResponse {
 				Gson gson = new Gson();
 				JsonObject jo = gson.fromJson(this.originalResponseBody, JsonObject.class);
 				return jo;
+			} catch (JsonSyntaxException e) {
+				return null;
+			}
+		} //
+		else {
+			return null;
+		}
+	}
+
+	/**
+	 * @return
+	 * @since 1.3.7.12 (2023-11-07)
+	 */
+	public JsonElement getAsJson() {
+//		List<String> values = this.headers.get("content-type");
+//		System.err.println(values.toString().contains("json"));
+
+		if (this.originalResponseBody != null) {
+			try {
+				Gson gson = new Gson();
+				JsonElement je = gson.fromJson(this.originalResponseBody, JsonElement.class);
+				return je;
 			} catch (JsonSyntaxException e) {
 				return null;
 			}

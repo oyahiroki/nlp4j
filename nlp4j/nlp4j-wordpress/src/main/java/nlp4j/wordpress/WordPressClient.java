@@ -6,6 +6,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import nlp4j.Document;
@@ -13,6 +14,10 @@ import nlp4j.NlpServiceResponse;
 import nlp4j.http.HttpClient5;
 import nlp4j.impl.DefaultNlpServiceResponse;
 
+/**
+ * @author Hiroki Oya
+ * @since 1.0.0.0
+ */
 public class WordPressClient {
 	private String endpoint;
 	private String token;
@@ -22,6 +27,12 @@ public class WordPressClient {
 		this.token = Base64.getEncoder().encodeToString((user_name + ":" + application_password).getBytes());
 	}
 
+	/**
+	 * @param doc
+	 * @return
+	 * @throws IOException
+	 * @see https://developer.wordpress.org/rest-api/reference/posts/#create-a-post
+	 */
 	public NlpServiceResponse post(Document doc) throws IOException {
 
 		JsonObject request_body = new JsonObject();
@@ -54,6 +65,23 @@ public class WordPressClient {
 			return response;
 		}
 
+	}
+
+	/**
+	 * @throws IOException
+	 * @see https://developer.wordpress.org/rest-api/reference/categories/
+	 */
+	public void getCategories() throws IOException {
+		String url = endpoint + "/wp-json/wp/v2/categories/?per_page=100&order=asc&orderby=id";
+		try (HttpClient5 client = new HttpClient5();) {
+			DefaultNlpServiceResponse response = client.get(url);
+			JsonElement jo = response.getAsJson();
+			JsonArray arr = jo.getAsJsonArray();
+			for (int n = 0; n < arr.size(); n++) {
+				System.out.println(arr.get(n).getAsJsonObject().get("id").getAsInt() + "\t"
+						+ arr.get(n).getAsJsonObject().get("name").getAsString());
+			}
+		}
 	}
 
 }
