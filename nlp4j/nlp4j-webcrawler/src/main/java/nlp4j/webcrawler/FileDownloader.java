@@ -62,14 +62,16 @@ public class FileDownloader {
 
 		}
 
-		nlp4j.http.HttpClient5 client = new nlp4j.http.HttpClient5();
-
 		logger.info("accessing: " + url);
 
-		try (InputStream is = client.getInputStream(url, null)) {
+		try ( //
+				nlp4j.http.HttpClient5 client = new nlp4j.http.HttpClient5(); //
+				InputStream is = client.getInputStream(url, null); //
+				// INPUT
+				BufferedInputStream bis = new BufferedInputStream(is); //
+				BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(outFile)); //
+		) {
 
-			// INPUT
-			BufferedInputStream bis = new BufferedInputStream(is);
 			// OUTPUT
 			if (outFile.getParentFile().exists() == false) {
 				File parentDir = FileUtils.createParentDirectories(outFile);
@@ -77,7 +79,6 @@ public class FileDownloader {
 					logger.info("Created: " + parentDir.getAbsolutePath());
 				}
 			}
-			BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(outFile));
 
 			int readSize;
 			long totalSize = 0; // fixed int -> long 1.1.1.0
@@ -113,9 +114,9 @@ public class FileDownloader {
 				}
 			}
 
-			bis.close();
+//			bis.close();
 			bos.flush();
-			bos.close();
+//			bos.close();
 
 		}
 

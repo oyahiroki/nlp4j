@@ -163,9 +163,10 @@ public class HttpClient5 implements HttpClient {
 			throw new IOException(e1);
 		}
 
-		for (String key : params.keySet()) {
-
-			uriBuilder.addParameter(key, params.get(key));
+		if (params != null) {
+			for (String key : params.keySet()) {
+				uriBuilder.addParameter(key, params.get(key));
+			}
 		}
 
 		HttpGet httpGet;
@@ -182,19 +183,36 @@ public class HttpClient5 implements HttpClient {
 		// Please note that if response content is not fully consumed the underlying
 		// connection cannot be safely re-used and will be shut down and discarded
 		// by the connection manager.
-		try (CloseableHttpResponse response1 = httpclient.execute(httpGet)) {
+		CloseableHttpResponse response1 = httpclient.execute(httpGet);
+//		try () 
+		{
 			code = response1.getCode();
+			if (((code >= 200) && (code < 300)) == false) {
+				throw new IOException("url: " + url + ",response: " + code);
+			}
 			HttpEntity entity1 = response1.getEntity();
+			
+			if(entity1!= null) {
+				return entity1.getContent();
+			}
+			else {
+				throw new IOException();
+			}
+			
 			// do something useful with the response body
 			// and ensure it is fully consumed
-			String b = EntityUtils.toString(entity1);
-			EntityUtils.consume(entity1);
-			byte[] bb = b.getBytes("UTF-8");
-			this.content_length = bb.length;
-			return new ByteArrayInputStream(bb);
-		} catch (ParseException e) {
-			throw new IOException(e);
+//			String b = EntityUtils.toString(entity1);
+//			byte[] bb = EntityUtils.toByteArray(entity1);
+			
+			
+//			EntityUtils.consume(entity1);
+//			byte[] bb = b.getBytes("UTF-8");
+//			this.content_length = bb.length;
+//			return new ByteArrayInputStream(bb);
 		}
+//		catch (ParseException e) {
+//			throw new IOException(e);
+//		}
 	}
 
 	@Override

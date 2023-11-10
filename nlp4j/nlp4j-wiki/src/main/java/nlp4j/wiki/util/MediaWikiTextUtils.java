@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.sweble.wikitext.engine.EngineException;
 import org.sweble.wikitext.engine.PageId;
 import org.sweble.wikitext.engine.PageTitle;
 import org.sweble.wikitext.engine.WtEngineImpl;
@@ -12,6 +13,7 @@ import org.sweble.wikitext.engine.config.WikiConfig;
 import org.sweble.wikitext.engine.nodes.EngProcessedPage;
 import org.sweble.wikitext.engine.utils.DefaultConfigEnWp;
 import org.sweble.wikitext.example.TextConverter;
+import org.sweble.wikitext.parser.parser.LinkTargetException;
 
 import nlp4j.wiki.WikiItemTextParser;
 import nlp4j.wiki.WikiItemTextParserInterface;
@@ -36,22 +38,22 @@ public class MediaWikiTextUtils {
 		boolean infobox = false;
 		int level = 0;
 
-		for (String t : wikiText.split("\n")) {
+		for (String line : wikiText.split("\n")) {
 			// NOT Infobox
 			if (infobox == false) {
-				if (t.startsWith("{{Infobox")) {
+				if (line.startsWith("{{Infobox")) {
 					infobox = true;
-					sbInfobox.append(t);
+					sbInfobox.append(line);
 					level += 2;
 				} //
 				else {
-					sb.append(t);
+					sb.append(line);
 				}
 			}
 			// IN Infobox
 			else {
-				for (int n = 0; n < t.length(); n++) {
-					char c = t.charAt(n);
+				for (int n = 0; n < line.length(); n++) {
+					char c = line.charAt(n);
 					if (c == '{') { // 入れ子になっている
 						level++;
 					} //
@@ -75,7 +77,9 @@ public class MediaWikiTextUtils {
 					} //
 				}
 			}
-		}
+			sb.append("\n");
+		} // END_OF_EACH(LINE)
+
 		if (level == 0 && sbInfobox.length() > 0) {
 			infoBoxes.add(sbInfobox.toString());
 			sbInfobox = new StringBuilder();
@@ -335,6 +339,9 @@ public class MediaWikiTextUtils {
 		if (wikiText == null) {
 			return null;
 		}
+
+		wikiText = WikiTemplateParser.removeInlineTemplate(wikiText);
+
 		// Set-up a simple wiki configuration
 		try {
 
@@ -360,6 +367,9 @@ public class MediaWikiTextUtils {
 				wikiText = sb.toString();
 			}
 
+//			System.err.println(wikiText);
+//			System.err.println("---");
+
 			{ // REMOVE TABLE
 				wikiText = removeTable(wikiText);
 			}
@@ -367,6 +377,9 @@ public class MediaWikiTextUtils {
 			{ // REMOVE {{Infobox}}
 				wikiText = removeInfobox(wikiText);
 			}
+
+//			System.err.println(wikiText);
+//			System.err.println("---");
 
 			{ // REMOVE （...）
 				wikiText = StringUtils.removeBracketted(wikiText, "（）"); // JA BRACKETS
@@ -405,17 +418,13 @@ public class MediaWikiTextUtils {
 
 			// TODO 大学テンプレートの処理
 
-			{
-				final int wrapCol = 1000;
-				// Retrieve a page
-				PageTitle pageTitle = PageTitle.make(config, wikiTitle);
-				PageId pageId = new PageId(pageTitle, -1);
-				// Instantiate a compiler for wiki pages
-				// Compile the retrieved page
-				EngProcessedPage cp = engine.postprocess(pageId, wikiText, null);
-				TextConverter p = new TextConverter(config, wrapCol);
-				text = (String) p.go(cp.getPage());
-			}
+//			System.err.println(wikiText);
+//			System.err.println("---");
+
+			text = sweble(wikiTitle, wikiText);
+
+//			System.err.println(wikiText);
+//			System.err.println("---");
 
 			{
 				text = text //
@@ -431,6 +440,8 @@ public class MediaWikiTextUtils {
 						.trim();
 			}
 
+//			System.err.println(wikiText);
+//			System.err.println("---");
 			return text;
 
 		} catch (Exception e) {
@@ -438,6 +449,20 @@ public class MediaWikiTextUtils {
 			return "";
 		}
 
+	}
+
+	private static String sweble(String wikiTitle, String wikiText) throws LinkTargetException, EngineException {
+		String text;
+		final int wrapCol = 1000;
+		// Retrieve a page
+		PageTitle pageTitle = PageTitle.make(config, wikiTitle);
+		PageId pageId = new PageId(pageTitle, -1);
+		// Instantiate a compiler for wiki pages
+		// Compile the retrieved page
+		EngProcessedPage cp = engine.postprocess(pageId, wikiText, null);
+		TextConverter p = new TextConverter(config, wrapCol);
+		text = (String) p.go(cp.getPage());
+		return text;
 	}
 
 // REMOVED 2022-01-27

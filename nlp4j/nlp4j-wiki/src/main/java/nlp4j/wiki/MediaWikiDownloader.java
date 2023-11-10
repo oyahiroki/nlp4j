@@ -52,6 +52,11 @@ public class MediaWikiDownloader extends AbstractWebCrawler implements Crawler {
 			return this;
 		}
 
+		public Builder media(String media) {
+			this.media = media;
+			return this;
+		}
+
 		public MediaWikiDownloader build() {
 			MediaWikiDownloader dl = new MediaWikiDownloader();
 			dl.setProperty("version", this.version);

@@ -44,6 +44,10 @@ public class MediaWikiMD5Util {
 		List<String> lines = FileUtils.readLines(md5sumsFile, "UTF-8");
 		for (String line : lines) {
 			String[] ss = line.split("  ");
+			if (ss.length < 2) {
+				logger.warn("Invalid data: " + line);
+				continue;
+			}
 			String md5 = ss[0];
 			String filename = ss[1];
 			md5map.put(filename, md5);
