@@ -15,7 +15,7 @@ import nlp4j.wiki.WikiDumpReader;
 import nlp4j.wiki.WikiPage;
 import nlp4j.wiki.WikiPageHandler;
 
-public class MediaWikiJsonConverterType1 {
+public class MediaWikiJsonConverterType0 {
 
 	public static void main(String[] args) throws Exception {
 
@@ -47,8 +47,7 @@ public class MediaWikiJsonConverterType1 {
 				+ lang + media //
 				+ "-" //
 				+ version //
-//				+ "-pages-articles-multistream_type1_" + ts + ".jsonl";
-				+ "-pages-articles-multistream_type1.jsonl";
+				+ "-pages-articles-multistream_type0" + ".jsonl";
 
 		File dumpFile = new File(dumpFileName);
 		File outFile = new File(outFileName);
@@ -56,7 +55,6 @@ public class MediaWikiJsonConverterType1 {
 		System.err.println(outFile.getAbsolutePath());
 
 		try ( //
-
 				WikiDumpReader dumpReader = new WikiDumpReader(dumpFile); //
 				PrintWriter pw = debug ? IOUtils.pwSystemErr() : IOUtils.printWriter(outFile); //
 		) {
@@ -65,17 +63,13 @@ public class MediaWikiJsonConverterType1 {
 
 				@Override
 				public void read(WikiPage page) throws BreakException {
-
 					if (page.getTitle().contains(":")) {
 						return; // skip
 					}
-
 					count++;
-
 					if (count % 100 == 0) {
 						System.err.println(count);
 					}
-
 					if (debug && count > 100) {
 						throw new BreakException();
 					}
@@ -93,7 +87,7 @@ public class MediaWikiJsonConverterType1 {
 					jo.addProperty("url", url);
 					jo.addProperty("title", page.getTitle());
 
-					jo.addProperty("text", page.getPlainText());
+					jo.addProperty("wikitext", page.getText()); // v0
 
 					pw.println(jo.toString());
 

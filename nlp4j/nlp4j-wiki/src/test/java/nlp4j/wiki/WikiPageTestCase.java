@@ -62,6 +62,18 @@ public class WikiPageTestCase extends TestCase {
 		System.err.println(page.getPlainText());
 	}
 
+	public void testGetPlainText003() {
+		String title = "SandBox";
+		String id = "26";
+		String format = "text/x-wiki";
+		String text = "#REDIRECT [[サンドボックス]]"; //
+		WikiPage page = new WikiPage(title, id, format, text);
+
+		System.err.println(page.isRediect());
+
+		System.err.println(page.getPlainText());
+	}
+
 	public void testGetRediect_title() {
 		// TODO TEST
 	}

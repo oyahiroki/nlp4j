@@ -421,6 +421,14 @@ public class MediaWikiTextUtils {
 //			System.err.println(wikiText);
 //			System.err.println("---");
 
+			{ // リダイレクト対応
+				if (WikipediaJaUtil.isRedirectPage(wikiText)) {
+					wikiText = WikipediaJaUtil.getRedirectPageTitle(wikiText);
+					return wikiText;
+				}
+			}
+
+			// 「#REDIRECT [[サンドボックス]]」 → 「<WtRedirect />」 に変換される
 			text = sweble(wikiTitle, wikiText);
 
 //			System.err.println(wikiText);
@@ -428,15 +436,15 @@ public class MediaWikiTextUtils {
 
 			{
 				text = text //
-						.replace("\n\n", " ") // 連続する改行を半角空白にする
+//						.replace("\n\n", " ") // 連続する改行を半角空白にする
 //						.replace("\n", "") // 改行を除去 // TODO 2023-08-15
 //						.replaceAll("\\[\\[.*?\\]\\]", "") //
 						.replaceAll("（.*?）", "") // カッコ注釈を外す
 						.replaceAll("\\(.*?\\)", "") // カッコ注釈を外す
-						.replaceAll("/\\*\\*.*?\\*\\*/", "") // コメント
-						.replace("**", "") //
-						.replace("<WtRedirect />", "") //
-						.replace("<WtTable />", "") //
+						.replaceAll("/\\*\\*.*?\\*\\*/", "") // コメントを外す
+						.replace("**", "") // 強調記号を外す
+						.replace("<WtRedirect />", "") // Swebleリダイレクトを外す
+						.replace("<WtTable />", "") // Swebleテーブルを外す
 						.trim();
 			}
 
