@@ -314,10 +314,12 @@ public class MediaWikiTextUtils {
 		}
 
 		if (wikitext.contains("\n{|") && wikitext.contains("\n|}")) {
-			wikitext = wikitext.replace("\r", "").replace("\n", " ")
+			wikitext = wikitext.replace("\r", "").replace("\n", "【NLP4J_NL】")
 			// https://qiita.com/ymatsuta/items/cff10a2d8d0fa6b69485
 //					.replaceAll("\\{\\| (.|\\n|\\r)*?\\|\\}", "");
-					.replaceAll("\\{\\|.*? \\|\\}", "");
+					.replaceAll("\\{\\|.*? \\|\\}", "") //
+					.replace("【NLP4J_NL】", "\n") //
+			;
 		}
 
 		return wikitext;
@@ -459,7 +461,7 @@ public class MediaWikiTextUtils {
 
 	}
 
-	private static String sweble(String wikiTitle, String wikiText) throws LinkTargetException, EngineException {
+	public static String sweble(String wikiTitle, String wikiText) throws LinkTargetException, EngineException {
 		String text;
 		final int wrapCol = 1000;
 		// Retrieve a page

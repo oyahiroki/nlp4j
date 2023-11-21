@@ -44,6 +44,14 @@ public class FileDownloader {
 	 */
 	public void download(String url, File outFile, boolean overwrite) throws IOException {
 
+		// OUTPUT
+		if (outFile.getParentFile().exists() == false) {
+			File parentDir = FileUtils.createParentDirectories(outFile);
+			if (parentDir != null) {
+				logger.info("Created: " + parentDir.getAbsolutePath());
+			}
+		}
+
 		// IF(overwirte == FALSE) THEN
 		if (overwrite == false) {
 			if (outFile.exists() == true) {

@@ -1,0 +1,34 @@
+
+以下の「ユーザーの入力」と「前提」を元に適切なあいさつ文を返してください。
+
+
+###ユーザーの入力
+こんにちは。今日は何月何日ですか。
+
+###前提
+日付と時刻 IN TODAY_ISO8601:2023-11-19T20:44:00+09:00
+
+
+
+{
+  "id": "chatcmpl-8MaWp2jcT0Z7WuZi2YJ96MrGtAgyC",
+  "object": "chat.completion",
+  "created": 1700394323,
+  "model": "gpt-4-0613",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "こんにちは、ユーザー様。本日は2023年11月19日です。何か他にお手伝いできることがありましたらお知らせください。"
+      },
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 109,
+    "completion_tokens": 47,
+    "total_tokens": 156
+  }
+}
+

@@ -24,7 +24,8 @@ public class MainChatGPT {
 		}
 
 		{
-			String model = "gpt-3.5-turbo";
+//			String model = "gpt-3.5-turbo";
+			String model = "gpt-4";
 			String system_content = "You are a helpful assistant.";
 //			String user_content = "こんにちは！";
 			String user_content = "以下を１文に要約してください。要約した文のみを返してください。\n" //

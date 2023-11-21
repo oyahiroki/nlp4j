@@ -5,107 +5,12 @@ import java.io.IOException;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
+import org.sweble.wikitext.engine.EngineException;
+import org.sweble.wikitext.parser.parser.LinkTargetException;
 
 import junit.framework.TestCase;
 
 public class MediaWikiTextUtilsTestCase extends TestCase {
-
-	public void testRemoveTable001() {
-		String wikitext = "{{Pathnav|スーパー戦隊シリーズ|frame=1}}\r\n" //
-				+ "{{半保護}}\r\n" //
-				+ "{{注意|クレジットなどで確認できない[[スーツアクター]]の役柄を記載する場合には、'''必ず[[Wikipedia:信頼できる情報源|信頼可能な情報源]]からの[[Wikipedia:出典を明記する|出典を示してください]]。'''出典の無い情報については、[[Wikipedia:独自研究は載せない]]に基づき一定期間ののち除去されるおそれがあります（[[プロジェクト:特撮/スーツアクターの役名記載について]]での議論に基づく）}}\r\n" //
-				+ "{| style=\"float: right; text-align:center; border-collapse:collapse; border:2px solid black; white-space:nowrap\"\r\n" //
-				+ "|-\r\n" //
-				+ "|colspan=\"3\" style=\"background-color:#ffccff; border:1px solid black; white-space:nowrap\"|'''[[スーパー戦隊シリーズ]]'''\r\n" //
-				+ "|-\r\n" //
-				+ "|style=\"border:1px solid black; background-color:#ffccff; white-space:nowrap\"|'''第1作'''\r\n" //
-				+ "|style=\"border:1px solid black; white-space:nowrap\"|'''秘密戦隊<br />ゴレンジャー'''\r\n" //
-				+ "|style=\"border:1px solid black; white-space:nowrap\"|1975年4月<br />- 1977年3月\r\n" //
-				+ "|-\r\n" //
-				+ "|style=\"border:1px solid black; white-space:nowrap; background-color:#ffccff\"|'''第2作'''\r\n" //
-				+ "|style=\"border:1px solid black; white-space:nowrap\"|[[ジャッカー電撃隊|ジャッカー<br />電撃隊]]\r\n" //
-				+ "|style=\"border:1px solid black; white-space:nowrap\"|1977年4月<br />- 1977年12月\r\n" //
-				+ "|}\r\n" //
-				+ "『'''秘密戦隊ゴレンジャー'''』 (ひみつせんたいゴレンジャー) は、[[1975年]][[4月5日]]から[[1977年]][[3月26日]]まで、NET系列で毎週土曜19:30 - 20:00 ([[日本標準時|JST]]) に全84話が放送された、[[テレビ朝日|NET]] (現・テレビ朝日)・[[東映]]制作の[[特撮テレビ番組一覧|特撮テレビドラマ]]、および作中に登場するヒーローチームの名称。\r\n" //
-				+ "";
-
-		System.err.println(wikitext);
-
-		String wikitext2 = MediaWikiTextUtils.removeTable(wikitext);
-
-		System.err.println("<result>");
-		System.err.println(wikitext2);
-		System.err.println("</result>");
-
-	}
-
-	public void testRemoveInfobox001() {
-		String wikitext = "aaa\r\n" //
-				+ "{{Infobox Continent\r\n" //
-				+ "|image = [[File:Europe (orthographic projection).svg|200px]]\r\n" //
-				+ "|countries = 50\r\n" //
-				+ "}}\r\n" //
-				+ "\r\n" //
-				+ "bbb\r\n" //
-				+ "\r\n" //
-				+ "ccc\r\n" //
-				+ "{{Infobox Continent\r\n" //
-				+ "|image = [[File:Europe (orthographic projection).svg|200px]]\r\n" //
-				+ "|countries = 50\r\n" //
-				+ "}}\r\n" //
-				+ "{{Infobox {{}}{{}}{{{}}}xxx}}" + "";
-
-		System.err.println(wikitext);
-
-		System.err.println("---");
-
-		String wikitext2 = MediaWikiTextUtils.removeInfobox(wikitext);
-
-		System.err.println(wikitext2);
-
-	}
-
-	public void testToPlainText001() {
-		String wikitext = "{{otheruses}}\r\n" //
-				+ "{{Infobox Continent\r\n" //
-				+ "|image = [[File:Europe (orthographic projection).svg|200px]]\r\n" //
-				+ "|countries = 50\r\n" //
-				+ "}}\r\n" //
-				+ "\r\n" //
-				+ "This is test. [TEST]\r\n" //
-				+ "\r\n" //
-				+ "== TITLE ==\r\n" //
-				+ "\r\n" //
-				+ "This is test2.\r\n" //
-				+ "\r\n" //
-				+ "";
-		String plainText = MediaWikiTextUtils.toPlainText("test", wikitext);
-
-		System.err.println("<before>");
-		System.err.println(wikitext);
-		System.err.println("</before>");
-
-		System.err.println("<after>");
-		System.err.println(plainText);
-		System.err.println("</after>");
-	}
-
-	public void testToPlainText002() throws IOException {
-		// x-wiki 形式のテキストを用意する
-		// Prepare x-wiki format text
-		File file = new File("src/test/resources/hello.sweble/wiki-example.txt");
-		String charsetName = "UTF-8";
-		String wikitext = FileUtils.readFileToString(file, charsetName);
-		String plainText = MediaWikiTextUtils.toPlainText("test", wikitext);
-
-		System.err.println("<before>");
-		System.err.println(wikitext);
-		System.err.println("</before>");
-
-		System.err.println("<after>");
-		System.err.println(plainText);
-		System.err.println("</after>");
-	}
 
 	public void testGetRootNodeText001() throws IOException {
 		// x-wiki 形式のテキストを用意する
@@ -199,6 +104,148 @@ public class MediaWikiTextUtilsTestCase extends TestCase {
 
 	}
 
+	public void testGetWikiPageLinks() {
+
+	}
+
+	public void testParseTemplateTags001() throws IOException {
+		// x-wiki 形式のテキストを用意する
+		// Prepare x-wiki format text
+		File file = new File("src/test/resources/hello.sweble/wiki-example.txt");
+		String charsetName = "UTF-8";
+		String wikitext = FileUtils.readFileToString(file, charsetName);
+		List<String> tags = MediaWikiTextUtils.parseTemplateTags(wikitext);
+
+		System.err.println("<tags>");
+		System.err.println(tags.toString());
+		System.err.println("</tags>");
+	}
+
+	/**
+	 * created on 2023-01-18
+	 * 
+	 * @throws IOException
+	 */
+	public void testParseTemplateTags002() throws IOException {
+		String wikitext = "{{Otheruses}}\r\n" //
+				+ "{{Redirect|鈴木一朗|その他の同名の人物|鈴木一朗 (曖昧さ回避)}}\r\n" //
+				+ "xxx\r\n" //
+				+ "{{abc}}\r\n" //
+				+ "{{def}}";
+		List<String> tags = MediaWikiTextUtils.parseTemplateTags(wikitext);
+
+		System.err.println("<tags>");
+		System.err.println(tags.toString());
+		System.err.println("</tags>");
+	}
+
+	public void testRemoveInfobox001() {
+		String wikitext = "aaa\r\n" //
+				+ "{{Infobox Continent\r\n" //
+				+ "|image = [[File:Europe (orthographic projection).svg|200px]]\r\n" //
+				+ "|countries = 50\r\n" //
+				+ "}}\r\n" //
+				+ "\r\n" //
+				+ "bbb\r\n" //
+				+ "\r\n" //
+				+ "ccc\r\n" //
+				+ "{{Infobox Continent\r\n" //
+				+ "|image = [[File:Europe (orthographic projection).svg|200px]]\r\n" //
+				+ "|countries = 50\r\n" //
+				+ "}}\r\n" //
+				+ "{{Infobox {{}}{{}}{{{}}}xxx}}" + "";
+
+		System.err.println(wikitext);
+
+		System.err.println("---");
+
+		String wikitext2 = MediaWikiTextUtils.removeInfobox(wikitext);
+
+		System.err.println(wikitext2);
+
+	}
+
+	public void testRemoveTable001() {
+		String wikitext = "{{Pathnav|スーパー戦隊シリーズ|frame=1}}\r\n" //
+				+ "{{半保護}}\r\n" //
+				+ "{{注意|クレジットなどで確認できない[[スーツアクター]]の役柄を記載する場合には、'''必ず[[Wikipedia:信頼できる情報源|信頼可能な情報源]]からの[[Wikipedia:出典を明記する|出典を示してください]]。'''出典の無い情報については、[[Wikipedia:独自研究は載せない]]に基づき一定期間ののち除去されるおそれがあります（[[プロジェクト:特撮/スーツアクターの役名記載について]]での議論に基づく）}}\r\n" //
+				+ "{| style=\"float: right; text-align:center; border-collapse:collapse; border:2px solid black; white-space:nowrap\"\r\n" //
+				+ "|-\r\n" //
+				+ "|colspan=\"3\" style=\"background-color:#ffccff; border:1px solid black; white-space:nowrap\"|'''[[スーパー戦隊シリーズ]]'''\r\n" //
+				+ "|-\r\n" //
+				+ "|style=\"border:1px solid black; background-color:#ffccff; white-space:nowrap\"|'''第1作'''\r\n" //
+				+ "|style=\"border:1px solid black; white-space:nowrap\"|'''秘密戦隊<br />ゴレンジャー'''\r\n" //
+				+ "|style=\"border:1px solid black; white-space:nowrap\"|1975年4月<br />- 1977年3月\r\n" //
+				+ "|-\r\n" //
+				+ "|style=\"border:1px solid black; white-space:nowrap; background-color:#ffccff\"|'''第2作'''\r\n" //
+				+ "|style=\"border:1px solid black; white-space:nowrap\"|[[ジャッカー電撃隊|ジャッカー<br />電撃隊]]\r\n" //
+				+ "|style=\"border:1px solid black; white-space:nowrap\"|1977年4月<br />- 1977年12月\r\n" //
+				+ "|}\r\n" //
+				+ "『'''秘密戦隊ゴレンジャー'''』 (ひみつせんたいゴレンジャー) は、[[1975年]][[4月5日]]から[[1977年]][[3月26日]]まで、NET系列で毎週土曜19:30 - 20:00 ([[日本標準時|JST]]) に全84話が放送された、[[テレビ朝日|NET]] (現・テレビ朝日)・[[東映]]制作の[[特撮テレビ番組一覧|特撮テレビドラマ]]、および作中に登場するヒーローチームの名称。\r\n" //
+				+ "";
+
+		System.err.println(wikitext);
+
+		String wikitext2 = MediaWikiTextUtils.removeTable(wikitext);
+
+		System.err.println("<result>");
+		System.err.println(wikitext2);
+		System.err.println("</result>");
+
+	}
+
+	public void testSweble001() throws IOException, LinkTargetException, EngineException {
+		String wikititle = "テスト";
+		String wikitext = "== TEST ==\nTHIS IS TEST.\nTHIS IS TEST";
+		String t = MediaWikiTextUtils.sweble(wikititle, wikitext);
+
+		System.err.println("<t>");
+		System.err.println(t);
+		System.err.println("</t>");
+	}
+
+	public void testToPlainText001() {
+		String wikitext = "{{otheruses}}\r\n" //
+				+ "{{Infobox Continent\r\n" //
+				+ "|image = [[File:Europe (orthographic projection).svg|200px]]\r\n" //
+				+ "|countries = 50\r\n" //
+				+ "}}\r\n" //
+				+ "\r\n" //
+				+ "This is test. [TEST]\r\n" //
+				+ "\r\n" //
+				+ "== TITLE ==\r\n" //
+				+ "\r\n" //
+				+ "This is test2.\r\n" //
+				+ "\r\n" //
+				+ "";
+		String plainText = MediaWikiTextUtils.toPlainText("test", wikitext);
+
+		System.err.println("<before>");
+		System.err.println(wikitext);
+		System.err.println("</before>");
+
+		System.err.println("<after>");
+		System.err.println(plainText);
+		System.err.println("</after>");
+	}
+
+	public void testToPlainText002() throws IOException {
+		// x-wiki 形式のテキストを用意する
+		// Prepare x-wiki format text
+		File file = new File("src/test/resources/hello.sweble/wiki-example.txt");
+		String charsetName = "UTF-8";
+		String wikitext = FileUtils.readFileToString(file, charsetName);
+		String plainText = MediaWikiTextUtils.toPlainText("test", wikitext);
+
+		System.err.println("<before>");
+		System.err.println(wikitext);
+		System.err.println("</before>");
+
+		System.err.println("<after>");
+		System.err.println(plainText);
+		System.err.println("</after>");
+	}
+
 	public void testToPlainText003() throws Exception {
 		String title = "松井秀喜"; //
 		String wikiText = "{{Infobox baseball player\r\n"//
@@ -246,39 +293,20 @@ public class MediaWikiTextUtilsTestCase extends TestCase {
 		System.err.println("</plainText>");
 	}
 
-	public void testParseTemplateTags001() throws IOException {
+	public void testToPlainText004() throws IOException {
 		// x-wiki 形式のテキストを用意する
 		// Prepare x-wiki format text
-		File file = new File("src/test/resources/hello.sweble/wiki-example.txt");
-		String charsetName = "UTF-8";
-		String wikitext = FileUtils.readFileToString(file, charsetName);
-		List<String> tags = MediaWikiTextUtils.parseTemplateTags(wikitext);
+		String wikititle = "テスト";
+		String wikitext = "== TEST ==\nTHIS IS TEST.\nTHIS IS TEST";
+		String plainText = MediaWikiTextUtils.toPlainText(wikititle, wikitext);
 
-		System.err.println("<tags>");
-		System.err.println(tags.toString());
-		System.err.println("</tags>");
-	}
+		System.err.println("<before>");
+		System.err.println(wikitext);
+		System.err.println("</before>");
 
-	/**
-	 * created on 2023-01-18
-	 * 
-	 * @throws IOException
-	 */
-	public void testParseTemplateTags002() throws IOException {
-		String wikitext = "{{Otheruses}}\r\n" //
-				+ "{{Redirect|鈴木一朗|その他の同名の人物|鈴木一朗 (曖昧さ回避)}}\r\n" //
-				+ "xxx\r\n" //
-				+ "{{abc}}\r\n" //
-				+ "{{def}}";
-		List<String> tags = MediaWikiTextUtils.parseTemplateTags(wikitext);
-
-		System.err.println("<tags>");
-		System.err.println(tags.toString());
-		System.err.println("</tags>");
-	}
-
-	public void testGetWikiPageLinks() {
-
+		System.err.println("<after>");
+		System.err.println(plainText);
+		System.err.println("</after>");
 	}
 
 }

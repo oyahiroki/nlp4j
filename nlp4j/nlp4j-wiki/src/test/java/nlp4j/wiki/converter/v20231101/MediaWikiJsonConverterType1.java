@@ -1,4 +1,4 @@
-package nlp4j.wiki.converter;
+package nlp4j.wiki.converter.v20231101;
 
 import java.io.File;
 import java.io.PrintWriter;
@@ -22,7 +22,7 @@ public class MediaWikiJsonConverterType1 {
 
 		String lang = "ja";
 		String media = "wiki";
-		String version = "20230101";
+		String version = "20231101";
 
 		// WIKI DUMP FILE
 		String dumpFileName = "/usr/local/wiki/" //
