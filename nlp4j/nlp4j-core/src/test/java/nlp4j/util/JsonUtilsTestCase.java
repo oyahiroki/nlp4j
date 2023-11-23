@@ -11,7 +11,7 @@ import org.apache.commons.text.StringEscapeUtils;
 import junit.framework.TestCase;
 
 public class JsonUtilsTestCase extends TestCase {
-
+	
 	public void testWrite() throws IOException {
 
 		File file = new File("src/test/resources/nlp4j.util/test_out.txt");

@@ -11,6 +11,18 @@ import junit.framework.TestCase;
 
 public class FileUtilsTestCase extends TestCase {
 
+	/**
+	 * @since 1.3.7.12
+	 * @throws Exception
+	 */
+	public void testJsonToCsv001() throws Exception {
+		File jsonFile = new File("files/nlp4j.util/json_utils_test_001_json.txt");
+		File csvFile = File.createTempFile("json_utils_test_001_json", ".txt");
+		System.err.println("from: " + jsonFile.getAbsolutePath());
+		System.err.println("to: " + csvFile.getAbsolutePath());
+		nlp4j.util.FileUtils.jsonToCsv(jsonFile, csvFile);
+	}
+
 	public void testConcatFiles001() throws Exception {
 
 		List<File> fromFiles = new ArrayList<>();

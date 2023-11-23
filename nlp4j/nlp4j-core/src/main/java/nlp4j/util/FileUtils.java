@@ -20,11 +20,32 @@ import java.util.zip.GZIPInputStream;
 
 import org.apache.commons.io.IOUtils;
 
+import nlp4j.Document;
+
 /**
  * @author Hiroki Oya
  *
  */
 public class FileUtils {
+
+	/**
+	 * @since 1.3.7.12
+	 * @param jsonFile
+	 * @param csvFile
+	 * @throws IOException
+	 */
+	static public void jsonToCsv(File jsonFile, File csvFile) throws IOException {
+
+		ArrayList<Document> docs = new ArrayList<>();
+
+		// 形態素解析済みの文書を読み込む
+		docs.addAll(DocumentUtil.readFromLineSeparatedJson(jsonFile));
+
+		PrintWriter pw = nlp4j.util.IOUtils.printWriter(csvFile);
+
+		DocumentsUtils.printAsCsv(docs, pw);
+
+	}
 
 	static public void write(File file, Collection<String> data, String charsetName, boolean append)
 			throws IOException {

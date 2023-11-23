@@ -1,9 +1,12 @@
 package nlp4j.util;
 
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import nlp4j.Keyword;
 
@@ -124,6 +127,53 @@ public class KeywordsUtil {
 			ss[n] = kwds.get(n).getLex();
 		}
 		return ss;
+	}
+
+	/**
+	 * @param kwds
+	 * @return List of Keyword lex
+	 * @since 1.3.7.12
+	 */
+	static public List<String> toLexList(List<Keyword> kwds) {
+		if (kwds == null) {
+			return null;
+		}
+		if (kwds.size() == 0) {
+			return new ArrayList<>();
+		}
+		List<String> list = new ArrayList<>();
+		for (int n = 0; n < kwds.size(); n++) {
+			list.add(kwds.get(n).getLex());
+		}
+		return list;
+	}
+
+	/**
+	 * @param kwds
+	 * @return Set of Keyword lex
+	 * @since 1.3.7.12
+	 */
+	static public Set<String> toLexSet(List<Keyword> kwds) {
+		if (kwds == null) {
+			return null;
+		}
+		if (kwds.size() == 0) {
+			return new HashSet<>();
+		}
+		Set<String> list = new HashSet<>();
+		for (int n = 0; n < kwds.size(); n++) {
+			list.add(kwds.get(n).getLex());
+		}
+		return list;
+	}
+
+	public static boolean isSameLexSet(List<Keyword> kwds1, List<Keyword> kwds2) {
+		if (kwds1.size() == kwds2.size()) {
+			for (Keyword k : kwds1) {
+
+			}
+		}
+		return false;
 	}
 
 }
