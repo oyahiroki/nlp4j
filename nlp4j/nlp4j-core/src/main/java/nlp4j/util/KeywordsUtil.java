@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -169,11 +170,32 @@ public class KeywordsUtil {
 
 	public static boolean isSameLexSet(List<Keyword> kwds1, List<Keyword> kwds2) {
 		if (kwds1.size() == kwds2.size()) {
-			for (Keyword k : kwds1) {
-
+			Set<String> set1 = toLexSet(kwds1);
+			Set<String> set2 = toLexSet(kwds2);
+			Iterator<String> it = set1.iterator();
+			while (it.hasNext()) {
+				if (set2.contains(it.next()) == false) {
+					return false;
+				}
 			}
+			return true;
 		}
 		return false;
+	}
+
+	public static int countSameLex(List<Keyword> kwds1, List<Keyword> kwds2) {
+		int count = 0;
+		{
+			Set<String> set1 = toLexSet(kwds1);
+			Set<String> set2 = toLexSet(kwds2);
+			Iterator<String> it = set1.iterator();
+			while (it.hasNext()) {
+				if (set2.contains(it.next()) == true) {
+					count++;
+				}
+			}
+		}
+		return count;
 	}
 
 }
