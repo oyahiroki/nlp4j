@@ -164,8 +164,41 @@ public class Counter<T> {
 		return objList;
 	}
 
+	/**
+	 * @param obj
+	 * @return ratio of count
+	 * @since 1.3.7.12
+	 */
+	public double getRatio(T obj) {
+		int n = getCount(obj);
+		double d = (double) n / this.countAll;
+		return d;
+	}
+
 	public void increment(T obj) {
 		add(obj);
+	}
+
+	/**
+	 * @param cc
+	 * @return One of max count object
+	 * @since 1.3.7.12
+	 */
+	public Count<T> ofMax(List<T> cc) {
+		int maxCount = -1;
+		T maxObj = null;
+		if (cc == null) {
+			return null;
+		} else {
+			for (T t : cc) {
+				int c = getCount(t);
+				if (c > maxCount) {
+					maxCount = c;
+					maxObj = t;
+				}
+			}
+			return new Count<>(maxObj, maxCount);
+		}
 	}
 
 	/**
@@ -198,27 +231,6 @@ public class Counter<T> {
 	}
 
 	/**
-	 * created on : 2023-10-09
-	 * 
-	 * @since 1.3.7.12
-	 */
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		if (this.description != null) {
-			sb.append(this.description + "\n");
-		}
-		List<Count<T>> list = getCountListSorted();
-		if (list != null) {
-			for (Count<T> c : list) {
-				sb.append("value=" + c.getValue() + ",count=" + c.getCount() + ",ratio="
-						+ String.format("%.2f", ((double) c.getCount() / countAll * 100)) + "\n");
-			}
-		}
-		return sb.toString();
-	}
-
-	/**
 	 * Print values only, count not printed <br/>
 	 * <br/>
 	 * created on : 2023-07-04
@@ -240,6 +252,35 @@ public class Counter<T> {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	/**
+	 * @since 1.3.7.12
+	 * @return size of counted object
+	 */
+	public int size() {
+		return (this.objCounter != null) ? this.objCounter.size() : 0;
+	}
+
+	/**
+	 * created on : 2023-10-09
+	 * 
+	 * @since 1.3.7.12
+	 */
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		if (this.description != null) {
+			sb.append(this.description + "\n");
+		}
+		List<Count<T>> list = getCountListSorted();
+		if (list != null) {
+			for (Count<T> c : list) {
+				sb.append("value=" + c.getValue() + ",count=" + c.getCount() + ",ratio="
+						+ String.format("%.2f", ((double) c.getCount() / countAll * 100)) + "\n");
+			}
+		}
+		return sb.toString();
 	}
 
 	public String toValues(String delimiter) {

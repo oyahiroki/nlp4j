@@ -1,7 +1,7 @@
-package nlp4j.wikianalyticsdatasets.pageviews;
+package nlp4j.wiki.pageview;
 
 import java.io.BufferedReader;
-import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 
@@ -9,12 +9,9 @@ import nlp4j.counter.Count;
 import nlp4j.counter.Counter;
 import nlp4j.util.TextFileUtils;
 
-public class HelloPageViews2_URL {
+public class PageView {
 
-	public static void main(String[] args) throws Exception {
-
-//		String url = "https://dumps.wikimedia.org/other/pageviews/2023/2023-10/pageviews-20231027-030000.gz";
-		String url = "https://dumps.wikimedia.org/other/pageviews/2023/2023-12/pageviews-20231224-030000.gz";
+	static public List<Count<String>> get(String url, String domain) throws IOException {
 
 		Counter<String> counter = new Counter<>();
 
@@ -40,7 +37,7 @@ public class HelloPageViews2_URL {
 //					break;
 //				}
 
-				if (domain_code.equals("ja")) {
+				if (domain_code.equals(domain)) {
 					counter.add(page_title, count_views);
 				}
 
@@ -48,16 +45,8 @@ public class HelloPageViews2_URL {
 		}
 
 		List<Count<String>> top = counter.getCountListSorted();
-		int rank = 1;
-		for (int n = 0; n < 100; n++) {
-			String v = top.get(n).getValue();
-			if (v.contains(":") || v.equals("メインページ")) {
-				continue;
-			}
-			System.err.println(rank + "," + v + ", " + top.get(n).getCount());
-			rank++;
-		}
 
+		return top;
 	}
 
 }
