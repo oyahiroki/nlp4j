@@ -10,6 +10,48 @@ import nlp4j.util.IOUtils;
 
 public class CounterTestCase extends TestCase {
 
+	public void testAddT001() {
+		Counter<String> counter = new Counter<>();
+		counter.add("aaa");
+
+		int count = counter.getCount("aaa");
+
+		int expected = 1;
+		assertEquals(expected, count);
+	}
+
+	public void testAddT002() {
+		Counter<String> counter = new Counter<>();
+		counter.add("aaa", 3);
+
+		int count = counter.getCount("aaa");
+
+		int expected = 3;
+		assertEquals(expected, count);
+	}
+
+	public void testAddAllT001() {
+		Counter<String> counter1 = new Counter<>();
+		counter1.add("aaa", 1);
+		counter1.add("bbb", 1);
+
+		Counter<String> counter2 = new Counter<>();
+		counter2.add("aaa", 2);
+
+		counter1.addAll(counter2);
+
+		{
+			int count = counter1.getCount("aaa");
+			int expected = 3;
+			assertEquals(expected, count);
+		}
+		{
+			int count = counter1.getCount("bbb");
+			int expected = 1;
+			assertEquals(expected, count);
+		}
+	}
+
 	public void testCounter001() {
 
 		String s1 = "aaa";

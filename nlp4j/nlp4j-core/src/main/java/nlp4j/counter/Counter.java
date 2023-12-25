@@ -15,8 +15,9 @@ import java.util.List;
  * @since 1.3.2
  */
 public class Counter<T> {
-	int countAll = 0;
-	HashMap<T, Integer> objCounter;
+
+	private int countAll = 0;
+	private HashMap<T, Integer> objCounter;
 	private String description;
 
 	/**
@@ -26,6 +27,9 @@ public class Counter<T> {
 		this.objCounter = new HashMap<T, Integer>();
 	}
 
+	/**
+	 * @param description
+	 */
 	public Counter(String description) {
 		this.objCounter = new HashMap<T, Integer>();
 		this.description = description;
@@ -52,6 +56,20 @@ public class Counter<T> {
 		// ELSE
 		else {
 			objCounter.put(obj, cnt);
+		}
+	}
+
+	/**
+	 * created on : 2023-12-24
+	 * 
+	 * @param counter2
+	 * @since 1.3.7.12
+	 */
+	public void addAll(Counter<T> counter2) {
+		if (counter2.getCountList() != null) {
+			for (Count<T> count : counter2.getCountList()) {
+				this.add(count.getValue(), count.getCount());
+			}
 		}
 	}
 

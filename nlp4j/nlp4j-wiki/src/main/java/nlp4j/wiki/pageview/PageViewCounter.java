@@ -9,11 +9,11 @@ import nlp4j.counter.Count;
 import nlp4j.counter.Counter;
 import nlp4j.util.TextFileUtils;
 
-public class PageView {
+public class PageViewCounter {
 
-	static public List<Count<String>> get(String url, String domain) throws IOException {
+	private Counter<String> counter = new Counter<>();
 
-		Counter<String> counter = new Counter<>();
+	public Counter<String> get(String url, String domain) throws IOException {
 
 		try (BufferedReader br = TextFileUtils.openPlainTextFileAsBufferedReader(new URL(url));) {
 
@@ -44,9 +44,11 @@ public class PageView {
 			}
 		}
 
-		List<Count<String>> top = counter.getCountListSorted();
+//		List<Count<String>> top = counter.getCountListSorted();
 
-		return top;
+//		return top;
+		
+		return counter;
 	}
 
 }
