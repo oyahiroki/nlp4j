@@ -2,20 +2,26 @@ package nlp4j.wiki.pageview;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.lang.invoke.MethodHandles;
 import java.net.URL;
-import java.util.List;
 
-import nlp4j.counter.Count;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import nlp4j.counter.Counter;
 import nlp4j.util.TextFileUtils;
 
 public class PageViewCounter {
+
+	static private Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
 	private Counter<String> counter = new Counter<>();
 
 	public Counter<String> get(String url, String domain) throws IOException {
 
 		try (BufferedReader br = TextFileUtils.openPlainTextFileAsBufferedReader(new URL(url));) {
+
+			logger.info("URL: " + url);
 
 			// domain_code page_title count_views total_response_size
 //			br.readLine();
@@ -30,7 +36,7 @@ public class PageViewCounter {
 				String domain_code = ss[0];
 				String page_title = ss[1];
 				int count_views = Integer.parseInt(ss[2]);
-				int total_response_size = Integer.parseInt(ss[3]);
+//				int total_response_size = Integer.parseInt(ss[3]);
 
 //				if (domain_code.equals("ja") && page_title.equals("任天堂".replace(" ", "_"))) {
 //					System.err.println(countLine + ": " + s + ", count_views:" + count_views);
@@ -42,12 +48,15 @@ public class PageViewCounter {
 				}
 
 			}
+
+			logger.info("total lines: " + countLine);
+
 		}
 
 //		List<Count<String>> top = counter.getCountListSorted();
 
 //		return top;
-		
+
 		return counter;
 	}
 

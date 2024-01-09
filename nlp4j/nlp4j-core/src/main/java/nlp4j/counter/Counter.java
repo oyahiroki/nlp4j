@@ -138,6 +138,31 @@ public class Counter<T> {
 	}
 
 	/**
+	 * @param count
+	 * @return
+	 * @since 1.3.7.12
+	 */
+	public List<Count<T>> top(int count) {
+		List<T> objList = getObjectList();
+		Collections.sort(objList, new Comparator<T>() {
+			@Override
+			public int compare(T o1, T o2) {
+				return getCount(o2) - getCount(o1);
+			}
+		});
+		ArrayList<Count<T>> counts = new ArrayList<Count<T>>();
+		int cnt = 0;
+		for (T o : objList) {
+			cnt++;
+			if (cnt > count) {
+				break;
+			}
+			counts.add(new Count<T>(o, getCount(o)));
+		}
+		return counts;
+	}
+
+	/**
 	 * Sort by count 昇順(ASC)
 	 * 
 	 * @return

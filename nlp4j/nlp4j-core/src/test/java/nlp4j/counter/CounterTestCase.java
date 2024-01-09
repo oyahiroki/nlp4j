@@ -10,26 +10,6 @@ import nlp4j.util.IOUtils;
 
 public class CounterTestCase extends TestCase {
 
-	public void testAddT001() {
-		Counter<String> counter = new Counter<>();
-		counter.add("aaa");
-
-		int count = counter.getCount("aaa");
-
-		int expected = 1;
-		assertEquals(expected, count);
-	}
-
-	public void testAddT002() {
-		Counter<String> counter = new Counter<>();
-		counter.add("aaa", 3);
-
-		int count = counter.getCount("aaa");
-
-		int expected = 3;
-		assertEquals(expected, count);
-	}
-
 	public void testAddAllT001() {
 		Counter<String> counter1 = new Counter<>();
 		counter1.add("aaa", 1);
@@ -50,6 +30,26 @@ public class CounterTestCase extends TestCase {
 			int expected = 1;
 			assertEquals(expected, count);
 		}
+	}
+
+	public void testAddT001() {
+		Counter<String> counter = new Counter<>();
+		counter.add("aaa");
+
+		int count = counter.getCount("aaa");
+
+		int expected = 1;
+		assertEquals(expected, count);
+	}
+
+	public void testAddT002() {
+		Counter<String> counter = new Counter<>();
+		counter.add("aaa", 3);
+
+		int count = counter.getCount("aaa");
+
+		int expected = 3;
+		assertEquals(expected, count);
 	}
 
 	public void testCounter001() {
@@ -182,6 +182,81 @@ public class CounterTestCase extends TestCase {
 		counter.add(s3); // 1
 
 		counter.printValues(",");
+	}
+
+	public void testTop001() {
+		Counter<String> counter = new Counter<>();
+		counter.add("aaa");
+		counter.add("bbb");
+		counter.add("bbb");
+		counter.add("bbb");
+		counter.add("ccc");
+		counter.add("ccc");
+
+		List<Count<String>> list = counter.top(1);
+
+		for (Count<String> v : list) {
+			System.err.println(v);
+		}
+
+		int expected_size = 1;
+		String expected_value = "bbb";
+		int expected_count = 3;
+
+		assertEquals(expected_size, list.size());
+		assertEquals(expected_value, list.get(0).getValue());
+		assertEquals(expected_count, list.get(0).getCount());
+
+	}
+
+	public void testTop002() {
+		Counter<String> counter = new Counter<>();
+		counter.add("aaa");
+		counter.add("bbb");
+		counter.add("bbb");
+		counter.add("bbb");
+		counter.add("ccc");
+		counter.add("ccc");
+
+		List<Count<String>> list = counter.top(5);
+
+		for (Count<String> v : list) {
+			System.err.println(v);
+		}
+
+		int expected_size = 3;
+		String expected_value = "bbb";
+		int expected_count = 3;
+
+		assertEquals(expected_size, list.size());
+		assertEquals(expected_value, list.get(0).getValue());
+		assertEquals(expected_count, list.get(0).getCount());
+
+	}
+
+	public void testTop003() {
+		Counter<String> counter = new Counter<>();
+		counter.add("aaa");
+		counter.add("bbb");
+		counter.add("bbb");
+		counter.add("bbb");
+		counter.add("ccc");
+		counter.add("ccc");
+
+		List<Count<String>> list = counter.top(0);
+
+		for (Count<String> v : list) {
+			System.err.println(v);
+		}
+
+		int expected_size = 0;
+//		String expected_value = "bbb";
+//		int expected_count = 3;
+
+		assertEquals(expected_size, list.size());
+//		assertEquals(expected_value, list.get(0).getValue());
+//		assertEquals(expected_count, list.get(0).getCount());
+
 	}
 
 	public void testToString001() {
