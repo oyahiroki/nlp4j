@@ -70,23 +70,6 @@ public class TextFileUtils {
 	}
 
 	/**
-	 * @param textFileUrl
-	 * @return
-	 * @throws IOException
-	 * @since 1.3.7.12
-	 */
-	static public BufferedReader openPlainTextFileAsBufferedReader(URL textFileUrl) throws IOException {
-		// IF(*.gz) THEN
-		if (textFileUrl != null && textFileUrl.getFile().endsWith(".gz")) {
-			return GZIPFileUtils.openGZIPFileAsBufferedReader(textFileUrl);
-		}
-		// ELSE (*.txt is expected)
-		else {
-			return new BufferedReader(new InputStreamReader(textFileUrl.openStream(), StandardCharsets.UTF_8));
-		}
-	}
-
-	/**
 	 * @param plainTextFile Plain Text File (*.txt)(*.gz since 1.3.7.12)
 	 * @param maxLines
 	 * @return BufferedReader
@@ -117,6 +100,23 @@ public class TextFileUtils {
 	static public BufferedReader openPlainTextFileAsBufferedReader(File plainTextFile, String encoding)
 			throws IOException {
 		return new BufferedReader(new InputStreamReader(new FileInputStream(plainTextFile), Charset.forName(encoding)));
+	}
+
+	/**
+	 * @param textFileUrl
+	 * @return
+	 * @throws IOException
+	 * @since 1.3.7.12
+	 */
+	static public BufferedReader openPlainTextFileAsBufferedReader(URL textFileUrl) throws IOException {
+		// IF(*.gz) THEN
+		if (textFileUrl != null && textFileUrl.getFile().endsWith(".gz")) {
+			return GZIPFileUtils.openGZIPFileAsBufferedReader(textFileUrl);
+		}
+		// ELSE (*.txt is expected)
+		else {
+			return new BufferedReader(new InputStreamReader(textFileUrl.openStream(), StandardCharsets.UTF_8));
+		}
 	}
 
 	static public void sortLinesByValue(File inFile, File outFile) throws IOException {

@@ -36,6 +36,15 @@ public class IncrementalDateFormatterTestCase extends TestCase {
 		}
 	}
 
+	public void test004() throws Exception {
+		IncrementalDateFormatter formatter = new IncrementalDateFormatter("yyyyMMdd", "20231230", Calendar.DAY_OF_MONTH,
+				1, 6);
+		String v;
+		while ((v = formatter.next()) != null) {
+			System.err.println(v);
+		}
+	}
+
 	public void test101() throws Exception {
 
 		String url_base = "https://dumps.wikimedia.org/other/pageviews/";

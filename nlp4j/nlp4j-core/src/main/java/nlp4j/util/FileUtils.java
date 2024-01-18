@@ -85,7 +85,11 @@ public class FileUtils {
 	 */
 	static public long lineCount(File textFileUTF8) throws IOException {
 		long lineCount = 0;
-		try (BufferedReader br = new BufferedReader(new FileReader(textFileUTF8, StandardCharsets.UTF_8))) {
+		try (BufferedReader br = new BufferedReader(
+//				new FileReader(textFileUTF8, StandardCharsets.UTF_8)
+				new InputStreamReader(new FileInputStream(textFileUTF8), StandardCharsets.UTF_8))
+
+		) {
 			while (br.readLine() != null) {
 				lineCount++;
 			}

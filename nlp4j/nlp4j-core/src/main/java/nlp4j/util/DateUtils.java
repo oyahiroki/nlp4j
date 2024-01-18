@@ -3,6 +3,8 @@ package nlp4j.util;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -15,9 +17,35 @@ import java.util.Locale;
  */
 public class DateUtils {
 
-	static private SimpleDateFormat sdf_ISO8601 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX");
+	/**
+	 * yyyyMMdd-HHmmss
+	 */
+	private static final String YYYY_MM_DD_HHMMSS = "yyyyMMdd-HHmmss";
 
-	static private SimpleDateFormat sdf_yyyyMMdd_HHmmss = new SimpleDateFormat("yyyyMMdd-HHmmss");
+	/**
+	 * yyyyMMdd
+	 */
+	public static final String YYYY_MM_DD = "yyyyMMdd";
+
+	/**
+	 * yyyy-MM-dd'T'HH:mm:ssXXX
+	 */
+	static private final SimpleDateFormat sdf_ISO8601 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX");
+
+	/**
+	 * yyyyMMdd-HHmmss
+	 */
+	static private final SimpleDateFormat sdf_yyyyMMdd_HHmmss = new SimpleDateFormat(YYYY_MM_DD_HHMMSS);
+
+	/**
+	 * yyyyMMdd-HHmmss
+	 */
+	static private final DateTimeFormatter dtf_yyyyMMdd_HHmmss = DateTimeFormatter.ofPattern(YYYY_MM_DD);
+
+	/**
+	 * yyyyMMdd
+	 */
+	static private final SimpleDateFormat sdf_yyyyMMdd = new SimpleDateFormat(YYYY_MM_DD);
 
 	static private String formatUs(String data, String dataFormat, int style) {
 		SimpleDateFormat sdf = new SimpleDateFormat(dataFormat);
@@ -66,6 +94,33 @@ public class DateUtils {
 	static public String formatUsMidium(String data, String dataFormat) {
 		int style = DateFormat.MEDIUM;
 		return formatUs(data, dataFormat, style);
+	}
+
+	/**
+	 * @return Date in yyyyMMdd-HHmmss
+	 * @since 1.3.7.13
+	 */
+	static public String get_yyyyMMdd() {
+		return sdf_yyyyMMdd.format(new Date());
+	}
+
+	/**
+	 * @param diffDate
+	 * @return Date in yyyyMMdd
+	 * @since 1.3.7.13
+	 */
+	static public String get_yyyyMMdd(long diffDate) {
+		LocalDate date = LocalDate.now();
+		date = date.plusDays(diffDate);
+		return dtf_yyyyMMdd_HHmmss.format(date);
+	}
+
+	/**
+	 * @return
+	 * @since 1.3.7.13
+	 */
+	static public String get_yyyyMMdd_Yesterday() {
+		return get_yyyyMMdd(-1);
 	}
 
 	/**

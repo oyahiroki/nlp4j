@@ -18,6 +18,31 @@ public class IOUtilsTestCase extends TestCase {
 	}
 
 	public void testPrintWriterFilePrintStream001() throws IOException {
+		String data = "this is test " + System.currentTimeMillis();
+		File tempFile = File.createTempFile("nlp4j-test", ".txt");
+		System.err.println("temp_file_created: " + tempFile.getAbsolutePath());
+		try (PrintWriter pw = IOUtils.printWriter(tempFile, System.err);) {
+			pw.println(data);
+		}
+		String s_from_file = FileUtils.readFileToString(tempFile, "UTF-8").trim();
+		System.err.println("Data from File: " + s_from_file);
+		assertEquals(data, s_from_file);
+	}
+
+	public void testPrintWriterFilePrintStream002() throws IOException {
+		String data = "日本語文字列 " + System.currentTimeMillis();
+		;
+		File tempFile = File.createTempFile("nlp4j-test", ".txt");
+		System.err.println("temp_file_created: " + tempFile.getAbsolutePath());
+		try (PrintWriter pw = IOUtils.printWriter(tempFile, System.err);) {
+			pw.println(data);
+		}
+		String s_from_file = FileUtils.readFileToString(tempFile, "UTF-8").trim();
+		System.err.println("Data from File: " + s_from_file);
+		assertEquals(data, s_from_file);
+	}
+
+	public void testPW001() throws IOException {
 
 		File tempFile = File.createTempFile("nlp4j-test", ".txt");
 		try (PrintWriter pw = IOUtils.pw(tempFile, System.err);) {
