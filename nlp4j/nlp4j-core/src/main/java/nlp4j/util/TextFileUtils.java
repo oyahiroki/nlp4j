@@ -119,6 +119,30 @@ public class TextFileUtils {
 		}
 	}
 
+	/**
+	 * @param textFileUrl
+	 * @param writeCache  ファイルをローカルのディスクに書き込む
+	 * @return
+	 * @throws IOException
+	 */
+	static public BufferedReader openPlainTextFileAsBufferedReader(URL textFileUrl, boolean writeCache)
+			throws IOException {
+		if (writeCache == false) {
+			return openPlainTextFileAsBufferedReader(textFileUrl);
+		} else {
+			File cacheDir = new File("/usr/local/nlp4j/cache");
+			if (cacheDir.exists() == false) {
+				cacheDir.mkdir();
+			}
+			String fileName = FilenameUtils.toFileName(textFileUrl);
+			File cacheFile = new File(cacheDir, fileName);
+			if (cacheFile.exists() == false) {
+				FileUtils.copyURLToFile(textFileUrl, cacheFile);
+			}
+			return openPlainTextFileAsBufferedReader(cacheFile);
+		}
+	}
+
 	static public void sortLinesByValue(File inFile, File outFile) throws IOException {
 		sortLinesByValue(inFile, "UTF-8", outFile, "UTF-8", false);
 	}

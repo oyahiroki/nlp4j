@@ -1,10 +1,13 @@
 package nlp4j.wiki.util;
 
+import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.sweble.wikitext.engine.EngineException;
 import org.sweble.wikitext.engine.PageId;
 import org.sweble.wikitext.engine.PageTitle;
@@ -21,8 +24,12 @@ import nlp4j.wiki.WikiPageNode;
 
 public class MediaWikiTextUtils {
 
+	static private Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
+
 	static private final WtEngineImpl engine;
+
 	static private WikiConfig config = DefaultConfigEnWp.generate();
+
 	static {
 		engine = new WtEngineImpl(config);
 	}
@@ -110,6 +117,83 @@ public class MediaWikiTextUtils {
 		String t = rootNode.getText();
 
 		return t;
+	}
+
+	static public String getRootNodeTextFirstSentence(String wikiText, String title, String lang) {
+		String rootNodeText = MediaWikiTextUtils.getRootNodeText(wikiText);
+//		System.err.println(rootNodeText);
+
+		// IF(NOT_FOUND)
+		if (rootNodeText == null) {
+			return null;
+		}
+
+		{
+			rootNodeText = MediaWikiTextUtils.removeTemplateAll(rootNodeText);
+		}
+		{
+//			rootNodeText = rootNodeText.replaceAll("\\{\\{.*?\\}\\}", "");
+		}
+		{
+			rootNodeText = rootNodeText.replaceAll("<ref .*?</ref>", "");
+		}
+
+		{
+
+//|-
+//| colspan="2" style="padding: 0;"|
+//
+//
+//
+//『'''ゲート 自衛隊 彼の地にて、斯く戦えり'''』（ゲート じえいたい かのちにて かくたたかえり）は、[[柳内たくみ]]による[[日本]]の[[ファンタジー]][[小説]]。
+
+			// 適切でないフォーマットへの対応
+			if (rootNodeText.contains("colspan")) {
+				int lastIndex = rootNodeText.lastIndexOf("|");
+				if (lastIndex != -1) {
+					rootNodeText = rootNodeText.substring(lastIndex + 1).trim();
+				}
+			}
+
+		}
+
+		{
+//			int idx = rootNodeText.lastIndexOf("}}\n\n");
+//			if (idx != -1) {
+//				rootNodeText = rootNodeText.substring(idx + 2).trim();
+//			}
+		}
+
+		{
+			rootNodeText = MediaWikiTextUtils.removeFirstTemplate(rootNodeText);
+		}
+
+		String text = MediaWikiTextUtils.toPlainText(title, rootNodeText);
+		{
+			int idx1 = text.indexOf("{{");
+			int idx2 = text.indexOf("}}");
+			if (idx1 == -1 && idx2 > 0) {
+				text = text.substring(idx2 + 2);
+			}
+		}
+
+		String separator = ".";
+		String separator_regex = "\\.";
+		if (lang.equals("ja")) {
+			separator = "。";
+			separator_regex = "。";
+		}
+
+		if (title.contains(separator) == false || text.split(separator_regex).length == 1) {
+			text = text.split(separator_regex)[0];
+		} else {
+			text = (text.split(separator_regex)[0] + separator + text.split(separator_regex)[1]);
+		}
+
+		text = text.replace("\u00a0", "");
+		text = text.replaceAll("\\s+", " "); // 2回以上連続する空白を削除
+
+		return text;
 	}
 
 	/**
@@ -306,6 +390,61 @@ public class MediaWikiTextUtils {
 		}
 
 		return sbWikiText.toString();
+	}
+
+	public static String removeFirstTemplate(String wikitext) {
+		String wikitext_org = wikitext;
+
+		wikitext = wikitext.trim();
+
+		if (wikitext.startsWith("{{") == false) {
+			return wikitext_org;
+		} else {
+
+			int status = 0;
+			for (int n = 0; n < wikitext.length(); n++) {
+				char c = wikitext.charAt(n);
+				if (c == '{') {
+					status++;
+				} else if (c == '}') {
+					status--;
+				}
+				if (status == 0) {
+					if (wikitext.length() >= (n + 1)) {
+						return wikitext.substring(n + 1).trim();
+					} else {
+						return "";
+					}
+				}
+			}
+		}
+		return wikitext_org;
+
+	}
+
+	public static String removeTemplateAll(String wikitext) {
+		wikitext = wikitext.trim();
+		StringBuilder sb = new StringBuilder();
+		{
+			int status = 0;
+			for (int n = 0; n < wikitext.length(); n++) {
+				char c = wikitext.charAt(n);
+				if (c == '{') {
+					status++;
+				} else if (c == '}') {
+					status--;
+					if (status == 0) {
+						continue;
+					}
+				}
+				if (status == 0) {
+					sb.append(c);
+				}
+			}
+		}
+
+		return sb.toString();
+
 	}
 
 	public static String removeTable(String wikitext) {

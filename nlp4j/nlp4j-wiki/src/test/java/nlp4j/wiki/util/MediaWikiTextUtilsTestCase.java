@@ -12,6 +12,41 @@ import junit.framework.TestCase;
 
 public class MediaWikiTextUtilsTestCase extends TestCase {
 
+	public void testRemoveFirstTemplateAll001() {
+		String wikitext = "{{...}}abc{{...}}def{{...}}";
+		String t = MediaWikiTextUtils.removeTemplateAll(wikitext);
+		String expected = "abcdef";
+		assertEquals(expected, t);
+	}
+
+	public void testRemoveFirstTemplateAll002() {
+		String wikitext = "abcdef";
+		String t = MediaWikiTextUtils.removeTemplateAll(wikitext);
+		String expected = "abcdef";
+		assertEquals(expected, t);
+	}
+
+	public void testRemoveFirstTemplate001() {
+		String wikitext = "{{...}}abc";
+		String t = MediaWikiTextUtils.removeFirstTemplate(wikitext);
+		String expected = "abc";
+		assertEquals(expected, t);
+	}
+
+	public void testRemoveFirstTemplate002() {
+		String wikitext = "{{...}}abc{{...}}";
+		String t = MediaWikiTextUtils.removeFirstTemplate(wikitext);
+		String expected = "abc{{...}}";
+		assertEquals(expected, t);
+	}
+
+	public void testRemoveFirstTemplate003() {
+		String wikitext = "{{...}}";
+		String t = MediaWikiTextUtils.removeFirstTemplate(wikitext);
+		String expected = "";
+		assertEquals(expected, t);
+	}
+
 	public void testGetRootNodeText001() throws IOException {
 		// x-wiki 形式のテキストを用意する
 		// Prepare x-wiki format text

@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.lang.invoke.MethodHandles;
 import java.net.URL;
 
+import javax.management.RuntimeErrorException;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -19,7 +21,9 @@ public class PageViewCounter {
 
 	public Counter<String> get(String url, String domain) throws IOException {
 
-		try (BufferedReader br = TextFileUtils.openPlainTextFileAsBufferedReader(new URL(url));) {
+		boolean writeCache = true;
+
+		try (BufferedReader br = TextFileUtils.openPlainTextFileAsBufferedReader(new URL(url), writeCache);) {
 
 			logger.info("URL: " + url);
 
@@ -33,6 +37,11 @@ public class PageViewCounter {
 				countLine++;
 
 				String[] ss = s.split(" ");
+				if (ss.length < 3) {
+//					System.err.println("s: " + s);
+					logger.error("Invalid format, line=" + countLine + ",data=" + s);
+					continue;
+				}
 				String domain_code = ss[0];
 				String page_title = ss[1];
 				int count_views = Integer.parseInt(ss[2]);

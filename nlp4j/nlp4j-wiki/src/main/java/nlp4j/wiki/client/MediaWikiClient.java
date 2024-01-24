@@ -16,6 +16,7 @@ import com.google.gson.JsonObject;
 
 import nlp4j.NlpServiceResponse;
 import nlp4j.http.HttpClient5;
+import nlp4j.util.JsonObjectUtils;
 import nlp4j.util.JsonUtils;
 
 /**
@@ -345,6 +346,86 @@ public class MediaWikiClient implements Closeable {
 			this.client.close();
 		}
 
+	}
+
+	/**
+	 * created_on: 2024-01-21
+	 * 
+	 * @param title
+	 * @return
+	 * @throws IOException
+	 * @since 1.1.0.0
+	 * 
+	 */
+	public String getPageContentByTitle(String title) throws IOException {
+
+		logger.info("title=" + title);
+
+		{
+			String url = "https://" + host + "/w/api.php";
+
+			Map<String, String> params = new LinkedHashMap<>();
+			{
+				params.put("action", "query");
+				params.put("prop", "revisions");
+				params.put("titles", title);
+				params.put("rvslots", "*");
+				params.put("rvprop", "content");
+				params.put("formatversion", "1");
+				params.put("format", "json");
+			}
+
+			NlpServiceResponse res = client.get(url, params);
+
+			// content-type
+			JsonObject jo = res.getAsJsonObject();
+
+//			System.err.println(res.getOriginalResponseBody());
+
+//			System.err.println(jo.get("query").getAsJsonObject().get("pages").getAsJsonObject().keySet());
+//			System.err.println(jo.get("query").getAsJsonObject().get("pages").getAsJsonObject().keySet()
+//					.toArray(new String[0])[0]);
+
+			String key = jo.get("query").getAsJsonObject().get("pages").getAsJsonObject().keySet()
+					.toArray(new String[0])[0];
+
+//			System.err.println(jo.get("query").getAsJsonObject().get("pages").getAsJsonObject().get(key)
+//					.getAsJsonObject().get("title").getAsString());
+
+			// /query/pages/14432262/revisions/[0]/slots/main/*/
+//			System.err.println( //
+//					jo. //
+//							get("query").getAsJsonObject() //
+//							.get("pages").getAsJsonObject() //
+//							.get(key).getAsJsonObject() //
+//							.get("revisions").getAsJsonArray() //
+//							.get(0).getAsJsonObject() //
+//							.get("slots").getAsJsonObject() //
+//							.get("main").getAsJsonObject() //
+//							.get("*").getAsString() //
+//			);
+
+			if (jo. //
+					get("query").getAsJsonObject() //
+					.get("pages").getAsJsonObject() //
+					.get(key).getAsJsonObject().get("revisions") == null) {
+				System.err.println("null");
+				return null;
+			}
+
+			String wiki_content = jo. //
+					get("query").getAsJsonObject() //
+					.get("pages").getAsJsonObject() //
+					.get(key).getAsJsonObject() //
+					.get("revisions").getAsJsonArray() //
+					.get(0).getAsJsonObject() //
+					.get("slots").getAsJsonObject() //
+					.get("main").getAsJsonObject() //
+					.get("*").getAsString() //
+			;
+
+			return wiki_content;
+		}
 	}
 
 }
