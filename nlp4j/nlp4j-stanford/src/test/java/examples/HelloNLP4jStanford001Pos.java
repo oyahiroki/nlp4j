@@ -6,7 +6,7 @@ import nlp4j.DocumentAnnotatorBuilder;
 import nlp4j.DocumentBuilder;
 import nlp4j.stanford.StanfordPosAnnotator;
 
-public class HelloNLP4jStanford001 {
+public class HelloNLP4jStanford001Pos {
 
 public static void main(String[] args) throws Exception {
 	String text = "I eat sushi with chopsticks.";

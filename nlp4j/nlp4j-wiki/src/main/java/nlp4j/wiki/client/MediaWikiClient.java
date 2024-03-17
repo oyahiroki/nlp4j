@@ -349,6 +349,7 @@ public class MediaWikiClient implements Closeable {
 	}
 
 	/**
+	 * タイトルを指定してコンテンツを取得する<br>
 	 * created_on: 2024-01-21
 	 * 
 	 * @param title

@@ -5,7 +5,7 @@ import nlp4j.KeywordWithDependency;
 import nlp4j.impl.DefaultDocument;
 import nlp4j.stanford.StanfordPosDependencyAnnotator;
 
-public class HelloNLP4jStanford002 {
+public class HelloNLP4jStanford002Dependency {
 
 	public static void main(String[] args) throws Exception {
 

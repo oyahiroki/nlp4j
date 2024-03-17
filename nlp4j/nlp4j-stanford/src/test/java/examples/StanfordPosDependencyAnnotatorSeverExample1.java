@@ -6,9 +6,15 @@ import nlp4j.KeywordWithDependency;
 import nlp4j.impl.DefaultDocument;
 import nlp4j.stanford.StanfordPosDependencyAnnotator;
 
-@SuppressWarnings("javadoc")
 public class StanfordPosDependencyAnnotatorSeverExample1 {
 
+	/**
+	 * <pre>
+	 * Run nlp4j.stanford.server.StanfordCoreNlpServerStarter.main(String[]) before runing this code
+	 * </pre>
+	 * @param args
+	 * @throws Exception
+	 */
 	public static void main(String[] args) throws Exception {
 
 		String text = "We are trying to understand the difference.";

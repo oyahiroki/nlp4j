@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.lang.invoke.MethodHandles;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
@@ -13,10 +14,14 @@ import java.util.Collections;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import nlp4j.io.LimitedLineBufferedReader;
 
 public class TextFileUtils {
+
+	static private Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
 	/**
 	 * @param n
@@ -121,23 +126,34 @@ public class TextFileUtils {
 
 	/**
 	 * @param textFileUrl
-	 * @param writeCache  ファイルをローカルのディスクに書き込む
+	 * @param writeCache  ファイルをローカルのディスクに書き込む ローカルディスクのキャッシュを利用する
 	 * @return
 	 * @throws IOException
 	 */
 	static public BufferedReader openPlainTextFileAsBufferedReader(URL textFileUrl, boolean writeCache)
 			throws IOException {
+		// IF(キャッシュを利用する)
 		if (writeCache == false) {
 			return openPlainTextFileAsBufferedReader(textFileUrl);
-		} else {
+		}
+		// ELSE(キャッシュを利用する)
+		else {
 			File cacheDir = new File("/usr/local/nlp4j/cache");
+			// ディレクトリがなければ作成する
 			if (cacheDir.exists() == false) {
 				cacheDir.mkdir();
 			}
+			// URL to FileName
 			String fileName = FilenameUtils.toFileName(textFileUrl);
 			File cacheFile = new File(cacheDir, fileName);
+			// Cache Not Found
 			if (cacheFile.exists() == false) {
+				logger.info("download_from: " + textFileUrl);
 				FileUtils.copyURLToFile(textFileUrl, cacheFile);
+			}
+			// Cache Found
+			else {
+				logger.info("read_from: " + cacheFile.getAbsolutePath());
 			}
 			return openPlainTextFileAsBufferedReader(cacheFile);
 		}

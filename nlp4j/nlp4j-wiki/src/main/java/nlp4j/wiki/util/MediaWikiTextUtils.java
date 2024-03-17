@@ -119,13 +119,30 @@ public class MediaWikiTextUtils {
 		return t;
 	}
 
+	/**
+	 * Wikipedia記事の第一文をPlainTextで取得する
+	 * 
+	 * @param wikiText
+	 * @param title
+	 * @param lang
+	 * @return
+	 */
 	static public String getRootNodeTextFirstSentence(String wikiText, String title, String lang) {
 		String rootNodeText = MediaWikiTextUtils.getRootNodeText(wikiText);
-//		System.err.println(rootNodeText);
+
+		if (logger.isDebugEnabled()) {
+			logger.debug("<rootNodeText>");
+			logger.debug(rootNodeText);
+			logger.debug("</rootNodeText>");
+		}
 
 		// IF(NOT_FOUND)
 		if (rootNodeText == null) {
 			return null;
+		}
+
+		if (rootNodeText.trim().startsWith("[[")) {
+			rootNodeText = MediaWikiTextUtils.removeLinkFirst(rootNodeText);
 		}
 
 		{
@@ -179,10 +196,15 @@ public class MediaWikiTextUtils {
 
 		String separator = ".";
 		String separator_regex = "\\.";
+
 		if (lang.equals("ja")) {
 			separator = "。";
 			separator_regex = "。";
-		}
+		} //
+		else if (lang.equals("zh")) {
+			separator = "。";
+			separator_regex = "。";
+		} //
 
 		if (title.contains(separator) == false || text.split(separator_regex).length == 1) {
 			text = text.split(separator_regex)[0];
@@ -442,9 +464,30 @@ public class MediaWikiTextUtils {
 				}
 			}
 		}
-
 		return sb.toString();
+	}
 
+	public static String removeLinkFirst(String wikitext) {
+		wikitext = wikitext.trim();
+		StringBuilder sb = new StringBuilder();
+		{
+			int status = 0;
+			for (int n = 0; n < wikitext.length(); n++) {
+				char c = wikitext.charAt(n);
+				if (c == '[') {
+					status++;
+				} else if (c == ']') {
+					status--;
+					if (status == 0) {
+						return sb.toString() + wikitext.substring(n + 1);
+					}
+				}
+				if (status == 0) {
+					sb.append(c);
+				}
+			}
+		}
+		return sb.toString();
 	}
 
 	public static String removeTable(String wikitext) {

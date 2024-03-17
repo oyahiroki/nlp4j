@@ -1,9 +1,9 @@
-package nlp4j.stanford.examples;
+package nlp4j.p101.english;
 
 import nlp4j.Document;
+import nlp4j.DocumentBuilder;
 import nlp4j.Keyword;
 import nlp4j.KeywordWithDependency;
-import nlp4j.impl.DefaultDocument;
 import nlp4j.pattern.UserPatternAnnotator;
 import nlp4j.stanford.StanfordPosDependencyAnnotator;
 
@@ -15,8 +15,11 @@ public class StanfordPosDependencyAnnotatorExample1 {
 		String text = "I eat sushi with chopsticks.";
 
 		// Document
-		Document doc = new DefaultDocument();
-		doc.putAttribute("text", text);
+//		Document doc = new DefaultDocument();
+//		doc.putAttribute("text", text);
+
+		Document doc = new DocumentBuilder().text(text).create();
+
 		System.err.println("Document: " + doc.getAttributeAsString("text"));
 
 		{ // Annotation 1: nlp4j.stanford.StanfordPosDependencyAnnotator

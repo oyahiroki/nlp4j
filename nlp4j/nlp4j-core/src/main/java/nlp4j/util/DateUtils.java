@@ -4,6 +4,9 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -116,14 +119,6 @@ public class DateUtils {
 	}
 
 	/**
-	 * @return
-	 * @since 1.3.7.13
-	 */
-	static public String get_yyyyMMdd_Yesterday() {
-		return get_yyyyMMdd(-1);
-	}
-
-	/**
 	 * @return Date in yyyyMMdd-HHmmss
 	 */
 	static public String get_yyyyMMdd_HHmmss() {
@@ -136,6 +131,14 @@ public class DateUtils {
 	 */
 	static public String get_yyyyMMdd_HHmmss(long time_ms) {
 		return sdf_yyyyMMdd_HHmmss.format(new Date(time_ms));
+	}
+
+	/**
+	 * @return
+	 * @since 1.3.7.13
+	 */
+	static public String get_yyyyMMdd_Yesterday() {
+		return get_yyyyMMdd(-1);
 	}
 
 	/**
@@ -218,6 +221,12 @@ public class DateUtils {
 	static public String getString(String format) {
 		SimpleDateFormat sdf = new SimpleDateFormat(format);
 		return sdf.format(new Date());
+	}
+
+	static public Date getUtcDate() {
+		ZonedDateTime zdt = ZonedDateTime.now(ZoneOffset.UTC);
+		ZonedDateTime zdt_local = zdt.withZoneSameInstant(ZoneId.systemDefault());
+		return Date.from(zdt_local.toInstant());
 	}
 
 	/**

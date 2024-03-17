@@ -2,7 +2,6 @@ package nlp4j.util;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -14,15 +13,14 @@ import java.util.Date;
  */
 public class IncrementalDateFormatter {
 
-	DateTimeFormatter dtf;
-	private int calendarUnit;
+	private int calendar_unit;
 	private long count = 0;
 	private long count_of_repeat;
 	private Date date;
 
-	private int amount = -1;
+	private int calendar_add_amount = -1;
 
-	SimpleDateFormat sdf;
+	private SimpleDateFormat sdf;
 
 	/**
 	 * @param dateformat
@@ -34,9 +32,8 @@ public class IncrementalDateFormatter {
 	 */
 	public IncrementalDateFormatter(String dateformat, String initialDate, int calendarUnit, int amount,
 			long count_of_repeat) throws ParseException {
-		this.amount = amount;
-		this.calendarUnit = calendarUnit;
-		this.dtf = DateTimeFormatter.ofPattern(dateformat);
+		this.calendar_add_amount = amount;
+		this.calendar_unit = calendarUnit;
 		this.count_of_repeat = count_of_repeat;
 
 		this.sdf = new SimpleDateFormat(dateformat);
@@ -50,19 +47,12 @@ public class IncrementalDateFormatter {
 		}
 
 		String v = sdf.format(date);
-
 		Calendar c = Calendar.getInstance();
-
 		c.setTime(date);
-
-		c.add(this.calendarUnit, this.amount);
-
+		c.add(this.calendar_unit, this.calendar_add_amount);
 		date = c.getTime();
-
 		count++;
-
 		return v;
-
 	}
 
 }

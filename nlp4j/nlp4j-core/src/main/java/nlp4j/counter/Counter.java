@@ -89,7 +89,7 @@ public class Counter<T> {
 
 	/**
 	 * @param obj for counting
-	 * @return Count of object
+	 * @return Count of object. return 0 if not found
 	 */
 	public int getCount(T obj) {
 		Integer count = objCounter.get(obj);

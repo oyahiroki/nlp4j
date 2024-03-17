@@ -1,6 +1,9 @@
 package nlp4j.util;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.List;
 
 import junit.framework.TestCase;
 
@@ -10,11 +13,21 @@ public class IncrementalDateFormatterTestCase extends TestCase {
 	Class target = IncrementalDateFormatter.class;
 
 	public void test001() throws Exception {
+
+		List<String> expected = new ArrayList<>();
+		expected.add("20240101-000000");
+		expected.add("20240101-010000");
+		expected.add("20240101-020000");
+		expected.add("20240101-030000");
+
 		IncrementalDateFormatter formatter = new IncrementalDateFormatter("yyyyMMdd-HHmmss", "20240101-000000",
-				Calendar.HOUR_OF_DAY, 1, 24);
+				Calendar.HOUR_OF_DAY, 1, 3);
 		String v;
+		int idx = 0;
 		while ((v = formatter.next()) != null) {
 			System.err.println(v);
+			assertEquals(expected.get(idx).trim(), v);
+			idx++;
 		}
 	}
 

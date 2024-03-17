@@ -5,8 +5,6 @@ import java.io.IOException;
 import java.lang.invoke.MethodHandles;
 import java.net.URL;
 
-import javax.management.RuntimeErrorException;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -23,9 +21,9 @@ public class PageViewCounter {
 
 		boolean writeCache = true;
 
-		try (BufferedReader br = TextFileUtils.openPlainTextFileAsBufferedReader(new URL(url), writeCache);) {
+		logger.info("URL: " + url);
 
-			logger.info("URL: " + url);
+		try (BufferedReader br = TextFileUtils.openPlainTextFileAsBufferedReader(new URL(url), writeCache);) {
 
 			// domain_code page_title count_views total_response_size
 //			br.readLine();
@@ -66,7 +64,7 @@ public class PageViewCounter {
 
 //		return top;
 
-		return counter;
+		return this.counter;
 	}
 
 }

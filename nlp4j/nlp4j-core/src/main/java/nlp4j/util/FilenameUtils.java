@@ -23,7 +23,6 @@ public class FilenameUtils {
 //			fileName = fileName.replace(".", "%2E");
 			return fileName;
 		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
 			return null;
 		}
 

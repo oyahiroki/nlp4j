@@ -12,41 +12,6 @@ import junit.framework.TestCase;
 
 public class MediaWikiTextUtilsTestCase extends TestCase {
 
-	public void testRemoveFirstTemplateAll001() {
-		String wikitext = "{{...}}abc{{...}}def{{...}}";
-		String t = MediaWikiTextUtils.removeTemplateAll(wikitext);
-		String expected = "abcdef";
-		assertEquals(expected, t);
-	}
-
-	public void testRemoveFirstTemplateAll002() {
-		String wikitext = "abcdef";
-		String t = MediaWikiTextUtils.removeTemplateAll(wikitext);
-		String expected = "abcdef";
-		assertEquals(expected, t);
-	}
-
-	public void testRemoveFirstTemplate001() {
-		String wikitext = "{{...}}abc";
-		String t = MediaWikiTextUtils.removeFirstTemplate(wikitext);
-		String expected = "abc";
-		assertEquals(expected, t);
-	}
-
-	public void testRemoveFirstTemplate002() {
-		String wikitext = "{{...}}abc{{...}}";
-		String t = MediaWikiTextUtils.removeFirstTemplate(wikitext);
-		String expected = "abc{{...}}";
-		assertEquals(expected, t);
-	}
-
-	public void testRemoveFirstTemplate003() {
-		String wikitext = "{{...}}";
-		String t = MediaWikiTextUtils.removeFirstTemplate(wikitext);
-		String expected = "";
-		assertEquals(expected, t);
-	}
-
 	public void testGetRootNodeText001() throws IOException {
 		// x-wiki 形式のテキストを用意する
 		// Prepare x-wiki format text
@@ -174,6 +139,27 @@ public class MediaWikiTextUtilsTestCase extends TestCase {
 		System.err.println("</tags>");
 	}
 
+	public void testRemoveFirstTemplate001() {
+		String wikitext = "{{...}}abc";
+		String t = MediaWikiTextUtils.removeFirstTemplate(wikitext);
+		String expected = "abc";
+		assertEquals(expected, t);
+	}
+
+	public void testRemoveFirstTemplate002() {
+		String wikitext = "{{...}}abc{{...}}";
+		String t = MediaWikiTextUtils.removeFirstTemplate(wikitext);
+		String expected = "abc{{...}}";
+		assertEquals(expected, t);
+	}
+
+	public void testRemoveFirstTemplate003() {
+		String wikitext = "{{...}}";
+		String t = MediaWikiTextUtils.removeFirstTemplate(wikitext);
+		String expected = "";
+		assertEquals(expected, t);
+	}
+
 	public void testRemoveInfobox001() {
 		String wikitext = "aaa\r\n" //
 				+ "{{Infobox Continent\r\n" //
@@ -198,6 +184,20 @@ public class MediaWikiTextUtilsTestCase extends TestCase {
 
 		System.err.println(wikitext2);
 
+	}
+
+	public void testRemoveLinkFirst001() {
+		String wikitext = "[[...]]abc[[...]]def[[...]]";
+		String t = MediaWikiTextUtils.removeLinkFirst(wikitext);
+		String expected = "abc[[...]]def[[...]]";
+		assertEquals(expected, t);
+	}
+
+	public void testRemoveLinkFirst002() {
+		String wikitext = "abcdef[[...]]";
+		String t = MediaWikiTextUtils.removeLinkFirst(wikitext);
+		String expected = "abcdef";
+		assertEquals(expected, t);
 	}
 
 	public void testRemoveTable001() {
@@ -227,6 +227,20 @@ public class MediaWikiTextUtilsTestCase extends TestCase {
 		System.err.println(wikitext2);
 		System.err.println("</result>");
 
+	}
+
+	public void testRemoveTemplateAll001() {
+		String wikitext = "{{...}}abc{{...}}def{{...}}";
+		String t = MediaWikiTextUtils.removeTemplateAll(wikitext);
+		String expected = "abcdef";
+		assertEquals(expected, t);
+	}
+
+	public void testRemoveTemplateAll002() {
+		String wikitext = "abcdef";
+		String t = MediaWikiTextUtils.removeTemplateAll(wikitext);
+		String expected = "abcdef";
+		assertEquals(expected, t);
 	}
 
 	public void testSweble001() throws IOException, LinkTargetException, EngineException {

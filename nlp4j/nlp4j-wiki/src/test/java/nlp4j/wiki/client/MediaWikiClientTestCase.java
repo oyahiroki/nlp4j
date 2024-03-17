@@ -8,6 +8,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import junit.framework.TestCase;
+import nlp4j.test.TestUtils;
 import nlp4j.util.JsonUtils;
 import nlp4j.wiki.util.MediaWikiTextUtils;
 
@@ -165,6 +166,21 @@ public class MediaWikiClientTestCase extends TestCase {
 		{
 			String title = "IBM";
 			try (MediaWikiClient client = new MediaWikiClient(host);) {
+				String wiki_content = client.getPageContentByTitle(title);
+				String rootNodeText = MediaWikiTextUtils.getRootNodeTextFirstSentence(wiki_content, title, "en");
+				System.out.println(rootNodeText);
+			}
+		}
+
+	}
+
+	public void testgetPageContentByTitle102() throws Exception {
+		TestUtils.setLevelDebug();
+		String host = "de.wikipedia.org";
+		{
+			String title = "Roy_Orbison";
+			try (MediaWikiClient client = new MediaWikiClient(host);) {
+				// タイトルを指定してコンテンツを取得する
 				String wiki_content = client.getPageContentByTitle(title);
 				String rootNodeText = MediaWikiTextUtils.getRootNodeTextFirstSentence(wiki_content, title, "en");
 				System.out.println(rootNodeText);
