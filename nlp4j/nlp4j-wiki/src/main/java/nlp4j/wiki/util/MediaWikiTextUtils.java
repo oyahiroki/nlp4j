@@ -239,11 +239,17 @@ public class MediaWikiTextUtils {
 		return ss;
 	}
 
-	public static List<String> parseCategoryTags(String t) {
+	/**
+	 * wiki形式のテキストからカテゴリーのタグを取得する
+	 * 
+	 * @param wikiText
+	 * @return
+	 */
+	public static List<String> parseCategoryTags(String wikiText) {
 		List<String> tags = new ArrayList<>();
 
-		if (t != null) {
-			for (String line : t.split("\n")) {
+		if (wikiText != null) {
+			for (String line : wikiText.split("\n")) {
 				line = line.trim();
 
 				if (line.startsWith("[[Category:")) {
@@ -388,32 +394,6 @@ public class MediaWikiTextUtils {
 		return t;
 	}
 
-	/**
-	 * @param wikiText
-	 * @return wikiText without Infovox
-	 */
-	static public String removeInfobox(String wikiText) {
-
-		StringBuilder sbWikiText = new StringBuilder();
-		List<String> infoBoxes = new ArrayList<String>();
-
-		extractedInfobox(wikiText, sbWikiText, infoBoxes);
-
-		boolean debug = false;
-
-		if (debug == true) {
-			if (infoBoxes.size() > 0) {
-				for (String ib : infoBoxes) {
-					System.err.println("<infobox>");
-					System.err.println(ib.toString());
-					System.err.println("</infobox>");
-				}
-			}
-		}
-
-		return sbWikiText.toString();
-	}
-
 	public static String removeFirstTemplate(String wikitext) {
 		String wikitext_org = wikitext;
 
@@ -444,27 +424,30 @@ public class MediaWikiTextUtils {
 
 	}
 
-	public static String removeTemplateAll(String wikitext) {
-		wikitext = wikitext.trim();
-		StringBuilder sb = new StringBuilder();
-		{
-			int status = 0;
-			for (int n = 0; n < wikitext.length(); n++) {
-				char c = wikitext.charAt(n);
-				if (c == '{') {
-					status++;
-				} else if (c == '}') {
-					status--;
-					if (status == 0) {
-						continue;
-					}
-				}
-				if (status == 0) {
-					sb.append(c);
+	/**
+	 * @param wikiText
+	 * @return wikiText without Infovox
+	 */
+	static public String removeInfobox(String wikiText) {
+
+		StringBuilder sbWikiText = new StringBuilder();
+		List<String> infoBoxes = new ArrayList<String>();
+
+		extractedInfobox(wikiText, sbWikiText, infoBoxes);
+
+		boolean debug = false;
+
+		if (debug == true) {
+			if (infoBoxes.size() > 0) {
+				for (String ib : infoBoxes) {
+					System.err.println("<infobox>");
+					System.err.println(ib.toString());
+					System.err.println("</infobox>");
 				}
 			}
 		}
-		return sb.toString();
+
+		return sbWikiText.toString();
 	}
 
 	public static String removeLinkFirst(String wikitext) {
@@ -505,6 +488,43 @@ public class MediaWikiTextUtils {
 		}
 
 		return wikitext;
+	}
+
+	public static String removeTemplateAll(String wikitext) {
+		wikitext = wikitext.trim();
+		StringBuilder sb = new StringBuilder();
+		{
+			int status = 0;
+			for (int n = 0; n < wikitext.length(); n++) {
+				char c = wikitext.charAt(n);
+				if (c == '{') {
+					status++;
+				} else if (c == '}') {
+					status--;
+					if (status == 0) {
+						continue;
+					}
+				}
+				if (status == 0) {
+					sb.append(c);
+				}
+			}
+		}
+		return sb.toString();
+	}
+
+	public static String sweble(String wikiTitle, String wikiText) throws LinkTargetException, EngineException {
+		String text;
+		final int wrapCol = 1000;
+		// Retrieve a page
+		PageTitle pageTitle = PageTitle.make(config, wikiTitle);
+		PageId pageId = new PageId(pageTitle, -1);
+		// Instantiate a compiler for wiki pages
+		// Compile the retrieved page
+		EngProcessedPage cp = engine.postprocess(pageId, wikiText, null);
+		TextConverter p = new TextConverter(config, wrapCol);
+		text = (String) p.go(cp.getPage());
+		return text;
 	}
 
 	/**
@@ -641,20 +661,6 @@ public class MediaWikiTextUtils {
 			return "";
 		}
 
-	}
-
-	public static String sweble(String wikiTitle, String wikiText) throws LinkTargetException, EngineException {
-		String text;
-		final int wrapCol = 1000;
-		// Retrieve a page
-		PageTitle pageTitle = PageTitle.make(config, wikiTitle);
-		PageId pageId = new PageId(pageTitle, -1);
-		// Instantiate a compiler for wiki pages
-		// Compile the retrieved page
-		EngProcessedPage cp = engine.postprocess(pageId, wikiText, null);
-		TextConverter p = new TextConverter(config, wrapCol);
-		text = (String) p.go(cp.getPage());
-		return text;
 	}
 
 // REMOVED 2022-01-27

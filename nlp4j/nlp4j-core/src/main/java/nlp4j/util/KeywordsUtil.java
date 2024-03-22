@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Set;
 
 import nlp4j.Keyword;
+import nlp4j.impl.DefaultKeyword;
 
 /**
  * created on 2022-11-19
@@ -196,6 +197,24 @@ public class KeywordsUtil {
 			}
 		}
 		return count;
+	}
+
+	public static List<Keyword> And(List<Keyword> kwds1, List<Keyword> kwds2) {
+		List<Keyword> kwds3 = new ArrayList<Keyword>();
+		for (Keyword kw1 : kwds1) {
+			if (kwds2.contains(kw1) == true) {
+				{
+					Keyword kwd = new DefaultKeyword();
+					kwd.setFacet(kw1.getFacet());
+					kwd.setLex(kw1.getLex());
+					kwd.setStr(kw1.getStr());
+					kwd.setBegin(kw1.getBegin());
+					kwd.setEnd(kw1.getEnd());
+					kwds3.add(kwd);
+				}
+			}
+		}
+		return kwds3;
 	}
 
 }

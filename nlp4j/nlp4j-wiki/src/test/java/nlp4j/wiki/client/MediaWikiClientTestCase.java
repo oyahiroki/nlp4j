@@ -8,9 +8,12 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import junit.framework.TestCase;
+import nlp4j.Keyword;
 import nlp4j.test.TestUtils;
 import nlp4j.util.JsonUtils;
+import nlp4j.util.KeywordsUtil;
 import nlp4j.wiki.util.MediaWikiTextUtils;
+import nlp4j.wiki.util.WikiUtils;
 
 public class MediaWikiClientTestCase extends TestCase {
 
@@ -159,6 +162,155 @@ public class MediaWikiClientTestCase extends TestCase {
 			checkFirstSentenceOfContent(host, title, expected);
 		}
 
+	}
+
+	public void testgetPageContentByTitle005() throws Exception {
+		String lang = "ja";
+		String host = lang + ".wikipedia.org";
+		String title = "大谷翔平";
+		{
+			try (MediaWikiClient client = new MediaWikiClient(host);) {
+				String wiki_content = client.getPageContentByTitle(title);
+				String rootNodeText = MediaWikiTextUtils.getRootNodeTextFirstSentence(wiki_content, title, lang);
+				System.out.println(rootNodeText);
+				{
+					String wiki_content_html = WikiUtils.toHtml(wiki_content);
+					List<Keyword> kwds = WikiUtils.extractKeywordsFromWikiHtml(wiki_content_html, "wikilink");
+					kwds.stream().forEach(kw -> {
+						System.out.println(kw.getLex());
+					});
+				}
+			}
+		}
+
+	}
+
+	public void testgetPageContentByTitle006() throws Exception {
+		String lang = "ja";
+		String host = lang + ".wikipedia.org";
+		List<Keyword> kwds1 = new ArrayList<Keyword>();
+		List<Keyword> kwds2 = new ArrayList<Keyword>();
+		List<Keyword> kwds3 = new ArrayList<Keyword>();
+		{
+			try (MediaWikiClient client = new MediaWikiClient(host);) {
+				{
+					String title = "笠置シヅ子";
+					String wiki_content = client.getPageContentByTitle(title);
+//					String rootNodeText = MediaWikiTextUtils.getRootNodeTextFirstSentence(wiki_content, title, lang);
+//					System.out.println(rootNodeText);
+					{
+						kwds1 = WikiUtils.extractKeywordsFromWikiText2(wiki_content, "wiki");
+						kwds1.stream().forEach(kw -> {
+							System.out.println(kw.getLex());
+						});
+					}
+				}
+				System.out.println("---");
+				{
+					String title2 = "美空ひばり";
+					String wiki_content = client.getPageContentByTitle(title2);
+//					String rootNodeText = MediaWikiTextUtils.getRootNodeTextFirstSentence(wiki_content, title2, lang);
+//					System.out.println(rootNodeText);
+					{
+						kwds2 = WikiUtils.extractKeywordsFromWikiText2(wiki_content, "wiki");
+						kwds2.stream().forEach(kw -> {
+							System.out.println(kw.getLex());
+						});
+					}
+				}
+				System.out.println("---");
+				{
+					String title2 = "美空ひばり";
+					String wiki_content = client.getPageContentByTitle(title2);
+//					String rootNodeText = MediaWikiTextUtils.getRootNodeTextFirstSentence(wiki_content, title2, lang);
+//					System.out.println(rootNodeText);
+					{
+						kwds2 = WikiUtils.extractKeywordsFromWikiText2(wiki_content, "wiki");
+						kwds2.stream().forEach(kw -> {
+							System.out.println(kw.getLex());
+						});
+					}
+				}
+				System.out.println("---");
+				{
+					String title3 = "あいみょん";
+					String wiki_content = client.getPageContentByTitle(title3);
+					{
+						kwds3 = WikiUtils.extractKeywordsFromWikiText2(wiki_content, "wiki");
+						kwds3.stream().forEach(kw -> {
+							System.out.println(kw.getLex());
+						});
+					}
+				}
+
+			}
+		}
+		System.out.println("---");
+		List<Keyword> kwds12 = KeywordsUtil.And(kwds1, kwds2);
+		kwds12.stream().forEach(kw -> {
+			System.out.println(kw.getLex());
+		});
+		System.out.println("---");
+		List<Keyword> kwds13 = KeywordsUtil.And(kwds1, kwds3);
+		kwds13.stream().forEach(kw -> {
+			System.out.println(kw.getLex());
+		});
+
+		System.out.println(kwds1.size());
+		System.out.println(kwds2.size());
+		System.out.println(kwds3.size());
+		System.out.println(kwds12.size());
+		System.out.println(kwds13.size());
+		System.out.println((double) kwds12.size() / (double) kwds1.size());
+		System.out.println((double) kwds12.size() / (double) kwds2.size());
+		System.out.println((double) kwds13.size() / (double) kwds1.size());
+		System.out.println((double) kwds13.size() / (double) kwds3.size());
+
+	}
+
+	public void testgetPageContentByTitle007() throws Exception {
+		String lang = "ja";
+		String host = lang + ".wikipedia.org";
+		{
+			try (MediaWikiClient client = new MediaWikiClient(host);) {
+				{
+					String title = "笠置シヅ子";
+					String wiki_content = client.getPageContentByTitle(title);
+					List<String> tags = MediaWikiTextUtils.parseCategoryTags(wiki_content);
+					System.out.println(tags);
+				}
+			}
+		}
+	}
+
+	public void testgetPageContentByTitle007b() throws Exception {
+		String lang = "ja";
+		String host = lang + ".wikipedia.org";
+		{
+			try (MediaWikiClient client = new MediaWikiClient(host);) {
+				{
+					String title = "ダルビッシュ有";
+					String wiki_content = client.getPageContentByTitle(title);
+					List<String> tags = MediaWikiTextUtils.parseCategoryTags(wiki_content);
+					System.out.println(tags);
+				}
+			}
+		}
+	}
+
+	public void testgetPageContentByTitle008() throws Exception {
+		String lang = "en";
+		String host = lang + ".wikipedia.org";
+		{
+			try (MediaWikiClient client = new MediaWikiClient(host);) {
+				{
+					String title = "IBM";
+					String wiki_content = client.getPageContentByTitle(title);
+					List<String> tags = MediaWikiTextUtils.parseCategoryTags(wiki_content);
+					System.out.println(tags);
+				}
+			}
+		}
 	}
 
 	public void testgetPageContentByTitle101() throws Exception {

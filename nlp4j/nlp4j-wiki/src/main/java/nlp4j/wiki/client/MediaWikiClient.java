@@ -16,7 +16,6 @@ import com.google.gson.JsonObject;
 
 import nlp4j.NlpServiceResponse;
 import nlp4j.http.HttpClient5;
-import nlp4j.util.JsonObjectUtils;
 import nlp4j.util.JsonUtils;
 
 /**
@@ -65,6 +64,115 @@ public class MediaWikiClient implements Closeable {
 	 */
 	public MediaWikiClient(String host) {
 		this.host = host;
+	}
+
+	@Override
+	public void close() throws IOException {
+		if (this.client != null) {
+			this.client.close();
+		}
+
+	}
+
+	/**
+	 * <pre>
+	 * https://www.mediawiki.org/wiki/API:Expandtemplates
+	 * </pre>
+	 * 
+	 * @throws IOException
+	 */
+	public void expandTemplates(String wikiText) throws IOException {
+
+		// https://www.mediawiki.org/wiki/API:Categorymembers
+
+		String url = "https://" + host + "/w/api.php";
+
+		// action: query: query Fetch data from and about MediaWiki.
+		// format: One of the following values: json, jsonfm, none,
+		// php, phpfm, rawfm,
+		// xml, xmlfm
+
+		// api.php?action=expandtemplates&text={{Project:Sandbox}}&prop=wikitext [try in
+		// ApiSandbox]
+
+		Map<String, String> params = new LinkedHashMap<>();
+		{
+			params.put("action", "expandtemplates");
+			params.put("text", wikiText);
+			params.put("prop", "wikitext");
+			params.put("format", "json");
+		}
+
+		NlpServiceResponse res = client.get(url, params);
+
+		// content-type
+		JsonObject jo = res.getAsJsonObject();
+
+		System.err.println(jo);
+
+		System.out.println(jo.get("expandtemplates").getAsJsonObject().get("wikitext").getAsString());
+
+	}
+
+	/**
+	 * タイトルを指定してコンテンツを取得する<br>
+	 * created_on: 2024-01-21
+	 * 
+	 * @param title
+	 * @return
+	 * @throws IOException
+	 * @since 1.1.0.0
+	 * 
+	 */
+	public String getPageContentByTitle(String title) throws IOException {
+
+		logger.info("title=" + title);
+
+		String url = "https://" + host + "/w/api.php";
+
+		Map<String, String> params = new LinkedHashMap<>();
+		{
+			params.put("action", "query");
+			params.put("prop", "revisions");
+			params.put("titles", title);
+			params.put("rvslots", "*");
+			params.put("rvprop", "content");
+			params.put("formatversion", "1");
+			params.put("format", "json");
+		}
+
+		NlpServiceResponse res = client.get(url, params);
+
+		// content-type
+		JsonObject jo = res.getAsJsonObject();
+
+		if (logger.isDebugEnabled()) {
+			logger.debug(res.getOriginalResponseBody());
+		}
+
+		String key = jo.get("query").getAsJsonObject().get("pages").getAsJsonObject().keySet()
+				.toArray(new String[0])[0];
+
+		if (jo. //
+				get("query").getAsJsonObject() //
+				.get("pages").getAsJsonObject() //
+				.get(key).getAsJsonObject().get("revisions") == null) {
+			logger.info("null");
+			return null;
+		}
+
+		String wiki_content = jo. //
+				get("query").getAsJsonObject() //
+				.get("pages").getAsJsonObject() //
+				.get(key).getAsJsonObject() //
+				.get("revisions").getAsJsonArray() //
+				.get(0).getAsJsonObject() //
+				.get("slots").getAsJsonObject() //
+				.get("main").getAsJsonObject() //
+				.get("*").getAsString() //
+		;
+
+		return wiki_content;
 	}
 
 	/**
@@ -267,50 +375,6 @@ public class MediaWikiClient implements Closeable {
 		return titles;
 	}
 
-	public void setFetchSubCategory(boolean fetchSubCategory) {
-		this.fetchSubCategory = fetchSubCategory;
-	}
-
-	/**
-	 * <pre>
-	 * https://www.mediawiki.org/wiki/API:Expandtemplates
-	 * </pre>
-	 * 
-	 * @throws IOException
-	 */
-	public void expandTemplates(String wikiText) throws IOException {
-
-		// https://www.mediawiki.org/wiki/API:Categorymembers
-
-		String url = "https://" + host + "/w/api.php";
-
-		// action: query: query Fetch data from and about MediaWiki.
-		// format: One of the following values: json, jsonfm, none,
-		// php, phpfm, rawfm,
-		// xml, xmlfm
-
-		// api.php?action=expandtemplates&text={{Project:Sandbox}}&prop=wikitext [try in
-		// ApiSandbox]
-
-		Map<String, String> params = new LinkedHashMap<>();
-		{
-			params.put("action", "expandtemplates");
-			params.put("text", wikiText);
-			params.put("prop", "wikitext");
-			params.put("format", "json");
-		}
-
-		NlpServiceResponse res = client.get(url, params);
-
-		// content-type
-		JsonObject jo = res.getAsJsonObject();
-
-		System.err.println(jo);
-
-		System.out.println(jo.get("expandtemplates").getAsJsonObject().get("wikitext").getAsString());
-
-	}
-
 	/**
 	 * 
 	*/
@@ -340,93 +404,8 @@ public class MediaWikiClient implements Closeable {
 		return jo;
 	}
 
-	@Override
-	public void close() throws IOException {
-		if (this.client != null) {
-			this.client.close();
-		}
-
-	}
-
-	/**
-	 * タイトルを指定してコンテンツを取得する<br>
-	 * created_on: 2024-01-21
-	 * 
-	 * @param title
-	 * @return
-	 * @throws IOException
-	 * @since 1.1.0.0
-	 * 
-	 */
-	public String getPageContentByTitle(String title) throws IOException {
-
-		logger.info("title=" + title);
-
-		{
-			String url = "https://" + host + "/w/api.php";
-
-			Map<String, String> params = new LinkedHashMap<>();
-			{
-				params.put("action", "query");
-				params.put("prop", "revisions");
-				params.put("titles", title);
-				params.put("rvslots", "*");
-				params.put("rvprop", "content");
-				params.put("formatversion", "1");
-				params.put("format", "json");
-			}
-
-			NlpServiceResponse res = client.get(url, params);
-
-			// content-type
-			JsonObject jo = res.getAsJsonObject();
-
-//			System.err.println(res.getOriginalResponseBody());
-
-//			System.err.println(jo.get("query").getAsJsonObject().get("pages").getAsJsonObject().keySet());
-//			System.err.println(jo.get("query").getAsJsonObject().get("pages").getAsJsonObject().keySet()
-//					.toArray(new String[0])[0]);
-
-			String key = jo.get("query").getAsJsonObject().get("pages").getAsJsonObject().keySet()
-					.toArray(new String[0])[0];
-
-//			System.err.println(jo.get("query").getAsJsonObject().get("pages").getAsJsonObject().get(key)
-//					.getAsJsonObject().get("title").getAsString());
-
-			// /query/pages/14432262/revisions/[0]/slots/main/*/
-//			System.err.println( //
-//					jo. //
-//							get("query").getAsJsonObject() //
-//							.get("pages").getAsJsonObject() //
-//							.get(key).getAsJsonObject() //
-//							.get("revisions").getAsJsonArray() //
-//							.get(0).getAsJsonObject() //
-//							.get("slots").getAsJsonObject() //
-//							.get("main").getAsJsonObject() //
-//							.get("*").getAsString() //
-//			);
-
-			if (jo. //
-					get("query").getAsJsonObject() //
-					.get("pages").getAsJsonObject() //
-					.get(key).getAsJsonObject().get("revisions") == null) {
-				System.err.println("null");
-				return null;
-			}
-
-			String wiki_content = jo. //
-					get("query").getAsJsonObject() //
-					.get("pages").getAsJsonObject() //
-					.get(key).getAsJsonObject() //
-					.get("revisions").getAsJsonArray() //
-					.get(0).getAsJsonObject() //
-					.get("slots").getAsJsonObject() //
-					.get("main").getAsJsonObject() //
-					.get("*").getAsString() //
-			;
-
-			return wiki_content;
-		}
+	public void setFetchSubCategory(boolean fetchSubCategory) {
+		this.fetchSubCategory = fetchSubCategory;
 	}
 
 }

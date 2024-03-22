@@ -76,6 +76,23 @@ public class WikiUtils {
 	static private Pattern p_alternative_form_of = Pattern.compile(REGEX_ALTERNATIVE_FORM_OF);
 
 	/**
+	 * 2024-03-20
+	 * 
+	 * @param wikiText
+	 * @param keywordFacet
+	 * @return
+	 */
+	static public List<Keyword> extractKeywordsFromWikiText2(String wikiText, String keywordFacet) {
+		try {
+			String html = WikiUtils.toHtml(wikiText);
+			List<Keyword> kwds = WikiUtils.extractKeywordsFromWikiHtml(html, "wikilink");
+			return kwds;
+		} catch (Exception e) {
+			return null;
+		}
+	}
+
+	/**
 	 * HTMLからリンクを抽出し、表記をキーワードとして返す
 	 * 
 	 * @param html
@@ -122,7 +139,7 @@ public class WikiUtils {
 			for (int idx = 0; idx < elements.size(); idx++) {
 				org.jsoup.nodes.Element el = elements.get(idx);
 				String title = el.attr("title");
-				if (title.startsWith("Template") == false) {
+				if (title.startsWith("Template") == false && (title.isEmpty() == false)) {
 					Keyword kwd = new DefaultKeyword();
 					kwd.setLex(title);
 					kwd.setStr(title);

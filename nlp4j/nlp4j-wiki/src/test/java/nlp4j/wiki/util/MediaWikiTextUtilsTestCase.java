@@ -9,8 +9,42 @@ import org.sweble.wikitext.engine.EngineException;
 import org.sweble.wikitext.parser.parser.LinkTargetException;
 
 import junit.framework.TestCase;
+import nlp4j.wiki.client.MediaWikiClient;
 
 public class MediaWikiTextUtilsTestCase extends TestCase {
+
+	public void testgetRootNodeTextFirstSentence001() throws Exception {
+		String wikiText = "'''イチロー'''（本名：'''鈴木 一朗'''〈すずき いちろう〉、" + "[[1973年]][[10月22日]]" + "<ref name=\"mlb\">"
+				+ "{{Cite web2 |url=http://m.mlb.com/player/400085/ichiro-suzuki#sectionType=career |title=Ichiro Suzuki Stats, Fantasy & News |website=MLB.com |publisher=MLB Advanced Media, LP |date= |accessdate=2017年2月2日}}"
+				+ "</ref>"
+				+ " - ）は、[[愛知県]][[西春日井郡]][[豊山町]]出身{{R|number20170202|sanspo20160616}}の元[[プロ野球選手]]（[[外野手]]）。右投左打。";
+		String title = "イチロー";
+		String lang = "ja";
+		String firstSentence = MediaWikiTextUtils.getRootNodeTextFirstSentence(wikiText, title, lang);
+		System.out.println(firstSentence);
+	}
+
+	public void testgetRootNodeTextFirstSentence002() throws Exception {
+		String wikiText = "{{Nihongo|'''Ichiro Suzuki''' {{IPAc-en|ˈ|iː|tʃ|ɪ|r|oʊ|_|s|uː|ˈ|z|uː|k|i}}<!---This is the English pronunciation; feel free to add the Japanese pronunciation SEPARATELY.--->|鈴木 一朗|Suzuki Ichirō|born 22 October 1973}}, also known [[mononymously]] as {{Nihongo|'''Ichiro'''|イチロー|Ichirō}}, is a Japanese former [[professional baseball]] [[outfielder]] who played professionally for 28 seasons. He played the first nine years of his career with the [[Orix Buffaloes|Orix BlueWave]] of [[Nippon Professional Baseball]] (NPB), and the next 12 years with the [[Seattle Mariners]] of [[Major League Baseball]] (MLB). ";
+		String title = "Ichiro Suzuki";
+		String lang = "en";
+		String firstSentence = MediaWikiTextUtils.getRootNodeTextFirstSentence(wikiText, title, lang);
+		System.out.println(firstSentence);
+	}
+
+	public void testgetRootNodeTextFirstSentence101() throws Exception {
+
+		String wikipage_title = "イチロー";
+		String lang = "ja";
+		String host = lang + ".wikipedia.org";
+
+		try (MediaWikiClient client = new MediaWikiClient(host);) {
+			String wiki_content = client.getPageContentByTitle(wikipage_title);
+			String rootNodeText = MediaWikiTextUtils.getRootNodeTextFirstSentence(wiki_content, wikipage_title, lang);
+			System.out.println("rootNodeText: " + rootNodeText);
+		}
+
+	}
 
 	public void testGetRootNodeText001() throws IOException {
 		// x-wiki 形式のテキストを用意する
