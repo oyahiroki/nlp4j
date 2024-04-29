@@ -21,6 +21,18 @@ public class StringUtilsTestCase extends TestCase {
 	}
 
 	/**
+	 * 2024-03-31
+	 */
+	public void testRemoveBracketted010() {
+		String s = "あいう（１２３）えお";
+		String expected = "あいうえお";
+		System.err.println(s);
+		s = StringUtils.removeBracketted(s, "（）");
+		System.err.println(s);
+		assertEquals(expected, s);
+	}
+
+	/**
 	 * <pre>
 	 * Remove XML Comment
 	 * XMLコメントを削除する

@@ -22,6 +22,16 @@ https://dumps.wikimedia.org/enwiktionary/
 
 https://dumps.wikimedia.org/jawiktionary/
 
+# Media Wiki API
+
+## Media Wiki API Client (en)
+
+https://www.mediawiki.org/wiki/API:Tutorial/en
+
+## API:チュートリアル
+
+https://www.mediawiki.org/wiki/API:Tutorial/ja
+
 # Code Example
 
 ## Read Wiki Dump file with Index file

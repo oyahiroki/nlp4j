@@ -18,6 +18,7 @@ import org.sweble.wikitext.engine.utils.DefaultConfigEnWp;
 import org.sweble.wikitext.example.TextConverter;
 import org.sweble.wikitext.parser.parser.LinkTargetException;
 
+import nlp4j.util.TextUtils;
 import nlp4j.wiki.WikiItemTextParser;
 import nlp4j.wiki.WikiItemTextParserInterface;
 import nlp4j.wiki.WikiPageNode;
@@ -585,8 +586,11 @@ public class MediaWikiTextUtils {
 //			System.err.println(wikiText);
 //			System.err.println("---");
 
+			{ // NFKC
+				wikiText = TextUtils.nfkc(wikiText);
+			}
 			{ // REMOVE （...）
-				wikiText = StringUtils.removeBracketted(wikiText, "（）"); // JA BRACKETS
+				wikiText = StringUtils.removeBracketted(wikiText, "()"); // BRACKETS
 			}
 
 //			{

@@ -1,5 +1,7 @@
 package nlp4j.openai;
 
+import java.util.Date;
+
 import com.google.gson.JsonObject;
 
 import nlp4j.util.JsonObjectUtils;
@@ -46,6 +48,25 @@ public class MainChatGPT {
 			JsonObject requestbody = JsonObjectUtils.fromJson(json);
 			JsonObject response = openai.chat_completions(requestbody);
 			System.out.println(JsonUtils.prettyPrint(response));
+		}
+
+		System.out.println("---");
+
+		{
+			String model = "gpt-4";
+			Messages messages = (new MessagesBuilder()) //
+					.addSystem("You are a helpful assistant.") //
+					.addUser("Who won the world series in 2020?") //
+					.addAssistant("The Los Angeles Dodgers won the World Series in 2020.") //
+					.addUser("Where was it played?") //
+					.build();
+			JsonObject response = openai.chat_completions(model, messages);
+			System.out.println(JsonUtils.prettyPrint(response));
+			{
+				long created = response.get("created").getAsLong();
+				Date date = new Date(created * 1000);
+				System.out.println(date);
+			}
 		}
 
 	}

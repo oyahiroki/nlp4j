@@ -52,6 +52,16 @@ public class CounterTestCase extends TestCase {
 		assertEquals(expected, count);
 	}
 
+	public void testGetCountAll001() {
+		Counter<String> counter = new Counter<>();
+		counter.add("aaa", 3);
+		counter.add("bbb", 3);
+
+		int count = counter.getCountAll();
+		int expected = 6;
+		assertEquals(expected, count);
+	}
+
 	public void testCounter001() {
 
 		String s1 = "aaa";

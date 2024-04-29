@@ -33,17 +33,25 @@ public class MediaWikiTextUtilsTestCase extends TestCase {
 	}
 
 	public void testgetRootNodeTextFirstSentence101() throws Exception {
-
 		String wikipage_title = "イチロー";
 		String lang = "ja";
 		String host = lang + ".wikipedia.org";
-
 		try (MediaWikiClient client = new MediaWikiClient(host);) {
 			String wiki_content = client.getPageContentByTitle(wikipage_title);
 			String rootNodeText = MediaWikiTextUtils.getRootNodeTextFirstSentence(wiki_content, wikipage_title, lang);
 			System.out.println("rootNodeText: " + rootNodeText);
 		}
+	}
 
+	public void testgetRootNodeTextFirstSentence102() throws Exception {
+		String wikipage_title = "フォーミュラE";
+		String lang = "ja";
+		String host = lang + ".wikipedia.org";
+		try (MediaWikiClient client = new MediaWikiClient(host);) {
+			String wiki_content = client.getPageContentByTitle(wikipage_title);
+			String rootNodeText = MediaWikiTextUtils.getRootNodeTextFirstSentence(wiki_content, wikipage_title, lang);
+			System.out.println("rootNodeText: " + rootNodeText);
+		}
 	}
 
 	public void testGetRootNodeText001() throws IOException {
@@ -382,6 +390,22 @@ public class MediaWikiTextUtilsTestCase extends TestCase {
 		String wikititle = "テスト";
 		String wikitext = "== TEST ==\nTHIS IS TEST.\nTHIS IS TEST";
 		String plainText = MediaWikiTextUtils.toPlainText(wikititle, wikitext);
+
+		System.err.println("<before>");
+		System.err.println(wikitext);
+		System.err.println("</before>");
+
+		System.err.println("<after>");
+		System.err.println(plainText);
+		System.err.println("</after>");
+	}
+
+	/**
+	 * 2024-03-31
+	 */
+	public void testToPlainText005() {
+		String wikitext = "'''FIA フォーミュラE世界選手権''' (''FIA Formula E World Championship''、フォーミュライー、''FE''）は走行時（利用する電気の発電時は化石燃料を使用する）に[[化石燃料]]を使用しない[[電気自動車]]の[[フォーミュラカー]]によるレース。「'''電気自動車の[[フォーミュラ1|F1]]'''」とも評される。[[2014年]]9月から開催されている。";
+		String plainText = MediaWikiTextUtils.toPlainText("test", wikitext);
 
 		System.err.println("<before>");
 		System.err.println(wikitext);

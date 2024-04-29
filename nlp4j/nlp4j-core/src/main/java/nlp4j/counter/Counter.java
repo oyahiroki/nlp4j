@@ -104,6 +104,14 @@ public class Counter<T> {
 	}
 
 	/**
+	 * @return countAll
+	 * @since 1.3.7.13
+	 */
+	public int getCountAll() {
+		return this.countAll;
+	}
+
+	/**
 	 * Sort by value
 	 * 
 	 * @return
@@ -132,31 +140,6 @@ public class Counter<T> {
 		});
 		ArrayList<Count<T>> counts = new ArrayList<Count<T>>();
 		for (T o : objList) {
-			counts.add(new Count<T>(o, getCount(o)));
-		}
-		return counts;
-	}
-
-	/**
-	 * @param count
-	 * @return
-	 * @since 1.3.7.12
-	 */
-	public List<Count<T>> top(int count) {
-		List<T> objList = getObjectList();
-		Collections.sort(objList, new Comparator<T>() {
-			@Override
-			public int compare(T o1, T o2) {
-				return getCount(o2) - getCount(o1);
-			}
-		});
-		ArrayList<Count<T>> counts = new ArrayList<Count<T>>();
-		int cnt = 0;
-		for (T o : objList) {
-			cnt++;
-			if (cnt > count) {
-				break;
-			}
 			counts.add(new Count<T>(o, getCount(o)));
 		}
 		return counts;
@@ -303,6 +286,31 @@ public class Counter<T> {
 	 */
 	public int size() {
 		return (this.objCounter != null) ? this.objCounter.size() : 0;
+	}
+
+	/**
+	 * @param count
+	 * @return
+	 * @since 1.3.7.12
+	 */
+	public List<Count<T>> top(int count) {
+		List<T> objList = getObjectList();
+		Collections.sort(objList, new Comparator<T>() {
+			@Override
+			public int compare(T o1, T o2) {
+				return getCount(o2) - getCount(o1);
+			}
+		});
+		ArrayList<Count<T>> counts = new ArrayList<Count<T>>();
+		int cnt = 0;
+		for (T o : objList) {
+			cnt++;
+			if (cnt > count) {
+				break;
+			}
+			counts.add(new Count<T>(o, getCount(o)));
+		}
+		return counts;
 	}
 
 	/**
