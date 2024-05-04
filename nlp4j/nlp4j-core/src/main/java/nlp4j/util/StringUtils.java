@@ -173,6 +173,18 @@ public class StringUtils {
 	}
 
 	/**
+	 * @param begin
+	 * @param end
+	 * @return
+	 * @since 1.3.7.13
+	 */
+	static public String remove(String s, String begin, String end) {
+		// TODO 入れ子に対応
+		String s2 = s.replaceAll("" + begin + ".*?" + end, "");
+		return s2;
+	}
+
+	/**
 	 * <pre>
 	 * substring by code points
 	 * created at: 2022-05-22

@@ -16,6 +16,7 @@ import com.google.gson.JsonObject;
 
 import nlp4j.NlpServiceResponse;
 import nlp4j.http.HttpClient5;
+import nlp4j.util.HtmlUtils;
 import nlp4j.util.JsonUtils;
 
 /**
@@ -76,10 +77,12 @@ public class MediaWikiClient implements Closeable {
 
 	/**
 	 * <pre>
-	 * https://www.mediawiki.org/wiki/API:Expandtemplates
+	 * API:テンプレートの展開
+	 * API:Expandtemplates
 	 * </pre>
 	 * 
 	 * @throws IOException
+	 * @see https://www.mediawiki.org/wiki/API:Expandtemplates
 	 */
 	public void expandTemplates(String wikiText) throws IOException {
 
@@ -112,6 +115,35 @@ public class MediaWikiClient implements Closeable {
 
 		System.out.println(jo.get("expandtemplates").getAsJsonObject().get("wikitext").getAsString());
 
+	}
+
+	/**
+	 * @param wikiText
+	 * @throws IOException
+	 * @see https://www.mediawiki.org/wiki/API:Parsing_wikitext/ja
+	 */
+	public MediaWikiApiResponse parse(String wikiText) throws IOException {
+		String url = "https://" + "www.mediawiki.org" + "/w/api.php";
+		Map<String, String> params = new LinkedHashMap<>();
+		{
+			params.put("action", "parse");
+			params.put("format", "json");
+			params.put("text", wikiText);
+			params.put("contentmodel", "wikitext");
+		}
+		NlpServiceResponse res = client.get(url, params);
+		// content-type
+		JsonObject jo = res.getAsJsonObject();
+		MediaWikiApiResponse r = new AbstractMediaWikiApiResponse(jo) {
+			@Override
+			public String getText() {
+				String html = jo.get("parse").getAsJsonObject().get("text").getAsJsonObject().get("*").getAsString();
+				html = HtmlUtils
+						.removeHtmlComments("<html><body><div id=\"nlp4j_removecomments\">" + html + "</body></html>");
+				return html;
+			}
+		};
+		return r;
 	}
 
 	/**

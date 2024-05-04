@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<api batchcomplete="">
+    <query>
+        <pages>
+            <page _idx="3040337" ns="14" pageid="3040337" title="Category:en:Medicine">
+                <iwlinks>
+                    <iw prefix="mw" xml:space="preserve">Manual:Categorylinks_table</iw>
+                </iwlinks>
+            </page>
+        </pages>
+    </query>
+</api>

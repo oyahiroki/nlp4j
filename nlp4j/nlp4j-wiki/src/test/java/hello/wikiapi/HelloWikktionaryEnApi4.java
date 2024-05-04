@@ -8,7 +8,7 @@ import nlp4j.http.HttpClient5;
 import nlp4j.impl.DefaultNlpServiceResponse;
 import nlp4j.util.JsonUtils;
 
-public class HelloWikiApi4 {
+public class HelloWikktionaryEnApi4 {
 
 	public static void main(String[] args) throws IOException {
 
@@ -32,7 +32,7 @@ public class HelloWikiApi4 {
 				+ "&cmlimit=500"// 1-500
 //				+ "&cmsort=timestamp"//
 				+ "&cmsort=sortkey"//
-				+ "&cmprop=ids|title|sortkey|sortkeyprefix|type|timestamp" //
+				+ "&cmprop=ids|title|sortkey|sortkeyprefix|type|timestamp".replace("|", "%7C") //
 				+ "&cmstarthexsortkey=" + from //
 //				+ "&cmstart=2014-01-13T06:20:07Z"
 //				+ "&prop="

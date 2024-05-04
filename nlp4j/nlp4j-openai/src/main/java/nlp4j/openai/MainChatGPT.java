@@ -63,9 +63,21 @@ public class MainChatGPT {
 			JsonObject response = openai.chat_completions(model, messages);
 			System.out.println(JsonUtils.prettyPrint(response));
 			{
+				String id = response.get("id").getAsString();
+				System.out.println(id);
+			}
+			{
+				String object = response.get("object").getAsString();
+				System.out.println(object);
+			}
+			{
 				long created = response.get("created").getAsLong();
 				Date date = new Date(created * 1000);
 				System.out.println(date);
+			}
+			{
+				String res_model = response.get("model").getAsString();
+				System.out.println(res_model);
 			}
 		}
 

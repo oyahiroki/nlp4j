@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<api batchcomplete="">
+	<query>
+		<pages>
+			<page _idx="1348711" pageid="1348711" ns="0"
+				title="urolithiasis">
+				<categories>
+					<cl ns="14" title="Category:English countable nouns" />
+					<cl ns="14" title="Category:English lemmas" />
+					<cl ns="14" title="Category:English nouns" />
+					<cl ns="14"
+						title="Category:English nouns with irregular plurals" />
+					<cl ns="14" title="Category:English terms prefixed with uro-" />
+					<cl ns="14" title="Category:English terms suffixed with -iasis" />
+					<cl ns="14" title="Category:English uncountable nouns" />
+					<cl ns="14" title="Category:en:Biology" />
+					<cl ns="14" title="Category:en:Medicine" />
+				</categories>
+			</page>
+		</pages>
+	</query>
+</api>

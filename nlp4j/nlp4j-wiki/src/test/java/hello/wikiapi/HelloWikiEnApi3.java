@@ -4,8 +4,9 @@ import java.io.IOException;
 
 import nlp4j.http.HttpClient5;
 import nlp4j.impl.DefaultNlpServiceResponse;
+import nlp4j.util.XmlUtils;
 
-public class HelloWikiApi1 {
+public class HelloWikiEnApi3 {
 
 	public static void main(String[] args) throws IOException {
 
@@ -15,8 +16,13 @@ public class HelloWikiApi1 {
 				+ "?"//
 				+ "format=xml"//
 				+ "&action=query"//
-				+ "&prop=categories"//
-				+ "&titles=urolithiasis";//
+				+ "&prop="
+//				+ "categories"//
+//				+ "linkshere"//
+//				+ "pageterms"//
+//				+ "info"//
+				+ "iwlinks"//
+				+ "&titles=Category:en:Medicine";//
 
 		// action: query: query Fetch data from and about MediaWiki.
 		// format: One of the following values: json, jsonfm, none, php, phpfm, rawfm,
@@ -25,9 +31,12 @@ public class HelloWikiApi1 {
 		try (HttpClient5 client = new HttpClient5();) {
 			System.err.println(url);
 			DefaultNlpServiceResponse res = client.get(url);
+
 			System.err.println(res.getResponseCode());
+
 			System.err.println(res.getHeaders());
-			System.err.println(res.getOriginalResponseBody());
+
+			System.err.println(XmlUtils.prettyFormatXml(res.getOriginalResponseBody()));
 		}
 
 	}

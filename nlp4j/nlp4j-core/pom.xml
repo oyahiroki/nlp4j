@@ -313,6 +313,15 @@
 			<!-- 2023-08-16 : 2.9.0 to 2.10.1  -->
 			<version>2.10.1</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.jsoup/jsoup -->
+		<!-- 1.14.3 : Sep 30, 2021 -->
+		<!-- 1.15.3 : Aug 24, 2022 -->
+		<!-- 1.17.2 : Dec 29, 2023 -->
+		<dependency>
+			<groupId>org.jsoup</groupId>
+			<artifactId>jsoup</artifactId>
+			<version>1.17.2</version>
+		</dependency>
 		<!-- https://mvnrepository.com/artifact/junit/junit -->
 		<dependency>
 			<groupId>junit</groupId>

@@ -11,6 +11,117 @@ import junit.framework.TestCase;
 
 public class JsonObjectUtilsTestCase extends TestCase {
 
+	/**
+	 * query String from JsonObject
+	 */
+	public void testQuery_JsonObject_Class_String001() {
+		String json = "{\"test1\":{\"test2\":{\"test3\":[\"value\"]}}}";
+		String expected = "value";
+		String query = "/test1/test2/test3/0";
+		JsonObject jo = JsonObjectUtils.fromJson(json);
+		System.err.println(JsonUtils.prettyPrint(jo));
+		String s = JsonObjectUtils.query(jo, String.class, query);
+		System.err.println("s:" + s);
+		assertEquals(expected, s);
+	}
+
+	/**
+	 * query JsonObject from JsonObject
+	 */
+	public void testQuery_JsonObject_Class_String002() {
+		String json = "{\"test1\":{\"test2\":{\"test3\":[{\"test4\":\"xx\"}]}}}";
+		String expected = "{\"test4\":\"xx\"}";
+		String query = "/test1/test2/test3/0";
+		JsonObject jo = JsonObjectUtils.fromJson(json);
+		System.err.println(JsonUtils.prettyPrint(jo));
+		JsonObject s = JsonObjectUtils.query(jo, JsonObject.class, query);
+		System.err.println("s:" + s);
+		assertEquals(expected, s.toString());
+	}
+
+	/**
+	 * query JsonArray from JsonObject
+	 */
+	public void testQuery_JsonObject_Class_String003() {
+		String json = "{\"test1\":{\"test2\":{\"test3\":[\"xx\"]}}}";
+		String expected = "[\"xx\"]";
+		String query = "/test1/test2/test3";
+		JsonObject jo = JsonObjectUtils.fromJson(json);
+		System.err.println(JsonUtils.prettyPrint(jo));
+		JsonArray s = JsonObjectUtils.query(jo, JsonArray.class, query);
+		System.err.println("s:" + s);
+		assertEquals(expected, s.toString());
+	}
+
+	/**
+	 * query null from JsonObject
+	 */
+	public void testQuery_JsonObject_Class_String501() {
+		String json = "{\"test1\":{\"test2\":{\"test3\":[\"xx\"]}}}";
+		String expected = null;
+		String query = "/test0";
+		JsonObject jo = JsonObjectUtils.fromJson(json);
+		System.err.println(JsonUtils.prettyPrint(jo));
+		JsonArray s = JsonObjectUtils.query(jo, JsonArray.class, query);
+		System.err.println("s:" + s);
+		assertEquals(expected, s);
+	}
+
+	public void testQuery_JsonObject_Class_String502() {
+		String json = "{\"test1\":{\"test2\":{\"test3\":[\"xx\"]}}}";
+		String expected = null;
+		String query = "/test1/test0";
+		JsonObject jo = JsonObjectUtils.fromJson(json);
+		System.err.println(JsonUtils.prettyPrint(jo));
+		JsonArray s = JsonObjectUtils.query(jo, JsonArray.class, query);
+		System.err.println("s:" + s);
+		assertEquals(expected, s);
+	}
+
+	public void testQuery_JsonObject_Class_String503() {
+		String json = "{\"test1\":{\"test2\":{\"test3\":[\"xx\"]}}}";
+		String expected = null;
+		String query = "/test1/test2/test0";
+		JsonObject jo = JsonObjectUtils.fromJson(json);
+		System.err.println(JsonUtils.prettyPrint(jo));
+		JsonArray s = JsonObjectUtils.query(jo, JsonArray.class, query);
+		System.err.println("s:" + s);
+		assertEquals(expected, s);
+	}
+
+	public void testQuery_JsonObject_Class_String504() {
+		String json = "{\"test1\":{\"test2\":{\"test3\":[{\"test4\":\"xx\"}]}}}";
+		String expected = null;
+		String query = "/test1/test2/test3/10";
+		JsonObject jo = JsonObjectUtils.fromJson(json);
+		System.err.println(JsonUtils.prettyPrint(jo));
+		JsonObject s = JsonObjectUtils.query(jo, JsonObject.class, query);
+		System.err.println("s:" + s);
+		assertEquals(expected, s);
+	}
+
+	public void testQuery_JsonObject_Class_String505() {
+		String json = "{\"test1\":{\"test2\":{\"test3\":[{\"test4\":\"xx\"}]}}}";
+		String expected = null;
+		String query = "/test1/test2/test3/2";
+		JsonObject jo = JsonObjectUtils.fromJson(json);
+		System.err.println(JsonUtils.prettyPrint(jo));
+		JsonObject s = JsonObjectUtils.query(jo, JsonObject.class, query);
+		System.err.println("s:" + s);
+		assertEquals(expected, s);
+	}
+
+	public void testQuery_JsonObject_Class_String506() {
+		String json = "{\"test1\":{\"test2\":{\"test3\":[]}}}";
+		String expected = null;
+		String query = "/test1/test2/test3/0";
+		JsonObject jo = JsonObjectUtils.fromJson(json);
+		System.err.println(JsonUtils.prettyPrint(jo));
+		JsonObject s = JsonObjectUtils.query(jo, JsonObject.class, query);
+		System.err.println("s:" + s);
+		assertEquals(expected, s);
+	}
+
 	public void test2DArrayAsList001() {
 		JsonObject jo = new JsonObject();
 		JsonArray arr = new JsonArray();

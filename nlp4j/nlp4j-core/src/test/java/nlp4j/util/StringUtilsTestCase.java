@@ -9,6 +9,14 @@ import junit.framework.TestCase;
  */
 public class StringUtilsTestCase extends TestCase {
 
+	public void testRemoveStringStringString001() {
+		String s1 = "<html><body><!-- comment --><h1>test</h1></body></html>";
+		String s2 = StringUtils.remove(s1, "<!--", "-->");
+		String expected = "<html><body><h1>test</h1></body></html>";
+		System.out.println(s2);
+		assertEquals(s2, expected);
+	}
+
 	public void testCharAt001() {
 		String s = "😀😀😀"; // EMOJI SMILE
 		String c0 = StringUtils.charAt(s, 0);

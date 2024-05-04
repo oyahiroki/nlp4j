@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<api>
+    <continue clcontinue="128948|FAST識別子が指定されている記事" continue="||"/>
+    <query>
+        <pages>
+            <page _idx="128948" ns="0" pageid="128948" title="エマ・ワトソン">
+                <categories>
+                    <cl ns="14" title="Category:1990年生"/>
+                    <cl ns="14" title="Category:BIBSYS識別子が指定されている記事"/>
+                    <cl ns="14" title="Category:BNE識別子が指定されている記事"/>
+                    <cl ns="14" title="Category:BNFdata識別子が指定されている記事"/>
+                    <cl ns="14" title="Category:BNF識別子が指定されている記事"/>
+                    <cl ns="14" title="Category:CANTICN識別子が指定されている記事"/>
+                    <cl ns="14" title="Category:CINII識別子が指定されている記事"/>
+                    <cl ns="14" title="Category:CRID識別子が指定されている記事"/>
+                    <cl ns="14" title="Category:DTBIO識別子が指定されている記事"/>
+                    <cl ns="14" title="Category:Deutsche Synchronkartei識別子が指定されている記事"/>
+                </categories>
+            </page>
+        </pages>
+    </query>
+</api>

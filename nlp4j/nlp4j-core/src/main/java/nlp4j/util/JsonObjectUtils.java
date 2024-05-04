@@ -1,18 +1,15 @@
 package nlp4j.util;
 
-import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
 
 /**
  * @author Hiroki Oya
@@ -20,12 +17,11 @@ import com.google.gson.JsonObject;
  */
 public class JsonObjectUtils {
 
-	static private final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
-
 	/**
 	 * @param json
 	 * @return
 	 * @since 1.3.7.9
+	 * @throws com.google.gson.JsonSyntaxException
 	 */
 	static public JsonObject fromJson(String json) {
 		return (new Gson()).fromJson(json, JsonObject.class);
@@ -97,6 +93,119 @@ public class JsonObjectUtils {
 				&& jo.get(string).isJsonPrimitive() //
 				&& (jo.get(string).getAsBoolean() == true);
 	}
+
+	public static String join(String string, JsonArray arr) {
+		List<String> list = new ArrayList<>();
+		for (int n = 0; n < arr.size(); n++) {
+			list.add(arr.get(n).getAsString());
+		}
+		return String.join(string, list);
+	}
+
+	/**
+	 * @param string
+	 * @param arr
+	 * @return
+	 */
+	public static String join_unique(String string, JsonArray arr) {
+		List<String> list = new ArrayList<>();
+		for (int n = 0; n < arr.size(); n++) {
+			String s = arr.get(n).getAsString();
+			if (list.contains(s) == false) {
+				list.add(s);
+			}
+		}
+		return String.join(string, list);
+	}
+
+	/**
+	 * query to JsonObject
+	 * 
+	 * @param <T>
+	 * @param jo
+	 * @param classOfT
+	 * @param path
+	 * @return
+	 * @since 1.3.7.13
+	 */
+	@SuppressWarnings("unchecked")
+	public static <T> T query(JsonObject jo, Class<T> classOfT, String path) {
+		String[] pp = path.split("/");
+		JsonElement ptr = jo;
+		// FOR_EACH(PATH)
+		for (int idx_path = 0; idx_path < pp.length; idx_path++) {
+			String key = pp[idx_path];
+
+			if (key.isEmpty()) {
+				continue;
+			}
+
+			// IF(key is Number)
+			if (org.apache.commons.lang3.StringUtils.isNumeric(key)) {
+				int idx = Integer.parseInt(key);
+				if (idx < 0 || idx >= ((JsonArray) ptr).size()) {
+					return null;
+				}
+				JsonElement e = ((JsonArray) ptr).get(idx);
+				ptr = e;
+			} //
+				// ELSE_IF(key is String)
+			else {
+				JsonElement elm = ((JsonObject) ptr).get(key);
+				// IF(elm is JsonArray)
+				if (elm instanceof JsonArray) {
+					ptr = elm.getAsJsonArray();
+				} //
+					// ELSE_IF(elm is JsonObject)
+				else if (elm instanceof JsonObject) {
+					ptr = elm.getAsJsonObject();
+				} //
+					// ELSE
+				else {
+					ptr = elm;
+				} // END_OF_IF
+			}
+
+			// IF(path is last)
+			if (idx_path == (pp.length - 1)) {
+				// System.err.println("**");
+				if (ptr == null) {
+					return null;
+				}
+				// IF(ptr is Primitive)
+				if (ptr.isJsonPrimitive()) {
+					JsonPrimitive jp = ptr.getAsJsonPrimitive();
+					if (jp.isString()) {
+						String s = ptr.getAsString();
+						return (T) s;
+					} //
+					else if (jp.isNumber()) {
+						Number n = ptr.getAsNumber();
+						return (T) n;
+					}
+				} //
+					// ELSE_IF(ptr is JsonArray)
+				else if (ptr.isJsonArray()) {
+					JsonArray o = ptr.getAsJsonArray();
+					return (T) o;
+				} //
+					// ELSE_IF(ptr is JsonObject)
+				else if (ptr.isJsonObject()) {
+					JsonObject o = ptr.getAsJsonObject();
+					return (T) o;
+				} //
+					// ELSE(ptr is Null)
+				else if (ptr.isJsonNull()) {
+					return null;
+				}
+				// ELSE
+				else {
+					return null;
+				} // END_OF_IF
+			} // END_OF_IF
+		} // END_OF_FOR_EACH(PATH)
+		return null;
+	} // END_OF_METHOD
 
 	/**
 	 * @param arr to be sorted
@@ -197,30 +306,6 @@ public class JsonObjectUtils {
 			return arr;
 		}
 
-	}
-
-	public static String join(String string, JsonArray arr) {
-		List<String> list = new ArrayList<>();
-		for (int n = 0; n < arr.size(); n++) {
-			list.add(arr.get(n).getAsString());
-		}
-		return String.join(string, list);
-	}
-
-	/**
-	 * @param string
-	 * @param arr
-	 * @return
-	 */
-	public static String join_unique(String string, JsonArray arr) {
-		List<String> list = new ArrayList<>();
-		for (int n = 0; n < arr.size(); n++) {
-			String s = arr.get(n).getAsString();
-			if (list.contains(s) == false) {
-				list.add(s);
-			}
-		}
-		return String.join(string, list);
 	}
 
 }

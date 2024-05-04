@@ -6,23 +6,20 @@ import nlp4j.http.HttpClient5;
 import nlp4j.impl.DefaultNlpServiceResponse;
 import nlp4j.util.XmlUtils;
 
-public class HelloWikiApi3 {
+public class HelloWikiJaApi2 {
 
 	public static void main(String[] args) throws IOException {
 
 		// http だと 301が返る
 
-		String url = "https://en.wiktionary.org/w/api.php" //
+		// エマ・ワトソン
+		String url = "https://ja.wikipedia.org/w/api.php" //
 				+ "?"//
 				+ "format=xml"//
 				+ "&action=query"//
-				+ "&prop="
-//				+ "categories"//
-//				+ "linkshere"//
-//				+ "pageterms"//
-//				+ "info"//
-				+ "iwlinks"//
-				+ "&titles=Category:en:Medicine";//
+				+ "&prop=info"//
+				+ "&prop=categories"//
+				+ "&titles=%E3%82%A8%E3%83%9E%E3%83%BB%E3%83%AF%E3%83%88%E3%82%BD%E3%83%B3";//
 
 		// action: query: query Fetch data from and about MediaWiki.
 		// format: One of the following values: json, jsonfm, none, php, phpfm, rawfm,
@@ -35,6 +32,8 @@ public class HelloWikiApi3 {
 			System.err.println(res.getResponseCode());
 
 			System.err.println(res.getHeaders());
+
+//		System.err.println(res.getOriginalResponseBody());
 
 			System.err.println(XmlUtils.prettyFormatXml(res.getOriginalResponseBody()));
 		}
