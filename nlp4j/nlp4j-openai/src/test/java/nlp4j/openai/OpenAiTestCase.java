@@ -1,10 +1,10 @@
 package nlp4j.openai;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import junit.framework.TestCase;
-import nlp4j.openai.Configuration;
-import nlp4j.openai.OpenAI;
+import nlp4j.util.JsonObjectUtils;
 
 public class OpenAiTestCase extends TestCase {
 
@@ -31,6 +31,9 @@ public class OpenAiTestCase extends TestCase {
 
 			System.err.println(jo.toString());
 
+			JsonArray vector = JsonObjectUtils.query(jo, JsonArray.class, "/data[0]/embedding");
+
+			System.err.println(vector.size()); // -> 1536
 		}
 
 	}

@@ -17,6 +17,7 @@ import com.google.gson.JsonObject;
 import nlp4j.NlpServiceResponse;
 import nlp4j.http.HttpClient5;
 import nlp4j.util.HtmlUtils;
+import nlp4j.util.JsonObjectUtils;
 import nlp4j.util.JsonUtils;
 
 /**
@@ -118,6 +119,8 @@ public class MediaWikiClient implements Closeable {
 	}
 
 	/**
+	 * Parse wiki text
+	 * 
 	 * @param wikiText
 	 * @throws IOException
 	 * @see https://www.mediawiki.org/wiki/API:Parsing_wikitext/ja
@@ -137,7 +140,8 @@ public class MediaWikiClient implements Closeable {
 		MediaWikiApiResponse r = new AbstractMediaWikiApiResponse(jo) {
 			@Override
 			public String getText() {
-				String html = jo.get("parse").getAsJsonObject().get("text").getAsJsonObject().get("*").getAsString();
+//				String html = jo.get("parse").getAsJsonObject().get("text").getAsJsonObject().get("*").getAsString();
+				String html = JsonObjectUtils.query(jo, String.class, "/parse/text/*");
 				html = HtmlUtils
 						.removeHtmlComments("<html><body><div id=\"nlp4j_removecomments\">" + html + "</body></html>");
 				return html;
@@ -182,7 +186,9 @@ public class MediaWikiClient implements Closeable {
 			logger.debug(res.getOriginalResponseBody());
 		}
 
-		String key = jo.get("query").getAsJsonObject().get("pages").getAsJsonObject().keySet()
+		String key = jo //
+				.get("query").getAsJsonObject() //
+				.get("pages").getAsJsonObject().keySet() //
 				.toArray(new String[0])[0];
 
 		if (jo. //
@@ -193,16 +199,19 @@ public class MediaWikiClient implements Closeable {
 			return null;
 		}
 
-		String wiki_content = jo. //
-				get("query").getAsJsonObject() //
-				.get("pages").getAsJsonObject() //
-				.get(key).getAsJsonObject() //
-				.get("revisions").getAsJsonArray() //
-				.get(0).getAsJsonObject() //
-				.get("slots").getAsJsonObject() //
-				.get("main").getAsJsonObject() //
-				.get("*").getAsString() //
-		;
+//		String wiki_content = jo. //
+//				get("query").getAsJsonObject() //
+//				.get("pages").getAsJsonObject() //
+//				.get(key).getAsJsonObject() //
+//				.get("revisions").getAsJsonArray() //
+//				.get(0).getAsJsonObject() //
+//				.get("slots").getAsJsonObject() //
+//				.get("main").getAsJsonObject() //
+//				.get("*").getAsString() //
+//		;
+
+		String wiki_content = JsonObjectUtils.query(jo, String.class,
+				"/query/pages/" + key + "/revisions[0]/slots/main/*");
 
 		return wiki_content;
 	}

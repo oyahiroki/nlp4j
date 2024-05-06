@@ -119,18 +119,31 @@ public class JsonObjectUtils {
 	}
 
 	/**
-	 * query to JsonObject
-	 * 
-	 * @param <T>
-	 * @param jo
-	 * @param classOfT
-	 * @param path
-	 * @return
+	 * Executes a JSONPath query on the given JsonObject and returns the result as
+	 * an object of the specified type. This method allows for querying nested JSON
+	 * structures using a path expression. The query expression should be a JSONPath
+	 * string that specifies the location of the desired data within the JSON
+	 * object.
+	 *
+	 * @param jo       The JsonObject on which the query is to be executed.
+	 * @param classOfT The class type of the result. This is used to cast the
+	 *                 returned data to the expected type.
+	 * @param path     The JSONPath string that specifies the query. It should be
+	 *                 formatted as a path with components separated by slashes
+	 *                 ('/'), and array elements can be accessed using square
+	 *                 brackets ('[]').
+	 * @return Returns an object of type T containing the data found at the
+	 *         specified path in the JSON structure. Returns null if the specified
+	 *         path is not found or if the data at the path is not of the expected
+	 *         type.
+	 * @throws IllegalArgumentException if the provided path is invalid or if errors
+	 *                                  occur during the query execution.
 	 * @since 1.3.7.13
 	 */
+
 	@SuppressWarnings("unchecked")
 	public static <T> T query(JsonObject jo, Class<T> classOfT, String path) {
-		String[] pp = path.split("/");
+		String[] pp = path.split("(/|\\[)");
 		JsonElement ptr = jo;
 		// FOR_EACH(PATH)
 		for (int idx_path = 0; idx_path < pp.length; idx_path++) {
@@ -140,16 +153,34 @@ public class JsonObjectUtils {
 				continue;
 			}
 
-			// IF(key is Number)
-			if (org.apache.commons.lang3.StringUtils.isNumeric(key)) {
-				int idx = Integer.parseInt(key);
-				if (idx < 0 || idx >= ((JsonArray) ptr).size()) {
-					return null;
+			if (key.endsWith("]")) {
+				String k = key.substring(0, key.length() - 1);
+				if (org.apache.commons.lang3.StringUtils.isNumeric(k)) {
+					int idx = Integer.parseInt(k);
+					if (idx < 0 || idx >= ((JsonArray) ptr).size()) {
+						return null;
+					}
+					JsonElement e = ((JsonArray) ptr).get(idx);
+					ptr = e;
 				}
-				JsonElement e = ((JsonArray) ptr).get(idx);
-				ptr = e;
-			} //
-				// ELSE_IF(key is String)
+				//
+				else {
+					JsonElement elm = ((JsonObject) ptr).get(key);
+					// IF(elm is JsonArray)
+					if (elm instanceof JsonArray) {
+						ptr = elm.getAsJsonArray();
+					} //
+						// ELSE_IF(elm is JsonObject)
+					else if (elm instanceof JsonObject) {
+						ptr = elm.getAsJsonObject();
+					} //
+						// ELSE
+					else {
+						ptr = elm;
+					} // END_OF_IF
+				}
+			}
+			// ELSE_IF(key is String)
 			else {
 				JsonElement elm = ((JsonObject) ptr).get(key);
 				// IF(elm is JsonArray)
@@ -164,7 +195,7 @@ public class JsonObjectUtils {
 				else {
 					ptr = elm;
 				} // END_OF_IF
-			}
+			} // END_OF_IF
 
 			// IF(path is last)
 			if (idx_path == (pp.length - 1)) {
@@ -180,8 +211,31 @@ public class JsonObjectUtils {
 						return (T) s;
 					} //
 					else if (jp.isNumber()) {
-						Number n = ptr.getAsNumber();
-						return (T) n;
+						// T is String
+						if (classOfT == String.class) {
+							String s = ptr.getAsString();
+							return (T) s;
+						} //
+							// T is Integer
+						else if (classOfT == Integer.class) {
+							Integer v = ptr.getAsInt();
+							return (T) v;
+						} //
+							// T is Long
+						else if (classOfT == Long.class) {
+							Long v = ptr.getAsLong();
+							return (T) v;
+						} //
+							// T is Double
+						else if (classOfT == Double.class) {
+							Double v = ptr.getAsDouble();
+							return (T) v;
+						} //
+							// ELSE
+						else {
+							Number n = ptr.getAsNumber();
+							return (T) n;
+						}
 					}
 				} //
 					// ELSE_IF(ptr is JsonArray)

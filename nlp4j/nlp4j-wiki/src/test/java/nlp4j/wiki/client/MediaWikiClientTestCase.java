@@ -17,21 +17,21 @@ import nlp4j.wiki.util.WikiUtils;
 
 public class MediaWikiClientTestCase extends TestCase {
 
+	private void checkFirstSentenceOfContent(String host, String title, String expected) throws IOException {
+		try (MediaWikiClient client = new MediaWikiClient(host);) {
+			String wiki_content = client.getPageContentByTitle(title);
+			String rootNodeText = MediaWikiTextUtils.getRootNodeTextFirstSentence(wiki_content, title, "ja");
+			System.out.println(rootNodeText);
+			assertTrue(rootNodeText.contains(expected));
+		}
+	}
+
 	public void testExpandTemplates001() throws Exception {
 		String host = "ja.wikipedia.org";
 		try (MediaWikiClient client = new MediaWikiClient(host);) {
 			String wikiText = "test";
 			client.expandTemplates(wikiText);
 
-		}
-	}
-
-	public void testParse001() throws Exception {
-		String host = "ja.wikipedia.org";
-		try (MediaWikiClient client = new MediaWikiClient(host);) {
-			String wikiText = "This is a simple [[Wikipedia]] and here is another [[Wiktionary]]. [https://www.ibm.com/ IBM]";
-			MediaWikiApiResponse r = client.parse(wikiText);
-			System.out.println(r.getText());
 		}
 	}
 
@@ -63,75 +63,13 @@ public class MediaWikiClientTestCase extends TestCase {
 	}
 
 	public void testgetPageContentByTitle001() throws Exception {
-
 		String host = "ja.wikipedia.org";
-
 		{
 			String title = "イチロー";
 			String expected = "野球";
 			checkFirstSentenceOfContent(host, title, expected);
 		}
 
-		{
-			String title = "松井秀喜";
-			String expected = "野球";
-			checkFirstSentenceOfContent(host, title, expected);
-		}
-		{
-			String title = "タモリ";
-			String expected = "タレント";
-			checkFirstSentenceOfContent(host, title, expected);
-		}
-		{
-			String title = "うしろゆびさされ組";
-			String expected = "ユニット";
-			checkFirstSentenceOfContent(host, title, expected);
-		}
-		{
-			String title = "鈴木彩艶";
-			String expected = "サッカー";
-			checkFirstSentenceOfContent(host, title, expected);
-		}
-		{
-			String title = "ハリー・ポッターシリーズ";
-			String expected = "小説";
-			checkFirstSentenceOfContent(host, title, expected);
-		}
-		{
-			String title = "即死チートが最強すぎて、異世界のやつらがまるで相手にならないんですが。";
-			String expected = "ライトノベル";
-			checkFirstSentenceOfContent(host, title, expected);
-		}
-		{
-			String title = "Twitter";
-			String expected = "ソーシャル";
-			checkFirstSentenceOfContent(host, title, expected);
-		}
-		{
-			String title = "貴乃花光司";
-			String expected = "横綱";
-			checkFirstSentenceOfContent(host, title, expected);
-		}
-		{
-			String title = "能登半島地震_(2024年)";
-			String expected = "穴水";
-			checkFirstSentenceOfContent(host, title, expected);
-		}
-		{
-			String title = "Apple Watch";
-			String expected = "腕時計";
-			checkFirstSentenceOfContent(host, title, expected);
-		}
-
-	}
-
-	private void checkFirstSentenceOfContent(String host, String title, String expected) throws IOException {
-		try (MediaWikiClient client = new MediaWikiClient(host);) {
-			String wiki_content = client.getPageContentByTitle(title);
-			String rootNodeText = MediaWikiTextUtils.getRootNodeTextFirstSentence(wiki_content, title, "ja");
-			System.out.println(rootNodeText);
-			assertTrue(rootNodeText.contains(expected));
-		}
 	}
 
 	public void testgetPageContentByTitle002() throws Exception {
@@ -323,6 +261,67 @@ public class MediaWikiClientTestCase extends TestCase {
 		}
 	}
 
+	public void testgetPageContentByTitle009() throws Exception {
+		String host = "ja.wikipedia.org";
+		{
+			String title = "イチロー";
+			String expected = "野球";
+			checkFirstSentenceOfContent(host, title, expected);
+		}
+
+		{
+			String title = "松井秀喜";
+			String expected = "野球";
+			checkFirstSentenceOfContent(host, title, expected);
+		}
+		{
+			String title = "タモリ";
+			String expected = "タレント";
+			checkFirstSentenceOfContent(host, title, expected);
+		}
+		{
+			String title = "うしろゆびさされ組";
+			String expected = "ユニット";
+			checkFirstSentenceOfContent(host, title, expected);
+		}
+		{
+			String title = "鈴木彩艶";
+			String expected = "サッカー";
+			checkFirstSentenceOfContent(host, title, expected);
+		}
+		{
+			String title = "ハリー・ポッターシリーズ";
+			String expected = "小説";
+			checkFirstSentenceOfContent(host, title, expected);
+		}
+		{
+			String title = "即死チートが最強すぎて、異世界のやつらがまるで相手にならないんですが。";
+			String expected = "ライトノベル";
+			checkFirstSentenceOfContent(host, title, expected);
+		}
+		{
+			String title = "Twitter";
+			String expected = "ソーシャル";
+			checkFirstSentenceOfContent(host, title, expected);
+		}
+		{
+			String title = "貴乃花光司";
+			String expected = "横綱";
+			checkFirstSentenceOfContent(host, title, expected);
+		}
+		{
+			String title = "能登半島地震_(2024年)";
+			String expected = "穴水";
+			checkFirstSentenceOfContent(host, title, expected);
+		}
+		{
+			String title = "Apple Watch";
+			String expected = "腕時計";
+			checkFirstSentenceOfContent(host, title, expected);
+		}
+
+	}
+
 	public void testgetPageContentByTitle101() throws Exception {
 		String host = "en.wikipedia.org";
 		{
@@ -474,6 +473,16 @@ public class MediaWikiClientTestCase extends TestCase {
 				System.out.println(title);
 			}
 			System.out.println(titles.size());
+		}
+	}
+
+	public void testParse001() throws Exception {
+		String host = "ja.wikipedia.org";
+		try (MediaWikiClient client = new MediaWikiClient(host);) {
+			String wikiText = "This is a simple [[Wikipedia]] and here is another [[Wiktionary]]. [https://www.ibm.com/ IBM]";
+			// parse wiki text
+			MediaWikiApiResponse r = client.parse(wikiText);
+			System.out.println(r.getText());
 		}
 	}
 
