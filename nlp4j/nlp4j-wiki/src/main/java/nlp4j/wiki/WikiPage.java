@@ -4,9 +4,7 @@ import java.io.IOException;
 import java.util.List;
 
 import info.bliki.wiki.model.WikiModel;
-import nlp4j.wiki.util.MediaWikiPageUtils;
 import nlp4j.wiki.util.MediaWikiTextUtils;
-import nlp4j.wiki.util.WikiUtils;
 
 /**
  * <pre>
@@ -103,6 +101,7 @@ public class WikiPage {
 
 	/**
 	 * @return Namespace of this page
+	 * @see https://en.wikipedia.org/wiki/Wikipedia:Project_namespace
 	 */
 	public String getNamespace() {
 		return namespace;
@@ -112,6 +111,7 @@ public class WikiPage {
 	 * created on: 2023-08-14
 	 * 
 	 * @return Namespace of this page
+	 * @see https://en.wikipedia.org/wiki/Wikipedia:Project_namespace
 	 */
 	public Integer getNamespaceAsInt() {
 		return Integer.parseInt(namespace);
@@ -121,15 +121,11 @@ public class WikiPage {
 	 * created on: 2023-07-22
 	 * 
 	 * @return
-	 * 
 	 */
 	public List<WikiPageNode> getNodes() {
-
 		WikiItemTextParserInterface parser = new WikiItemTextParser();
 		parser.parse(this);
-
 		return parser.getWikiPageNodesAsList();
-
 	}
 
 	/**

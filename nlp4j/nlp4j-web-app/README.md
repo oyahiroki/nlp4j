@@ -5,13 +5,17 @@ Web UI Application for text analytics
 
 # How to run?
 
-kick
+start web app
 
 	mvn jetty:run
 
-then open
+open web app
 
 	http://localhost:8080/index.jsp
+
+end web app
+
+	ctrl + c on console
 
 # Introduction 
 
