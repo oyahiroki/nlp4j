@@ -38,7 +38,9 @@ public class EmbeddingsResponseParser {
 			// embeddings
 
 			JsonArray embeddings = responseDoc.get("embeddings").getAsJsonArray();
-			System.err.println(embeddings.size());
+			if (logger.isDebugEnabled()) {
+				logger.debug(embeddings.size());
+			}
 			Double[] dd = new Double[embeddings.size()];
 			for (int n = 0; n < embeddings.size(); n++) {
 				dd[n] = embeddings.get(n).getAsDouble();

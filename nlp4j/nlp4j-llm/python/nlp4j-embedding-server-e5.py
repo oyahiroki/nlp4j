@@ -127,6 +127,7 @@ class HelloHttpServer(ThreadingMixIn, HTTPServer):
 		print("http://" + address[0] + ":" + str(address[1]) + "/?text=これはテストです。")
 		print("http://" + address[0] + ":" + str(address[1]) + "/?text=%E3%81%93%E3%82%8C%E3%81%AF%E3%83%86%E3%82%B9%E3%83%88%E3%81%A7%E3%81%99%E3%80%82")
 		print("curl -X POST -H \"Content-Type: application/json\" -d \"{\\\"text\\\":\\\"これはテストです。\\\"}\" http://" + address[0] + ":" + str(address[1]) + "/")
+		print("Expected response: " + '{"message": "ok", "time": "2024-05-26T23:21:38", "text": "\u3053\u308c\u306f\u30c6\u30b9\u30c8\u3067\u3059\u3002", "embeddings": [0.04231283441185951, -0.0035561583936214447, -0.014567600563168526, ... 0.022928446531295776]}')
 		super().__init__(address, handlerClass)
 
 def main():

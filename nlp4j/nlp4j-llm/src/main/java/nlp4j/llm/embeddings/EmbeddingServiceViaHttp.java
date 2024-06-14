@@ -3,7 +3,6 @@ package nlp4j.llm.embeddings;
 import java.io.IOException;
 import java.lang.invoke.MethodHandles;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
@@ -12,7 +11,6 @@ import org.apache.logging.log4j.Logger;
 import com.google.gson.JsonObject;
 
 import nlp4j.Document;
-import nlp4j.Keyword;
 import nlp4j.NlpService;
 import nlp4j.NlpServiceResponse;
 import nlp4j.http.HttpClient;
@@ -41,8 +39,8 @@ public class EmbeddingServiceViaHttp implements NlpService {
 
 	/**
 	 * <pre>
-	 * GiNZA Server にテキストをPOSTリクエストで送信する
-	 * Post text to GiNZA Server
+	 * Server にテキストをPOSTリクエストで送信する
+	 * Post text to Server
 	 * </pre>
 	 * 
 	 * @param text 解析対象のテキスト
@@ -58,14 +56,13 @@ public class EmbeddingServiceViaHttp implements NlpService {
 		Map<String, String> params = new HashMap<>();
 		params.put("text", text);
 
-		// Http client
-		HttpClient client = new HttpClient5();
-
 		JsonObject jsonObj = new JsonObject();
 		jsonObj.addProperty("text", text);
 
 		// client.post throws IOException
-		try {
+		try ( // Http client
+				HttpClient client = new HttpClient5(); //
+		) {
 			NlpServiceResponse res = client.post(this.endPoint, jsonObj.toString());
 
 			if (logger.isDebugEnabled()) {
@@ -75,20 +72,11 @@ public class EmbeddingServiceViaHttp implements NlpService {
 
 			EmbeddingsResponseParser parser = new EmbeddingsResponseParser();
 			Document doc = parser.parseResponse(res.getOriginalResponseBody());
+			if (logger.isDebugEnabled()) {
+				logger.debug(doc.toString());
+			}
 
 			return res;
-		} catch (IOException e) {
-//			e.printStackTrace();
-			throw e;
-		} finally {
-			try {
-				client.close();
-			} //
-			catch (Exception e) {
-//				e.printStackTrace();
-				throw new IOException(e);
-			}
 		}
-
 	}
 }
