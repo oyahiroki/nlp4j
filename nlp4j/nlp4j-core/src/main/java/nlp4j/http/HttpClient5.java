@@ -10,6 +10,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.hc.client5.http.ClientProtocolException;
 import org.apache.hc.client5.http.classic.methods.HttpGet;
 import org.apache.hc.client5.http.classic.methods.HttpPost;
 
@@ -20,6 +21,7 @@ import org.apache.hc.core5.http.ContentType;
 import org.apache.hc.core5.http.Header;
 import org.apache.hc.core5.http.HttpEntity;
 import org.apache.hc.core5.http.ParseException;
+import org.apache.hc.core5.http.io.HttpClientResponseHandler;
 import org.apache.hc.core5.http.io.entity.EntityUtils;
 import org.apache.hc.core5.http.io.entity.StringEntity;
 import org.apache.hc.core5.net.URIBuilder;
@@ -191,20 +193,18 @@ public class HttpClient5 implements HttpClient {
 				throw new IOException("url: " + url + ",response: " + code);
 			}
 			HttpEntity entity1 = response1.getEntity();
-			
-			if(entity1!= null) {
+
+			if (entity1 != null) {
 				return entity1.getContent();
-			}
-			else {
+			} else {
 				throw new IOException();
 			}
-			
+
 			// do something useful with the response body
 			// and ensure it is fully consumed
 //			String b = EntityUtils.toString(entity1);
 //			byte[] bb = EntityUtils.toByteArray(entity1);
-			
-			
+
 //			EntityUtils.consume(entity1);
 //			byte[] bb = b.getBytes("UTF-8");
 //			this.content_length = bb.length;
@@ -220,7 +220,7 @@ public class HttpClient5 implements HttpClient {
 			throws IOException {
 
 		int code = -1;
-		String body = null;
+		String responseBody = null;
 
 		HttpPost httpPost = new HttpPost(url);
 		{
@@ -232,18 +232,33 @@ public class HttpClient5 implements HttpClient {
 		}
 
 		httpPost.setEntity(new StringEntity(requestBody, ContentType.APPLICATION_JSON, "UTF-8", false));
-		try (CloseableHttpResponse response1 = httpclient.execute(httpPost)) {
-			code = response1.getCode();
-			HttpEntity entity1 = response1.getEntity();
-			// do something useful with the response body
-			// and ensure it is fully consumed
-			body = EntityUtils.toString(entity1);
-			EntityUtils.consume(entity1);
-		} catch (ParseException e) {
-			throw new IOException(e);
-		}
 
-		DefaultNlpServiceResponse res = new DefaultNlpServiceResponse(code, body);
+		// HttpClientResponseHandlerの実装
+		HttpClientResponseHandler<String> responseHandler = response -> {
+			int status = response.getCode();
+			if (status >= 200 && status < 300) {
+				HttpEntity entity = response.getEntity();
+				return entity != null ? EntityUtils.toString(entity) : null;
+			} else {
+				throw new ClientProtocolException("Unexpected response status: " + status);
+			}
+		};
+
+//		try (CloseableHttpResponse response1 = httpclient.execute(httpPost)) {
+//			code = response1.getCode();
+//			HttpEntity entity1 = response1.getEntity();
+//			// do something useful with the response body
+//			// and ensure it is fully consumed
+//			responseBody = EntityUtils.toString(entity1);
+//			EntityUtils.consume(entity1);
+//		} catch (ParseException e) {
+//			throw new IOException(e);
+//		}
+
+		// リクエストの実行とレスポンスハンドラーの処理
+		responseBody = httpclient.execute(httpPost, responseHandler);
+
+		DefaultNlpServiceResponse res = new DefaultNlpServiceResponse(code, responseBody);
 
 		return res;
 

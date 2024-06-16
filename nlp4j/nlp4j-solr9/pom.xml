@@ -41,6 +41,11 @@
 		</dependency>
 		<dependency>
 			<groupId>org.nlp4j</groupId>
+			<artifactId>nlp4j-llm</artifactId>
+			<version>1.0.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.nlp4j</groupId>
 			<artifactId>nlp4j-openai</artifactId>
 			<version>0.1.0.0</version>
 		</dependency>

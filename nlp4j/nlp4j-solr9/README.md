@@ -1,6 +1,6 @@
 #NLP4J Solr9
 
-## 対象バージョン
+## Solr バージョン
 
 9.3.0
 
@@ -54,17 +54,21 @@ server/solr/sandbox/conf/managed-schema.xml を編集してフィールドを定
 
 managed-schema.xml に以下の定義を追加する。（手作業でないとできないっぽい）
 
-#### 定義1
+#### フィールドの定義
 
 ```
 <field name="vector" type="knn_vector" indexed="true" stored="false" /> <!-- フィールド定義 -->
 ```
 
-#### 定義2
+#### フィールドタイプ(型)の定義
 
 ```
 <fieldType name="knn_vector" class="solr.DenseVectorField" vectorDimension="4" similarityFunction="cosine" /> <!-- 型定義 -->
 ```
+
+vectorDimension: ベクトルの次元数
+similarityFunction: 類似計算の方法
+
 
 
 ## 参照

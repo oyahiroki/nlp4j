@@ -23,7 +23,7 @@ public class HelloSolr9HttpClient2_004QueryVector1 {
 			final Map<String, String[]> requestParamsSolr = new HashMap<>();
 
 			requestParamsSolr.put("q", new String[] { "{!knn f=vector topK=10}[1.0, 2.4, 3.5, 4.0]" });
-			requestParamsSolr.put("fl", new String[] { "id score" });
+			requestParamsSolr.put("fl", new String[] { "id", "score" });
 
 			MultiMapSolrParams solrQueryParams = new MultiMapSolrParams(requestParamsSolr);
 

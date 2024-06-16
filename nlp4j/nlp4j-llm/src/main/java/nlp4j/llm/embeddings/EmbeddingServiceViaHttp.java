@@ -5,6 +5,7 @@ import java.lang.invoke.MethodHandles;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.hc.client5.http.HttpHostConnectException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -63,6 +64,7 @@ public class EmbeddingServiceViaHttp implements NlpService {
 		try ( // Http client
 				HttpClient client = new HttpClient5(); //
 		) {
+			// throws IOException
 			NlpServiceResponse res = client.post(this.endPoint, jsonObj.toString());
 
 			if (logger.isDebugEnabled()) {
@@ -77,6 +79,12 @@ public class EmbeddingServiceViaHttp implements NlpService {
 			}
 
 			return res;
+		} catch (IOException e) {
+			if (e instanceof HttpHostConnectException) {
+				throw new IOException("Server is down or not started", e);
+			} else {
+				throw e;
+			}
 		}
 	}
 }
