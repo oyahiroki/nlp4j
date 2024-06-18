@@ -3,11 +3,13 @@ package nlp4j.util;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import com.google.gson.JsonObject;
 
 import junit.framework.TestCase;
 import nlp4j.Document;
+import nlp4j.DocumentBuilder;
 import nlp4j.impl.DefaultDocument;
 import nlp4j.impl.DefaultKeyword;
 import nlp4j.impl.DefaultKeywordWithDependency;
@@ -18,6 +20,20 @@ import nlp4j.impl.DefaultKeywordWithDependency;
  *
  */
 public class DocumentUtilTestCase extends TestCase {
+
+	/**
+	 * @since 1.3.7.13
+	 */
+	public void testToMapDocument001() {
+
+		Document doc = (new DocumentBuilder()).put("aaa", "111").put("bbb", "222").put("ccc", "333").create();
+
+		Map<String, Object> map = DocumentUtil.toMap(doc);
+		map.forEach((key, value) -> {
+			System.err.println("key=" + key + ",value=" + value);
+
+		});
+	}
 
 	public void testParseFromJson001() throws Exception {
 		String json = "{}";

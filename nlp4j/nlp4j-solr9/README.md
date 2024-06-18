@@ -71,20 +71,24 @@ similarityFunction: 類似計算の方法
 
 
 
-## 参照
+## 参考になるページ
 
 Apache Solr Reference Guide (9.3) - Dense Vector Search
 
-https://solr.apache.org/guide/solr/latest/query-guide/dense-vector-search.html
+[https://solr.apache.org/guide/solr/latest/query-guide/dense-vector-search.html](https://solr.apache.org/guide/solr/latest/query-guide/dense-vector-search.html)
+
 
 Solr9 から導入されたベクトル検索ってどんな感じ？
 
-https://zenn.dev/sashimimochi/articles/1957974d64d571
+[https://zenn.dev/sashimimochi/articles/1957974d64d571](https://zenn.dev/sashimimochi/articles/1957974d64d571)
 
 Solr9 から導入されたベクトル検索ってどうなのよ？
 
-https://qiita.com/Sashimimochi/items/b52e9ea80f54d7e451ce
+[https://qiita.com/Sashimimochi/items/b52e9ea80f54d7e451ce](https://qiita.com/Sashimimochi/items/b52e9ea80f54d7e451ce)
 
+Solr
+
+[https://hub.docker.com/_/solr](https://hub.docker.com/_/solr)
 
 ## インストール(docker)
 

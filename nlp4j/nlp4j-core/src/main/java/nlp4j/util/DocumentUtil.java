@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.TimeZone;
 
@@ -41,6 +42,22 @@ public class DocumentUtil {
 
 	static {
 		sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
+	}
+
+	/**
+	 * @param doc
+	 * @return
+	 * @since 1.3.7.13
+	 */
+	static public Map<String, Object> toMap(Document doc) {
+		Map<String, Object> m = new HashMap<String, Object>();
+
+		doc.getAttributeKeys().forEach(k -> { //
+			Object o = doc.getAttribute(k); //
+			m.put(k, o); //
+		});
+
+		return m;
 	}
 
 	/**

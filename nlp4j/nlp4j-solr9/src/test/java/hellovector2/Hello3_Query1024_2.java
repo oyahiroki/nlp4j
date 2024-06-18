@@ -19,10 +19,10 @@ import nlp4j.llm.embeddings.EmbeddingResponse;
 import nlp4j.llm.embeddings.EmbeddingServiceViaHttp;
 import nlp4j.util.DoubleUtils;
 
-public class Hello3_Query1024_1 {
+public class Hello3_Query1024_2 {
 
 	public static void main(String[] args) throws Exception {
-		String text = "ドアミラーが閉まらない";
+		String text = "信号待ちをしていた";
 		String endPoint = "http://localhost:8888/";
 		EmbeddingServiceViaHttp nlp = new EmbeddingServiceViaHttp(endPoint);
 		NlpServiceResponse res = nlp.process(text);

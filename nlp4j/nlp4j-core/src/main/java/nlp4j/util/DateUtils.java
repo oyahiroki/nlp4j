@@ -251,4 +251,38 @@ public class DateUtils {
 		return sdf_ISO8601.format(date);
 	}
 
+	/**
+	 * @param date
+	 * @param format
+	 * @return
+	 * @since 1.3.7.13
+	 */
+	static public String toISO8601(String date, String format) {
+		SimpleDateFormat sdf = new SimpleDateFormat(format);
+		try {
+			Date d = sdf.parse(date);
+			return sdf_ISO8601.format(d);
+		} catch (ParseException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	/**
+	 * @param date
+	 * @param format
+	 * @return
+	 * @since 1.3.7.13
+	 */
+	static public Date toDate(String date, String format) {
+		SimpleDateFormat sdf = new SimpleDateFormat(format);
+		try {
+			Date d = sdf.parse(date);
+			return d;
+		} catch (ParseException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
 }
