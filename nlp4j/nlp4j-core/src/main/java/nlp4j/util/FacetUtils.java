@@ -25,10 +25,11 @@ public class FacetUtils {
 	static public List<String> splitFacetPath(String path) {
 		int idx = 0;
 		int idx1 = 0;
-		List<String> ss = new ArrayList<>();
+		List<String> ss = new ArrayList<>(5);
 		if (path == null || path.isEmpty()) {
 			return ss;
-		} else {
+		} //
+		else {
 			while ((idx = path.indexOf(".", idx1)) != -1) {
 				ss.add(path.substring(0, idx));
 				idx1 = idx + 1;

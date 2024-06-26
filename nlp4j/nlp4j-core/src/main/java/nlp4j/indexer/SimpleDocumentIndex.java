@@ -66,30 +66,76 @@ public class SimpleDocumentIndex extends AbstractDocumentIndexer implements Docu
 	 */
 	private HashMap<String, List<String>> mapKeywordDocumentids = new HashMap<String, List<String>>();
 
-	Counter<String> dateCounterYYYY = new Counter<>();
+	private Counter<String> dateCounterYYYY = new Counter<>();
 
-	Counter<String> dateCounterYYYYMM = new Counter<>();
+	private Counter<String> dateCounterYYYYMM = new Counter<>();
 
-	Counter<String> dateCounterYYYYMMDD = new Counter<>();
+	private Counter<String> dateCounterYYYYMMDD = new Counter<>();
+
+	public SimpleDocumentIndex() {
+		super();
+	}
+
+	public SimpleDocumentIndex(int initialHashMapSize) {
+		super();
+//		float loadFactor = 0.75f; // 負荷率
+		float loadFactor = 0.1f; // 負荷率
+		map_docid_document = new HashMap<>(initialHashMapSize, loadFactor);
+
+		// <String facet, HashMap <String lex, Long count>>
+		// ファセット毎のキーワードのカウント
+		mapFacetKeywordCount = new HashMap<>(initialHashMapSize, loadFactor);
+
+		// facet -> (value, count)
+		mapItemCount = new HashMap<>(initialHashMapSize, loadFactor);
+
+		// ファセットを区別しないキーワードのカウント
+		keywordCount = new HashMap<Keyword, Long>(initialHashMapSize, loadFactor);
+
+		// LIST OF DOCUMENT ID
+		docids = new ArrayList<>(initialHashMapSize);
+
+		mapKeywordDocumentids = new HashMap<String, List<String>>(initialHashMapSize, loadFactor);
+
+		dateCounterYYYY = new Counter<>(initialHashMapSize, loadFactor);
+
+		dateCounterYYYYMM = new Counter<>(initialHashMapSize, loadFactor);
+
+		dateCounterYYYYMMDD = new Counter<>(initialHashMapSize, loadFactor);
+
+	}
+
 	// 日付フィールドの名前
 	private String dateField = null;
 	private String dateFieldFormat = null;
 
 	@Override
 	public void addDocument(Document doc) {
-		String docId = doc.getId();
+		boolean addDoc = true;
+		boolean addItem = true;
+		boolean addKeyword = true;
+		boolean facetAsPath = true;
+		boolean addDate = true;
+		addDocument(doc, addDoc, addItem, addKeyword, facetAsPath, addDate);
+	}
 
-		// DOCUMENT ID
-		if (docId != null) {
-			docids.add(docId);
-			map_docid_document.put(docId, doc);
-		} //
-		else {
-			logger.warn("ID is null: " + doc);
-			throw new IllegalArgumentException("Document ID should be set. " + doc.toString());
+	public void addDocument(Document doc, boolean addDoc, boolean addItem, boolean addKeyword, boolean facetAsPath,
+			boolean addDate) {
+
+		String docId = doc.getId();
+		if (addDoc) {
+			// DOCUMENT ID
+			if (docId != null) {
+				docids.add(docId);
+				map_docid_document.put(docId, doc);
+			} //
+			else {
+				logger.warn("ID is null: " + doc);
+				throw new IllegalArgumentException("Document ID should be set. " + doc.toString());
+			}
 		}
 
-		{ // COUNT ITEM
+		if (addItem) { // COUNT ITEM
 			// Facet count
 			// FOR EACH (ITEM)
 			for (String facet : doc.getAttributeKeys()) {
@@ -104,55 +150,50 @@ public class SimpleDocumentIndex extends AbstractDocumentIndexer implements Docu
 				} else {
 					this.mapItemCount.get(facet).add(value);
 				}
+
 			} // END OF FOR EACH (ITEM)
 		} // END OF COUNT ITEM
 
-		{ // COUNT KEYWORD
+		if (addKeyword) { // COUNT KEYWORD
 			// Keyword count キーワードカウント
 			Set<String> usedLex = new HashSet<String>();
 			for (Keyword kwd : doc.getKeywords()) {
 				// 同一文書に複数の同じキーワードが含まれる場合はカウントしない
 				if (usedLex.contains(kwd.getLex()) == false) {
-					countKeyword(kwd);
+					countKeyword(kwd, facetAsPath);
 					usedLex.add(kwd.getLex());
 				}
-
-				String key = kwd.getFacet() + "." + kwd.getLex();
-				if (mapKeywordDocumentids.get(key) == null) {
-					mapKeywordDocumentids.put(key, new ArrayList<String>());
+				final String key = kwd.getFacet() + "." + kwd.getLex();
+				List<String> lst = mapKeywordDocumentids.get(key);
+				if (lst == null) {
+					lst = new ArrayList<String>(1000);
+					mapKeywordDocumentids.put(key, lst);
 				}
-				if (mapKeywordDocumentids.get(key).contains(docId) == false) {
-					mapKeywordDocumentids.get(key).add(docId);
+				if (lst.contains(docId) == false) {
+					lst.add(docId);
 				}
 
 			}
 		} // END OF COUNT KEYWORD
 
-		{ // COUNT DATE
+		if (addDate) { // COUNT DATE
 			// 日付カウント
 			if (this.dateField != null) {
 				boolean countYYYY = true;
 				boolean countYYYYMM = true;
 				boolean countYYYYMMDD = true;
-
 				String value = doc.getAttributeAsString(dateField);
-				if (value == null) {
-				} //
-				else {
-
+				if (value != null) {
 					SimpleDateFormat sdf = new SimpleDateFormat(this.dateFieldFormat);
 					SimpleDateFormat sdfYYYY = new SimpleDateFormat("yyyy");
 					SimpleDateFormat sdfYYYYMM = new SimpleDateFormat("yyyyMM");
 					SimpleDateFormat sdfYYYYMMDD = new SimpleDateFormat("yyyyMMdd");
-
 					try {
 						Date valueDate = sdf.parse(value);
-
 						if (countYYYY == true) {
 							String v = sdfYYYY.format(valueDate);
 							dateCounterYYYY.add(v);
 						}
-
 						if (countYYYYMM == true) {
 							String v = sdfYYYYMM.format(valueDate);
 							dateCounterYYYYMM.add(v);
@@ -161,20 +202,15 @@ public class SimpleDocumentIndex extends AbstractDocumentIndexer implements Docu
 							String v = sdfYYYYMMDD.format(valueDate);
 							dateCounterYYYYMMDD.add(v);
 						}
-
 					} catch (ParseException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-
-				}
-
-			}
+				} // END_OF_IF
+			} // END_OF_IF
 		} // END OF COUNT DATE
-
 	}
 
-	private void countKeyword(Keyword kwd) {
+	private void countKeyword(Keyword kwd, boolean treatFacetAsPath) {
 		{
 //			keywords.add(kwd);
 		}
@@ -191,29 +227,55 @@ public class SimpleDocumentIndex extends AbstractDocumentIndexer implements Docu
 
 		// facet , keyword, count
 
-		String facet0 = kwd.getFacet();
+		if (treatFacetAsPath) {
+			String facet0 = kwd.getFacet();
 
-		List<String> ff = FacetUtils.splitFacetPath(facet0);
-		for (String facet : ff) {
-			HashMap<String, Long> keywordCount = mapFacetKeywordCount.get(facet);
-			if (keywordCount == null) {
-				keywordCount = new HashMap<>();
-				keywordCount.put(kwd.getLex(), (long) 1);
-				logger.debug("put: new keyword(1)");
-				mapFacetKeywordCount.put(facet, keywordCount);
-				logger.debug("put: new facet count");
-			} else {
-				Long l = keywordCount.get(kwd.getLex());
-				if (l == null) {
+			List<String> ff = FacetUtils.splitFacetPath(facet0);
+			for (String facet : ff) {
+				HashMap<String, Long> keywordCount = mapFacetKeywordCount.get(facet);
+				if (keywordCount == null) {
+					keywordCount = new HashMap<>();
 					keywordCount.put(kwd.getLex(), (long) 1);
-					logger.debug("put: new keyword(2)");
+//					logger.debug("put: new keyword(1)");
+					mapFacetKeywordCount.put(facet, keywordCount);
+//					logger.debug("put: new facet count");
 				} else {
-					l++;
-					keywordCount.put(kwd.getLex(), l);
-					logger.debug("increment: keyword");
+					Long l = keywordCount.get(kwd.getLex());
+					if (l == null) {
+						keywordCount.put(kwd.getLex(), (long) 1);
+//						logger.debug("put: new keyword(2)");
+					} else {
+						l++;
+						keywordCount.put(kwd.getLex(), l);
+//						logger.debug("increment: keyword");
+					}
+				}
+			}
+		} else {
+			String facet = kwd.getFacet();
+
+			{
+				HashMap<String, Long> keywordCount = mapFacetKeywordCount.get(facet);
+				if (keywordCount == null) {
+					keywordCount = new HashMap<>();
+					keywordCount.put(kwd.getLex(), (long) 1);
+//					logger.debug("put: new keyword(1)");
+					mapFacetKeywordCount.put(facet, keywordCount);
+//					logger.debug("put: new facet count");
+				} else {
+					Long l = keywordCount.get(kwd.getLex());
+					if (l == null) {
+						keywordCount.put(kwd.getLex(), (long) 1);
+//						logger.debug("put: new keyword(2)");
+					} else {
+						l++;
+						keywordCount.put(kwd.getLex(), l);
+//						logger.debug("increment: keyword");
+					}
 				}
 			}
 		}
+
 	}
 
 	/**
@@ -403,7 +465,9 @@ public class SimpleDocumentIndex extends AbstractDocumentIndexer implements Docu
 	public double getkeywordIDF(Keyword kwd) {
 		long doc_count = (this.getDocumentCount() != -1) ? this.getDocumentCount() : 0;
 		long kwd_count = (this.getKeywordCount(kwd) != -1) ? this.getKeywordCount(kwd) : 0;
-		double d = Math.log10((double) doc_count / ((double) kwd_count + 1.0d));
+//		double d = Math.log10((double) doc_count / ((double) kwd_count + 1.0d));
+		double d = Math.log10((double) doc_count / ((double) kwd_count));
+//		double d = Math.log((double) doc_count / ((double) kwd_count + 1.0d));
 		return d;
 	}
 
@@ -512,7 +576,8 @@ public class SimpleDocumentIndex extends AbstractDocumentIndexer implements Docu
 	 * @return IDF of keyword
 	 */
 	public double getkeywordTFIDF(Keyword kwd, long count) {
-		double tf = (double) count / (double) this.getDocumentCount();
+//		double tf = (double) count / (double) this.getDocumentCount();
+		double tf = (double) count;
 		double idf = this.getkeywordIDF(kwd);
 		return tf * idf;
 	}

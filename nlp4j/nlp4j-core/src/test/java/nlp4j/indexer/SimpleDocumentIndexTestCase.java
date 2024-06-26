@@ -595,4 +595,64 @@ public class SimpleDocumentIndexTestCase extends TestCase {
 		}
 	}
 
+	/**
+	 * <pre>
+	 * すべての機能をテストする
+	 * </pre>
+	 */
+	public void testGetKeywordTFIDF001() {
+
+		SimpleDocumentIndex index = new SimpleDocumentIndex();
+		{
+			// 月単位でカウントする
+			index.setProperty(SimpleDocumentIndex.KEY_DATEFIELD, "date,yyyyMM");
+		}
+		{
+			// document 001
+			index.addDocument((new DocumentBuilder()).id("001") //
+					.put("date", "2021-01-01") // date
+					.kw("noun", "T1") // kw
+					.kw("noun", "T2") // kw
+					.kw("noun", "T3") // kw
+					.kw("noun", "T3") // kw
+					.kw("noun", "T4") // kw
+					.build());
+			// document 002
+			index.addDocument((new DocumentBuilder()).id("002") //
+					.put("date", "2021-01-01") // date
+					.kw("noun", "T1") // kw
+					.kw("noun", "T1") // kw
+					.kw("noun", "T1") // kw
+					.kw("noun", "T3") // kw
+					.kw("noun", "T5") // kw
+					.build());
+			// document 003
+			index.addDocument((new DocumentBuilder()).id("003") //
+					.put("date", "2021-01-01") // date
+					.kw("noun", "T1") // kw
+					.kw("noun", "T4") // kw
+					.kw("noun", "T4") // kw
+					.kw("noun", "T5") // kw
+					.build());
+			// document 004
+			index.addDocument((new DocumentBuilder()).id("004") //
+					.put("date", "2021-02-01") // date
+					.kw("noun", "T3") // kw
+					.kw("noun", "T3") // kw
+					.kw("noun", "T5") // kw
+					.kw("noun", "T5") // kw
+					.build());
+		}
+		{ // 文書の数 NUMBER OF DOCUMENTS
+			System.err.println("文書数: " + index.getDocumentCount());
+		}
+		{ // キーワードのIDF
+			System.err.println("IDF(noun,T1):" + index.getkeywordIDF(new DefaultKeyword("noun", "T1")));
+		}
+		{ // キーワードのTF-IDF
+			System.err.println("TF-IDF(noun,T1):" + index.getkeywordTFIDF(new DefaultKeyword("noun", "T1"), 1));
+			System.err.println("TF-IDF(noun,T2):" + index.getkeywordTFIDF(new DefaultKeyword("noun", "T2"), 1));
+		}
+	}
+
 }

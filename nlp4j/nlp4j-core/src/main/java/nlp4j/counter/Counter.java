@@ -28,10 +28,30 @@ public class Counter<T> {
 	}
 
 	/**
+	 * @param initialCapacity
+	 * @param loadFactor
+	 * @since 1.3.7.13
+	 */
+	public Counter(int initialCapacity, float loadFactor) {
+		this.objCounter = new HashMap<T, Integer>(initialCapacity, loadFactor);
+	}
+
+	/**
 	 * @param description
 	 */
 	public Counter(String description) {
 		this.objCounter = new HashMap<T, Integer>();
+		this.description = description;
+	}
+
+	/**
+	 * @param description
+	 * @param initialCapacity
+	 * @param loadFactor
+	 * @since 1.3.7.13
+	 */
+	public Counter(String description, int initialCapacity, float loadFactor) {
+		this.objCounter = new HashMap<T, Integer>(initialCapacity, loadFactor);
 		this.description = description;
 	}
 
