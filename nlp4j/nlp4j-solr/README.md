@@ -77,3 +77,22 @@ https://docs.microsoft.com/en-us/rest/api/searchservice/search-documents
 
 https://docs.microsoft.com/ja-jp/rest/api/searchservice/search-documents
 
+
+# Docker で使う (2024-06-26)
+
+[https://solr.apache.org/guide/solr/latest/deployment-guide/solr-in-docker.html](https://solr.apache.org/guide/solr/latest/deployment-guide/solr-in-docker.html)
+に書いてある
+
+```
+>docker run -d -p 8983:8983 --name my_solr solr
+```
+
+```
+>docker exec -it my_solr solr create_core -c gettingstarted
+WARNING: Using _default configset with data driven schema functionality. NOT RECOMMENDED for production use.
+         To turn off: bin/solr config -c gettingstarted -p 8983 -action set-user-property -property update.autoCreateFields -value false
+
+Created new core 'gettingstarted'
+```
+
+

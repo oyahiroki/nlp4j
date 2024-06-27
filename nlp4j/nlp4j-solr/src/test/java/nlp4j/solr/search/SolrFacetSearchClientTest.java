@@ -17,11 +17,12 @@ public class SolrFacetSearchClientTest {
 		{
 			System.err.println("全文書数: " + c.getCountDocAll());
 		}
-		{
-			System.err.println("全語彙の中で「" + item + "」の順位: " + c.getRank(item));
-		}
+
 		{
 			System.err.println("「" + item + "」を含む文書の数: " + c.getCountAll(item));
+		}
+		{
+			System.err.println("全語彙の中で「" + item + "」の順位: " + c.getRank(item));
 		}
 
 //		{

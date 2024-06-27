@@ -6,8 +6,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.google.gson.JsonObject;
-
 import nlp4j.Keyword;
 import nlp4j.KeywordBuilder;
 
@@ -33,10 +31,6 @@ public class Trie {
 	// さらに長いキーワードがあればそちらを優先するか
 	private boolean overwrittern = true;
 
-	public boolean isOverwrittern() {
-		return overwrittern;
-	}
-
 	public boolean contains(String s) {
 		Trie ptr = this;
 		for (int n = 0; n < s.length(); n++) {
@@ -53,10 +47,20 @@ public class Trie {
 		return facets;
 	}
 
+	/**
+	 * same as insert(s, false, null);
+	 * 
+	 * @param s
+	 */
 	public void insert(String s) {
 		insert(s, false, null);
 	}
 
+	/**
+	 * @param s
+	 * @param overwrittern
+	 * @param facet
+	 */
 	public void insert(String s, boolean overwrittern, String facet) {
 		Trie ptr = this;
 
@@ -76,6 +80,10 @@ public class Trie {
 		if (facet != null) {
 			ptr.facets.add(facet);
 		}
+	}
+
+	public boolean isOverwrittern() {
+		return overwrittern;
 	}
 
 	public void print() {

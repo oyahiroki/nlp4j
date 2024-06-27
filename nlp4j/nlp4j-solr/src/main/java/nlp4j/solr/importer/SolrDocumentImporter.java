@@ -42,7 +42,17 @@ public class SolrDocumentImporter extends AbstractDocumentImporter implements Do
 	private String keyword_facet_field_mapping = null;
 	private String attribute_field_mapping = null;
 
-	@Override
+	/**
+	 * <pre>
+	 * endPoint=http://localhost:8983/solr/
+	 * collection=gettingstarted
+	 * keyword_facet_field_mapping=word->word_ss
+	 * attribute_field_mapping=text->text_txt_ja
+	 * </pre>
+	 * 
+	 * parms:
+	 * (endPoint|collection|keyword_facet_field_mapping|attribute_field_mapping)
+	 */
 	public void setProperty(String key, String value) {
 		super.setProperty(key, value);
 		if ("endPoint".equals(key)) {
@@ -72,7 +82,9 @@ public class SolrDocumentImporter extends AbstractDocumentImporter implements Do
 			solrClient.setParser(new XMLResponseParser());
 		}
 
-		logger.info("importing document...");
+		if (logger.isDebugEnabled()) {
+			logger.debug("importing document...");
+		}
 
 		// org.apache.solr.common.SolrInputDocument
 		SolrInputDocument inputDocument = new SolrInputDocument();

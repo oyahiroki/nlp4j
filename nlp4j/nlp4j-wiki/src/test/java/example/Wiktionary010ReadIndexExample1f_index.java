@@ -60,7 +60,7 @@ public class Wiktionary010ReadIndexExample1f_index {
 				}
 				Document d = (new DocumentBuilder()).text(title).build();
 				ann.annotate(d);
-				index.addDocument(d, false, false, true, false, false);
+//				index.addDocument(d, false, false, true, false, false);
 			} // END OF FOR EACH
 			System.err.println("Document size: " + index.getDocumentSize());
 		}

@@ -46,6 +46,26 @@ public class TrieTestCase extends TestCase {
 
 	}
 
+	public void testSearch000() throws Exception {
+
+		Trie trie = new Trie();
+		{ // 辞書の追加
+			trie.insert("A", true, "test"); // overwrite(長いもの勝ち)の設定は上書きされる
+			trie.insert("AB", true, "test"); // overwrite(長いもの勝ち)の設定は上書きされる
+			trie.insert("ABC", true, "test"); // overwrite(長いもの勝ち)の設定は上書きされる
+		}
+		trie.print();
+
+		{
+			TrieSearchResult result = trie.search("ABCDE");
+			for (Keyword found : result.getKeywords()) {
+				System.err.println(found);
+			}
+			assertEquals(1, result.getKeywords().size());
+			assertEquals("ABC", result.getKeywords().get(0).getLex());
+		}
+	}
+
 	public void testSearch001() throws Exception {
 
 		Trie trie = new Trie();
@@ -57,7 +77,7 @@ public class TrieTestCase extends TestCase {
 			trie.insert("CD", false, "facet2");
 			trie.insert("CDE", false, "facet3");
 			trie.insert("EFG", false, "facet3");
-			trie.insert("E", true, "facet3");
+			trie.insert("E", true, "facet3"); // overwrite(長いもの勝ち)の設定は上書きされる
 			trie.insert("XX", false, "facetx");
 		}
 		trie.print();
@@ -66,6 +86,8 @@ public class TrieTestCase extends TestCase {
 			TrieSearchResult result = trie.search("ABCDE");
 			for (Keyword found : result.getKeywords()) {
 				System.err.println(found);
+				assertNotSame("AB", found.getLex());
+				assertNotSame("E", found.getLex());
 			}
 		}
 	}
@@ -115,21 +137,30 @@ public class TrieTestCase extends TestCase {
 	}
 
 	public void testPrint001() throws Exception {
-
 		Trie trie = new Trie();
+		{
+			trie.insert("テスト");
+			trie.insert("テストケース");
+			trie.insert("株式会社");
+			trie.insert("株式");
+			trie.insert("会社");
+			trie.insert("自動");
+			trie.insert("自動車");
+			trie.insert("自動車会");
+			trie.insert("自動車会社");
+			trie.insert("自動車会社社員");
+			trie.insert("自動運転");
+		}
+		trie.print();
+	}
 
-		trie.insert("テスト");
-		trie.insert("テストケース");
-		trie.insert("株式会社");
-		trie.insert("株式");
-		trie.insert("会社");
-		trie.insert("自動");
-		trie.insert("自動車");
-		trie.insert("自動車会");
-		trie.insert("自動車会社");
-		trie.insert("自動車会社社員");
-		trie.insert("自動運転");
-
+	public void testPrint002() throws Exception {
+		Trie trie = new Trie();
+		{
+			trie.insert("テ", true, "test");
+			trie.insert("テスト", true, "test");
+			trie.insert("テストケース", true, "test");
+		}
 		trie.print();
 	}
 
