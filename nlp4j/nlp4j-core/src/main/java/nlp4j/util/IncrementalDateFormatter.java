@@ -25,8 +25,9 @@ public class IncrementalDateFormatter {
 	/**
 	 * @param dateformat
 	 * @param initialDate
-	 * @param calendarUnit
-	 * @param amount
+	 * @param calendarUnit    the calendar field.
+	 * @param amount          amount the amount of date or time to be added to the
+	 *                        field.
 	 * @param count_of_repeat
 	 * @throws ParseException
 	 */

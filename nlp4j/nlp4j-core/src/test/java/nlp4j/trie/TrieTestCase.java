@@ -46,6 +46,34 @@ public class TrieTestCase extends TestCase {
 
 	}
 
+	public void testPrint001() throws Exception {
+		Trie trie = new Trie();
+		{
+			trie.insert("テスト");
+			trie.insert("テストケース");
+			trie.insert("株式会社");
+			trie.insert("株式");
+			trie.insert("会社");
+			trie.insert("自動");
+			trie.insert("自動車");
+			trie.insert("自動車会");
+			trie.insert("自動車会社");
+			trie.insert("自動車会社社員");
+			trie.insert("自動運転");
+		}
+		trie.print();
+	}
+
+	public void testPrint002() throws Exception {
+		Trie trie = new Trie();
+		{
+			trie.insert("テ", true, "test");
+			trie.insert("テスト", true, "test");
+			trie.insert("テストケース", true, "test");
+		}
+		trie.print();
+	}
+
 	public void testSearch000() throws Exception {
 
 		Trie trie = new Trie();
@@ -136,32 +164,42 @@ public class TrieTestCase extends TestCase {
 		}
 	}
 
-	public void testPrint001() throws Exception {
+	public void testSearch004() throws Exception {
 		Trie trie = new Trie();
-		{
-			trie.insert("テスト");
-			trie.insert("テストケース");
-			trie.insert("株式会社");
-			trie.insert("株式");
-			trie.insert("会社");
-			trie.insert("自動");
-			trie.insert("自動車");
-			trie.insert("自動車会");
-			trie.insert("自動車会社");
-			trie.insert("自動車会社社員");
-			trie.insert("自動運転");
+		{ // 辞書の追加
+			trie.insert("新大阪", true, "word");
+			trie.insert("新", true, "word");
+			trie.insert("新大", true, "word");
+			trie.insert("大", true, "word");
+			trie.insert("大阪", true, "word");
+			trie.insert("阪", true, "word");
 		}
 		trie.print();
+		{
+			TrieSearchResult result = trie.search("新大阪");
+			for (Keyword found : result.getKeywords()) {
+				System.err.println(found);
+			}
+		}
 	}
 
-	public void testPrint002() throws Exception {
+	public void testSearch005() throws Exception {
 		Trie trie = new Trie();
-		{
-			trie.insert("テ", true, "test");
-			trie.insert("テスト", true, "test");
-			trie.insert("テストケース", true, "test");
+		{ // 辞書の追加
+			trie.insert("新大阪", false, "word");
+			trie.insert("新", false, "word");
+			trie.insert("新大", false, "word");
+			trie.insert("大", false, "word");
+			trie.insert("大阪", false, "word");
+			trie.insert("阪", false, "word");
 		}
 		trie.print();
+		{
+			TrieSearchResult result = trie.search("新大阪");
+			for (Keyword found : result.getKeywords()) {
+				System.err.println(found);
+			}
+		}
 	}
 
 }
