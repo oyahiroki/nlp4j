@@ -113,6 +113,32 @@ Document doc = new DefaultDocument();
 
 ```
 
+# 4. 検索（ベクトル検索を使わない）
+
+```
+String endPoint = "http://localhost:8983/solr/";
+String collection = "sandbox";
+
+try (Http2SolrClient solrClient = new Http2SolrClient.Builder(endPoint) //
+		.withConnectionTimeout(10 * 1000, TimeUnit.MILLISECONDS)//
+		.build();) {
+	final Map<String, String[]> requestParamsSolr = new HashMap<>();
+	requestParamsSolr.put("q", new String[] { "text_txt_ja:今日" });
+	requestParamsSolr.put("fl", new String[] { "text_txt_ja" });
+	MultiMapSolrParams solrQueryParams = new MultiMapSolrParams(requestParamsSolr);
+	QueryResponse solrResponse = solrClient //
+			.query(collection, solrQueryParams, METHOD.POST); // throws RemoteSolrException
+	System.err.println(solrResponse.jsonStr());
+}
+
+```
+
+
+---
+
+---
+
+---
 
 
 # Apache Solr
