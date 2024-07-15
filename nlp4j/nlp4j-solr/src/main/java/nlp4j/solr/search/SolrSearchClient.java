@@ -3,6 +3,9 @@ package nlp4j.solr.search;
 import java.io.Closeable;
 import java.io.IOException;
 import java.lang.invoke.MethodHandles;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.logging.log4j.LogManager;
@@ -10,14 +13,18 @@ import org.apache.logging.log4j.Logger;
 import org.apache.solr.client.solrj.SolrRequest.METHOD;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.impl.BaseHttpSolrClient.RemoteSolrException;
+import org.apache.solr.client.solrj.impl.Http2SolrClient;
 import org.apache.solr.client.solrj.impl.HttpSolrClient;
 import org.apache.solr.client.solrj.response.QueryResponse;
+import org.apache.solr.common.params.MultiMapSolrParams;
 import org.apache.solr.common.params.SolrParams;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 
+import nlp4j.Document;
+import nlp4j.DocumentBuilder;
 import nlp4j.search.AbstractSearchClient;
 import nlp4j.search.SearchClient;
 import nlp4j.search.SearchClientBuilder;
@@ -85,6 +92,67 @@ public class SolrSearchClient extends AbstractSearchClient implements SearchClie
 			logger.error("Syntax error: " + json);
 			throw new IOException(e);
 		}
+	}
+
+	/**
+	 * created on: 2024-07-15
+	 * 
+	 * @param collection
+	 * @param doc
+	 * @return
+	 * @throws IOException
+	 */
+	public JsonObject searchByVector(String collection, Document doc) throws IOException {
+
+		String endPoint = "http://localhost:8983/solr/";
+//			String collection = "sandbox";
+
+		try (Http2SolrClient solrClient = new Http2SolrClient.Builder(endPoint) //
+				.withConnectionTimeout(10 * 1000, TimeUnit.MILLISECONDS)//
+				.build();) {
+
+//				doc.get
+
+			StringBuilder sb_vector = new StringBuilder();
+			String field_vector_of_document = "vector";
+			String field_vector_of_solr = "vector";
+			{
+				List<Number> nn = doc.getAttributeAsListNumbers(field_vector_of_document);
+				for (Number n : nn) {
+					if (sb_vector.length() > 0) {
+						sb_vector.append(", ");
+					}
+					sb_vector.append(n.toString());
+				}
+			}
+
+			final Map<String, String[]> requestParamsSolr = new HashMap<>();
+
+			requestParamsSolr.put("q", new String[] { "{!knn " //
+					+ "f=" + field_vector_of_solr + " " //
+					+ "topK=" + "10 " //
+//					+ "preFilter=field1_s:BBB "
+					+ "}" + "[" //
+					// + "1.0, 2.4, 3.5, 4.0"
+					+ sb_vector.toString() //
+					+ "]" + "" });
+			requestParamsSolr.put("fl", new String[] { "id", "score", "field1_s", "word_ss" });
+
+			MultiMapSolrParams solrQueryParams = new MultiMapSolrParams(requestParamsSolr);
+
+			QueryResponse solrResponse = solrClient //
+					.query(collection, solrQueryParams, METHOD.POST); // throws RemoteSolrException
+
+//				System.err.println(solrResponse.jsonStr());
+
+			JsonObject jo = (new Gson()).fromJson(solrResponse.jsonStr(), JsonObject.class);
+
+			return jo;
+
+		} catch (SolrServerException e) {
+			throw new IOException(e);
+		}
+
 	}
 
 	/**

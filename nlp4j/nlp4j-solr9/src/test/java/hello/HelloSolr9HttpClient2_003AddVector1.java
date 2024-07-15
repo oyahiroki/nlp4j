@@ -10,7 +10,7 @@ import org.apache.solr.common.SolrInputDocument;
  * Example of facet search
  *
  */
-public class HelloSolr9HttpClient2_003Add1 {
+public class HelloSolr9HttpClient2_003AddVector1 {
 
 	public static void main(String[] args) throws Exception {
 
@@ -29,7 +29,7 @@ public class HelloSolr9HttpClient2_003Add1 {
 				inputDocument.addField("field1_s", "aaa"); // *_s
 				String[] ss = { "aaa", "bbb", "ccc" };
 				inputDocument.addField("field2_ss", ss); // *_ss
-				inputDocument.setField("vector", Arrays.asList(1.0f, 2.5f, 3.7f, 4.1f));
+				inputDocument.setField("vector4", Arrays.asList(1.0f, 2.5f, 3.7f, 4.1f));
 			}
 
 			UpdateResponse solrResponse = solrClient //

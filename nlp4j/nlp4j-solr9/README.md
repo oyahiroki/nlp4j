@@ -6,7 +6,7 @@
 
 ## ダウンロード
 
-https://solr.apache.org/downloads.html
+[https://solr.apache.org/downloads.html](https://solr.apache.org/downloads.html)
 
 ## 公式チュートリアル
 

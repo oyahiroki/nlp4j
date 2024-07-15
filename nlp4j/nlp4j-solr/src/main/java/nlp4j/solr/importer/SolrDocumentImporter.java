@@ -126,29 +126,48 @@ public class SolrDocumentImporter extends AbstractDocumentImporter implements Do
 				if (map.containsKey(key)) {
 					field = map.get(key);
 				}
-				Object o = doc.getAttribute(key);
+				Object obj = doc.getAttribute(key);
 
-				logger.debug(o.getClass().getName());
+				logger.debug(obj.getClass().getName());
 
-				if (o instanceof List) {
-					@SuppressWarnings({ "rawtypes" })
-					List list = (List) o;
-					List<String> list2 = new ArrayList<>();
-					for (Object x : list) {
-						list2.add(x.toString());
+				if (obj instanceof List) {
+
+					List<?> oo = (List<?>) obj;
+					// vector
+					if (oo.isEmpty() == false && oo.get(0) instanceof Double) {
+						List<Double> dd = new ArrayList<>();
+						for (Object o : oo) {
+							dd.add((double) o);
+						}
+						inputDocument.addField(field, dd);
+					} //
+					else if (oo.isEmpty() == false && oo.get(0) instanceof Number) {
+						List<Number> dd = new ArrayList<>();
+						for (Object o : oo) {
+							dd.add((Number) o);
+						}
+						inputDocument.addField(field, dd);
+					} //
+					else {
+						@SuppressWarnings({ "rawtypes" })
+						List<String> list2 = new ArrayList<>();
+						for (Object o : oo) {
+							list2.add(o.toString());
+						}
+						inputDocument.addField(field, list2.toArray(new String[0]));
 					}
-					inputDocument.addField(field, list2.toArray(new String[0]));
+
 				} //
-				else if (o instanceof String) {
-					String s = (String) o;
+				else if (obj instanceof String) {
+					String s = (String) obj;
 					inputDocument.addField(field, s);
 				} //
-				else if (o instanceof Number) {
-					Number num = (Number) o;
+				else if (obj instanceof Number) {
+					Number num = (Number) obj;
 					inputDocument.addField(field, num);
 				} //
 				else {
-					inputDocument.addField(field, o);
+					inputDocument.addField(field, obj);
 				}
 
 			}

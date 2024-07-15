@@ -9,7 +9,7 @@ import nlp4j.impl.DefaultDocument;
 import nlp4j.impl.DefaultKeyword;
 import nlp4j.solr.importer.SolrDocumentImporter;
 
-public class Hello001_ImportDocument {
+public class Hello201_ImportDocument {
 
 	public static void main(String[] args) throws Exception {
 		String endPoint = "http://localhost:8983/solr/";

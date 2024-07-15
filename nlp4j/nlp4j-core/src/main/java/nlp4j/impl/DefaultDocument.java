@@ -269,6 +269,15 @@ public class DefaultDocument implements Document {
 			}
 			this.attributes.put(key, oo);
 		} //
+			// 2024-07-15
+		else if (object instanceof double[]) {
+			List<Double> oo = new ArrayList<>();
+			double[] o1 = (double[]) object;
+			for (int n = 0; n < o1.length; n++) {
+				oo.add(o1[n]);
+			}
+			this.attributes.put(key, oo);
+		} //
 		else {
 			this.attributes.put(key, object);
 		}
@@ -344,6 +353,15 @@ public class DefaultDocument implements Document {
 		Object o = attributes.get(key);
 		if (o instanceof Number[]) {
 			return Arrays.asList((Number[]) o);
+		} //
+			// 2024-07-15
+		else if (o instanceof List) {
+			List<Number> nn = new ArrayList<Number>();
+			List<Object> oo = (List) o;
+			for (Object obj : oo) {
+				nn.add((Number) obj);
+			}
+			return nn;
 		}
 		return null;
 

@@ -48,6 +48,10 @@ public class KeywordFacetMapToFieldAnnotatorTestCase extends TestCase {
 
 		System.err.println(doc.getKeywords().size());
 		System.err.println(DocumentUtil.toJsonPrettyString(doc));
+
+		doc.getKeywords().forEach(kwd -> {
+			System.err.println(kwd);
+		});
 	}
 
 }

@@ -9,6 +9,7 @@ import junit.framework.TestCase;
 import nlp4j.impl.DefaultDocument;
 import nlp4j.impl.DefaultKeyword;
 import nlp4j.util.DocumentUtil;
+import nlp4j.util.DocumentsUtils;
 
 /**
  * target:nlp4j.impl.DefaultDocument
@@ -169,6 +170,15 @@ public class DefaultDocumentTestCase extends TestCase {
 		assertEquals(expected, doc.getKeywords().size());
 	}
 
+	public void testGetAttribute001() {
+		String key = "item";
+		String value = "value";
+		DefaultDocument doc = new DefaultDocument();
+		doc.putAttribute(key, value);
+
+		assertEquals(value, doc.getAttribute(key));
+	}
+
 	/**
 	 * test:get:attribute:String
 	 */
@@ -200,15 +210,6 @@ public class DefaultDocumentTestCase extends TestCase {
 		doc.putAttribute("key", 1);
 		System.err.println(doc.getAttribute("key"));
 		assertEquals(1, doc.getAttribute("key"));
-	}
-
-	public void testGetAttribute001() {
-		String key = "item";
-		String value = "value";
-		DefaultDocument doc = new DefaultDocument();
-		doc.putAttribute(key, value);
-
-		assertEquals(value, doc.getAttribute(key));
 	}
 
 	/**
@@ -314,6 +315,21 @@ public class DefaultDocumentTestCase extends TestCase {
 		DefaultDocument doc = new DefaultDocument();
 		doc.putAttribute("key", "value");
 		assertEquals("value", doc.getAttribute("key"));
+	}
+
+	/**
+	 * created on: 2024-07-15
+	 */
+	public void testPutAttributeDoubleArray() {
+		double[] dd = { 1.0f, 0.0f, 0.0f, 0.0f };
+		DefaultDocument doc = new DefaultDocument();
+		doc.putAttribute("vector4", dd);
+		System.err.println(DocumentUtil.toPrettyJsonString(doc));
+		List<Number> oo = doc.getAttributeAsListNumbers("vector4");
+		for (Object o : oo) {
+			System.err.println("o: " + o.getClass().getCanonicalName());
+			System.err.println("o: " + o.toString());
+		}
 	}
 
 	public void testPutAttributeStringDate() throws Exception {
