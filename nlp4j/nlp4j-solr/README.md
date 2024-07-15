@@ -4,7 +4,7 @@ NLP4J Library for Apache Solr
 
 # ベクトル検索を行う
 
-# 1.Solr の起動と設定
+# 1. Solr の起動と設定
 
 ## Docker で Solr ("my_solr") を起動する
 
@@ -31,6 +31,8 @@ curl -X POST -H 'Content-type:application/json' --data-binary '{ "add-field":{ "
 ```
 
 # 2. Embedding Server の起動
+
+[nlp4j-embedding-server-e5.py](https://github.com/oyahiroki/nlp4j/blob/master/nlp4j/nlp4j-llm/python/nlp4j-embedding-server-e5.py)
 
 ```
 $ python3 nlp4j-embedding-server-e5.py
