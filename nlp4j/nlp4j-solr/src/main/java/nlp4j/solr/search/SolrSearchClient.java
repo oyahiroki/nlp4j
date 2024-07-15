@@ -42,7 +42,8 @@ public class SolrSearchClient extends AbstractSearchClient implements SearchClie
 	private static final int SOCKET_TIMEOUT_MILLIS = 60000;
 	private String endPoint;
 
-	HttpSolrClient solrClient;
+//	HttpSolrClient solrClient;
+	Http2SolrClient solrClient;
 
 	private SolrSearchClient(String endPoint) {
 		this.endPoint = endPoint;
@@ -166,9 +167,12 @@ public class SolrSearchClient extends AbstractSearchClient implements SearchClie
 		String baseSolrUrl = this.endPoint;
 
 		if (this.solrClient == null) {
-			this.solrClient = new HttpSolrClient.Builder(baseSolrUrl) //
-					.withConnectionTimeout(CONNECTION_TIMEOUT_MILLIS)//
-					.withSocketTimeout(SOCKET_TIMEOUT_MILLIS)//
+//			this.solrClient = new HttpSolrClient.Builder(baseSolrUrl) //
+//					.withConnectionTimeout(CONNECTION_TIMEOUT_MILLIS)//
+//					.withSocketTimeout(SOCKET_TIMEOUT_MILLIS)//
+//					.build();
+			this.solrClient = new Http2SolrClient.Builder(endPoint) //
+					.withConnectionTimeout(10 * 1000, TimeUnit.MILLISECONDS)//
 					.build();
 		}
 
@@ -243,13 +247,13 @@ public class SolrSearchClient extends AbstractSearchClient implements SearchClie
 		}
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	public void close() throws IOException {
 		if (this.solrClient != null) {
-			this.solrClient.getHttpClient() //
-					.getConnectionManager() //
-					.closeIdleConnections(0, TimeUnit.MILLISECONDS);
+//			this.solrClient.getHttpClient() //
+//					.getConnectionManager() //
+//					.closeIdleConnections(0, TimeUnit.MILLISECONDS);
+
 			this.solrClient.close();
 		}
 

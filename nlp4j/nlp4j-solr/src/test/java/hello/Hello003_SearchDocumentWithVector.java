@@ -35,16 +35,12 @@ public class Hello003_SearchDocumentWithVector {
 			ann.annotate(doc);
 			System.err.println("size_of_vector: " + doc.getAttributeAsListNumbers("vector").size());
 		}
-		{
-			SolrSearchClient client = new SolrSearchClient.Builder(endPoint).build();
-			try {
-				JsonObject responseObject = client.searchByVector(indexName, doc);
-				System.err.println(new GsonBuilder().setPrettyPrinting().create().toJson(responseObject));
-			} catch (IOException e) {
-				System.err.println("SKIP THIS TEST: " + e.getMessage());
-			} catch (RemoteSolrException e) {
-				System.err.println("SKIP THIS TEST: " + e.getMessage());
-			}
+
+		try (SolrSearchClient client = new SolrSearchClient.Builder(endPoint).build()) {
+			JsonObject responseObject = client.searchByVector(indexName, doc);
+			System.err.println(new GsonBuilder().setPrettyPrinting().create().toJson(responseObject));
+		} catch (IOException | RemoteSolrException e) {
+			System.err.println("SKIP THIS TEST: " + e.getMessage());
 		}
 
 	}
