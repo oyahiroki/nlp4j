@@ -7,11 +7,9 @@ import nlp4j.Document;
 import nlp4j.DocumentAnnotator;
 import nlp4j.DocumentBuilder;
 import nlp4j.annotator.KeywordFacetMappingAnnotator;
-import nlp4j.impl.DefaultDocument;
 import nlp4j.krmj.annotator.KuromojiAnnotator;
 import nlp4j.llm.embeddings.EmbeddingAnnotator;
 import nlp4j.solr.importer.SolrDocumentImporter;
-import nlp4j.util.DocumentUtil;
 
 public class Hello002_ImportDocumentWithVector2 {
 
@@ -21,35 +19,21 @@ public class Hello002_ImportDocumentWithVector2 {
 
 		List<Document> docs = new ArrayList<>();
 		{
-			Document doc = new DefaultDocument();
-			doc = (new DocumentBuilder()).id("doc001").text("今日はいい天気です") //
-					.put("field1_s", "AAA").put("field2_i", 100).build();
-			docs.add(doc);
+			docs.add((new DocumentBuilder()).id("doc001").text("今日はいい天気です") //
+					.put("field1_s", "AAA").put("field2_i", 100).build());
+			docs.add((new DocumentBuilder()).id("doc002").text("明日はいい天気かしら。天気予報を見てみよう。") //
+					.put("field1_s", "BBB").put("field2_i", 101).build());
 		}
-		{
-			Document doc = new DefaultDocument();
-			doc = (new DocumentBuilder()).id("doc002").text("明日はいい天気かしら。天気予報を見てみよう。") //
-					.put("field1_s", "BBB").put("field2_i", 101).build();
-			docs.add(doc);
-		}
-		{
+		{ // Kuromoji
 			KuromojiAnnotator ann = new KuromojiAnnotator();
 			ann.setProperty("target", "text");
 			ann.annotate(docs);
 		}
-		{
+		{ // Keyword Facet Mapping for Solr
 			KeywordFacetMappingAnnotator ann = new KeywordFacetMappingAnnotator();
 			ann.setProperty("mapping", KeywordFacetMappingAnnotator.DEFAULT_MAPPING);
 			ann.annotate(docs);
 		}
-		{
-			System.err.println(DocumentUtil.toJsonPrettyString(docs));
-			boolean debug = true;
-			if (debug) {
-//				return;
-			}
-		}
-
 		{ // Vector
 			DocumentAnnotator ann = new EmbeddingAnnotator();
 			ann.setProperty("target", "text");
