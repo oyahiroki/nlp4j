@@ -1,0 +1,4 @@
+
+Memo: nlp4j-embedding-server-e5.py を独立したプロジェクトとして切り出した
+
+https://github.com/oyahiroki/nlp4j-llm-embeddings-e5
