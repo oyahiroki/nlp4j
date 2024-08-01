@@ -14,7 +14,6 @@ import org.apache.solr.client.solrj.SolrRequest.METHOD;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.impl.BaseHttpSolrClient.RemoteSolrException;
 import org.apache.solr.client.solrj.impl.Http2SolrClient;
-import org.apache.solr.client.solrj.impl.HttpSolrClient;
 import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.common.params.MultiMapSolrParams;
 import org.apache.solr.common.params.SolrParams;
@@ -24,7 +23,6 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 
 import nlp4j.Document;
-import nlp4j.DocumentBuilder;
 import nlp4j.search.AbstractSearchClient;
 import nlp4j.search.SearchClient;
 import nlp4j.search.SearchClientBuilder;
@@ -129,15 +127,18 @@ public class SolrSearchClient extends AbstractSearchClient implements SearchClie
 
 			final Map<String, String[]> requestParamsSolr = new HashMap<>();
 
+			String topK = "10";
+			String[] fl = new String[] { "id", "score", "field1_s", "word_ss", "text_txt_ja" };
+
 			requestParamsSolr.put("q", new String[] { "{!knn " //
 					+ "f=" + field_vector_of_solr + " " //
-					+ "topK=" + "10 " //
+					+ "topK=" + topK + " " //
 //					+ "preFilter=field1_s:BBB "
 					+ "}" + "[" //
 					// + "1.0, 2.4, 3.5, 4.0"
 					+ sb_vector.toString() //
 					+ "]" + "" });
-			requestParamsSolr.put("fl", new String[] { "id", "score", "field1_s", "word_ss" });
+			requestParamsSolr.put("fl", fl);
 
 			MultiMapSolrParams solrQueryParams = new MultiMapSolrParams(requestParamsSolr);
 

@@ -4,6 +4,11 @@ NLP4J Library for Apache Solr
 
 # ベクトル検索を行う
 
+# 0. 前提
+
+Docker を利用する
+
+
 # 1. Solr の起動と設定
 
 ## Docker で Solr ("my_solr") を起動する
@@ -12,11 +17,29 @@ NLP4J Library for Apache Solr
 docker run -d -p 8983:8983 --name my_solr solr
 ```
 
+```
+docker run: 新しい Docker コンテナを起動するためのコマンドです。
+-d: コンテナをデタッチドモード（バックグラウンド）で実行するオプションです。これにより、コンテナがバックグラウンドで実行され、コマンドプロンプトが直ちに戻ります。
+-p 8983:8983: ホストマシンのポート（左側）をコンテナのポート（右側）にマッピングします。この場合、ホストのポート 8983 をコンテナ内のポート 8983 にマッピングして、ホストから Solr のウェブインターフェースにアクセスできるようにします。
+--name my_solr: コンテナに my_solr という名前を付けます。これにより、後でコンテナを参照するときに、この名前を使って操作できます。
+solr: 実行するイメージの名前です。この場合、Docker Hub にある solr イメージが使用されます。
+```
+
 ## Docker で core ("sandbox") を作成する
 
 ```
 docker exec -it my_solr bin/solr create -c sandbox
 ```
+
+```
+docker exec: Docker コンテナ内でコマンドを実行するためのコマンドです。
+-it: -i はインタラクティブモードを有効にし、-t は擬似ターミナルを割り当てるためのオプションです。これにより、コマンド実行後にインタラクティブに操作できるようになります。
+my_solr: コマンドを実行する対象の Docker コンテナの名前または ID です。この場合、my_solr という名前のコンテナが対象です。
+bin/solr: コンテナ内で実行するコマンドです。ここでは、Solr のコマンドラインツール solr を実行しています。
+create: Solr のコマンドで、新しいコレクションを作成するためのサブコマンドです。
+-c sandbox: -c オプションは作成するコレクションの名前を指定します。この場合、sandbox という名前のコレクションが作成されます。
+```
+
 
 ## フィールドタイプ ("vector1024",solr.DenseVectorField) の定義 
 
@@ -32,7 +55,10 @@ curl -X POST -H 'Content-type:application/json' --data-binary '{ "add-field":{ "
 
 # 2. Embedding Server の起動
 
-[nlp4j-embedding-server-e5.py](https://github.com/oyahiroki/nlp4j/blob/master/nlp4j/nlp4j-llm/python/nlp4j-embedding-server-e5.py)
+セットアップは以下を参照
+
+[https://github.com/oyahiroki/nlp4j-llm-embeddings-e5](https://github.com/oyahiroki/nlp4j-llm-embeddings-e5)
+
 
 ```
 $ python3 nlp4j-embedding-server-e5.py
@@ -41,6 +67,8 @@ $ python3 nlp4j-embedding-server-e5.py
 # 3. ドキュメントの追加
 
 ```
+// Hello002_ImportDocumentWithVector2.java
+
 String endPoint = "http://localhost:8983/solr/";
 String collection = "sandbox";
 

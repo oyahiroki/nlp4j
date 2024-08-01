@@ -10,7 +10,7 @@ import nlp4j.impl.DefaultKeyword;
 import nlp4j.llm.embeddings.EmbeddingAnnotator;
 import nlp4j.solr.importer.SolrDocumentImporter;
 
-public class Hello002_ImportDocumentWithVector {
+public class Hello002_ImportDocumentWithVector1 {
 
 	public static void main(String[] args) throws Exception {
 		String endPoint = "http://localhost:8983/solr/";
