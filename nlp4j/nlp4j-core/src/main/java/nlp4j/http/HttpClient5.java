@@ -1,6 +1,5 @@
 package nlp4j.http;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URISyntaxException;
@@ -13,7 +12,7 @@ import java.util.Map;
 import org.apache.hc.client5.http.ClientProtocolException;
 import org.apache.hc.client5.http.classic.methods.HttpGet;
 import org.apache.hc.client5.http.classic.methods.HttpPost;
-
+import org.apache.hc.client5.http.classic.methods.HttpUriRequestBase;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
 import org.apache.hc.client5.http.impl.classic.HttpClients;
@@ -155,8 +154,7 @@ public class HttpClient5 implements HttpClient {
 
 	@Override
 	public InputStream getInputStream(String url, Map<String, String> params) throws IOException {
-		int code = -1;
-		String body = null;
+//		String body = null;
 
 		URIBuilder uriBuilder;
 		try {
@@ -171,12 +169,17 @@ public class HttpClient5 implements HttpClient {
 			}
 		}
 
-		HttpGet httpGet;
+		HttpUriRequestBase httpGet;
 		try {
 			httpGet = new HttpGet(uriBuilder.build().toString());
 		} catch (URISyntaxException e1) {
 			throw new IOException(e1);
 		}
+		return getInputStream(url, httpGet);
+	}
+
+	private InputStream getInputStream(String url, HttpUriRequestBase httpGet) throws IOException {
+		int code;
 		// The underlying HTTP connection is still held by the response object
 		// to allow the response content to be streamed directly from the network
 		// socket.
