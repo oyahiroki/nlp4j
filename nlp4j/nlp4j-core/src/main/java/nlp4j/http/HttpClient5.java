@@ -34,6 +34,14 @@ public class HttpClient5 implements HttpClient {
 
 	CloseableHttpClient httpclient = HttpClients.createDefault();
 
+	/**
+	 * please use HttpClientBuilder()
+	 */
+	public HttpClient5() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	@Override
 	public DefaultNlpServiceResponse get(String url) throws IOException {
 

@@ -3,17 +3,20 @@ package nlp4j.ibm.wex;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.invoke.MethodHandles;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import nlp4j.Document;
+import nlp4j.DocumentBuilder;
 import nlp4j.http.HttpClient;
-import nlp4j.http.HttpClient5;
 import nlp4j.http.HttpClientBuilder;
 import nlp4j.util.JsonObjectUtils;
 import nlp4j.util.JsonUtils;
@@ -66,9 +69,28 @@ public class WexSearchClient {
 
 	}
 
-	public Document searchDocument(String query, int start, int results) throws IOException {
+	public List<Document> searchDocuments(String query, int start, int results) throws IOException {
 
-		return null;
+		List<Document> docs = new ArrayList<>();
+
+		JsonObject jo = search(query, start, results);
+
+		JsonArray es_result = jo //
+				.get("es_apiResponse").getAsJsonObject() //
+				.get("es_result").getAsJsonArray();
+
+		for (int n = 0; n < es_result.size(); n++) {
+			JsonObject jo_es_result = es_result.get(n).getAsJsonObject();
+			double es_relevance = jo_es_result.get("es_relevance").getAsDouble();
+			String es_summary = jo_es_result.get("es_summary").getAsString();
+			Document doc = (new DocumentBuilder()) //
+					.text(es_summary) //
+					.put("relevance", es_relevance) //
+					.build();
+			docs.add(doc);
+		}
+
+		return docs;
 	}
 
 	static public void main(String[] args) throws Exception {
@@ -81,7 +103,10 @@ public class WexSearchClient {
 		int results = 10;
 
 		WexSearchClient wex = new WexSearchClient();
-		wex.search(query, start, results);
+		List<Document> docs = wex.searchDocuments(query, start, results);
+		docs.forEach(doc -> {
+			System.err.println(doc);
+		});
 
 	}
 
