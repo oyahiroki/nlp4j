@@ -18,9 +18,8 @@ import nlp4j.DefaultEnv;
 import nlp4j.Keyword;
 import nlp4j.NlpService;
 import nlp4j.NlpServiceResponse;
-import nlp4j.http.HttpClient5;
+import nlp4j.http.HttpClientBuilder;
 import nlp4j.impl.DefaultKeyword;
-import nlp4j.util.JsonUtils;
 
 /**
  * Yahoo! Japan が提供する日本語形態素解析を利用するアノテーターです。 <br>
@@ -102,7 +101,7 @@ public class YJpMaServiceV2 implements NlpService {
 			// for user defined dictionary
 		}
 
-		try (nlp4j.http.HttpClient client = new HttpClient5();) {
+		try (nlp4j.http.HttpClient client = (new HttpClientBuilder()).build();) {
 			// User-Agent: Yahoo AppID: <あなたのアプリケーションID>
 
 			NlpServiceResponse res = client.post(url, requestHeader, requestBodyJson.toString());

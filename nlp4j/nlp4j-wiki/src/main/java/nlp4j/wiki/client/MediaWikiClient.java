@@ -15,7 +15,9 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import nlp4j.NlpServiceResponse;
+import nlp4j.http.HttpClient;
 import nlp4j.http.HttpClient5;
+import nlp4j.http.HttpClientBuilder;
 import nlp4j.util.HtmlUtils;
 import nlp4j.util.JsonObjectUtils;
 import nlp4j.util.JsonUtils;
@@ -55,7 +57,7 @@ public class MediaWikiClient implements Closeable {
 
 	private static final int MAX_QUERY_COUNT = 100;
 
-	private HttpClient5 client = new HttpClient5();
+	private HttpClient client = (new HttpClientBuilder()).build();
 
 	private String host;
 

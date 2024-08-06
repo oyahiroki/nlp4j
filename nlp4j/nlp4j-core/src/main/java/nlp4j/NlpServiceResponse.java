@@ -2,6 +2,7 @@ package nlp4j;
 
 import java.util.List;
 
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 /**
@@ -15,12 +16,32 @@ import com.google.gson.JsonObject;
 public interface NlpServiceResponse extends Response {
 
 	/**
+	 * @return response body as json element
+	 * @since 1.3.7.13
+	 */
+	public JsonElement getAsJson();
+
+	/**
 	 * created on: 2023-07-22
 	 * 
 	 * @return response as JsonObject
 	 * @since 1.3.7.9
 	 */
 	public JsonObject getAsJsonObject();
+
+	/**
+	 * @return response headers as String
+	 * @since 1.3.7.13
+	 */
+	public String getHeaders();
+
+	/**
+	 * 自然言語処理サービスが返したキーワードを返します。
+	 * 
+	 * @return 自然言語処理サービスが返したキーワード
+	 * @since 1.0
+	 */
+	public List<Keyword> getKeywords();
 
 	/**
 	 * 自然言語処理サービスが返したレスポンスを返します。
@@ -45,17 +66,8 @@ public interface NlpServiceResponse extends Response {
 	public boolean ok();
 
 	/**
-	 * 自然言語処理サービスが返したキーワードを返します。
-	 * 
-	 * @return 自然言語処理サービスが返したキーワード
-	 * @since 1.0
-	 */
-	public List<Keyword> getKeywords();
-
-	/**
 	 * @param kwds Keywords
 	 * @since 1.3.7.6 (2023-02-16)
 	 */
 	public void setKeywords(List<Keyword> kwds);
-
 }

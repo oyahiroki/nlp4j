@@ -8,7 +8,9 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 import nlp4j.NlpServiceResponse;
+import nlp4j.http.HttpClient;
 import nlp4j.http.HttpClient5;
+import nlp4j.http.HttpClientBuilder;
 
 /**
  * @author Hiroki Oya
@@ -18,7 +20,7 @@ public class OpenAI implements AutoCloseable {
 
 	Configuration configuration;
 
-	HttpClient5 client = new HttpClient5();
+	HttpClient client = (new HttpClientBuilder()).build();
 
 	public OpenAI(Configuration configuration) {
 		super();
@@ -114,7 +116,7 @@ public class OpenAI implements AutoCloseable {
 		/**
 		 * https://platform.openai.com/docs/api-reference/completions/create
 		 */
-		HttpClient5 client = new HttpClient5();
+		HttpClient client = (new HttpClientBuilder()).build();
 
 		Map<String, String> header = new HashMap<>();
 		header.put("Authorization", "Bearer " + this.configuration.getApiKey());

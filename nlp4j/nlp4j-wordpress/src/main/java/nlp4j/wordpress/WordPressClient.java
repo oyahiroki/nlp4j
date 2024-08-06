@@ -11,7 +11,9 @@ import com.google.gson.JsonObject;
 
 import nlp4j.Document;
 import nlp4j.NlpServiceResponse;
+import nlp4j.http.HttpClient;
 import nlp4j.http.HttpClient5;
+import nlp4j.http.HttpClientBuilder;
 import nlp4j.impl.DefaultNlpServiceResponse;
 
 /**
@@ -60,8 +62,8 @@ public class WordPressClient {
 		Map<String, String> headers = new LinkedHashMap<>();
 		headers.put("Authorization", "Basic " + token);
 
-		try (HttpClient5 client = new HttpClient5();) {
-			DefaultNlpServiceResponse response = client.post(url, headers, request_body.toString());
+		try (HttpClient client = (new HttpClientBuilder()).build();) {
+			NlpServiceResponse response = client.post(url, headers, request_body.toString());
 			return response;
 		}
 
@@ -73,8 +75,8 @@ public class WordPressClient {
 	 */
 	public void getCategories() throws IOException {
 		String url = endpoint + "/wp-json/wp/v2/categories/?per_page=100&order=asc&orderby=id";
-		try (HttpClient5 client = new HttpClient5();) {
-			DefaultNlpServiceResponse response = client.get(url);
+		try (HttpClient client = (new HttpClientBuilder()).build();) {
+			NlpServiceResponse response = client.get(url);
 			JsonElement jo = response.getAsJson();
 			JsonArray arr = jo.getAsJsonArray();
 			for (int n = 0; n < arr.size(); n++) {

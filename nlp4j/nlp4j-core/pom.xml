@@ -96,9 +96,9 @@
 					<plugin>
 						<groupId>org.sonatype.plugins</groupId>
 						<artifactId>nexus-staging-maven-plugin</artifactId>
-						<!-- version>1.6.8</version --><!--
-						Feb 13, 2017 -->
-						<version>1.6.13</version><!-- Apr 21, 2022 -->
+						<!-- 1.6.8 Feb 13, 2017 -->
+						<!-- 1.6.13 Apr 21, 2022 -->
+						<version>1.7.0</version><!-- May 27, 2024 -->
 						<extensions>true</extensions>
 						<configuration>
 							<serverId>ossrh</serverId>
@@ -127,7 +127,8 @@
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-javadoc-plugin</artifactId>
-						<version>3.1.1</version>
+				<!-- version>3.1.1</version -->
+				<version>3.8.0</version>
 						<configuration>
 							<author>true</author>
 							<source>1.8</source>
@@ -166,7 +167,8 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>3.1.1</version>
+				<!-- version>3.1.1</version -->
+				<version>3.8.0</version>
 				<configuration>
 					<!-- avoid error -->
 					<additionalparam>-Xdoclint:none</additionalparam>

@@ -6,8 +6,9 @@ import java.net.URLEncoder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
-import nlp4j.http.HttpClient5;
-import nlp4j.impl.DefaultNlpServiceResponse;
+import nlp4j.NlpServiceResponse;
+import nlp4j.http.HttpClient;
+import nlp4j.http.HttpClientBuilder;
 import nlp4j.util.JsonUtils;
 
 public class HelloWikiApi7 {
@@ -28,7 +29,7 @@ public class HelloWikiApi7 {
 
 	private static void list(String category, int depth) throws IOException {
 
-		try (HttpClient5 client = new HttpClient5();) {
+		try (HttpClient client = (new HttpClientBuilder()).build();) {
 			// see
 			// https://www.mediawiki.org/wiki/API:Categorymembers
 
@@ -47,17 +48,9 @@ public class HelloWikiApi7 {
 //				+ "&cmsort=sortkey"//
 					+ "&cmtype=subcat"// //Default: page|subcat|file
 //				+ "&cmtype=page|subcat"// //Default: page|subcat|file
-					+ "&cmprop=ids"
-					+ URLEncoder.encode("|","UTF-8")
-					+ "title"
-					+ URLEncoder.encode("|","UTF-8")
-					+ "sortkey"
-					+ URLEncoder.encode("|","UTF-8")
-					+ "sortkeyprefix"
-					+ URLEncoder.encode("|","UTF-8")
-					+ "type"
-					+ URLEncoder.encode("|","UTF-8")
-					+ "timestamp" //
+					+ "&cmprop=ids" + URLEncoder.encode("|", "UTF-8") + "title" + URLEncoder.encode("|", "UTF-8")
+					+ "sortkey" + URLEncoder.encode("|", "UTF-8") + "sortkeyprefix" + URLEncoder.encode("|", "UTF-8")
+					+ "type" + URLEncoder.encode("|", "UTF-8") + "timestamp" //
 //				+ "&cmprop=title|sortkey" //
 //				+ "&cmstarthexsortkey=" + from //
 			;//
@@ -70,7 +63,7 @@ public class HelloWikiApi7 {
 
 			System.err.println(url.length());
 
-			DefaultNlpServiceResponse res = client.get(url);
+			NlpServiceResponse res = client.get(url);
 
 //		System.err.println(res.getResponseCode());
 

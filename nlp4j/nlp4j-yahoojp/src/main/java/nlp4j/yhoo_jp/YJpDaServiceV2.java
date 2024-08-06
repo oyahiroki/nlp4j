@@ -17,7 +17,7 @@ import nlp4j.Keyword;
 import nlp4j.KeywordWithDependency;
 import nlp4j.NlpService;
 import nlp4j.NlpServiceResponse;
-import nlp4j.http.HttpClient5;
+import nlp4j.http.HttpClientBuilder;
 
 /**
  * Yahoo! Japan dependency analysis 日本語係り受け解析 V2<br>
@@ -87,7 +87,7 @@ public class YJpDaServiceV2 implements NlpService {
 			requestBodyJson.add("params", params);
 		}
 
-		try (nlp4j.http.HttpClient client = new HttpClient5();) {
+		try (nlp4j.http.HttpClient client = (new HttpClientBuilder()).build();) {
 			// User-Agent: Yahoo AppID: <あなたのアプリケーションID>
 
 			NlpServiceResponse res = client.post(url, requestHeader, requestBodyJson.toString());

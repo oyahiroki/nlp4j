@@ -20,6 +20,7 @@ import nlp4j.KeywordBuilder;
 import nlp4j.UPOS20;
 import nlp4j.http.HttpClient;
 import nlp4j.http.HttpClient5;
+import nlp4j.http.HttpClientBuilder;
 import nlp4j.util.JsonObjectUtils;
 import nlp4j.util.MapBuilder;
 
@@ -52,7 +53,7 @@ public class WexKeywordAnnotator extends AbstractDocumentAnnotator implements Ke
 				System.err.println(params);
 
 				try ( //
-						HttpClient client = new HttpClient5(); //
+						HttpClient client = (new HttpClientBuilder()).build(); //
 						InputStream is = client.getInputStream(url, params); //
 				) {
 //					System.out.println(JsonUtils.prettyPrint(org.apache.commons.io.IOUtils.toString(is)));

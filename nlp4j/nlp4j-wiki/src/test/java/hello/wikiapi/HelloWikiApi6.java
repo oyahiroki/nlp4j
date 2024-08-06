@@ -10,7 +10,10 @@ import org.apache.commons.io.FileUtils;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
+import nlp4j.NlpServiceResponse;
+import nlp4j.http.HttpClient;
 import nlp4j.http.HttpClient5;
+import nlp4j.http.HttpClientBuilder;
 import nlp4j.impl.DefaultNlpServiceResponse;
 
 public class HelloWikiApi6 {
@@ -47,8 +50,8 @@ public class HelloWikiApi6 {
 			// action: query: query Fetch data from and about MediaWiki.
 			// format: One of the following values: json, jsonfm, none, php, phpfm, rawfm,
 			// xml, xmlfm
-			try (HttpClient5 client = new HttpClient5();) {
-				DefaultNlpServiceResponse res = client.get(url);
+			try (HttpClient client = (new HttpClientBuilder()).build();) {
+				NlpServiceResponse res = client.get(url);
 				// content-type
 				JsonObject jo = res.getAsJsonObject();
 				{ // list pages

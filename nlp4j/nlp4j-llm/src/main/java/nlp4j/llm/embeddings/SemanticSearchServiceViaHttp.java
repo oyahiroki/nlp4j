@@ -16,6 +16,7 @@ import nlp4j.NlpService;
 import nlp4j.NlpServiceResponse;
 import nlp4j.http.HttpClient;
 import nlp4j.http.HttpClient5;
+import nlp4j.http.HttpClientBuilder;
 import nlp4j.util.JsonObjectUtils;
 
 /**
@@ -51,7 +52,7 @@ public class SemanticSearchServiceViaHttp implements NlpService, Closeable {
 //	}
 
 	// Http client
-	private final HttpClient client = new HttpClient5();
+	private final HttpClient client = (new HttpClientBuilder()).build();
 
 	private String endPoint;
 

@@ -8,7 +8,10 @@ import java.util.Map;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
+import nlp4j.NlpServiceResponse;
+import nlp4j.http.HttpClient;
 import nlp4j.http.HttpClient5;
+import nlp4j.http.HttpClientBuilder;
 import nlp4j.impl.DefaultNlpServiceResponse;
 
 public class HelloWordPressMain1 {
@@ -115,8 +118,8 @@ public class HelloWordPressMain1 {
 
 		System.err.println("url: " + url);
 
-		try (HttpClient5 client = new HttpClient5();) {
-			DefaultNlpServiceResponse response = client.post(url, headers, request_body.toString());
+		try (HttpClient client = (new HttpClientBuilder()).build();) {
+			NlpServiceResponse response = client.post(url, headers, request_body.toString());
 			System.err.println(response.getResponseCode());
 		}
 

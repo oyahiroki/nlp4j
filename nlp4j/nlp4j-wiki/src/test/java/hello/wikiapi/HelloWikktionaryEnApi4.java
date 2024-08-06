@@ -4,8 +4,9 @@ import java.io.IOException;
 
 import com.google.gson.JsonObject;
 
-import nlp4j.http.HttpClient5;
-import nlp4j.impl.DefaultNlpServiceResponse;
+import nlp4j.NlpServiceResponse;
+import nlp4j.http.HttpClient;
+import nlp4j.http.HttpClientBuilder;
 import nlp4j.util.JsonUtils;
 
 public class HelloWikktionaryEnApi4 {
@@ -48,9 +49,9 @@ public class HelloWikktionaryEnApi4 {
 		// format: One of the following values: json, jsonfm, none, php, phpfm, rawfm,
 		// xml, xmlfm
 
-		try (HttpClient5 client = new HttpClient5();) {
+		try (HttpClient client = (new HttpClientBuilder()).build();) {
 			System.err.println(url);
-			DefaultNlpServiceResponse res = client.get(url);
+			NlpServiceResponse res = client.get(url);
 
 			System.err.println(res.getResponseCode());
 

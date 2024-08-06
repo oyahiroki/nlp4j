@@ -12,6 +12,8 @@ import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import nlp4j.http.HttpClientBuilder;
+
 /**
  * <pre>
  * Data downloader
@@ -73,7 +75,7 @@ public class FileDownloader {
 		logger.info("accessing: " + url);
 
 		try ( //
-				nlp4j.http.HttpClient5 client = new nlp4j.http.HttpClient5(); //
+				nlp4j.http.HttpClient client = (new HttpClientBuilder()).build(); //
 				InputStream is = client.getInputStream(url, null); //
 				// INPUT
 				BufferedInputStream bis = new BufferedInputStream(is); //

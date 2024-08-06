@@ -16,6 +16,7 @@ import nlp4j.NlpService;
 import nlp4j.NlpServiceResponse;
 import nlp4j.http.HttpClient;
 import nlp4j.http.HttpClient5;
+import nlp4j.http.HttpClientBuilder;
 
 /**
  * <pre>
@@ -62,7 +63,7 @@ public class EmbeddingServiceViaHttp implements NlpService {
 
 		// client.post throws IOException
 		try ( // Http client
-				HttpClient client = new HttpClient5(); //
+				HttpClient client = (new HttpClientBuilder()).build(); //
 		) {
 			// throws IOException
 			NlpServiceResponse res = client.post(this.endPoint, jsonObj.toString());
