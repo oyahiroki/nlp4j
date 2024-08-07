@@ -138,7 +138,7 @@ public class SolrSearchClient extends AbstractSearchClient implements SearchClie
 					// + "1.0, 2.4, 3.5, 4.0"
 					+ sb_vector.toString() //
 					+ "]" + "" });
-//			requestParamsSolr.put("fl", fl);
+			requestParamsSolr.put("fl", fl);
 
 			MultiMapSolrParams solrQueryParams = new MultiMapSolrParams(requestParamsSolr);
 

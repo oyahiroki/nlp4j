@@ -36,4 +36,15 @@ public class DoubleUtils {
 		return list;
 	}
 
+	/**
+	 * @since 1.3.7.13
+	 */
+	static public List<Float> toFloatList(List<Number> dd) {
+		List<Float> list = new ArrayList<Float>();
+		for (int n = 0; n < dd.size(); n++) {
+			list.add(dd.get(n).floatValue());
+		}
+		return list;
+	}
+
 }

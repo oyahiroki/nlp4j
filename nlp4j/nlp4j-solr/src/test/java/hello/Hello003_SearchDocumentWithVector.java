@@ -5,6 +5,7 @@ import java.io.IOException;
 import org.apache.solr.client.solrj.impl.BaseHttpSolrClient.RemoteSolrException;
 
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import nlp4j.Document;
@@ -38,6 +39,18 @@ public class Hello003_SearchDocumentWithVector {
 
 		try (SolrSearchClient client = new SolrSearchClient.Builder(endPoint).build()) {
 			JsonObject responseObject = client.searchByVector(indexName, doc);
+			{
+				{
+					responseObject.remove("responseHeader");
+					responseObject.addProperty("responseheader", "removed");
+				}
+				{
+					JsonArray docs = responseObject.get("response").getAsJsonObject().get("docs").getAsJsonArray();
+					for (int n = 0; n < docs.size(); n++) {
+						docs.get(n).getAsJsonObject().remove("vector");
+					}
+				}
+			}
 			System.err.println(new GsonBuilder().setPrettyPrinting().create().toJson(responseObject));
 		} catch (IOException | RemoteSolrException e) {
 			System.err.println("SKIP THIS TEST: " + e.getMessage());

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+	id="WebApp_ID" version="4.0">
+	<display-name>nlp4j-web-rag</display-name>
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+		<welcome-file>index.htm</welcome-file>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+
+	<servlet>
+		<description></description>
+		<display-name>RagPostServlet</display-name>
+		<servlet-name>RagPostServlet</servlet-name>
+		<servlet-class>nlp4j.servlet.RagPostServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>RagPostServlet</servlet-name>
+		<url-pattern>/ragpost.wss</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<description></description>
+		<display-name>RagQueryServlet</display-name>
+		<servlet-name>RagQueryServlet</servlet-name>
+		<servlet-class>nlp4j.servlet.RagQueryServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>RagQueryServlet</servlet-name>
+		<url-pattern>/ragquery.wss</url-pattern>
+	</servlet-mapping>
+</web-app>

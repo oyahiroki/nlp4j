@@ -25,6 +25,11 @@ docker run: 新しい Docker コンテナを起動するためのコマンドで
 solr: 実行するイメージの名前です。この場合、Docker Hub にある solr イメージが使用されます。
 ```
 
+## Solr Admin Console
+
+[http://localhost:8983/solr/](http://localhost:8983/solr/)
+
+
 ## Docker で core ("sandbox") を作成する
 
 ```
