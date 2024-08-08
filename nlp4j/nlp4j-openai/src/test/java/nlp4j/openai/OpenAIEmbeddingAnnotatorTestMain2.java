@@ -3,21 +3,16 @@ package nlp4j.openai;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
-import junit.framework.TestCase;
 import nlp4j.util.JsonObjectUtils;
 
-public class OpenAiTestCase extends TestCase {
-
-	public void testOpenAI() {
-	}
-
-	public void testEmbeddings() throws Exception {
+public class OpenAIEmbeddingAnnotatorTestMain2 {
+	public static void main(String[] args) throws Exception {
 		String apiKey = System.getProperty("openai.api_key");
 		String organization = System.getProperty("openai.organization");
 
 		String text = "今日はいい天気です。";
 
-		Configuration configuration = new Configuration(organization, apiKey);
+		Config configuration = new Config(organization, apiKey);
 
 		System.err.println(configuration);
 
@@ -36,12 +31,6 @@ public class OpenAiTestCase extends TestCase {
 			System.err.println(vector.size()); // -> 1536
 		}
 
-	}
-
-	public void testModels() {
-	}
-
-	public void testChat_completions() {
 	}
 
 }

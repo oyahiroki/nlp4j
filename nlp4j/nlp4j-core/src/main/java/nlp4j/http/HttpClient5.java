@@ -25,6 +25,8 @@ import org.apache.hc.core5.http.io.entity.EntityUtils;
 import org.apache.hc.core5.http.io.entity.StringEntity;
 import org.apache.hc.core5.net.URIBuilder;
 
+import com.google.gson.JsonObject;
+
 import nlp4j.NlpServiceResponse;
 import nlp4j.impl.DefaultNlpServiceResponse;
 
@@ -186,6 +188,54 @@ public class HttpClient5 implements HttpClient {
 		return getInputStream(url, httpGet);
 	}
 
+	@Override
+	public InputStream getInputStreamPost(String url, Map<String, String> params, Map<String, String> requestHeader,
+			JsonObject requestBody) throws IOException {
+		try {
+			URIBuilder uriBuilder = new URIBuilder(url);
+			{ // Request Parameter
+				if (params != null) {
+					for (String key : params.keySet()) {
+						uriBuilder.addParameter(key, params.get(key));
+					}
+				}
+
+			}
+			HttpUriRequestBase httpPost;
+			{
+				httpPost = new HttpPost(uriBuilder.build().toString());
+				{ // Request Header
+					if (requestHeader != null) {
+						for (String key : requestHeader.keySet()) {
+							httpPost.addHeader(key, requestHeader.get(key));
+						}
+					}
+				}
+			}
+
+			// Request body
+			httpPost.setEntity(new StringEntity(requestBody.toString(), ContentType.APPLICATION_JSON, "UTF-8", false));
+
+			CloseableHttpResponse response1 = httpclient.execute(httpPost);
+			{
+				int code = response1.getCode();
+				if (((code >= 200) && (code < 300)) == false) {
+					throw new IOException("url: " + url + ",response: " + code);
+				}
+				HttpEntity entity1 = response1.getEntity();
+				if (entity1 != null) {
+					return entity1.getContent();
+				} else {
+					throw new IOException();
+				}
+
+			}
+		} catch (URISyntaxException e1) {
+			throw new IOException(e1);
+		}
+
+	}
+
 	private InputStream getInputStream(String url, HttpUriRequestBase httpGet) throws IOException {
 		int code;
 		// The underlying HTTP connection is still held by the response object
@@ -267,6 +317,7 @@ public class HttpClient5 implements HttpClient {
 //		}
 
 		// リクエストの実行とレスポンスハンドラーの処理
+		// throws IOException
 		responseBody = httpclient.execute(httpPost, responseHandler);
 
 		DefaultNlpServiceResponse res = new DefaultNlpServiceResponse(code, responseBody);

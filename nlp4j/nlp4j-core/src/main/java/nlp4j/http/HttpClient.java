@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Map;
 
+import com.google.gson.JsonObject;
+
 import nlp4j.NlpServiceResponse;
 
 /**
@@ -12,7 +14,6 @@ import nlp4j.NlpServiceResponse;
  * @since 1.3.7.8
  */
 public interface HttpClient extends Closeable {
-
 	/**
 	 * created on 2020-04-29
 	 * 
@@ -47,6 +48,21 @@ public interface HttpClient extends Closeable {
 	 * @throws IOException
 	 */
 	InputStream getInputStream(String url, Map<String, String> params) throws IOException;
+
+	/**
+	 * created on 2024-08-08
+	 * 
+	 * @since 1.3.7.13
+	 * 
+	 * @param url
+	 * @param params
+	 * @param requestHeader
+	 * @param requestBody
+	 * @return
+	 * @throws IOException
+	 */
+	InputStream getInputStreamPost(String url, Map<String, String> params, Map<String, String> requestHeader,
+			JsonObject requestBody) throws IOException;
 
 	/**
 	 * POST

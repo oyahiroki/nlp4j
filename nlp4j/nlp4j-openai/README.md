@@ -18,3 +18,8 @@ openai/openai-python
 
 [https://github.com/openai/openai-python](https://github.com/openai/openai-python)
 
+
+## OpenAI Playground
+
+[https://platform.openai.com/playground/chat?models=gpt-4o](https://platform.openai.com/playground/chat?models=gpt-4o)
+

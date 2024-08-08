@@ -1,17 +1,18 @@
-package nlp4j.openai;
+package x;
 
 import java.io.File;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
+import nlp4j.openai.Config;
+import nlp4j.openai.OpenAI;
 import nlp4j.util.JsonObjectUtils;
 import nlp4j.util.JsonUtils;
 
-public class MainChatGPT2_Input_To_Query {
+public class MainChatGPT3_Response {
 
 	public static void main(String[] args) throws Exception {
 
@@ -23,12 +24,12 @@ public class MainChatGPT2_Input_To_Query {
 			return;
 		}
 
-		File inputFile = new File("./file/Chat_MainChatGPT2.txt");
-//		File inputFile = new File("./file/Chat_MainChatGPT3.txt");
+//		File inputFile = new File("./file/Chat_MainChatGPT2.txt");
+		File inputFile = new File("./file/Chat_MainChatGPT3.txt");
 
 		String text = FileUtils.readFileToString(inputFile, "UTF-8");
 
-		Configuration configuration = new Configuration(organization, apiKey);
+		Config configuration = new Config(organization, apiKey);
 
 		System.err.println(configuration);
 
@@ -76,8 +77,6 @@ public class MainChatGPT2_Input_To_Query {
 				JsonObject requestbody = JsonObjectUtils.fromJson(jo.toString());
 				JsonObject response = openai.chat_completions(requestbody);
 				System.out.println(JsonUtils.prettyPrint(response));
-				System.err.println(response.get("choices").getAsJsonArray().get(0).getAsJsonObject().get("message")
-						.getAsJsonObject().get("content").getAsString());
 			}
 
 		}

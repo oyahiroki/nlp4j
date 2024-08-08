@@ -1,6 +1,9 @@
 package nlp4j.openai;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -9,7 +12,6 @@ import com.google.gson.JsonObject;
 
 import nlp4j.NlpServiceResponse;
 import nlp4j.http.HttpClient;
-import nlp4j.http.HttpClient5;
 import nlp4j.http.HttpClientBuilder;
 
 /**
@@ -18,23 +20,32 @@ import nlp4j.http.HttpClientBuilder;
  */
 public class OpenAI implements AutoCloseable {
 
-	static final String ENDPOINT_OPENAI_EMBEDDINGS = "https://api.openai.com/v1/embeddings";
+	/**
+	 * https://api.openai.com/v1/embeddings
+	 */
+	static public final String ENDPOINT_OPENAI_EMBEDDINGS = "https://api.openai.com/v1/embeddings";
 
-	static final String ENDPOINT_OPENAI_MODELS = "https://api.openai.com" + "/v1/models";
+	/**
+	 * https://api.openai.com/v1/models
+	 */
+	static public final String ENDPOINT_OPENAI_MODELS = "https://api.openai.com/v1/models";
 
-	static final String ENDPOINT_OPENAI_CHATCOMPLETIONS = "https://api.openai.com/v1/chat/completions";
+	/**
+	 * https://api.openai.com/v1/chat/completions
+	 */
+	static public final String ENDPOINT_OPENAI_CHATCOMPLETIONS = "https://api.openai.com/v1/chat/completions";
 
-	Configuration configuration;
+	Config configuration;
 
 	HttpClient client = (new HttpClientBuilder()).build();
 
-	public OpenAI(Configuration configuration) {
+	public OpenAI(Config configuration) {
 		super();
 		this.configuration = configuration;
 	}
 
 	public OpenAI(String organization, String apiKey) {
-		configuration = new Configuration(organization, apiKey);
+		configuration = new Config(organization, apiKey);
 	}
 
 	/**
@@ -65,9 +76,37 @@ public class OpenAI implements AutoCloseable {
 
 	public JsonObject chat_completions(String model, Messages messages) throws IOException {
 		JsonObject requestbody = new JsonObject();
-		requestbody.addProperty("model", model);
-		requestbody.add("messages", messages.toJsonArray());
+		{
+			requestbody.addProperty("model", model);
+			requestbody.add("messages", messages.toJsonArray());
+		}
 		return chat_completions(requestbody);
+	}
+
+	public InputStream chat_completions_stream(String model, Messages messages) throws IOException {
+		JsonObject requestbody = new JsonObject();
+		{
+			requestbody.addProperty("model", model);
+			requestbody.add("messages", messages.toJsonArray());
+			requestbody.addProperty("stream", true);
+		}
+
+		return chat_completions_stream(requestbody);
+	}
+
+	public InputStream chat_completions_stream(JsonObject requestbody) throws IOException {
+		/**
+		 * https://platform.openai.com/docs/api-reference/completions/create
+		 */
+		HttpClient client = (new HttpClientBuilder()).build();
+
+		Map<String, String> header = new HashMap<>();
+		header.put("Authorization", "Bearer " + this.configuration.getApiKey());
+		header.put("Content-Type", "application/json");
+
+		Map<String, String> params = null;
+		InputStream is = client.getInputStreamPost(ENDPOINT_OPENAI_CHATCOMPLETIONS, params, header, requestbody);
+		return is;
 	}
 
 	@Override
@@ -98,11 +137,15 @@ public class OpenAI implements AutoCloseable {
 			{
 				requestBody.addProperty("input", text);
 				requestBody.addProperty("model", "text-embedding-ada-002");
+				requestBody.addProperty("encoding_format", "float"); // 2024-08-08
 			}
+			// throws IOException
 			NlpServiceResponse res = client.post(ENDPOINT_OPENAI_EMBEDDINGS, header, requestBody.toString());
 
 			int code = res.getResponseCode();
-			if (code != 200) {
+			if (code != 200 //
+					&& code != -1 // 2024-08-08
+			) {
 				throw new IOException("url: " + ENDPOINT_OPENAI_EMBEDDINGS + ",response: " + code);
 			}
 

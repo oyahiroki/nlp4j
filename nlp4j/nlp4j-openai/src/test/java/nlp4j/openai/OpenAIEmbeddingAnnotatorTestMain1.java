@@ -1,13 +1,12 @@
 package nlp4j.openai;
 
-import junit.framework.TestCase;
 import nlp4j.Document;
 import nlp4j.DocumentBuilder;
 import nlp4j.annotator.AnnotatorBuilder;
 
-public class OpenAIEmbeddingAnnotatorTestCase extends TestCase {
+public class OpenAIEmbeddingAnnotatorTestMain1 {
 
-	public void testAnnotateDocument() throws Exception {
+	public static void main(String[] args) throws Exception {
 		String text = "今日はいい天気です。";
 
 		Document doc = (new DocumentBuilder()).text(text).build();

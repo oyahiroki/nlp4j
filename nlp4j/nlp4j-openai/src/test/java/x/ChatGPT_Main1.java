@@ -1,20 +1,24 @@
-package nlp4j.openai;
+package x;
 
 import java.util.Date;
 
 import com.google.gson.JsonObject;
 
+import nlp4j.openai.Config;
+import nlp4j.openai.Messages;
+import nlp4j.openai.MessagesBuilder;
+import nlp4j.openai.OpenAI;
 import nlp4j.util.JsonObjectUtils;
 import nlp4j.util.JsonUtils;
 
-public class MainChatGPT {
+public class ChatGPT_Main1 {
 
 	public static void main(String[] args) throws Exception {
 
 		String apiKey = System.getProperty("openai.api_key");
 		String organization = System.getProperty("openai.organization");
 
-		Configuration configuration = new Configuration(organization, apiKey);
+		Config configuration = new Config(organization, apiKey);
 
 		System.err.println(configuration);
 
