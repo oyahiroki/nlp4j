@@ -71,6 +71,7 @@ public class RagQueryServlet extends HttpServlet {
 					ann.setProperty("mapping", KeywordFacetMappingAnnotator.DEFAULT_MAPPING);
 					ann.annotate(doc);
 				}
+				StatusServlet.setMessage("embedding...");
 				{
 					DocumentAnnotator ann = new EmbeddingAnnotator();
 					ann.setProperty("target", "text");
@@ -78,12 +79,14 @@ public class RagQueryServlet extends HttpServlet {
 					System.err.println(doc.getAttributeAsListNumbers("vector").size());
 
 				}
+				StatusServlet.setMessage("embedding...done");
 			} catch (Exception e) {
 				e.printStackTrace();
 				response.setStatus(500);
 				return;
 			}
 
+			StatusServlet.setMessage("searching...");
 			{
 				try (SolrSearchClient client = new SolrSearchClient.Builder(endPoint).build()) {
 					JsonObject responseObject = client.searchByVector(collection, doc);
@@ -109,6 +112,7 @@ public class RagQueryServlet extends HttpServlet {
 					System.err.println("SKIP THIS TEST: " + e.getMessage());
 				}
 			}
+			StatusServlet.setMessage("searching...done");
 
 //			response.setContentType("application/javascript; charset=utf-8");
 			response.setStatus(200);
@@ -121,6 +125,7 @@ public class RagQueryServlet extends HttpServlet {
 //				}
 //			}
 			pw.flush();
+			StatusServlet.setMessage("");
 
 //			response.getWriter().println(JsonUtils.prettyPrint(DocumentUtil.toJsonString(doc)));
 

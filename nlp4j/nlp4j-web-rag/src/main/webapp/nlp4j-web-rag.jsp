@@ -156,6 +156,111 @@ function ragquery(){
 	});
 }
 
+function getCurrentDateTime() {
+	let now = new Date();
+	let year = now.getFullYear();
+	let month = now.getMonth() + 1; // 月は0から始まるので1を加える
+	let day = now.getDate();
+	let hour = now.getHours();
+	let minute = now.getMinutes();
+	let second = now.getSeconds();
+	// ゼロ埋めする関数
+	const zeroPad = (num, places) => String(num).padStart(places, '0');
+
+	return "" + zeroPad(year, 4) + zeroPad(month, 2) + zeroPad(day, 2) + zeroPad(hour, 2) + zeroPad(minute, 2) + zeroPad(second, 2);
+	}
+
+function chatonly(){
+	 // ロボットの回答をシミュレート
+    const robotReply = "XXX";
+    const robotMessageDiv = document.createElement('div');
+    const response_id = "response_" + getCurrentDateTime() ;
+    robotMessageDiv.innerHTML = "<strong>ロボット:</strong> <span id='" + response_id + "'></span>";
+    
+    const chat_window = document.getElementById('div_chat');
+    chat_window.appendChild(robotMessageDiv);
+    // inputField.value = ''; // 入力フィールドをクリア
+    chat_window.scrollTop = chat_window.scrollHeight; // スクロールダウン	
+	
+	let q = $("#q").val();
+	let url = "./chatonly.wss?q=" + encodeURIComponent(q);
+    const eventSource = new EventSource(url);
+    eventSource.onmessage = function(event) {
+		if(event.data != null){
+	        // console.log(event.data);
+	        const data = event.data.substring(5);
+	        const o = JSON.parse(data);
+	        const v = o.choices[0].delta.content;
+	        console.log("chat: " + v);
+	        $("#"+response_id).append(v);
+//	        $("#system_message").text(event.data);
+		}
+        // document.getElementById("status").innerText = event.data;
+//        if (event.data.includes("100%")) {
+//            eventSource.close();
+//        }
+    };
+	// エラーが発生したときの処理
+	eventSource.onerror = function(event) {
+	    // console.error("Error occurred with EventSource connection.", event);
+	    // 接続が切断された場合、イベントソースを閉じる
+	    if (event.eventPhase === EventSource.CLOSED) {
+	        eventSource.close();
+	        // console.log("Connection closed due to an error.");
+	    }
+	};
+	// 接続が終了したときの処理
+	eventSource.onclose = function(event) {
+	    console.log("Connection closed.", event);
+	};
+}
+
+function chat(){
+	 // ロボットの回答をシミュレート
+   const robotReply = "XXX";
+   const robotMessageDiv = document.createElement('div');
+   const response_id = "response_" + getCurrentDateTime() ;
+   robotMessageDiv.innerHTML = "<strong>ロボット:</strong> <span id='" + response_id + "'></span>";
+   
+   const chat_window = document.getElementById('div_chat');
+   chat_window.appendChild(robotMessageDiv);
+   // inputField.value = ''; // 入力フィールドをクリア
+   chat_window.scrollTop = chat_window.scrollHeight; // スクロールダウン	
+	
+	let q = $("#q").val();
+	let url = "./chat.wss?q=" + encodeURIComponent(q);
+   const eventSource = new EventSource(url);
+   eventSource.onmessage = function(event) {
+		if(event.data != null){
+	        // console.log(event.data);
+	        const data = event.data.substring(5);
+	        const o = JSON.parse(data);
+	        const v = o.choices[0].delta.content;
+	        console.log("chat: " + v);
+	        $("#"+response_id).append(v);
+//	        $("#system_message").text(event.data);
+		}
+       // document.getElementById("status").innerText = event.data;
+//       if (event.data.includes("100%")) {
+//           eventSource.close();
+//       }
+   };
+	// エラーが発生したときの処理
+	eventSource.onerror = function(event) {
+	    // console.error("Error occurred with EventSource connection.", event);
+	    // 接続が切断された場合、イベントソースを閉じる
+	    if (event.eventPhase === EventSource.CLOSED) {
+	        eventSource.close();
+	        // console.log("Connection closed due to an error.");
+	    }
+	};
+	// 接続が終了したときの処理
+	eventSource.onclose = function(event) {
+	    console.log("Connection closed.", event);
+	};
+}
+
+
 $(document).ready(function() {
 	{
 		var df = nlp;
@@ -164,6 +269,14 @@ $(document).ready(function() {
 	{
 		var rq = ragquery;
 		$("#btn_ragquery").click(rq);
+	}
+	{
+		const f = chat;
+		$("#btn_chatonly").click(f);
+	}
+	{
+		const f = chat;
+		$("#btn_chat").click(f);
 	}
 	{
 		$("#q").keypress(function(e){
@@ -180,6 +293,30 @@ $(document).ready(function() {
         this.style.height = (this.scrollHeight) + 'px';
     });
 	
+    const eventSource = new EventSource("./status.wss");
+    eventSource.onmessage = function(event) {
+		if(event.data != null){
+	        console.log(event.data);
+	        $("#system_message").text(event.data);
+		}
+        // document.getElementById("status").innerText = event.data;
+//        if (event.data.includes("100%")) {
+//            eventSource.close();
+//        }
+    };
+	// エラーが発生したときの処理
+	eventSource.onerror = function(event) {
+	    console.error("Error occurred with EventSource connection.", event);
+	    // 接続が切断された場合、イベントソースを閉じる
+	    if (event.eventPhase === EventSource.CLOSED) {
+	        eventSource.close();
+	        console.log("Connection closed due to an error.");
+	    }
+	};
+	// 接続が終了したときの処理
+	eventSource.onclose = function(event) {
+	    console.log("Connection closed.", event);
+	};
 	
 	
 	
@@ -213,6 +350,8 @@ $(document).ready(function() {
 		<span class="input-group-btn">
 			<button type="button" class="btn btn-primary" id="btn_nlp">POST</button>
 			<button type="button" class="btn btn-primary" id="btn_ragquery">Query</button>
+			<button type="button" class="btn btn-primary" id="btn_chatonly">Chat Only</button>
+			<button type="button" class="btn btn-primary" id="btn_chat">Chat</button>
 		</span>
 		</div>
 	</div>
@@ -222,6 +361,15 @@ $(document).ready(function() {
   <div class="row">
     <div class="col"></div> <!-- 左側のスペース -->
     <div class="col-10">
+    <span id="system_message"></span>
+    </div>
+    <div class="col"></div> <!-- 右側のスペース -->
+  </div>
+  
+  <div class="row">
+    <div class="col"></div> <!-- 左側のスペース -->
+    <div class="col-10">
+    <div style="height: 200px; overflow-y: auto;">
 	<table class="table table-striped border" id="nlp_result">
 		<thead>
 		  <tr><th>Score</th><th>Document</th></tr>
@@ -232,9 +380,24 @@ $(document).ready(function() {
 	  <!-- tr><td>Suzuki</td><td>26</td></tr -->
 	  <!-- tr><td>Tanaka</td><td>36</td></tr -->
 	</table>
+	</div>
     </div>
     <div class="col"></div> <!-- 右側のスペース -->
   </div>
+  
+ <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">チャット</div>
+                    <div class="card-body">
+                        <div id="div_chat" class="mb-3" style="height: 300px; overflow-y: auto; background-color: #f8f9fa;">
+                            <!-- ここにチャット内容が動的に追加されます -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>  
+  
 </div>
 
 

@@ -31,4 +31,38 @@
 		<servlet-name>RagQueryServlet</servlet-name>
 		<url-pattern>/ragquery.wss</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<description></description>
+		<display-name>StatusServlet</display-name>
+		<servlet-name>StatusServlet</servlet-name>
+		<servlet-class>nlp4j.servlet.StatusServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>StatusServlet</servlet-name>
+		<url-pattern>/status.wss</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<description></description>
+		<display-name>ChatOnlyServlet</display-name>
+		<servlet-name>ChatOnlyServlet</servlet-name>
+		<servlet-class>nlp4j.servlet.ChatOnlyServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ChatOnlyServlet</servlet-name>
+		<url-pattern>/chatonly.wss</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<description></description>
+		<display-name>ChatServlet</display-name>
+		<servlet-name>ChatServlet</servlet-name>
+		<servlet-class>nlp4j.servlet.ChatServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ChatServlet</servlet-name>
+		<url-pattern>/chat.wss</url-pattern>
+	</servlet-mapping>
+	
 </web-app>
