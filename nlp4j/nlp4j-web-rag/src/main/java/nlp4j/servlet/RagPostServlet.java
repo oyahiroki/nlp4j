@@ -54,7 +54,7 @@ public class RagPostServlet extends HttpServlet {
 			try {
 				Document doc = ServletUtils.parse(request);
 				{
-					doc.setId(DateUtils.get_yyyyMMdd()); // 文書ID
+					doc.setId(DateUtils.get_yyyyMMdd_HHmmss()); // 文書ID
 				}
 				logger.info("annotating ...");
 				{

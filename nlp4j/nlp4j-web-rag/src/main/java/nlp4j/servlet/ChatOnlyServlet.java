@@ -164,6 +164,7 @@ public class ChatOnlyServlet extends HttpServlet {
 			catch (Exception e) {
 				e.printStackTrace();
 				response.setStatus(500);
+				return;
 			}
 
 			logger.info("回答: " + sb_response_all);

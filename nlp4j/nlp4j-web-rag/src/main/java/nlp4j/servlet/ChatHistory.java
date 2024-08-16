@@ -15,6 +15,7 @@ public class ChatHistory {
 	public ChatHistory() {
 		history = new JsonObject();
 		String ts = DateUtils.toISO8601(new Date());
+		history.addProperty("name", "chat history");
 		history.addProperty("conversation_id", ts + "_" + (new Random()).nextInt(10000));
 		history.addProperty("timestamp", ts);
 		history.addProperty("description", "this object is chat history of bot and user");

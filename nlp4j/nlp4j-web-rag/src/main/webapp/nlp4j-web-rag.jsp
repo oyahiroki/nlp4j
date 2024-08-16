@@ -54,6 +54,7 @@
 
 // テキストを送信してベクトル化・ベクトルDB(Solr)に格納する(POSTリクエスト)
 function posttext(){
+	printMessage(""+ getCurrentDateTime2() + " : Processing ...");
 	const q = $("#q").val();
 	console.log(q);
 	const requestObj = {text:q};
@@ -90,14 +91,15 @@ function posttext(){
 	.always(function(data) {
 				console.log("response");
 				console.log(data);
+				printMessage(""+ getCurrentDateTime2() + " : Processing ... done");
 	})
 	;
 }
 
 // キーワードサーチ
 function keywordsearch(){
-
 	$("#nlp_result_tbody").empty();
+	printMessage(""+ getCurrentDateTime2() + " : Searching ... ");
 	
 	const q = $("#q").val();
 	const requestObj = {text:q,select:"score,id,text_txt_ja"};
@@ -136,6 +138,7 @@ function keywordsearch(){
 			if (callbackOnSuccess) {
 				callbackOnSuccess(data, requestObj,metadata);
 			}
+			printMessage(""+ getCurrentDateTime2() + " : Searching ... done");
 		} // ,
 	}).done(function(data) {
 	}).fail(
@@ -159,14 +162,17 @@ function keywordsearch(){
 
 // テキストを送信してベクトル検索する(POSTリクエスト)
 function vectorsearch(){
-
 	$("#nlp_result_tbody").empty();
+	printMessage(""+ getCurrentDateTime2() + " : Searching ... ");
 	
 	const q = $("#q").val();
 	const requestObj = {text:q};
 	
 	var callbackOnSuccess = function(data, requestObj,metadata){
 		$("#nlp_result_tbody").empty();
+		if(data.response.docs.length==0){
+			$("#nlp_result").append("<tr>" + "<td></td><td>not found</td>" + "</tr>");
+		}
 		data.response.docs.forEach(function(doc){
 			$("#nlp_result").append("<tr>" + "<td>" + (doc.score) + "</td><td>" + doc.text_txt_ja + "</td>" + "</tr>");
 		});
@@ -184,6 +190,7 @@ function vectorsearch(){
 			if (callbackOnSuccess) {
 				callbackOnSuccess(data, requestObj,metadata);
 			}
+			printMessage(""+ getCurrentDateTime2() + " : Searching ... done");
 		} // ,
 	}).done(function(data) {
 	}).fail(
@@ -214,9 +221,20 @@ function getCurrentDateTime() {
 	let second = now.getSeconds();
 	// ゼロ埋めする関数
 	const zeroPad = (num, places) => String(num).padStart(places, '0');
-
 	return "" + zeroPad(year, 4) + zeroPad(month, 2) + zeroPad(day, 2) + zeroPad(hour, 2) + zeroPad(minute, 2) + zeroPad(second, 2);
-	}
+}
+function getCurrentDateTime2() {
+	let now = new Date();
+	let year = now.getFullYear();
+	let month = now.getMonth() + 1; // 月は0から始まるので1を加える
+	let day = now.getDate();
+	let hour = now.getHours();
+	let minute = now.getMinutes();
+	let second = now.getSeconds();
+	// ゼロ埋めする関数
+	const zeroPad = (num, places) => String(num).padStart(places, '0');
+	return "" + zeroPad(year, 4) + "-" + zeroPad(month, 2) + "-" + zeroPad(day, 2) + " " + zeroPad(hour, 2) + ":" + zeroPad(minute, 2) + ":" + zeroPad(second, 2);
+}
 
 
 function process_stream_event(target_id, event){
@@ -454,6 +472,7 @@ $(document).ready(function() {
 		    }
 		});
 	}
+	printMessage(""+ getCurrentDateTime2() + " : Loaded.");
 	
     // テキストエリアの自動リサイズ
     $('#q').on('input', function () {

@@ -30,6 +30,7 @@ import nlp4j.openai.Config;
 import nlp4j.openai.OpenAI;
 import nlp4j.servlet.util.ServletStreamUtils;
 import nlp4j.solr.search.SolrSearchClient;
+import nlp4j.util.JsonUtils;
 
 /**
  * RagChat: ベクトル検索の結果を会話に反映する
@@ -118,45 +119,38 @@ public class RagChatServlet extends HttpServlet {
 			}
 
 			{ // 文書検索結果を返す
-				JsonObject jo = new JsonObject();
+				JsonObject jo_documents = new JsonObject();
 				{
-					jo.addProperty("type", "documents");
-					jo.add("data", docs_knowledge);
+					jo_documents.addProperty("type", "documents");
+					jo_documents.add("data", docs_knowledge);
 				}
-				pw.write("data: " + jo.toString() + "\n\n");
+				pw.write("data: " + jo_documents.toString() + "\n\n");
 				pw.flush();
 			}
 
 			final String model = "gpt-4";
-
-			String content = "What is the highest mountain in Japan?";
-//				JsonObject kb = new JsonObject();
-//				kb.addProperty("name", "Knowledge base for answering");
-//				JsonArray knowledgebase = new JsonArray();
-			//
-//				addKnowledge1(knowledgebase);
-//				addKnowledge2(knowledgebase);
-//				addKnowledge3(request, knowledgebase);
-//				addKnowledge4(knowledgebase);
-//				kb.add("knowledgebase", knowledgebase);
-
-			// content = "日本で最も高い山の名前を教えてください。"
-//						+ "必ず日本語で回答してください。";
 
 			JsonObject question_from_user = new JsonObject();
 			{
 				question_from_user.addProperty("name", "question from end user");
 				question_from_user.addProperty("value", q);
 			}
-
-			content = "{name:'question from end user'}は一般ユーザーからの質問です。必ず日本語で回答してください。\n" + "---\n" //
-					+ question_from_user.toString() + "\n"// question
-					+ history.toString() //
-					+ "";
-
-			for (int n = 0; n < docs_knowledge.size(); n++) {
-				content += "\n" + docs_knowledge.get(n).getAsJsonObject().toString();
+			JsonObject knowledge_base = new JsonObject();
+			{
+				knowledge_base.addProperty("name", "Knowledge base for answering");
+				knowledge_base.add("value", docs_knowledge);
 			}
+
+			String content //
+					= "{name:'question from end user'}は一般ユーザーからの質問です。必ず日本語で回答してください。\n" //
+							+ "{name:'Knowledge base for answering'}は回答のための知識ベースです。" //
+							+ "{name:'chat history'}は、今回の会話の履歴です。\n" //
+							+ "会話の履歴と知識ベースを用いて回答してください。\n" //
+							+ "---\n" //
+							+ question_from_user.toString() + "\n"// question
+							+ knowledge_base.toString() + "\n" // knowledge base
+							+ history.toString() + "\n" //
+			;
 
 			// Open AI API へのリクエスト
 			JsonObject requestBody = new JsonObject();
@@ -175,7 +169,7 @@ public class RagChatServlet extends HttpServlet {
 				requestBody.addProperty("stream", true);
 			}
 
-			StringBuilder sb_response_all = new StringBuilder();
+			logger.info("request to API:\n" + JsonUtils.prettyPrint(requestBody));
 
 			try (OpenAI openai = new OpenAI(new Config());) {
 
@@ -194,12 +188,10 @@ public class RagChatServlet extends HttpServlet {
 						if (line.trim().isEmpty()) {
 							continue;
 						}
-
 						if ("data: [DONE]".equals(line)) {
 							logger.info("done response from Open AI API");
 							break;
 						}
-
 						{
 							JsonObject r = (new Gson()).fromJson(line.substring("data: ".length()), JsonObject.class);
 							{
@@ -213,21 +205,18 @@ public class RagChatServlet extends HttpServlet {
 								}
 								String s = je_content.getAsString();
 								sb_response.append(s);
-								sb_response_all.append(s);
 							}
 						}
-
-						JsonObject jo = new JsonObject();
-						{
-							jo.addProperty("type", "openai.stream");
-							jo.add("data", (new Gson()).fromJson(line.substring(6), JsonObject.class));
+						{ // STREAM_RESPONSE
+							JsonObject jo_stream = new JsonObject();
+							{
+								jo_stream.addProperty("type", "openai.stream");
+								jo_stream.add("data", (new Gson()).fromJson(line.substring(6), JsonObject.class));
+							}
+							pw.write("data: " + jo_stream.toString() + "\n\n");
+							pw.flush();
 						}
-
-						pw.write("data: " + jo.toString() + "\n\n");
-						pw.flush();
-
 					} // END_OF_WHILE
-
 					{
 						JsonObject jo = new JsonObject();
 						jo.addProperty("type", "openai.response");
@@ -235,21 +224,21 @@ public class RagChatServlet extends HttpServlet {
 						pw.write("data: " + jo.toString() + "\n\n");
 						pw.flush();
 					}
+					{
+						logger.info("回答: " + sb_response.toString());
+						history.addBotMessage("bot_" + session.getId(), q);
+						logger.info("processing ... done");
+					}
 
 				} // END_OF_TRY (RESPONSE_FROM_OPEN_AI)
-
 			} // END_OF_TRY(OPEN_AI)
 			catch (Exception e) {
 				e.printStackTrace();
+				response.setStatus(500);
+				return;
 			}
-
-			logger.info("回答: " + sb_response_all);
-			history.addBotMessage("bot_" + session.getId(), q);
-
 			logger.info("processing ... done");
-
 		} // END_OF_TRY(Print)
-
 	} // END_OF_doGet()
 
 	private void removeVector(JsonObject responseObject) {

@@ -1,39 +1,51 @@
 package nlp4j.solr.importer;
 
 import java.io.IOException;
+import java.lang.invoke.MethodHandles;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.impl.Http2SolrClient;
 import org.apache.solr.client.solrj.response.UpdateResponse;
 import org.apache.solr.common.SolrInputDocument;
 
-import com.google.gson.Gson;
-
 import nlp4j.AbstractDocumentImporter;
 import nlp4j.Document;
 import nlp4j.DocumentImporter;
-import nlp4j.NlpServiceResponse;
-import nlp4j.llm.embeddings.EmbeddingResponse;
-import nlp4j.llm.embeddings.EmbeddingServiceViaHttp;
 import nlp4j.util.DoubleUtils;
 
 public class SolrDocumentImporterVector extends AbstractDocumentImporter implements DocumentImporter, AutoCloseable {
 
+	static private Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
+
+	private String solr_endPoint = "http://localhost:8983/solr/";
+	private String solr_collection = "sandbox";
+
+	@Override
+	public void setProperty(String key, String value) {
+
+		super.setProperty(key, value);
+
+		if ("endpoint".equals(key.toLowerCase())) {
+			this.solr_endPoint = value;
+		}
+		if ("collection".equals(key.toLowerCase())) {
+			this.solr_collection = value;
+		}
+
+	}
+
 	@Override
 	public void importDocument(Document doc) throws IOException {
 		{
-
 			{
-				String endPoint2 = "http://localhost:8983/solr/";
-				String collection = "sandbox";
-
-				try (Http2SolrClient solrClient = new Http2SolrClient.Builder(endPoint2 + collection) //
+				try (Http2SolrClient solrClient = new Http2SolrClient.Builder(solr_endPoint + solr_collection) //
 						.build();) {
-
 					// org.apache.solr.common.SolrInputDocument
 					SolrInputDocument inputDocument = new SolrInputDocument();
 					{
-						inputDocument.addField("id", "001");
+						inputDocument.addField("id", doc.getId());
 						inputDocument.addField("text_txt_ja", doc.getText()); // *_txt_ja
 //						inputDocument.addField("field1_s", "aaa"); // *_s
 //						String[] ss = { "aaa", "bbb", "ccc" };
@@ -48,31 +60,24 @@ public class SolrDocumentImporterVector extends AbstractDocumentImporter impleme
 						solrResponse = solrClient //
 								.add(inputDocument);
 						UpdateResponse res2 = solrClient.commit();
-
-						System.err.println(solrResponse.jsonStr());
-
-						System.err.println(res2.jsonStr());
-
+						if (logger.isDebugEnabled()) {
+							logger.info(solrResponse.jsonStr());
+							logger.info(res2.jsonStr());
+						}
 					} catch (SolrServerException | IOException e) {
 						e.printStackTrace();
 					}
 				}
 			}
-
 		}
-
 	}
 
 	@Override
 	public void commit() throws IOException {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void close() {
-		// TODO Auto-generated method stub
-
 	}
 
 }

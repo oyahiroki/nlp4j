@@ -138,11 +138,12 @@ public class RagChatPlusServlet extends HttpServlet {
 
 			final String model = "gpt-4";
 
-			//
-			addKnowledge1_SystemInfo(docs_knowledge);
-			addKnowledge2_DiskInfo(docs_knowledge);
-			addKnowledge3_Browser(request, docs_knowledge);
-			addKnowledge4_GoogleSphreadSheet(docs_knowledge);
+			{
+				addKnowledge1_SystemInfo(docs_knowledge);
+				addKnowledge2_DiskInfo(docs_knowledge);
+				addKnowledge3_Browser(request, docs_knowledge);
+				addKnowledge4_GoogleSphreadSheet(docs_knowledge);
+			}
 
 			JsonObject question_from_user = new JsonObject();
 			{
@@ -156,18 +157,17 @@ public class RagChatPlusServlet extends HttpServlet {
 			}
 
 			String content //
-					= "{name:'question from end user'}は一般ユーザーからの質問です。必ず日本語で回答してください。"
+					= "{name:'question from end user'}は一般ユーザーからの質問です。必ず日本語で回答してください。\n"
 							+ "{name:'Knowledge base for answering'}は回答のための知識ベースです。" //
-							+ "極力知識ベースを用いて回答してください。\n" //
+							+ "{name:'chat history'}は、今回の会話の履歴です。\n" //
+							+ "会話の履歴と知識ベースを用いて回答してください。\n" //
 							+ "---\n" //
 							+ question_from_user.toString() + "\n" // question
 							+ knowledge_base.toString() + "\n" // knowledge base
+							+ history.toString() + "\n"//
 			;
 
-			for (int n = 0; n < docs_knowledge.size(); n++) {
-				content += "\n" + docs_knowledge.get(n).getAsJsonObject().toString();
-			}
-
+			// Open AI API へのリクエスト
 			JsonObject requestBody = new JsonObject();
 			{
 				requestBody.addProperty("model", model);
@@ -190,54 +190,71 @@ public class RagChatPlusServlet extends HttpServlet {
 
 				try (BufferedReader br = new BufferedReader(
 						new InputStreamReader(openai.chat_completions_stream(requestBody)))) {
+
 					String line;
+					StringBuilder sb_response = new StringBuilder();
+
 					while ((line = br.readLine()) != null) {
 						// Send each chunk of data as an SSE (Server-Sent Event)
-//							System.out.println("LINE: " + line + "");
-//							System.out.println("LINE.length: " + line.length() + "");
-
-						if (line.length() < 10) {
+						if (logger.isDebugEnabled()) {
+							logger.debug("line.length: " + line.length());
+							logger.debug("line: " + line);
+						}
+						if (line.trim().isEmpty()) {
 							continue;
 						}
-
 						if ("data: [DONE]".equals(line)) {
 							break;
 						}
-
-						JsonObject r = (new Gson()).fromJson(line.substring("data: ".length()), JsonObject.class);
 						{
-							JsonElement je_content = r.get("choices").getAsJsonArray().get(0).getAsJsonObject()
-									.get("delta").getAsJsonObject().get("content");
-							if (je_content == null) {
-								continue;
+							JsonObject r = (new Gson()).fromJson(line.substring("data: ".length()), JsonObject.class);
+							{
+								JsonElement je_content = r //
+										.get("choices").getAsJsonArray() //
+										.get(0).getAsJsonObject() //
+										.get("delta").getAsJsonObject().get("content") //
+								;
+								if (je_content == null) {
+									continue;
+								}
+								String s = je_content.getAsString();
+								System.out.print(s);
 							}
-							String s = je_content.getAsString();
-							System.out.print(s);
+						}
+						{ // STREAM_RESPONSE
+							JsonObject jo_stream = new JsonObject();
+							{
+								jo_stream.addProperty("type", "openai.stream");
+								jo_stream.add("data", (new Gson()).fromJson(line.substring(6), JsonObject.class));
+							}
+							pw.write("data: " + jo_stream.toString() + "\n\n");
+							pw.flush();
 						}
 
-//							pw.write("data: " + line + "\n\n");
-
+					} // END_OF_WHILE
+					{
 						JsonObject jo = new JsonObject();
-						jo.addProperty("type", "openai.stream");
-						jo.add("data", (new Gson()).fromJson(line.substring(6), JsonObject.class));
-
+						jo.addProperty("type", "openai.response");
+						jo.addProperty("data", sb_response.toString());
 						pw.write("data: " + jo.toString() + "\n\n");
 						pw.flush();
-
 					}
-				}
+					{
+						logger.info("回答: " + sb_response.toString());
+						history.addBotMessage("bot_" + session.getId(), q);
+						logger.info("processing ... done");
+					}
 
-				System.out.println("");
-
-			} catch (Exception e) {
+				} // END_OF_TRY (RESPONSE_FROM_OPEN_AI)
+			} // END_OF_TRY(OPEN_AI)
+			catch (Exception e) {
 				e.printStackTrace();
+				response.setStatus(500);
+				return;
 			}
-
-//			response.setContentType("application/javascript; charset=utf-8");
-
-		}
-
-	}
+			logger.info("processing ... done");
+		} // END_OF_TRY(Print)
+	} // END_OF_doGet()
 
 	private void removeVector(JsonObject responseObject) {
 		{

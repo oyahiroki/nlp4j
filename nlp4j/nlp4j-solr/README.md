@@ -58,6 +58,25 @@ curl -X POST -H 'Content-type:application/json' --data-binary '{"add-field-type"
 curl -X POST -H 'Content-type:application/json' --data-binary '{ "add-field":{ "name":"vector", "type":"vector1024", "indexed":true, "stored":true } }' http://localhost:8983/solr/sandbox/schema
 ```
 
+## *コレクションから文書を削除する
+
+```
+curl 'http://localhost:8983/solr/sandbox/update?commit=true' -d '<delete><query>*:*</query></delete>'
+```
+
+```
+# Example
+$ curl 'http://localhost:8983/solr/sandbox/update?commit=true' -d '<delete><query>*:*</query></delete>'
+<?xml version="1.0" encoding="UTF-8"?>
+<response>
+
+<lst name="responseHeader">
+  <int name="status">0</int>
+  <int name="QTime">96</int>
+</lst>
+</response>
+```
+
 # 2. Embedding Server の起動
 
 セットアップは以下を参照
