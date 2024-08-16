@@ -113,14 +113,10 @@ public class ChatOnlyServlet extends HttpServlet {
 							logger.debug("line.length: " + line.length());
 							logger.debug("line: " + line);
 						}
-						// けっこう多い
 						if (line.trim().isEmpty()) {
 							continue;
 						}
-						if (line.length() < 10) {
-							logger.warn("line.length<10:" + line);
-							continue;
-						}
+
 						if ("data: [DONE]".equals(line)) {
 							logger.info("done response from Open AI API");
 							break;
@@ -138,14 +134,10 @@ public class ChatOnlyServlet extends HttpServlet {
 									continue;
 								}
 								String s = je_content.getAsString();
-//									System.out.print(s);
 								sb_response.append(s);
-
 								sb_response_all.append(s);
 							}
 						}
-
-//							pw.write("data: " + line + "\n\n");
 
 						JsonObject jo = new JsonObject();
 						{

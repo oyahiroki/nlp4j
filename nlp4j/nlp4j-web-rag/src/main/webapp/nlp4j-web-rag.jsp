@@ -249,7 +249,6 @@ function append_message(user_name,type){
 
 function chatonly(){
 	let q = $("#q").val();
-	
 	{
 		let x = append_message("You","q");
 		$("#"+x).append(q);
@@ -299,6 +298,12 @@ function ragchat(){
 	// 文書検索結果を消去
 	$("#nlp_result_tbody").empty();
 	
+	let q = $("#q").val();
+	{
+		let x = append_message("You","q");
+		$("#"+x).append(q);
+	}
+	
 	// ロボットの回答をシミュレート
 	const robotReply = "XXX";
 	const robotMessageDiv = document.createElement('div');
@@ -310,7 +315,6 @@ function ragchat(){
    // inputField.value = ''; // 入力フィールドをクリア
    chat_window.scrollTop = chat_window.scrollHeight; // スクロールダウン	
 	
-	let q = $("#q").val();
 	let url = "./ragchat.wss?q=" + encodeURIComponent(q);
    const eventSource = new EventSource(url);
    eventSource.onmessage = function(event) {
@@ -360,10 +364,16 @@ function ragchat(){
 	    console.log("Connection closed.", event);
 	};
 }
-function chat(){
+function ragchatplus(){
 
 	// 文書検索結果を消去
 	$("#nlp_result_tbody").empty();
+	
+	let q = $("#q").val();
+	{
+		let x = append_message("You","q");
+		$("#"+x).append(q);
+	}
 	
 	// ロボットの回答をシミュレート
 	const robotReply = "XXX";
@@ -376,8 +386,7 @@ function chat(){
    // inputField.value = ''; // 入力フィールドをクリア
    chat_window.scrollTop = chat_window.scrollHeight; // スクロールダウン	
 	
-	let q = $("#q").val();
-	let url = "./chat.wss?q=" + encodeURIComponent(q);
+	let url = "./ragchatplus.wss?q=" + encodeURIComponent(q);
    const eventSource = new EventSource(url);
    eventSource.onmessage = function(event) {
 		if(event.data != null){
@@ -435,6 +444,7 @@ $(document).ready(function() {
 		$("#btn_vectorsearch").click(vectorsearch); // Vector Search
 		$("#btn_chatonly").click(chatonly); // Chat Only
 		$("#btn_ragchat").click(ragchat);
+		$("#btn_ragchatplus").click(ragchatplus);
 	}
 	{
 		$("#q").keypress(function(e){
@@ -511,6 +521,7 @@ $(document).ready(function() {
 			<button type="button" class="btn btn-primary" id="btn_vectorsearch">Vector Search</button>
 			<button type="button" class="btn btn-primary" id="btn_chatonly">Chat Only</button>
 			<button type="button" class="btn btn-primary" id="btn_ragchat">RAG Chat</button>
+			<button type="button" class="btn btn-primary" id="btn_ragchatplus">RAG Chat+</button>
 		</span>
 		</div>
 	</div>

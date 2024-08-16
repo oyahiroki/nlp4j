@@ -61,7 +61,7 @@
 		<url-pattern>/chatonly.wss</url-pattern>
 	</servlet-mapping>
 
-	<!-- 5 : RagChat -->
+	<!-- 5 : RagChat: ベクトル検索の結果を会話に反映する -->
 	<servlet>
 		<description></description>
 		<display-name>RagChatServlet</display-name>
@@ -71,6 +71,18 @@
 	<servlet-mapping>
 		<servlet-name>RagChatServlet</servlet-name>
 		<url-pattern>/ragchat.wss</url-pattern>
+	</servlet-mapping>
+
+	<!-- 6 : RagChatPlus: ベクトル検索の結果を会話に反映する -->
+	<servlet>
+		<description></description>
+		<display-name>RagChatPlusServlet</display-name>
+		<servlet-name>RagChatPlusServlet</servlet-name>
+		<servlet-class>nlp4j.servlet.RagChatPlusServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>RagChatPlusServlet</servlet-name>
+		<url-pattern>/ragchatplus.wss</url-pattern>
 	</servlet-mapping>
 
 	<servlet>
