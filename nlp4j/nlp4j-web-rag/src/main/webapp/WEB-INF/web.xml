@@ -9,7 +9,11 @@
 		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>
 
-	<!-- 1 -->
+	<listener>
+		<listener-class>nlp4j.servlet.util.AppContextListener</listener-class>
+	</listener>
+
+	<!-- 1 : ベクトルDBに文書をポストする -->
 	<servlet>
 		<description></description>
 		<display-name>RagPostServlet</display-name>
@@ -20,8 +24,8 @@
 		<servlet-name>RagPostServlet</servlet-name>
 		<url-pattern>/ragpost.wss</url-pattern>
 	</servlet-mapping>
-	
-	<!-- 2 -->
+
+	<!-- 2 : キーワード検索を実行する -->
 	<servlet>
 		<description></description>
 		<display-name>KeywordSearchServlet</display-name>
@@ -32,7 +36,8 @@
 		<servlet-name>KeywordSearchServlet</servlet-name>
 		<url-pattern>/keywordsearch.wss</url-pattern>
 	</servlet-mapping>
-	
+
+	<!-- 3 : ベクトル検索を実行する -->
 	<servlet>
 		<description></description>
 		<display-name>VectorSearchServlet</display-name>
@@ -43,29 +48,8 @@
 		<servlet-name>VectorSearchServlet</servlet-name>
 		<url-pattern>/vectorsearch.wss</url-pattern>
 	</servlet-mapping>
-	
-	<servlet>
-		<description></description>
-		<display-name>RagQueryServlet</display-name>
-		<servlet-name>RagQueryServlet</servlet-name>
-		<servlet-class>nlp4j.servlet.RagQueryServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>RagQueryServlet</servlet-name>
-		<url-pattern>/ragquery.wss</url-pattern>
-	</servlet-mapping>
-	
-	<servlet>
-		<description></description>
-		<display-name>StatusServlet</display-name>
-		<servlet-name>StatusServlet</servlet-name>
-		<servlet-class>nlp4j.servlet.StatusServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>StatusServlet</servlet-name>
-		<url-pattern>/status.wss</url-pattern>
-	</servlet-mapping>
-	
+
+	<!-- 4 : Open AI API を単純に呼ぶ + セッション単位で会話履歴を保存する -->
 	<servlet>
 		<description></description>
 		<display-name>ChatOnlyServlet</display-name>
@@ -76,7 +60,30 @@
 		<servlet-name>ChatOnlyServlet</servlet-name>
 		<url-pattern>/chatonly.wss</url-pattern>
 	</servlet-mapping>
-	
+
+	<!-- 5 : RagChat -->
+	<servlet>
+		<description></description>
+		<display-name>RagChatServlet</display-name>
+		<servlet-name>RagChatServlet</servlet-name>
+		<servlet-class>nlp4j.servlet.RagChatServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>RagChatServlet</servlet-name>
+		<url-pattern>/ragchat.wss</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<description></description>
+		<display-name>StatusServlet</display-name>
+		<servlet-name>StatusServlet</servlet-name>
+		<servlet-class>nlp4j.servlet.StatusServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>StatusServlet</servlet-name>
+		<url-pattern>/status.wss</url-pattern>
+	</servlet-mapping>
+
 	<servlet>
 		<description></description>
 		<display-name>ChatServlet</display-name>
@@ -87,5 +94,5 @@
 		<servlet-name>ChatServlet</servlet-name>
 		<url-pattern>/chat.wss</url-pattern>
 	</servlet-mapping>
-	
+
 </web-app>

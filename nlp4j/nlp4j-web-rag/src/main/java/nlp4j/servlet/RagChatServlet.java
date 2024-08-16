@@ -41,7 +41,7 @@ import nlp4j.util.RuntimeUtils;
 /**
  * Servlet implementation class NlpServlet
  */
-public class ChatServlet extends HttpServlet {
+public class RagChatServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 	static private Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
@@ -49,7 +49,7 @@ public class ChatServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public ChatServlet() {
+	public RagChatServlet() {
 		super();
 	}
 

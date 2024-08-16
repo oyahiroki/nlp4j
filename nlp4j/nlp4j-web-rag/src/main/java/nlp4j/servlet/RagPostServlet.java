@@ -2,25 +2,32 @@ package nlp4j.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.lang.invoke.MethodHandles;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import nlp4j.Document;
 import nlp4j.DocumentAnnotator;
 import nlp4j.annotator.KeywordFacetMappingAnnotator;
 import nlp4j.krmj.annotator.KuromojiAnnotator;
 import nlp4j.llm.embeddings.EmbeddingAnnotator;
+import nlp4j.servlet.util.ServletUtils;
 import nlp4j.solr.importer.SolrDocumentImporterVector;
 import nlp4j.util.DateUtils;
 
 /**
- * Servlet implementation class NlpServlet
+ * ベクトルDBに文書をポストする
  */
 public class RagPostServlet extends HttpServlet {
+
 	private static final long serialVersionUID = 1L;
+	static private Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -39,43 +46,42 @@ public class RagPostServlet extends HttpServlet {
 		response.setContentType("application/javascript; charset=utf-8");
 		response.setCharacterEncoding("UTF-8");
 
+		String solr_endPoint = Config.SOLR_ENDPOINT;
+		String solr_collection = Config.SOLR_COLLECTION;
+
 		try (PrintWriter pw = response.getWriter();) {
 
 			try {
 				Document doc = ServletUtils.parse(request);
-
-				doc.setId(DateUtils.get_yyyyMMdd());
-
-				String endPoint = "http://localhost:8983/solr/";
-				String collection = "sandbox";
-
-				try {
+				{
+					doc.setId(DateUtils.get_yyyyMMdd()); // 文書ID
+				}
+				logger.info("annotating ...");
+				{
 					{ // Kuromoji
 						KuromojiAnnotator ann = new KuromojiAnnotator();
 						ann.setProperty("target", "text");
-						ann.annotate(doc);
+						ann.annotate(doc); // throws Exception
 					}
 					{ // Keyword Facet Mapping for Solr
 						KeywordFacetMappingAnnotator ann = new KeywordFacetMappingAnnotator();
 						ann.setProperty("mapping", KeywordFacetMappingAnnotator.DEFAULT_MAPPING);
-						ann.annotate(doc);
+						ann.annotate(doc); // throws Exception
 					}
-					{
+					{ // Embedding
 						DocumentAnnotator ann = new EmbeddingAnnotator();
 						ann.setProperty("target", "text");
-						ann.annotate(doc);
-						System.err.println(doc.getAttributeAsListNumbers("vector").size());
-
+						ann.annotate(doc); // throws Exception
 					}
-				} catch (Exception e) {
-					e.printStackTrace();
 				}
+				logger.info("annotating ... done");
 
+				logger.info("importing ...");
 				{ // IMPORT DOCUMENT
 					SolrDocumentImporterVector importer = new SolrDocumentImporterVector();
 					{
-						importer.setProperty("endPoint", endPoint);
-						importer.setProperty("collection", collection);
+						importer.setProperty("endPoint", solr_endPoint);
+						importer.setProperty("collection", solr_collection);
 						importer.setProperty("keyword_facet_field_mapping", //
 								"word->word_ss" //
 						);
@@ -83,39 +89,24 @@ public class RagPostServlet extends HttpServlet {
 								"text->text_txt_ja" //
 						);
 					}
-					importer.importDocument(doc);
+					importer.importDocument(doc); // throws IOException
 
-					importer.commit();
+					importer.commit(); // throws IOException
 					importer.close();
 				}
+				logger.info("importing ... done");
 
-			} catch (IOException e) {
-				response.setStatus(400); // Bad Requiest
+			} catch (Exception e) {
+				response.setStatus(500);
 				return;
 			}
 
-			{
-//				DocumentAnnotator annotator = new YJpMaAnnotator();
-//				try {
-//					annotator.annotate(doc);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//					response.setStatus(500); // Server Error
-//					response.getWriter().println("Server Error");
-//					return;
-//				}
-			}
-
-//			response.setContentType("application/javascript; charset=utf-8");
 			response.setStatus(200);
-
 			pw.println("{'message':'OK','timestamp':'" + "" + DateUtils.get_yyyyMMdd_HHmmss() + "'}");
 			pw.flush();
 
-//			response.getWriter().println(JsonUtils.prettyPrint(DocumentUtil.toJsonString(doc)));
+		} // END_OF_TRY
 
-		}
+	} // END_OF_POST_METHOD
 
-	}
-
-}
+} // END_OF_CLASS

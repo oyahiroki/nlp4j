@@ -10,6 +10,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -23,10 +24,10 @@ import nlp4j.openai.Config;
 import nlp4j.openai.OpenAI;
 
 /**
- * Servlet implementation class NlpServlet
+ * Open AI API を単純に呼ぶ + セッション単位で会話履歴を保存する
  */
 public class ChatOnlyServlet extends HttpServlet {
-	
+
 	private static final long serialVersionUID = 1L;
 	static private Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
@@ -43,17 +44,26 @@ public class ChatOnlyServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		logger.info("processing ...");
+		HttpSession session = request.getSession(true);
+		ChatHistory history = (ChatHistory) session.getAttribute("chathistory");
+		if (history == null) {
+			history = new ChatHistory();
+			session.setAttribute("chathistory", history);
+		}
 
 		response.setContentType("text/event-stream");
 		response.setCharacterEncoding("UTF-8");
 
+		final String openai_model = "gpt-4";
+
+		logger.info("processing ...");
+
 		// ユーザーからの質問
 		String q = request.getParameter("q");
 
-		try (PrintWriter pw = response.getWriter();) {
+		history.addUserMessage("user_" + session.getId(), q);
 
-			String model = "gpt-4";
+		try (PrintWriter pw = response.getWriter();) {
 
 			JsonObject objQuestion = new JsonObject();
 			{
@@ -64,14 +74,16 @@ public class ChatOnlyServlet extends HttpServlet {
 			String content //
 					= "{name:'question from end user'}は一般ユーザーからの質問です。必ず日本語で回答してください。\n" //
 							+ "---\n" //
-							+ objQuestion.toString() //
-							+ "\n" // question
+							+ objQuestion.toString() + "\n" // question
+							+ "" //
+							+ history.toString() //
+							+ "" //
 			;
 
 			// Open AI API へのリクエスト
 			JsonObject requestBody = new JsonObject();
 			{
-				requestBody.addProperty("model", model);
+				requestBody.addProperty("model", openai_model);
 				{
 					JsonArray messages = new JsonArray();
 					{
@@ -85,6 +97,8 @@ public class ChatOnlyServlet extends HttpServlet {
 				requestBody.addProperty("stream", true);
 			}
 
+			StringBuilder sb_response_all = new StringBuilder();
+
 			try (OpenAI openai = new OpenAI(new Config());) {
 
 				try (BufferedReader br = new BufferedReader(
@@ -92,16 +106,21 @@ public class ChatOnlyServlet extends HttpServlet {
 
 					String line;
 					StringBuilder sb_response = new StringBuilder();
+
 					while ((line = br.readLine()) != null) {
 						// Send each chunk of data as an SSE (Server-Sent Event)
-//							System.out.println("LINE: " + line + "");
-//							System.out.println("LINE.length: " + line.length() + "");
-
+						if (logger.isDebugEnabled()) {
+							logger.debug("line.length: " + line.length());
+							logger.debug("line: " + line);
+						}
+						// けっこう多い
+						if (line.trim().isEmpty()) {
+							continue;
+						}
 						if (line.length() < 10) {
 							logger.warn("line.length<10:" + line);
 							continue;
 						}
-
 						if ("data: [DONE]".equals(line)) {
 							logger.info("done response from Open AI API");
 							break;
@@ -121,6 +140,8 @@ public class ChatOnlyServlet extends HttpServlet {
 								String s = je_content.getAsString();
 //									System.out.print(s);
 								sb_response.append(s);
+
+								sb_response_all.append(s);
 							}
 						}
 
@@ -150,14 +171,16 @@ public class ChatOnlyServlet extends HttpServlet {
 			} // END_OF_TRY(OPEN_AI)
 			catch (Exception e) {
 				e.printStackTrace();
+				response.setStatus(500);
 			}
 
-//			response.setContentType("application/javascript; charset=utf-8");
+			logger.info("回答: " + sb_response_all);
+			history.addBotMessage("bot_" + session.getId(), q);
 
-		}
+		} // END_OF_TRY(Print)
 
 		logger.info("processing ... done");
 
-	}
+	} // END_OF_doGet()
 
-}
+} // END_OF_CLASS

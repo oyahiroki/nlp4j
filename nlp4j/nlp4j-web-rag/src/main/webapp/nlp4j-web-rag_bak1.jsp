@@ -294,72 +294,6 @@ function printMessage(s){
 	$("#system_message").text(s);
 }
 
-function ragchat(){
-
-	// 文書検索結果を消去
-	$("#nlp_result_tbody").empty();
-	
-	// ロボットの回答をシミュレート
-	const robotReply = "XXX";
-	const robotMessageDiv = document.createElement('div');
-	const response_id = "response_" + getCurrentDateTime() ;
-	robotMessageDiv.innerHTML = "<strong>ロボット:</strong> <span id='" + response_id + "'></span>";
-   
-   const chat_window = document.getElementById('div_chat');
-   chat_window.appendChild(robotMessageDiv);
-   // inputField.value = ''; // 入力フィールドをクリア
-   chat_window.scrollTop = chat_window.scrollHeight; // スクロールダウン	
-	
-	let q = $("#q").val();
-	let url = "./ragchat.wss?q=" + encodeURIComponent(q);
-   const eventSource = new EventSource(url);
-   eventSource.onmessage = function(event) {
-		if(event.data != null){
-	        // console.log(event.data);
-	        // const data = event.data.substring(5);
-	        const data = event.data;
-	        console.log(data);
-	        const o = JSON.parse(data);
-	        
-	        if(o.type=="message"){
-	    		// $("#nlp_result_tbody").empty();
-    			// $("#nlp_result").append("<tr>" + "<td></td><td>" + o.value + "</td>" + "</tr>");
-    			printMessage(o.value);
-			}
-	        if(o.type=="documents"){
-	    		$("#nlp_result_tbody").empty();
-	    		o.data.forEach(function(doc){
-	    			$("#nlp_result").append("<tr>" + "<td>" + (doc.score) + "</td><td>" + doc.text + "</td>" + "</tr>");
-	    		});
-			}
-	        
-	        // ストリームが返ってきたとき
-	        if(o.type=="openai.stream"){
-		        const v = o.data.choices[0].delta.content;
-		        console.log("chat: " + v);
-		        $("#"+response_id).append(v);
-			}
-//	        $("#system_message").text(event.data);
-		}
-       // document.getElementById("status").innerText = event.data;
-//       if (event.data.includes("100%")) {
-//           eventSource.close();
-//       }
-   };
-	// エラーが発生したときの処理
-	eventSource.onerror = function(event) {
-	    // console.error("Error occurred with EventSource connection.", event);
-	    // 接続が切断された場合、イベントソースを閉じる
-	    if (event.eventPhase === EventSource.CLOSED) {
-	        eventSource.close();
-	        // console.log("Connection closed due to an error.");
-	    }
-	};
-	// 接続が終了したときの処理
-	eventSource.onclose = function(event) {
-	    console.log("Connection closed.", event);
-	};
-}
 function chat(){
 
 	// 文書検索結果を消去
@@ -434,7 +368,7 @@ $(document).ready(function() {
 		$("#btn_keywordsearch").click(keywordsearch); // Keyword Search
 		$("#btn_vectorsearch").click(vectorsearch); // Vector Search
 		$("#btn_chatonly").click(chatonly); // Chat Only
-		$("#btn_ragchat").click(ragchat);
+		$("#btn_chat").click(chat);
 	}
 	{
 		$("#q").keypress(function(e){
@@ -510,7 +444,7 @@ $(document).ready(function() {
 			<button type="button" class="btn btn-primary" id="btn_keywordsearch">Keyword Search</button>
 			<button type="button" class="btn btn-primary" id="btn_vectorsearch">Vector Search</button>
 			<button type="button" class="btn btn-primary" id="btn_chatonly">Chat Only</button>
-			<button type="button" class="btn btn-primary" id="btn_ragchat">RAG Chat</button>
+			<button type="button" class="btn btn-primary" id="btn_chat">Chat</button>
 		</span>
 		</div>
 	</div>
@@ -531,18 +465,6 @@ $(document).ready(function() {
 		<div class="card">
 		    <div class="card-header">文書検索結果</div>
 		    <div class="card-body">
-				<div style="height: 480px; overflow-y: scroll;">
-				<table class="table table-striped border" id="nlp_result">
-					<thead>
-					  <tr><th>Score</th><th>Document</th></tr>
-					</thead>
-					<tbody id="nlp_result_tbody">
-					</tbody>
-				  <!-- tr><td>Yamada</td><td>16</td></tr -->
-				<!-- tr><td>Suzuki</td><td>26</td></tr -->
-				<!-- tr><td>Tanaka</td><td>36</td></tr -->
-					</table>
-				</div>
 		    </div>
 		</div>
     </div>
@@ -550,15 +472,55 @@ $(document).ready(function() {
 		<div class="card">
 		    <div class="card-header">チャット</div>
 		    <div class="card-body">
-				<div id="div_chat" class="mb-3" style="height: 480px; overflow-y: auto; background-color: #f8f9fa;">
-				<!-- ここにチャット内容が動的に追加されます -->
-				</div>
 		    </div>
 		</div>
     </div>
   </div>
   
+  
+  <div class="row">
+    <div class="col"></div> <!-- 左側のスペース -->
+    <div class="col-10">
+    <div style="height: 200px; overflow-y: auto;">
+	<table class="table table-striped border" id="nlp_result">
+		<thead>
+		  <tr><th>Score</th><th>Document</th></tr>
+		</thead>
+		<tbody id="nlp_result_tbody">
+		</tbody>
+	  <!-- tr><td>Yamada</td><td>16</td></tr -->
+	  <!-- tr><td>Suzuki</td><td>26</td></tr -->
+	  <!-- tr><td>Tanaka</td><td>36</td></tr -->
+	</table>
+	</div>
+    </div>
+    <div class="col"></div> <!-- 右側のスペース -->
+  </div>
+
+  <div class="row">
+    <div class="col"></div> <!-- 左側のスペース -->
+    <div class="col-10">
+    </div>
+    <div class="col"></div> <!-- 右側のスペース -->
+  </div>
+  
+ <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">チャット</div>
+                    <div class="card-body">
+                        <div id="div_chat" class="mb-3" style="height: 300px; overflow-y: auto; background-color: #f8f9fa;">
+                            <!-- ここにチャット内容が動的に追加されます -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>  
+  
 </div>
+
+
+
 
 </body>
 </html>

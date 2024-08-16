@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import nlp4j.Document;
+import nlp4j.servlet.util.ServletUtils;
 import nlp4j.util.DocumentUtil;
 import nlp4j.util.JsonUtils;
 

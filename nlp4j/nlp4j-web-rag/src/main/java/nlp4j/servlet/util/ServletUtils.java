@@ -1,4 +1,4 @@
-package nlp4j.servlet;
+package nlp4j.servlet.util;
 
 import java.io.IOException;
 import java.lang.invoke.MethodHandles;
@@ -17,9 +17,12 @@ public class ServletUtils {
 	static private Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
 	/**
+	 * <pre>
 	 * Parse Document from HTTP Request Body JSON
+	 * HTTPリクエストボディからDocumentをパースする
+	 * </pre>
 	 * 
-	 * @param request
+	 * @param request from Web Client
 	 * @return
 	 * @throws IOException
 	 */
