@@ -108,7 +108,7 @@ public class DateUtils {
 	}
 
 	/**
-	 * @param diffDate
+	 * @param diffDate (0:Today, -1:Yesterday, +1:Tommorow)
 	 * @return Date in yyyyMMdd
 	 * @since 1.3.7.13
 	 */

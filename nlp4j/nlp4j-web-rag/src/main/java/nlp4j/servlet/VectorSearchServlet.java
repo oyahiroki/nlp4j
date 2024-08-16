@@ -2,15 +2,12 @@ package nlp4j.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.lang.invoke.MethodHandles;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.apache.solr.client.solrj.impl.BaseHttpSolrClient.RemoteSolrException;
 
 import com.google.gson.GsonBuilder;
@@ -29,15 +26,13 @@ import nlp4j.solr.search.SolrSearchClient;
 /**
  * Servlet implementation class NlpServlet
  */
-public class RagQueryServlet extends HttpServlet {
-
+public class VectorSearchServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	static private Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public RagQueryServlet() {
+	public VectorSearchServlet() {
 		super();
 	}
 
@@ -47,8 +42,6 @@ public class RagQueryServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
-		logger.info("processing ...");
 
 		response.setContentType("application/javascript; charset=utf-8");
 		response.setCharacterEncoding("UTF-8");
@@ -78,14 +71,15 @@ public class RagQueryServlet extends HttpServlet {
 					ann.setProperty("mapping", KeywordFacetMappingAnnotator.DEFAULT_MAPPING);
 					ann.annotate(doc);
 				}
-				StatusServlet.setMessage("embedding ... ");
+				StatusServlet.setMessage("embedding...");
 				{
 					DocumentAnnotator ann = new EmbeddingAnnotator();
 					ann.setProperty("target", "text");
 					ann.annotate(doc);
-					logger.info("vector.size: " + doc.getAttributeAsListNumbers("vector").size());
+					System.err.println(doc.getAttributeAsListNumbers("vector").size());
+
 				}
-				StatusServlet.setMessage("embedding ... done");
+				StatusServlet.setMessage("embedding...done");
 			} catch (Exception e) {
 				e.printStackTrace();
 				response.setStatus(500);
@@ -96,19 +90,8 @@ public class RagQueryServlet extends HttpServlet {
 			{
 				try (SolrSearchClient client = new SolrSearchClient.Builder(endPoint).build()) {
 					JsonObject responseObject = client.searchByVector(collection, doc);
-					{
-						{
-							responseObject.remove("responseHeader");
-							responseObject.addProperty("responseheader", "removed");
-						}
-						{
-							JsonArray docs = responseObject.get("response").getAsJsonObject().get("docs")
-									.getAsJsonArray();
-							for (int n = 0; n < docs.size(); n++) {
-								docs.get(n).getAsJsonObject().remove("vector");
-							}
-						}
-					}
+
+					removeVectorData(responseObject);
 
 					System.err.println(new GsonBuilder().setPrettyPrinting().create().toJson(responseObject));
 
@@ -137,6 +120,19 @@ public class RagQueryServlet extends HttpServlet {
 
 		}
 
+	}
+
+	private void removeVectorData(JsonObject responseObject) {
+		{
+			responseObject.remove("responseHeader");
+			responseObject.addProperty("responseheader", "removed");
+		}
+		{
+			JsonArray docs = responseObject.get("response").getAsJsonObject().get("docs").getAsJsonArray();
+			for (int n = 0; n < docs.size(); n++) {
+				docs.get(n).getAsJsonObject().remove("vector");
+			}
+		}
 	}
 
 }

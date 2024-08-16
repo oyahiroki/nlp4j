@@ -6,10 +6,10 @@
 	<display-name>nlp4j-web-rag</display-name>
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
-		<welcome-file>index.htm</welcome-file>
 		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>
 
+	<!-- 1 -->
 	<servlet>
 		<description></description>
 		<display-name>RagPostServlet</display-name>
@@ -19,6 +19,29 @@
 	<servlet-mapping>
 		<servlet-name>RagPostServlet</servlet-name>
 		<url-pattern>/ragpost.wss</url-pattern>
+	</servlet-mapping>
+	
+	<!-- 2 -->
+	<servlet>
+		<description></description>
+		<display-name>KeywordSearchServlet</display-name>
+		<servlet-name>KeywordSearchServlet</servlet-name>
+		<servlet-class>nlp4j.servlet.KeywordSearchServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>KeywordSearchServlet</servlet-name>
+		<url-pattern>/keywordsearch.wss</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<description></description>
+		<display-name>VectorSearchServlet</display-name>
+		<servlet-name>VectorSearchServlet</servlet-name>
+		<servlet-class>nlp4j.servlet.VectorSearchServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>VectorSearchServlet</servlet-name>
+		<url-pattern>/vectorsearch.wss</url-pattern>
 	</servlet-mapping>
 	
 	<servlet>

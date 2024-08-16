@@ -1,15 +1,28 @@
 package nlp4j.servlet;
 
 import java.io.IOException;
+import java.lang.invoke.MethodHandles;
 import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import nlp4j.Document;
 import nlp4j.util.DocumentUtil;
 
 public class ServletUtils {
 
+	static private Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
+
+	/**
+	 * Parse Document from HTTP Request Body JSON
+	 * 
+	 * @param request
+	 * @return
+	 * @throws IOException
+	 */
 	static public Document parse(HttpServletRequest request) throws IOException {
 		request.setCharacterEncoding("UTF-8");
 		String contentType = request.getContentType();
@@ -20,7 +33,7 @@ public class ServletUtils {
 				|| contentType.startsWith("text/json") //
 				|| contentType.startsWith("application/json")) {
 			String json = request.getReader().lines().collect(Collectors.joining("\r\n"));
-			System.err.println("DEBUG: " + json);
+			logger.debug("DEBUG: " + json);
 			// JSON -> Document
 			try {
 				Document doc = DocumentUtil.parseFromJson(json);

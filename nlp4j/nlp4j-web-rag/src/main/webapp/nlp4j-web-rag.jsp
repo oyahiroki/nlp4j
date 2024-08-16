@@ -4,6 +4,7 @@
 <head>
 <!-- Required meta tags -->
 <meta charset="utf-8">
+<link rel="icon" href="https://nlp4j.org/favicon.ico">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 <!-- Bootstrap 4.5 CSS -->
@@ -51,23 +52,16 @@
 
 <script type="text/javascript" class="init">
 
-function nlp(){
-	
+// テキストを送信してベクトル化・ベクトルDB(Solr)に格納する(POSTリクエスト)
+function posttext(){
 	const q = $("#q").val();
 	console.log(q);
 	const requestObj = {text:q};
 	console.log(requestObj);
-	
 	var callbackOnSuccess = function(data, requestObj,metadata){
 		console.log(data);
-//		$("#nlp_result_tbody").empty();
-//		// $('#nlp_result > tbody:last').append("<tr><th>開始位置</th><th>終了位置</th><th>品詞</th><th>正規形</th><th>表出文字</th></tr>");
-//		data.keywords.forEach(function(kw){
-//			$("#nlp_result").append("<tr>" + "<td>" + (kw.upos != null ? kw.upos : "---") + "</td><td>" + kw.facet + "</td><td>" + kw.lex + "</td><td>" + kw.str + "</td></tr>");
-//		});
 	};
 	var metadata = {};
-	
 	$.ajax({
 		type : "POST",
 		url : "./ragpost.wss",
@@ -76,9 +70,7 @@ function nlp(){
 		data : JSON.stringify(requestObj),
 		async : true,
 		success : function(data) {
-			if (callbackOnSuccess) {
-				callbackOnSuccess(data, requestObj,metadata);
-			}
+			if (callbackOnSuccess) {callbackOnSuccess(data, requestObj,metadata);}
 		} // ,
 	})
 	.done(function(data) {})
@@ -102,24 +94,80 @@ function nlp(){
 	;
 }
 
-function ragquery(){
+// キーワードサーチ
+function keywordsearch(){
+
 	$("#nlp_result_tbody").empty();
-	const q = $("#q").val();
-	console.log(q);
-	const requestObj = {text:q};
-	console.log(requestObj);
 	
-	console.log("OK");
-	var callbackOnSuccess = function(data, requestObj,metadata){
-		console.log(data);
+	const q = $("#q").val();
+	const requestObj = {text:q,select:"score,id,text_txt_ja"};
+	
+	let callbackOnSuccess = function(data, requestObj,metadata){
 		$("#nlp_result_tbody").empty();
-		// $('#nlp_result > tbody:last').append("<tr><th>開始位置</th><th>終了位置</th><th>品詞</th><th>正規形</th><th>表出文字</th></tr>");
-//    	data.keywords.forEach(function(kw){
-//			$("#nlp_result").append("<tr>" + "<td>" + (kw.upos != null ? kw.upos : "---") + "</td><td>" + kw.facet + "</td><td>" + kw.lex + "</td><td>" + kw.str + "</td></tr>");
-//		});
+		
+		console.log(data);
+		
+		if("solr"===data.type){
+			if(data.response.value.length == 0){
+				$("#nlp_result").append("<tr>" + "<td></td><td>not found</td>" + "</tr>");
+			}
+			data.response.value.forEach(function(doc){
+				$("#nlp_result").append("<tr>" + "<td>" + (doc.score) + "</td><td>" + doc.text_txt_ja + "</td>" + "</tr>");
+			});
+		}
+		
+		return;
+		
 		data.response.docs.forEach(function(doc){
-			console.log(doc);
-			// $("#nlp_result").append("<tr>" + "<td>" + (kw.upos != null ? kw.upos : "---") + "</td><td>" + kw.facet + "</td><td>" + kw.lex + "</td><td>" + kw.str + "</td></tr>");
+			$("#nlp_result").append("<tr>" + "<td>" + (doc.score) + "</td><td>" + doc.text_txt_ja + "</td>" + "</tr>");
+		});
+		
+	};
+	var metadata = {};
+	
+	$.ajax({
+		type : "POST",
+		url : "./keywordsearch.wss",
+		contentType : 'application/json;charset=utf-8',
+		dataType : 'json',
+		data : JSON.stringify(requestObj),
+		async : true,
+		success : function(data) {
+			if (callbackOnSuccess) {
+				callbackOnSuccess(data, requestObj,metadata);
+			}
+		} // ,
+	}).done(function(data) {
+	}).fail(
+			function(data) {
+				console.log("failed");
+				console.log(data);
+				if (data == null) {
+					console.log(data.responseJSON);
+					alert("" + data.responseJSON.status_code + ": "
+							+ data.responseJSON.error.message)
+				} else {
+					// alert("failed");
+					console.log("failed");
+				}
+			}).always(function(data) {
+				console.log("response");
+				console.log(data);
+	});
+}
+
+
+// テキストを送信してベクトル検索する(POSTリクエスト)
+function vectorsearch(){
+
+	$("#nlp_result_tbody").empty();
+	
+	const q = $("#q").val();
+	const requestObj = {text:q};
+	
+	var callbackOnSuccess = function(data, requestObj,metadata){
+		$("#nlp_result_tbody").empty();
+		data.response.docs.forEach(function(doc){
 			$("#nlp_result").append("<tr>" + "<td>" + (doc.score) + "</td><td>" + doc.text_txt_ja + "</td>" + "</tr>");
 		});
 	};
@@ -127,7 +175,7 @@ function ragquery(){
 	
 	$.ajax({
 		type : "POST",
-		url : "./ragquery.wss",
+		url : "./vectorsearch.wss",
 		contentType : 'application/json;charset=utf-8',
 		dataType : 'json',
 		data : JSON.stringify(requestObj),
@@ -170,36 +218,62 @@ function getCurrentDateTime() {
 	return "" + zeroPad(year, 4) + zeroPad(month, 2) + zeroPad(day, 2) + zeroPad(hour, 2) + zeroPad(minute, 2) + zeroPad(second, 2);
 	}
 
-function chatonly(){
+
+function process_stream_event(target_id, event){
+	if(event.data != null){
+        console.log(event.data);
+        // const data = event.data.substring(5);
+        const data = event.data;
+        const o = JSON.parse(data);
+        if(o.type=="openai.stream"){
+	        const v = o.data.choices[0].delta.content;
+	        console.log("chat: " + v);
+	        $("#" + target_id).append(v);
+		}
+	}
+}
+
+function append_message(user_name,type){
 	 // ロボットの回答をシミュレート
     const robotReply = "XXX";
     const robotMessageDiv = document.createElement('div');
-    const response_id = "response_" + getCurrentDateTime() ;
-    robotMessageDiv.innerHTML = "<strong>ロボット:</strong> <span id='" + response_id + "'></span>";
-    
+    const response_id = type + "_" + getCurrentDateTime() ;
+    robotMessageDiv.innerHTML = "<strong>" + user_name + ":</strong> <span id='" + response_id + "'></span>";
     const chat_window = document.getElementById('div_chat');
     chat_window.appendChild(robotMessageDiv);
+    
     // inputField.value = ''; // 入力フィールドをクリア
-    chat_window.scrollTop = chat_window.scrollHeight; // スクロールダウン	
-	
+    chat_window.scrollTop = chat_window.scrollHeight; // スクロールダウン
+    return response_id;
+}
+
+function chatonly(){
 	let q = $("#q").val();
+	
+	{
+		let x = append_message("You","q");
+		$("#"+x).append(q);
+	}
+	
+	let response_id = append_message("Robot","response");
+	
+	
+	 // ロボットの回答をシミュレート
+//    const robotReply = "XXX";
+//    const robotMessageDiv = document.createElement('div');
+//    const response_id = "response_" + getCurrentDateTime() ;
+//    robotMessageDiv.innerHTML = "<strong>ロボット:</strong> <span id='" + response_id + "'></span>";
+//    const chat_window = document.getElementById('div_chat');
+//    chat_window.appendChild(robotMessageDiv);
+    
+//    // inputField.value = ''; // 入力フィールドをクリア
+//    chat_window.scrollTop = chat_window.scrollHeight; // スクロールダウン	
+	
 	let url = "./chatonly.wss?q=" + encodeURIComponent(q);
     const eventSource = new EventSource(url);
-    eventSource.onmessage = function(event) {
-		if(event.data != null){
-	        // console.log(event.data);
-	        const data = event.data.substring(5);
-	        const o = JSON.parse(data);
-	        const v = o.choices[0].delta.content;
-	        console.log("chat: " + v);
-	        $("#"+response_id).append(v);
-//	        $("#system_message").text(event.data);
-		}
-        // document.getElementById("status").innerText = event.data;
-//        if (event.data.includes("100%")) {
-//            eventSource.close();
-//        }
-    };
+    eventSource.onmessage = function(event){
+		process_stream_event(response_id,event);
+	};
 	// エラーが発生したときの処理
 	eventSource.onerror = function(event) {
 	    // console.error("Error occurred with EventSource connection.", event);
@@ -233,11 +307,14 @@ function chat(){
    eventSource.onmessage = function(event) {
 		if(event.data != null){
 	        // console.log(event.data);
-	        const data = event.data.substring(5);
+	        // const data = event.data.substring(5);
+	        const data = event.data;
 	        const o = JSON.parse(data);
-	        const v = o.choices[0].delta.content;
-	        console.log("chat: " + v);
-	        $("#"+response_id).append(v);
+	        if(o.type=="openai.stream"){
+		        const v = o.data.choices[0].delta.content;
+		        console.log("chat: " + v);
+		        $("#"+response_id).append(v);
+			}
 //	        $("#system_message").text(event.data);
 		}
        // document.getElementById("status").innerText = event.data;
@@ -263,20 +340,11 @@ function chat(){
 
 $(document).ready(function() {
 	{
-		var df = nlp;
-		$("#btn_nlp").click(df);
-	}
-	{
-		var rq = ragquery;
-		$("#btn_ragquery").click(rq);
-	}
-	{
-		const f = chat;
-		$("#btn_chatonly").click(f);
-	}
-	{
-		const f = chat;
-		$("#btn_chat").click(f);
+		$("#btn_posttext").click(posttext); // POST
+		$("#btn_keywordsearch").click(keywordsearch); // Keyword Search
+		$("#btn_vectorsearch").click(vectorsearch); // Vector Search
+		$("#btn_chatonly").click(chatonly); // Chat Only
+		$("#btn_chat").click(chat);
 	}
 	{
 		$("#q").keypress(function(e){
@@ -293,30 +361,30 @@ $(document).ready(function() {
         this.style.height = (this.scrollHeight) + 'px';
     });
 	
-    const eventSource = new EventSource("./status.wss");
-    eventSource.onmessage = function(event) {
-		if(event.data != null){
-	        console.log(event.data);
-	        $("#system_message").text(event.data);
-		}
-        // document.getElementById("status").innerText = event.data;
-//        if (event.data.includes("100%")) {
-//            eventSource.close();
-//        }
-    };
-	// エラーが発生したときの処理
-	eventSource.onerror = function(event) {
-	    console.error("Error occurred with EventSource connection.", event);
-	    // 接続が切断された場合、イベントソースを閉じる
-	    if (event.eventPhase === EventSource.CLOSED) {
-	        eventSource.close();
-	        console.log("Connection closed due to an error.");
-	    }
-	};
-	// 接続が終了したときの処理
-	eventSource.onclose = function(event) {
-	    console.log("Connection closed.", event);
-	};
+//    const eventSource = new EventSource("./status.wss");
+//    eventSource.onmessage = function(event) {
+//		if(event.data != null){
+//	        console.log(event.data);
+//	        $("#system_message").text(event.data);
+//		}
+//        // document.getElementById("status").innerText = event.data;
+////        if (event.data.includes("100%")) {
+////            eventSource.close();
+////        }
+//    };
+//	// エラーが発生したときの処理
+//	eventSource.onerror = function(event) {
+//	    console.error("Error occurred with EventSource connection.", event);
+//	    // 接続が切断された場合、イベントソースを閉じる
+//	    if (event.eventPhase === EventSource.CLOSED) {
+//	        eventSource.close();
+//	        console.log("Connection closed due to an error.");
+//	    }
+//	};
+//	// 接続が終了したときの処理
+//	eventSource.onclose = function(event) {
+//	    console.log("Connection closed.", event);
+//	};
 	
 	
 	
@@ -348,8 +416,9 @@ $(document).ready(function() {
 		</div>
 		<div class="col-sm-auto">
 		<span class="input-group-btn">
-			<button type="button" class="btn btn-primary" id="btn_nlp">POST</button>
-			<button type="button" class="btn btn-primary" id="btn_ragquery">Query</button>
+			<button type="button" class="btn btn-primary" id="btn_posttext">POST</button>
+			<button type="button" class="btn btn-primary" id="btn_keywordsearch">Keyword Search</button>
+			<button type="button" class="btn btn-primary" id="btn_vectorsearch">Vector Search</button>
 			<button type="button" class="btn btn-primary" id="btn_chatonly">Chat Only</button>
 			<button type="button" class="btn btn-primary" id="btn_chat">Chat</button>
 		</span>
@@ -381,6 +450,13 @@ $(document).ready(function() {
 	  <!-- tr><td>Tanaka</td><td>36</td></tr -->
 	</table>
 	</div>
+    </div>
+    <div class="col"></div> <!-- 右側のスペース -->
+  </div>
+
+  <div class="row">
+    <div class="col"></div> <!-- 左側のスペース -->
+    <div class="col-10">
     </div>
     <div class="col"></div> <!-- 右側のスペース -->
   </div>
