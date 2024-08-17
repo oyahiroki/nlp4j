@@ -20,7 +20,6 @@ import org.apache.logging.log4j.Logger;
 import org.apache.solr.client.solrj.impl.BaseHttpSolrClient.RemoteSolrException;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -34,9 +33,7 @@ import nlp4j.openai.OpenAI;
 import nlp4j.servlet.util.ServletStreamUtils;
 import nlp4j.solr.search.SolrSearchClient;
 import nlp4j.util.DateUtils;
-import nlp4j.util.DocumentUtil;
 import nlp4j.util.GoogleSpreadSheetUtil;
-import nlp4j.util.JsonObjectUtils;
 import nlp4j.util.JsonUtils;
 import nlp4j.util.RuntimeUtils;
 
