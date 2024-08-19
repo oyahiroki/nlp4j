@@ -1,3 +1,67 @@
+# NLP4J-RAG
+
+# PUML Component Diagram
+
+![Diagram](README_diagram1.png)
+
+```
+@startuml
+
+component C0[
+Knowledge source
+]
+
+component C0a[
+Web Console
+]
+
+component C0b[
+CSV
+]
+
+
+component C1[
+NLP4J-RAG
+....
+Java Web App
+]
+
+
+component C2[
+E5 HTTP Server
+....
+Multilingual-E5
+....
+Python
+]
+
+note bottom of C2: Embedding
+
+
+component C3[
+Apache Solr
+....
+Docker Container
+]
+
+note bottom of C3: Vector / Keyword Search
+
+cloud C4[
+Chat
+]
+
+note bottom of C4: Open AI API
+
+
+[C1]--C0
+[C0]--C0a
+[C0]--C0b
+[C1]--C2 : http
+[C1]--C3 : http
+[C1]--C4 : http
+
+@enduml
+```
 
 # 準備
 
