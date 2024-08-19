@@ -2,7 +2,7 @@
 
 # PUML Component Diagram
 
-![Diagram](README_diagram1.png)
+<img src="README_diagram1.png" width="640px">
 
 ```
 @startuml
@@ -31,6 +31,8 @@ component C2[
 E5 HTTP Server
 ....
 Multilingual-E5
+....
+Sentence Transformers
 ....
 Python
 ]
