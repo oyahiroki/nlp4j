@@ -6,9 +6,15 @@
 
 ```
 @startuml
-component C0[Knowledge source]
-component C0a[Web Console]
-component C0b[CSV]
+component C0[
+Knowledge source
+]
+component C0a[
+Web Console
+]
+component C0b[
+CSV
+]
 component C1[
 NLP4J-RAG
 ....
