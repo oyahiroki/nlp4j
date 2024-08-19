@@ -6,52 +6,35 @@
 
 ```
 @startuml
-
-component C0[
-Knowledge source
-]
-
-component C0a[
-Web Console
-]
-
-component C0b[
-CSV
-]
-
-
+component C0[Knowledge source]
+component C0a[Web Console]
+component C0b[CSV]
 component C1[
 NLP4J-RAG
 ....
 Java Web App
 ]
-
-
 component C2[
 E5 HTTP Server
 ....
-Multilingual-E5
+Multilingual-E5-Large
 ....
 Sentence Transformers
 ....
 Python
 ]
-
 note bottom of C2: Embedding
-
 
 component C3[
 Apache Solr
 ....
 Docker Container
 ]
-
 note bottom of C3: Vector / Keyword Search
 
 cloud C4[
 Chat
 ]
-
 note bottom of C4: Open AI API
 
 
