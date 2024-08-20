@@ -295,25 +295,25 @@ public class RagChatPlusServlet extends HttpServlet {
 	 * @param knowledgebase
 	 */
 	private void addKnowledge4_GoogleSphreadSheet(JsonArray knowledgebase) {
-		try {
-			String url = System.getProperty("google.spreadsheet.knowledge.url");
-			if (url == null) {
-				return;
-			}
-
-			List<String> ss = GoogleSpreadSheetUtil.loadAsList(url);
-
-			for (String s : ss) {
-//				System.err.println(s);
-				JsonObject knowledge = new JsonObject();
-				knowledge.addProperty("type", "user_knowledge_base");
-				knowledge.addProperty("text", s);
-				knowledge.addProperty("description", "this data is from user's knowledge database");
-				knowledgebase.add(knowledge);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+//		try {
+//			String url = System.getProperty("google.spreadsheet.knowledge.url");
+//			if (url == null) {
+//				return;
+//			}
+//
+//			List<String> ss = GoogleSpreadSheetUtil.loadAsList(url);
+//
+//			for (String s : ss) {
+////				System.err.println(s);
+//				JsonObject knowledge = new JsonObject();
+//				knowledge.addProperty("type", "user_knowledge_base");
+//				knowledge.addProperty("text", s);
+//				knowledge.addProperty("description", "this data is from user's knowledge database");
+//				knowledgebase.add(knowledge);
+//			}
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
 	}
 
 	private void addKnowledge1_SystemInfo(JsonArray knowledgebase) {

@@ -23,10 +23,14 @@ nlp4j-core provides
 - Annotator Framework for NLP
 - Importer Framework for Text Index Services (Example: Apache Solr, Azure Search)
 
+# Maven Central
+
+	https://central.sonatype.com/artifact/org.nlp4j/nlp4j-core?smo=true
 
 # MAVEN Repository
 
 	https://mvnrepository.com/search?q=org.nlp4j
+
 
 # Build for Release
 
