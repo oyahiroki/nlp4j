@@ -252,6 +252,14 @@ public class DateUtils {
 	}
 
 	/**
+	 * @return
+	 * @since 1.3.7.14
+	 */
+	static public String toISO8601() {
+		return sdf_ISO8601.format(new Date());
+	}
+
+	/**
 	 * @param date
 	 * @param format
 	 * @return

@@ -14,6 +14,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
+import com.google.gson.JsonSyntaxException;
 
 /**
  * @author Hiroki Oya
@@ -119,22 +120,31 @@ public class JsonUtils {
 	 * @throws IOException in case of an I/O error
 	 */
 	static public void write(File outFile, String jsonData) throws IOException {
-
-		Gson gson = new Gson();
-
+		JsonObject json;
 		// tab, new line is removed
-		JsonObject json = gson.fromJson(jsonData, JsonObject.class);
+		try {
+			json = (new Gson()).fromJson(jsonData, JsonObject.class);
+		} catch (JsonSyntaxException e) {
+			throw new IOException(e);
+		}
 
-		String encoding = "UTF-8";
+		write(outFile, json);
+	}
 
-		boolean append = true;
+	/**
+	 * @param outFile the file to write
+	 * @param json    to be written to the file
+	 * @throws IOException
+	 */
+	public static void write(File outFile, JsonObject json) throws IOException {
+		final boolean append = true;
+		final String encoding = "UTF-8";
 
 		if (outFile.getParentFile().exists() == false) {
 			FileUtils.forceMkdir(outFile.getParentFile());
 		}
 
 		FileUtils.write(outFile, json.toString() + "\n", encoding, append);
-
 	}
 
 }

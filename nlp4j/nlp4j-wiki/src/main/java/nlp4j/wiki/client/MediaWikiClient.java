@@ -164,7 +164,9 @@ public class MediaWikiClient implements Closeable {
 	 */
 	public String getPageContentByTitle(String title) throws IOException {
 
-		logger.info("title=" + title);
+		if (logger.isDebugEnabled()) {
+			logger.debug("title=" + title);
+		}
 
 		String url = "https://" + host + "/w/api.php";
 

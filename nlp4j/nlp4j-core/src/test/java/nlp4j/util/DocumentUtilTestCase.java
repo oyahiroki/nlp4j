@@ -1,5 +1,6 @@
 package nlp4j.util;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -20,6 +21,14 @@ import nlp4j.impl.DefaultKeywordWithDependency;
  *
  */
 public class DocumentUtilTestCase extends TestCase {
+
+	public void testReadFromLineSeparatedJson001() throws Exception {
+		File file = new File("src/test/resources/nlp4j.util/DocumentUtilTestCase001.txt");
+		List<Document> docs = DocumentUtil.readFromLineSeparatedJson(file);
+		for (Document doc : docs) {
+			System.err.println(DocumentUtil.toJsonPrettyString(doc));
+		}
+	}
 
 	/**
 	 * @since 1.3.7.13

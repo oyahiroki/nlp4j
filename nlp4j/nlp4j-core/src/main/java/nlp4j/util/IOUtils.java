@@ -1,8 +1,12 @@
 package nlp4j.util;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintStream;
@@ -10,6 +14,7 @@ import java.io.PrintWriter;
 import java.io.Writer;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.util.zip.GZIPInputStream;
 
 import org.apache.commons.io.FileUtils;
 
@@ -25,6 +30,48 @@ import nlp4j.io.NoCloseWriter;
  * @since 1.3.7.8
  */
 public class IOUtils {
+
+	/**
+	 * created on: 2024-08-26
+	 * 
+	 * @param file
+	 * @return BufferedReader
+	 * @throws IOException
+	 * @since 1.3.7.14
+	 */
+	static public BufferedReader br(File file) throws IOException {
+		return IOUtils.bufferedReader(file);
+	}
+
+	/**
+	 * created on: 2024-08-26
+	 * 
+	 * @param file
+	 * @return BufferedReader
+	 * @throws IOException
+	 * @since 1.3.7.14
+	 */
+	static public BufferedReader bufferedReader(File file) throws IOException {
+		if (file.exists() == false) {
+			throw new FileNotFoundException(file.getAbsolutePath());
+		}
+		// OPEN AS ZGIP
+		if (file.getAbsolutePath().endsWith(".gz")) {
+			BufferedReader br = new BufferedReader( //
+					new InputStreamReader( //
+							new GZIPInputStream( //
+									new FileInputStream(file)),
+							StandardCharsets.UTF_8));
+			return br;
+		}
+		// OPEN AS PLAIN TEXT
+		else {
+			BufferedReader br = new BufferedReader( //
+					new InputStreamReader( //
+							new FileInputStream(file), StandardCharsets.UTF_8));
+			return br;
+		}
+	}
 
 	/**
 	 * created on: 2023-10-22

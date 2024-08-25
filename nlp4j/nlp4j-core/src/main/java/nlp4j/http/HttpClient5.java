@@ -10,15 +10,19 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.hc.client5.http.ClientProtocolException;
+import org.apache.hc.client5.http.auth.AuthScope;
+import org.apache.hc.client5.http.auth.UsernamePasswordCredentials;
 import org.apache.hc.client5.http.classic.methods.HttpGet;
 import org.apache.hc.client5.http.classic.methods.HttpPost;
 import org.apache.hc.client5.http.classic.methods.HttpUriRequestBase;
+import org.apache.hc.client5.http.impl.auth.BasicCredentialsProvider;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
 import org.apache.hc.client5.http.impl.classic.HttpClients;
 import org.apache.hc.core5.http.ContentType;
 import org.apache.hc.core5.http.Header;
 import org.apache.hc.core5.http.HttpEntity;
+import org.apache.hc.core5.http.HttpHost;
 import org.apache.hc.core5.http.ParseException;
 import org.apache.hc.core5.http.io.HttpClientResponseHandler;
 import org.apache.hc.core5.http.io.entity.EntityUtils;
@@ -41,9 +45,32 @@ public class HttpClient5 implements HttpClient {
 	 */
 	public HttpClient5() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
+	protected HttpClient5(String user, String password, String protocol, String hostname, int port) {
+		super();
+//		UsernamePasswordCredentials credentials = new UsernamePasswordCredentials(user, password.toCharArray());
+//		BasicCredentialsProvider credentialsProvider = new BasicCredentialsProvider();
+//		credentialsProvider.setCredentials(new AuthScope(null, -1), credentials);
+
+		final HttpHost host = new HttpHost(protocol, hostname, port);
+
+		final BasicCredentialsProvider credentialsProvider = new BasicCredentialsProvider();
+		// Only for demo purposes. Don't specify your credentials in code.
+		credentialsProvider.setCredentials(new AuthScope(host),
+				new UsernamePasswordCredentials(user, password.toCharArray()));
+
+		this.httpclient = HttpClients.custom().setDefaultCredentialsProvider(credentialsProvider).build();
+	}
+
+	@Override
+	public void close() throws IOException {
+		this.httpclient.close();
+	}
+
+	/**
+	 *
+	 */
 	@Override
 	public DefaultNlpServiceResponse get(String url) throws IOException {
 
@@ -157,9 +184,60 @@ public class HttpClient5 implements HttpClient {
 
 	}
 
+	public DefaultNlpServiceResponse get(String url, Map<String, String> requestHeader, String requestBody)
+			throws IOException {
+		HttpUriRequestBase httpPost = new HttpGet(url);
+		return request(httpPost, requestHeader, requestBody);
+	}
+
+	@Override
+	public NlpServiceResponse get(String url, String jsonBody) throws IOException {
+		return get(url, null, jsonBody);
+	}
+
 	@Override
 	public long getContentLength() {
 		return this.content_length;
+	}
+
+	private InputStream getInputStream(String url, HttpUriRequestBase httpGet) throws IOException {
+		int code;
+		// The underlying HTTP connection is still held by the response object
+		// to allow the response content to be streamed directly from the network
+		// socket.
+		// In order to ensure correct deallocation of system resources
+		// the user MUST call CloseableHttpResponse#close() from a finally clause.
+		// Please note that if response content is not fully consumed the underlying
+		// connection cannot be safely re-used and will be shut down and discarded
+		// by the connection manager.
+		CloseableHttpResponse response1 = httpclient.execute(httpGet);
+//		try () 
+		{
+			code = response1.getCode();
+			if (((code >= 200) && (code < 300)) == false) {
+				throw new IOException("url: " + url + ",response: " + code);
+			}
+			HttpEntity entity1 = response1.getEntity();
+
+			if (entity1 != null) {
+				return entity1.getContent();
+			} else {
+				throw new IOException();
+			}
+
+			// do something useful with the response body
+			// and ensure it is fully consumed
+//			String b = EntityUtils.toString(entity1);
+//			byte[] bb = EntityUtils.toByteArray(entity1);
+
+//			EntityUtils.consume(entity1);
+//			byte[] bb = b.getBytes("UTF-8");
+//			this.content_length = bb.length;
+//			return new ByteArrayInputStream(bb);
+		}
+//		catch (ParseException e) {
+//			throw new IOException(e);
+//		}
 	}
 
 	@Override
@@ -236,63 +314,31 @@ public class HttpClient5 implements HttpClient {
 
 	}
 
-	private InputStream getInputStream(String url, HttpUriRequestBase httpGet) throws IOException {
-		int code;
-		// The underlying HTTP connection is still held by the response object
-		// to allow the response content to be streamed directly from the network
-		// socket.
-		// In order to ensure correct deallocation of system resources
-		// the user MUST call CloseableHttpResponse#close() from a finally clause.
-		// Please note that if response content is not fully consumed the underlying
-		// connection cannot be safely re-used and will be shut down and discarded
-		// by the connection manager.
-		CloseableHttpResponse response1 = httpclient.execute(httpGet);
-//		try () 
-		{
-			code = response1.getCode();
-			if (((code >= 200) && (code < 300)) == false) {
-				throw new IOException("url: " + url + ",response: " + code);
-			}
-			HttpEntity entity1 = response1.getEntity();
-
-			if (entity1 != null) {
-				return entity1.getContent();
-			} else {
-				throw new IOException();
-			}
-
-			// do something useful with the response body
-			// and ensure it is fully consumed
-//			String b = EntityUtils.toString(entity1);
-//			byte[] bb = EntityUtils.toByteArray(entity1);
-
-//			EntityUtils.consume(entity1);
-//			byte[] bb = b.getBytes("UTF-8");
-//			this.content_length = bb.length;
-//			return new ByteArrayInputStream(bb);
-		}
-//		catch (ParseException e) {
-//			throw new IOException(e);
-//		}
-	}
-
 	@Override
 	public DefaultNlpServiceResponse post(String url, Map<String, String> requestHeader, String requestBody)
 			throws IOException {
+		HttpUriRequestBase httpPost = new HttpPost(url);
+		return request(httpPost, requestHeader, requestBody);
+	}
 
-		int code = -1;
+	@Override
+	public NlpServiceResponse post(String url, String json) throws IOException {
+		return post(url, null, json);
+	}
+
+	private DefaultNlpServiceResponse request(HttpUriRequestBase httpRequest, Map<String, String> requestHeader,
+			String requestBody) throws IOException {
 		String responseBody = null;
 
-		HttpPost httpPost = new HttpPost(url);
 		{
 			if (requestHeader != null) {
 				for (String key : requestHeader.keySet()) {
-					httpPost.addHeader(key, requestHeader.get(key));
+					httpRequest.addHeader(key, requestHeader.get(key));
 				}
 			}
 		}
 
-		httpPost.setEntity(new StringEntity(requestBody, ContentType.APPLICATION_JSON, "UTF-8", false));
+		httpRequest.setEntity(new StringEntity(requestBody, ContentType.APPLICATION_JSON, "UTF-8", false));
 
 		// HttpClientResponseHandlerの実装
 		HttpClientResponseHandler<String> responseHandler = response -> {
@@ -318,22 +364,12 @@ public class HttpClient5 implements HttpClient {
 
 		// リクエストの実行とレスポンスハンドラーの処理
 		// throws IOException
-		responseBody = httpclient.execute(httpPost, responseHandler);
+		responseBody = httpclient.execute(httpRequest, responseHandler);
 
+		int code = -1;
 		DefaultNlpServiceResponse res = new DefaultNlpServiceResponse(code, responseBody);
 
 		return res;
-
-	}
-
-	@Override
-	public NlpServiceResponse post(String url, String json) throws IOException {
-		return post(url, null, json);
-	}
-
-	@Override
-	public void close() throws IOException {
-		this.httpclient.close();
 	}
 
 }

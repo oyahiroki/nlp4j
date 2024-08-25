@@ -35,6 +35,27 @@ public interface HttpClient extends Closeable {
 	NlpServiceResponse get(String url, Map<String, String> headers, Map<String, String> params) throws IOException;
 
 	/**
+	 * GET
+	 * 
+	 * @param url             APIのURL
+	 * @param requestHeader   リクエストヘッダ
+	 * @param jsonRequestBody リクエストボディJSON
+	 * @return NLPの結果
+	 * @throws IOException 例外発生時にスローされる
+	 * @since 1.3.7.14
+	 */
+	NlpServiceResponse get(String url, Map<String, String> requestHeader, String jsonRequestBody) throws IOException;
+
+	/**
+	 * @param url
+	 * @param jsonBody
+	 * @return
+	 * @throws IOException
+	 * @since 1.3.7.14
+	 */
+	NlpServiceResponse get(String url, String jsonBody) throws IOException;
+
+	/**
 	 * @return Content length of InputStream
 	 */
 	long getContentLength();

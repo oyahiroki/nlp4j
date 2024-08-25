@@ -1,5 +1,6 @@
 package nlp4j.util;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -9,6 +10,36 @@ import org.apache.commons.io.FileUtils;
 import junit.framework.TestCase;
 
 public class IOUtilsTestCase extends TestCase {
+
+	/**
+	 * created on: 2024-08-26
+	 * 
+	 * @throws Exception
+	 */
+	public void testBufferedReader001() throws Exception {
+		File file = new File("src/test/resources/nlp4j.util/IOUtilsTest001.txt");
+		try (BufferedReader br = IOUtils.bufferedReader(file)) {
+			String s;
+			while ((s = br.readLine()) != null) {
+				System.err.println(s);
+			}
+		}
+	}
+
+	/**
+	 * created on: 2024-08-26
+	 * 
+	 * @throws Exception
+	 */
+	public void testBufferedReader002() throws Exception {
+		File file = new File("src/test/resources/nlp4j.util/IOUtilsTest001.txt.gz");
+		try (BufferedReader br = IOUtils.bufferedReader(file)) {
+			String s;
+			while ((s = br.readLine()) != null) {
+				System.err.println(s);
+			}
+		}
+	}
 
 	public void testPrintWriterFile() throws IOException {
 		File tempFile = File.createTempFile("nlp4j-test", ".txt");

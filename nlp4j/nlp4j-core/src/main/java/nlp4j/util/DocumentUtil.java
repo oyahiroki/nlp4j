@@ -117,6 +117,72 @@ public class DocumentUtil {
 				}
 				jsonObj.add(key, arr);
 			}
+			// Array 2024-08-25
+			else if (obj instanceof Object[]) {
+				Object[] oo = (Object[]) obj;
+				JsonArray arr = new JsonArray();
+				for (Object o : oo) {
+					if (o instanceof Number) {
+						arr.add((Number) o);
+					} else {
+						arr.add(o.toString());
+					}
+				}
+				jsonObj.add(key, arr);
+			}
+			// 2024-08-25
+			else if (obj instanceof int[]) {
+				int[] oo = (int[]) obj;
+				JsonArray arr = new JsonArray();
+				for (Object o : oo) {
+					if (o instanceof Number) {
+						arr.add((Number) o);
+					} else {
+						arr.add(o.toString());
+					}
+				}
+				jsonObj.add(key, arr);
+			}
+			// 2024-08-25
+			else if (obj instanceof long[]) {
+				long[] oo = (long[]) obj;
+				JsonArray arr = new JsonArray();
+				for (Object o : oo) {
+					if (o instanceof Number) {
+						arr.add((Number) o);
+					} else {
+						arr.add(o.toString());
+					}
+				}
+				jsonObj.add(key, arr);
+			}
+			// 2024-08-25
+			else if (obj instanceof float[]) {
+				float[] oo = (float[]) obj;
+				JsonArray arr = new JsonArray();
+				for (Object o : oo) {
+					if (o instanceof Number) {
+						arr.add((Number) o);
+					} else {
+						arr.add(o.toString());
+					}
+				}
+				jsonObj.add(key, arr);
+			}
+			// 2024-08-25
+			else if (obj instanceof double[]) {
+				double[] oo = (double[]) obj;
+				JsonArray arr = new JsonArray();
+				for (Object o : oo) {
+					if (o instanceof Number) {
+						arr.add((Number) o);
+					} else {
+						arr.add(o.toString());
+					}
+				}
+				jsonObj.add(key, arr);
+			}
+
 			// ELSE
 			else if (doc.getAttribute(key) != null) {
 				jsonObj.addProperty(key, doc.getAttribute(key).toString());
@@ -302,7 +368,7 @@ public class DocumentUtil {
 		List<String> lines = FileUtils.readLines(file, "UTF-8");
 
 		for (String line : lines) {
-			Document doc = toDocument(line);
+			Document doc = DocumentUtil.toDocument(line);
 			docs.add(doc);
 		}
 		return docs;
@@ -338,6 +404,7 @@ public class DocumentUtil {
 			} //
 			else {
 				JsonElement elm = jsonObj.get(key);
+				// Primitive
 				if (elm.isJsonPrimitive() == true) {
 					JsonPrimitive jp = elm.getAsJsonPrimitive();
 					if (jp.isBoolean()) {
@@ -352,14 +419,53 @@ public class DocumentUtil {
 						doc.putAttribute(key, n);
 					}
 				} //
+					// Array
 				else if (elm.isJsonArray() == true) {
 					JsonArray arr = (JsonArray) elm;
-					List<String> ss = new ArrayList<>();
-					for (int n = 0; n < arr.size(); n++) {
-						String v = arr.get(n).getAsString();
-						ss.add(v);
+					if (arr.size() == 0) {
+						continue;
 					}
-					doc.putAttribute(key, ss);
+					JsonElement firstElement = arr.get(0);
+					// Array(Primitive)
+					if (firstElement.isJsonPrimitive()) {
+						JsonPrimitive jp0 = firstElement.getAsJsonPrimitive();
+						// Array(Number)
+						if (jp0.isNumber()) {
+							List<Number> nn = new ArrayList<>();
+							{
+								for (int n = 0; n < arr.size(); n++) {
+									nn.add(arr.get(n).getAsNumber());
+								}
+							}
+							doc.putAttribute(key, nn);
+						} //
+							// Array(Else)
+						else {
+							List<String> ss = new ArrayList<>();
+							{
+								for (int n = 0; n < arr.size(); n++) {
+									JsonElement je = arr.get(n);
+									String v = je.getAsString();
+									ss.add(v);
+								}
+
+							}
+							doc.putAttribute(key, ss);
+						}
+					} //
+						// Array(Else)
+					else {
+						List<String> ss = new ArrayList<>();
+						{
+							for (int n = 0; n < arr.size(); n++) {
+								JsonElement je = arr.get(n);
+								String v = je.getAsString();
+								ss.add(v);
+							}
+
+						}
+						doc.putAttribute(key, ss);
+					}
 				} else {
 					doc.putAttribute(key, elm);
 				}

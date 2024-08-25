@@ -24,6 +24,16 @@ public class JsonFileReaderTestCase extends TestCase {
 		}
 	}
 
+	public void testJsonFileReader001b() throws Exception {
+		File jsonFile = new File("src/test/resources/nlp4j.json/JsonFileReaderTestCase2.txt");
+		try (JsonFileReader reader = new JsonFileReader(jsonFile);) {
+			JsonObject jo;
+			while ((jo = reader.next()) != null) {
+				System.err.println(jo.toString());
+			}
+		}
+	}
+
 	public void testJsonFileReader002() throws Exception {
 		File jsonFile = new File("src/test/resources/nlp4j.json/JsonFileReaderTestCase.txt.gz");
 		try (JsonFileReader reader = new JsonFileReader(jsonFile);) {
