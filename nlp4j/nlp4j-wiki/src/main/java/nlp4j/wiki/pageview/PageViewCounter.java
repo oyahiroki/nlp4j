@@ -61,11 +61,21 @@ public class PageViewCounter {
 
 				}
 
-			} catch (EOFException e) {
+			}
+			// File Error
+			catch (EOFException e) {
 				e.printStackTrace();
 				logger.error(e);
 				return this.counter;
-			} catch (IOException e) {
+			} //
+				// 404 Not Found
+			catch (java.io.FileNotFoundException e) {
+				e.printStackTrace();
+				logger.error(e);
+				throw e;
+			}
+			// Other error
+			catch (IOException e) {
 				throw e;
 			}
 

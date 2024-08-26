@@ -6,6 +6,11 @@ import java.util.Calendar;
 import java.util.Date;
 
 /**
+ * This class provides functionality to generate and manage a series of dates
+ * incremented according to a specified unit and amount. It is useful for
+ * creating sequences of dates for scheduling, simulations, or any application
+ * that requires a series of future or past dates based on a given start date.
+ * 
  * created on: 2024-01-09
  * 
  * @author Hiroki Oya
@@ -23,13 +28,20 @@ public class IncrementalDateFormatter {
 	private SimpleDateFormat sdf;
 
 	/**
-	 * @param dateformat
-	 * @param initialDate
-	 * @param calendarUnit    the calendar field.
-	 * @param amount          amount the amount of date or time to be added to the
-	 *                        field.
-	 * @param count_of_repeat
-	 * @throws ParseException
+	 * Constructs an IncrementalDateFormatter with the specified date format,
+	 * initial date, calendar unit for increment, amount to increment, and the
+	 * number of repetitions.
+	 * 
+	 * @param dateformat      the format of the date as specified in
+	 *                        {@link SimpleDateFormat}.
+	 * @param initialDate     the initial date to start the sequence from, as a
+	 *                        string in the specified format.
+	 * @param calendarUnit    the calendar field to increment, as defined in
+	 *                        {@link Calendar}.
+	 * @param amount          the amount to add to the calendar field each step.
+	 * @param count_of_repeat the number of times the date should be incremented.
+	 * @throws ParseException if the initial date does not match the date format.
+	 * 
 	 */
 	public IncrementalDateFormatter(String dateformat, String initialDate, int calendarUnit, int amount,
 			long count_of_repeat) throws ParseException {
@@ -41,6 +53,14 @@ public class IncrementalDateFormatter {
 		this.date = sdf.parse(initialDate);
 	}
 
+	/**
+	 * Generates the next date in the sequence by incrementing the current date by
+	 * the specified unit and amount. Returns null if the count of generated dates
+	 * exceeds the specified repetition count.
+	 * 
+	 * @return the next date as a formatted string, or null if the sequence is
+	 *         complete.
+	 */
 	public String next() {
 
 		if (count > count_of_repeat) {
