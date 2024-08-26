@@ -40,11 +40,11 @@ public class SimpleOpenSearchClient implements Closeable {
 		get(method, requestBody);
 	}
 
-	public void get(String method, JsonObject requestBody) throws IOException {
+	public NlpServiceResponse get(String method, JsonObject requestBody) throws IOException {
 		String url = this.endPoint + "/" + this.index + "/" + method;
 		NlpServiceResponse res = c.get(url, requestBody.toString());
-		System.err.println(res.getOriginalResponseBody());
-
+//		System.err.println(res.getOriginalResponseBody());
+		return res;
 	}
 
 	@Override
@@ -52,6 +52,21 @@ public class SimpleOpenSearchClient implements Closeable {
 		if (c != null) {
 			c.close();
 		}
+	}
+
+	public NlpServiceResponse search(String field, String value) throws IOException {
+		final String method = "_search";
+		JsonObject jo = new JsonObject();
+		{
+			JsonObject query = new JsonObject();
+			{
+				JsonObject term = new JsonObject();
+				term.addProperty(field, value);
+				query.add("term", term);
+			}
+			jo.add("query", query);
+		}
+		return this.get(method, jo);
 	}
 
 }

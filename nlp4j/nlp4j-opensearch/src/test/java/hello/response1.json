@@ -1,0 +1,87 @@
+{
+	"took": 1,
+	"timed_out": false,
+	"_shards": {
+		"total": 1,
+		"successful": 1,
+		"skipped": 0,
+		"failed": 0
+	},
+	"hits": {
+		"total": {
+			"value": 4,
+			"relation": "eq"
+		},
+		"max_score": 0.12776,
+		"hits": [
+			{
+				"_index": "myindex1",
+				"_id": "2",
+				"_score": 0.12776,
+				"_source": {
+					"item1_s": [
+						"aaa",
+						"bbb",
+						"ccc"
+					],
+					"text_txt_ja": "今日はいい天気です",
+					"vector2": [
+						1.0,
+						0
+					]
+				}
+			},
+			{
+				"_index": "myindex1",
+				"_id": "3",
+				"_score": 0.12776,
+				"_source": {
+					"item1_s": [
+						"aaa",
+						"bbb",
+						"ccc"
+					],
+					"text_txt_ja": "今日はいい天気です",
+					"vector2": [
+						0.5,
+						0.5
+					]
+				}
+			},
+			{
+				"_index": "myindex1",
+				"_id": "c-g0dJEBXZv-t_Luic8u",
+				"_score": 0.12776,
+				"_source": {
+					"item1_s": [
+						"aaa",
+						"bbb",
+						"ccc"
+					],
+					"text_txt_ja": "今日はいい天気です",
+					"vector2": [
+						1.0,
+						0
+					]
+				}
+			},
+			{
+				"_index": "myindex1",
+				"_id": "1",
+				"_score": 0.069044754,
+				"_source": {
+					"item1_s": [
+						"aaa",
+						"bbb",
+						"ccc"
+					],
+					"text_txt_ja": "今日はいい天気です2024-08-21T01:00:22+09:00",
+					"vector2": [
+						0.5,
+						0.5
+					]
+				}
+			}
+		]
+	}
+}
