@@ -1,11 +1,11 @@
 package nlp4j.opensearch;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import junit.framework.TestCase;
 import nlp4j.NlpServiceResponse;
-import nlp4j.opensearch.data.SearchResult;
 
 public class SimpleOpenSearchClientTestCase extends TestCase {
 
@@ -19,15 +19,15 @@ public class SimpleOpenSearchClientTestCase extends TestCase {
 				"myindex1");) {
 
 			{
-//				String method = "_search";
-//				String jsonBody = "{\r\n" //
-//						+ "  \"query\" : {\r\n" //
-//						+ "    \"term\": { \"text_txt_ja\": \"天気\" }\r\n" //
-//						+ "  }\r\n" //
-//						+ "}";
-//				JsonObject jo = (new Gson()).fromJson(jsonBody, JsonObject.class);
-//				NlpServiceResponse res = client.get(method, jo);
-//				System.err.println(res.getOriginalResponseBody());
+				String method = "_search";
+				String jsonBody = "{\r\n" //
+						+ "  \"query\" : {\r\n" //
+						+ "    \"term\": { \"text_txt_ja\": \"天気\" }\r\n" //
+						+ "  }\r\n" //
+						+ "}";
+				JsonObject jo = (new Gson()).fromJson(jsonBody, JsonObject.class);
+				NlpServiceResponse res = client.get(method, jo);
+				System.err.println(res.getOriginalResponseBody());
 			}
 			System.err.println("-----");
 			{
@@ -45,19 +45,89 @@ public class SimpleOpenSearchClientTestCase extends TestCase {
 					}
 
 				}
+			}
+			System.err.println("-----");
+			{
+				String method = "_search";
+				String jsonBody = "{\r\n" //
+						+ "  \"query\": {\r\n" //
+						+ "    \"script_score\": {\r\n" //
+						+ "      \"query\": {\r\n" //
+						+ "        \"match_all\": {}\r\n" //
+						+ "      },\r\n" //
+						+ "      \"script\": {\r\n" //
+						+ "        \"source\": \"cosineSimilarity(params.query_vector, doc['vector2']) + 1.0\",\r\n" //
+						+ "        \"params\": {\r\n" //
+						+ "          \"query_vector\": [0.0, 1.0]\r\n" //
+						+ "        }\r\n" //
+						+ "      }\r\n" //
+						+ "    }\r\n" //
+						+ "  }\r\n" //
+						+ "}";
+				JsonObject jo = (new Gson()).fromJson(jsonBody, JsonObject.class);
+				NlpServiceResponse res = client.get(method, jo);
+				System.err.println(res.getOriginalResponseBody());
+			}
+			System.err.println("-----");
+			{
+				String method = "_search";
+//				String jsonBody = "{" //
+//						+ "  \"query\": {" //
+//						+ "    \"script_score\": {" //
+//						+ "      \"query\": {" //
+//						+ "        \"match_all\": {}" //
+//						+ "      }," //
+//						+ "      \"script\": {" //
+//						+ "        \"source\": \"cosineSimilarity(params.query_vector, doc['vector2']) + 1.0\"," //
+//						+ "        \"params\": {" //
+//						+ "          \"query_vector\": [0.0, 1.0]" //
+//						+ "        }" //
+//						+ "      }" //
+//						+ "    }" //
+//						+ "  }" //
+//						+ "}";
+//				JsonObject jo = (new Gson()).fromJson(jsonBody, JsonObject.class);
+
+				String vector_target = "vector2";
+				float[] v = { 0.0f, 1.0f };
+
+				JsonObject q = new JsonObject();
 				{
-					Gson gson = new Gson();
-					SearchResult result = gson.fromJson(res.getOriginalResponseBody(), SearchResult.class);
-					int c = result.getHits().getHits().size();
-					if (c == 0) {
-						System.err.println("Not Found");
-					} else {
-						System.err.println("Found");
+					JsonObject query = new JsonObject();
+					{
+						JsonObject script_score = new JsonObject();
+						{
+							JsonObject _query = (new Gson()).fromJson("{'match_all':{}}", JsonObject.class);
+							script_score.add("query", _query);
+							query.add("script_score", script_score);
+							////
+							JsonObject script = new JsonObject();
+							{
+								script.addProperty("source",
+										"cosineSimilarity(params.query_vector, doc['" + vector_target + "']) + 1.0");
+								{
+									JsonObject params = new JsonObject();
+									{
+										JsonArray query_vector = new JsonArray();
+										{
+											for (int n = 0; n < v.length; n++) {
+												query_vector.add(v[n]);
+											}
+//											query_vector.add(0.0f);
+//											query_vector.add(1.0f);
+											params.add("query_vector", query_vector);
+										}
+										script.add("params", params);
+									}
+								}
+								script_score.add("script", script);
+							}
+						}
 					}
-					result.getHits().getHits().forEach(h -> {
-						System.err.println(h);
-					});
 				}
+
+				NlpServiceResponse res = client.get(method, q);
+				System.err.println(res.getOriginalResponseBody());
 			}
 
 		}
