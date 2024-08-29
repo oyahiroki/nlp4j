@@ -47,4 +47,15 @@ public class DoubleUtils {
 		return list;
 	}
 
+	/**
+	 * @since 1.3.7.14
+	 */
+	public static float[] toFloatArray(List<Number> dd) {
+		float[] ff = new float[dd.size()];
+		for (int n = 0; n < dd.size(); n++) {
+			ff[n] = dd.get(n).floatValue();
+		}
+		return ff;
+	}
+
 }

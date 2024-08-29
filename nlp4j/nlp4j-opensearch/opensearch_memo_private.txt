@@ -1,0 +1,514 @@
+
+
+OpenSearchで日本語の検索ができるようにする
+https://zenn.dev/tamanugi/articles/66230d8d685dc5
+
+Try OpenSearch with Docker Compose
+https://www.opensearch.org/downloads.html
+
+Setting up a demo configuration
+https://opensearch.org/docs/latest/security/configuration/demo-configuration/
+
+Mappings and field types
+https://opensearch.org/docs/latest/field-types/
+
+
+opensearch-node1b で以下を実行 (opensearch) または docker-composeに追記
+
+/usr/share/opensearch/bin/opensearch-plugin install analysis-kuromoji
+/usr/share/opensearch/bin/opensearch-plugin install analysis-icu
+
+
+実行結果
+
+sh-5.2$ /usr/share/opensearch/bin/opensearch-plugin install analysis-kuromoji
+-> Installing analysis-kuromoji
+-> Downloading analysis-kuromoji from opensearch
+[=================================================] 100%?? 
+-> Installed analysis-kuromoji with folder name analysis-kuromoji
+sh-5.2$ /usr/share/opensearch/bin/opensearch-plugin install analysis-icu
+-> Installing analysis-icu
+-> Downloading analysis-icu from opensearch
+[=================================================] 100%?? 
+-> Installed analysis-icu with folder name analysis-icu
+sh-5.2$ 
+
+→再起動が必要
+
+
+管理コンソール
+
+http://localhost:5601/app/home#/
+
+[Dev Tool]を開く
+
+■削除するとき
+DELETE /myindex1
+
+参考
+https://opensearch.org/docs/latest/search-plugins/vector-search/#example
+
+https://oiasnak.hatenablog.com/entry/2024/05/06/045105
+
+Elasticsearchを日本語で使う設定のまとめ
+投稿日 2017年03月20日
+https://qiita.com/shin_hayata/items/41c07923dbf58f13eec4
+
+
+■作成するとき V2
+PUT /myindex1
+{
+  "settings": {
+    "index": {
+      "knn": true,
+      "knn.algo_param.ef_search": 100
+    },
+    "analysis": {
+      "char_filter": {
+        "normalize": {
+          "type": "icu_normalizer",
+          "name": "nfkc",
+          "mode": "compose"
+        }
+      },
+      "analyzer": {
+        "default": {
+          "type": "custom",
+          "char_filter": [
+            "icu_normalizer","kuromoji_iteration_mark"
+          ],
+          "tokenizer": "kuromoji_tokenizer",
+          "filter": [
+            "kuromoji_baseform",
+            "kuromoji_part_of_speech",
+            "ja_stop",
+            "kuromoji_number",
+            "kuromoji_stemmer"
+          ]
+        },
+        "kuromoji_analyzer": {
+          "type": "custom",
+          "char_filter": [
+            "icu_normalizer","kuromoji_iteration_mark"
+          ],
+          "tokenizer": "kuromoji_tokenizer",
+          "filter": [
+            "kuromoji_baseform",
+            "kuromoji_part_of_speech",
+            "ja_stop",
+            "kuromoji_number",
+            "kuromoji_stemmer"
+          ]
+        }
+      }
+    }
+  },
+  "mappings": {
+    "properties": {
+      "text_txt_ja": {
+        "type": "text",
+        "analyzer": "kuromoji_analyzer",
+        "search_analyzer": "kuromoji_analyzer",
+        "term_vector": "with_positions_offsets",
+        "fields": {
+          "keyword": {
+            "type": "keyword",
+            "ignore_above": 256
+          }
+        }
+      },
+      "vector1024": {
+        "type": "knn_vector",
+        "dimension": 1024,
+        "method": {
+          "name": "hnsw",
+          "space_type": "l2",
+          "engine": "nmslib",
+          "parameters": {
+            "ef_construction": 128,
+            "m": 24
+          }
+        }
+      }
+    }
+  }
+}
+
+
+{
+  "acknowledged": true,
+  "shards_acknowledged": true,
+  "index": "myindex1"
+}
+
+
+
+
+
+
+
+■形態素解析
+GET /myindex1/_analyze
+{
+  "text": "今日はいい天気でしたので歩いてＡＢＣ学校に行きました。"
+}
+
+
+■形態素解析
+GET /myindex1/_analyze
+{
+  "analyzer": "kuromoji_analyzer",
+  "text": "今日はいい天気でしたので歩いて学校に行きました。"
+}
+
+
+curl -XGET "https://opensearch-node1:9200/myindex1/_analyze" -H 'Content-Type: application/json' -d'
+{
+  "text": "今日はいい天気です"
+}'
+
+{
+  "tokens": [
+    {
+      "token": "今日",
+      "start_offset": 0,
+      "end_offset": 2,
+      "type": "word",
+      "position": 0
+    },
+    {
+      "token": "いい",
+      "start_offset": 3,
+      "end_offset": 5,
+      "type": "word",
+      "position": 2
+    },
+    {
+      "token": "天気",
+      "start_offset": 5,
+      "end_offset": 7,
+      "type": "word",
+      "position": 3
+    }
+  ]
+}
+
+■確認
+GET /myindex1/_mapping
+
+{
+  "myindex1": {
+    "mappings": {
+      "properties": {
+        "item1_s": {
+          "type": "keyword"
+        },
+        "text_txt_ja": {
+          "type": "text",
+          "analyzer": "kuromoji_tokenizer"
+        },
+        "vector1024": {
+          "type": "knn_vector",
+          "dimension": 1024
+        },
+        "vector2": {
+          "type": "knn_vector",
+          "dimension": 2
+        }
+      }
+    }
+  }
+}
+
+
+■文書の追加
+POST /myindex1/_doc/1
+{"item1_s":["aaa","bbb","ccc"],"text_txt_ja":"今日はいい天気です","vector2":[1.0,0]}
+
+{
+  "_index": "myindex1",
+  "_id": "1",
+  "_version": 1,
+  "result": "created",
+  "_shards": {
+    "total": 2,
+    "successful": 1,
+    "failed": 0
+  },
+  "_seq_no": 0,
+  "_primary_term": 1
+}
+
+
+POST /myindex1/_doc/3
+{"item1_s":["aaa","bbb","ccc"],"text_txt_ja":"今日はいい天気です","vector2":[0.5,0.5]}
+
+
+
+■文書の追加(IDを指定しない)
+POST /myindex1/_doc/
+{"item1_s":["aaa","bbb","ccc"],"text_txt_ja":"今日はいい天気です","vector2":[1.0,0]}
+
+{
+  "_index": "myindex1",
+  "_id": "c-g0dJEBXZv-t_Luic8u",
+  "_version": 1,
+  "result": "created",
+  "_shards": {
+    "total": 2,
+    "successful": 1,
+    "failed": 0
+  },
+  "_seq_no": 10,
+  "_primary_term": 1
+}
+
+
+
+
+■検索
+GET myindex1/_search
+{
+  "query" : {
+    "term": { "text_txt_ja": "天気" }
+  }
+}
+
+{
+  "took": 514,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 1,
+      "relation": "eq"
+    },
+    "max_score": 0.2876821,
+    "hits": [
+      {
+        "_index": "myindex1",
+        "_id": "1",
+        "_score": 0.2876821,
+        "_source": {
+          "item1_s": [
+            "aaa",
+            "bbb",
+            "ccc"
+          ],
+          "text_txt_ja": "今日はいい天気です",
+          "vector2": [
+            1,
+            0
+          ]
+        }
+      }
+    ]
+  }
+}
+
+■キーワード検索２
+GET myindex1/_search
+{
+  "query" : {
+    "term": { "text_txt_ja": "天" }
+  }
+}
+
+{
+  "took": 1,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 0,
+      "relation": "eq"
+    },
+    "max_score": null,
+    "hits": []
+  }
+}
+
+curl -XGET "https://opensearch-node1:9200/myindex1/_search" -H 'Content-Type: application/json' -d'
+{
+  "query" : {
+    "term": { "text_txt_ja": "天" }
+  }
+}'
+
+$ curl -u "admin:StrongPassword1234##" -k -XGET "https://localhost:9200/myindex1/_search" -H 'Content-Type: application/json' -d'
+{
+  "query" : {
+    "term": { "text_txt_ja": "天気" }
+  }
+}'
+
+
+■ベクトル検索１
+# 通常、検索エンジンではスコアが負の値を持つことが望ましくありません。そのため、cosineSimilarity 関数の結果に +1.0 を加えることで、スコアの範囲を 0.0 から 2.0 に変更しています。
+
+GET /myindex1/_search
+{
+  "query": {
+    "script_score": {
+      "query": {
+        "match_all": {}
+      },
+      "script": {
+        "source": "cosineSimilarity(params.query_vector, doc['vector2']) + 1.0",
+        "params": {
+          "query_vector": [0.0, 1.0]
+        }
+      }
+    }
+  }
+}
+
+{
+  "took": 4,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 1,
+      "relation": "eq"
+    },
+    "max_score": 1,
+    "hits": [
+      {
+        "_index": "myindex1",
+        "_id": "1",
+        "_score": 1,
+        "_source": {
+          "item1_s": [
+            "aaa",
+            "bbb",
+            "ccc"
+          ],
+          "text_txt_ja": "今日はいい天気です",
+          "vector2": [
+            1,
+            0
+          ]
+        }
+      }
+    ]
+  }
+}
+
+
+■SSL証明書設定
+
+ブラウザから「c:\work\localhost_opensearch.crt」に証明書を保存する
+
+C:\Program Files\Java\jdk-17\bin>keytool -import -trustcacerts -file c:\work\localhost_opensearch.crt -keystore "c:\Program Files\Java\jdk-17\lib\security\cacerts"
+警告: cacertsキーストアにアクセスするには-cacertsオプションを使用してください
+キーストアのパスワードを入力してください:changeit
+
+参考になるページ
+
+JavaにSSL証明書を追加する
+https://qiita.com/nenokido2000/items/b36b6e5f0854d7d63ba6
+
+
+------------------------------------
+
+https://aws.amazon.com/jp/blogs/news/migrate-from-apache-solr-to-opensearch/
+
+
+
+Embeddingを用いたOpenSearchでのベクトル検索
+https://qiita.com/menon/items/c0e074bafff8d9beff4e
+
+POST /myindex1/_doc/1
+{"item1_s":["aaa","bbb","ccc"],"text_txt_ja":"今日はいい天気です"}
+
+{
+  "_index": "myindex1",
+  "_id": "1",
+  "_version": 1,
+  "result": "created",
+  "_shards": {
+    "total": 2,
+    "successful": 1,
+    "failed": 0
+  },
+  "_seq_no": 0,
+  "_primary_term": 1
+}
+
+GET myindex1/_search
+{
+  "query" : {
+    "term": { "text_txt_ja": "天気" }
+  }
+}
+
+{
+  "took": 813,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 1,
+      "relation": "eq"
+    },
+    "max_score": 0.2876821,
+    "hits": [
+      {
+        "_index": "myindex1",
+        "_id": "1",
+        "_score": 0.2876821,
+        "_source": {
+          "item1_s": [
+            "aaa",
+            "bbb",
+            "ccc"
+          ],
+          "text_txt_ja": "今日はいい天気です"
+        }
+      }
+    ]
+  }
+}
+
+参考
+【初心者】Amazon OpenSearch Service を使ってみる (基本的なデータ操作)
+https://qiita.com/mksamba/items/9c8609ea15f0c7b66a24
+
+
+
+■その他参考になりそうなページ
+
+opensearch-java-client-demo/src/main/java
+/Knn.java
+https://github.com/dblock/opensearch-java-client-demo/blob/master/src/main/java/Knn.java
+
+Embeddingを用いたOpenSearchでのベクトル検索
+https://qiita.com/menon/items/c0e074bafff8d9beff4e
+
+
+
+
+■OpenSearch のベクトル検索 公式ドキュメント
+https://opensearch.org/docs/latest/search-plugins/vector-search/#example
+

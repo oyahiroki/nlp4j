@@ -1,4 +1,4 @@
-package hello;
+package hello.opensearch;
 
 import java.io.IOException;
 import java.util.Date;
@@ -8,7 +8,7 @@ import nlp4j.http.HttpClient;
 import nlp4j.http.HttpClientBuilder;
 import nlp4j.util.DateUtils;
 
-public class SimpleOpenSearchClientBeta {
+public class SimpleOpenSearchClientBeta1 {
 
 	public void post() throws IOException {
 

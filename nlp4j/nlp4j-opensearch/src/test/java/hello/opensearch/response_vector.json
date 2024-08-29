@@ -1,0 +1,173 @@
+{
+	"took": 2,
+	"timed_out": false,
+	"_shards": {
+		"total": 1,
+		"successful": 1,
+		"skipped": 0,
+		"failed": 0
+	},
+	"hits": {
+		"total": {
+			"value": 13,
+			"relation": "eq"
+		},
+		"max_score": 1.0,
+		"hits": [
+			{
+				"_index": "myindex1",
+				"_id": "1",
+				"_score": 1.0,
+				"_source": {
+					"item1_s": [
+						"aaa",
+						"bbb",
+						"ccc"
+					],
+					"text_txt_ja": "今日はいい天気です2024-08-21T01:00:22+09:00",
+					"vector2": [
+						0.5,
+						0.5
+					]
+				}
+			},
+			{
+				"_index": "myindex1",
+				"_id": "2",
+				"_score": 1.0,
+				"_source": {
+					"item1_s": [
+						"aaa",
+						"bbb",
+						"ccc"
+					],
+					"text_txt_ja": "今日はいい天気です",
+					"vector2": [
+						1.0,
+						0
+					]
+				}
+			},
+			{
+				"_index": "myindex1",
+				"_id": "3",
+				"_score": 1.0,
+				"_source": {
+					"item1_s": [
+						"aaa",
+						"bbb",
+						"ccc"
+					],
+					"text_txt_ja": "今日はいい天気です",
+					"vector2": [
+						0.5,
+						0.5
+					]
+				}
+			},
+			{
+				"_index": "myindex1",
+				"_id": "c-g0dJEBXZv-t_Luic8u",
+				"_score": 1.0,
+				"_source": {
+					"item1_s": [
+						"aaa",
+						"bbb",
+						"ccc"
+					],
+					"text_txt_ja": "今日はいい天気です",
+					"vector2": [
+						1.0,
+						0
+					]
+				}
+			},
+			{
+				"_index": "myindex1",
+				"_id": "doc_20240827-103144",
+				"_score": 1.0,
+				"_source": {
+					"id": "doc_20240827-103144",
+					"items": [
+						"aaa",
+						"bbb",
+						"ccc"
+					],
+					"text_txt_ja": "今日はいい天気です",
+					"vector2": [
+						1.0,
+						0.0
+					]
+				}
+			},
+			{
+				"_index": "myindex1",
+				"_id": "doc_20240827-103233",
+				"_score": 1.0,
+				"_source": {
+					"id": "doc_20240827-103233",
+					"items": [
+						"aaa",
+						"bbb",
+						"ccc"
+					],
+					"text_txt_ja": "今日はいい天気です",
+					"vector2": [
+						1.0,
+						0.0
+					]
+				}
+			},
+			{
+				"_index": "myindex1",
+				"_id": "IejXkZEBXZv-t_LuQ-Uz",
+				"_score": 1.0,
+				"_source": {
+					"items": [
+						"aaa",
+						"bbb",
+						"ccc"
+					],
+					"text_txt_ja": "今日はいい天気です",
+					"vector2": [
+						1.0,
+						0.0
+					]
+				}
+			},
+			{
+				"_index": "myindex1",
+				"_id": "doc_20240827-121839",
+				"_score": 1.0,
+				"_source": {
+					"id": "doc_20240827-121839",
+					"items": [
+						"aaa",
+						"bbb",
+						"ccc"
+					],
+					"text_txt_ja": "今日はいい天気です",
+					"vector2": [
+						0.5,
+						0.5
+					]
+				}
+			},
+			{
+				"_index": "myindex1",
+				"_id": "doc001",
+				"_score": 1.0,
+				"_source": {
+					"id": "doc001",
+					"items": [],
+					"text_txt_ja": "今日はいい天気です。",
+					"vector1024": [
+						0.050360244,
+						-0.002583641,
+						0.020208191
+					]
+				}
+			}
+		]
+	}
+}
