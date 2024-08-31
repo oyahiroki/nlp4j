@@ -8,7 +8,7 @@ import nlp4j.llm.embeddings.EmbeddingAnnotator;
 import nlp4j.opensearch.SimpleOpenSearchClient;
 import nlp4j.util.JsonUtils;
 
-public class Hello003_EmbeddingSearch {
+public class Hello004_EmbeddingKeywordHybridSearch {
 	static private String password;
 
 	static {
@@ -36,8 +36,8 @@ public class Hello003_EmbeddingSearch {
 				String vector_field = "vector1024";
 //				float[] v = { 0.0f, 1.0f };
 
-				NlpServiceResponse res = client.vector_search(vector_field, v);
-//				NlpServiceResponse res = client.vector_hybrid_search(vector_field, v, "text_txt_ja", "好き");
+//				NlpServiceResponse res = client.vector_search(vector_field, v);
+				NlpServiceResponse res = client.vector_hybrid_search(vector_field, v, "text_txt_ja", "好き");
 
 //				System.out.println(res.getOriginalResponseBody());
 				JsonObject jo = res.getAsJsonObject();

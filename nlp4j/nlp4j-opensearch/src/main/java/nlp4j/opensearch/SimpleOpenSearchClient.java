@@ -12,6 +12,8 @@ import com.google.gson.JsonObject;
 import nlp4j.NlpServiceResponse;
 import nlp4j.http.HttpClient;
 import nlp4j.http.HttpClientBuilder;
+import nlp4j.util.JsonUtils;
+import nlp4j.util.TempFileUtils;
 
 public class SimpleOpenSearchClient implements Closeable {
 	private String endPoint;
@@ -87,12 +89,12 @@ public class SimpleOpenSearchClient implements Closeable {
 		JsonObject jo = new JsonObject();
 		{
 			JsonObject query = new JsonObject();
+			jo.add("query", query);
 			{
 				JsonObject term = new JsonObject();
-				term.addProperty(field, value);
 				query.add("term", term);
+				term.addProperty(field, value);
 			}
-			jo.add("query", query);
 		}
 		return this.get(method, jo);
 	}
@@ -134,14 +136,17 @@ public class SimpleOpenSearchClient implements Closeable {
 //				query.add("script_score", script_score);
 //			}
 		}
-		{
+		{ // ベクトル検索
 			q.addProperty("size", 10);
 			{
 				JsonObject query = new JsonObject();
+				q.add("query", query);
 				{
 					JsonObject knn = new JsonObject();
+					query.add("knn", knn);
 					{
 						JsonObject v1 = new JsonObject();
+						knn.add(field_vector, v1);
 						{
 							{
 								JsonArray vector = new JsonArray();
@@ -154,13 +159,115 @@ public class SimpleOpenSearchClient implements Closeable {
 								v1.addProperty("k", 3);
 							}
 						}
-						knn.add(field_vector, v1);
 					}
-					query.add("knn", knn);
 				}
-				q.add("query", query);
 			}
 		}
+
+		NlpServiceResponse res = this.get(method, q);
+		return res;
+
+	}
+
+	public NlpServiceResponse vector_hybrid_search(String field_vector, float[] v, String field_txt, String value_text)
+			throws IOException {
+
+		String method = "_search?search_pipeline=nlp-search-pipeline";
+		JsonObject q = new JsonObject();
+		{
+			// JsonObject query = new JsonObject();
+			// {
+			// JsonObject script_score = new JsonObject();
+			// {
+			// {
+			// JsonObject _query = (new Gson()).fromJson("{'match_all':{}}",
+			// JsonObject.class);
+			// script_score.add("query", _query);
+			// }
+			// {
+			// JsonObject script = new JsonObject();
+			// {
+			// script.addProperty("source",
+			// "cosineSimilarity(params.query_vector, doc['" + field_vector + "']) + 1.0");
+			// {
+			// JsonObject params = new JsonObject();
+			// {
+			// JsonArray query_vector = new JsonArray();
+			// for (int n = 0; n < v.length; n++) {
+			// query_vector.add(v[n]);
+			// }
+			// params.add("query_vector", query_vector);
+			// }
+			// script.add("params", params);
+			// }
+			// }
+			// script_score.add("script", script);
+			// }
+			//
+			// }
+			// query.add("script_score", script_score);
+			// }
+		}
+		{ // ベクトル検索
+			q.addProperty("size", 10);
+			{
+				JsonObject highlight = new JsonObject();
+				q.add("highlight", highlight);
+				{
+					highlight.add("fields", (new Gson()).fromJson("{'text_txt_ja':{}}", JsonObject.class));
+				}
+			}
+			{
+				JsonObject query = new JsonObject();
+				q.add("query", query);
+				{
+					JsonObject hybrid = new JsonObject();
+					query.add("hybrid", hybrid);
+					{
+						JsonArray queries = new JsonArray();
+						hybrid.add("queries", queries);
+						{
+							JsonObject term = new JsonObject();
+							queries.add(term);
+							JsonObject termquery = new JsonObject();
+							term.add("term", termquery);
+							termquery.addProperty(field_txt
+							// "text_txt_ja"
+									, value_text
+							// "好き"
+							);
+						}
+						{
+							JsonObject knnquery = new JsonObject();
+							queries.add(knnquery);
+							JsonObject knn = new JsonObject();
+
+							knnquery.add("knn", knn);
+							{
+								JsonObject v1 = new JsonObject();
+								knn.add(field_vector, v1);
+								{
+									{
+										JsonArray vector = new JsonArray();
+										for (int n = 0; n < v.length; n++) {
+											vector.add(v[n]);
+										}
+										v1.add("vector", vector);
+									}
+									{
+										v1.addProperty("k", 3);
+									}
+								}
+							}
+
+						}
+					}
+
+				}
+			}
+		}
+
+		System.err.println(TempFileUtils.print(JsonUtils.prettyPrint(q)).getAbsolutePath());
 
 		NlpServiceResponse res = this.get(method, q);
 		return res;

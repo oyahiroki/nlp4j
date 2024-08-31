@@ -1,10 +1,18 @@
 
 
-OpenSearchで日本語の検索ができるようにする
+■公式ドキュメント
+
+Try OpenSearch with Docker Compose （日本語解析に関する言及は無い）
+https://www.opensearch.org/downloads.html
+
+
+
+
+■参考
+
+OpenSearchで日本語の検索ができるようにする - 2022/5/26
 https://zenn.dev/tamanugi/articles/66230d8d685dc5
 
-Try OpenSearch with Docker Compose
-https://www.opensearch.org/downloads.html
 
 Setting up a demo configuration
 https://opensearch.org/docs/latest/security/configuration/demo-configuration/
@@ -46,13 +54,22 @@ http://localhost:5601/app/home#/
 DELETE /myindex1
 
 参考
+
+Vector search （ベクトル検索のインデックス設定例などが記載されている）
 https://opensearch.org/docs/latest/search-plugins/vector-search/#example
 
+OpenSearch アナライザーをカスタマイズする
 https://oiasnak.hatenablog.com/entry/2024/05/06/045105
 
 Elasticsearchを日本語で使う設定のまとめ
 投稿日 2017年03月20日
 https://qiita.com/shin_hayata/items/41c07923dbf58f13eec4
+
+
+■プラグイン開発
+My First Steps in OpenSearch Plugins Thu, Jun 03, 2021 · Amitai Stern
+https://opensearch.org/blog/my-first-steps-in-opensearch-plugins/
+
 
 
 ■作成するとき V2
@@ -511,4 +528,37 @@ https://qiita.com/menon/items/c0e074bafff8d9beff4e
 
 ■OpenSearch のベクトル検索 公式ドキュメント
 https://opensearch.org/docs/latest/search-plugins/vector-search/#example
+
+
+
+
+
+■パイプライン定義（必須）
+参考 https://qiita.com/myu65/items/e37ff34e54929260d6e5
+
+PUT /_search/pipeline/nlp-search-pipeline
+{
+  "description": "Post processor for hybrid search",
+  "phase_results_processors": [
+    {
+      "normalization-processor": {
+        "normalization": {
+          "technique": "min_max"
+        },
+        "combination": {
+          "technique": "arithmetic_mean",
+          "parameters": {
+            "weights": [
+              0.3,
+              0.7
+            ]
+          }
+        }
+      }
+    }
+  ]
+}
+
+
+ハイブリッド検索では _search?search_pipeline=nlp-search-pipeline と指定して検索する
 
