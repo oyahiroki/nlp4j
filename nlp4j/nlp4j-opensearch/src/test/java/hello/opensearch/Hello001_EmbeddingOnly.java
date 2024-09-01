@@ -10,7 +10,7 @@ import nlp4j.impl.DefaultKeyword;
 import nlp4j.llm.embeddings.EmbeddingAnnotator;
 import nlp4j.util.DocumentUtil;
 
-public class Hello001_Embedding {
+public class Hello001_EmbeddingOnly {
 
 	public static void main(String[] args) throws Exception {
 

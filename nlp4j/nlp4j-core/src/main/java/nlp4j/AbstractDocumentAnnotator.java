@@ -64,4 +64,10 @@ public abstract class AbstractDocumentAnnotator implements DocumentAnnotator {
 		}
 	}
 
+	@Override
+	public String toString() {
+		return "AbstractDocumentAnnotator" + " " + this.getClass().getCanonicalName() + " " + "[targets=" + targets
+				+ ", prop=" + prop + "]";
+	}
+
 }

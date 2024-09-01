@@ -2,6 +2,7 @@ package nlp4j.annotator;
 
 import junit.framework.TestCase;
 import nlp4j.Document;
+import nlp4j.DocumentAnnotator;
 import nlp4j.DocumentBuilder;
 import nlp4j.impl.DefaultDocument;
 
@@ -17,7 +18,7 @@ public class AnnotatorBuilderTestCase extends TestCase {
 	 */
 	public void test001() throws Exception {
 
-		DebugAnnotator ann = (new AnnotatorBuilder<DebugAnnotator>(new DebugAnnotator())).prop("xxx", "yyy").build();
+		DocumentAnnotator ann = (new AnnotatorBuilder(DebugAnnotator.class)).p("xxx", "yyy").build();
 
 		System.err.println(ann);
 		{

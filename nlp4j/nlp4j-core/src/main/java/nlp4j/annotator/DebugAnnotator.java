@@ -70,4 +70,10 @@ public class DebugAnnotator extends AbstractDocumentAnnotator {
 		super.annotate(docs);
 	}
 
+	@Override
+	public String toString() {
+		return "DebugAnnotator [wait=" + wait + ", wait_time_ms=" + wait_time_ms + ", targets=" + targets + ", prop="
+				+ prop + "]";
+	}
+
 }
