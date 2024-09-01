@@ -31,6 +31,7 @@ import nlp4j.openai.OpenAI;
 import nlp4j.servlet.util.ServletStreamUtils;
 import nlp4j.solr.search.SolrSearchClient;
 import nlp4j.util.JsonUtils;
+import nlp4j.web.rag.ChatHistory;
 
 /**
  * RagChat: ベクトル検索の結果を会話に反映する

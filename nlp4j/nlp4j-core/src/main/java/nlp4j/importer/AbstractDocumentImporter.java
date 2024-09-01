@@ -51,4 +51,12 @@ public abstract class AbstractDocumentImporter implements DocumentImporter {
 		}
 	}
 
+	/**
+	 * @since 1.3.7.14
+	 */
+	@Override
+	public String toString() {
+		return "AbstractDocumentImporter " + this.getClass().getCanonicalName() + " " + " [props=" + props + "]";
+	}
+
 }

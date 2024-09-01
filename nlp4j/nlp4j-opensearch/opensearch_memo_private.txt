@@ -70,6 +70,7 @@ https://qiita.com/shin_hayata/items/41c07923dbf58f13eec4
 My First Steps in OpenSearch Plugins Thu, Jun 03, 2021 · Amitai Stern
 https://opensearch.org/blog/my-first-steps-in-opensearch-plugins/
 
+https://github.com/opensearch-project/OpenSearch/blob/main/server/src/main/java/org/opensearch/plugins/AnalysisPlugin.java
 
 
 ■作成するとき V2

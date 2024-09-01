@@ -1,6 +1,10 @@
 package nlp4j.opensearch.importer;
 
 import java.io.IOException;
+import java.lang.invoke.MethodHandles;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -14,9 +18,23 @@ import nlp4j.util.DoubleUtils;
 
 public class OpenSearchDocumentImporter extends AbstractDocumentImporter implements DocumentImporter, AutoCloseable {
 
+	static private Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
+
+//	String index = "myindex1";
+	String index = "hello-hybrid";
+	String opensearch_endpoint = "https://localhost:9200";
+	String openasearch_admin = "admin";
+
 	@Override
 	public void setProperty(String key, String value) {
-
+		if ("index".equals(key)) {
+			this.index = value;
+		} //
+		else if ("opensearch_endpoint".equals(key)) {
+			this.opensearch_endpoint = value;
+		} else if ("openasearch_admin".equals(key)) {
+			this.openasearch_admin = value;
+		}
 	}
 
 	@Override
@@ -30,8 +48,9 @@ public class OpenSearchDocumentImporter extends AbstractDocumentImporter impleme
 			}
 		}
 
-		try (SimpleOpenSearchClient client = new SimpleOpenSearchClient("https://localhost:9200", "admin", password,
-				"myindex1");) {
+		try (SimpleOpenSearchClient client = new SimpleOpenSearchClient(opensearch_endpoint, openasearch_admin,
+				password, index);) {
+
 			JsonObject doc = new JsonObject();
 			{
 				{ // ID

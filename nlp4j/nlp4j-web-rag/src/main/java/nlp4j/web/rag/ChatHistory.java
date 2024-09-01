@@ -1,4 +1,4 @@
-package nlp4j.servlet;
+package nlp4j.web.rag;
 
 import java.util.Date;
 import java.util.Random;

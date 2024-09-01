@@ -16,7 +16,7 @@ public class Hello002_EmbeddingImportMain {
 	public static void main(String[] args) throws Exception {
 
 		String text = "私は読書が好きです。";
-		String[] texts = { "私はMLBが好きです。", "私はメジャーリーグが好きです。", "私はべーブルースが好きです。" };
+		String[] texts = { "私は学校に歩いて行きます。", "私はメジャーリーグが好きです。", "私はべーブルースが好きです。" };
 
 		List<Document> docs = new ArrayList<>();
 		{

@@ -2,8 +2,12 @@ package nlp4j.opensearch;
 
 import java.io.Closeable;
 import java.io.IOException;
+import java.lang.invoke.MethodHandles;
 import java.net.MalformedURLException;
 import java.net.URL;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -16,6 +20,7 @@ import nlp4j.util.JsonUtils;
 import nlp4j.util.TempFileUtils;
 
 public class SimpleOpenSearchClient implements Closeable {
+	static private Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 	private String endPoint;
 	private HttpClient c;
 	private String index;
@@ -65,6 +70,7 @@ public class SimpleOpenSearchClient implements Closeable {
 
 	public NlpServiceResponse post(String method, JsonObject requestBody) throws IOException {
 		String url = this.endPoint + "/" + this.index + "/" + method;
+		System.err.println(TempFileUtils.print(JsonUtils.prettyPrint(requestBody)).getAbsolutePath());
 		NlpServiceResponse res = c.post(url, requestBody.toString());
 		return res;
 	}
@@ -172,7 +178,7 @@ public class SimpleOpenSearchClient implements Closeable {
 	public NlpServiceResponse vector_hybrid_search(String field_vector, float[] v, String field_txt, String value_text)
 			throws IOException {
 
-		String method = "_search?search_pipeline=nlp-search-pipeline";
+		String method = "_search" + "?" + "search_pipeline=nlp-search-pipeline";
 		JsonObject q = new JsonObject();
 		{
 			// JsonObject query = new JsonObject();
@@ -210,6 +216,15 @@ public class SimpleOpenSearchClient implements Closeable {
 		}
 		{ // ベクトル検索
 			q.addProperty("size", 10);
+			{
+				JsonObject _source = new JsonObject();
+				q.add("_source", _source);
+				{
+					JsonArray exclude = new JsonArray();
+					_source.add("exclude", exclude);
+					exclude.add("vector1024");
+				}
+			}
 			{
 				JsonObject highlight = new JsonObject();
 				q.add("highlight", highlight);
@@ -267,6 +282,7 @@ public class SimpleOpenSearchClient implements Closeable {
 			}
 		}
 
+		System.err.println(method);
 		System.err.println(TempFileUtils.print(JsonUtils.prettyPrint(q)).getAbsolutePath());
 
 		NlpServiceResponse res = this.get(method, q);

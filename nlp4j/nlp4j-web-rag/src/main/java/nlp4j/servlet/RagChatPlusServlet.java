@@ -36,6 +36,7 @@ import nlp4j.util.DateUtils;
 import nlp4j.util.GoogleSpreadSheetUtil;
 import nlp4j.util.JsonUtils;
 import nlp4j.util.RuntimeUtils;
+import nlp4j.web.rag.ChatHistory;
 
 /**
  * Servlet implementation class NlpServlet
@@ -107,10 +108,12 @@ public class RagChatPlusServlet extends HttpServlet {
 								for (int n = 0; n < dd.size(); n++) {
 									JsonObject d = dd.get(n).getAsJsonObject();
 									JsonObject k = new JsonObject();
-									k.addProperty("type", "user_knowledge_base");
-									k.addProperty("text", d.get("text_txt_ja").getAsString());
-									k.addProperty("score", d.get("score").getAsNumber());
-									k.addProperty("description", "this data is from user's knowledge database");
+									{
+										k.addProperty("type", "user_knowledge_base");
+										k.addProperty("text", d.get("text_txt_ja").getAsString());
+										k.addProperty("score", d.get("score").getAsNumber());
+										k.addProperty("description", "this data is from user's knowledge database");
+									}
 									docs_knowledge.add(k);
 								}
 							} // ... ベクトル検索結果を知識として追加する

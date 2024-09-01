@@ -22,6 +22,7 @@ import com.google.gson.JsonObject;
 
 import nlp4j.openai.Config;
 import nlp4j.openai.OpenAI;
+import nlp4j.web.rag.ChatHistory;
 
 /**
  * Open AI API を単純に呼ぶ + セッション単位で会話履歴を保存する

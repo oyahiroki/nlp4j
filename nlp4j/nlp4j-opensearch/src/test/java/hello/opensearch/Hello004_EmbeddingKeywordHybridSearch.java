@@ -1,6 +1,7 @@
 package hello.opensearch;
 
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import nlp4j.NlpServiceResponse;
@@ -23,11 +24,14 @@ public class Hello004_EmbeddingKeywordHybridSearch {
 
 	static public void main(String[] args) throws Exception {
 
-		String text = "私はクロックが好きです";
+		String text = "私は学校に通います";
 		float[] v = EmbeddingAnnotator.embedding(text);
 
+//		String index = "myindex1";
+		String index = "hello-hybrid";
+
 		try (SimpleOpenSearchClient client = new SimpleOpenSearchClient("https://localhost:9200", "admin", password,
-				"myindex1");) {
+				index);) {
 			System.err.println("-----");
 
 			System.err.println("-----");
@@ -37,7 +41,7 @@ public class Hello004_EmbeddingKeywordHybridSearch {
 //				float[] v = { 0.0f, 1.0f };
 
 //				NlpServiceResponse res = client.vector_search(vector_field, v);
-				NlpServiceResponse res = client.vector_hybrid_search(vector_field, v, "text_txt_ja", "好き");
+				NlpServiceResponse res = client.vector_hybrid_search(vector_field, v, "text_txt_ja", "行く");
 
 //				System.out.println(res.getOriginalResponseBody());
 				JsonObject jo = res.getAsJsonObject();
@@ -62,8 +66,10 @@ public class Hello004_EmbeddingKeywordHybridSearch {
 		for (int n = 0; n < hits.size(); n++) {
 			JsonObject hit = hits.get(n).getAsJsonObject();
 
-			hit.get("_source").getAsJsonObject().remove("vector1024");
-			hit.get("_source").getAsJsonObject().addProperty("vector1024", "@@removed");
+			JsonElement e = hit.get("_source").getAsJsonObject().remove("vector1024");
+			if (e != null) {
+				hit.get("_source").getAsJsonObject().addProperty("vector1024", "@@removed");
+			}
 		}
 		System.err.println(JsonUtils.prettyPrint(jo));
 

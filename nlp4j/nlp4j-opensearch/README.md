@@ -5,6 +5,7 @@
 ## 公式ドキュメント 
 
 OpenSearch - Installing OpenSearch - Docker
+
 [https://opensearch.org/docs/latest/install-and-configure/install-opensearch/docker/](https://opensearch.org/docs/latest/install-and-configure/install-opensearch/docker/)
 
 
@@ -13,6 +14,60 @@ OpenSearch - Installing OpenSearch - Docker
 docker-compose.yml を用意する
 
 OPENSEARCH_INITIAL_ADMIN_PASSWORD の値に独自のパスワードを指定しておく (user: admin, password: ここで指定したパスワード) でログインすることになる。
+
+```
+version: '3'
+services:
+  opensearch-node1: # This is also the hostname of the container within the Docker network (i.e. https://opensearch-node1/)
+    image: opensearchproject/opensearch:latest # Specifying the latest available image - modify if you want a specific version
+    container_name: opensearch-node1b
+    environment:
+      - cluster.name=opensearch-cluster # Name the cluster
+      - node.name=opensearch-node1 # Name the node that will run in this container
+      - discovery.type=single-node # シングルノードモードを有効化
+      - bootstrap.memory_lock=true # Disable JVM heap memory swapping
+      - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m" # Set min and max JVM heap sizes to at least 50% of system RAM
+      - OPENSEARCH_INITIAL_ADMIN_PASSWORD=StrongPassword1234##    # Sets the demo admin user password when using demo configuration, required for OpenSearch 2.12 and later
+    ulimits:
+      memlock:
+        soft: -1 # Set memlock to unlimited (no soft or hard limit)
+        hard: -1
+      nofile:
+        soft: 65536 # Maximum number of open files for the opensearch user - set to at least 65536
+        hard: 65536
+    volumes:
+      - opensearch-data1:/usr/share/opensearch/data # Creates volume called opensearch-data1 and mounts it to the container
+    ports:
+      - 9200:9200 # REST API
+      - 9600:9600 # Performance Analyzer
+    networks:
+      - opensearch-net # All of the containers will join the same Docker bridge network
+
+  opensearch-dashboards:
+    image: opensearchproject/opensearch-dashboards:latest # Make sure the version of opensearch-dashboards matches the version of opensearch installed on other nodes
+    container_name: opensearch-dashboards2
+    ports:
+      - 5601:5601 # Map host port 5601 to container port 5601
+    expose:
+      - "5601" # Expose port 5601 for web access to OpenSearch Dashboards
+    environment:
+      OPENSEARCH_HOSTS: '["https://opensearch-node1:9200"]' # 単一のノードを指定
+    networks:
+      - opensearch-net
+
+volumes:
+  opensearch-data1:
+
+networks:
+  opensearch-net:
+```
+
+docker-compose を実行する
+
+```
+docker-compose up
+```
+
 
 ## 日本語解析用の設定を行う
 
