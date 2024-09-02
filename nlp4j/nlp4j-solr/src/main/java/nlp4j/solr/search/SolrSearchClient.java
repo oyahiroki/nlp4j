@@ -34,19 +34,6 @@ import nlp4j.search.SearchClientBuilder;
  */
 public class SolrSearchClient extends AbstractSearchClient implements SearchClient, Closeable {
 
-	static private final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
-
-	private static final int CONNECTION_TIMEOUT_MILLIS = 10000;
-	private static final int SOCKET_TIMEOUT_MILLIS = 60000;
-	private String endPoint;
-
-//	HttpSolrClient solrClient;
-	Http2SolrClient solrClient;
-
-	private SolrSearchClient(String endPoint) {
-		this.endPoint = endPoint;
-	}
-
 	/**
 	 * <pre>
 	 * Search Client Builder
@@ -66,95 +53,43 @@ public class SolrSearchClient extends AbstractSearchClient implements SearchClie
 			this.endPoint = endPoint;
 		}
 
+		public SolrSearchClient build() {
+			return new SolrSearchClient(this.endPoint);
+		}
+
 		@Override
 		public Builder getThis() {
 			return this;
 		}
-
-		public SolrSearchClient build() {
-			return new SolrSearchClient(this.endPoint);
-		}
 	}
 
+	static private final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
+
+// OPTIONS private static final int CONNECTION_TIMEOUT_MILLIS = 10000;
+// OPTIONS private static final int SOCKET_TIMEOUT_MILLIS = 60000;
+
 	/**
-	 * @param collection of Solr
-	 * @param json       in Azure Style
-	 * @return result
-	 * @throws IOException on Error
+	 * http://localhost:8983/solr/
 	 */
-	public JsonObject search(String collection, String json) throws IOException {
-		Gson gson = new Gson();
-		try {
-			JsonObject requestObject = gson.fromJson(json, JsonObject.class);
-			return search(collection, requestObject);
-		} catch (JsonSyntaxException e) {
-			logger.error("Syntax error: " + json);
-			throw new IOException(e);
-		}
+	static public String DEFALT_SOLR_ENDPOINT = "http://localhost:8983/solr/";
+
+	private String endPoint = DEFALT_SOLR_ENDPOINT;
+
+	// HttpSolrClient solrClient;
+	Http2SolrClient solrClient;
+
+	private SolrSearchClient(String endPoint) {
+		this.endPoint = endPoint;
 	}
 
-	/**
-	 * created on: 2024-07-15
-	 * 
-	 * @param collection
-	 * @param doc
-	 * @return
-	 * @throws IOException
-	 */
-	public JsonObject searchByVector(String collection, Document doc) throws IOException {
-
-		String endPoint = "http://localhost:8983/solr/";
-//			String collection = "sandbox";
-
-		try (Http2SolrClient solrClient = new Http2SolrClient.Builder(endPoint) //
-				.withConnectionTimeout(10 * 1000, TimeUnit.MILLISECONDS)//
-				.build();) {
-
-//				doc.get
-
-			StringBuilder sb_vector = new StringBuilder();
-			String field_vector_of_document = "vector";
-			String field_vector_of_solr = "vector";
-			{
-				List<Number> nn = doc.getAttributeAsListNumbers(field_vector_of_document);
-				for (Number n : nn) {
-					if (sb_vector.length() > 0) {
-						sb_vector.append(", ");
-					}
-					sb_vector.append(n.toString());
-				}
-			}
-
-			final Map<String, String[]> requestParamsSolr = new HashMap<>();
-
-			String topK = "10";
-			String[] fl = new String[] { "id", "score", "field1_s", "word_ss", "text_txt_ja" };
-
-			requestParamsSolr.put("q", new String[] { "{!knn " //
-					+ "f=" + field_vector_of_solr + " " //
-					+ "topK=" + topK + " " //
-//					+ "preFilter=field1_s:BBB "
-					+ "}" + "[" //
-					// + "1.0, 2.4, 3.5, 4.0"
-					+ sb_vector.toString() //
-					+ "]" + "" });
-			requestParamsSolr.put("fl", fl);
-
-			MultiMapSolrParams solrQueryParams = new MultiMapSolrParams(requestParamsSolr);
-
-			QueryResponse solrResponse = solrClient //
-					.query(collection, solrQueryParams, METHOD.POST); // throws RemoteSolrException
-
-//				System.err.println(solrResponse.jsonStr());
-
-			JsonObject jo = (new Gson()).fromJson(solrResponse.jsonStr(), JsonObject.class);
-
-			return jo;
-
-		} catch (SolrServerException e) {
-			throw new IOException(e);
+	@Override
+	public void close() throws IOException {
+		if (this.solrClient != null) {
+			// OPTIONS this.solrClient.getHttpClient() //
+			// OPTIONS .getConnectionManager() //
+			// OPTIONS .closeIdleConnections(0, TimeUnit.MILLISECONDS);
+			this.solrClient.close();
 		}
-
 	}
 
 	/**
@@ -165,13 +100,11 @@ public class SolrSearchClient extends AbstractSearchClient implements SearchClie
 	 */
 	public JsonObject search(String collection, JsonObject requestAz) throws IOException {
 
-		String baseSolrUrl = this.endPoint;
-
 		if (this.solrClient == null) {
-//			this.solrClient = new HttpSolrClient.Builder(baseSolrUrl) //
-//					.withConnectionTimeout(CONNECTION_TIMEOUT_MILLIS)//
-//					.withSocketTimeout(SOCKET_TIMEOUT_MILLIS)//
-//					.build();
+			// OPTIONS this.solrClient = new HttpSolrClient.Builder(baseSolrUrl) //
+			// OPTIONS .withConnectionTimeout(CONNECTION_TIMEOUT_MILLIS)//
+			// OPTIONS .withSocketTimeout(SOCKET_TIMEOUT_MILLIS)//
+			// OPTIONS .build();
 			this.solrClient = new Http2SolrClient.Builder(endPoint) //
 					.withConnectionTimeout(10 * 1000, TimeUnit.MILLISECONDS)//
 					.build();
@@ -193,19 +126,20 @@ public class SolrSearchClient extends AbstractSearchClient implements SearchClie
 				logger.debug(responseAz.toString());
 			}
 			return responseAz;
-		} catch (SolrServerException | RemoteSolrException e) {
+		} //
+		catch (SolrServerException | RemoteSolrException e) {
 
 			// RETRY PROCESS
 			{
 				try {
-					System.err.println("Exception Occured: " + e.getClass().getCanonicalName() + ", " + e.getMessage());
-					System.err.println("WAITING 30SECONDS...");
+					logger.info("Exception Occured: " + e.getClass().getCanonicalName() + ", " + e.getMessage());
+					logger.info("WAITING 30SECONDS...");
 					Thread.sleep(30 * 1000);
 				} catch (InterruptedException e1) {
 					e1.printStackTrace();
 				}
 
-				System.err.println("RETRY...");
+				logger.info("RETRY...");
 				try {
 					QueryResponse solrResponse = this.solrClient //
 							.query(collection, solrQueryParams, METHOD.POST); // throws RemoteSolrException
@@ -216,16 +150,17 @@ public class SolrSearchClient extends AbstractSearchClient implements SearchClie
 					if (logger.isDebugEnabled()) {
 						logger.debug(responseAz.toString());
 					}
-					System.err.println("RETRY...SUCCEEDED");
+					logger.info("RETRY...SUCCEEDED");
 					return responseAz;
 				} catch (Exception e2) {
 
 				}
 			}
-			System.err.println("RETRY...FAILED");
-
+			logger.info("RETRY...FAILED");
 			throw new IOException(e);
-		} finally {
+		} //
+		finally {
+			//
 		}
 	}
 
@@ -248,14 +183,85 @@ public class SolrSearchClient extends AbstractSearchClient implements SearchClie
 		}
 	}
 
-	@Override
-	public void close() throws IOException {
-		if (this.solrClient != null) {
-//			this.solrClient.getHttpClient() //
-//					.getConnectionManager() //
-//					.closeIdleConnections(0, TimeUnit.MILLISECONDS);
+	/**
+	 * @param collection of Solr
+	 * @param json       in Azure Style
+	 * @return result
+	 * @throws IOException on Error
+	 */
+	public JsonObject search(String collection, String json) throws IOException {
+		try {
+			JsonObject requestObject = (new Gson()).fromJson(json, JsonObject.class);
+			return search(collection, requestObject);
+		} catch (JsonSyntaxException e) {
+			logger.error("Syntax error: " + json);
+			throw new IOException(e);
+		}
+	}
 
-			this.solrClient.close();
+	/**
+	 * created on: 2024-07-15
+	 * 
+	 * @param collection
+	 * @param doc
+	 * @return
+	 * @throws IOException
+	 */
+	public JsonObject searchByVector(String collection, Document doc) throws IOException {
+
+		String endPoint = "http://localhost:8983/solr/";
+
+		try ( //
+				Http2SolrClient solrClient = new Http2SolrClient.Builder(endPoint) //
+						.withConnectionTimeout(10 * 1000, TimeUnit.MILLISECONDS)//
+						.build(); //
+		) {
+
+			StringBuilder sb_vector = new StringBuilder();
+			String field_vector_of_document = "vector";
+			String field_vector_of_solr = "vector";
+			{
+				List<Number> nn = doc.getAttributeAsListNumbers(field_vector_of_document);
+				for (Number n : nn) {
+					if (sb_vector.length() > 0) {
+						sb_vector.append(", ");
+					}
+					sb_vector.append(n.toString());
+				}
+			}
+
+			final Map<String, String[]> requestParamsSolr = new HashMap<>();
+
+			String response_fields = "id,score,field1_s,word_ss,text_txt_ja";
+
+			String topK = "10";
+			String[] fl = response_fields.split(",");
+
+			requestParamsSolr.put("q", new String[] { "{!knn " //
+					+ "f=" + field_vector_of_solr + " " //
+					+ "topK=" + topK + " " //
+//					+ "preFilter=field1_s:BBB "
+					+ "}" + "[" //
+					// + "1.0, 2.4, 3.5, 4.0"
+					+ sb_vector.toString() //
+					+ "]" + "" });
+			requestParamsSolr.put("fl", fl);
+
+			MultiMapSolrParams solrQueryParams = new MultiMapSolrParams(requestParamsSolr);
+
+			QueryResponse solrResponse = solrClient //
+					.query(collection, solrQueryParams, METHOD.POST); // throws RemoteSolrException
+
+			if (logger.isDebugEnabled()) {
+				logger.info(solrResponse.jsonStr());
+			}
+
+			JsonObject jo = (new Gson()).fromJson(solrResponse.jsonStr(), JsonObject.class);
+
+			return jo;
+
+		} catch (SolrServerException e) {
+			throw new IOException(e);
 		}
 
 	}

@@ -97,30 +97,33 @@ public class RagChatPlusServlet extends HttpServlet {
 					final String solr_endPoint = nlp4j.servlet.Config.SOLR_ENDPOINT;
 					final String solr_collection = nlp4j.servlet.Config.SOLR_COLLECTION;
 
-					{ // Vector Search
+					{ // Solr Vector Search
 						try (SolrSearchClient client = new SolrSearchClient.Builder(solr_endPoint).build()) {
+							// GET Search Response as JsonObject
 							JsonObject responseObject = client.searchByVector(solr_collection, doc);
 							removeVector(responseObject);
 
 							{ // ベクトル検索結果を知識として追加する ...
-								JsonArray dd = responseObject.get("response").getAsJsonObject() //
+								JsonArray response_dd = responseObject //
+										.get("response").getAsJsonObject() //
 										.get("docs").getAsJsonArray();
-								for (int n = 0; n < dd.size(); n++) {
-									JsonObject d = dd.get(n).getAsJsonObject();
-									JsonObject k = new JsonObject();
+								// FOR_EACH(RESPONSE_DOCUMENT)
+								for (int n = 0; n < response_dd.size(); n++) {
+									JsonObject d = response_dd.get(n).getAsJsonObject();
+									JsonObject k = new JsonObject(); // knowledge
 									{
 										k.addProperty("type", "user_knowledge_base");
-										k.addProperty("text", d.get("text_txt_ja").getAsString());
-										k.addProperty("score", d.get("score").getAsNumber());
+										k.addProperty("text", d.get("text_txt_ja").getAsString()); // テキスト
+										k.addProperty("score", d.get("score").getAsNumber()); // スコア
 										k.addProperty("description", "this data is from user's knowledge database");
 									}
 									docs_knowledge.add(k);
-								}
+								} // END_OF_FOREACH
 							} // ... ベクトル検索結果を知識として追加する
 						} catch (IOException | RemoteSolrException e) {
 							System.err.println("SKIP THIS TEST: " + e.getMessage());
 						}
-					}
+					} // END_OF(Solr Vector Search)
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -254,6 +257,7 @@ public class RagChatPlusServlet extends HttpServlet {
 			}
 			logger.info("processing ... done");
 		} // END_OF_TRY(Print)
+			// PrintWriter CLOSED
 	} // END_OF_doGet()
 
 	private void removeVector(JsonObject responseObject) {
