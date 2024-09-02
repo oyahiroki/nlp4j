@@ -12,7 +12,9 @@ import java.util.Properties;
  * @since 1.0
  *
  */
-public interface DocumentImporter {
+public interface DocumentImporter //
+		extends AutoCloseable // since 1.3.7.14
+{
 
 	/**
 	 * ドキュメントをインポートしてコミットします。<br>

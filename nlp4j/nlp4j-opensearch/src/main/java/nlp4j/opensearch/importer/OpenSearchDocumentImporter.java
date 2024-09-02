@@ -20,10 +20,20 @@ public class OpenSearchDocumentImporter extends AbstractDocumentImporter impleme
 
 	static private Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
+	/**
+	 * https://localhost:9200
+	 */
+	static public final String DEFAULT_OPENSEARCH_ENDPOINT = "https://localhost:9200";
+	/**
+	 * admin
+	 */
+	static public final String DEFAULT_OPENSEARCH_ADMIN = "admin";
+
 //	String index = "myindex1";
-	String index = "hello-hybrid";
-	String opensearch_endpoint = "https://localhost:9200";
-	String openasearch_admin = "admin";
+//	String index = "hello-hybrid";
+	private String index = null;
+	private String opensearch_endpoint = DEFAULT_OPENSEARCH_ENDPOINT;
+	private String openasearch_admin = DEFAULT_OPENSEARCH_ADMIN;
 
 	@Override
 	public void setProperty(String key, String value) {
@@ -32,7 +42,8 @@ public class OpenSearchDocumentImporter extends AbstractDocumentImporter impleme
 		} //
 		else if ("opensearch_endpoint".equals(key)) {
 			this.opensearch_endpoint = value;
-		} else if ("openasearch_admin".equals(key)) {
+		} //
+		else if ("openasearch_admin".equals(key)) {
 			this.openasearch_admin = value;
 		}
 	}

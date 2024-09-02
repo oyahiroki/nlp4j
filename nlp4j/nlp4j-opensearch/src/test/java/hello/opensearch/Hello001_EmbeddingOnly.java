@@ -10,6 +10,18 @@ import nlp4j.impl.DefaultKeyword;
 import nlp4j.llm.embeddings.EmbeddingAnnotator;
 import nlp4j.util.DocumentUtil;
 
+/**
+ * <pre>
+ * see
+ * 
+ * Powerful Text Embeddings with Python: Introducing the nlp4j-llm-embeddings-e5 Server
+ * https://qiita.com/oyahiroki/items/8629e45f246d8662c45a
+ * 
+ * nlp4j-llm-embeddings-e5
+ * https://github.com/oyahiroki/nlp4j-llm-embeddings-e5
+ * 
+ * </pre>
+ */
 public class Hello001_EmbeddingOnly {
 
 	public static void main(String[] args) throws Exception {

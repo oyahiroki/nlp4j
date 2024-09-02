@@ -5,35 +5,27 @@ import java.util.List;
 
 import nlp4j.Document;
 import nlp4j.DocumentAnnotator;
-import nlp4j.DocumentBuilder;
+import nlp4j.DocumentImporter;
 import nlp4j.impl.DefaultDocument;
+import nlp4j.importer.DocumentImporterBuilder;
 import nlp4j.llm.embeddings.EmbeddingAnnotator;
 import nlp4j.opensearch.importer.OpenSearchDocumentImporter;
-import nlp4j.util.DateUtils;
 
-public class Hello002_EmbeddingImportMain {
+public class Hello002A_EmbeddingImportMain {
 
 	public static void main(String[] args) throws Exception {
 
 		String text = "私は読書が好きです。";
-		String[] texts = { "私は学校に歩いて行きます。", "私はメジャーリーグが好きです。", "私はべーブルースが好きです。" };
 
 		List<Document> docs = new ArrayList<>();
 		{
 			{
 				Document doc = new DefaultDocument();
 				{
-					doc.putAttribute("id", "doc_" + DateUtils.get_yyyyMMdd_HHmmss());
+					doc.putAttribute("id", "1");
 					doc.putAttribute("text", text);
 				}
-//				docs.add(doc);
-			}
-
-			int idx = 0;
-			for (String t : texts) {
-				docs.add((new DocumentBuilder()).id("doc_" + DateUtils.get_yyyyMMdd_HHmmss() + "_" + idx).text(t)
-						.build());
-				idx++;
+				docs.add(doc);
 			}
 
 			{ // Vector
@@ -48,10 +40,14 @@ public class Hello002_EmbeddingImportMain {
 
 		}
 		{
-			try (OpenSearchDocumentImporter imt = new OpenSearchDocumentImporter();) {
+			try ( //
+					DocumentImporter imt = (new DocumentImporterBuilder(OpenSearchDocumentImporter.class) //
+							.p("index", "myindex1") //
+							.build()); //
+			) {
 				imt.importDocuments(docs);
-
 			}
+
 		}
 	}
 
