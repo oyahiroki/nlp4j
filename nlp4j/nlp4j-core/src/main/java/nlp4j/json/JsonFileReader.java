@@ -3,12 +3,9 @@ package nlp4j.json;
 import java.io.BufferedReader;
 import java.io.Closeable;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
-import java.util.zip.GZIPInputStream;
+import java.util.stream.Stream;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -51,20 +48,22 @@ public class JsonFileReader implements Closeable {
 			throw new FileNotFoundException(jsonFile.getAbsolutePath());
 		}
 
-		// OPEN AS ZGIP
-		if (jsonFile.getAbsolutePath().endsWith(".gz")) {
-			br = new BufferedReader( //
-					new InputStreamReader( //
-							new GZIPInputStream( //
-									new FileInputStream(jsonFile)),
-							StandardCharsets.UTF_8));
-		}
-		// OPEN AS PLAIN TEXT
-		else {
-			br = new BufferedReader( //
-					new InputStreamReader( //
-							new FileInputStream(jsonFile), StandardCharsets.UTF_8));
-		}
+		this.br = nlp4j.util.IOUtils.bufferedReader(jsonFile);
+
+//		// OPEN AS ZGIP
+//		if (jsonFile.getAbsolutePath().endsWith(".gz")) {
+//			br = new BufferedReader( //
+//					new InputStreamReader( //
+//							new GZIPInputStream( //
+//									new FileInputStream(jsonFile)),
+//							StandardCharsets.UTF_8));
+//		}
+//		// OPEN AS PLAIN TEXT
+//		else {
+//			br = new BufferedReader( //
+//					new InputStreamReader( //
+//							new FileInputStream(jsonFile), StandardCharsets.UTF_8));
+//		}
 	}
 
 	@Override
@@ -94,6 +93,23 @@ public class JsonFileReader implements Closeable {
 			}
 		}
 
+	}
+
+	/**
+	 * Returns a Stream of JsonObjects read from the file.
+	 * 
+	 * @return Stream<JsonObject>
+	 */
+	public Stream<JsonObject> jsonObjectStream() {
+		return br.lines() // Stream<String>
+				.limit(maxLines > 0 ? maxLines : Long.MAX_VALUE) // Limit the stream to maxLines if specified
+				.map(line -> {
+					try {
+						return (new Gson()).fromJson(line, JsonObject.class); // Convert each line to JsonObject
+					} catch (JsonSyntaxException e) {
+						throw new RuntimeException(new IOException(e)); // Wrap the exception
+					}
+				});
 	}
 
 	public void setMaxLines(int maxLines) {

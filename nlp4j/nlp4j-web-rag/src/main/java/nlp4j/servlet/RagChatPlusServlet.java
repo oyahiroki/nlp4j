@@ -61,6 +61,7 @@ public class RagChatPlusServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		HttpSession session = request.getSession(true);
+		// チャット履歴
 		ChatHistory history = (ChatHistory) session.getAttribute("chathistory");
 		if (history == null) {
 			history = new ChatHistory();
@@ -83,6 +84,8 @@ public class RagChatPlusServlet extends HttpServlet {
 
 			{
 				try { // ベクトル検索
+
+					// Send message
 					ServletStreamUtils.printMessageStream(pw, "embedding ...");
 
 					Document doc = (new DocumentBuilder()).text(q).build();
@@ -142,10 +145,10 @@ public class RagChatPlusServlet extends HttpServlet {
 			final String model = "gpt-4";
 
 			{
-				addKnowledge1_SystemInfo(docs_knowledge);
-				addKnowledge2_DiskInfo(docs_knowledge);
-				addKnowledge3_Browser(request, docs_knowledge);
-				addKnowledge4_GoogleSphreadSheet(docs_knowledge);
+				addKnowledge1_SystemInfo(docs_knowledge); // システム情報
+				addKnowledge2_DiskInfo(docs_knowledge); // ディスク情報
+				addKnowledge3_Browser(request, docs_knowledge); // ブラウザ情報
+				addKnowledge4_GoogleSphreadSheet(docs_knowledge); // GoogleSpreadSheet
 			}
 
 			JsonObject question_from_user = new JsonObject();

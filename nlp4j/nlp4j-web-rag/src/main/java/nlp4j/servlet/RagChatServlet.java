@@ -56,6 +56,7 @@ public class RagChatServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		HttpSession session = request.getSession(true);
+		// チャット履歴
 		ChatHistory history = (ChatHistory) session.getAttribute("chathistory");
 		if (history == null) {
 			history = new ChatHistory();
@@ -78,6 +79,8 @@ public class RagChatServlet extends HttpServlet {
 
 			{
 				try { // ベクトル検索
+
+					// Send message
 					ServletStreamUtils.printMessageStream(pw, "embedding ...");
 
 					Document doc = (new DocumentBuilder()).text(q).build();
@@ -92,28 +95,33 @@ public class RagChatServlet extends HttpServlet {
 					final String solr_endPoint = nlp4j.servlet.Config.SOLR_ENDPOINT;
 					final String solr_collection = nlp4j.servlet.Config.SOLR_COLLECTION;
 
-					{ // Vector Search
+					{ // Solr Vector Search
 						try (SolrSearchClient client = new SolrSearchClient.Builder(solr_endPoint).build()) {
+							// GET Search Response as JsonObject
 							JsonObject responseObject = client.searchByVector(solr_collection, doc);
 							removeVector(responseObject);
 
 							{ // ベクトル検索結果を知識として追加する ...
-								JsonArray dd = responseObject.get("response").getAsJsonObject() //
+								JsonArray response_dd = responseObject //
+										.get("response").getAsJsonObject() //
 										.get("docs").getAsJsonArray();
-								for (int n = 0; n < dd.size(); n++) {
-									JsonObject d = dd.get(n).getAsJsonObject();
-									JsonObject k = new JsonObject();
-									k.addProperty("type", "user_knowledge_base");
-									k.addProperty("text", d.get("text_txt_ja").getAsString());
-									k.addProperty("score", d.get("score").getAsNumber());
-									k.addProperty("description", "this data is from user's knowledge database");
+								// FOR_EACH(RESPONSE_DOCUMENT)
+								for (int n = 0; n < response_dd.size(); n++) {
+									JsonObject d = response_dd.get(n).getAsJsonObject();
+									JsonObject k = new JsonObject(); // knowledge
+									{
+										k.addProperty("type", "user_knowledge_base");
+										k.addProperty("text", d.get("text_txt_ja").getAsString()); // テキスト
+										k.addProperty("score", d.get("score").getAsNumber()); // スコア
+										k.addProperty("description", "this data is from user's knowledge database");
+									}
 									docs_knowledge.add(k);
-								}
+								} // END_OF_FOREACH
 							} // ... ベクトル検索結果を知識として追加する
 						} catch (IOException | RemoteSolrException e) {
 							System.err.println("SKIP THIS TEST: " + e.getMessage());
 						}
-					}
+					} // END_OF(Solr Vector Search)
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -130,7 +138,14 @@ public class RagChatServlet extends HttpServlet {
 			}
 
 			final String model = "gpt-4";
-
+			
+			
+			
+			
+			
+			
+			
+			
 			JsonObject question_from_user = new JsonObject();
 			{
 				question_from_user.addProperty("name", "question from end user");
