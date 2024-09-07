@@ -9,6 +9,10 @@ import nlp4j.Document;
  * データクローラーのインターフェイスクラスです。<br>
  * Interface class for data crawler.
  * 
+ * <pre>
+ * created on: 2022-06-18
+ * </pre>
+ * 
  * @author Hiroki Oya
  *
  */

@@ -16,7 +16,7 @@ import nlp4j.util.DocumentUtil;
  * 
  * @since 1.3.7.14
  */
-public class JsonFileWriter {
+public class JsonFileWriter implements AutoCloseable {
 
 	/**
 	 * Writes a list of Document objects to a specified file as JSON strings, each
@@ -42,6 +42,30 @@ public class JsonFileWriter {
 				writer.write(json);
 				writer.newLine(); // 改行を挿入
 			}
+		}
+	}
+
+	private BufferedWriter writer;
+
+	public JsonFileWriter(File outFile) {
+		super();
+		try {
+			this.writer = new BufferedWriter(new FileWriter(outFile));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void write(Document doc) throws IOException {
+		String json = DocumentUtil.toJsonString(doc);
+		writer.write(json);
+		writer.newLine(); // 改行を挿入
+	}
+
+	@Override
+	public void close() throws Exception {
+		if (this.writer != null) {
+			writer.close();
 		}
 	}
 
