@@ -27,7 +27,8 @@ public class KuromojiAnnotator extends AbstractDocumentAnnotator implements Docu
 	@Override
 	public void annotate(Document doc) throws Exception {
 
-		logger.info("processing document");
+		logger.info("processing document ... ");
+		long time1 = System.currentTimeMillis();
 
 		Tokenizer tokenizer = new Tokenizer();
 
@@ -69,5 +70,9 @@ public class KuromojiAnnotator extends AbstractDocumentAnnotator implements Docu
 				sequence++;
 			}
 		}
+
+		long time2 = System.currentTimeMillis();
+		logger.info("processing document ... done " + (time2 - time1));
+
 	}
 }

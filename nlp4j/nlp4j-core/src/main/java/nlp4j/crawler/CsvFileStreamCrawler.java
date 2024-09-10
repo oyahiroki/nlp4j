@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.invoke.MethodHandles;
+import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
@@ -53,6 +54,10 @@ public class CsvFileStreamCrawler extends AbstractFileCrawler implements Crawler
 
 	public Stream<Document> streamDocuments(File csvFile) throws IOException {
 		return streamDocuments(new FileInputStream(csvFile));
+	}
+
+	public Stream<Document> streamDocuments(URL url) throws IOException {
+		return streamDocuments(url.openStream());
 	}
 
 	/**
