@@ -11,6 +11,9 @@ public class CsvFileCrawlerTestMain2 {
 
 		CsvFileCrawler crawler = new CsvFileCrawler();
 		{
+			// crawler.setProperty("add_header", "true"); と crawler.setProperty("add_data",
+			// "true");:
+//			CsvFileCrawlerのプロパティを設定します。add_headerはヘッダー行を含めるかどうか、add_dataはデータ行を含めるかどうかを指定します。
 			crawler.setProperty("add_header", "true");
 			crawler.setProperty("add_data", "true");
 		}
@@ -22,6 +25,7 @@ public class CsvFileCrawlerTestMain2 {
 		System.err.println(DocumentUtil.toJsonPrettyString(docs));
 
 		// Expected Results ...
+		// 各ドキュメントにはdata（データ行の配列）、header（ヘッダー行の配列）、およびCSVの各列に対応するフィールド（DOCUMENTID、DATE、ITEM1、TEXT）が含まれています。
 
 //		[
 //		  {
