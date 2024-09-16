@@ -34,6 +34,11 @@ public class CsvFileCrawler extends AbstractFileCrawler implements Crawler {
 
 	static private final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
+	// 2024-09-16
+	private boolean add_header = false;
+	// 2024-09-16
+	private boolean add_data = false;
+
 	/**
 	 * コンストラクタ <br>
 	 * Default Constructor
@@ -106,7 +111,7 @@ public class CsvFileCrawler extends AbstractFileCrawler implements Crawler {
 		for (CSVRecord record : records) {
 
 			Document doc = new DefaultDocument();
-			{
+			if (this.add_data) { // data
 				JsonArray data = new JsonArray();
 				for (int n = 0; n < record.size(); n++) {
 					String value = record.get(n);
@@ -117,7 +122,8 @@ public class CsvFileCrawler extends AbstractFileCrawler implements Crawler {
 				}
 				doc.putAttribute("data", data);
 			}
-			{
+
+			if (this.add_header) { // header
 				JsonArray header = new JsonArray();
 				for (int n = 0; n < headers.length; n++) {
 					String hd = headers[n];
@@ -150,5 +156,16 @@ public class CsvFileCrawler extends AbstractFileCrawler implements Crawler {
 		}
 
 		return docs;
+	}
+
+	@Override
+	public void setProperty(String key, String value) {
+		super.setProperty(key, value);
+		if ("add_header".equals(key)) {
+			this.add_header = Boolean.parseBoolean(value);
+		} //
+		else if ("add_data".equals(key)) {
+			this.add_data = Boolean.parseBoolean(value);
+		}
 	}
 }
