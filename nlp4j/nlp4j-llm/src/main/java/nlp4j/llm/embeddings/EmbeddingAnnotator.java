@@ -54,17 +54,6 @@ public class EmbeddingAnnotator extends AbstractDocumentAnnotator implements Doc
 	}
 
 	@Override
-	public void setProperty(String key, String value) {
-		super.setProperty(key, value);
-		if ("vector_name".equals(key)) {
-			vector_name = value;
-		} //
-		else if ("endPoint".equals(key)) {
-			EMBEDDING_ENDPOINT = value;
-		}
-	}
-
-	@Override
 	public void annotate(Document doc) throws Exception {
 		for (String target : targets) {
 			long time1 = System.currentTimeMillis();
@@ -78,6 +67,23 @@ public class EmbeddingAnnotator extends AbstractDocumentAnnotator implements Doc
 			long time2 = System.currentTimeMillis();
 			logger.info("embedding ... done " + (time2 - time1));
 		}
+	}
+
+	@Override
+	public void setProperty(String key, String value) {
+		super.setProperty(key, value);
+		if ("vector_name".equals(key)) {
+			vector_name = value;
+		} //
+		else if ("endPoint".equals(key)) {
+			EMBEDDING_ENDPOINT = value;
+		}
+	}
+
+	@Override
+	public String toString() {
+		return "EmbeddingAnnotator [toString()=" + super.toString() + ", getClass()=" + getClass() + ", hashCode()="
+				+ hashCode() + "]";
 	}
 
 }

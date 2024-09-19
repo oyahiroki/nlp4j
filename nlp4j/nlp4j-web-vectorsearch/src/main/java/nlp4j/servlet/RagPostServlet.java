@@ -70,6 +70,7 @@ public class RagPostServlet extends HttpServlet {
 					}
 					{ // Embedding
 						DocumentAnnotator ann = new EmbeddingAnnotator();
+						logger.info(ann.toString());
 						ann.setProperty("target", "text");
 						ann.annotate(doc); // throws Exception
 					}

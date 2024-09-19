@@ -33,7 +33,7 @@ RUN chmod +x /opt/tomcat/bin/catalina.sh && \
     chown -R solr:solr /opt/tomcat
 
 # Download the .war file and place it in the Tomcat webapps directory
-RUN wget --header="Cache-Control: no-cache" https://github.com/oyahiroki/nlp4j/raw/master/nlp4j/nlp4j-web-vectorsearch/dist/nlp4j-web-vectorsearch.war?nocache -O /opt/tomcat/webapps/nlp4j-web-vectorsearch.war
+RUN wget --header="Cache-Control: no-cache" https://github.com/oyahiroki/nlp4j/raw/master/nlp4j/nlp4j-web-vectorsearch/dist/nlp4j-web-vectorsearch.war?nocache2 -O /opt/tomcat/webapps/nlp4j-web-vectorsearch.war
 
 # Expose ports for Solr and Tomcat
 EXPOSE 8983 8080
