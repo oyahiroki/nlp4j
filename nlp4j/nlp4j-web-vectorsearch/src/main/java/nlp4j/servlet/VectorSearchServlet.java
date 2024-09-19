@@ -66,7 +66,8 @@ public class VectorSearchServlet extends HttpServlet {
 			try {
 				logger.info("embedding...");
 				{
-					DocumentAnnotator ann = new EmbeddingAnnotator();
+					EmbeddingAnnotator ann = new EmbeddingAnnotator();
+					logger.info(ann.toString());
 					ann.setProperty("target", "text");
 					ann.annotate(doc);
 					System.err.println(doc.getAttributeAsListNumbers("vector").size());
