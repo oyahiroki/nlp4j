@@ -25,18 +25,19 @@ import nlp4j.util.DoubleUtils;
 public class EmbeddingAnnotator extends AbstractDocumentAnnotator implements DocumentAnnotator {
 
 	static private final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
-	private String vector_name = "vector";
-	private String endPoint = "http://localhost:8888/";
+	static private String vector_name = "vector1024";
+	static private String EMBEDDING_ENDPOINT = System.getenv("EMBEDDING_ENDPOINT") == null ? "http://localhost:8888/"
+			: System.getenv("EMBEDDING_ENDPOINT");
 
 	static public float[] embedding(String text) throws IOException {
 		try {
 			Document d = (new DocumentBuilder()).text(text).build();
 			DocumentAnnotator ann = new EmbeddingAnnotator();
 			ann.setProperty("target", "text");
-			ann.setProperty("vector_name", "vector1024");
-			ann.setProperty("endPoint", "http://localhost:8888/");
+			ann.setProperty("vector_name", vector_name);
+			ann.setProperty("endPoint", EMBEDDING_ENDPOINT);
 			ann.annotate(d); // vector size is 1024
-			return DoubleUtils.toFloatArray(d.getAttributeAsListNumbers("vector1024"));
+			return DoubleUtils.toFloatArray(d.getAttributeAsListNumbers(vector_name));
 		} catch (Exception e) {
 			throw new IOException(e);
 		}
@@ -56,10 +57,10 @@ public class EmbeddingAnnotator extends AbstractDocumentAnnotator implements Doc
 	public void setProperty(String key, String value) {
 		super.setProperty(key, value);
 		if ("vector_name".equals(key)) {
-			this.vector_name = value;
+			vector_name = value;
 		} //
 		else if ("endPoint".equals(key)) {
-			this.endPoint = value;
+			EMBEDDING_ENDPOINT = value;
 		}
 	}
 
@@ -69,7 +70,7 @@ public class EmbeddingAnnotator extends AbstractDocumentAnnotator implements Doc
 			long time1 = System.currentTimeMillis();
 			logger.info("embedding ... ");
 			String text = doc.getAttributeAsString(target);
-			EmbeddingServiceViaHttp nlp = new EmbeddingServiceViaHttp(this.endPoint);
+			EmbeddingServiceViaHttp nlp = new EmbeddingServiceViaHttp(this.EMBEDDING_ENDPOINT);
 			NlpServiceResponse res = nlp.process(text);
 			EmbeddingResponse r = (new Gson()).fromJson(res.getOriginalResponseBody(), EmbeddingResponse.class);
 //			System.err.println(Arrays.toString(r.getEmbeddings()));
