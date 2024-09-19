@@ -17,7 +17,7 @@ import nlp4j.util.DoubleUtils;
 
 /**
  * <pre>
- * String vector_name = "vector";
+ * String vector_fieldname = "vector";
  * String endPoint = "http://localhost:8888/";
  * </pre>
  * 
@@ -25,19 +25,23 @@ import nlp4j.util.DoubleUtils;
 public class EmbeddingAnnotator extends AbstractDocumentAnnotator implements DocumentAnnotator {
 
 	static private final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
-	static private String vector_name = "vector1024";
+//	static private String vector_name = "vector1024";
+	static private String vector_fieldname = System.getenv("EMBEDDING_FIELD") == null ? "vector"
+			: System.getenv("EMBEDDING_ENDPOINT");
 	static private String EMBEDDING_ENDPOINT = System.getenv("EMBEDDING_ENDPOINT") == null ? "http://localhost:8888/"
 			: System.getenv("EMBEDDING_ENDPOINT");
 
 	static public float[] embedding(String text) throws IOException {
 		try {
 			Document d = (new DocumentBuilder()).text(text).build();
-			DocumentAnnotator ann = new EmbeddingAnnotator();
-			ann.setProperty("target", "text");
-			ann.setProperty("vector_name", vector_name);
-			ann.setProperty("endPoint", EMBEDDING_ENDPOINT);
-			ann.annotate(d); // vector size is 1024
-			return DoubleUtils.toFloatArray(d.getAttributeAsListNumbers(vector_name));
+			EmbeddingAnnotator ann = new EmbeddingAnnotator();
+			{
+				ann.setProperty("target", "text");
+				ann.setProperty("vector_name", vector_fieldname);
+				ann.setProperty("endPoint", EMBEDDING_ENDPOINT);
+				ann.annotate(d); // vector size is 1024
+			}
+			return DoubleUtils.toFloatArray(d.getAttributeAsListNumbers(vector_fieldname));
 		} catch (Exception e) {
 			throw new IOException(e);
 		}
@@ -59,11 +63,11 @@ public class EmbeddingAnnotator extends AbstractDocumentAnnotator implements Doc
 			long time1 = System.currentTimeMillis();
 			logger.info("embedding ... ");
 			String text = doc.getAttributeAsString(target);
-			EmbeddingServiceViaHttp nlp = new EmbeddingServiceViaHttp(this.EMBEDDING_ENDPOINT);
+			EmbeddingServiceViaHttp nlp = new EmbeddingServiceViaHttp(EMBEDDING_ENDPOINT);
 			NlpServiceResponse res = nlp.process(text);
 			EmbeddingResponse r = (new Gson()).fromJson(res.getOriginalResponseBody(), EmbeddingResponse.class);
 //			System.err.println(Arrays.toString(r.getEmbeddings()));
-			doc.putAttribute(this.vector_name, r.getEmbeddings());
+			doc.putAttribute(vector_fieldname, r.getEmbeddings());
 			long time2 = System.currentTimeMillis();
 			logger.info("embedding ... done " + (time2 - time1));
 		}
@@ -73,7 +77,7 @@ public class EmbeddingAnnotator extends AbstractDocumentAnnotator implements Doc
 	public void setProperty(String key, String value) {
 		super.setProperty(key, value);
 		if ("vector_name".equals(key)) {
-			vector_name = value;
+			vector_fieldname = value;
 		} //
 		else if ("endPoint".equals(key)) {
 			EMBEDDING_ENDPOINT = value;
@@ -82,8 +86,10 @@ public class EmbeddingAnnotator extends AbstractDocumentAnnotator implements Doc
 
 	@Override
 	public String toString() {
-		return "EmbeddingAnnotator [toString()=" + super.toString() + ", getClass()=" + getClass() + ", hashCode()="
-				+ hashCode() + "]";
+		return "EmbeddingAnnotator ["
+
+				+ "vector_fieldname=" + vector_fieldname + ", EMBEDDING_ENDPOINT=" + EMBEDDING_ENDPOINT
+				+ ", super.toString()=" + super.toString() + "]";
 	}
 
 }

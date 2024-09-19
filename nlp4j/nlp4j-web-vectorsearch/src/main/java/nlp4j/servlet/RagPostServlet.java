@@ -13,7 +13,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import nlp4j.Document;
-import nlp4j.DocumentAnnotator;
 import nlp4j.annotator.KeywordFacetMappingAnnotator;
 import nlp4j.krmj.annotator.KuromojiAnnotator;
 import nlp4j.llm.embeddings.EmbeddingAnnotator;

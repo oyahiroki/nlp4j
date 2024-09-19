@@ -295,7 +295,8 @@ $(document).ready(function() {
   
   
   <div class="row">
-    <div class="col-6">
+    <div class="col"></div> <!-- 左側のスペース -->
+    <div class="col-10">
 		<div class="card">
 		    <div class="card-header">文書検索結果</div>
 		    <div class="card-body">
@@ -314,16 +315,7 @@ $(document).ready(function() {
 		    </div>
 		</div>
     </div>
-    <div class="col-6">
-		<div class="card">
-		    <div class="card-header">チャット</div>
-		    <div class="card-body">
-				<div id="div_chat" class="mb-3" style="height: 480px; overflow-y: auto; background-color: #f8f9fa;">
-				<!-- ここにチャット内容が動的に追加されます -->
-				</div>
-		    </div>
-		</div>
-    </div>
+    <div class="col"></div> <!-- 右側のスペース -->
   </div>
   
 </div>

@@ -6,15 +6,18 @@ USER root
 
 # Set the default value for SOLR_ENDPOINT
 ENV SOLR_ENDPOINT=http://localhost:8983/solr/
+# http://host.docker.internal:8888
 ENV EMBEDDING_ENDPOINT=http://localhost:8888/
+# Field name for vector
+ENV EMBEDDING_FIELD=vector
 
 # Create a script to initialize Solr core and schema
 RUN echo '#!/bin/bash\n\
     /opt/solr/bin/solr create -c sandbox\n\
     sleep 10\n\
     curl -X POST -H "Content-type:application/json" --data-binary "\
-    {\"add-field-type\":{\"name\":\"vector1024\",\"class\":\"solr.DenseVectorField\",\"vectorDimension\":1024,\"similarityFunction\":\"cosine\"}}" http://localhost:8983/solr/sandbox/schema\n\
-    curl -X POST -H "Content-type:application/json" --data-binary "{ \"add-field\":{ \"name\":\"vector\", \"type\":\"vector1024\", \"indexed\":true, \"stored\":true } }" http://localhost:8983/solr/sandbox/schema\n'\
+    {\"add-field-type\":{\"name\":\"vector\",\"class\":\"solr.DenseVectorField\",\"vectorDimension\":1024,\"similarityFunction\":\"cosine\"}}" http://localhost:8983/solr/sandbox/schema\n\
+    curl -X POST -H "Content-type:application/json" --data-binary "{ \"add-field\":{ \"name\":\"vector\", \"type\":\"vector\", \"indexed\":true, \"stored\":true } }" http://localhost:8983/solr/sandbox/schema\n'\
     > /opt/solr/init_solr.sh
 
 # Make the script executable
@@ -34,7 +37,7 @@ RUN chmod +x /opt/tomcat/bin/catalina.sh && \
     chown -R solr:solr /opt/tomcat
 
 # Download the .war file and place it in the Tomcat webapps directory
-RUN wget --header="Cache-Control: no-cache" https://github.com/oyahiroki/nlp4j/raw/master/nlp4j/nlp4j-web-vectorsearch/dist/nlp4j-web-vectorsearch.war?nocache3 -O /opt/tomcat/webapps/nlp4j-web-vectorsearch.war
+RUN wget --header="Cache-Control: no-cache" "https://github.com/oyahiroki/nlp4j/raw/master/nlp4j/nlp4j-web-vectorsearch/dist/nlp4j-web-vectorsearch.war?$(date +%Y%m%d%H%M%S)" -O /opt/tomcat/webapps/nlp4j-web-vectorsearch.war
 
 # Expose ports for Solr and Tomcat
 EXPOSE 8983 8080

@@ -23,6 +23,8 @@ import nlp4j.DocumentBuilder;
 import nlp4j.llm.embeddings.EmbeddingAnnotator;
 import nlp4j.servlet.util.ServletUtils;
 import nlp4j.solr.search.SolrSearchClient;
+import nlp4j.util.DocumentUtil;
+import nlp4j.util.DocumentsUtils;
 
 /**
  * ベクトル検索を実行する
@@ -69,7 +71,7 @@ public class VectorSearchServlet extends HttpServlet {
 					DocumentAnnotator ann = new EmbeddingAnnotator();
 					ann.setProperty("target", "text");
 					ann.annotate(doc);
-					System.err.println(doc.getAttributeAsListNumbers("vector").size());
+					logger.info(DocumentUtil.toJsonPrettyString(doc));
 
 				}
 				logger.info("embedding...done");
