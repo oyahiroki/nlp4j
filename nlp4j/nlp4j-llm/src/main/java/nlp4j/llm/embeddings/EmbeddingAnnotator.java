@@ -27,7 +27,7 @@ public class EmbeddingAnnotator extends AbstractDocumentAnnotator implements Doc
 	static private final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 //	static private String vector_name = "vector1024";
 	static private String vector_fieldname = System.getenv("EMBEDDING_FIELD") == null ? "vector"
-			: System.getenv("EMBEDDING_ENDPOINT");
+			: System.getenv("EMBEDDING_FIELD");
 	static private String EMBEDDING_ENDPOINT = System.getenv("EMBEDDING_ENDPOINT") == null ? "http://localhost:8888/"
 			: System.getenv("EMBEDDING_ENDPOINT");
 
