@@ -71,9 +71,10 @@ public class SolrSearchClient extends AbstractSearchClient implements SearchClie
 	/**
 	 * http://localhost:8983/solr/
 	 */
-	static public String DEFALT_SOLR_ENDPOINT = "http://localhost:8983/solr/";
+//	static public String DEFALT_SOLR_ENDPOINT = "http://localhost:8983/solr/";
 
-	private String endPoint = DEFALT_SOLR_ENDPOINT;
+	private String endPoint = System.getenv("SOLR_ENDPOINT") == null ? "http://localhost:8983/solr/"
+			: System.getenv("SOLR_ENDPOINT");
 
 	// HttpSolrClient solrClient;
 	Http2SolrClient solrClient;
@@ -209,7 +210,10 @@ public class SolrSearchClient extends AbstractSearchClient implements SearchClie
 	 */
 	public JsonObject searchByVector(String collection, Document doc) throws IOException {
 
-		String endPoint = "http://localhost:8983/solr/";
+//		String endPoint = "http://localhost:8983/solr/";
+
+		String endPoint = System.getenv("SOLR_ENDPOINT") == null ? "http://localhost:8983/solr/"
+				: System.getenv("SOLR_ENDPOINT");
 
 		try ( //
 				Http2SolrClient solrClient = new Http2SolrClient.Builder(endPoint) //
@@ -218,8 +222,10 @@ public class SolrSearchClient extends AbstractSearchClient implements SearchClie
 		) {
 
 			StringBuilder sb_vector = new StringBuilder();
-			String field_vector_of_document = "vector";
-			String field_vector_of_solr = "vector";
+			String field_vector_of_document = System.getenv("EMBEDDING_FIELD") == null ? "vector"
+					: System.getenv("EMBEDDING_FIELD");
+			String field_vector_of_solr = System.getenv("EMBEDDING_FIELD") == null ? "vector"
+					: System.getenv("EMBEDDING_FIELD");
 			{
 				List<Number> nn = doc.getAttributeAsListNumbers(field_vector_of_document);
 				for (Number n : nn) {
