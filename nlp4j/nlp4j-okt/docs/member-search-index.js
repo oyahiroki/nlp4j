@@ -1,0 +1,1 @@
+memberSearchIndex = [{"p":"nlp4j.okt.annotator","c":"OktAnnotator","l":"annotate(Document)","u":"annotate(nlp4j.Document)"},{"p":"nlp4j.okt.annotator","c":"OktAnnotator","l":"OktAnnotator()","u":"%3Cinit%3E()"}];updateSearchResults();

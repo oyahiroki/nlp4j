@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"nlp4j.okt.annotator","l":"OktAnnotator"}];updateSearchResults();
