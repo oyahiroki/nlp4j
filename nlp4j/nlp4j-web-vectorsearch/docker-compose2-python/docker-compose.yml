@@ -1,0 +1,16 @@
+version: '3'
+services:
+  python-nlp4j:
+    image: python:3.10
+    container_name: nlp4j-llm-embeddings-e5
+    environment:
+      - TRANSFORMERS_CACHE=/opt/transformers_cache
+      - HF_HOME=/opt/transformers_cache
+    volumes:
+      - ./transformers_cache:/opt/transformers_cache
+    command: sh -c "git clone https://github.com/oyahiroki/nlp4j-llm-embeddings-e5.git /opt/nlp4j-llm-embeddings-e5 && \
+      cd /opt/nlp4j-llm-embeddings-e5 && \
+      pip install -r requirements.txt && \
+      python /opt/nlp4j-llm-embeddings-e5/nlp4j-embedding-server-e5.py"
+    ports:
+      - "8888:8888"

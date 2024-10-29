@@ -1,0 +1,20 @@
+# Pythonベースイメージを使用
+FROM python:3.10
+
+# 必要なパッケージをインストール
+RUN pip install --upgrade pip && \
+    pip install transformers flask
+
+# リポジトリをクローンして要件をインストール
+RUN git clone https://github.com/oyahiroki/nlp4j-llm-embeddings-e5.git /opt/nlp4j-llm-embeddings-e5 && \
+    cd /opt/nlp4j-llm-embeddings-e5 && \
+    pip install -r requirements.txt
+
+# TRANSFORMERS_CACHE環境変数を設定
+ENV TRANSFORMERS_CACHE=/opt/transformers_cache
+
+# ポートを公開
+EXPOSE 8888
+
+# 埋め込みサーバーを起動
+CMD ["python3", "/opt/nlp4j-llm-embeddings-e5/nlp4j-embedding-server-e5.py"]

@@ -19,6 +19,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.xml.sax.SAXException;
 
+import nlp4j.util.FileUtils;
+
 /**
  * <pre>
  * </pre>
@@ -76,8 +78,9 @@ public class WikiDumpReader implements AutoCloseable {
 		init0(dumpFile);
 	}
 
-	private void init0(File dumpFile) throws FileNotFoundException {
+	private void init0(File dumpFile) throws IOException {
 		if (dumpFile.exists() == false) {
+			FileUtils.checExists(dumpFile);
 			throw new FileNotFoundException("Dump File Not Found: " + dumpFile.getAbsolutePath());
 		}
 		this.dumpFile = dumpFile;
@@ -152,7 +155,7 @@ public class WikiDumpReader implements AutoCloseable {
 			logger.debug("Not found in index:" + itemString);
 			return null;
 		}
-		
+
 		if (this.pages != null) {
 			String itemId = "" + item.getItemID();
 			if (this.pages.containsKey(itemId)) {

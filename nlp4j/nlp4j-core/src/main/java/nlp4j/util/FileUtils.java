@@ -3,13 +3,14 @@ package nlp4j.util;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.SequenceInputStream;
+import java.lang.invoke.MethodHandles;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -19,6 +20,8 @@ import java.util.List;
 import java.util.zip.GZIPInputStream;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import nlp4j.Document;
 
@@ -28,32 +31,33 @@ import nlp4j.Document;
  */
 public class FileUtils {
 
+	static private Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
+
 	/**
-	 * @since 1.3.7.12
-	 * @param jsonFile
-	 * @param csvFile
-	 * @throws IOException
+	 * Checks if the specified file or its parent directory exists. This method logs
+	 * the existence of each parent directory in the file path hierarchy. The check
+	 * proceeds up the file hierarchy until an existing file or directory is found.
+	 *
+	 * @param f The file to check for existence. If the file does not exist, the
+	 *          method will check its parent directories.
+	 * @since 1.3.7.14
+	 * 
 	 */
-	static public void jsonToCsv(File jsonFile, File csvFile) throws IOException {
-
-		ArrayList<Document> docs = new ArrayList<>();
-
-		// 形態素解析済みの文書を読み込む
-		docs.addAll(DocumentUtil.readFromLineSeparatedJson(jsonFile));
-
-		PrintWriter pw = nlp4j.util.IOUtils.printWriter(csvFile);
-
-		DocumentsUtils.printAsCsv(docs, pw);
-
-	}
-
-	static public void write(File file, Collection<String> data, String charsetName, boolean append)
-			throws IOException {
-		StringBuilder sbData = new StringBuilder();
-		for (String d : data) {
-			sbData.append(d + "\n");
+	static public void checExists(File f) throws IOException {
+		File p = f;
+		boolean found = f.exists();
+		while ((p.getParentFile()) != null) {
+			boolean exists = p.exists();
+			logger.info(p.getAbsolutePath() + " : " + exists);
+			if (exists) {
+				break;
+			}
+			p = p.getParentFile();
 		}
-		org.apache.commons.io.FileUtils.write(file, sbData.toString(), charsetName, append);
+		if (found == false) {
+			FileNotFoundException e = new FileNotFoundException(f.getAbsolutePath());
+			throw e;
+		}
 	}
 
 	/**
@@ -74,6 +78,25 @@ public class FileUtils {
 			number_of_bytes_copied = IOUtils.copy(sis, new FileOutputStream(toFile));
 			return number_of_bytes_copied;
 		}
+	}
+
+	/**
+	 * @since 1.3.7.12
+	 * @param jsonFile
+	 * @param csvFile
+	 * @throws IOException
+	 */
+	static public void jsonToCsv(File jsonFile, File csvFile) throws IOException {
+
+		ArrayList<Document> docs = new ArrayList<>();
+
+		// 形態素解析済みの文書を読み込む
+		docs.addAll(DocumentUtil.readFromLineSeparatedJson(jsonFile));
+
+		PrintWriter pw = nlp4j.util.IOUtils.printWriter(csvFile);
+
+		DocumentsUtils.printAsCsv(docs, pw);
+
 	}
 
 	/**
@@ -178,6 +201,15 @@ public class FileUtils {
 	 */
 	static public BufferedReader openTextFileAsBufferedReader(String gzipTextOrPlainTextFileName) throws IOException {
 		return openTextFileAsBufferedReader(new File(gzipTextOrPlainTextFileName), StandardCharsets.UTF_8);
+	}
+
+	static public void write(File file, Collection<String> data, String charsetName, boolean append)
+			throws IOException {
+		StringBuilder sbData = new StringBuilder();
+		for (String d : data) {
+			sbData.append(d + "\n");
+		}
+		org.apache.commons.io.FileUtils.write(file, sbData.toString(), charsetName, append);
 	}
 
 }

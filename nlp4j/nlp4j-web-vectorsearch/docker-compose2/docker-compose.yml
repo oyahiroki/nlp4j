@@ -1,0 +1,53 @@
+version: '3'
+services:
+  python-nlp4j:
+    image: python:3.10
+    container_name: nlp4j-llm-embeddings-e5
+    environment:
+      - TRANSFORMERS_CACHE=/opt/transformers_cache
+      - HF_HOME=/opt/transformers_cache
+    volumes:
+      - ./transformers_cache:/opt/transformers_cache
+    command: sh -c "git clone https://github.com/oyahiroki/nlp4j-llm-embeddings-e5.git /opt/nlp4j-llm-embeddings-e5 && \
+      cd /opt/nlp4j-llm-embeddings-e5 && \
+      pip install -r requirements.txt && \
+      python /opt/nlp4j-llm-embeddings-e5/nlp4j-embedding-server-e5.py"
+    ports:
+      - "8888:8888"
+    depends_on:
+      - solr
+
+  solr:
+    image: solr:9
+    container_name: solr-server
+    user: solr
+    environment:
+      - SOLR_ENDPOINT=http://localhost:8983/solr/
+    volumes:
+      - ./solr-data:/var/solr
+    command: sh -c "/opt/solr/bin/solr start -f && sleep 5 && \
+     if curl -s http://localhost:8983/solr/admin/cores?action=STATUS | grep 'sandbox'; then \
+      echo 'Core sandbox already exists. Skipping creation.'; \
+     else \
+      /opt/solr/bin/solr create -c sandbox && sleep 10 && \
+      curl -X POST -H 'Content-type:application/json' --data-binary '{\"add-field-type\":{\"name\":\"vector\",\"class\":\"solr.DenseVectorField\",\"vectorDimension\":1024,\"similarityFunction\":\"cosine\"}}' http://localhost:8983/solr/sandbox/schema && \
+      curl -X POST -H 'Content-type:application/json' --data-binary '{ \"add-field\":{ \"name\":\"vector\", \"type\":\"vector\", \"indexed\":true, \"stored\":true } }' http://localhost:8983/solr/sandbox/schema; \
+     fi"
+    ports:
+      - "8983:8983"
+
+  tomcat:
+    image: tomcat:9.0
+    container_name: tomcat-server
+    environment:
+      - EMBEDDING_FIELD=vector
+      - EMBEDDING_ENDPOINT=http://localhost:8888
+      - SOLR_ENDPOINT=http://solr:8983/solr/
+    volumes:
+      - ./tomcat/webapps:/usr/local/tomcat/webapps
+    command: sh -c "wget https://github.com/oyahiroki/nlp4j/raw/master/nlp4j/nlp4j-web-vectorsearch/dist/nlp4j-web-vectorsearch.war?$(date +%Y%m%d%H%M%S) -O /usr/local/tomcat/webapps/nlp4j-web-vectorsearch.war && \
+      catalina.sh run"
+    ports:
+      - "8080:8080"
+    depends_on:
+      - solr

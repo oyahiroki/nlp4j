@@ -1,0 +1,13 @@
+version: '3'
+services:
+  solr:
+    image: solr:9
+    container_name: solr-server
+    user: solr
+    environment:
+      - SOLR_ENDPOINT=http://localhost:8983/solr/
+    volumes:
+      - ./solr-data:/var/solr
+    command: sh -c "/opt/solr/bin/solr start -f"
+    ports:
+      - "8983:8983"

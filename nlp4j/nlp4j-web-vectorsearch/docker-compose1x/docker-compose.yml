@@ -1,0 +1,51 @@
+version: '3'
+
+services:
+  solr:
+    image: solr:9
+    container_name: solr-container
+    environment:
+      - SOLR_ENDPOINT=http://localhost:8983/solr/
+      - EMBEDDING_FIELD=vector
+    volumes:
+      - ./data/solr:/opt/solr
+      - ./transformers_cache:/opt/transformers_cache
+    ports:
+      - "8983:8983"
+    entrypoint:
+      - sh
+      - -c
+      - |
+        /opt/solr/bin/solr start && \
+        sleep 5 && \
+        /opt/solr/bin/solr create -c sandbox && \
+        sleep 10 && \
+        curl -X POST -H "Content-type:application/json" --data-binary \
+        "{\"add-field-type\":{\"name\":\"vector\",\"class\":\"solr.DenseVectorField\",\"vectorDimension\":1024,\"similarityFunction\":\"cosine\"}}" \
+        http://localhost:8983/solr/sandbox/schema && \
+        curl -X POST -H "Content-type:application/json" --data-binary \
+        "{\"add-field\":{\"name\":\"vector\", \"type\":\"vector\", \"indexed\":true, \"stored\":true}}" \
+        http://localhost:8983/solr/sandbox/schema
+
+  tomcat:
+    build:
+      context: .
+      dockerfile: Dockerfile_tomcat
+    container_name: tomcat-container
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./webapps:/usr/local/tomcat/webapps
+
+  embeddings:
+    build:
+      context: .
+      dockerfile: Dockerfile_embeddings
+    container_name: embeddings-container
+    ports:
+      - "8888:8888"
+    environment:
+      - EMBEDDING_ENDPOINT=http://localhost:8888
+      - TRANSFORMERS_CACHE=/opt/transformers_cache
+    volumes:
+      - ./transformers_cache:/opt/transformers_cache

@@ -453,4 +453,149 @@ public class MediaWikiClient implements Closeable {
 		this.fetchSubCategory = fetchSubCategory;
 	}
 
+	/**
+	 * タイトルを指定してコンテンツを取得する<br>
+	 * created_on: 2024-10-29
+	 * 
+	 * @param title
+	 * @return
+	 * @throws IOException
+	 * @since 1.1.0.0
+	 * 
+	 */
+	public String getPageContentByTitleAsHtml(String title) throws IOException {
+
+		if (logger.isDebugEnabled()) {
+			logger.debug("title=" + title);
+		}
+
+		String url = "https://" + host + "/w/api.php";
+
+		Map<String, String> params = new LinkedHashMap<>();
+		{
+			params.put("action", "parse");
+			params.put("page", title);
+			params.put("format", "json");
+			params.put("prop", "text");
+		}
+
+		NlpServiceResponse res = client.get(url, params);
+
+		// content-type
+		JsonObject jo = res.getAsJsonObject();
+
+		System.err.println(res.getOriginalResponseBody());
+
+//		if (logger.isDebugEnabled()) {
+//			logger.debug(res.getOriginalResponseBody());
+//		}
+//
+//		String key = jo //
+//				.get("query").getAsJsonObject() //
+//				.get("pages").getAsJsonObject().keySet() //
+//				.toArray(new String[0])[0];
+//
+//		if (jo. //
+//				get("query").getAsJsonObject() //
+//				.get("pages").getAsJsonObject() //
+//				.get(key).getAsJsonObject().get("revisions") == null) {
+//			logger.info("null");
+//			return null;
+//		}
+//
+//		// String wiki_content = jo. //
+//		// get("query").getAsJsonObject() //
+//		// .get("pages").getAsJsonObject() //
+//		// .get(key).getAsJsonObject() //
+//		// .get("revisions").getAsJsonArray() //
+//		// .get(0).getAsJsonObject() //
+//		// .get("slots").getAsJsonObject() //
+//		// .get("main").getAsJsonObject() //
+//		// .get("*").getAsString() //
+//		// ;
+//
+//		String wiki_content = JsonObjectUtils.query(jo, String.class,
+//				"/query/pages/" + key + "/revisions[0]/slots/main/*");
+//
+//		return wiki_content;
+
+		System.out.println(jo.get("parse").getAsJsonObject().get("text").getAsJsonObject().get("*").getAsString());
+
+		return "";
+	}
+
+	/**
+	 * タイトルを指定してコンテンツを取得する<br>
+	 * created_on: 2024-10-29
+	 * 
+	 * @param title
+	 * @return
+	 * @throws IOException
+	 * @since 1.1.0.0
+	 * 
+	 */
+	public String getPageContentByTitleAsPlaintext(String title) throws IOException {
+
+		if (logger.isDebugEnabled()) {
+			logger.debug("title=" + title);
+		}
+
+		String url = "https://" + host + "/w/api.php";
+
+		Map<String, String> params = new LinkedHashMap<>();
+		{
+			params.put("action", "query");
+			params.put("titles", title);
+			params.put("prop", "extracts");
+			params.put("format", "json");
+			params.put("explaintext", "1");
+			params.put("redirects", "1");
+		}
+
+		NlpServiceResponse res = client.get(url, params);
+
+		// content-type
+		JsonObject jo = res.getAsJsonObject();
+
+		System.err.println(res.getOriginalResponseBody());
+
+		// if (logger.isDebugEnabled()) {
+		// logger.debug(res.getOriginalResponseBody());
+		// }
+		//
+		// String key = jo //
+		// .get("query").getAsJsonObject() //
+		// .get("pages").getAsJsonObject().keySet() //
+		// .toArray(new String[0])[0];
+		//
+		// if (jo. //
+		// get("query").getAsJsonObject() //
+		// .get("pages").getAsJsonObject() //
+		// .get(key).getAsJsonObject().get("revisions") == null) {
+		// logger.info("null");
+		// return null;
+		// }
+		//
+		// // String wiki_content = jo. //
+		// // get("query").getAsJsonObject() //
+		// // .get("pages").getAsJsonObject() //
+		// // .get(key).getAsJsonObject() //
+		// // .get("revisions").getAsJsonArray() //
+		// // .get(0).getAsJsonObject() //
+		// // .get("slots").getAsJsonObject() //
+		// // .get("main").getAsJsonObject() //
+		// // .get("*").getAsString() //
+		// // ;
+		//
+		// String wiki_content = JsonObjectUtils.query(jo, String.class,
+		// "/query/pages/" + key + "/revisions[0]/slots/main/*");
+		//
+		// return wiki_content;
+
+		System.out.println(jo.get("query").getAsJsonObject().get("pages").getAsJsonObject().get("135686")
+				.getAsJsonObject().get("extract").getAsString());
+
+		return "";
+	}
+
 }

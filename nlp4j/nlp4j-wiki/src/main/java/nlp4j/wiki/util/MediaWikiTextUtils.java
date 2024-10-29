@@ -255,23 +255,34 @@ public class MediaWikiTextUtils {
 
 				if (line.startsWith("[[Category:")) {
 					if (line.contains("|")) {
-						String v = line.substring(11, line.indexOf('|'));
-						{
-							int idx = v.indexOf("]]");
-							if (idx != -1) {
-								v = v.substring(0, idx);
+						int beginIndex = 11;
+						int endIndex = line.indexOf('|');
+						if (beginIndex < endIndex) {
+							String v = line.substring(beginIndex, endIndex);
+							{
+								int idx = v.indexOf("]]");
+								if (idx != -1) {
+									v = v.substring(0, idx);
+								}
 							}
+							tags.add(v);
 						}
-						tags.add(v);
 					} else {
-						String v = line.substring(11, line.length() - 2);
-						{
-							int idx = v.indexOf("]]");
-							if (idx != -1) {
-								v = v.substring(0, idx);
+						int beginIndex = 11;
+						int endIndex = line.length() - 2;
+						if (beginIndex < endIndex) {
+							String v = line.substring(beginIndex, endIndex);
+							{
+								int idx = v.indexOf("]]");
+								if (idx != -1) {
+									v = v.substring(0, idx);
+								}
 							}
+							tags.add(v);
+						} //
+						else {
+							logger.info("Invalid_String: " + line);
 						}
-						tags.add(v);
 					}
 				}
 			}

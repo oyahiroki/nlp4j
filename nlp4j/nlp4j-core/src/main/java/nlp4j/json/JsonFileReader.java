@@ -11,6 +11,8 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 
+import nlp4j.util.FileUtils;
+
 /**
  * <pre>
  * Read New Line Separated JSON TEXT FILE
@@ -45,6 +47,7 @@ public class JsonFileReader implements Closeable {
 	private void init(File jsonFile, int maxLines) throws FileNotFoundException, IOException {
 		this.maxLines = maxLines;
 		if (jsonFile.exists() == false) {
+			FileUtils.checExists(jsonFile);
 			throw new FileNotFoundException(jsonFile.getAbsolutePath());
 		}
 

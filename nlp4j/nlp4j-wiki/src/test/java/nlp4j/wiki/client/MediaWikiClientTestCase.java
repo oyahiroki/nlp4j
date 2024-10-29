@@ -322,6 +322,67 @@ public class MediaWikiClientTestCase extends TestCase {
 
 	}
 
+	public void testgetPageContentByTitle010() throws Exception {
+		String lang = "ja";
+		String host = lang + ".wiktionary.org";
+		{
+			try (MediaWikiClient client = new MediaWikiClient(host);) {
+				{
+					String title = "학교"; // 学校(韓国語)
+					String wiki_content = client.getPageContentByTitle(title);
+					System.out.println(wiki_content);
+					List<String> tags = MediaWikiTextUtils.parseCategoryTags(wiki_content);
+					System.out.println(tags);
+				}
+			}
+		}
+	}
+
+	public void testgetPageContentByTitle011() throws Exception {
+		String lang = "ja";
+		String host = lang + ".wiktionary.org";
+		{
+			try (MediaWikiClient client = new MediaWikiClient(host);) {
+				{
+					String title = "초등학교"; // 小学校(韓国語)
+					String wiki_content = client.getPageContentByTitle(title);
+					System.out.println(wiki_content);
+					System.out.println("--------");
+					String t = MediaWikiTextUtils.toPlainText(title, wiki_content);
+					System.out.println(t.replace("\n\n", "\n"));
+				}
+			}
+		}
+	}
+
+	public void testgetPageContentByTitleAsHtml001() throws Exception {
+		String lang = "ja";
+		String host = lang + ".wiktionary.org";
+		{
+			try (MediaWikiClient client = new MediaWikiClient(host);) {
+				{
+					String title = "초등학교"; // 小学校(韓国語)
+					String wiki_content = client.getPageContentByTitleAsHtml(title);
+					System.out.println(wiki_content);
+				}
+			}
+		}
+	}
+
+	public void testgetPageContentByTitleAsPlaintext001() throws Exception {
+		String lang = "ja";
+		String host = lang + ".wiktionary.org";
+		{
+			try (MediaWikiClient client = new MediaWikiClient(host);) {
+				{
+					String title = "초등학교"; // 小学校(韓国語)
+					String wiki_content = client.getPageContentByTitleAsPlaintext(title);
+					System.out.println(wiki_content);
+				}
+			}
+		}
+	}
+
 	public void testgetPageContentByTitle101() throws Exception {
 		String host = "en.wikipedia.org";
 		{

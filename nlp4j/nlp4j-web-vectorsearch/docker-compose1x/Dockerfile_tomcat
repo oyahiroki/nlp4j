@@ -1,0 +1,14 @@
+# Tomcatのベースイメージを使用
+FROM tomcat:9.0.95
+
+# 必要なパッケージをインストール
+RUN apt-get update && apt-get install -y wget
+
+# .warファイルをダウンロードしてwebappsディレクトリに配置
+RUN wget "https://github.com/oyahiroki/nlp4j/raw/master/nlp4j/nlp4j-web-vectorsearch/dist/nlp4j-web-vectorsearch.war?3$(date +%Y%m%d%H%M%S)" -O /usr/local/tomcat/webapps/nlp4j-web-vectorsearch.war
+
+# ポートを公開
+EXPOSE 8080
+
+# Tomcatを起動
+CMD ["catalina.sh", "run"]
