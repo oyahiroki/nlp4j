@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UncheckedIOException;
 import java.lang.invoke.MethodHandles;
 import java.net.URL;
 import java.nio.charset.Charset;
@@ -53,11 +54,15 @@ public class CsvFileStreamCrawler extends AbstractFileCrawler implements Crawler
 	}
 
 	public Stream<Document> streamDocuments(File csvFile) throws IOException {
-		return streamDocuments(new FileInputStream(csvFile));
+		try (InputStream is = new FileInputStream(csvFile)) {
+			return streamDocuments(is);
+		}
 	}
 
 	public Stream<Document> streamDocuments(URL url) throws IOException {
-		return streamDocuments(url.openStream());
+		try (InputStream is = url.openStream()) {
+			return streamDocuments(is);
+		}
 	}
 
 	/**
@@ -89,48 +94,67 @@ public class CsvFileStreamCrawler extends AbstractFileCrawler implements Crawler
 		// Iterable から Stream を生成する
 		Iterable<CSVRecord> records = parser.getRecords();
 
-		return StreamSupport.stream(records.spliterator(), false).map(record -> {
-			Document doc = new DefaultDocument();
-			// Document の作成
-			{
-				JsonArray data = new JsonArray();
-				for (int n = 0; n < record.size(); n++) {
-					String value = record.get(n);
-					if (n == 0) {
-						value = UnicodeUtils.removeBOM(value);
+		return StreamSupport.stream(records.spliterator(), false) //
+				.onClose(() -> nocheckClose(in)) //
+				.map(record -> {
+					// Document の作成
+					Document doc = new DefaultDocument();
+					
+					{
+						for (int n = 0; n < record.size(); n++) {
+							String key = headers[n];
+							String value = record.get(n);
+							doc.putAttribute(key, value);
+						}
 					}
-					data.add(value);
-				}
-				doc.putAttribute("data", data);
-			}
-			{
-				JsonArray header = new JsonArray();
-				for (int n = 0; n < headers.length; n++) {
-					String hd = headers[n];
-					header.add(hd);
-				}
-				doc.putAttribute("header", header);
-			}
+					
+//					{
+//						JsonArray data = new JsonArray();
+//						for (int n = 0; n < record.size(); n++) {
+//							String value = record.get(n);
+//							if (n == 0) {
+//								value = UnicodeUtils.removeBOM(value);
+//							}
+//							data.add(value);
+//						}
+//						doc.putAttribute("data", data);
+//					}
+					{
+						JsonArray header = new JsonArray();
+						for (int n = 0; n < headers.length; n++) {
+							String hd = headers[n];
+							header.add(hd);
+						}
+						doc.putAttribute("_header", header);
+					}
 
-			for (int n = 0; n < record.size(); n++) {
-				String value = record.get(n);
-				// header とデータを対応させる
-				if (n < headers.length) {
-					String header = headers[n].trim();
-					if (n == 0) {
-						header = UnicodeUtils.removeBOM(header);
-					}
-					if (header.trim().isEmpty()) {
-						header = "header" + n;
-					}
-					doc.putAttribute(header, value);
-				} else {
-					String header = "header" + n;
-					doc.putAttribute(header, value);
-				}
-			}
-			return doc;
-		});
+//					for (int n = 0; n < record.size(); n++) {
+//						String value = record.get(n);
+//						// header とデータを対応させる
+//						if (n < headers.length) {
+//							String header = headers[n].trim();
+//							if (n == 0) {
+//								header = UnicodeUtils.removeBOM(header);
+//							}
+//							if (header.trim().isEmpty()) {
+//								header = "header" + n;
+//							}
+//							doc.putAttribute(header, value);
+//						} else {
+//							String header = "header" + n;
+//							doc.putAttribute(header, value);
+//						}
+//					}
+					return doc;
+				});
+	}
+
+	private void nocheckClose(InputStream in) {
+		try {
+			in.close();
+		} catch (IOException e) {
+			throw new UncheckedIOException(e);
+		}
 	}
 
 	@Override

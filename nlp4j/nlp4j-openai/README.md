@@ -23,3 +23,11 @@ openai/openai-python
 
 [https://platform.openai.com/playground/chat?models=gpt-4o](https://platform.openai.com/playground/chat?models=gpt-4o)
 
+# Embedding dimensions
+
+text-embedding-ada-002: 1536
+
+text-embedding-3-small: 1536
+
+text-embedding-3-large: 3072
+

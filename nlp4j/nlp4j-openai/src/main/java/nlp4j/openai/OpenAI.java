@@ -116,12 +116,13 @@ public class OpenAI implements AutoCloseable {
 	/**
 	 * Creates an embedding vector representing the input text.
 	 * 
-	 * @param text
+	 * @param text ("text-embedding-ada-002","text-embedding-3-small","text-embedding-3-large")
+	 * @param model
 	 * @return
 	 * @throws IOException
 	 * @see https://platform.openai.com/docs/api-reference/embeddings/create
 	 */
-	public JsonObject embeddings(String text) throws IOException {
+	public JsonObject embeddings(String text, String model) throws IOException {
 		/*
 		 * https://platform.openai.com/docs/api-reference/embeddings/create
 		 */
@@ -134,7 +135,7 @@ public class OpenAI implements AutoCloseable {
 			JsonObject requestBody = new JsonObject();
 			{
 				requestBody.addProperty("input", text);
-				requestBody.addProperty("model", "text-embedding-ada-002");
+				requestBody.addProperty("model", model); // "text-embedding-ada-002","text-embedding-3-small","text-embedding-3-large"
 				requestBody.addProperty("encoding_format", "float"); // 2024-08-08
 			}
 			// throws IOException
@@ -155,7 +156,19 @@ public class OpenAI implements AutoCloseable {
 //					jo.get("data").getAsJsonArray().get(0).getAsJsonObject().get("embedding").getAsJsonArray().size());
 			return jo;
 		}
+	}
 
+	/**
+	 * Creates an embedding vector representing the input text.
+	 * 
+	 * @param text
+	 * @return
+	 * @throws IOException
+	 * @see https://platform.openai.com/docs/api-reference/embeddings/create
+	 * @deprecated
+	 */
+	public JsonObject embeddings(String text) throws IOException {
+		throw new UnsupportedOperationException("This method is deprecated and should not be used.");
 	}
 
 	/**

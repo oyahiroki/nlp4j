@@ -6,12 +6,16 @@ import java.lang.invoke.MethodHandles;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import nlp4j.Document;
+import nlp4j.crawler.CsvFileStreamCrawler;
 
 /**
  * created on: 2022-12-31
@@ -48,6 +52,17 @@ public class CsvUtils {
 
 		return ddd;
 
+	}
+
+	/**
+	 * @param csvFile
+	 * @return
+	 * @throws IOException
+	 * @since 1.3.7.15
+	 */
+	static public Stream<Document> stream(File csvFile) throws IOException {
+		CsvFileStreamCrawler crl = new CsvFileStreamCrawler();
+		return crl.streamDocuments(csvFile);
 	}
 
 }

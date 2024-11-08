@@ -17,6 +17,7 @@ import nlp4j.DocumentAnnotator;
 import nlp4j.annotator.KeywordFacetMappingAnnotator;
 import nlp4j.krmj.annotator.KuromojiAnnotator;
 import nlp4j.llm.embeddings.EmbeddingAnnotator;
+import nlp4j.openai.OpenAIEmbeddingAnnotator;
 import nlp4j.servlet.util.ServletUtils;
 import nlp4j.solr.importer.SolrDocumentImporterVector;
 import nlp4j.util.DateUtils;
@@ -68,10 +69,18 @@ public class RagPostServlet extends HttpServlet {
 						ann.setProperty("mapping", KeywordFacetMappingAnnotator.DEFAULT_MAPPING);
 						ann.annotate(doc); // throws Exception
 					}
-					{ // Embedding
-						DocumentAnnotator ann = new EmbeddingAnnotator();
+					
+					{ // Embedding (1)
+//						DocumentAnnotator ann = new EmbeddingAnnotator();
+//						ann.setProperty("target", "text");
+//						ann.annotate(doc); // throws Exception
+					}
+					
+					{ // Embedding (2)
+						OpenAIEmbeddingAnnotator ann = new OpenAIEmbeddingAnnotator();
 						ann.setProperty("target", "text");
 						ann.annotate(doc); // throws Exception
+						ann.close();
 					}
 				}
 				logger.info("annotating ... done");

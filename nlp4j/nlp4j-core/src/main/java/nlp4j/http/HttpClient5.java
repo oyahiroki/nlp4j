@@ -15,6 +15,7 @@ import org.apache.hc.client5.http.auth.UsernamePasswordCredentials;
 import org.apache.hc.client5.http.classic.methods.HttpGet;
 import org.apache.hc.client5.http.classic.methods.HttpPost;
 import org.apache.hc.client5.http.classic.methods.HttpUriRequestBase;
+import org.apache.hc.client5.http.entity.UrlEncodedFormEntity;
 import org.apache.hc.client5.http.impl.auth.BasicCredentialsProvider;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
@@ -27,6 +28,7 @@ import org.apache.hc.core5.http.ParseException;
 import org.apache.hc.core5.http.io.HttpClientResponseHandler;
 import org.apache.hc.core5.http.io.entity.EntityUtils;
 import org.apache.hc.core5.http.io.entity.StringEntity;
+import org.apache.hc.core5.http.message.BasicNameValuePair;
 import org.apache.hc.core5.net.URIBuilder;
 
 import com.google.gson.JsonObject;
@@ -321,6 +323,22 @@ public class HttpClient5 implements HttpClient {
 		return request(httpPost, requestHeader, requestBody);
 	}
 
+	public DefaultNlpServiceResponse post(String url, Map<String, String> requestParams) throws IOException {
+		HttpUriRequestBase httpPost = new HttpPost(url);
+
+		// Mapからリクエストパラメータをリストに変換
+		List<BasicNameValuePair> params = new ArrayList<>();
+		for (Map.Entry<String, String> entry : requestParams.entrySet()) {
+			params.add(new BasicNameValuePair(entry.getKey(), entry.getValue()));
+		}
+
+		// パラメータをエンコードしてリクエストエンティティに設定
+		httpPost.setEntity(new UrlEncodedFormEntity(params));
+		httpPost.setHeader("Content-Type", "application/x-www-form-urlencoded");
+//		httpPost.setEntity(null);
+		return request(httpPost, null, null);
+	}
+
 	@Override
 	public NlpServiceResponse post(String url, String json) throws IOException {
 		return post(url, null, json);
@@ -330,46 +348,47 @@ public class HttpClient5 implements HttpClient {
 			String requestBody) throws IOException {
 		String responseBody = null;
 
-		{
-			if (requestHeader != null) {
-				for (String key : requestHeader.keySet()) {
-					httpRequest.addHeader(key, requestHeader.get(key));
-				}
+		if (requestHeader != null) {
+			for (String key : requestHeader.keySet()) {
+				httpRequest.addHeader(key, requestHeader.get(key));
 			}
 		}
 
-		httpRequest.setEntity(new StringEntity(requestBody, ContentType.APPLICATION_JSON, "UTF-8", false));
+		if (requestBody != null) {
+			httpRequest.setEntity(new StringEntity(requestBody, ContentType.APPLICATION_JSON, "UTF-8", false));
+		}
 
-		// HttpClientResponseHandlerの実装
-		HttpClientResponseHandler<String> responseHandler = response -> {
-			int status = response.getCode();
-			if (status >= 200 && status < 300) {
-				HttpEntity entity = response.getEntity();
-				return entity != null ? EntityUtils.toString(entity) : null;
-			} else {
-				throw new ClientProtocolException("Unexpected response status: " + status);
-			}
-		};
+//		// HttpClientResponseHandlerの実装
+//		HttpClientResponseHandler<String> responseHandler = response -> {
+//			int status = response.getCode();
+//			if (status >= 200 && status < 300) {
+//				HttpEntity entity = response.getEntity();
+//				return entity != null ? EntityUtils.toString(entity) : null;
+//			} else {
+//				throw new ClientProtocolException("Unexpected response status: " + status);
+//			}
+//		};
+//		// リクエストの実行とレスポンスハンドラーの処理
+//		// throws IOException
+//		responseBody = httpclient.execute(httpRequest, responseHandler);
 
-//		try (CloseableHttpResponse response1 = httpclient.execute(httpPost)) {
-//			code = response1.getCode();
-//			HttpEntity entity1 = response1.getEntity();
-//			// do something useful with the response body
-//			// and ensure it is fully consumed
-//			responseBody = EntityUtils.toString(entity1);
-//			EntityUtils.consume(entity1);
-//		} catch (ParseException e) {
-//			throw new IOException(e);
-//		}
+		try (CloseableHttpResponse response1 = httpclient.execute(httpRequest)) {
+			int code = response1.getCode();
+			HttpEntity entity1 = response1.getEntity();
+			// do something useful with the response body
+			// and ensure it is fully consumed
+			responseBody = EntityUtils.toString(entity1);
+			EntityUtils.consume(entity1);
+			DefaultNlpServiceResponse res = new DefaultNlpServiceResponse(code, responseBody);
+			return res;
+		} catch (ParseException e) {
+			throw new IOException(e);
+		}
 
-		// リクエストの実行とレスポンスハンドラーの処理
-		// throws IOException
-		responseBody = httpclient.execute(httpRequest, responseHandler);
+//		int code = -1;
+//		DefaultNlpServiceResponse res = new DefaultNlpServiceResponse(code, responseBody);
 
-		int code = -1;
-		DefaultNlpServiceResponse res = new DefaultNlpServiceResponse(code, responseBody);
-
-		return res;
+//		return res;
 	}
 
 }

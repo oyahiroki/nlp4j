@@ -21,6 +21,7 @@ import nlp4j.Document;
 import nlp4j.DocumentAnnotator;
 import nlp4j.DocumentBuilder;
 import nlp4j.llm.embeddings.EmbeddingAnnotator;
+import nlp4j.openai.OpenAIEmbeddingAnnotator;
 import nlp4j.servlet.util.ServletUtils;
 import nlp4j.solr.search.SolrSearchClient;
 import nlp4j.util.DocumentUtil;
@@ -67,12 +68,18 @@ public class VectorSearchServlet extends HttpServlet {
 
 			try {
 				logger.info("embedding...");
-				{
-					DocumentAnnotator ann = new EmbeddingAnnotator();
+//				{ // Vector (1)
+//					DocumentAnnotator ann = new EmbeddingAnnotator();
+//					ann.setProperty("target", "text");
+//					ann.annotate(doc);
+//					logger.info(DocumentUtil.toJsonPrettyString(doc));
+//				}
+				{ // Vector (2)
+					OpenAIEmbeddingAnnotator ann = new OpenAIEmbeddingAnnotator();
 					ann.setProperty("target", "text");
 					ann.annotate(doc);
 					logger.info(DocumentUtil.toJsonPrettyString(doc));
-
+					ann.close();
 				}
 				logger.info("embedding...done");
 			} catch (Exception e) {

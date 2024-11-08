@@ -98,6 +98,15 @@ public interface HttpClient extends Closeable {
 	NlpServiceResponse post(String url, Map<String, String> requestHeader, String jsonRequestBody) throws IOException;
 
 	/**
+	 * @param url
+	 * @param requestParams フォームリクエストパラメータ
+	 * @return
+	 * @throws IOException
+	 * @since 1.3.7.15
+	 */
+	NlpServiceResponse post(String url, Map<String, String> requestParams) throws IOException;
+
+	/**
 	 * POST
 	 * 
 	 * @param url  APIのURL

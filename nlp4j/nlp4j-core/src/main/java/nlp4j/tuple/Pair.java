@@ -14,7 +14,7 @@ public class Pair<L, R> extends org.apache.commons.lang3.tuple.Pair<L, R> {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	ImmutablePair<L, R> pair;
 
 	public static <L, R> Pair<L, R> of(final L left, final R right) {

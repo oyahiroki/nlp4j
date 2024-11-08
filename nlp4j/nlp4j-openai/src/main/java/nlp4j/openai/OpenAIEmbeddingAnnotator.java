@@ -26,7 +26,7 @@ public class OpenAIEmbeddingAnnotator extends AbstractDocumentAnnotator implemen
 	public void annotate(Document doc) throws Exception {
 		String text = doc.getText();
 		{
-			JsonObject jo = openai.embeddings(text);
+			JsonObject jo = openai.embeddings(text, "text-embedding-3-small");
 
 			JsonArray vector_arr = jo.get("data").getAsJsonArray().get(0).getAsJsonObject().get("embedding")
 					.getAsJsonArray();
@@ -40,7 +40,7 @@ public class OpenAIEmbeddingAnnotator extends AbstractDocumentAnnotator implemen
 
 		}
 
-		System.err.println(DocumentUtil.toJsonPrettyString(doc));
+//		System.err.println(DocumentUtil.toJsonPrettyString(doc));
 
 	}
 

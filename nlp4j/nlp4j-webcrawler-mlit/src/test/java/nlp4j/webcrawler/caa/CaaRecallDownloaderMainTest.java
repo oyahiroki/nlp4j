@@ -1,5 +1,7 @@
 package nlp4j.webcrawler.caa;
 
+import nlp4j.webcrawler.caa.v202302.CaaRecallDownloaderMain;
+
 public class CaaRecallDownloaderMainTest {
 
 	public static void main(String[] args) {

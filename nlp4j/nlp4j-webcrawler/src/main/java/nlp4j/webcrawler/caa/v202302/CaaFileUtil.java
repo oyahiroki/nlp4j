@@ -1,4 +1,4 @@
-package nlp4j.webcrawler.caa;
+package nlp4j.webcrawler.caa.v202302;
 
 import java.io.File;
 import java.io.IOException;

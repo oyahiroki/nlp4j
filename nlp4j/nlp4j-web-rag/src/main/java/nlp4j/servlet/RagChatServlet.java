@@ -28,6 +28,7 @@ import nlp4j.DocumentBuilder;
 import nlp4j.llm.embeddings.EmbeddingAnnotator;
 import nlp4j.openai.Config;
 import nlp4j.openai.OpenAI;
+import nlp4j.openai.OpenAIEmbeddingAnnotator;
 import nlp4j.servlet.util.ServletStreamUtils;
 import nlp4j.solr.search.SolrSearchClient;
 import nlp4j.util.JsonUtils;
@@ -84,12 +85,21 @@ public class RagChatServlet extends HttpServlet {
 					ServletStreamUtils.printMessageStream(pw, "embedding ...");
 
 					Document doc = (new DocumentBuilder()).text(q).build();
-					{ // Embedding
-						DocumentAnnotator ann = new EmbeddingAnnotator();
+					
+					{ // Embedding (1)
+//						DocumentAnnotator ann = new EmbeddingAnnotator();
+//						ann.setProperty("target", "text");
+//						ann.annotate(doc);
+//						logger.info("vector.size: " + doc.getAttributeAsListNumbers("vector").size());
+					}
+					{ // Embedding (2)
+						OpenAIEmbeddingAnnotator ann = new OpenAIEmbeddingAnnotator();
 						ann.setProperty("target", "text");
 						ann.annotate(doc);
+						ann.close();
 						logger.info("vector.size: " + doc.getAttributeAsListNumbers("vector").size());
 					}
+					
 					ServletStreamUtils.printMessageStream(pw, "embedding ... done");
 
 					final String solr_endPoint = nlp4j.servlet.Config.SOLR_ENDPOINT;

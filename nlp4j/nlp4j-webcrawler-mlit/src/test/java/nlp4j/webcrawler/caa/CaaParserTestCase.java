@@ -8,6 +8,7 @@ import org.apache.commons.io.FileUtils;
 import nlp4j.Document;
 import nlp4j.test.NLP4JTestCase;
 import nlp4j.util.DocumentUtil;
+import nlp4j.webcrawler.caa.v202302.CaaParser;
 
 public class CaaParserTestCase extends NLP4JTestCase {
 

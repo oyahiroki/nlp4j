@@ -7,4 +7,4 @@
  * 
  * @author Hiroki Oya
  */
-package nlp4j.webcrawler.caa;
+package nlp4j.webcrawler.caa.v202302;

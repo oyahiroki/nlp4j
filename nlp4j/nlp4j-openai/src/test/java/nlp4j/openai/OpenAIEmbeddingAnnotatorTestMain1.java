@@ -16,6 +16,10 @@ public class OpenAIEmbeddingAnnotatorTestMain1 {
 
 		ann.annotate(doc);
 
+		long vector_size = doc.getAttributeAsListNumbers("vector").size();
+
+		System.err.println("vector_size: " + vector_size);
+
 	}
 
 }
