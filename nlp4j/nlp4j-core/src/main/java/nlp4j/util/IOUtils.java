@@ -24,6 +24,7 @@ import nlp4j.io.MultiIOException;
 import nlp4j.io.MultiOutputStream;
 import nlp4j.io.MultiWriter;
 import nlp4j.io.NoCloseWriter;
+import nlp4j.tuple.Pair;
 
 /**
  * @author Hiroki Oya
@@ -292,6 +293,28 @@ public class IOUtils {
 	 */
 	static public PrintWriter pwSystemOut() {
 		return new PrintWriter(System.out, true);
+	}
+
+	/**
+	 * @return
+	 * @throws IOException
+	 * @since 1.3.7.15
+	 */
+	static public Pair<PrintWriter, File> pwTemp() throws IOException {
+		return pwTemp("nlp4j-", ".txt");
+	}
+
+	/**
+	 * @param prefix
+	 * @param suffix
+	 * @return
+	 * @throws IOException
+	 * @since 1.3.7.15
+	 */
+	static public Pair<PrintWriter, File> pwTemp(String prefix, String suffix) throws IOException {
+		File tempFile = File.createTempFile(prefix, suffix);
+		PrintWriter pw = pw(tempFile);
+		return new Pair<PrintWriter, File>(pw, tempFile);
 	}
 
 }

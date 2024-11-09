@@ -1,5 +1,6 @@
 package nlp4j.util;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -13,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TimeZone;
+import java.util.stream.Stream;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.text.StringEscapeUtils;
@@ -231,6 +233,33 @@ public class DocumentUtil {
 	}
 
 	/**
+	 * @param file (plain JSONL | gzip JSONL )
+	 * @return
+	 * @throws IOException
+	 * @since 1.3.7.15
+	 */
+	public static Stream<Document> stream(File file) throws IOException {
+		// gzipなどに対応
+		BufferedReader br = nlp4j.util.FileUtils.openTextFileAsBufferedReader(file, "UTF-8");
+
+		return br.lines().map(line -> {
+			try {
+				return parseFromJson(line);
+			} catch (Exception e) {
+				throw new RuntimeException(e);
+			}
+
+		}).onClose(() -> {
+			try {
+				br.close();
+			} catch (IOException e) {
+				throw new RuntimeException(e);
+			}
+		});
+
+	}
+
+	/**
 	 * @since 1.3.1.0
 	 * @param json to parse
 	 * @return Parsed Document
@@ -293,32 +322,30 @@ public class DocumentUtil {
 					JsonArray arr = elm.getAsJsonArray();
 					List<Object> list = new ArrayList<>();
 					for (int n = 0; n < arr.size(); n++) {
-
 						JsonElement el = arr.get(n);
-
 						if (el.isJsonObject()) {
 							String value = jsonObj.get(key).toString();
-							list.add(value);
+							list.add(value); // ADD
 						} //
 						else if (el.isJsonPrimitive()) {
 							JsonPrimitive p = (JsonPrimitive) el;
 							if (p.isString()) {
 								String value = p.getAsString();
-								list.add(value);
-							} else if (p.isNumber()) {
+								list.add(value); // ADD
+							} //
+							else if (p.isNumber()) {
 								double d = p.getAsDouble();
-								list.add(d);
-							} else {
+								list.add(d); // ADD
+							} //
+							else {
 								String value = p.getAsString();
-								list.add(value);
+								list.add(value); // ADD
 							}
 						} //
 						else {
 							String value = jsonObj.get(key).toString();
-							list.add(value);
+							list.add(value); // ADD
 						}
-
-						list.add(arr.get(n).getAsString());
 					}
 					doc.putAttribute(key, list);
 				} //

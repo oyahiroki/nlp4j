@@ -359,7 +359,15 @@ public class DefaultDocument implements Document {
 			List<Number> nn = new ArrayList<Number>();
 			List<Object> oo = (List) o;
 			for (Object obj : oo) {
-				nn.add((Number) obj);
+				if (obj instanceof String) {
+					Number n = Double.parseDouble((String) obj);
+					nn.add(n);
+				} else if (obj instanceof Number) {
+					nn.add((Number) obj);
+				} else {
+					Number n = Double.parseDouble(obj.toString());
+					nn.add(n);
+				}
 			}
 			return nn;
 		}
