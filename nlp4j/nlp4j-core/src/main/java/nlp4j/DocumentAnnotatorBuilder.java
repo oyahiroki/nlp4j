@@ -2,6 +2,13 @@ package nlp4j;
 
 import java.lang.reflect.InvocationTargetException;
 
+/**
+ * <pre>
+ * Usage Example: DocumentAnnotator ann = (new DocumentAnnotatorBuilder<>(DebugAnnotator.class)).set("target", "text").build();
+ * </pre>
+ * 
+ * @param <T>
+ */
 public class DocumentAnnotatorBuilder<T extends DocumentAnnotator> {
 
 	T annotator;
