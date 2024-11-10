@@ -104,6 +104,7 @@ public class DocumentUtilTestCase extends TestCase {
 	 * 
 	 * @throws Exception
 	 */
+	@SuppressWarnings("rawtypes")
 	public void testParseFromJson005() throws Exception {
 		// plain text and array
 		String json = "{" //
@@ -111,20 +112,41 @@ public class DocumentUtilTestCase extends TestCase {
 				+ "'arr':[1,2,3]"//
 				+ "}";
 		Document doc = DocumentUtil.parseFromJson(json);
+
 		assertNotNull(doc);
+
 		System.err.println(doc);
-		assertNotNull(doc.getAttribute("text"));
-		assertEquals("This is test.", doc.getAttribute("text"));
-		System.err.println("text=" + doc.getAttribute("text"));
-		System.err.println(doc.getAttribute("arr"));
-		System.err.println(doc.getAttribute("arr").getClass().getName());
-		assertTrue(doc.getAttribute("arr") instanceof List);
-		System.err.println(((List) doc.getAttribute("arr")).get(0).getClass().getName());
-		assertEquals(1.0d, ((List) doc.getAttribute("arr")).get(0));
+
+		{ // check test attribute
+			assertNotNull(doc.getAttribute("text"));
+			assertEquals("This is test.", doc.getAttribute("text"));
+			System.err.println("text=" + doc.getAttribute("text"));
+		}
+		{ // check arr attribute
+			{ // arr
+				System.err.println(doc.getAttribute("arr"));
+				System.err.println(doc.getAttribute("arr").getClass().getName());
+				assertTrue(doc.getAttribute("arr") instanceof List);
+			}
+			{ // arr[0]
+				System.err.println(((List) doc.getAttribute("arr")).get(0).getClass().getName());
+				assertEquals(1.0d, ((List) doc.getAttribute("arr")).get(0));
+			}
+			{ // arr[0] - arr[2]
+				List<Number> arr = doc.getAttributeAsListNumbers("arr");
+				assertEquals(3, arr.size());
+				assertEquals(1.0, arr.get(0));
+				assertEquals(2.0, arr.get(1));
+				assertEquals(3.0, arr.get(2));
+			}
+
+		}
+
 	}
 
 	public void testParseFromJson501() throws Exception {
-		String json = "invalid json syntax";
+		String json = "{'text':'invalid json syntax'}}}}}}}}}}";
+		@SuppressWarnings("unused")
 		Document doc;
 		try {
 			doc = DocumentUtil.parseFromJson(json);
@@ -154,9 +176,11 @@ public class DocumentUtilTestCase extends TestCase {
 		String json = DocumentUtil.toJsonString(doc);
 		System.err.println(json);
 
-		String expected = "{\"keywords\":[{\"facet\":\"word.NN\",\"lex\":\"test\",\"str\":\"TEST\",\"count\":-1,\"begin\":-1,\"end\":-1,\"correlation\":0.0,\"sequence\":-1}],\"field1\":\"TEST\",\"text\":\"This is test.\"}";
+		String expected = "{\"field1\":\"TEST\",\"text\":\"This is test.\",\"keywords\":[{\"facet\":\"word.NN\",\"lex\":\"test\",\"str\":\"TEST\",\"@classname\":\"nlp4j.impl.DefaultKeyword\"}]}";
 
 		assertNotNull(json);
+
+		assertEquals(expected, json);
 
 	}
 

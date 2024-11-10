@@ -1,13 +1,20 @@
-package nlp4j.local;
+package nlp4j.rag.batch;
 
 import java.io.File;
 import java.io.IOException;
 import java.lang.invoke.MethodHandles;
+import java.util.List;
+import java.util.Properties;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import nlp4j.Document;
+import nlp4j.DocumentAnnotator;
+import nlp4j.DocumentAnnotatorPipeline;
+import nlp4j.DocumentAnnotatorPipelineBuilder;
 import nlp4j.annotator.KeywordFacetMappingAnnotator;
+import nlp4j.impl.DefaultDocumentAnnotatorPipeline;
 import nlp4j.krmj.annotator.KuromojiAnnotator;
 import nlp4j.servlet.Config;
 import nlp4j.solr.importer.SolrDocumentImporterVector;
@@ -30,29 +37,25 @@ public class Main1 {
 		String solr_endPoint = Config.SOLR_ENDPOINT;
 		String solr_collection = Config.SOLR_COLLECTION;
 
+		// Kuromoji
+		KuromojiAnnotator ann1 = new KuromojiAnnotator();
+		ann1.setProperty("target", "text");
+
+		// Keyword Facet Mapping for Solr
+		KeywordFacetMappingAnnotator ann2 = new KeywordFacetMappingAnnotator();
+		ann2.setProperty("mapping", KeywordFacetMappingAnnotator.DEFAULT_MAPPING);
+
+		DocumentAnnotator anns = (new DocumentAnnotatorPipelineBuilder()).add(ann1).add(ann2).build();
+
 		DocumentUtil.stream(file).forEach(doc -> {
 			System.err.println("OK");
 			System.err.println(doc.getAttributeAsListNumbers("vector").size());
 			{
-				{ // Kuromoji
-					KuromojiAnnotator ann = new KuromojiAnnotator();
-					ann.setProperty("target", "text");
-					try {
-						ann.annotate(doc);
-					} catch (Exception e) {
-						e.printStackTrace();
-					} // throws Exception
-				}
-				{ // Keyword Facet Mapping for Solr
-					KeywordFacetMappingAnnotator ann = new KeywordFacetMappingAnnotator();
-					ann.setProperty("mapping", KeywordFacetMappingAnnotator.DEFAULT_MAPPING);
-					try {
-						ann.annotate(doc);
-					} catch (Exception e) {
-						e.printStackTrace();
-					} // throws Exception
-				}
-
+				try {
+					anns.annotate(doc);
+				} catch (Exception e) {
+					e.printStackTrace();
+				} // throws Exception
 			}
 			logger.info("importing ...");
 			{ // IMPORT DOCUMENT
@@ -72,7 +75,6 @@ public class Main1 {
 					importer.commit(); // throws IOException
 					importer.close();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} // throws IOException
 
