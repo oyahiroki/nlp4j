@@ -73,11 +73,13 @@ public class OpenSearchDocumentImporter extends AbstractDocumentImporter impleme
 				}
 				{
 					String field_keyword = "items";
-					JsonArray kwds = new JsonArray();
-					d.getKeywords().forEach(k -> {
-						kwds.add(k.getLex());
-					});
-					doc.add(field_keyword, kwds);
+					if (d.getKeywords() != null && d.getKeywords().size() > 0) {
+						JsonArray kwds = new JsonArray();
+						d.getKeywords().forEach(k -> {
+							kwds.add(k.getLex());
+						});
+						doc.add(field_keyword, kwds);
+					}
 				}
 				{
 //					JsonArray items = new JsonArray();
@@ -94,12 +96,14 @@ public class OpenSearchDocumentImporter extends AbstractDocumentImporter impleme
 				{
 					String doc_attribute_vector = "vector1024";
 					String field_vector = "vector1024";
-					float[] v = DoubleUtils.toFloatArray(d.getAttributeAsListNumbers(doc_attribute_vector));
-					JsonArray vv = new JsonArray();
-					for (int n = 0; n < v.length; n++) {
-						vv.add(v[n]);
+					if (d.getAttributeAsListNumbers(doc_attribute_vector) != null) {
+						float[] v = DoubleUtils.toFloatArray(d.getAttributeAsListNumbers(doc_attribute_vector));
+						JsonArray vv = new JsonArray();
+						for (int n = 0; n < v.length; n++) {
+							vv.add(v[n]);
+						}
+						doc.add(field_vector, vv);
 					}
-					doc.add(field_vector, vv);
 				}
 			}
 			NlpServiceResponse res = client.postDoc(doc);

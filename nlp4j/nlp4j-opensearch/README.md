@@ -1,6 +1,6 @@
 # NLP4J-OpenSearch
 
-# OpenSearch の準備
+# 1.OpenSearch の準備
 
 ## 公式ドキュメント 
 
@@ -9,7 +9,7 @@ OpenSearch - Installing OpenSearch - Docker
 [https://opensearch.org/docs/latest/install-and-configure/install-opensearch/docker/](https://opensearch.org/docs/latest/install-and-configure/install-opensearch/docker/)
 
 
-## Docker compose で用意する
+## 1-1. Docker compose を使ってコンテナを用意する
 
 docker-compose.yml を用意する
 
@@ -69,7 +69,7 @@ docker-compose up
 ```
 
 
-## 日本語解析用の設定を行う
+## 1-2.日本語解析用の設定を行う (日本語の解析のためにインストール処理が必要)
 
 
 opensearch-node1b で以下を実行 (opensearch) または docker-composeに追記
@@ -95,22 +95,73 @@ sh-5.2$ /usr/share/opensearch/bin/opensearch-plugin install analysis-icu
 sh-5.2$ 
 ```
 
-→再起動して反映させる
+### Tips: kuromoji をインストールした後に再起動をしていないとエラーになる
+
+→ 再起動して反映させる
 
 ### 参考
 
 OpenSearchで日本語の検索ができるようにする
 [https://zenn.dev/tamanugi/articles/66230d8d685dc5](https://zenn.dev/tamanugi/articles/66230d8d685dc5)
 
-# 管理コンソールを開く
+# 2.管理コンソールを開く
 
-user: admin, password: docker-compose.yml で指定したもの
+ユーザー名: admin
+
+パスワード: docker-compose.yml で指定したもの
+
 
 管理コンソール
 [http://localhost:5601/app/home#/](http://localhost:5601/app/home#/)
 
-# SSL設定 (API Callに必要)
+## 管理コンソールでのクエリーサンプル
 
+Empty Search
+
+```
+GET /hello-hybrid/_search
+{
+}
+```
+
+すべてのコレクションを指定する
+
+```
+GET /_all
+{
+}
+```
+
+
+すべてにヒットする
+
+```
+GET /hello-hybrid/_search
+{
+  "query": {
+    "match_all": {}
+  }
+}
+```
+
+すべてにヒットする。検索結果にベクトルフィールドは含めない
+
+```
+GET /hello-hybrid/_search
+{
+  "_source": {
+    "exclude": [
+      "vector1024"
+    ]
+  },
+  "query": {
+    "match_all": {}
+  }
+}
+```
+
+
+# SSL設定 (API Callに必要)
 
 
 ## Java 設定
@@ -162,7 +213,34 @@ user: admin, password: docker-compose.yml で指定したもの
 
 <img src="README_img1.png" width="480px">
 
+# API CALL
+
+## cat indices インデックス一覧を取得する
+
+### Request
+
+```
+GET /_cat/indices?v
+
+```
+
+### Response
+
+```
+health status index      uuid                   pri rep docs.count docs.deleted store.size pri.store.size
+green  open   my_index   A1B2C3D4E5F6G7H8I9J0   1   1        1000            10       1mb            500kb
+...
+```
+
+
+
 ## create index インデックスの作成
+
+tokenizer の定義
+
+テキスト、複数文字列、ベクトルのフィールドを定義する例
+
+### Request
 
 ```
 PUT /myindex1
@@ -215,13 +293,16 @@ PUT /myindex1
 }
 ```
 
-### Tips: kuromoji をインストールした後に再起動をしていないとエラーになる
 
-### インデックス定義の確認
+## インデックス定義の確認
+
+### Request
 
 ```
 GET /myindex1/_mapping
 ```
+
+### Response
 
 ```
 {
@@ -249,7 +330,9 @@ GET /myindex1/_mapping
 }
 ```
 
-## 形態素解析
+## 形態素解析 (analyze)
+
+### Request
 
 ```
 GET /myindex1/_analyze
@@ -294,12 +377,20 @@ NG: 1文字ごとに切れている
 
 ## Index document 文書の追加
 
+### Request
+
+```
+POST /{コレクション名}/_doc/{ドキュメントID}
+{ドキュメント本体JSON}
+```
+
 ```
 POST /myindex1/_doc/1
 {"item1_s":["aaa","bbb","ccc"],"text_txt_ja":"今日はいい天気です","vector2":[1.0,0]}
 ```
 
 ### Response
+
 ```
 {
   "_index": "myindex1",

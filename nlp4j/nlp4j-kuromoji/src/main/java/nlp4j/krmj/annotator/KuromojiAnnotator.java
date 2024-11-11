@@ -1,5 +1,6 @@
 package nlp4j.krmj.annotator;
 
+import java.lang.invoke.MethodHandles;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
@@ -22,7 +23,7 @@ import nlp4j.impl.DefaultKeyword;
  */
 public class KuromojiAnnotator extends AbstractDocumentAnnotator implements DocumentAnnotator {
 
-	static private final Logger logger = LogManager.getLogger(KuromojiAnnotator.class);
+	static private Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
 	@Override
 	public void annotate(Document doc) throws Exception {
