@@ -15,6 +15,25 @@ import nlp4j.NlpServiceResponse;
  */
 public interface HttpClient extends Closeable {
 	/**
+	 * @param url
+	 * @param requestHeader
+	 * @param jsonRequestBody
+	 * @return
+	 * @throws IOException
+	 * @since 1.3.7.15
+	 */
+	NlpServiceResponse delete(String url, Map<String, String> requestHeader, String jsonRequestBody) throws IOException;
+
+	/**
+	 * @param url
+	 * @param json
+	 * @return
+	 * @throws IOException
+	 * @since 1.3.7.15
+	 */
+	NlpServiceResponse delete(String url, String json) throws IOException;
+
+	/**
 	 * created on 2020-04-29
 	 * 
 	 * @param url APIのURL
@@ -32,6 +51,13 @@ public interface HttpClient extends Closeable {
 	 */
 	NlpServiceResponse get(String url, Map<String, String> params) throws IOException;
 
+	/**
+	 * @param url
+	 * @param headers
+	 * @param params
+	 * @return
+	 * @throws IOException
+	 */
 	NlpServiceResponse get(String url, Map<String, String> headers, Map<String, String> params) throws IOException;
 
 	/**
@@ -86,6 +112,15 @@ public interface HttpClient extends Closeable {
 			JsonObject requestBody) throws IOException;
 
 	/**
+	 * @param url
+	 * @param requestParams フォームリクエストパラメータ
+	 * @return
+	 * @throws IOException
+	 * @since 1.3.7.15
+	 */
+	NlpServiceResponse post(String url, Map<String, String> requestParams) throws IOException;
+
+	/**
 	 * POST
 	 * 
 	 * @param url             APIのURL
@@ -98,15 +133,6 @@ public interface HttpClient extends Closeable {
 	NlpServiceResponse post(String url, Map<String, String> requestHeader, String jsonRequestBody) throws IOException;
 
 	/**
-	 * @param url
-	 * @param requestParams フォームリクエストパラメータ
-	 * @return
-	 * @throws IOException
-	 * @since 1.3.7.15
-	 */
-	NlpServiceResponse post(String url, Map<String, String> requestParams) throws IOException;
-
-	/**
 	 * POST
 	 * 
 	 * @param url  APIのURL
@@ -115,5 +141,28 @@ public interface HttpClient extends Closeable {
 	 * @throws IOException 例外発生時にスローされる
 	 */
 	NlpServiceResponse post(String url, String json) throws IOException;
+
+	/**
+	 * PUT
+	 * 
+	 * @param url             APIのURL
+	 * @param requestHeader   リクエストヘッダ
+	 * @param jsonRequestBody リクエストボディJSON
+	 * @return NLPの結果
+	 * @throws IOException 例外発生時にスローされる
+	 * @since 1.3.7.15
+	 */
+	NlpServiceResponse put(String url, Map<String, String> requestHeader, String jsonRequestBody) throws IOException;
+
+	/**
+	 * PUT
+	 * 
+	 * @param url  APIのURL
+	 * @param json API パラメータ
+	 * @return NLPの結果
+	 * @throws IOException 例外発生時にスローされる
+	 * @since 1.3.7.15
+	 */
+	NlpServiceResponse put(String url, String json) throws IOException;
 
 }

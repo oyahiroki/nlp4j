@@ -215,6 +215,10 @@ user: admin, password: docker-compose.yml で指定したもの
 
 # API CALL
 
+## OpenSearch REST API reference
+
+https://opensearch.org/docs/latest/api-reference/
+
 ## cat indices インデックス一覧を取得する
 
 ### Request

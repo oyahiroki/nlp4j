@@ -9,11 +9,12 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.hc.client5.http.ClientProtocolException;
 import org.apache.hc.client5.http.auth.AuthScope;
 import org.apache.hc.client5.http.auth.UsernamePasswordCredentials;
+import org.apache.hc.client5.http.classic.methods.HttpDelete;
 import org.apache.hc.client5.http.classic.methods.HttpGet;
 import org.apache.hc.client5.http.classic.methods.HttpPost;
+import org.apache.hc.client5.http.classic.methods.HttpPut;
 import org.apache.hc.client5.http.classic.methods.HttpUriRequestBase;
 import org.apache.hc.client5.http.entity.UrlEncodedFormEntity;
 import org.apache.hc.client5.http.impl.auth.BasicCredentialsProvider;
@@ -25,7 +26,6 @@ import org.apache.hc.core5.http.Header;
 import org.apache.hc.core5.http.HttpEntity;
 import org.apache.hc.core5.http.HttpHost;
 import org.apache.hc.core5.http.ParseException;
-import org.apache.hc.core5.http.io.HttpClientResponseHandler;
 import org.apache.hc.core5.http.io.entity.EntityUtils;
 import org.apache.hc.core5.http.io.entity.StringEntity;
 import org.apache.hc.core5.http.message.BasicNameValuePair;
@@ -88,7 +88,8 @@ public class HttpClient5 implements HttpClient {
 		// Please note that if response content is not fully consumed the underlying
 		// connection cannot be safely re-used and will be shut down and discarded
 		// by the connection manager.
-		try (CloseableHttpResponse response1 = httpclient.execute(httpGet)) {
+		try (@SuppressWarnings("deprecation")
+		CloseableHttpResponse response1 = httpclient.execute(httpGet)) {
 			code = response1.getCode();
 			HttpEntity entity1 = response1.getEntity();
 			// do something useful with the response body
@@ -155,7 +156,8 @@ public class HttpClient5 implements HttpClient {
 		// Please note that if response content is not fully consumed the underlying
 		// connection cannot be safely re-used and will be shut down and discarded
 		// by the connection manager.
-		try (CloseableHttpResponse response1 = httpclient.execute(httpGet)) {
+		try (@SuppressWarnings("deprecation")
+		CloseableHttpResponse response1 = httpclient.execute(httpGet)) {
 			code = response1.getCode();
 			HttpEntity entity1 = response1.getEntity();
 			// do something useful with the response body
@@ -212,6 +214,7 @@ public class HttpClient5 implements HttpClient {
 		// Please note that if response content is not fully consumed the underlying
 		// connection cannot be safely re-used and will be shut down and discarded
 		// by the connection manager.
+		@SuppressWarnings("deprecation")
 		CloseableHttpResponse response1 = httpclient.execute(httpGet);
 //		try () 
 		{
@@ -296,6 +299,7 @@ public class HttpClient5 implements HttpClient {
 			// Request body
 			httpPost.setEntity(new StringEntity(requestBody.toString(), ContentType.APPLICATION_JSON, "UTF-8", false));
 
+			@SuppressWarnings("deprecation")
 			CloseableHttpResponse response1 = httpclient.execute(httpPost);
 			{
 				int code = response1.getCode();
@@ -319,8 +323,22 @@ public class HttpClient5 implements HttpClient {
 	@Override
 	public DefaultNlpServiceResponse post(String url, Map<String, String> requestHeader, String requestBody)
 			throws IOException {
-		HttpUriRequestBase httpPost = new HttpPost(url);
-		return request(httpPost, requestHeader, requestBody);
+		HttpUriRequestBase httpRequest = new HttpPost(url);
+		return request(httpRequest, requestHeader, requestBody);
+	}
+
+	@Override
+	public NlpServiceResponse put(String url, Map<String, String> requestHeader, String requestBody)
+			throws IOException {
+		HttpUriRequestBase httpRequest = new HttpPut(url);
+		return request(httpRequest, requestHeader, requestBody);
+	}
+
+	@Override
+	public NlpServiceResponse delete(String url, Map<String, String> requestHeader, String requestBody)
+			throws IOException {
+		HttpUriRequestBase httpRequest = new HttpDelete(url);
+		return request(httpRequest, requestHeader, requestBody);
 	}
 
 	public DefaultNlpServiceResponse post(String url, Map<String, String> requestParams) throws IOException {
@@ -342,6 +360,16 @@ public class HttpClient5 implements HttpClient {
 	@Override
 	public NlpServiceResponse post(String url, String json) throws IOException {
 		return post(url, null, json);
+	}
+
+	@Override
+	public NlpServiceResponse put(String url, String json) throws IOException {
+		return put(url, null, json);
+	}
+
+	@Override
+	public NlpServiceResponse delete(String url, String json) throws IOException {
+		return delete(url, null, json);
 	}
 
 	private DefaultNlpServiceResponse request(HttpUriRequestBase httpRequest, Map<String, String> requestHeader,
@@ -372,7 +400,10 @@ public class HttpClient5 implements HttpClient {
 //		// throws IOException
 //		responseBody = httpclient.execute(httpRequest, responseHandler);
 
-		try (CloseableHttpResponse response1 = httpclient.execute(httpRequest)) {
+		try ( //
+				@SuppressWarnings("deprecation")
+				CloseableHttpResponse response1 = httpclient.execute(httpRequest); //
+		) {
 			int code = response1.getCode();
 			HttpEntity entity1 = response1.getEntity();
 			// do something useful with the response body

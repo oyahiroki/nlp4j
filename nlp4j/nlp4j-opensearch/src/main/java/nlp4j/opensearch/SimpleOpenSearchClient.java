@@ -20,10 +20,51 @@ import nlp4j.util.JsonUtils;
 import nlp4j.util.TempFileUtils;
 
 public class SimpleOpenSearchClient implements Closeable {
+	
 	static private Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
+	
 	private String endPoint;
 	private HttpClient c;
 	private String index;
+	
+	static public final String INDEX_JA_PATTERN1 = "{\r\n" //
+			+ "    \"settings\":{\r\n" //
+			+ "        \"analysis\":{\r\n" //
+			+ "            \"analyzer\": {\r\n" //
+			+ "                \"default\": {\r\n" //
+			+ "                    \"type\": \"custom\",\r\n" //
+			+ "                    \"tokenizer\": \"kuromoji_tokenizer\",\r\n" //
+			+ "                    \"filter\": [\"kuromoji_part_of_speech\"]\r\n" //
+			+ "                },\r\n" //
+			+ "                \"kuromoji_tokenizer\": {\r\n" //
+			+ "                    \"type\": \"custom\",\r\n" //
+			+ "                    \"tokenizer\": \"kuromoji_tokenizer\",\r\n" //
+			+ "                    \"filter\": [\"kuromoji_part_of_speech\"]\r\n" //
+			+ "                }\r\n" //
+			+ "            }\r\n" //
+			+ "        }\r\n" //
+			+ "    },\r\n" //
+			+ "    \"mappings\": {\r\n" //
+			+ "    \"properties\": {\r\n" //
+			+ "      \"text_txt_ja\": {\r\n" //
+			+ "        \"type\": \"text\",\r\n" //
+			+ "        \"analyzer\": \"kuromoji_tokenizer\"\r\n" //
+			+ "      },\r\n" //
+			+ "      \"item1_s\": {\r\n" //
+			+ "        \"type\": \"keyword\"\r\n" //
+			+ "      },\r\n" //
+			+ "      \"vector1024\": {\r\n" //
+			+ "        \"type\": \"knn_vector\",\r\n" //
+			+ "        \"dimension\": 1024\r\n" //
+			+ "      },\r\n" //
+			+ "      \"vector2\": {\r\n" //
+			+ "        \"type\": \"knn_vector\",\r\n" //
+			+ "        \"dimension\": 2\r\n" //
+			+ "      }\r\n" //
+			+ "    }\r\n" //
+			+ "   }\r\n" //
+			+ "}\r\n" //
+			+ "";
 
 	public SimpleOpenSearchClient(String endPoint, String user, String password, String index) throws IOException {
 		this.endPoint = endPoint;
@@ -65,6 +106,19 @@ public class SimpleOpenSearchClient implements Closeable {
 		String url = this.endPoint + "/" + this.index + "/" + method;
 		NlpServiceResponse res = c.get(url, requestBody.toString());
 //		System.err.println(res.getOriginalResponseBody());
+		return res;
+	}
+
+	public NlpServiceResponse get(String method) throws IOException {
+		String url = this.endPoint + "/" + this.index + "/" + method;
+		NlpServiceResponse res = c.get(url);
+//		System.err.println(res.getOriginalResponseBody());
+		return res;
+	}
+
+	public NlpServiceResponse getWithoutIndex(String method) throws IOException {
+		String url = this.endPoint + "/" + method;
+		NlpServiceResponse res = c.get(url);
 		return res;
 	}
 
@@ -287,6 +341,13 @@ public class SimpleOpenSearchClient implements Closeable {
 
 		NlpServiceResponse res = this.get(method, q);
 		return res;
+
+	}
+
+	public NlpServiceResponse catIndices() throws IOException {
+		String path = "_cat/indices?format=json";
+
+		return getWithoutIndex(path);
 
 	}
 
