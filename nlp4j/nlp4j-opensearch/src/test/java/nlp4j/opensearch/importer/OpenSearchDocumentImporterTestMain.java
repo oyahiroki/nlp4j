@@ -7,7 +7,7 @@ import nlp4j.opensearch.annotator.OpenSearchAnalyzerAnnotator;
 public class OpenSearchDocumentImporterTestMain {
 
 	public static void main(String[] args) throws Exception {
-		final String index = "myindex1";
+		final String index = "hello-opensearch";
 		Document doc = (new DocumentBuilder()).text("これはテストです。").build();
 
 		{

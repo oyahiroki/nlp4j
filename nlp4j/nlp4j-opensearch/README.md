@@ -2,7 +2,7 @@
 
 # 1.OpenSearch の準備
 
-## 公式ドキュメント 
+## 1-0. 公式ドキュメント 
 
 OpenSearch - Installing OpenSearch - Docker
 
@@ -247,7 +247,7 @@ tokenizer の定義
 ### Request
 
 ```
-PUT /myindex1
+PUT /hello-opensearch
 {
     "settings":{
         "analysis":{
@@ -303,7 +303,7 @@ PUT /myindex1
 ### Request
 
 ```
-GET /myindex1/_mapping
+GET /hello-opensearch/_mapping
 ```
 
 ### Response
@@ -339,7 +339,7 @@ GET /myindex1/_mapping
 ### Request
 
 ```
-GET /myindex1/_analyze
+GET /hello-opensearch/_analyze
 {
   "text": "今日はいい天気です"
 }
@@ -348,8 +348,6 @@ GET /myindex1/_analyze
 ### Response
 
 OK: 単語が正しく切れている
-
-NG: 1文字ごとに切れている
 
 ```
 {
@@ -379,6 +377,9 @@ NG: 1文字ごとに切れている
 }
 ```
 
+NG: 日本語の文字が単語ではなく、1文字ごとに切れている
+
+
 ## Index document 文書の追加
 
 ### Request
@@ -389,7 +390,7 @@ POST /{コレクション名}/_doc/{ドキュメントID}
 ```
 
 ```
-POST /myindex1/_doc/1
+POST /hello-opensearch/_doc/1
 {"item1_s":["aaa","bbb","ccc"],"text_txt_ja":"今日はいい天気です","vector2":[1.0,0]}
 ```
 
@@ -413,8 +414,10 @@ POST /myindex1/_doc/1
 
 ## Search document 文書の検索 (キーワード検索)
 
+### Request
+
 ```
-GET myindex1/_search
+GET hello-opensearch/_search
 {
   "query" : {
     "term": { "text_txt_ja": "天気" }
@@ -463,6 +466,174 @@ GET myindex1/_search
   }
 }
 ```
+
+### Request (term の条件であることを確認する)
+
+```
+GET hello-opensearch/_search
+{
+  "query" : {
+    "term": { "text_txt_ja": "気" }
+  }
+}
+```
+
+### Response (termとしての"気"が無い場合)
+
+```
+{
+  "took": 1,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 0,
+      "relation": "eq"
+    },
+    "max_score": null,
+    "hits": []
+  }
+}
+```
+
+### Request (Lucene Query Syntax)
+
+```
+GET hello-opensearch/_search
+{
+  "query": {
+    "query_string": {
+      "query": "text_txt_ja:天気"
+    }
+  }
+}
+```
+
+### Response
+
+```
+{
+  "took": 7,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 3,
+      "relation": "eq"
+    },
+    "max_score": 0.3438858,
+    "hits": [
+      {
+        "_index": "hello-opensearch",
+        "_id": "1",
+        "_score": 0.3438858,
+        "_source": {
+          "item1_s": [
+            "aaa",
+            "bbb",
+            "ccc"
+          ],
+          "text_txt_ja": "今日はいい天気です",
+          "vector2": [
+            1,
+            0
+          ]
+        }
+      },
+      {
+        "_index": "hello-opensearch",
+        "_id": "2",
+        "_score": 0.3438858,
+        "_source": {
+          "item1_s": [
+            "aaa",
+            "bbb",
+            "ccc"
+          ],
+          "text_txt_ja": "今日はいい天気です",
+          "vector2": [
+            1,
+            0
+          ]
+        }
+      },
+      {
+        "_index": "hello-opensearch",
+        "_id": "3",
+        "_score": 0.3438858,
+        "_source": {
+          "item1_s": [
+            "aaa",
+            "bbb",
+            "ccc"
+          ],
+          "text_txt_ja": "今日はいい天気です",
+          "vector2": [
+            1,
+            0
+          ]
+        }
+      }
+    ]
+  }
+}
+```
+
+### Request (Lucene Query Syntax : AND)
+
+```
+GET hello-opensearch/_search
+{
+  "query": {
+    "query_string": {
+      "query": "(text_txt_ja:明日 AND text_txt_ja:天気)"
+    }
+  }
+}
+```
+
+### Response
+
+「明日」を含むテキストが無いのでヒットしない
+
+```
+{
+  "took": 2,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 0,
+      "relation": "eq"
+    },
+    "max_score": null,
+    "hits": []
+  }
+}
+```
+
+### Request
+
+```
+
+```
+
+
 
 ## Search document 文書の検索 (ベクトル検索)
 
