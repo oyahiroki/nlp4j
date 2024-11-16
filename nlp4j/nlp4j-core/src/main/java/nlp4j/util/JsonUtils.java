@@ -115,6 +115,23 @@ public class JsonUtils {
 	}
 
 	/**
+	 * @param list
+	 * @return
+	 * @since 1.3.7.15
+	 */
+	static public JsonArray toJsonFloatArray(List<Number> list) {
+		JsonArray arr = new JsonArray();
+		if (list == null) {
+			return null;
+		} else {
+			for (int n = 0; n < list.size(); n++) {
+				arr.add(list.get(n).floatValue());
+			}
+			return arr;
+		}
+	}
+
+	/**
 	 * @param outFile  the file to write
 	 * @param jsonData the JSON content write to the file
 	 * @throws IOException in case of an I/O error

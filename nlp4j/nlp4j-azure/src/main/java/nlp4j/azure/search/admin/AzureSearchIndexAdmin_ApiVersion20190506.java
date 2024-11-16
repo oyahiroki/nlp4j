@@ -18,8 +18,7 @@ import okhttp3.Response;
  * https://docs.microsoft.com/en-us/rest/api/searchservice/index-operations
  *
  */
-public class AzureSearchIndexAdmin {
-	private static final String _API_VERSION = "2024-07-01";
+public class AzureSearchIndexAdmin_ApiVersion20190506 {
 	private static final MediaType JSON = MediaType.get("application/json; charset=utf-8");
 
 	/**
@@ -32,8 +31,8 @@ public class AzureSearchIndexAdmin {
 	 */
 	public void delete(String adminKey, String serviceName, String indexName) throws IOException {
 
-		String endPoint = "https://" + serviceName + ".search.windows.net/indexes/" + indexName + "?api-version="
-				+ _API_VERSION;
+		String endPoint = "https://" + serviceName + ".search.windows.net/indexes/" + indexName
+				+ "?api-version=2019-05-06";
 
 		Request request = new Request.Builder() //
 				.url(endPoint) //
@@ -90,8 +89,8 @@ public class AzureSearchIndexAdmin {
 
 		File outFile2 = new File(outFile.getParent(), outFileName2);
 
-		String endPoint = "https://" + serviceName + ".search.windows.net/indexes/" + indexName + "?api-version="
-				+ _API_VERSION;
+		String endPoint = "https://" + serviceName + ".search.windows.net/indexes/" + indexName
+				+ "?api-version=2019-05-06";
 
 		Request request = new Request.Builder() //
 				.url(endPoint) //
@@ -152,8 +151,7 @@ public class AzureSearchIndexAdmin {
 
 		String json = FileUtils.readFileToString(inFile, "UTF-8");
 
-		String endPoint = "https://" + serviceName + ".search.windows.net" + "/indexes" + "?api-version="
-				+ _API_VERSION;
+		String endPoint = "https://" + serviceName + ".search.windows.net" + "/indexes" + "?api-version=2019-05-06";
 
 		OkHttpClient client = new OkHttpClient();
 
@@ -161,11 +159,11 @@ public class AzureSearchIndexAdmin {
 
 		Request request = new Request //
 				.Builder() //
-				.url(endPoint) //
-				.post(body) //
-				.addHeader("Content-Type", "application/json") //
-				.addHeader("api-key", adminKey) //
-				.build();
+						.url(endPoint) //
+						.post(body) //
+						.addHeader("Content-Type", "application/json") //
+						.addHeader("api-key", adminKey) //
+						.build();
 
 		try (Response response = client.newCall(request).execute()) {
 

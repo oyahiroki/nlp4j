@@ -39,10 +39,11 @@ public class AzureSearch extends AbstractDocumentSearcher implements DocumentSea
 	 */
 	public JsonObject search(JsonObject requestObj) throws IOException {
 		logger.info("search");
-		logger.debug(JsonUtils.prettyPrint(requestObj));
+		logger.info(JsonUtils.prettyPrint(requestObj));
 		AzureSearchClient az = new AzureSearchClient(super.props);
-		JsonObject res = az.post("search", requestObj);
-		logger.debug(JsonUtils.prettyPrint(res));
+		String action = "search.post.search";
+		JsonObject res = az.post(action, requestObj);
+		logger.info(JsonUtils.prettyPrint(res));
 		return res;
 	}
 

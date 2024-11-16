@@ -1,6 +1,7 @@
 package nlp4j.openai;
 
 import nlp4j.Document;
+import nlp4j.DocumentAnnotator;
 import nlp4j.DocumentBuilder;
 import nlp4j.annotator.AnnotatorBuilder;
 
@@ -11,8 +12,7 @@ public class OpenAIEmbeddingAnnotatorTestMain1 {
 
 		Document doc = (new DocumentBuilder()).text(text).build();
 
-		OpenAIEmbeddingAnnotator ann = (new AnnotatorBuilder<OpenAIEmbeddingAnnotator>(new OpenAIEmbeddingAnnotator()))
-				.build();
+		DocumentAnnotator ann = (new AnnotatorBuilder(OpenAIEmbeddingAnnotator.class)).build();
 
 		ann.annotate(doc);
 

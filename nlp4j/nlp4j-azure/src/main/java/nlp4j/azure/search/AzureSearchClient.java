@@ -31,11 +31,12 @@ public class AzureSearchClient {
 	private String index_name;
 	private String admin_key;
 	static private final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+	private static final String _API_VERSION = "2024-07-01";
 
 	/**
 	 * https://%s.search.windows.net/indexes/%s/docs/search?api-version=2019-05-06
 	 */
-	static public final String baseURL = "https://%s.search.windows.net/indexes/%s/docs/%s?api-version=2019-05-06";
+	static public final String baseURL = "https://%s.search.windows.net/indexes('%s')/docs/%s?api-version=" + _API_VERSION;
 
 	/**
 	 * @param props contains "service_name","index_name","admin_key"
@@ -80,6 +81,8 @@ public class AzureSearchClient {
 
 		OkHttpClient client = new OkHttpClient();
 		String url = String.format(baseURL, this.service_name, this.index_name, action);
+
+		logger.info("request_url: " + url);
 
 		String json = requestObj.toString();
 

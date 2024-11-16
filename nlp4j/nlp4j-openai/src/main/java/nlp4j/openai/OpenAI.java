@@ -116,7 +116,7 @@ public class OpenAI implements AutoCloseable {
 	/**
 	 * Creates an embedding vector representing the input text.
 	 * 
-	 * @param text ("text-embedding-ada-002","text-embedding-3-small","text-embedding-3-large")
+	 * @param text  ("text-embedding-ada-002","text-embedding-3-small","text-embedding-3-large")
 	 * @param model
 	 * @return
 	 * @throws IOException
@@ -188,8 +188,8 @@ public class OpenAI implements AutoCloseable {
 		{
 			header.put("Authorization", "Bearer " + this.configuration.getApiKey());
 		}
-
-		NlpServiceResponse res = client.get(ENDPOINT_OPENAI_MODELS, header, null);
+		Map<String, String> params = null;
+		NlpServiceResponse res = client.get(ENDPOINT_OPENAI_MODELS, header, params);
 
 		String json = res.getOriginalResponseBody();
 
