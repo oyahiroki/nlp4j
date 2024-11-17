@@ -594,15 +594,16 @@ public class DocumentUtil {
 		HashMap<String, ArrayList<String>> kwMap = new LinkedHashMap<String, ArrayList<String>>();
 
 		{
-			for (Keyword kwd : doc.getKeywords()) {
-				String facet = kwd.getFacet();
-
-				if (kwMap.containsKey(facet)) {
-					kwMap.get(facet).add(kwd.getLex());
-				} else {
-					ArrayList<String> list = new ArrayList<String>();
-					list.add(kwd.getLex());
-					kwMap.put(facet, list);
+			if (doc.getKeywords() != null && doc.getKeywords().size() > 0) {
+				for (Keyword kwd : doc.getKeywords()) {
+					String facet = kwd.getFacet();
+					if (kwMap.containsKey(facet)) {
+						kwMap.get(facet).add(kwd.getLex());
+					} else {
+						ArrayList<String> list = new ArrayList<String>();
+						list.add(kwd.getLex());
+						kwMap.put(facet, list);
+					}
 				}
 			}
 			for (String key : kwMap.keySet()) {

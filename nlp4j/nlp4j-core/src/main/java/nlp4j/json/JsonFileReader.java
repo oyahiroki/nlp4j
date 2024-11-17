@@ -53,20 +53,6 @@ public class JsonFileReader implements Closeable {
 
 		this.br = nlp4j.util.IOUtils.bufferedReader(jsonFile);
 
-//		// OPEN AS ZGIP
-//		if (jsonFile.getAbsolutePath().endsWith(".gz")) {
-//			br = new BufferedReader( //
-//					new InputStreamReader( //
-//							new GZIPInputStream( //
-//									new FileInputStream(jsonFile)),
-//							StandardCharsets.UTF_8));
-//		}
-//		// OPEN AS PLAIN TEXT
-//		else {
-//			br = new BufferedReader( //
-//					new InputStreamReader( //
-//							new FileInputStream(jsonFile), StandardCharsets.UTF_8));
-//		}
 	}
 
 	@Override
@@ -78,12 +64,12 @@ public class JsonFileReader implements Closeable {
 
 	public JsonObject next() throws IOException {
 
-		if ((maxLines > 0) && (countLine >= maxLines)) {
+		if ((this.maxLines > 0) && (this.countLine >= this.maxLines)) {
 			return null;
 		}
 
 		String line = br.readLine();
-		countLine++;
+		this.countLine++;
 
 		if (line == null) {
 			return null;
@@ -105,7 +91,7 @@ public class JsonFileReader implements Closeable {
 	 */
 	public Stream<JsonObject> jsonObjectStream() {
 		return br.lines() // Stream<String>
-				.limit(maxLines > 0 ? maxLines : Long.MAX_VALUE) // Limit the stream to maxLines if specified
+				.limit(this.maxLines > 0 ? this.maxLines : Long.MAX_VALUE) // Limit the stream to maxLines if specified
 				.map(line -> {
 					try {
 						return (new Gson()).fromJson(line, JsonObject.class); // Convert each line to JsonObject

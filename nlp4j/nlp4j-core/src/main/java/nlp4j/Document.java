@@ -13,6 +13,7 @@ import java.util.List;
  *
  */
 public interface Document {
+
 	/**
 	 * キーワードを追加します。<br>
 	 * Add Keyword.
@@ -32,6 +33,14 @@ public interface Document {
 	void addKeywords(List<Keyword> kwds);
 
 	/**
+	 * 属性のキー名を変更します
+	 * 
+	 * @param from
+	 * @param to
+	 */
+	void changeAttributeKey(String from, String to);
+
+	/**
 	 * 属性を返します。<br>
 	 * Return Attribute value.
 	 * 
@@ -40,6 +49,16 @@ public interface Document {
 	 * @since 1.0
 	 */
 	Object getAttribute(String key);
+
+	/**
+	 * 属性を返します。<br>
+	 * Return Attribute value.
+	 * 
+	 * @param key 属性のキー
+	 * @return 属性の値
+	 * @since 1.3
+	 */
+	Date getAttributeAsDate(String key);
 
 	/**
 	 * @param key
@@ -61,29 +80,19 @@ public interface Document {
 	 * 
 	 * @param key 属性のキー
 	 * @return 属性の値
-	 * @since 1.4
-	 */
-	String getAttributeAsString(String key);
-
-	/**
-	 * 属性を返します。<br>
-	 * Return Attribute value.
-	 * 
-	 * @param key 属性のキー
-	 * @return 属性の値
-	 * @since 1.3
-	 */
-	Date getAttributeAsDate(String key);
-
-	/**
-	 * 属性を返します。<br>
-	 * Return Attribute value.
-	 * 
-	 * @param key 属性のキー
-	 * @return 属性の値
 	 * @since 1.3
 	 */
 	Number getAttributeAsNumber(String key);
+
+	/**
+	 * 属性を返します。<br>
+	 * Return Attribute value.
+	 * 
+	 * @param key 属性のキー
+	 * @return 属性の値
+	 * @since 1.4
+	 */
+	String getAttributeAsString(String key);
 
 	/**
 	 * 属性のキーを返します。<br>
@@ -208,6 +217,12 @@ public interface Document {
 	 * @since 1.3
 	 */
 	public boolean removeKeyword(Keyword kwd);
+
+	/**
+	 * @return
+	 * @since 1.3.7.15
+	 */
+	public void removeKeywords();
 
 	/**
 	 * この文書のIDをセットします。<br>

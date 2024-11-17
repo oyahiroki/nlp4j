@@ -375,4 +375,19 @@ public class DefaultDocument implements Document {
 
 	}
 
+	@Override
+	public void removeKeywords() {
+		this.keywords = new ArrayList<Keyword>();
+	}
+
+	@Override
+	public void changeAttributeKey(String from, String to) {
+		Object obj = this.attributes.get(from);
+		if (obj == null) {
+			return;
+		}
+		this.attributes.remove(from);
+		this.attributes.put(to, obj);
+	}
+
 }
