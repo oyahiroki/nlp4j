@@ -12,6 +12,7 @@
 	<!-- JAR -->
 	<packaging>jar</packaging>
 	<!-- VERSION -->
+	<!-- 1.1.0.0 : 2021-10-11 -->
 	<version>1.1.0.0</version>
 	<description>NLP4J for Cabocha</description>
 	<url>https://nlp4j.org/</url>
