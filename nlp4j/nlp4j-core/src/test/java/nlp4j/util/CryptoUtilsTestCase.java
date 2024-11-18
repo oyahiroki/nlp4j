@@ -15,6 +15,7 @@ public class CryptoUtilsTestCase extends TestCase {
 		String password = "mySecurePassword";
 		// キーの生成
 		SecretKey key = CryptoUtils.generateKey();
+		System.out.println("key: " + key);
 		// 暗号化
 		String encryptedPassword = CryptoUtils.encrypt(password, key);
 		System.out.println("Encrypted Password: " + encryptedPassword);
