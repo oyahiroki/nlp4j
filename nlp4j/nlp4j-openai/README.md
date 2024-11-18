@@ -5,9 +5,13 @@ OpenAI Client for Java
 
 # Reference
 
-OpenAI API
+OpenAI Platform - API
 
 [https://platform.openai.com/](https://platform.openai.com/)
+
+API Keys - OpenAI API
+
+[https://platform.openai.com/settings/organization/api-keys](https://platform.openai.com/settings/organization/api-keys)
 
 OpenAI API - Create chat completionBeta
 
