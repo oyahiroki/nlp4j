@@ -1,4 +1,4 @@
 # JavadocのHTMLを無視する
 
-docs/* linguist-vendored
-
+docs/** linguist-documentation
+*.html linguist-documentation
