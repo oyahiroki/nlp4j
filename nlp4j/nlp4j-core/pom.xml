@@ -37,7 +37,7 @@
 	<!-- 1.3.7.13 : 2024-08-08 -->
 	<!-- 1.3.7.14 : 2024-10-29 -->
 	<!-- 1.3.7.15 : 2024-11-17 -->
-	<version>1.3.7.15</version>
+	<version>1.3.7.16</version>
 	<description>Natural Language Processing Library for Java</description>
 	<url>https://nlp4j.org/</url>
 	<licenses>
