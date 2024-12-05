@@ -1,4 +1,4 @@
-package nlp4j.webcrawler.nissayfaq;
+package nlp4j.webcrawler.p202308nissayfaq;
 
 import java.io.File;
 

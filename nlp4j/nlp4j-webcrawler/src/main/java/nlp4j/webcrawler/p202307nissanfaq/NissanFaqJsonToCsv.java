@@ -1,4 +1,4 @@
-package nlp4j.webcrawler.nissanfaq;
+package nlp4j.webcrawler.p202307nissanfaq;
 
 import java.io.File;
 

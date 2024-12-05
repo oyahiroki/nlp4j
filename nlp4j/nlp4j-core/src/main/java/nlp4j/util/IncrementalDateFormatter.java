@@ -26,6 +26,7 @@ public class IncrementalDateFormatter {
 	private int calendar_add_amount = -1;
 
 	private SimpleDateFormat sdf;
+	private boolean reverse = false;
 
 	/**
 	 * Constructs an IncrementalDateFormatter with the specified date format,
@@ -53,6 +54,27 @@ public class IncrementalDateFormatter {
 		this.date = sdf.parse(initialDate);
 	}
 
+	public IncrementalDateFormatter(String dateformat, String initialDate, int calendarUnit, int amount,
+			long count_of_repeat, boolean reverse) throws ParseException {
+		this.calendar_add_amount = amount;
+		this.calendar_unit = calendarUnit;
+		this.count_of_repeat = count_of_repeat;
+
+		this.sdf = new SimpleDateFormat(dateformat);
+		this.date = sdf.parse(initialDate);
+		this.reverse = reverse;
+
+		if (reverse == true) {
+			Calendar c = Calendar.getInstance();
+			c.setTime(date);
+			for (int n = 0; n < count_of_repeat; n++) {
+				c.add(this.calendar_unit, this.calendar_add_amount);
+			}
+			date = c.getTime();
+		}
+
+	}
+
 	/**
 	 * Generates the next date in the sequence by incrementing the current date by
 	 * the specified unit and amount. Returns null if the count of generated dates
@@ -70,7 +92,11 @@ public class IncrementalDateFormatter {
 		String v = sdf.format(date);
 		Calendar c = Calendar.getInstance();
 		c.setTime(date);
-		c.add(this.calendar_unit, this.calendar_add_amount);
+		if (this.reverse == false) {
+			c.add(this.calendar_unit, this.calendar_add_amount);
+		} else {
+			c.add(this.calendar_unit, this.calendar_add_amount * (-1));
+		}
 		date = c.getTime();
 		count++;
 		return v;

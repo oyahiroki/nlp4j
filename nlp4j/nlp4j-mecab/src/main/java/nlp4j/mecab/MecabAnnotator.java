@@ -1,6 +1,7 @@
 package nlp4j.mecab;
 
 import java.io.Closeable;
+import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -53,7 +54,7 @@ public class MecabAnnotator extends AbstractDocumentAnnotator implements Documen
 	/**
 	 * Logger
 	 */
-	static private final Logger logger = LogManager.getLogger(MecabAnnotator.class);
+	static private final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
 	private ArrayList<String> facetfilter = null;
 
@@ -73,6 +74,7 @@ public class MecabAnnotator extends AbstractDocumentAnnotator implements Documen
 		if (this.tagger == null) {
 			// StandardTagger: cmecab-2.0.jar
 			tagger = new StandardTagger(this.option);
+			logger.debug("tagger_initialized");
 		}
 
 		logger.debug("processing document");

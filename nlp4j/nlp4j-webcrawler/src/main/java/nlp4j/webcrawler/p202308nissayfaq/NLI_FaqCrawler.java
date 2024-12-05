@@ -1,4 +1,4 @@
-package nlp4j.webcrawler.nissanfaq;
+package nlp4j.webcrawler.p202308nissayfaq;
 
 import java.io.File;
 import java.io.PrintWriter;
@@ -18,7 +18,7 @@ import nlp4j.crawler.Crawler;
 import nlp4j.util.IOUtils;
 import nlp4j.webcrawler.AbstractWebCrawler;
 
-public class NissanFaqCrawler extends AbstractWebCrawler implements Crawler {
+public class NLI_FaqCrawler extends AbstractWebCrawler implements Crawler {
 
 	@Override
 	public List<Document> crawlDocuments() {
@@ -41,15 +41,19 @@ public class NissanFaqCrawler extends AbstractWebCrawler implements Crawler {
 //		int start = 1000;
 //		int end = 9999;
 
-		int start = 10000;
+		int start = 1;
 		int end = 19999;
-		
+
+		end = start + 1000;
+
+		String hostname = "faq.nissay.co.jp";
+
 		for (int n = start; n <= end; n++) {
-			urls.add("https://faq2.nissan.co.jp/faq/show/" + n + "?site_domain=default");
+			urls.add("https://" + hostname + "/faq/show/" + n + "?site_domain=default");
 
 		}
 
-		File outFile = File.createTempFile("nlp4j_webcrawler_nissanfaq_" + start + "_" + end, ".txt");
+		File outFile = File.createTempFile("nlp4j_webcrawler_nissay_faq_" + start + "_" + end, ".txt");
 
 		PrintWriter pw = IOUtils.printWriter(outFile);
 
@@ -63,7 +67,7 @@ public class NissanFaqCrawler extends AbstractWebCrawler implements Crawler {
 
 			JsonObject jo = new JsonObject();
 
-			String id = url.substring("https://faq2.nissan.co.jp/faq/show/".length(), url.indexOf("?"));
+			String id = url.substring(("https://" + hostname + "/faq/show/").length(), url.indexOf("?"));
 			jo.addProperty("id", id);
 
 			jo.addProperty("url", url);

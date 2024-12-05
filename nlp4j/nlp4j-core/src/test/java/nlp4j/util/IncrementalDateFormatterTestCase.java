@@ -116,6 +116,37 @@ public class IncrementalDateFormatterTestCase extends TestCase {
 		}
 	}
 
+	public void test001e() throws Exception {
+		// 2024/2/27 0:00 から 1日追加を7回繰り返す(うるう年の計算)
+		// test reverse option
+		List<String> expected = new ArrayList<>();
+		{
+			expected.add("20240305");
+			expected.add("20240304"); // decrement not increment
+			expected.add("20240303");
+			expected.add("20240302");
+			expected.add("20240301");
+			expected.add("20240229"); // うるう年の計算
+			expected.add("20240228");
+			expected.add("20240227");
+		}
+
+		String initialDate = "20240227";
+		int calendarUnit = Calendar.DAY_OF_MONTH;
+		int amount = 1;
+		int repeat = 7;
+
+		IncrementalDateFormatter formatter = new IncrementalDateFormatter("yyyyMMdd", initialDate, calendarUnit, amount,
+				repeat, true);
+		String v;
+		int idx = 0;
+		while ((v = formatter.next()) != null) {
+			System.err.println(v);
+			assertEquals(expected.get(idx).trim(), v);
+			idx++;
+		}
+	}
+
 	public void test002() throws Exception {
 		// 2024/1/1 0:00 から 3時間追加を7回繰り返す
 		IncrementalDateFormatter formatter = new IncrementalDateFormatter("yyyyMMdd-HHmmss", "20240101-000000",

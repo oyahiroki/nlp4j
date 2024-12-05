@@ -1,4 +1,4 @@
-package nlp4j.ibmjpcareesfaq;
+package nlp4j.webcrawler.p202411ibmjpcareesfaq;
 
 import java.io.File;
 import java.io.PrintWriter;
