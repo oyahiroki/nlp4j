@@ -7,3 +7,8 @@ NLP4J for Twitter
 nlp4j-twtr provides
 - Twieet Crawler for NLP
 
+# Reference
+
+https://developer.twitter.com/en/portal/dashboard
+
+

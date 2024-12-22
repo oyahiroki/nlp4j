@@ -220,7 +220,7 @@ public class HttpClient5 implements HttpClient {
 		{
 			code = response1.getCode();
 			if (((code >= 200) && (code < 300)) == false) {
-				throw new IOException("url: " + url + ",response: " + code);
+				throw new HttpException(url, code);
 			}
 			HttpEntity entity1 = response1.getEntity();
 
@@ -304,7 +304,7 @@ public class HttpClient5 implements HttpClient {
 			{
 				int code = response1.getCode();
 				if (((code >= 200) && (code < 300)) == false) {
-					throw new IOException("url: " + url + ",response: " + code);
+					throw new HttpException(url, code);
 				}
 				HttpEntity entity1 = response1.getEntity();
 				if (entity1 != null) {
