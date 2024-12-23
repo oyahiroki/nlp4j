@@ -30,7 +30,8 @@ RUN chmod +x /opt/solr/init_solr.sh
 RUN apt-get update && apt-get install -y wget
 
 # Install Tomcat manually by downloading the official Tomcat distribution
-RUN wget https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.95/bin/apache-tomcat-9.0.95.tar.gz -O /tmp/tomcat.tar.gz && \
+# 2024-12/23 change 9.0.95 -> 9.0.98
+RUN wget https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.98/bin/apache-tomcat-9.0.98.tar.gz -O /tmp/tomcat.tar.gz && \
     mkdir /opt/tomcat && \
     tar xzf /tmp/tomcat.tar.gz -C /opt/tomcat --strip-components=1 && \
     rm /tmp/tomcat.tar.gz
@@ -51,3 +52,15 @@ USER solr
 
 # Start Solr, initialize it, and start Tomcat
 CMD ["sh", "-c", "/opt/solr/bin/solr start & sleep 5 && /opt/solr/init_solr.sh && /opt/tomcat/bin/catalina.sh run"]
+
+
+
+# HOW-TO-USE
+# 1. BUILD
+# > docker build -t img_vectorsearch_yyyyMMdd .
+# 2. RUN (1/2)
+# > docker run -d --name my_solr_tomcat_container -p 8983:8983 -p 8080:8080 img_vectorsearch_yyyyMMdd
+# 2. RUN (2/2)
+# $ python3  nlp4j-embedding-server-e5.py
+# 3. OPEN
+# http://localhost:8080/nlp4j-web-vectorsearch/
