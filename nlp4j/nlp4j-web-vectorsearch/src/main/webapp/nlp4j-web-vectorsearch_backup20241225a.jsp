@@ -98,7 +98,6 @@ function posttext(){
 
 // キーワードサーチ
 function keywordsearch(){
-	initChartCanvas();
 	$("#nlp_result_tbody").empty();
 	printMessage(""+ getCurrentDateTime2() + " : Searching ... ");
 	const q = $("#q").val();
@@ -148,89 +147,7 @@ function keywordsearch(){
 				console.log(data);
 	});
 }
-function initChartCanvas(){
-	// キャンバス要素を取得
-	var canvas = document.getElementById('similarityChart');
-	var ctx = canvas.getContext('2d');
 
-	// キャンバスの全エリアをクリア
-	ctx.clearRect(0, 0, canvas.width, canvas.height);
-}
-function calculateMean(values){
-	return values.reduce((acc, val) => acc + val, 0) / values.length;
-}
-function calculateStandardDeviation(values) {
-	 // 平均値の計算
-	 const mean = calculateMean(values);
-	 // 分散の計算
-	 const variance = values.reduce((acc, val) => acc + (val - mean) ** 2, 0) / values.length;
-	 // 標準偏差の計算（分散の平方根）
-	 return Math.sqrt(variance);
-}
-	
-function displaySimilarityChart(similarityScores){
-    // Chart.jsで棒グラフを描画
-    const ctx = document.getElementById('similarityChart').getContext('2d');
-    const mean = calculateMean(similarityScores);
-    const deviation = calculateStandardDeviation(similarityScores);
-    const similarityChart = new Chart(ctx, {
-        type: 'bar', // グラフのタイプ
-        data: {
-            labels: ['スコア1', 'スコア2', 'スコア3', 'スコア4', 'スコア5', 'スコア6', 'スコア7', 'スコア8', 'スコア9', 'スコア10'],
-            datasets: [{
-                label: '類似度スコア 平均=' + mean.toFixed(5) + ', 標準偏差=' + deviation.toFixed(5),
-                data: similarityScores,
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)',
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)'
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)',
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)'
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    title: {
-                        display: true,
-                        text: 'スコア'
-                    }
-                },
-                x: {
-                    title: {
-                        display: true,
-                        text: 'クエリ番号'
-                    }
-                }
-            },
-            plugins: {
-                legend: {
-                    display: true,
-                    position: 'top'
-                }
-            }
-        }
-    });}
 
 // テキストを送信してベクトル検索する(POSTリクエスト)
 function vectorsearch(){
@@ -243,20 +160,9 @@ function vectorsearch(){
 		if(data.response.docs.length==0){
 			$("#nlp_result").append("<tr>" + "<td></td><td>not found</td>" + "</tr>");
 		}
-		
 		data.response.docs.forEach(function(doc){
 			$("#nlp_result").append("<tr>" + "<td>" + (doc.score) + "</td><td>" + doc.text_txt_ja + "</td>" + "</tr>");
 		});
-		
-		const response_size = data.response.docs.length;
-		console.log("response_size: "+response_size);
-		const similarityScores = new Array(0);
-		console.log(similarityScores);
-		data.response.docs.forEach(function(doc){
-			similarityScores.push(doc.score);
-		});
-		console.log(similarityScores);
-		displaySimilarityChart(similarityScores);
 	};
 	var metadata = {};
 	$.ajax({
@@ -405,21 +311,6 @@ $(document).ready(function() {
 				<!-- tr><td>Suzuki</td><td>26</td></tr -->
 				<!-- tr><td>Tanaka</td><td>36</td></tr -->
 					</table>
-				</div>
-		    </div>
-		</div>
-    </div>
-    <div class="col"></div> <!-- 右側のスペース -->
-  </div>
-  
-  <div class="row">
-    <div class="col"></div> <!-- 左側のスペース -->
-    <div class="col-10">
-		<div class="card">
-		    <div class="card-header">Chart</div>
-		    <div class="card-body">
-				<div style="width:100%;">
-				    <canvas id="similarityChart"></canvas>
 				</div>
 		    </div>
 		</div>
