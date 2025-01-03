@@ -19,7 +19,7 @@ Before starting, ensure that Docker is installed and properly configured on your
 
 
 
-# 1. Solr の起動と設定
+# 1. RUN and Config Solr
 
 ## 1-1. docker run solr
 
