@@ -1,3 +1,5 @@
+https://github.com/oyahiroki/nlp4j/tree/master/nlp4j/nlp4j-solr
+
 # nlp4j-solr
 
 NLP4J Library for Apache Solr
