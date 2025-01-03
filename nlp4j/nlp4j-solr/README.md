@@ -1,71 +1,120 @@
-# NLP4J Solr
+# nlp4j-solr
 
 NLP4J Library for Apache Solr
 
-# ベクトル検索を行う
+- Search Client (Keyword search, Vector search)
+- Document Importer
+- Admin Client
+- Utilities
 
-# 0. 前提
+# Usecase: Vector Search
 
-Docker を利用する
+# How to setup Solr Server
+
+# 0. Prerequisites (Docker | Docker Desktop | Rancher Desktop)
+
+Before starting, ensure that Docker is installed and properly configured on your system. For installation instructions, visit the [Docker documentation](https://docs.docker.com/get-docker/).
+
 
 
 # 1. Solr の起動と設定
 
-## Docker で Solr ("my_solr") を起動する
+## 1-1. docker run solr
 
 ```
 docker run -d -p 8983:8983 --name my_solr solr
 ```
 
+Port 8983 is for Solr Admin (Web Console)
+
+
+> docker run \[OPTIONS] IMAGE \[COMMAND] \[ARG...]
+> 
+> Create and run a new container from an image
+> 
+> -d, --detach         Run container in background and print container ID
+> 
+> -p, --publish list   Publish a container's port(s) to the host
+> 
+>  --name string       Assign a name to the container
+
+
+> docker run \[OPTIONS] IMAGE \[COMMAND] \[ARG...]
+> 
+> 新しい Docker コンテナを起動するためのコマンドです。
+> 
+> -d: コンテナをデタッチドモード（バックグラウンド）で実行するオプションです。これにより、コンテナがバックグラウンドで実行され、コマンドプロンプトが直ちに戻ります。
+> 
+> -p 8983:8983: ホストマシンのポート（左側）をコンテナのポート（右側）にマッピングします。この場合、ホストのポート 8983 をコンテナ内のポート 8983 にマッピングして、ホストから Solr のウェブインターフェースにアクセスできるようにします。
+> 
+> --name my_solr: コンテナに my_solr という名前を付けます。これにより、後でコンテナを参照するときに、この名前を使って操作できます。
+> 
+> solr: 実行するイメージの名前です。この場合、Docker Hub にある solr イメージが使用されます。
+
+
+## Open Solr Admin Console (Optional)
+
 ```
-docker run: 新しい Docker コンテナを起動するためのコマンドです。
--d: コンテナをデタッチドモード（バックグラウンド）で実行するオプションです。これにより、コンテナがバックグラウンドで実行され、コマンドプロンプトが直ちに戻ります。
--p 8983:8983: ホストマシンのポート（左側）をコンテナのポート（右側）にマッピングします。この場合、ホストのポート 8983 をコンテナ内のポート 8983 にマッピングして、ホストから Solr のウェブインターフェースにアクセスできるようにします。
---name my_solr: コンテナに my_solr という名前を付けます。これにより、後でコンテナを参照するときに、この名前を使って操作できます。
-solr: 実行するイメージの名前です。この場合、Docker Hub にある solr イメージが使用されます。
+http://localhost:8983/solr/
 ```
 
-## Solr Admin Console
-
-[http://localhost:8983/solr/](http://localhost:8983/solr/)
-
-
-## Docker で core ("sandbox") を作成する
+## 1-2. exec "bin/solr create -c sandbox" for creating Solr core [sandbox] .
 
 ```
 docker exec -it my_solr bin/solr create -c sandbox
 ```
 
-```
-docker exec: Docker コンテナ内でコマンドを実行するためのコマンドです。
--it: -i はインタラクティブモードを有効にし、-t は擬似ターミナルを割り当てるためのオプションです。これにより、コマンド実行後にインタラクティブに操作できるようになります。
-my_solr: コマンドを実行する対象の Docker コンテナの名前または ID です。この場合、my_solr という名前のコンテナが対象です。
-bin/solr: コンテナ内で実行するコマンドです。ここでは、Solr のコマンドラインツール solr を実行しています。
-create: Solr のコマンドで、新しいコレクションを作成するためのサブコマンドです。
--c sandbox: -c オプションは作成するコレクションの名前を指定します。この場合、sandbox という名前のコレクションが作成されます。
-```
+
+> Usage:  docker exec [OPTIONS] CONTAINER COMMAND [ARG...]
+> 
+> Execute a command in a running container
+> 
+>  -i, --interactive          Keep STDIN open even if not attached
+>  -t, --tty                  Allocate a pseudo-TTY 
 
 
-## フィールドタイプ ("vector1024",solr.DenseVectorField) の定義 
+
+> Usage:  docker exec [OPTIONS] CONTAINER COMMAND [ARG...]
+> 
+> コンテナ内でコマンドを実行するためのコマンドです。
+> 
+> -it: -i はインタラクティブモードを有効にし、-t は擬似ターミナルを割り当てるためのオプションです。これにより、コマンド実行後にインタラクティブに操作できるようになります。
+> 
+> my_solr: コマンドを実行する対象の Docker コンテナの名前または ID です。この場合、my_solr という名前のコンテナが対象です。
+> 
+> bin/solr: コンテナ内で実行するコマンドです。ここでは、Solr のコマンドラインツール solr を実行しています。
+> 
+> create: Solr のコマンドで、新しいコレクションを作成するためのサブコマンドです。
+> 
+> -c sandbox: -c オプションは作成するコレクションの名前を指定します。この場合、sandbox という名前のコレクションが作成されます。
+
+
+
+## 1-3. Create field type via curl command
+
+field type: "name":"vector1024","class":"solr.DenseVectorField","vectorDimension":1024
 
 ```
 curl -X POST -H 'Content-type:application/json' --data-binary '{"add-field-type":{"name":"vector1024","class":"solr.DenseVectorField","vectorDimension":1024,"similarityFunction":"cosine"}}' http://localhost:8983/solr/sandbox/schema
 ```
 
-## フィールド ("vector") の定義 
+## 1-4. Add field for vector search
+
+field: "name":"vector", "type":"vector1024"
 
 ```
 curl -X POST -H 'Content-type:application/json' --data-binary '{ "add-field":{ "name":"vector", "type":"vector1024", "indexed":true, "stored":true } }' http://localhost:8983/solr/sandbox/schema
 ```
 
-## *コレクションから文書を削除する
+# Other useful command
+
+## Delete all document from collection
 
 ```
 curl 'http://localhost:8983/solr/sandbox/update?commit=true' -d '<delete><query>*:*</query></delete>'
 ```
 
 ```
-# Example
 $ curl 'http://localhost:8983/solr/sandbox/update?commit=true' -d '<delete><query>*:*</query></delete>'
 <?xml version="1.0" encoding="UTF-8"?>
 <response>
@@ -77,18 +126,22 @@ $ curl 'http://localhost:8983/solr/sandbox/update?commit=true' -d '<delete><quer
 </response>
 ```
 
-# 2. Embedding Server の起動
+# 2. Run Multilingual-E5-Embedding Server (nlp4j-llm-embeddings-e5)
 
-セットアップは以下を参照
+See following page
 
-[https://github.com/oyahiroki/nlp4j-llm-embeddings-e5](https://github.com/oyahiroki/nlp4j-llm-embeddings-e5)
-
+```
+https://github.com/oyahiroki/nlp4j-llm-embeddings-e5
+```
 
 ```
 $ python3 nlp4j-embedding-server-e5.py
 ```
 
-# 3. ドキュメントの追加
+# IF(you want to run server only) EXIT
+
+
+# 3. Add document from Java
 
 ```
 // Hello002_ImportDocumentWithVector2.java
@@ -133,7 +186,7 @@ try (SolrDocumentImporter importer = new SolrDocumentImporter()) {
 }
 ```
 
-# 4. 検索
+# 4-1. Vector Search Document from Java
 
 ```
 String endPoint = "http://localhost:8983/";
@@ -165,7 +218,7 @@ Document doc = new DefaultDocument();
 
 ```
 
-# 4. 検索（ベクトル検索を使わない）
+# 4-2. Keyword Search Document from Java
 
 ```
 String endPoint = "http://localhost:8983/solr/";
@@ -185,142 +238,41 @@ try (Http2SolrClient solrClient = new Http2SolrClient.Builder(endPoint) //
 
 ```
 
+# Reference
 
----
+## Apache Solr
 
----
-
----
-
-
-# Apache Solr
-
+```
 https://solr.apache.org/
-
-
-# Install Solr container
-
-```
-docker run --name solr-sandbox -d -v "d:\solrdata:/var/solr" -p 8983:8983 solr:8.11.2 solr-precreate gettingstarted
-
 ```
 
-## Run Solr docker
-
-
-```
->docker image list
-REPOSITORY   TAG       IMAGE ID       CREATED         SIZE
-solr         latest    08811aaa7dbb   6 weeks ago     581MB
-
->
-```
-
+## Command Examples (Docker)
 
 ```
+docker image list
+```
 
+```
 docker container list
+```
 
+```
 docker exec -it solr-sandbox /bin/bash
 ```
 
+```
+docker run --name solr-sandbox -d -v "d:\solrdata:/var/solr" -p 8983:8983 solr:8.11.2 solr-precreate gettingstarted
+```
 
-http://localhost:8983/solr/#/
-
-# Create Solr collection コレクションの作成
+# Command Examples (Solr) 
 
 ```
 $ bin/solr create_core -c sandbox
+```
 
+```
 $ bin/solr create_core -c unittest
 ```
 
 
-
-
-
-
-
-
-
-
-
-# Features
-
-nlp4j-solr provides
-- Data Indexer for Solr
-- Search Client for Solr
-
-# How to create test environment
-
-	> mkdir C:\usr\solrdata_nlp4j-solr-unittest
-	
-	> docker run --name nlp4j-solr-unittest -d -v "C:\usr\solr_nlp4j_unittest:/var/solr" -p 8983:8983 solr:8.10.0 solr-precreate gettingstarted
-	
-	http://localhost:8983/solr/#/
-	
-	> docker start nlp4j-solr-unittest
-	
-	> docker exec -it nlp4j-solr-unittest /bin/bash
-	
-	$ bin/solr create_core -c unittest
-
-# Solr
-
-https://solr.apache.org/guide/8_1/common-query-parameters.html
-
-# Azure
-
-Azure Query:
-
-https://docs.microsoft.com/en-us/rest/api/searchservice/search-documents
-
-https://docs.microsoft.com/ja-jp/rest/api/searchservice/search-documents
-
-
-# Docker で使う (2024-06-26)
-
-[https://solr.apache.org/guide/solr/latest/deployment-guide/solr-in-docker.html](https://solr.apache.org/guide/solr/latest/deployment-guide/solr-in-docker.html)
-に書いてある
-
-```
->docker run -d -p 8983:8983 --name my_solr solr
-```
-
-```
->docker exec -it my_solr solr create_core -c gettingstarted
-WARNING: Using _default configset with data driven schema functionality. NOT RECOMMENDED for production use.
-         To turn off: bin/solr config -c gettingstarted -p 8983 -action set-user-property -property update.autoCreateFields -value false
-
-Created new core 'gettingstarted'
-```
-
-# Docker で使う (2024-07-14)
-
-## コンテナの作成と起動
-
-```
->docker run -d -p 8983:8983 --name my_solr solr
-```
-
-docker run : Dockerコンテナを作成し、実行するための基本コマンド
-
--d : デタッチモードでコンテナを実行する。コンテナがバックグランドで実行される。コンテナが起動している間、ターミナルがブロックされない
-
--p 8983:8983 : ポートマッピングを指定する。ホストのポート 8983 をコンテナのポート 8983 にマッピングする
-
---name my_solr : 起動するコンテナに名前を付ける。名前を付けることで「docker stop my_solr」などのコマンドでコンテナを特定できる
-
-
-## コレクションの作成
-
-```
->docker exec -it my_solr bin/solr create -c sandbox
-WARNING: Using _default configset with data driven schema functionality. NOT RECOMMENDED for production use.
-         To turn off: bin/solr config -c sandbox -p 8983 -action set-user-property -property update.autoCreateFields -value false
-```
-
-
-
-
-
+EOF

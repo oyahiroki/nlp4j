@@ -1,6 +1,9 @@
 # nlp4j-web-vectorsearch
 
-利用に必要なコンポーネント
+ベクトル検索のアプリです
+
+
+## 利用に必要なコンポーネント
 
 - Solr 9
 - E5 Embedding Server

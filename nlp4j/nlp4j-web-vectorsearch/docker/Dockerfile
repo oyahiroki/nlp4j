@@ -1,3 +1,6 @@
+# Docker file for vector search
+# Apache Solr 9 (with vector search configuration) + Tomcat 9 + Web App nlp4j-web-vectorsearch  
+
 # How to RUN
 # docker build -t my-nlp4j-web-vectorsearch .
 
