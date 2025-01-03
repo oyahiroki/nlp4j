@@ -2,20 +2,21 @@ https://github.com/oyahiroki/nlp4j/tree/master/nlp4j/nlp4j-web-vectorsearch
 
 # nlp4j-web-vectorsearch
 
-ベクトル検索のアプリです
+This web app is for Vector Search
 
+# Required Components
 
-## 利用に必要なコンポーネント
+- Multilingual E5 Embedding Server https://github.com/oyahiroki/nlp4j-llm-embeddings-e5
 
-- Solr 9
-- E5 Embedding Server
+```bash
+python3  nlp4j-embedding-server-e5.py
+```
 
-## Solr 9
+- Apache Solr 9 ( Included in Docker Image https://hub.docker.com/r/oyahiroki/nlp4j-web-vectorsearch )
 
-- Solr起動
-- コレクション作成
+# How to Use
 
-## E5 Embedding Server
-
-- $ python3  nlp4j-embedding-server-e5.py
+```
+http://localhost:8080/nlp4j-web-vectorsearch/
+```
 
