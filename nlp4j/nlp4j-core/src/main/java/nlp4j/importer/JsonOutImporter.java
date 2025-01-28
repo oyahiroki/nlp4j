@@ -12,7 +12,7 @@ import nlp4j.Document;
 import nlp4j.util.DocumentUtil;
 
 /**
- * Output CSV file
+ * Output JSON (JSON LINE) file
  * 
  * @author Hiroki Oya
  * @since 1.3.1.0

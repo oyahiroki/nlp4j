@@ -1,6 +1,7 @@
 package nlp4j.util;
 
 import java.text.Normalizer;
+import java.util.Stack;
 
 /**
  * <pre>
@@ -9,9 +10,20 @@ import java.text.Normalizer;
  * 
  * created on 2022-09-09
  * 
+ * @since 1.3.7.3
  * @author Hiroki Oya
  */
 public class TextUtils {
+
+	/**
+	 * Get new instance of {@link TextUtils}
+	 * 
+	 * @param s
+	 * @return
+	 */
+	static public TextUtils n(String s) {
+		return new TextUtils(s);
+	}
 
 	/**
 	 * Normalize a sequence of char values.
@@ -24,13 +36,43 @@ public class TextUtils {
 	}
 
 	/**
-	 * Get new instance of {@link TextUtils}
+	 * <pre>
+	 * created on: 2023-08-19
+	 * updated on: 2025-01-28 1.3.7.16
+	 * </pre>
 	 * 
 	 * @param s
 	 * @return
 	 */
-	static public TextUtils n(String s) {
-		return new TextUtils(s);
+	static public String removeBrackets(String text) {
+//		return s.replaceAll("\\(.*?\\)", "");
+
+		StringBuilder sb = new StringBuilder();
+		Stack<Character> stk = new Stack<Character>();
+		for (int n = 0; n < text.length(); n++) {
+			char c = text.charAt(n);
+			if (c == '(') {
+				stk.push(')');
+				continue;
+			} //
+			else if (c == '{') {
+				stk.push('}');
+				continue;
+			} //
+//			else if (c == '[') {
+//				stk.push(']');
+//				continue;
+//			} //
+			else if (stk.empty() == false && c == stk.peek()) {
+				stk.pop();
+			} //
+			else {
+				if (stk.empty()) {
+					sb.append(c);
+				}
+			}
+		}
+		return sb.toString();
 	}
 
 	private String s;
@@ -60,17 +102,6 @@ public class TextUtils {
 	}
 
 	/**
-	 * Remove '\r' and '\n'
-	 * 
-	 * @return this
-	 */
-	public TextUtils removeNewline() {
-		this.s = s.replace("\r", "");
-		this.s = s.replace("\n", "");
-		return this;
-	}
-
-	/**
 	 * <pre>
 	 * Input Example: "aaa(bbb)ccc" 
 	 * Output Example: "aaaccc"
@@ -79,18 +110,22 @@ public class TextUtils {
 	 * @return
 	 */
 	public TextUtils removeBrackets() {
-		this.s = this.s.replaceAll("\\(.*?\\)", "");
+//		this.s = this.s.replaceAll("\\(.*?\\)", "");
+
+		this.s = removeBrackets(this.s);
+
 		return this;
 	}
 
 	/**
-	 * created on: 2023-08-19
+	 * Remove '\r' and '\n'
 	 * 
-	 * @param s
-	 * @return
+	 * @return this
 	 */
-	static public String removeBrackets(String s) {
-		return s.replaceAll("\\(.*?\\)", "");
+	public TextUtils removeNewline() {
+		this.s = s.replace("\r", "");
+		this.s = s.replace("\n", "");
+		return this;
 	}
 
 	/**
