@@ -13,6 +13,13 @@ public class PairTestCase extends TestCase {
 		System.err.println(p.toString());
 	}
 
+	/**
+	 * 2025-02-13
+	 */
+	public void testPairOfChar001() {
+		Pair<Character, Character> p = Pair.of('a', 'b');
+		System.err.println(p.toString());
+	}
 	public void testPairLR() {
 		Pair<String, String> p = new Pair<>("aaa", "xxx");
 		System.err.println(p.toString());

@@ -1,7 +1,10 @@
 package nlp4j.util;
 
 import java.text.Normalizer;
+import java.util.Map;
 import java.util.Stack;
+
+import nlp4j.tuple.Pair;
 
 /**
  * <pre>
@@ -14,6 +17,11 @@ import java.util.Stack;
  * @author Hiroki Oya
  */
 public class TextUtils {
+
+	/**
+	 * 
+	 */
+	static Map<Character, Character> defaultBracketsMap = MapBuilder.of(Pair.of('(', ')'), Pair.of('{', '}'));
 
 	/**
 	 * Get new instance of {@link TextUtils}
@@ -39,28 +47,41 @@ public class TextUtils {
 	 * <pre>
 	 * created on: 2023-08-19
 	 * updated on: 2025-01-28 1.3.7.16
+	 * 
+	 * #tags カッコ brackets
 	 * </pre>
 	 * 
 	 * @param s
 	 * @return
 	 */
 	static public String removeBrackets(String text) {
-//		return s.replaceAll("\\(.*?\\)", "");
+		return removeBrackets(text, defaultBracketsMap);
+	}
+
+	/**
+	 * 指定したカッコに閉じられた部分を除去する
+	 * 
+	 * @param text
+	 * @param m
+	 * @return
+	 */
+	static public String removeBrackets(String text, Map<Character, Character> m) {
 
 		StringBuilder sb = new StringBuilder();
 		Stack<Character> stk = new Stack<Character>();
 		for (int n = 0; n < text.length(); n++) {
 			char c = text.charAt(n);
-			if (c == '(') {
-				stk.push(')');
+
+			if (m.containsKey(c)) {
+				stk.push(m.get(c));
 				continue;
 			} //
-			else if (c == '{') {
-				stk.push('}');
-				continue;
-			} //
-//			else if (c == '[') {
-//				stk.push(']');
+//			if (c == '(') {
+//				stk.push(')');
+//				continue;
+//			} //
+//			else if (c == '{') {
+//				stk.push('}');
 //				continue;
 //			} //
 			else if (stk.empty() == false && c == stk.peek()) {
