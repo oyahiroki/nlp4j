@@ -117,6 +117,12 @@ public class KeywordsUtil {
 		return sb.toString();
 	}
 
+	/**
+	 * Keywordオブジェクトのリストを、キーワード正規形の配列に変換する
+	 * 
+	 * @param kwds
+	 * @return
+	 */
 	static public String[] toLexArray(List<Keyword> kwds) {
 		if (kwds == null) {
 			return null;
@@ -132,6 +138,8 @@ public class KeywordsUtil {
 	}
 
 	/**
+	 * Keywordオブジェクトのリストを、キーワード正規形のListに変換する
+	 * 
 	 * @param kwds
 	 * @return List of Keyword lex
 	 * @since 1.3.7.12
@@ -151,6 +159,8 @@ public class KeywordsUtil {
 	}
 
 	/**
+	 * Keywordオブジェクトのリストを、キーワード正規形のSetに変換する
+	 * 
 	 * @param kwds
 	 * @return Set of Keyword lex
 	 * @since 1.3.7.12

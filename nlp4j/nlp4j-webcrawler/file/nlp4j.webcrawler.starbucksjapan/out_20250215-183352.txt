@@ -1,0 +1,9 @@
+1	銀座松屋通り店	https://store.starbucks.co.jp/detail-1/
+2	お茶の水村田ビル店	https://store.starbucks.co.jp/detail-2/
+3	ヤエチカ店	https://store.starbucks.co.jp/detail-3/
+4	町田東急ツインズWEST店	https://store.starbucks.co.jp/detail-4/
+5	日比谷シティ店	https://store.starbucks.co.jp/detail-5/
+6	アークヒルズ店	https://store.starbucks.co.jp/detail-6/
+7	NOT_FOUND	https://store.starbucks.co.jp/detail-7/
+8	みなとみらい東急スクエア店	https://store.starbucks.co.jp/detail-8/
+9	渋谷文化村通り店	https://store.starbucks.co.jp/detail-9/

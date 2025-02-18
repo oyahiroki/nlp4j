@@ -43,7 +43,8 @@ public class KeywordsUtilTestCase extends TestCase {
 		// TODO
 	}
 
-	public void testToLexArray() {
+	public void testToLexArray001() {
+		String[] expected = { "aaa", "bbb", "ccc" };
 		List<Keyword> kwds = new ArrayList<>();
 		{
 			kwds.add(new DefaultKeyword(null, "aaa"));
@@ -52,9 +53,13 @@ public class KeywordsUtilTestCase extends TestCase {
 		}
 		String[] lexArray = KeywordsUtil.toLexArray(kwds);
 		System.err.println(Arrays.toString(lexArray));
+		for (int n = 0; n < expected.length; n++) {
+			assertEquals(expected[n], lexArray[n]);
+		}
+
 	}
 
-	public void testToLexList() {
+	public void testToLexList001() {
 		List<Keyword> kwds = new ArrayList<>();
 		{
 			kwds.add(new DefaultKeyword(null, "aaa"));
@@ -65,7 +70,7 @@ public class KeywordsUtilTestCase extends TestCase {
 		System.err.println(list);
 	}
 
-	public void testToLexSet() {
+	public void testToLexSet001() {
 		List<Keyword> kwds = new ArrayList<>();
 		{
 			kwds.add(new DefaultKeyword(null, "aaa"));
