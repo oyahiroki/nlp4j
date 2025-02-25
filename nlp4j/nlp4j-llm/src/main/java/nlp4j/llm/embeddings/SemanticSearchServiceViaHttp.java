@@ -15,7 +15,6 @@ import com.google.gson.JsonObject;
 import nlp4j.NlpService;
 import nlp4j.NlpServiceResponse;
 import nlp4j.http.HttpClient;
-import nlp4j.http.HttpClient5;
 import nlp4j.http.HttpClientBuilder;
 import nlp4j.util.JsonObjectUtils;
 
@@ -56,6 +55,15 @@ public class SemanticSearchServiceViaHttp implements NlpService, Closeable {
 
 	private String endPoint;
 
+	/**
+	 * <pre>
+	 * 前提条件
+	 * 以下のプログラムを起動する
+	 * nlp4j-llm/python/nlp4j-embedding_cosine_similarity-server-e5.py
+	 * </pre>
+	 * 
+	 * @param endPoint
+	 */
 	public SemanticSearchServiceViaHttp(String endPoint) {
 		super();
 		this.endPoint = endPoint;

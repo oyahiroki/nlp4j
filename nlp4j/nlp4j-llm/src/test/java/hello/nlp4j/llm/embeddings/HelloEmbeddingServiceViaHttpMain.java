@@ -1,6 +1,7 @@
-package nlp4j.llm.embeddings;
+package hello.nlp4j.llm.embeddings;
 
 import nlp4j.NlpServiceResponse;
+import nlp4j.llm.embeddings.EmbeddingServiceViaHttp;
 import nlp4j.util.JsonUtils;
 
 public class HelloEmbeddingServiceViaHttpMain {

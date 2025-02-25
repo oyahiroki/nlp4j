@@ -1,5 +1,8 @@
 # coding: utf-8
 
+# コサイン類似度専用サーバー
+# Cosine Simirality Server
+
 from http.server import HTTPServer
 from http.server import BaseHTTPRequestHandler
 from urllib.parse import urlparse
@@ -13,16 +16,24 @@ import time
 import datetime
 import signal
 from sentence_transformers import SentenceTransformer, util
+import argparse
 
 signal.signal(signal.SIGINT, signal.SIG_DFL)
 
 def sig_handler(signum, frame) -> None:
 	sys.exit(1)
 
-class HelloHttpRequestHandler(BaseHTTPRequestHandler):
+# 初期化
+print("initializing ... 1/2")
+model = SentenceTransformer('intfloat/multilingual-e5-large')
+print("initializing ... 2/2")
+model.encode(["test"])
+# 初期化...終了
+print("initializing ... done")
 
+
+class HelloHttpRequestHandler(BaseHTTPRequestHandler):
 	count = 0
-	model = SentenceTransformer('intfloat/multilingual-e5-large')
 	
 	def __init__(self, request, client_address, server):
 		print("init request handler")
@@ -40,9 +51,9 @@ class HelloHttpRequestHandler(BaseHTTPRequestHandler):
 			# print(requestbodyjson['s'])
 			# s
 			response_data['s'] = requestbodyjson['s']
-			query_embedding = self.model.encode(requestbodyjson['s'])
+			query_embedding = model.encode(requestbodyjson['s'])
 
-			corpus_embeddings = self.model.encode(requestbodyjson['tt'])
+			corpus_embeddings = model.encode(requestbodyjson['tt'])
 			r = util.semantic_search(query_embedding, corpus_embeddings)
 			# print(r)
 			response_data["tt"] = requestbodyjson['tt']
@@ -80,20 +91,25 @@ class HelloHttpRequestHandler(BaseHTTPRequestHandler):
 		return
 
 class HelloHttpServer(ThreadingMixIn, HTTPServer):
-	def __init__(self, address, handlerClass=HelloHttpRequestHandler, option=0):
-		print("init")
-		print("curl -X POST -H \"Content-Type: application/json\" -d \"{'s': '今日はとてもいい天気です。', 'tt': ['私は学校に行きます。']}\" http://" + address[0] + ":" + str(address[1]) + "/")
-		super().__init__(address, handlerClass)
+	pass
+#	def __init__(self, address, handlerClass=HelloHttpRequestHandler, option=0):
+#		print("init")
+#		print("curl -X POST -H \"Content-Type: application/json\" -d \"{'s': '今日はとてもいい天気です。', 'tt': ['私は学校に行きます。']}\" http://" + address[0] + ":" + str(address[1]) + "/")
+#		super().__init__(address, handlerClass)
 
 def main():
-	
 	signal.signal(signal.SIGTERM, sig_handler)
-	ip = '127.0.0.1'
-	port = 8888
-	args = sys.argv[1:]
-	if (len(args)==1):
-		port = int(args[0])
+#    ip = '127.0.0.1'
+    ip = '0.0.0.0'
+	
+	parser = argparse.ArgumentParser(description="nlp4j-embedding")
+	parser.add_argument("-p", "--port", type=int, default=8888, help="Port Number")
+	args = parser.parse_args()	
+	
+	port = args.port
+
 	server = HelloHttpServer((ip,port),HelloHttpRequestHandler)
+	
 	try:
 		server.serve_forever()
 	except KeyboardInterrupt:
@@ -103,3 +119,4 @@ def main():
 
 if __name__ == '__main__':
 	main()
+

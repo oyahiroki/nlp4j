@@ -7,13 +7,14 @@ import org.apache.logging.log4j.Logger;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import nlp4j.Document;
 import nlp4j.util.JsonUtils;
 
 /**
- * Parse GiNZA response
+ * Parse embedding response
  * 
  * @author Hiroki Oya
  *
@@ -36,14 +37,20 @@ public class EmbeddingsResponseParser {
 			// time
 			// text
 			// embeddings
+			JsonElement je = responseDoc.get("embeddings");
 
-			JsonArray embeddings = responseDoc.get("embeddings").getAsJsonArray();
-			if (logger.isDebugEnabled()) {
-				logger.debug(embeddings.size());
-			}
-			Double[] dd = new Double[embeddings.size()];
-			for (int n = 0; n < embeddings.size(); n++) {
-				dd[n] = embeddings.get(n).getAsDouble();
+			if (je != null) {
+				JsonArray embeddings = je.getAsJsonArray();
+				if (logger.isDebugEnabled()) {
+					logger.debug(embeddings.size());
+				}
+				Double[] dd = new Double[embeddings.size()];
+				for (int n = 0; n < embeddings.size(); n++) {
+					dd[n] = embeddings.get(n).getAsDouble();
+				}
+
+			} else {
+				logger.error("SERVER RESPONSE_INVALID: (embedding response is null");
 			}
 		}
 

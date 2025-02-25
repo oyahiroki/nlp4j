@@ -1,9 +1,10 @@
-package nlp4j.llm.embeddings;
+package hello.nlp4j.llm.embeddings;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import nlp4j.NlpServiceResponse;
+import nlp4j.llm.embeddings.SemanticSearchServiceViaHttp;
 import nlp4j.util.JsonUtils;
 
 public class HelloSemanticSearchServiceViaHttpMain {
