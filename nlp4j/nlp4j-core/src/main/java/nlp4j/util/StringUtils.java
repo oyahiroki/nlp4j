@@ -337,4 +337,13 @@ public class StringUtils {
 		return BigDecimal.valueOf(d).toPlainString();
 	}
 
+	/**
+	 * @param f
+	 * @return
+	 * @since 1.3.7.16
+	 */
+	static public String toString(float f) {
+		return BigDecimal.valueOf(f).toPlainString();
+	}
+
 }

@@ -1,31 +1,24 @@
 package hellovector2;
 
-import java.util.Arrays;
-
 import org.apache.solr.client.solrj.impl.Http2SolrClient;
 import org.apache.solr.client.solrj.response.UpdateResponse;
 import org.apache.solr.common.SolrInputDocument;
 
-import com.google.gson.Gson;
-
-import nlp4j.NlpServiceResponse;
-import nlp4j.llm.embeddings.EmbeddingResponse;
-import nlp4j.llm.embeddings.EmbeddingServiceViaHttp;
-import nlp4j.util.DoubleUtils;
+import nlp4j.llm.embeddings.LlmClient;
 
 public class Hello2_Add1024_1 {
 
 	public static void main(String[] args) throws Exception {
 		String text = "１日はとてもいい天気でした。";
 		String endPoint = "http://localhost:8888/";
-		EmbeddingServiceViaHttp nlp = new EmbeddingServiceViaHttp(endPoint);
-		NlpServiceResponse res = nlp.process(text);
+//		EmbeddingServiceViaHttp nlp = new EmbeddingServiceViaHttp(endPoint);
+//		NlpServiceResponse res = nlp.process(text);
 //		System.err.println(res);
 //		System.err.println(JsonUtils.prettyPrint(res.getOriginalResponseBody()));
 //		JsonObject jo = JsonObjectUtils.fromJson(res.getOriginalResponseBody());
 //		System.err.println(JsonUtils.prettyPrint(jo));
 
-		EmbeddingResponse r = (new Gson()).fromJson(res.getOriginalResponseBody(), EmbeddingResponse.class);
+//		EmbeddingResponse r = (new Gson()).fromJson(res.getOriginalResponseBody(), EmbeddingResponse.class);
 //		System.err.println(Arrays.toString(r.getEmbeddings()));
 //		System.err.println(r.getEmbeddings().length);
 
@@ -34,7 +27,9 @@ public class Hello2_Add1024_1 {
 			String collection = "vector1024";
 
 			try (Http2SolrClient solrClient = new Http2SolrClient.Builder(endPoint2 + collection) //
-					.build();) {
+					.build(); //
+					LlmClient nlp = new LlmClient(endPoint); //
+			) {
 
 				// org.apache.solr.common.SolrInputDocument
 				SolrInputDocument inputDocument = new SolrInputDocument();
@@ -44,7 +39,8 @@ public class Hello2_Add1024_1 {
 					inputDocument.addField("field1_s", "aaa"); // *_s
 					String[] ss = { "aaa", "bbb", "ccc" };
 					inputDocument.addField("field2_ss", ss); // *_ss
-					inputDocument.setField("vector1024", DoubleUtils.toFloatList(r.getEmbeddings()));
+//					inputDocument.setField("vector1024", DoubleUtils.toFloatList(r.getEmbeddings()));
+					inputDocument.setField("vector1024", nlp.embedding(text));
 //					inputDocument.setField("vector1024", DoubleUtils.toPlainString(r.getEmbeddings()));
 				}
 

@@ -20,8 +20,9 @@ import nlp4j.annotator.AttributeNameConverter;
 import nlp4j.annotator.FunctionDocumentAnnotator;
 import nlp4j.crawler.JsonLineSeparatedCrawler;
 import nlp4j.json.JsonFileReader;
-import nlp4j.llm.embeddings.EmbeddingResponse;
-import nlp4j.llm.embeddings.EmbeddingServiceViaHttp;
+import nlp4j.llm.embeddings.LlmClient;
+//import nlp4j.llm.embeddings.EmbeddingResponse;
+//import nlp4j.llm.embeddings.EmbeddingServiceViaHttp;
 import nlp4j.util.DateUtils;
 import nlp4j.util.DocumentUtil;
 import nlp4j.util.DocumentsUtils;
@@ -97,14 +98,14 @@ public class Hello2_Add1024_2 {
 		String text = doc1.getText();
 
 		String endPoint = "http://localhost:8888/";
-		EmbeddingServiceViaHttp nlp = new EmbeddingServiceViaHttp(endPoint);
-		NlpServiceResponse res = nlp.process(text);
+//		EmbeddingServiceViaHttp nlp = new EmbeddingServiceViaHttp(endPoint);
+//		NlpServiceResponse res = nlp.process(text);
 //		System.err.println(res);
 //		System.err.println(JsonUtils.prettyPrint(res.getOriginalResponseBody()));
 //		JsonObject jo = JsonObjectUtils.fromJson(res.getOriginalResponseBody());
 //		System.err.println(JsonUtils.prettyPrint(jo));
 
-		EmbeddingResponse r = (new Gson()).fromJson(res.getOriginalResponseBody(), EmbeddingResponse.class);
+//		EmbeddingResponse r = (new Gson()).fromJson(res.getOriginalResponseBody(), EmbeddingResponse.class);
 //		System.err.println(Arrays.toString(r.getEmbeddings()));
 //		System.err.println(r.getEmbeddings().length);
 
@@ -113,7 +114,7 @@ public class Hello2_Add1024_2 {
 			String collection = "vector1024";
 
 			try (Http2SolrClient solrClient = new Http2SolrClient.Builder(endPoint2 + collection) //
-					.build();) {
+					.build(); LlmClient nlp = new LlmClient(endPoint);) {
 
 				// org.apache.solr.common.SolrInputDocument
 				SolrInputDocument inputDocument = new SolrInputDocument();
@@ -130,7 +131,8 @@ public class Hello2_Add1024_2 {
 					inputDocument.addField("vehicle_name", doc1.getAttribute("vehicle_name"));
 
 					inputDocument.addField("text_txt_ja", doc1.getText());
-					inputDocument.setField("vector1024", DoubleUtils.toFloatList(r.getEmbeddings()));
+//					inputDocument.setField("vector1024", DoubleUtils.toFloatList(r.getEmbeddings()));
+					inputDocument.setField("vector1024", nlp.embedding(text));
 //					inputDocument.setField("vector1024", DoubleUtils.toPlainString(r.getEmbeddings()));
 				}
 

@@ -26,6 +26,27 @@ public class DoubleUtils {
 	}
 
 	/**
+	 * @since 1.3.7.16
+	 */
+	static public String toPlainString(double d) {
+		return StringUtils.toString(d);
+	}
+
+	/**
+	 * @since 1.3.7.16
+	 */
+	static public String toString(double d) {
+		return StringUtils.toString(d);
+	}
+
+	/**
+	 * @since 1.3.7.16
+	 */
+	static public String toString(double[] dd) {
+		return toPlainString(dd);
+	}
+
+	/**
 	 * @since 1.3.7.13
 	 */
 	static public List<Float> toFloatList(double[] dd) {

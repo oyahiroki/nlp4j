@@ -1,27 +1,18 @@
 package hellovector2;
 
-import java.util.Arrays;
-
-import com.google.gson.Gson;
-
-import nlp4j.NlpServiceResponse;
-import nlp4j.llm.embeddings.EmbeddingResponse;
-import nlp4j.llm.embeddings.EmbeddingServiceViaHttp;
+import nlp4j.llm.embeddings.LlmClient;
+import nlp4j.util.FloatUtils;
 
 public class Hello1 {
 
 	public static void main(String[] args) throws Exception {
 		String text = "今日はとてもいい天気です。";
 		String endPoint = "http://localhost:8888/";
-		EmbeddingServiceViaHttp nlp = new EmbeddingServiceViaHttp(endPoint);
-		NlpServiceResponse res = nlp.process(text);
-//		System.err.println(res);
-//		System.err.println(JsonUtils.prettyPrint(res.getOriginalResponseBody()));
-//		JsonObject jo = JsonObjectUtils.fromJson(res.getOriginalResponseBody());
-//		System.err.println(JsonUtils.prettyPrint(jo));
+		try (LlmClient nlp = new LlmClient(endPoint);) {
+			float[] ff = nlp.embedding(text);
+			System.err.println(FloatUtils.toString(ff));
+		}
 
-		EmbeddingResponse r = (new Gson()).fromJson(res.getOriginalResponseBody(), EmbeddingResponse.class);
-		System.err.println(Arrays.toString(r.getEmbeddings()));
 	}
 
 }

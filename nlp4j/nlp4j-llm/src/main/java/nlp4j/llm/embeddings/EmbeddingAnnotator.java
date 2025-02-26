@@ -6,13 +6,10 @@ import java.lang.invoke.MethodHandles;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.google.gson.Gson;
-
 import nlp4j.AbstractDocumentAnnotator;
 import nlp4j.Document;
 import nlp4j.DocumentAnnotator;
 import nlp4j.DocumentBuilder;
-import nlp4j.NlpServiceResponse;
 import nlp4j.util.DoubleUtils;
 
 /**
@@ -25,7 +22,6 @@ import nlp4j.util.DoubleUtils;
 public class EmbeddingAnnotator extends AbstractDocumentAnnotator implements DocumentAnnotator {
 
 	private static final String EMBEDDING_ENDPOINT_DEFAULT = "http://localhost:8888/";
-	private static final String SEMANTICSEARCH_ENDPOINT_DEFAULT = "http://localhost:8888/semanticsearch";
 
 	static private final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
@@ -54,7 +50,7 @@ public class EmbeddingAnnotator extends AbstractDocumentAnnotator implements Doc
 			throw new IOException(e);
 		}
 	}
-	
+
 	/**
 	 * <pre>
 	 * String vector_name = "vector";
@@ -71,13 +67,15 @@ public class EmbeddingAnnotator extends AbstractDocumentAnnotator implements Doc
 			long time1 = System.currentTimeMillis();
 			logger.info("embedding ... ");
 			String text = doc.getAttributeAsString(target);
-			EmbeddingServiceViaHttp nlp = new EmbeddingServiceViaHttp(EMBEDDING_ENDPOINT);
-			NlpServiceResponse res = nlp.process(text);
-			EmbeddingResponse r = (new Gson()).fromJson(res.getOriginalResponseBody(), EmbeddingResponse.class);
-//			System.err.println(Arrays.toString(r.getEmbeddings()));
-			doc.putAttribute(vector_fieldname, r.getEmbeddings());
-			long time2 = System.currentTimeMillis();
-			logger.info("embedding ... done " + (time2 - time1));
+
+			try (LlmClient client = new LlmClient(EMBEDDING_ENDPOINT);) {
+
+				float[] ff = client.embedding(text);
+
+				doc.putAttribute(vector_fieldname, ff);
+				long time2 = System.currentTimeMillis();
+				logger.info("embedding ... done " + (time2 - time1));
+			}
 		}
 	}
 

@@ -324,6 +324,23 @@ public class JsonObjectUtils {
 	}
 
 	/**
+	 * created_on: 2025-2-26
+	 * 
+	 * @param s
+	 * @return
+	 * @since 1.3.7.16
+	 */
+	static public JsonArray toJsonArray(String s) {
+		if (s == null) {
+			return null;
+		} else {
+			JsonArray arr = new JsonArray();
+			arr.add(s);
+			return arr;
+		}
+	}
+
+	/**
 	 * created on 2023-09-13
 	 * 
 	 * @param ss
