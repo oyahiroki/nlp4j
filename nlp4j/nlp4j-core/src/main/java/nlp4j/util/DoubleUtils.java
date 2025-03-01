@@ -58,6 +58,17 @@ public class DoubleUtils {
 	}
 
 	/**
+	 * @since 1.3.7.16
+	 */
+	static public List<Double> toDoubleList(double... dd) {
+		List<Double> list = new ArrayList<Double>();
+		for (int n = 0; n < dd.length; n++) {
+			list.add(dd[n]);
+		}
+		return list;
+	}
+
+	/**
 	 * @since 1.3.7.13
 	 */
 	static public List<Float> toFloatList(List<Number> dd) {
