@@ -12,6 +12,17 @@ import junit.framework.TestCase;
 public class FileUtilsTestCase extends TestCase {
 
 	/**
+	 * Created on: 2025-3-2
+	 * 
+	 * @since 1.3.7.16
+	 * @throws Exception
+	 */
+	public void testCheck001() throws Exception {
+		File tempFile = File.createTempFile("nlp4j", ".temp");
+		FileUtils.checExists(tempFile);
+	}
+
+	/**
 	 * @since 1.3.7.12
 	 * @throws Exception
 	 */

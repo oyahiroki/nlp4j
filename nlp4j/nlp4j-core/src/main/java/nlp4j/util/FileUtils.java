@@ -61,6 +61,33 @@ public class FileUtils {
 	}
 
 	/**
+	 * <pre>
+	 * 指定されたファイル名を持つファイルの存在をチェックします。
+	 * ファイルが存在しない場合、FileNotFoundExceptionをスローします。
+	 * </pre>
+	 * 
+	 * @param file チェックするファイル
+	 * @throws IOException ファイルが存在しない場合にスローされる例外
+	 */
+	static public void check(File file) throws IOException {
+		checExists(file);
+	}
+
+	/**
+	 * <pre>
+	 * 指定されたファイル名を持つファイルの存在をチェックします。
+	 * ファイルが存在しない場合、FileNotFoundExceptionをスローします。
+	 * </pre>
+	 * 
+	 * @param fileName チェックするファイルの名前
+	 * @throws IOException ファイルが存在しない場合にスローされる例外
+	 */
+	static public void check(String fileName) throws IOException {
+		File file = new File(fileName);
+		checExists(file);
+	}
+
+	/**
 	 * @param fromFiles
 	 * @param toFile
 	 * @return the number of bytes copied, or -1 if greater than Integer.MAX_VALUE.
@@ -78,6 +105,27 @@ public class FileUtils {
 			number_of_bytes_copied = IOUtils.copy(sis, new FileOutputStream(toFile));
 			return number_of_bytes_copied;
 		}
+	}
+
+	/**
+	 * @param fileName
+	 * @return
+	 * @throws IOException
+	 * @since 1.3.7.16
+	 */
+	static public boolean exists(String fileName) throws IOException {
+		return (new File(fileName)).exists();
+	}
+
+	/**
+	 * Returns the absolute pathname string of this abstract pathname.
+	 * 
+	 * @param fileName
+	 * @return
+	 * @since 1.3.7.16
+	 */
+	static public String getAbsolutePath(String fileName) {
+		return (new File(fileName)).getAbsolutePath();
 	}
 
 	/**

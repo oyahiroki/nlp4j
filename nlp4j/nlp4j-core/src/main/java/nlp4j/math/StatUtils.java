@@ -12,8 +12,10 @@ import nlp4j.util.CollectionUtils;
 
 /**
  * <pre>
- * Provides utility methods for working with collections
- * created on: 2025-2-26
+ * 数値の集合に対する統計的操作を提供するユーティリティクラス。
+ * Provides utility methods for working with collections of numeric values.
+ * 
+ *  created on: 2025-2-26
  * </pre>
  * 
  * @since 1.3.7.16
@@ -21,10 +23,14 @@ import nlp4j.util.CollectionUtils;
 public class StatUtils {
 
 	/**
-	 * 値の小さな順にスコア付けをする
+	 * <pre>
+	 * 与えられたスコアの配列に対して、値の小さい順に順位をつける。
+	 * Performs a rank transformation on the input data, returning an array of
+	 * ranks ordered from the smallest to the largest values.
+	 * </pre>
 	 * 
-	 * @param scores
-	 * @return
+	 * @param scores 数値の配列。An array of numeric scores.
+	 * @return 順位の配列。An array of ranks.
 	 */
 	static public double[] rank(double[] scores) {
 		RankingAlgorithm rankingAlgorithm = new NaturalRanking();
@@ -33,17 +39,45 @@ public class StatUtils {
 		return rank;
 	}
 
+	/**
+	 * <pre>
+	 * 与えられたスコアの配列に対して、値の大きい順に順位をつける。
+	 * Performs a rank transformation on the input data, returning an array of
+	 * ranks ordered from the largest to the smallest values.
+	 * </pre>
+	 * 
+	 * @param scores 数値の配列。An array of numeric scores.
+	 * @return 順位の配列。An array of ranks.
+	 */
 	static public double[] rank_reversed(double[] scores) {
 		reverse(scores);
 		return rank(scores);
 	}
 
+	/**
+	 * <pre>
+	 * 配列の各要素の符号を反転させるヘルパーメソッド。
+	 * A helper method that inverts the sign of each element in the array.
+	 * </pre>
+	 * 
+	 * @param scores 数値の配列。An array of numeric scores.
+	 */
 	private static void reverse(double[] scores) {
 		for (int n = 0; n < scores.length; n++) {
 			scores[n] = -scores[n];
 		}
 	}
 
+	/**
+	 * <pre>
+	 * 与えられたスコアの配列に対して、最大戦略で値の小さい順に順位をつける。
+	 * Performs a rank transformation using the maximum strategy on ties, returning an array of
+	 * ranks ordered from the smallest to the largest values.
+	 * </pre>
+	 * 
+	 * @param scores 数値の配列。An array of numeric scores.
+	 * @return 順位の配列。An array of ranks.
+	 */
 	static public double[] rank_TiesMaxStragegy(double[] scores) {
 		RankingAlgorithm rankingAlgorithm = new NaturalRanking(TiesStrategy.MAXIMUM);
 		// A,B,C に対するスコアの順位
@@ -51,6 +85,16 @@ public class StatUtils {
 		return rank;
 	}
 
+	/**
+	 * <pre>
+	 * 与えられたスコアの配列に対して、最大戦略で値の大きい順に順位をつける。
+	 * Performs a rank transformation using the maximum strategy on ties, returning an array of
+	 * ranks ordered from the largest to the smallest values.
+	 * </pre>
+	 * 
+	 * @param scores 数値の配列。An array of numeric scores.
+	 * @return 順位の配列。An array of ranks.
+	 */
 	static public double[] rank_TiesMaxStragegy_reversed(double[] scores) {
 		reverse(scores);
 		return rank_TiesMaxStragegy(scores);
