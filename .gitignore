@@ -11,8 +11,9 @@
 .mtj.tmp/
 
 # Package Files #
-*.jar
-*.war
+# 2025-03-10 *.jar
+*-javadoc.jar
+# 2025-03-10 *.war
 *.nar
 *.ear
 *.zip
