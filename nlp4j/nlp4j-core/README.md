@@ -85,6 +85,35 @@ package without test
 	[INFO] +- com.google.code.gson:gson:jar:2.9.0:compile
 	[INFO] \- junit:junit:jar:3.8.2:test
 
+# Maven Tips (2)
+
+すでに公開済みのバージョンを指定してビルドすると失敗する
+
+```
+[ERROR]
+[ERROR] Nexus Staging Rules Failure Report
+[ERROR] ==================================
+[ERROR]
+[ERROR] Repository "orgnlp4j-1091" failures
+[ERROR]   Rule "RepositoryWritePolicy" failures
+[ERROR]     * Artifact updating: Repository ='releases:Releases' does not allow updating artifact='/org/nlp4j/nlp4j-core/1.3.7.16/nlp4j-core-1.3.7.16.jar'
+[ERROR]     * Artifact updating: Repository ='releases:Releases' does not allow updating artifact='/org/nlp4j/nlp4j-core/1.3.7.16/nlp4j-core-1.3.7.16-javadoc.jar'
+[ERROR]     * Artifact updating: Repository ='releases:Releases' does not allow updating artifact='/org/nlp4j/nlp4j-core/1.3.7.16/nlp4j-core-1.3.7.16.pom'
+[ERROR]     * Artifact updating: Repository ='releases:Releases' does not allow updating artifact='/org/nlp4j/nlp4j-core/1.3.7.16/nlp4j-core-1.3.7.16-sources.jar'
+[ERROR]
+[ERROR]
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  02:35 min
+[INFO] Finished at: 2025-03-10T11:13:10+09:00
+[INFO] ------------------------------------------------------------------------
+[WARNING] The requested profile "deploy" could not be activated because it does not exist.
+[ERROR] Failed to execute goal org.sonatype.plugins:nexus-staging-maven-plugin:1.7.0:deploy (injected-nexus-deploy) on project nlp4j-core: Could not perform action: there are failing staging rules!: Staging rules failure! -> [Help 1]
+org.apache.maven.lifecycle.LifecycleExecutionException: Failed to execute goal org.sonatype.plugins:nexus-staging-maven-plugin:1.7.0:deploy (injected-nexus-deploy) on project nlp4j-core: Could not perform action: there are failing staging rules!
+```
+
+
 # Maven Central Repository Console
 
 [https://oss.sonatype.org/](https://oss.sonatype.org/)		
