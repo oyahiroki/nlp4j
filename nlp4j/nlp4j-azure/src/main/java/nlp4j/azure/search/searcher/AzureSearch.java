@@ -87,17 +87,21 @@ public class AzureSearch extends AbstractDocumentSearcher implements DocumentSea
 				facet2 = facet2.substring(0, facet2.indexOf(","));
 			}
 
-			System.err.println("facet1: " + facet1Date);
-			System.err.println("facet2: " + facet2);
+			if (logger.isDebugEnabled()) {
+				logger.debug("facet1: " + facet1Date);
+				logger.debug("facet2: " + facet2);
+				logger.debug(JsonUtils.prettyPrint(jsonObj1));
+			}
 
-//			logger.info("search");
-//			logger.debug(JsonUtils.prettyPrint(jsonObj1));
+			logger.info("search");
 
 			AzureSearchClient az = new AzureSearchClient(super.props);
 
 			JsonObject res1 = az.post("search", jsonObj1);
 
-			System.err.println(JsonUtils.prettyPrint(res1));
+			if (logger.isDebugEnabled()) {
+				logger.debug(JsonUtils.prettyPrint(res1));
+			}
 
 			res = res1.deepCopy();
 
@@ -159,7 +163,9 @@ public class AzureSearch extends AbstractDocumentSearcher implements DocumentSea
 
 				{
 					logger.info("search");
-					logger.debug(JsonUtils.prettyPrint(jsonObj2));
+					if (logger.isDebugEnabled()) {
+						logger.debug(JsonUtils.prettyPrint(jsonObj2));
+					}
 
 					// search
 					JsonObject res2 = az.post("search", jsonObj2);
@@ -285,7 +291,10 @@ public class AzureSearch extends AbstractDocumentSearcher implements DocumentSea
 					+ "}";
 			JsonObject requestObj = (new Gson()).fromJson(json, JsonObject.class);
 			JsonObject res = this.search(requestObj);
-//			System.out.println(JsonUtils.prettyPrint(res));
+			if (logger.isDebugEnabled()) {
+				logger.debug("response");
+				logger.debug(JsonUtils.prettyPrint(res));
+			}
 			{
 				count_of_documents_all = res.get("@odata.count").getAsInt();
 			}
@@ -339,7 +348,9 @@ public class AzureSearch extends AbstractDocumentSearcher implements DocumentSea
 		JsonArray arr = new JsonArray();
 
 		for (Map.Entry<String, Double> ee : ww) {
-			System.err.println("" + ee.getKey() + "," + ee.getValue());
+			if (logger.isDebugEnabled()) {
+				logger.debug("" + ee.getKey() + "," + ee.getValue());
+			}
 			JsonObject o = new JsonObject();
 			o.addProperty("value", ee.getKey());
 			o.addProperty("count", countMap.get(ee.getKey()));
@@ -347,9 +358,10 @@ public class AzureSearch extends AbstractDocumentSearcher implements DocumentSea
 			arr.add(o);
 		}
 
-//		System.out.println(arr);
-		for (int n = 0; n < arr.size(); n++) {
-			System.out.println(arr.get(n).getAsJsonObject());
+		if (logger.isDebugEnabled()) {
+			for (int n = 0; n < arr.size(); n++) {
+				logger.debug(arr.get(n).getAsJsonObject());
+			}
 		}
 
 //		System.err.println("count(*)" + count_of_documents_all);

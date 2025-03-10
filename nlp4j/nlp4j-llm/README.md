@@ -24,3 +24,6 @@ $ python3 nlp4j-embedding_cosine_similarity-server-e5.py
 
 2. nlp4j.llm.embeddings.SemanticSearchServiceViaHttp を利用する
 
+# Build for Release
+
+	mvn -DperformRelease=true clean deploy

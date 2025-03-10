@@ -4,9 +4,7 @@ import java.io.IOException;
 import java.lang.invoke.MethodHandles;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -21,7 +19,6 @@ import nlp4j.util.DoubleUtils;
 import nlp4j.util.FloatUtils;
 import nlp4j.util.JsonObjectUtils;
 import nlp4j.util.LoggerUtils;
-import nlp4j.util.MapBuilder;
 
 public class LlmClient implements AutoCloseable {
 

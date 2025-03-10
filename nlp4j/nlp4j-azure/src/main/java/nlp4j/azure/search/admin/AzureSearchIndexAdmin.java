@@ -45,7 +45,7 @@ public class AzureSearchIndexAdmin {
 
 		try (Response response = client.newCall(request).execute()) {
 			int responseCode = response.code();
-			String responseBody = response.body().string();
+//			String responseBody = response.body().string();
 
 			if (responseCode == 200) {
 				System.err.println(

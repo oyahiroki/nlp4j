@@ -44,7 +44,7 @@ public class AzureSearchIndexAdmin_ApiVersion20190506 {
 
 		try (Response response = client.newCall(request).execute()) {
 			int responseCode = response.code();
-			String responseBody = response.body().string();
+//			String responseBody = response.body().string();
 
 			if (responseCode == 200) {
 				System.err.println(
@@ -168,7 +168,7 @@ public class AzureSearchIndexAdmin_ApiVersion20190506 {
 		try (Response response = client.newCall(request).execute()) {
 
 			int responseCode = response.code();
-			String originalResponseBody = response.body().string();
+//			String originalResponseBody = response.body().string();
 
 			if (responseCode == 200) {
 				System.err.println(
