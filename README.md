@@ -40,7 +40,7 @@ Document search: [apache solr](https://github.com/oyahiroki/nlp4j/tree/master/nl
 </dependency>
 ```
 
-## NLP4J Code for simple English Morphological analysis
+## Simple English Morphological analysis (NLP4J)
 
 ```java
 String text = "I eat sushi with chopsticks.";
@@ -61,7 +61,7 @@ doc.getKeywords().forEach(kwd -> {
 // 27,28,word..,.
 ```
 
-## NLP4J Code for simple English Syntax analysis
+## Simple English Syntax analysis (NLP4J)
 
 ```java
 StanfordPosDependencyAnnotator ann = new StanfordPosDependencyAnnotator();
@@ -101,7 +101,7 @@ doc.getKeywords().forEach(kwd -> {
 
 ```
 
-## NLP4J Code for simple English Syntax analysis (2)
+## Simple English Syntax analysis (2) (NLP4J)
 
 ```java
 public static void main(String[] args) throws Exception {
@@ -147,7 +147,7 @@ private static void print(KeywordWithDependency kd) {
 
 ```
 
-## NLP4J Code for Stanford NLP Open IE(Information Extraction), Triples, Clauses
+## Stanford NLP Open IE(Information Extraction), Triples, Clauses (NLP4J)
 
 ```java
 StanfordOpenIEAnnotator ann = new StanfordOpenIEAnnotator();
@@ -173,7 +173,41 @@ doc.getKeywords().forEach(kwd -> System.out.println(kwd.getFacet() + "," + kwd.g
 // pattern.oie.clause,Mount Fuji located on the island of Honshu
 ```
 
-## NLP4J Maven for Reading Wikipedia Dump
+## Read File Example (NLP4J)
+
+```
+{ // Plain Text JsonLines
+	File file = new File("src/test/resources/examples/example.jsonl");
+	DocumentUtil.stream(file).forEach(d -> {
+		System.out.println(d.toString());
+	});
+}
+{ // GZip JSON Lines
+	File file = new File("src/test/resources/examples/example.jsonl.gz");
+	DocumentUtil.stream(file).forEach(d -> {
+		System.out.println(d.toString());
+	});
+
+}
+{ // CSV
+	File file = new File("src/test/resources/examples/example_utf8bom.csv");
+	DocumentUtil.stream(file).forEach(d -> {
+		System.out.println(d.toString());
+	});
+}
+{ // Gzip CSV
+	File file = new File("src/test/resources/examples/example_utf8bom.csv.gz");
+	DocumentUtil.stream(file).forEach(d -> {
+		System.out.println(d.toString());
+	});
+
+}
+
+```
+
+https://github.com/oyahiroki/nlp4j/blob/master/nlp4j/nlp4j-core/src/test/java/examples/Example010_ReadFileAsDocument.java
+
+## Maven for Reading Wikipedia Dump
 
 ```xml
 <!-- https://mvnrepository.com/artifact/org.nlp4j/nlp4j-wiki -->
@@ -185,7 +219,7 @@ doc.getKeywords().forEach(kwd -> System.out.println(kwd.getFacet() + "," + kwd.g
 
 ```
 
-## NLP4J Code for reading Wikipedia Dump
+## Read Wikipedia Dump (NLP4J)
 
 ```java
 String itemString = "Nintendo";
