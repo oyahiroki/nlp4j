@@ -40,6 +40,10 @@ Document search: [apache solr](https://github.com/oyahiroki/nlp4j/tree/master/nl
 </dependency>
 ```
 
+## NLP4J-CORE Maven
+
+https://central.sonatype.com/artifact/org.nlp4j/nlp4j-core
+
 ## Simple English Morphological analysis (NLP4J)
 
 ```java
