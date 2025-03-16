@@ -187,7 +187,6 @@ doc.getKeywords().forEach(kwd -> System.out.println(kwd.getFacet() + "," + kwd.g
 	DocumentUtil.stream(file).forEach(d -> {
 		System.out.println(d.toString());
 	});
-
 }
 { // CSV
 	File file = new File("src/test/resources/examples/example_utf8bom.csv");
@@ -202,7 +201,6 @@ doc.getKeywords().forEach(kwd -> System.out.println(kwd.getFacet() + "," + kwd.g
 	});
 
 }
-
 ```
 
 https://github.com/oyahiroki/nlp4j/blob/master/nlp4j/nlp4j-core/src/test/java/examples/Example010_ReadFileAsDocument.java
