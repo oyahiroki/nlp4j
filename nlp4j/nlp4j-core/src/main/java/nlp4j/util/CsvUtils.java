@@ -55,14 +55,14 @@ public class CsvUtils {
 	}
 
 	/**
-	 * @param csvFile
+	 * @param csvFile_or_gzipCsvFile
 	 * @return
 	 * @throws IOException
 	 * @since 1.3.7.15
 	 */
-	static public Stream<Document> stream(File csvFile) throws IOException {
+	static public Stream<Document> stream(File csvFile_or_gzipCsvFile) throws IOException {
 		CsvFileStreamCrawler crl = new CsvFileStreamCrawler();
-		return crl.streamDocuments(csvFile);
+		return crl.streamDocuments(csvFile_or_gzipCsvFile);
 	}
 
 }

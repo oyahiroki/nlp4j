@@ -12,6 +12,28 @@ import junit.framework.TestCase;
 public class FileUtilsTestCase extends TestCase {
 
 	/**
+	 * @throws Exception
+	 * @since 1.3.7.18
+	 */
+	public void testStreamFile001() throws Exception {
+		File jsonFile = new File("src/test/resources/nlp4j.util/FileUtilsTestCase_testStreamFile001.txt");
+		FileUtils.stream(jsonFile).forEach(s -> {
+			System.out.println(s);
+		});
+	}
+
+	/**
+	 * @throws Exception
+	 * @since 1.3.7.18
+	 */
+	public void testStreamFile002() throws Exception {
+		File jsonFile = new File("src/test/resources/nlp4j.util/FileUtilsTestCase_testStreamFile002.txt.gz");
+		FileUtils.stream(jsonFile).forEach(s -> {
+			System.out.println(s);
+		});
+	}
+
+	/**
 	 * Created on: 2025-3-2
 	 * 
 	 * @since 1.3.7.16

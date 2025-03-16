@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
+import java.util.zip.GZIPInputStream;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
@@ -24,6 +25,7 @@ import com.google.gson.JsonArray;
 
 import nlp4j.Document;
 import nlp4j.impl.DefaultDocument;
+import nlp4j.util.IOUtils;
 import nlp4j.util.UnicodeUtils;
 
 public class CsvFileStreamCrawler extends AbstractFileCrawler implements Crawler, StreamDocumentCrawler {
@@ -53,15 +55,30 @@ public class CsvFileStreamCrawler extends AbstractFileCrawler implements Crawler
 		});
 	}
 
-	public Stream<Document> streamDocuments(File csvFile) throws IOException {
-		try (InputStream is = new FileInputStream(csvFile)) {
+	/**
+	 * @param csvFile_or_gzipCsvFile
+	 * @return
+	 * @throws IOException
+	 */
+	public Stream<Document> streamDocuments(File csvFile_or_gzipCsvFile) throws IOException {
+		try (InputStream is //
+				= IOUtils.inputStream(csvFile_or_gzipCsvFile) // 1.3.7.18
+		) {
 			return streamDocuments(is);
 		}
 	}
 
 	public Stream<Document> streamDocuments(URL url) throws IOException {
-		try (InputStream is = url.openStream()) {
-			return streamDocuments(is);
+
+		if (url.toString().endsWith(".gz")) { // 1.3.7.18
+			try (InputStream is = new GZIPInputStream(url.openStream())) { // 1.3.7.18
+				return streamDocuments(is); // 1.3.7.18
+			} // 1.3.7.18
+		} //
+		else {
+			try (InputStream is = url.openStream()) {
+				return streamDocuments(is);
+			}
 		}
 	}
 
@@ -99,7 +116,7 @@ public class CsvFileStreamCrawler extends AbstractFileCrawler implements Crawler
 				.map(record -> {
 					// Document の作成
 					Document doc = new DefaultDocument();
-					
+
 					{
 						for (int n = 0; n < record.size(); n++) {
 							String key = headers[n];
@@ -107,7 +124,7 @@ public class CsvFileStreamCrawler extends AbstractFileCrawler implements Crawler
 							doc.putAttribute(key, value);
 						}
 					}
-					
+
 //					{
 //						JsonArray data = new JsonArray();
 //						for (int n = 0; n < record.size(); n++) {

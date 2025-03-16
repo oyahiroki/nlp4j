@@ -11,12 +11,14 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.SequenceInputStream;
 import java.lang.invoke.MethodHandles;
+import java.net.URL;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Stream;
 import java.util.zip.GZIPInputStream;
 
 import org.apache.commons.io.IOUtils;
@@ -32,6 +34,24 @@ import nlp4j.Document;
 public class FileUtils {
 
 	static private Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
+
+	/**
+	 * @param gzipTextOrPlainTextFile
+	 * @return
+	 * @throws IOException
+	 * @since 1.3.7.18
+	 */
+	public static Stream<String> stream(File gzipTextOrPlainTextFile) throws IOException {
+		// gzipなどに対応
+		BufferedReader br = nlp4j.util.FileUtils.openTextFileAsBufferedReader(gzipTextOrPlainTextFile, "UTF-8");
+		return nlp4j.util.IOUtils.stream(br);
+	}
+
+	public static Stream<String> stream(URL url) throws IOException {
+		// gzipなどに対応
+		BufferedReader br = nlp4j.util.IOUtils.br(url);
+		return nlp4j.util.IOUtils.stream(br);
+	}
 
 	/**
 	 * Checks if the specified file or its parent directory exists. This method logs
@@ -249,6 +269,36 @@ public class FileUtils {
 	 */
 	static public BufferedReader openTextFileAsBufferedReader(String gzipTextOrPlainTextFileName) throws IOException {
 		return openTextFileAsBufferedReader(new File(gzipTextOrPlainTextFileName), StandardCharsets.UTF_8);
+	}
+
+	/**
+	 * @param file
+	 * @return
+	 * @throws IOException
+	 * @since 1.3.7.18
+	 */
+	static public List<String> read(File file) throws IOException {
+		return stream(file).toList();
+	}
+
+	/**
+	 * @param (gzip file) or (plain text file)
+	 * @return
+	 * @throws IOException
+	 * @since 1.3.7.18
+	 */
+	static public List<String> readLines(File file) throws IOException {
+
+		return stream(file).toList();
+
+//		List<String> list = new ArrayList<String>();
+//		try (BufferedReader br = nlp4j.util.IOUtils.bufferedReader(file)) {
+//			String s;
+//			while ((s = br.readLine()) != null) {
+//				list.add(s);
+//			}
+//		}
+//		return list;
 	}
 
 	static public void write(File file, Collection<String> data, String charsetName, boolean append)

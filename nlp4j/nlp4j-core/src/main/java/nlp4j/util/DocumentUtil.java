@@ -3,6 +3,7 @@ package nlp4j.util;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -29,6 +30,7 @@ import com.google.gson.JsonSyntaxException;
 import nlp4j.Document;
 import nlp4j.Keyword;
 import nlp4j.KeywordWithDependency;
+import nlp4j.crawler.CsvFileStreamCrawler;
 import nlp4j.impl.DefaultDocument;
 import nlp4j.impl.DefaultKeyword;
 
@@ -233,15 +235,53 @@ public class DocumentUtil {
 	}
 
 	/**
-	 * @param file (plain JSONL | gzip JSONL )
+	 * @param url
+	 * @return
+	 * @throws IOException
+	 * @since 1.3.7.18
+	 */
+	public static Stream<Document> stream(URL url) throws IOException {
+		if ( //
+		url.toString().endsWith(".csv") //
+				|| url.toString().endsWith(".csv.gz") //
+		) {
+			CsvFileStreamCrawler crl = new CsvFileStreamCrawler();
+			return crl.streamDocuments(url);
+		} //
+
+		else {
+			BufferedReader br = IOUtils.br(url);
+			return stream(br);
+		}
+
+	}
+
+	/**
+	 * @param gzipJSONL_plainJSONL_gzipCSV_plainCSV (plain JSONL | gzip JSONL )
 	 * @return
 	 * @throws IOException
 	 * @since 1.3.7.15
 	 */
-	public static Stream<Document> stream(File file) throws IOException {
-		// gzipなどに対応
-		BufferedReader br = nlp4j.util.FileUtils.openTextFileAsBufferedReader(file, "UTF-8");
+	public static Stream<Document> stream(File gzipJSONL_plainJSONL_gzipCSV_plainCSV) throws IOException {
 
+		// CSV
+		if (gzipJSONL_plainJSONL_gzipCSV_plainCSV.getAbsolutePath().endsWith(".csv") //
+				|| gzipJSONL_plainJSONL_gzipCSV_plainCSV.getAbsolutePath().endsWith(".csv.gz")) { //
+			// CSV Stream
+			return CsvUtils.stream(gzipJSONL_plainJSONL_gzipCSV_plainCSV);
+		} //
+			// JSON
+		else {
+			// gzipなどに対応
+			BufferedReader br = nlp4j.util.FileUtils.openTextFileAsBufferedReader(gzipJSONL_plainJSONL_gzipCSV_plainCSV,
+					"UTF-8");
+			// JSON Stream
+			return stream(br);
+		}
+
+	}
+
+	public static Stream<Document> stream(BufferedReader br) throws IOException {
 		return br.lines().map(line -> {
 			try {
 				return parseFromJson(line);
@@ -256,7 +296,6 @@ public class DocumentUtil {
 				throw new RuntimeException(e);
 			}
 		});
-
 	}
 
 	/**
@@ -392,7 +431,7 @@ public class DocumentUtil {
 	 */
 	static public List<Document> readFromLineSeparatedJson(File file) throws IOException {
 		ArrayList<Document> docs = new ArrayList<>();
-		List<String> lines = FileUtils.readLines(file, "UTF-8");
+		List<String> lines = nlp4j.util.FileUtils.readLines(file);
 
 		for (String line : lines) {
 			Document doc = DocumentUtil.toDocument(line);
@@ -847,6 +886,23 @@ public class DocumentUtil {
 			FileUtils.write(file, json + "\n", encoding, append);
 		}
 
+	}
+
+	/**
+	 * @param file
+	 * @return
+	 * @throws IOException
+	 * @since 1.3.7.18
+	 */
+	public static List<Document> read(File file) throws IOException {
+		if ( //
+		file.getAbsolutePath().endsWith(".csv") //
+				|| file.getAbsolutePath().endsWith(".csv.gz") //
+		) {
+			return CsvUtils.stream(file).toList();
+		} else {
+			return stream(file).toList();
+		}
 	}
 
 }

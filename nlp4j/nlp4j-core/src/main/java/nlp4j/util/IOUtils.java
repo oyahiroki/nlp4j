@@ -6,14 +6,18 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.io.Writer;
+import java.net.URL;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.util.List;
+import java.util.stream.Stream;
 import java.util.zip.GZIPInputStream;
 
 import org.apache.commons.io.FileUtils;
@@ -45,9 +49,33 @@ public class IOUtils {
 	}
 
 	/**
+	 * @param url
+	 * @return
+	 * @throws IOException
+	 * @since 1.3.7.18
+	 */
+	static public BufferedReader br(URL url) throws IOException {
+		if (url.toString().endsWith("gz")) {
+			BufferedReader br = new BufferedReader( //
+					new InputStreamReader( //
+							new GZIPInputStream( //
+									url.openStream()),
+							StandardCharsets.UTF_8));
+			return br;
+
+		} else {
+			BufferedReader br = new BufferedReader( //
+					new InputStreamReader( //
+							url.openStream(), StandardCharsets.UTF_8));
+			return br;
+
+		}
+	}
+
+	/**
 	 * created on: 2024-08-26
 	 * 
-	 * @param file
+	 * @param (gzip File) or (plain text File)
 	 * @return BufferedReader
 	 * @throws IOException
 	 * @since 1.3.7.14
@@ -126,6 +154,29 @@ public class IOUtils {
 		}
 		if (ee.size() > 0) {
 			throw ee;
+		}
+	}
+
+	/**
+	 * created on: 2025-03-16
+	 * 
+	 * @param (gzip File) or (plain text File)
+	 * @return InputStream of File
+	 * @throws IOException
+	 * @since 1.3.7.18
+	 */
+	static public InputStream inputStream(File file) throws IOException {
+		if (file.exists() == false) {
+			throw new FileNotFoundException(file.getAbsolutePath());
+		}
+		// OPEN AS ZGIP
+		if (file.getAbsolutePath().endsWith(".gz")) {
+			InputStream is = new GZIPInputStream(new FileInputStream(file));
+			return is;
+		}
+		// OPEN AS PLAIN TEXT
+		else {
+			return new FileInputStream(file);
 		}
 	}
 
@@ -315,6 +366,71 @@ public class IOUtils {
 		File tempFile = File.createTempFile(prefix, suffix);
 		PrintWriter pw = pw(tempFile);
 		return new Pair<PrintWriter, File>(pw, tempFile);
+	}
+
+	/**
+	 * @param file
+	 * @return
+	 * @throws IOException
+	 * @since 1.3.7.18
+	 */
+	static public List<String> read(File file) throws IOException {
+		return stream(file).toList();
+	}
+
+	/**
+	 * @param url
+	 * @return
+	 * @throws IOException
+	 * @since 1.3.7.18
+	 */
+	static public List<String> read(URL url) throws IOException {
+
+		return stream(url).toList();
+	}
+
+	/**
+	 * @param br
+	 * @return
+	 * @throws IOException
+	 * @since 1.3.7.18
+	 */
+	static public Stream<String> stream(BufferedReader br) throws IOException {
+		return br.lines().map(line -> {
+			try {
+				return line;
+			} catch (Exception e) {
+				throw new RuntimeException(e);
+			}
+		}).onClose(() -> {
+			try {
+				br.close();
+			} catch (IOException e) {
+				throw new RuntimeException(e);
+			}
+		});
+	}
+
+	/**
+	 * @param file
+	 * @return
+	 * @throws IOException
+	 * @since 1.3.7.18
+	 */
+	static public Stream<String> stream(File file) throws IOException {
+		BufferedReader br = br(file);
+		return stream(br);
+	}
+
+	/**
+	 * @param url
+	 * @return
+	 * @throws IOException
+	 * @since 1.3.7.18
+	 */
+	static public Stream<String> stream(URL url) throws IOException {
+		BufferedReader br = br(url);
+		return stream(br);
 	}
 
 }

@@ -4,12 +4,27 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URL;
 
 import org.apache.commons.io.FileUtils;
 
 import junit.framework.TestCase;
 
 public class IOUtilsTestCase extends TestCase {
+
+	public void testStreamStringFile001() throws Exception {
+		File file = new File("src/test/resources/nlp4j.util/IOUtilsTest001.txt");
+		IOUtils.stream(file).forEach(s -> {
+			System.out.println(s);
+		});
+	}
+
+	public void testStreamStringURL001() throws Exception {
+		URL url = new URL("https://nlp4j.sakura.ne.jp/test/example.jsonl");
+		IOUtils.stream(url).forEach(s -> {
+			System.out.println(s);
+		});
+	}
 
 	/**
 	 * created on: 2024-08-26
