@@ -4,6 +4,10 @@ Natural Language Processing Library for Java
 
 ![png](https://raw.githubusercontent.com/oyahiroki/nlp4j/master/nlp4j/files/icon/NLP4J_N_128.png)
 
+# Central Repository
+
+https://repo.maven.apache.org/maven2/org/nlp4j/
+
 # NLP4J Components
 
 Core Data, Utilities, CSV/Json/Plaintext parser, etc. : [nlp4j-core](https://github.com/oyahiroki/nlp4j/tree/master/nlp4j/nlp4j-core)   
