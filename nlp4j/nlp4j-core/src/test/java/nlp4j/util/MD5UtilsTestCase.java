@@ -1,9 +1,10 @@
-package nlp4j.webcrawler.utils;
+package nlp4j.util;
 
 import java.io.File;
 import java.io.IOException;
 
 import junit.framework.TestCase;
+import nlp4j.util.MD5Utils;
 
 public class MD5UtilsTestCase extends TestCase {
 

@@ -11,8 +11,6 @@ import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import nlp4j.webcrawler.utils.MD5Utils;
-
 /**
  * created at: 2022-04-29
  * 
@@ -53,7 +51,7 @@ public class MediaWikiMD5Util {
 			md5map.put(filename, md5);
 		}
 
-		String md5 = MD5Utils.md5(targetFile);
+		String md5 = nlp4j.util.MD5Utils.md5(targetFile);
 
 		String filename = targetFile.getName();
 

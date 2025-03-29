@@ -12,9 +12,7 @@ import com.google.gson.JsonObject;
 import nlp4j.Document;
 import nlp4j.NlpServiceResponse;
 import nlp4j.http.HttpClient;
-import nlp4j.http.HttpClient5;
 import nlp4j.http.HttpClientBuilder;
-import nlp4j.impl.DefaultNlpServiceResponse;
 
 /**
  * @author Hiroki Oya
@@ -30,10 +28,7 @@ public class WordPressClient {
 	}
 
 	/**
-	 * @param doc
-	 * @return
-	 * @throws IOException
-	 * @see https://developer.wordpress.org/rest-api/reference/posts/#create-a-post
+	 * https://developer.wordpress.org/rest-api/reference/posts/#create-a-post
 	 */
 	public NlpServiceResponse post(Document doc) throws IOException {
 
@@ -70,8 +65,7 @@ public class WordPressClient {
 	}
 
 	/**
-	 * @throws IOException
-	 * @see https://developer.wordpress.org/rest-api/reference/categories/
+	 * https://developer.wordpress.org/rest-api/reference/categories/
 	 */
 	public void getCategories() throws IOException {
 		String url = endpoint + "/wp-json/wp/v2/categories/?per_page=100&order=asc&orderby=id";

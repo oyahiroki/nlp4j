@@ -26,7 +26,9 @@ public class PageViewCounterTestCase extends TestCase {
 
 		PageViewCounter ppc1 = new PageViewCounter();
 		PageViewCounter ppc0 = new PageViewCounter();
+		System.err.println("Dowonloading : " + url1);
 		Counter<String> count1 = ppc1.get(url1, domain);
+		System.err.println("Dowonloading : " + url0);
 		Counter<String> count0 = ppc0.get(url0, domain);
 
 		System.out.println(count1.getCountListSorted().get(0));

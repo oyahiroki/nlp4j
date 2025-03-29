@@ -1,4 +1,4 @@
-package nlp4j.webcrawler.utils;
+package nlp4j.util;
 
 import java.io.File;
 import java.io.FileInputStream;

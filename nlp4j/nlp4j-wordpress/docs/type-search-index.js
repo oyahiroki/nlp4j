@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"nlp4j.wordpress","l":"WordPressClient"},{"p":"nlp4j.wordpress","l":"WordPressDocumentBuilder"}];updateSearchResults();

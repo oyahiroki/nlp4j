@@ -9,5 +9,11 @@ NLP4J Web Crawler Framework
 	https://www.nhtsa.gov/about-nhtsa/terms-use
 	
 	https://www.nhtsa.gov/nhtsa-datasets-and-apis#complaints
-	
+
+# Maven for release
+
+```
+mvn -DperformRelease=true clean deploy
+```
+
 	

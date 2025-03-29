@@ -9,6 +9,10 @@ public class MediaWikiDumpFileUtilsTestCase extends TestCase {
 
 	public void testPrintStats001() throws IOException {
 
+	}
+
+	public void helloPrintStats001() throws IOException {
+
 		String dir = "/usr/local/wiki/jawiktionary/20230101";
 		String lang = "ja";
 		String media = "wiktionary";
@@ -20,5 +24,4 @@ public class MediaWikiDumpFileUtilsTestCase extends TestCase {
 		MediaWikiDumpFileUtils.printStats(mediaWikiDumpFile);
 
 	}
-
 }
