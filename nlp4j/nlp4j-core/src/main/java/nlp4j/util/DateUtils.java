@@ -20,6 +20,8 @@ import java.util.Locale;
  */
 public class DateUtils {
 
+	private static final String YYYY_MM_DD_T_HH_MM_SS = "yyyy-MM-dd'T'HH:mm:ss";
+
 	/**
 	 * yyyyMMdd-HHmmss
 	 */
@@ -33,12 +35,16 @@ public class DateUtils {
 	/**
 	 * yyyy-MM-dd'T'HH:mm:ssXXX
 	 */
-	static private final SimpleDateFormat sdf_ISO8601 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX");
+//	static private final SimpleDateFormat sdf_ISO8601 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX");
+	private static final ThreadLocal<SimpleDateFormat> sdf_ISO8601 = ThreadLocal
+			.withInitial(() -> new SimpleDateFormat(YYYY_MM_DD_T_HH_MM_SS));
 
 	/**
 	 * yyyyMMdd-HHmmss
 	 */
-	static private final SimpleDateFormat sdf_yyyyMMdd_HHmmss = new SimpleDateFormat(YYYY_MM_DD_HHMMSS);
+//	static private final SimpleDateFormat sdf_yyyyMMdd_HHmmss = new SimpleDateFormat(YYYY_MM_DD_HHMMSS);
+	private static final ThreadLocal<SimpleDateFormat> sdf_yyyyMMdd_HHmmss = ThreadLocal
+			.withInitial(() -> new SimpleDateFormat(YYYY_MM_DD_HHMMSS));
 
 	/**
 	 * yyyyMMdd-HHmmss
@@ -48,7 +54,9 @@ public class DateUtils {
 	/**
 	 * yyyyMMdd
 	 */
-	static private final SimpleDateFormat sdf_yyyyMMdd = new SimpleDateFormat(YYYY_MM_DD);
+//	static private final SimpleDateFormat sdf_yyyyMMdd = new SimpleDateFormat(YYYY_MM_DD);
+	private static final ThreadLocal<SimpleDateFormat> sdf_yyyyMMdd = ThreadLocal
+			.withInitial(() -> new SimpleDateFormat(YYYY_MM_DD));
 
 	static private String formatUs(String data, String dataFormat, int style) {
 		SimpleDateFormat sdf = new SimpleDateFormat(dataFormat);
@@ -104,7 +112,7 @@ public class DateUtils {
 	 * @since 1.3.7.13
 	 */
 	static public String get_yyyyMMdd() {
-		return sdf_yyyyMMdd.format(new Date());
+		return sdf_yyyyMMdd.get().format(new Date());
 	}
 
 	/**
@@ -122,7 +130,7 @@ public class DateUtils {
 	 * @return Date in yyyyMMdd-HHmmss
 	 */
 	static public String get_yyyyMMdd_HHmmss() {
-		return sdf_yyyyMMdd_HHmmss.format(new Date());
+		return sdf_yyyyMMdd_HHmmss.get().format(new Date());
 	}
 
 	/**
@@ -130,7 +138,7 @@ public class DateUtils {
 	 * @since 1.3.7.12
 	 */
 	static public String get_yyyyMMdd_HHmmss(long time_ms) {
-		return sdf_yyyyMMdd_HHmmss.format(new Date(time_ms));
+		return sdf_yyyyMMdd_HHmmss.get().format(new Date(time_ms));
 	}
 
 	/**
@@ -235,7 +243,7 @@ public class DateUtils {
 	 */
 	static public Date toDate(String iso8601) {
 		try {
-			return sdf_ISO8601.parse(iso8601);
+			return sdf_ISO8601.get().parse(iso8601);
 		} catch (ParseException e) {
 			e.printStackTrace();
 			return null;
@@ -248,7 +256,7 @@ public class DateUtils {
 	 * @return ISO 8601 format
 	 */
 	static public String toISO8601(Date date) {
-		return sdf_ISO8601.format(date);
+		return sdf_ISO8601.get().format(date);
 	}
 
 	/**
@@ -256,7 +264,7 @@ public class DateUtils {
 	 * @since 1.3.7.14
 	 */
 	static public String toISO8601() {
-		return sdf_ISO8601.format(new Date());
+		return sdf_ISO8601.get().format(new Date());
 	}
 
 	/**
@@ -269,7 +277,7 @@ public class DateUtils {
 		SimpleDateFormat sdf = new SimpleDateFormat(format);
 		try {
 			Date d = sdf.parse(date);
-			return sdf_ISO8601.format(d);
+			return sdf_ISO8601.get().format(d);
 		} catch (ParseException e) {
 			e.printStackTrace();
 			return null;

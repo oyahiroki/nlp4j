@@ -26,6 +26,7 @@ public class PageViewCounter {
 
 		try (BufferedReader br = TextFileUtils.openPlainTextFileAsBufferedReader(new URL(url), writeCache);) {
 
+			logger.info("Reading: " + url);
 			// domain_code page_title count_views total_response_size
 //			br.readLine();
 
@@ -65,6 +66,7 @@ public class PageViewCounter {
 			// File Error
 			catch (EOFException e) {
 				e.printStackTrace();
+				System.err.println("URL: " + url);
 				logger.error(e);
 				return this.counter;
 			} //

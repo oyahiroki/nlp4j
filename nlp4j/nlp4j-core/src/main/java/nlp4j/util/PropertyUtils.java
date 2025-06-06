@@ -1,6 +1,7 @@
 package nlp4j.util;
 
 import java.lang.invoke.MethodHandles;
+import java.util.NoSuchElementException;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -26,6 +27,7 @@ public class PropertyUtils {
 	 * @param key
 	 * @return
 	 * @since 1.3.7.15
+	 * @throws NoSuchElementException if not found
 	 */
 	static public String getProperty(String key) {
 		String value = null;
@@ -40,7 +42,11 @@ public class PropertyUtils {
 			return value;
 		}
 		logger.warn("NOT_SET: " + key);
-		return null;
+
+//		return null;
+
+		// 2025/5/29
+		throw new NoSuchElementException(key);
 	}
 
 	/**
@@ -68,7 +74,7 @@ public class PropertyUtils {
 			return value;
 		}
 
-		throw new IllegalArgumentException("NOT_SET: " + key);
+		throw new NoSuchElementException("NOT_SET: " + key);
 
 	}
 

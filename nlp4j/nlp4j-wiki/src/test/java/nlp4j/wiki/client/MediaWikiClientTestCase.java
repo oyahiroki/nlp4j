@@ -133,6 +133,40 @@ public class MediaWikiClientTestCase extends TestCase {
 
 	}
 
+	public void testgetPageContentByTitle005b() throws Exception {
+		String lang = "ja";
+		String host = lang + ".wikipedia.org";
+		String title = "やなせたかし";
+		{
+			try (MediaWikiClient client = new MediaWikiClient(host);) {
+				String wiki_content = client.getPageContentByTitle(title);
+				String rootNodeText = MediaWikiTextUtils.getRootNodeTextFirstSentence(wiki_content, title, lang);
+				System.out.println(rootNodeText);
+//				{
+//					String wiki_content_html = WikiUtils.toHtml(wiki_content);
+//					List<Keyword> kwds = WikiUtils.extractKeywordsFromWikiHtml(wiki_content_html, "wikilink");
+//					kwds.stream().forEach(kw -> {
+//						System.out.println(kw.getLex());
+//					});
+//				}
+			}
+		}
+	}
+
+	public void testgetPageContentByTitle005c() throws Exception {
+		TestUtils.setLevelDebug();
+		String lang = "ja";
+		String host = lang + ".wikipedia.org";
+		String title = "東日本大震災";
+		{
+			try (MediaWikiClient client = new MediaWikiClient(host);) {
+				String wiki_content = client.getPageContentByTitle(title);
+				String rootNodeText = MediaWikiTextUtils.getRootNodeTextFirstSentence(wiki_content, title, lang);
+				System.out.println(rootNodeText);
+			}
+		}
+	}
+
 	public void testgetPageContentByTitle006() throws Exception {
 		String lang = "ja";
 		String host = lang + ".wikipedia.org";
@@ -345,6 +379,23 @@ public class MediaWikiClientTestCase extends TestCase {
 			try (MediaWikiClient client = new MediaWikiClient(host);) {
 				{
 					String title = "초등학교"; // 小学校(韓国語)
+					String wiki_content = client.getPageContentByTitle(title);
+					System.out.println(wiki_content);
+					System.out.println("--------");
+					String t = MediaWikiTextUtils.toPlainText(title, wiki_content);
+					System.out.println(t.replace("\n\n", "\n"));
+				}
+			}
+		}
+	}
+
+	public void testgetPageContentByTitle012() throws Exception {
+		String lang = "ja";
+		String host = lang + ".wikipedia.org";
+		{
+			try (MediaWikiClient client = new MediaWikiClient(host);) {
+				{
+					String title = "やなせたかし";
 					String wiki_content = client.getPageContentByTitle(title);
 					System.out.println(wiki_content);
 					System.out.println("--------");

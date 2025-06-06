@@ -8,6 +8,7 @@ import java.util.regex.Pattern;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.jsoup.Jsoup;
 import org.sweble.wikitext.engine.EngineException;
 import org.sweble.wikitext.engine.PageId;
 import org.sweble.wikitext.engine.PageTitle;
@@ -153,7 +154,9 @@ public class MediaWikiTextUtils {
 //			rootNodeText = rootNodeText.replaceAll("\\{\\{.*?\\}\\}", "");
 		}
 		{
-			rootNodeText = rootNodeText.replaceAll("<ref .*?</ref>", "");
+//			rootNodeText = rootNodeText.replaceAll("<ref .*?</ref>", "");
+			
+			rootNodeText=			Jsoup.parse(rootNodeText).text();
 		}
 
 		{
