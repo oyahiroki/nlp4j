@@ -9,8 +9,26 @@ import java.net.URL;
 import org.apache.commons.io.FileUtils;
 
 import junit.framework.TestCase;
+import nlp4j.tuple.Pair;
 
 public class IOUtilsTestCase extends TestCase {
+
+	public void testPwTemp001() throws Exception {
+		Pair<PrintWriter, File> p = IOUtils.pwTemp();
+		p.getLeft().println("Hello1");
+		System.err.println(p.getRight().getAbsolutePath());
+		p.getLeft().flush();
+		p.getLeft().close();
+		System.err.println("Hello2");
+	}
+	public void testSysErrTemp001() throws Exception {
+		Pair<PrintWriter, File> p = IOUtils.pwSysErrTemp();
+		p.getLeft().println("Hello1");
+		System.err.println(p.getRight().getAbsolutePath());
+		p.getLeft().flush();
+		p.getLeft().close();
+		System.err.println("Hello2");
+	}
 
 	public void testStreamStringFile001() throws Exception {
 		File file = new File("src/test/resources/nlp4j.util/IOUtilsTest001.txt");

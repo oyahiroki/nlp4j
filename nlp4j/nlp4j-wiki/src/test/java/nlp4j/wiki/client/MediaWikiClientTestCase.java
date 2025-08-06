@@ -494,6 +494,19 @@ public class MediaWikiClientTestCase extends TestCase {
 		System.out.println(titles.size());
 	}
 
+	public void testMediaWikiClient101b() throws Exception {
+		String host = "ja.wiktionary.org";
+		String category = "カテゴリ:日本語の姓";
+		try (MediaWikiClient client = new MediaWikiClient(host);) {
+			List<String> titles = client.getPageTitlesByCategory(category);
+			for (String title : titles) {
+				System.out.println(title);
+			}
+			System.out.println(titles.size());
+
+		}
+	}
+
 	/**
 	 * "Category:RNAウイルス" 日本語版 WikiPedia RNAウィルス
 	 * 

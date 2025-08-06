@@ -223,4 +223,20 @@ public class MediawikiXmlHandler3 extends AbstractXmlHandler {
 
 	}
 
+	@Override
+	public void startDocument() throws SAXException {
+		super.startDocument();
+		if (this.wikiPageHander instanceof AbstractWikiPageHandler) {
+			((AbstractWikiPageHandler) this.wikiPageHander).startDocument();
+		}
+	}
+
+	@Override
+	public void endDocument() throws SAXException {
+		super.endDocument();
+		if (this.wikiPageHander instanceof AbstractWikiPageHandler) {
+			((AbstractWikiPageHandler) this.wikiPageHander).endDocument();
+		}
+	}
+
 }

@@ -31,6 +31,9 @@ public class Trie {
 	// さらに長いキーワードがあればそちらを優先するか
 	private boolean overwrittern = true;
 
+	// length of string inserted
+	private int size_original = 0;
+
 	public boolean contains(String s) {
 		Trie ptr = this;
 		for (int n = 0; n < s.length(); n++) {
@@ -45,6 +48,20 @@ public class Trie {
 
 	public List<String> getFacets() {
 		return facets;
+	}
+
+	public int getSize() {
+		int n = 1;
+		if (this.children != null) {
+			for (Map.Entry<Character, Trie> e : this.children.entrySet()) {
+				n += e.getValue().getSize();
+			}
+		}
+		return n;
+	}
+
+	public int getSizeOriginal() {
+		return size_original;
 	}
 
 	/**
@@ -63,11 +80,13 @@ public class Trie {
 	 */
 	public void insert(String s, boolean overwrittern, String facet) {
 		Trie ptr = this;
+		this.size_original += s.length();
 
 		// FOR_EACH(CHARACTER)
 		for (int n = 0; n < s.length(); n++) {
 			char c = s.charAt(n);
 			if (ptr.children.containsKey(c) == false) {
+				// create new Trie node
 				ptr.children.put(c, new Trie());
 			}
 			ptr = ptr.children.get(c);

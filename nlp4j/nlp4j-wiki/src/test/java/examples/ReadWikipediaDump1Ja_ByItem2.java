@@ -14,7 +14,7 @@ import nlp4j.wiki.WikiPage;
  * @author Hiroki Oya
  *
  */
-public class ReadWikipediaDump1Ja {
+public class ReadWikipediaDump1Ja_ByItem2 {
 
 	public static void main(String[] args) throws Exception {
 
@@ -54,6 +54,8 @@ public class ReadWikipediaDump1Ja {
 			 */
 
 //			System.out.println("<xml>\n" + page.getXml() + "\n</xml>");
+
+			System.out.println(page.getCategoryTags());
 		}
 
 	}

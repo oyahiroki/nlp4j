@@ -13,6 +13,7 @@ import java.io.OutputStreamWriter;
 import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.io.Writer;
+import java.lang.invoke.MethodHandles;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
@@ -21,6 +22,8 @@ import java.util.stream.Stream;
 import java.util.zip.GZIPInputStream;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import nlp4j.io.DevNullOutputStream;
 import nlp4j.io.DevNullPrintWriter;
@@ -35,6 +38,8 @@ import nlp4j.tuple.Pair;
  * @since 1.3.7.8
  */
 public class IOUtils {
+
+	static private Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
 	/**
 	 * created on: 2024-08-26
@@ -366,6 +371,33 @@ public class IOUtils {
 		File tempFile = File.createTempFile(prefix, suffix);
 		PrintWriter pw = pw(tempFile);
 		return new Pair<PrintWriter, File>(pw, tempFile);
+	}
+
+	/**
+	 * @return
+	 * @throws IOException
+	 * @since 1.3.7.19
+	 */
+	static public Pair<PrintWriter, File> pwSysErrTemp() throws IOException {
+		String prefix = "nlp4j-ioutils-temp-";
+		String suffix = ".txt";
+		return pwSysErrTemp(prefix, suffix);
+	}
+
+	/**
+	 * @param prefix
+	 * @param suffix
+	 * @return
+	 * @throws IOException
+	 */
+	static public Pair<PrintWriter, File> pwSysErrTemp(String prefix, String suffix) throws IOException {
+		File tempFile = File.createTempFile(prefix, suffix);
+		OutputStream os1 = new FileOutputStream(tempFile);
+		OutputStream os2 = System.err;
+		OutputStream[] os = { os1, os2 };
+		PrintWriter pw = pw(os);
+		return new Pair<PrintWriter, File>(pw, tempFile);
+
 	}
 
 	/**

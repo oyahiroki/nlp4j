@@ -75,6 +75,44 @@ public class StringUtils {
 		return sb.toString();
 	}
 
+	/**
+	 * Compares all Strings in an array and returns the initial sequence of
+	 * characters that is common to all of them.
+	 *
+	 * <p>
+	 * For example, {@code getCommonPrefix(new String[] {"i am a machine", "i am a
+	 * robot"}) -&gt; "i am a "}
+	 * </p>
+	 *
+	 * <pre>
+	 * StringUtils.getCommonPrefix(null) = ""
+	 * StringUtils.getCommonPrefix(new String[] {}) = ""
+	 * StringUtils.getCommonPrefix(new String[] {"abc"}) = "abc"
+	 * StringUtils.getCommonPrefix(new String[] {null, null}) = ""
+	 * StringUtils.getCommonPrefix(new String[] {"", ""}) = ""
+	 * StringUtils.getCommonPrefix(new String[] {"", null}) = ""
+	 * StringUtils.getCommonPrefix(new String[] {"abc", null, null}) = ""
+	 * StringUtils.getCommonPrefix(new String[] {null, null, "abc"}) = ""
+	 * StringUtils.getCommonPrefix(new String[] {"", "abc"}) = ""
+	 * StringUtils.getCommonPrefix(new String[] {"abc", ""}) = ""
+	 * StringUtils.getCommonPrefix(new String[] {"abc", "abc"}) = "abc"
+	 * StringUtils.getCommonPrefix(new String[] {"abc", "a"}) = "a"
+	 * StringUtils.getCommonPrefix(new String[] {"ab", "abxyz"}) = "ab"
+	 * StringUtils.getCommonPrefix(new String[] {"abcde", "abxyz"}) = "ab"
+	 * StringUtils.getCommonPrefix(new String[] {"abcde", "xyz"}) = ""
+	 * StringUtils.getCommonPrefix(new String[] {"xyz", "abcde"}) = ""
+	 * StringUtils.getCommonPrefix(new String[] {"i am a machine", "i am a robot"}) = "i am a "
+	 * </pre>
+	 *
+	 * @param strs array of String objects, entries may be null
+	 * @return the initial sequence of characters that are common to all Strings in
+	 *         the array; empty String if the array is null, the elements are all
+	 *         null or if there is no common prefix.
+	 */
+	public static String getCommonPrefix(final String... strs) {
+		return org.apache.commons.lang3.StringUtils.getCommonPrefix(strs);
+	}
+
 	static public boolean isJaHiragana(String s) {
 		return s.matches(regex_hiragana);
 	}
@@ -170,6 +208,10 @@ public class StringUtils {
 	 */
 	static public int length(String s) {
 		return s.codePointCount(0, s.length());
+	}
+
+	static public String nfkc(String s) {
+		return TextUtils.nfkc(s);
 	}
 
 	/**

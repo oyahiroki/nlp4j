@@ -98,16 +98,44 @@ public class TrieTestCase extends TestCase {
 
 		Trie trie = new Trie();
 		{ // 辞書の追加
-			trie.insert("A", false, "facet1");
-			trie.insert("AB", true, "facet2"); // overwrite(長いもの勝ち)の設定は上書きされる
-			trie.insert("ABC", false, "facet2");
-			trie.insert("BCD", false, "facet2");
-			trie.insert("CD", false, "facet2");
-			trie.insert("CDE", false, "facet3");
-			trie.insert("EFG", false, "facet3");
-			trie.insert("E", true, "facet3"); // overwrite(長いもの勝ち)の設定は上書きされる
-			trie.insert("XX", false, "facetx");
+			trie.insert("A", false, "facet1"); // size=1
+			trie.insert("AB", true, "facet2"); // size=2(3) overwrite(長いもの勝ち)の設定は上書きされる
+			trie.insert("ABC", false, "facet2"); // size=3(6)
+			trie.insert("BCD", false, "facet2"); // size=5(11)
+			trie.insert("CD", false, "facet2"); // size=2(13)
+			trie.insert("CDE", false, "facet3"); // size=3(16)
+			trie.insert("EFG", false, "facet3"); // size=3(19)
+			trie.insert("E", true, "facet3"); // size=1(20) overwrite(長いもの勝ち)の設定は上書きされる
+			trie.insert("XX", false, "facetx"); // size=2(22)
 		}
+
+		System.err.println("Size Original: " + trie.getSizeOriginal());
+		System.err.println("Size: " + trie.getSize());
+
+		trie.print();
+
+		{
+			TrieSearchResult result = trie.search("ABCDE");
+			for (Keyword found : result.getKeywords()) {
+				System.err.println(found);
+				assertNotSame("AB", found.getLex());
+				assertNotSame("E", found.getLex());
+			}
+		}
+	}
+
+	public void testSearch001b() throws Exception {
+
+		Trie trie = new Trie();
+		{ // 辞書の追加
+			trie.insert("ABC", false, "facet1"); // size=1
+			trie.insert("ABD", true, "facet1"); // size=2(3) overwrite(長いもの勝ち)の設定は上書きされる
+			trie.insert("AE", false, "facet1"); // size=3(6)
+		}
+
+		System.err.println("Size Original: " + trie.getSizeOriginal());
+		System.err.println("Size: " + trie.getSize());
+
 		trie.print();
 
 		{

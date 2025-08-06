@@ -14,7 +14,7 @@ import nlp4j.wiki.WikiPage;
  * @author Hiroki Oya
  *
  */
-public class ReadWikipediaDump1 {
+public class ReadWikipediaDump1En_ByItem {
 
 	public static void main(String[] args) throws Exception {
 

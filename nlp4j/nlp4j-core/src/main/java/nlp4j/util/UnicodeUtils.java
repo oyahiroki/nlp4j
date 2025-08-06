@@ -8,6 +8,10 @@ package nlp4j.util;
  */
 public class UnicodeUtils {
 
+	public static String nfkc(String s) {
+		return TextUtils.nfkc(s);
+	}
+
 	public static final String BOM = "\uFEFF";
 
 	/**

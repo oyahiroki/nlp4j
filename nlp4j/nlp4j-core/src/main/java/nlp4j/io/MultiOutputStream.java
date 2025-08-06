@@ -2,6 +2,10 @@ package nlp4j.io;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.lang.invoke.MethodHandles;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * Created on: 2023-10-04
@@ -11,6 +15,7 @@ import java.io.OutputStream;
  */
 public class MultiOutputStream extends OutputStream {
 
+	static private Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 	private OutputStream[] outputStreams;
 
 	public MultiOutputStream(OutputStream... outputStreams) {
@@ -27,6 +32,17 @@ public class MultiOutputStream extends OutputStream {
 	@Override
 	public void close() throws IOException {
 		for (OutputStream out : outputStreams) {
+
+			{ // 1.3.7.19
+				if (out != System.err) {
+					logger.debug("not close System.err");
+					continue;
+				}
+				if (out != System.out) {
+					logger.debug("not close System.out");
+					continue;
+				}
+			}
 			out.close();
 		}
 	}
