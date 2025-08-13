@@ -10,6 +10,27 @@ import nlp4j.util.IOUtils;
 
 public class CounterTestCase extends TestCase {
 
+	public void testAddIgnore001() {
+
+		Counter<String> counter1 = new Counter<>();
+		{
+			counter1.addIgnore("aaa");
+			counter1.add("aaa", 1);
+			counter1.add("bbb", 1);
+
+		}
+		{
+			int count = counter1.getCount("aaa");
+			int expected = 0;
+			assertEquals(expected, count);
+		}
+		{
+			int count = counter1.getCount("bbb");
+			int expected = 1;
+			assertEquals(expected, count);
+		}
+	}
+
 	public void testAddAllT001() {
 		Counter<String> counter1 = new Counter<>();
 		counter1.add("aaa", 1);

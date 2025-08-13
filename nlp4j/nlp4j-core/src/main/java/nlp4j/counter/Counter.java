@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * created on : 2021-07-13
@@ -17,8 +19,20 @@ import java.util.List;
 public class Counter<T> {
 
 	private int countAll = 0;
-	private HashMap<T, Integer> objCounter;
+	private final HashMap<T, Integer> objCounter;
 	private String description;
+
+	private final Set<T> ignore = new HashSet<T>();
+
+	public void addIgnore(T t) {
+		this.ignore.add(t);
+	}
+
+	public void addIgnore(T[] tt) {
+		for (T t : tt) {
+			this.ignore.add(t);
+		}
+	}
 
 	/**
 	 * Constructor
@@ -56,6 +70,14 @@ public class Counter<T> {
 	}
 
 	/**
+	 * @param c
+	 * @since 1.3.7.19
+	 */
+	public void add(Counter<T> c) {
+		addAll(c);
+	}
+
+	/**
 	 * @param obj to be counted
 	 */
 	public void add(T obj) {
@@ -67,6 +89,9 @@ public class Counter<T> {
 	 * @param cnt count of object
 	 */
 	public void add(T obj, int cnt) {
+		if (this.ignore.contains(obj)) {
+			return;
+		}
 		countAll += cnt;
 		Integer count = objCounter.get(obj);
 		// IF(COUNT != NULL) THEN

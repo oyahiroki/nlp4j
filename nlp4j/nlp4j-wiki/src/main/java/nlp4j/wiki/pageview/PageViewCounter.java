@@ -19,8 +19,16 @@ public class PageViewCounter {
 	private Counter<String> counter = new Counter<>();
 
 	public Counter<String> get(String url, String domain) throws IOException {
+		return get(url, domain, null);
+	}
 
-		boolean writeCache = false;
+	public Counter<String> get(String url, String domain, Counter<String> counter) throws IOException {
+		// mmm...
+		if (counter != null) {
+			this.counter = counter;
+		}
+
+		boolean writeCache = true;
 
 		logger.info("URL: " + url);
 

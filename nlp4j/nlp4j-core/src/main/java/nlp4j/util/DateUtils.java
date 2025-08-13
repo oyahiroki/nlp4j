@@ -3,11 +3,13 @@ package nlp4j.util;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -21,6 +23,13 @@ import java.util.Locale;
 public class DateUtils {
 
 	private static final String YYYY_MM_DD_T_HH_MM_SS = "yyyy-MM-dd'T'HH:mm:ss";
+
+	static public Date getDateFromNowByHours(int hours) {
+		Instant now = Instant.now();
+		Instant twentyFourHoursAgo = now.minus(hours, ChronoUnit.HOURS);
+		Date d = Date.from(twentyFourHoursAgo);
+		return d;
+	}
 
 	/**
 	 * yyyyMMdd-HHmmss
