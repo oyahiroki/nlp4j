@@ -18,7 +18,7 @@ public class WikiTrendAnalyzer {
 
 		PageViewCounter pageViewCounter = new PageViewCounter();
 		Counter<String> counter_all = new Counter<String>();
-		String[] ignore = { "メインページ", "特別:検索", "特別:最近の更新" };
+		String[] ignore = { "メインページ", "特別:検索", "特別:最近の更新", "-" };
 		counter_all.addIgnore(ignore);
 
 		for (String url : urls) {
@@ -29,7 +29,7 @@ public class WikiTrendAnalyzer {
 				pageViewCounter.get(url, "ja", counter); // throws IOException
 				counter.addIgnore(ignore);
 				counter_all.add(counter);
-				counter.top(10).forEach(cnt -> {
+				counter.top(20).forEach(cnt -> {
 					System.err.println(cnt);
 				});
 
@@ -38,7 +38,7 @@ public class WikiTrendAnalyzer {
 			}
 			System.err.println("---");
 		}
-		counter_all.top(10).forEach(cnt -> {
+		counter_all.top(20).forEach(cnt -> {
 			System.err.println(cnt);
 		});
 

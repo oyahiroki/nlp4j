@@ -216,7 +216,9 @@ public class WikiDumpReader implements AutoCloseable {
 
 			// XML Handler for Media Wiki
 //			MediawikiXmlHandler handler = new MediawikiXmlHandler();
-			MediawikiXmlHandler2 handler = new MediawikiXmlHandler2();
+//			MediawikiXmlHandler2 handler = new MediawikiXmlHandler2();
+			MediawikiXmlHandler4 handler = new MediawikiXmlHandler4();
+			handler.setKeepObject(true);
 
 			InputStream bais = new ByteArrayInputStream(blockXml.getBytes(ENCODING_UTF8));
 
@@ -233,7 +235,9 @@ public class WikiDumpReader implements AutoCloseable {
 //			System.err.println(pages.get(itemString).getTitle());
 //			System.err.println(pages.get(itemString).getText());
 
-			WikiPage page = pages.get("" + item.getItemID());
+			System.err.println(item);
+
+			WikiPage page = pages.get("" + item.getTitle() );
 			page.setXml(blockXml);
 
 			{
@@ -402,7 +406,7 @@ public class WikiDumpReader implements AutoCloseable {
 			SAXParser saxParser = saxParserFactory.newSAXParser();
 
 			// XML Handler for Media Wiki
-			MediawikiXmlHandler3 handler = new MediawikiXmlHandler3();
+			MediawikiXmlHandler4 handler = new MediawikiXmlHandler4();
 
 			if (wikiPageHander != null) {
 				handler.setWikiPageHander(wikiPageHander);

@@ -227,8 +227,16 @@ public class MediaWikiDownloader extends AbstractWebCrawler implements Crawler {
 	}
 
 	public String getURL_dumpData() {
-		String filename = String.format(WIKTIONARY_DUMP_FILENAME_BASE, this.language, this.media, this.version);
-		String url = String.format(WIKIMEDIA_URL_BASE, this.language, this.media, this.version, filename);
+		return getDumpURL(this.language, this.media, this.version);
+	}
+
+	static public String getDumpFileName(String language, String media, String version) {
+		return String.format(WIKTIONARY_DUMP_FILENAME_BASE, language, media, version);
+	}
+
+	static public String getDumpURL(String language, String media, String version) {
+		String fileName = getDumpFileName(language, media, version);
+		String url = String.format(WIKIMEDIA_URL_BASE, language, media, version, fileName);
 		return url;
 	}
 

@@ -260,8 +260,9 @@ public class MediaWikiTextUtilsTestCase extends TestCase {
 				+ "|}\r\n" //
 				+ "『'''秘密戦隊ゴレンジャー'''』 (ひみつせんたいゴレンジャー) は、[[1975年]][[4月5日]]から[[1977年]][[3月26日]]まで、NET系列で毎週土曜19:30 - 20:00 ([[日本標準時|JST]]) に全84話が放送された、[[テレビ朝日|NET]] (現・テレビ朝日)・[[東映]]制作の[[特撮テレビ番組一覧|特撮テレビドラマ]]、および作中に登場するヒーローチームの名称。\r\n" //
 				+ "";
-
+		System.err.println("<wikitext>");
 		System.err.println(wikitext);
+		System.err.println("</wikitext>");
 
 		String wikitext2 = MediaWikiTextUtils.removeTable(wikitext);
 

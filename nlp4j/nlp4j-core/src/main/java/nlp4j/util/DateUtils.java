@@ -24,13 +24,6 @@ public class DateUtils {
 
 	private static final String YYYY_MM_DD_T_HH_MM_SS = "yyyy-MM-dd'T'HH:mm:ss";
 
-	static public Date getDateFromNowByHours(int hours) {
-		Instant now = Instant.now();
-		Instant twentyFourHoursAgo = now.minus(hours, ChronoUnit.HOURS);
-		Date d = Date.from(twentyFourHoursAgo);
-		return d;
-	}
-
 	/**
 	 * yyyyMMdd-HHmmss
 	 */
@@ -42,12 +35,16 @@ public class DateUtils {
 	public static final String YYYY_MM_DD = "yyyyMMdd";
 
 	/**
+	 * yyyyMM
+	 */
+	public static final String YYYY_MM = "yyyyMM";
+
+	/**
 	 * yyyy-MM-dd'T'HH:mm:ssXXX
 	 */
 //	static private final SimpleDateFormat sdf_ISO8601 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX");
 	private static final ThreadLocal<SimpleDateFormat> sdf_ISO8601 = ThreadLocal
 			.withInitial(() -> new SimpleDateFormat(YYYY_MM_DD_T_HH_MM_SS));
-
 	/**
 	 * yyyyMMdd-HHmmss
 	 */
@@ -66,6 +63,9 @@ public class DateUtils {
 //	static private final SimpleDateFormat sdf_yyyyMMdd = new SimpleDateFormat(YYYY_MM_DD);
 	private static final ThreadLocal<SimpleDateFormat> sdf_yyyyMMdd = ThreadLocal
 			.withInitial(() -> new SimpleDateFormat(YYYY_MM_DD));
+
+	private static final ThreadLocal<SimpleDateFormat> sdf_yyyyMM = ThreadLocal
+			.withInitial(() -> new SimpleDateFormat(YYYY_MM));
 
 	static private String formatUs(String data, String dataFormat, int style) {
 		SimpleDateFormat sdf = new SimpleDateFormat(dataFormat);
@@ -117,7 +117,15 @@ public class DateUtils {
 	}
 
 	/**
-	 * @return Date in yyyyMMdd-HHmmss
+	 * @return Date in yyyyMM
+	 * @since 1.3.7.19
+	 */
+	static public String get_yyyyMM() {
+		return sdf_yyyyMM.get().format(new Date());
+	}
+
+	/**
+	 * @return Date in yyyyMMdd
 	 * @since 1.3.7.13
 	 */
 	static public String get_yyyyMMdd() {
@@ -226,6 +234,13 @@ public class DateUtils {
 		return getCalendarValues(min, max, format, Calendar.MONTH);
 	}
 
+	static public Date getDateFromNowByHours(int hours) {
+		Instant now = Instant.now();
+		Instant twentyFourHoursAgo = now.minus(hours, ChronoUnit.HOURS);
+		Date d = Date.from(twentyFourHoursAgo);
+		return d;
+	}
+
 	/**
 	 * <pre>
 	 * </pre>
@@ -260,12 +275,20 @@ public class DateUtils {
 	}
 
 	/**
-	 * 
 	 * @param date
-	 * @return ISO 8601 format
+	 * @param format
+	 * @return
+	 * @since 1.3.7.13
 	 */
-	static public String toISO8601(Date date) {
-		return sdf_ISO8601.get().format(date);
+	static public Date toDate(String date, String format) {
+		SimpleDateFormat sdf = new SimpleDateFormat(format);
+		try {
+			Date d = sdf.parse(date);
+			return d;
+		} catch (ParseException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	/**
@@ -274,6 +297,15 @@ public class DateUtils {
 	 */
 	static public String toISO8601() {
 		return sdf_ISO8601.get().format(new Date());
+	}
+
+	/**
+	 * 
+	 * @param date
+	 * @return ISO 8601 format
+	 */
+	static public String toISO8601(Date date) {
+		return sdf_ISO8601.get().format(date);
 	}
 
 	/**
@@ -287,23 +319,6 @@ public class DateUtils {
 		try {
 			Date d = sdf.parse(date);
 			return sdf_ISO8601.get().format(d);
-		} catch (ParseException e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
-
-	/**
-	 * @param date
-	 * @param format
-	 * @return
-	 * @since 1.3.7.13
-	 */
-	static public Date toDate(String date, String format) {
-		SimpleDateFormat sdf = new SimpleDateFormat(format);
-		try {
-			Date d = sdf.parse(date);
-			return d;
 		} catch (ParseException e) {
 			e.printStackTrace();
 			return null;

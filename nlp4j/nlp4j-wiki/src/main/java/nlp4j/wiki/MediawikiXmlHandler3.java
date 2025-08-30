@@ -25,6 +25,8 @@ import nlp4j.xml.AbstractXmlHandler;
  */
 public class MediawikiXmlHandler3 extends AbstractXmlHandler {
 
+	private static final String TITLE = "title";
+
 	static private final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
 	private boolean keepObject = false;
@@ -80,8 +82,10 @@ public class MediawikiXmlHandler3 extends AbstractXmlHandler {
 
 	@Override
 	public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
-
-		logger.debug("qName=" + qName);
+		
+		if (logger.isDebugEnabled()) {
+			logger.debug("qName=" + qName);
+		}
 
 		// root tag is <mediawiki> or <page>
 		if (ROOT == null) {
@@ -117,7 +121,7 @@ public class MediawikiXmlHandler3 extends AbstractXmlHandler {
 		}
 		// ELSE IF(リダイレクト)
 		else if (super.getPath().equals(PATH003_MEDIAWIKI_PAGE_REDIRECT)) {
-			String redirect_title = attributes.getValue("title");
+			String redirect_title = attributes.getValue(TITLE);
 			pageInfo.put(PATH003_MEDIAWIKI_PAGE_REDIRECT, redirect_title);
 		}
 		//
@@ -226,16 +230,16 @@ public class MediawikiXmlHandler3 extends AbstractXmlHandler {
 	@Override
 	public void startDocument() throws SAXException {
 		super.startDocument();
-		if (this.wikiPageHander instanceof AbstractWikiPageHandler) {
-			((AbstractWikiPageHandler) this.wikiPageHander).startDocument();
+		if (this.wikiPageHander != null) {
+			this.wikiPageHander.startDocument();
 		}
 	}
 
 	@Override
 	public void endDocument() throws SAXException {
 		super.endDocument();
-		if (this.wikiPageHander instanceof AbstractWikiPageHandler) {
-			((AbstractWikiPageHandler) this.wikiPageHander).endDocument();
+		if (this.wikiPageHander != null) {
+			this.wikiPageHander.endDocument();
 		}
 	}
 

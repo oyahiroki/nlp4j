@@ -18,7 +18,7 @@ public class Wiktionary002CheckDumpIndexFileExampleEn_20220401 {
 	public static void main(String[] args) throws Exception {
 		{
 			File indexFile = MediaWikiFileUtils.getIndexFile( //
-					"/usr/local/data/wiki/20220401", //
+					"/usr/local/wiki/20220401", //
 					"en", //
 					"wiktionary", //
 					"20220401"); //

@@ -225,6 +225,12 @@ public class HttpClient5 implements HttpClient {
 			HttpEntity entity1 = response1.getEntity();
 
 			if (entity1 != null) {
+
+				{
+					long contentLength = entity1.getContentLength();
+					this.content_length = contentLength;
+				}
+
 				return entity1.getContent();
 			} else {
 				throw new IOException();

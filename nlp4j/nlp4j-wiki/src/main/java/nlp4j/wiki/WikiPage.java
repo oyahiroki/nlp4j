@@ -63,7 +63,7 @@ public class WikiPage {
 	 * @return Wikipedia Page categories
 	 */
 	public List<String> getCategoryTags() {
-		return categoryTags;
+		return MediaWikiTextUtils.parseCategoryTags(text);
 	}
 
 	/**
@@ -141,7 +141,7 @@ public class WikiPage {
 	 * @return TEXT null on error
 	 */
 	public String getPlainText() {
-		return MediaWikiTextUtils.toPlainText(this.title, this.text);
+		return MediaWikiTextUtils.toPlainText(this.title, this.getText());
 	}
 
 	/**
@@ -180,7 +180,8 @@ public class WikiPage {
 	 * @return Template tags
 	 */
 	public List<String> getTemplateTags() {
-		return templateTags;
+		return MediaWikiTextUtils.parseTemplateTags(text);
+//		return templateTags;
 	}
 
 	/**
@@ -189,6 +190,9 @@ public class WikiPage {
 	 * @return Wiki Text
 	 */
 	public String getText() {
+		if(this.xml != null && this.text == null) {
+			this.text = org.apache.commons.text.StringEscapeUtils.unescapeXml(this.xml);
+		}
 		return text;
 	}
 
@@ -312,7 +316,7 @@ public class WikiPage {
 				+ "namespace=" + namespace + ", " // <ns>
 				+ "id=" + id + ", " // <id>
 				// <revision>
-				+ "revisionId=" + revisionId + "" // <id>
+				+ "revisionId=" + revisionId + ", " // <id>
 				+ "parentId=" + parentId + ", " //
 				+ "timestamp=" + timestamp + ", " //
 				// <contributor></contributor>

@@ -1,5 +1,6 @@
 package example.p001download;
 
+import nlp4j.util.DateUtils;
 import nlp4j.wiki.MediaWikiDownloader;
 import nlp4j.wiki.MediaWikiDownloader.media;
 
@@ -15,11 +16,15 @@ import nlp4j.wiki.MediaWikiDownloader.media;
 public class Wikipedia001DownloadWikiDumpEn_20221101builder {
 
 	static public void main(String[] args) throws Exception {
+
+		String yyyyMMdd = DateUtils.get_yyyyMM() + "01";
+		String lang = "en";
+
 		MediaWikiDownloader dl = (new MediaWikiDownloader.Builder()) //
-				.version("20221101") //
-//				.outdir("/usr/local/wiki/enwiki/20221101") //
-				.language("en") //
-				.media(media.wiki) //
+				.version(yyyyMMdd) //
+				.outdir("/usr/local/wiki/enwiki/" + yyyyMMdd) //
+				.language(lang) //
+				.media(media.wiktionary) //
 				.build();
 		dl.crawlDocuments();
 	}

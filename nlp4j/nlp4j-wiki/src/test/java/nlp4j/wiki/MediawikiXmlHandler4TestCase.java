@@ -1,0 +1,76 @@
+package nlp4j.wiki;
+
+import java.io.File;
+
+import javax.xml.XMLConstants;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
+
+import junit.framework.TestCase;
+
+public class MediawikiXmlHandler4TestCase extends TestCase {
+
+	public void test101() throws Exception {
+		File xmlFile = new File("src/test/resources/nlp4j.wiki/jawiki-20221101-pages-articles-multistream-255425.xml");
+		WikiPageHandler h = new WikiPageHandler() {
+			@Override
+			public void read(WikiPage page) throws BreakException {
+				System.err.println("---");
+				System.err.println(page.toString());
+				System.err.println("---");
+				System.err.println(page.toString2());
+				System.err.println("---");
+				System.err.println(page.getTitle());
+				System.err.println("---");
+				System.err.println("<xml>");
+				System.err.println(page.getXml());
+				System.err.println("</xml>");
+				System.err.println("<text>");
+				System.err.println(page.getText());
+				System.err.println("</text>");
+				System.err.println("<plaintext>");
+				System.err.println(page.getPlainText());
+				System.err.println("</plaintext>");
+				System.err.println("---");
+			}
+		};
+		SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
+		{ // 2022-08-01
+			// to prevent org.xml.sax.SAXParseException; lineNumber: 111758337;
+			// columnNumber: 66; JAXP00010004:
+			// エンティティの累積サイズ"50,000,001"は、"FEATURE_SECURE_PROCESSING"で設定された制限"50,000,000"を超えました。
+			saxParserFactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, false);
+		}
+		SAXParser saxParser = saxParserFactory.newSAXParser();
+		// XML Handler for Media Wiki
+		MediawikiXmlHandler4 handler = new MediawikiXmlHandler4();
+		handler.setWikiPageHander(h);
+		saxParser.parse(xmlFile, handler);
+
+	}
+
+	public void test101_redirect() throws Exception {
+		File xmlFile = new File("src/test/resources/nlp4j.wiki/jawiki-20220501-pages-articles-multistream-2170292.xml");
+		WikiPageHandler h = new WikiPageHandler() {
+			@Override
+			public void read(WikiPage page) throws BreakException {
+				System.err.println(page);
+				System.err.println(page.getXml());
+				assertNotNull(page);
+			}
+		};
+		SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
+		{ // 2022-08-01
+			// to prevent org.xml.sax.SAXParseException; lineNumber: 111758337;
+			// columnNumber: 66; JAXP00010004:
+			// エンティティの累積サイズ"50,000,001"は、"FEATURE_SECURE_PROCESSING"で設定された制限"50,000,000"を超えました。
+			saxParserFactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, false);
+		}
+		SAXParser saxParser = saxParserFactory.newSAXParser();
+		// XML Handler for Media Wiki
+		MediawikiXmlHandler4 handler = new MediawikiXmlHandler4();
+		handler.setWikiPageHander(h);
+		saxParser.parse(xmlFile, handler);
+	}
+
+}

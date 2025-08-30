@@ -17,7 +17,7 @@ import org.xml.sax.helpers.DefaultHandler;
 public abstract class AbstractXmlHandler extends DefaultHandler {
 
 	protected Stack<String> qNameStack = new Stack<>();
-	protected StringBuffer sb = new StringBuffer();
+	protected StringBuilder sb = new StringBuilder();
 
 	protected String getPath() {
 		return String.join("/", qNameStack.toArray(new String[0]));
@@ -60,7 +60,6 @@ public abstract class AbstractXmlHandler extends DefaultHandler {
 	@Override
 	public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
 		qNameStack.push(qName);
-		sb = new StringBuffer();
 	}
 
 	/*
@@ -71,9 +70,7 @@ public abstract class AbstractXmlHandler extends DefaultHandler {
 	 */
 	@Override
 	public void endElement(String uri, String localName, String qName) throws SAXException {
-
 		qNameStack.pop();
-		sb = new StringBuffer();
 	}
 
 	/*
@@ -83,7 +80,7 @@ public abstract class AbstractXmlHandler extends DefaultHandler {
 	 */
 	@Override
 	public void characters(char[] ch, int start, int length) throws SAXException {
-		sb.append(new String(ch, start, length));
+		sb.append(ch, start, length);
 	}
 
 }

@@ -10,8 +10,10 @@ public interface WikiPageHandler {
 
 	public void read(WikiPage page) throws BreakException;
 
-//	public void startDocument();
+	default void startDocument() {
+	};
 
-//	public void endDocument();
+	default void endDocument() {
+	};
 
 }

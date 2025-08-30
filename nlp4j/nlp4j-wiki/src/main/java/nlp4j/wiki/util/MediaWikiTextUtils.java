@@ -26,6 +26,32 @@ import nlp4j.wiki.WikiPageNode;
 
 public class MediaWikiTextUtils {
 
+	private static final String S2 = "\n|}";
+
+	private static final String S = "\n{|";
+
+	private static final char CHAR4 = ']';
+
+	private static final char CHAR3 = '[';
+
+	private static final char CHAR2 = '}';
+
+	private static final char CHAR = '{';
+
+	private static final String PREFIX = "{{";
+
+	private static final String STR2 = "[[";
+
+	private static final String S_PIPE = "|";
+
+	private static final String STR = "]]";
+
+	private static final char CH_PIPE = '|';
+
+	private static final String NEWLINE = "\n";
+
+	private static final String CATEGORY = "[[Category:";
+
 	static private Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
 	static private final WtEngineImpl engine;
@@ -47,7 +73,7 @@ public class MediaWikiTextUtils {
 		boolean infobox = false;
 		int level = 0;
 
-		for (String line : wikiText.split("\n")) {
+		for (String line : wikiText.split(NEWLINE)) {
 			// NOT Infobox
 			if (infobox == false) {
 				if (line.startsWith("{{Infobox")) {
@@ -86,7 +112,7 @@ public class MediaWikiTextUtils {
 					} //
 				}
 			}
-			sb.append("\n");
+			sb.append(NEWLINE);
 		} // END_OF_EACH(LINE)
 
 		if (level == 0 && sbInfobox.length() > 0) {
@@ -143,7 +169,7 @@ public class MediaWikiTextUtils {
 			return null;
 		}
 
-		if (rootNodeText.trim().startsWith("[[")) {
+		if (rootNodeText.trim().startsWith(STR2)) {
 			rootNodeText = MediaWikiTextUtils.removeLinkFirst(rootNodeText);
 		}
 
@@ -155,8 +181,8 @@ public class MediaWikiTextUtils {
 		}
 		{
 //			rootNodeText = rootNodeText.replaceAll("<ref .*?</ref>", "");
-			
-			rootNodeText=			Jsoup.parse(rootNodeText).text();
+
+			rootNodeText = Jsoup.parse(rootNodeText).text();
 		}
 
 		{
@@ -170,7 +196,7 @@ public class MediaWikiTextUtils {
 
 			// 適切でないフォーマットへの対応
 			if (rootNodeText.contains("colspan")) {
-				int lastIndex = rootNodeText.lastIndexOf("|");
+				int lastIndex = rootNodeText.lastIndexOf(S_PIPE);
 				if (lastIndex != -1) {
 					rootNodeText = rootNodeText.substring(lastIndex + 1).trim();
 				}
@@ -191,7 +217,7 @@ public class MediaWikiTextUtils {
 
 		String text = MediaWikiTextUtils.toPlainText(title, rootNodeText);
 		{
-			int idx1 = text.indexOf("{{");
+			int idx1 = text.indexOf(PREFIX);
 			int idx2 = text.indexOf("}}");
 			if (idx1 == -1 && idx2 > 0) {
 				text = text.substring(idx2 + 2);
@@ -253,17 +279,17 @@ public class MediaWikiTextUtils {
 		List<String> tags = new ArrayList<>();
 
 		if (wikiText != null) {
-			for (String line : wikiText.split("\n")) {
+			for (String line : wikiText.split(NEWLINE)) {
 				line = line.trim();
 
-				if (line.startsWith("[[Category:")) {
-					if (line.contains("|")) {
+				if (line.startsWith(CATEGORY)) {
+					if (line.contains(S_PIPE)) {
 						int beginIndex = 11;
-						int endIndex = line.indexOf('|');
+						int endIndex = line.indexOf(CH_PIPE);
 						if (beginIndex < endIndex) {
 							String v = line.substring(beginIndex, endIndex);
 							{
-								int idx = v.indexOf("]]");
+								int idx = v.indexOf(STR);
 								if (idx != -1) {
 									v = v.substring(0, idx);
 								}
@@ -276,7 +302,7 @@ public class MediaWikiTextUtils {
 						if (beginIndex < endIndex) {
 							String v = line.substring(beginIndex, endIndex);
 							{
-								int idx = v.indexOf("]]");
+								int idx = v.indexOf(STR);
 								if (idx != -1) {
 									v = v.substring(0, idx);
 								}
@@ -284,7 +310,9 @@ public class MediaWikiTextUtils {
 							tags.add(v);
 						} //
 						else {
-							logger.info("Invalid_String: " + line);
+							if (logger.isInfoEnabled()) {
+								logger.info("Invalid_String: " + line);
+							}
 						}
 					}
 				}
@@ -299,8 +327,8 @@ public class MediaWikiTextUtils {
 			return null;
 		}
 		String tag;
-		if (line.contains("|")) {
-			int idx = line.indexOf("|");
+		if (line.contains(S_PIPE)) {
+			int idx = line.indexOf(S_PIPE);
 			tag = line.substring(0, idx);
 		} //
 		else if (line.contains(":")) {
@@ -366,20 +394,22 @@ public class MediaWikiTextUtils {
 
 		if (wikiText != null) {
 			// FOR EACH LINE
-			for (String line : wikiText.split("\n")) {
-				if (line.startsWith("{{") == true) {
+			for (String line : wikiText.split(NEWLINE)) {
+				if (line.startsWith(PREFIX) == true) {
 					String tag = parseTag(line);
 
-					if (tag.contains("<!--")) {
+					if (tag != null) {
+//					if (tag.contains("<!--")) {
 						int idx1 = tag.indexOf("<!--");
 						if (idx1 > 0) {
 							tag = tag.substring(0, idx1);
 						}
-					}
+//					}
 
-					if (tag != null) {
-						if (tags.contains(tag) == false) {
-							tags.add(tag);
+						{
+							if (tags.contains(tag) == false) {
+								tags.add(tag);
+							}
 						}
 					}
 				}
@@ -399,8 +429,8 @@ public class MediaWikiTextUtils {
 		// けんか
 		// #redirect [[喧嘩]]
 		if (t.startsWith("#REDIRECT") || t.startsWith("#redirect")) {
-			int idx1 = t.indexOf("[[");
-			int idx2 = t.indexOf("]]");
+			int idx1 = t.indexOf(STR2);
+			int idx2 = t.indexOf(STR);
 			if (idx1 != -1 && idx2 != -1) {
 				t = t.substring(idx1 + 2, idx2);
 			}
@@ -414,16 +444,16 @@ public class MediaWikiTextUtils {
 
 		wikitext = wikitext.trim();
 
-		if (wikitext.startsWith("{{") == false) {
+		if (wikitext.startsWith(PREFIX) == false) {
 			return wikitext_org;
 		} else {
 
 			int status = 0;
 			for (int n = 0; n < wikitext.length(); n++) {
 				char c = wikitext.charAt(n);
-				if (c == '{') {
+				if (c == CHAR) {
 					status++;
-				} else if (c == '}') {
+				} else if (c == CHAR2) {
 					status--;
 				}
 				if (status == 0) {
@@ -450,17 +480,19 @@ public class MediaWikiTextUtils {
 
 		extractedInfobox(wikiText, sbWikiText, infoBoxes);
 
-		boolean debug = false;
-
-		if (debug == true) {
-			if (infoBoxes.size() > 0) {
-				for (String ib : infoBoxes) {
-					System.err.println("<infobox>");
-					System.err.println(ib.toString());
-					System.err.println("</infobox>");
-				}
-			}
-		}
+//		{
+//			boolean debug = false;
+//
+//			if (debug == true) {
+//				if (infoBoxes.size() > 0) {
+//					for (String ib : infoBoxes) {
+//						System.err.println("<infobox>");
+//						System.err.println(ib.toString());
+//						System.err.println("</infobox>");
+//					}
+//				}
+//			}
+//		}
 
 		return sbWikiText.toString();
 	}
@@ -472,9 +504,9 @@ public class MediaWikiTextUtils {
 			int status = 0;
 			for (int n = 0; n < wikitext.length(); n++) {
 				char c = wikitext.charAt(n);
-				if (c == '[') {
+				if (c == CHAR3) {
 					status++;
-				} else if (c == ']') {
+				} else if (c == CHAR4) {
 					status--;
 					if (status == 0) {
 						return sb.toString() + wikitext.substring(n + 1);
@@ -488,18 +520,41 @@ public class MediaWikiTextUtils {
 		return sb.toString();
 	}
 
+	private static final String OPEN = "{|";
+	private static final String CLOSE = "|}";
+	// DOTALLでもOK: Pattern.compile("\\{\\|.*?\\|\\}", Pattern.DOTALL)
+	private static final Pattern TABLE = Pattern.compile("\\{\\|[\\s\\S]*?\\|\\}");
+
+	/**
+	 * @param wikitext
+	 * @return
+	 */
 	public static String removeTable(String wikitext) {
 		if (wikitext == null) {
 			return null;
 		}
 
-		if (wikitext.contains("\n{|") && wikitext.contains("\n|}")) {
-			wikitext = wikitext.replace("\r", "").replace("\n", "【NLP4J_NL】")
-			// https://qiita.com/ymatsuta/items/cff10a2d8d0fa6b69485
-//					.replaceAll("\\{\\| (.|\\n|\\r)*?\\|\\}", "");
-					.replaceAll("\\{\\|.*? \\|\\}", "") //
-					.replace("【NLP4J_NL】", "\n") //
-			;
+//		if (wikitext.contains(S) && wikitext.contains(S2)) {
+//			wikitext = wikitext.replace("\r", "").replace(NEWLINE, "【NLP4J_NL】")
+//					// https://qiita.com/ymatsuta/items/cff10a2d8d0fa6b69485
+//					.replaceAll("\\{\\|.*? \\|\\}", "") //
+//					.replace("【NLP4J_NL】", NEWLINE) //
+//			;
+//		}
+
+		{
+			int open = wikitext.indexOf(OPEN);
+			if (open < 0) {
+				// CRが混ざる可能性があるならだけ除去
+				return (wikitext.indexOf('\r') >= 0) ? wikitext.replace("\r", "") : wikitext;
+			}
+			// 終了記号がなければ何もしない（元コードと同等の保守的動作）
+			if (wikitext.indexOf(CLOSE, open + OPEN.length()) < 0) {
+				return (wikitext.indexOf('\r') >= 0) ? wikitext.replace("\r", "") : wikitext;
+			}
+
+			String noCR = (wikitext.indexOf('\r') >= 0) ? wikitext.replace("\r", "") : wikitext;
+			wikitext = TABLE.matcher(noCR).replaceAll("");
 		}
 
 		return wikitext;
@@ -568,19 +623,19 @@ public class MediaWikiTextUtils {
 
 			{ // FOR EACH LINE
 				StringBuilder sb = new StringBuilder();
-				for (String t : wikiText.split("\n")) {
+				for (String t : wikiText.split(NEWLINE)) {
 					t = t.trim();
-					if (t.startsWith("[[File:") && t.endsWith("]]")) {
+					if (t.startsWith("[[File:") && t.endsWith(STR)) {
 						continue; // SKIP THIS LINE
 					} //
-					else if (t.startsWith("[[ファイル:") && t.endsWith("]]")) {
+					else if (t.startsWith("[[ファイル:") && t.endsWith(STR)) {
 						continue; // SKIP THIS LINE
 					} //
-					else if (t.startsWith("[[画像:") && t.endsWith("]]")) {
+					else if (t.startsWith("[[画像:") && t.endsWith(STR)) {
 						continue; // SKIP THIS LINE
 					} //
 					else {
-						sb.append(t + "\n");
+						sb.append(t + NEWLINE);
 					}
 				}
 				wikiText = sb.toString();
@@ -617,23 +672,23 @@ public class MediaWikiTextUtils {
 			{ // DEBUG
 				if (wikiText.contains("<gallery>")) {
 					wikiText = wikiText //
-							.replace("\n", "\\n") //
+							.replace(NEWLINE, "\\n") //
 							.replaceAll("<gallery>.*?</gallery>", "") // ファイルへのリンクを除去 JA_ONLY
-							.replace("\\n", "\n")//
+							.replace("\\n", NEWLINE)//
 					;
 				}
 				if (wikiText.contains("<ref>")) {
 					wikiText = wikiText //
-							.replace("\n", "\\n")//
+							.replace(NEWLINE, "\\n")//
 							.replaceAll("<ref>.*?</ref>", "") // ファイルへのリンクを除去 JA_ONLY
-							.replace("\\n", "\n")//
+							.replace("\\n", NEWLINE)//
 					;
 				}
 				if (wikiText.contains("<imagemap>")) {
 					wikiText = wikiText //
-							.replace("\n", "\\n")//
+							.replace(NEWLINE, "\\n")//
 							.replaceAll("<imagemap>.*?</imagemap>", "") // ファイルへのリンクを除去 JA_ONLY
-							.replace("\\n", "\n")//
+							.replace("\\n", NEWLINE)//
 					;
 				}
 			}

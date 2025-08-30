@@ -19,7 +19,7 @@ public class PageViewCounter {
 	private Counter<String> counter = new Counter<>();
 
 	public Counter<String> get(String url, String domain) throws IOException {
-		return get(url, domain, null);
+		return get(url, domain, new Counter<>());
 	}
 
 	public Counter<String> get(String url, String domain, Counter<String> counter) throws IOException {
