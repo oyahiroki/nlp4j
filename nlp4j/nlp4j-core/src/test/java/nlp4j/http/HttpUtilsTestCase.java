@@ -6,6 +6,13 @@ import junit.framework.TestCase;
 
 public class HttpUtilsTestCase extends TestCase {
 
+	public void testisStatus200() throws Exception {
+		String url = "https://nlp4j.org";
+		boolean b = HttpUtils.isStatus200(url);
+		boolean expected = true;
+		assertEquals(expected, b);
+	}
+
 	public void testFetchImage101() throws Exception {
 		String url = "https://nlp4j.org/wp-content/uploads/2021/09/nlp4j_680x680.png";
 		Base64Response p = HttpUtils.fetchImageAsBase64(url);
