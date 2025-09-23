@@ -108,37 +108,17 @@ public class IOUtils {
 		else if (file.getAbsolutePath().endsWith(".7z")) {
 
 			@SuppressWarnings("deprecation")
-			SevenZFile sevenZ = new SevenZFile(file);
-			
-			SevenZArchiveEntry entry = sevenZ.getNextEntry();
+			SevenZFile sevenZFile = new SevenZFile(file);
+
+			SevenZArchiveEntry entry = sevenZFile.getNextEntry();
 			if (entry != null && !entry.isDirectory()) {
-				// Entry の内容を InputStream として扱えるようラップ
-				InputStream is = new InputStream() {
-					private final byte[] single = new byte[1];
 
-					@Override
-					public int read(byte[] b, int off, int len) throws IOException {
-						// SevenZFile は read(b, off, len) を持つので、これを使うと効率的
-						return sevenZ.read(b, off, len);
-					}
-
-					@Override
-					public int read() throws IOException {
-						int n = read(single, 0, 1);
-						return (n == -1) ? -1 : (single[0] & 0xff);
-					}
-
-					@Override
-					public void close() throws IOException {
-						// Reader を閉じるとここに到達 → SevenZFile も確実に閉じる
-						sevenZ.close();
-					}
-				};
+				InputStream is = SevenZUtils.readAsInputStream(file);
 				BufferedReader reader = new BufferedReader(new InputStreamReader(is, charset));
 				return reader;
 
 			} else {
-				sevenZ.close();
+				sevenZFile.close();
 				throw new IOException("Entry not found");
 			}
 
@@ -222,7 +202,7 @@ public class IOUtils {
 	/**
 	 * created on: 2025-03-16
 	 * 
-	 * @param (gzip File) or (plain text File)
+	 * @param (gzip File) or (7z File) or (plain text File)
 	 * @return InputStream of File
 	 * @throws IOException
 	 * @since 1.3.7.18
@@ -234,6 +214,11 @@ public class IOUtils {
 		// OPEN AS ZGIP
 		if (file.getAbsolutePath().endsWith(".gz")) {
 			InputStream is = new GZIPInputStream(new FileInputStream(file));
+			return is;
+		}
+		// OPEN AS 7Z
+		else if (file.getAbsolutePath().endsWith(".7z")) {
+			InputStream is = SevenZUtils.readAsInputStream(file);
 			return is;
 		}
 		// OPEN AS PLAIN TEXT

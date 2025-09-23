@@ -21,6 +21,7 @@ public class IOUtilsTestCase extends TestCase {
 		p.getLeft().close();
 		System.err.println("Hello2");
 	}
+
 	public void testSysErrTemp001() throws Exception {
 		Pair<PrintWriter, File> p = IOUtils.pwSysErrTemp();
 		p.getLeft().println("Hello1");
@@ -51,12 +52,15 @@ public class IOUtilsTestCase extends TestCase {
 	 */
 	public void testBufferedReader001() throws Exception {
 		File file = new File("src/test/resources/nlp4j.util/IOUtilsTest001.txt");
+		boolean ok = false;
 		try (BufferedReader br = IOUtils.bufferedReader(file)) {
 			String s;
 			while ((s = br.readLine()) != null) {
 				System.err.println(s);
+				ok = true;
 			}
 		}
+		assertTrue(ok);
 	}
 
 	/**
@@ -64,23 +68,30 @@ public class IOUtilsTestCase extends TestCase {
 	 * 
 	 * @throws Exception
 	 */
-	public void testBufferedReader002() throws Exception {
+	public void testBufferedReader002_gz() throws Exception {
 		File file = new File("src/test/resources/nlp4j.util/IOUtilsTest001.txt.gz");
+		boolean ok = false;
 		try (BufferedReader br = IOUtils.bufferedReader(file)) {
 			String s;
 			while ((s = br.readLine()) != null) {
 				System.err.println(s);
+				ok = true;
 			}
 		}
+		assertTrue(ok);
 	}
-	public void testBufferedReader003() throws Exception {
+
+	public void testBufferedReader003_7z() throws Exception {
 		File file = new File("src/test/resources/nlp4j.util/IOUtilsTest001.txt.7z");
+		boolean ok = false;
 		try (BufferedReader br = IOUtils.bufferedReader(file)) {
 			String s;
 			while ((s = br.readLine()) != null) {
 				System.err.println(s);
+				ok = true;
 			}
 		}
+		assertTrue(ok);
 	}
 
 	public void testPrintWriterFile() throws IOException {
