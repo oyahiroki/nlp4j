@@ -73,6 +73,15 @@ public class IOUtilsTestCase extends TestCase {
 			}
 		}
 	}
+	public void testBufferedReader003() throws Exception {
+		File file = new File("src/test/resources/nlp4j.util/IOUtilsTest001.txt.7z");
+		try (BufferedReader br = IOUtils.bufferedReader(file)) {
+			String s;
+			while ((s = br.readLine()) != null) {
+				System.err.println(s);
+			}
+		}
+	}
 
 	public void testPrintWriterFile() throws IOException {
 		File tempFile = File.createTempFile("nlp4j-test", ".txt");

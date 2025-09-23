@@ -46,6 +46,18 @@ public class TextFileUtilsTestCase extends TestCase {
 		}
 		assertEquals(expected_line_count, line_count);
 	}
+	public void testOpenPlainTextFileAsBufferedReaderFileString002() throws Exception {
+		File file = new File("./src/test/resources/nlp4j.util/FileUtilsTest.txt");
+		BufferedReader br = TextFileUtils.openPlainTextFileAsBufferedReader(file, "UTF-8");
+		String s;
+		int line_count = 0;
+		int expected_line_count = 3;
+		while ((s = br.readLine()) != null) {
+			line_count++;
+			System.err.println(s);
+		}
+		assertEquals(expected_line_count, line_count);
+	}
 
 	public void testOpenPlainTextFileAsBufferedReaderURL001() throws Exception {
 		URL url_of_file = new URL("https://nlp4j.org/");

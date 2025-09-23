@@ -13,7 +13,6 @@ import java.io.OutputStreamWriter;
 import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.io.Writer;
-import java.lang.invoke.MethodHandles;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
@@ -21,9 +20,9 @@ import java.util.List;
 import java.util.stream.Stream;
 import java.util.zip.GZIPInputStream;
 
+import org.apache.commons.compress.archivers.sevenz.SevenZArchiveEntry;
+import org.apache.commons.compress.archivers.sevenz.SevenZFile;
 import org.apache.commons.io.FileUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import nlp4j.io.DevNullOutputStream;
 import nlp4j.io.DevNullPrintWriter;
@@ -38,8 +37,6 @@ import nlp4j.tuple.Pair;
  * @since 1.3.7.8
  */
 public class IOUtils {
-
-	static private Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
 	/**
 	 * created on: 2024-08-26
@@ -78,14 +75,23 @@ public class IOUtils {
 	}
 
 	/**
-	 * created on: 2024-08-26
+	 * created on: 2025-09-23
 	 * 
-	 * @param (gzip File) or (plain text File)
-	 * @return BufferedReader
 	 * @throws IOException
-	 * @since 1.3.7.14
+	 * @since 1.3.7.19
 	 */
-	static public BufferedReader bufferedReader(File file) throws IOException {
+	static public BufferedReader bufferedReader(File file, String charset) throws IOException {
+		return bufferedReader(file, Charset.forName(charset));
+	}
+
+	/**
+	 * created on: 2025-09-23
+	 * 
+	 * @throws IOException
+	 * @since 1.3.7.19
+	 */
+	static public BufferedReader bufferedReader(File file, Charset charset) throws IOException {
+
 		if (file.exists() == false) {
 			throw new FileNotFoundException(file.getAbsolutePath());
 		}
@@ -98,6 +104,45 @@ public class IOUtils {
 							StandardCharsets.UTF_8));
 			return br;
 		}
+		// OPEN AS 7z
+		else if (file.getAbsolutePath().endsWith(".7z")) {
+
+			@SuppressWarnings("deprecation")
+			SevenZFile sevenZ = new SevenZFile(file);
+			
+			SevenZArchiveEntry entry = sevenZ.getNextEntry();
+			if (entry != null && !entry.isDirectory()) {
+				// Entry の内容を InputStream として扱えるようラップ
+				InputStream is = new InputStream() {
+					private final byte[] single = new byte[1];
+
+					@Override
+					public int read(byte[] b, int off, int len) throws IOException {
+						// SevenZFile は read(b, off, len) を持つので、これを使うと効率的
+						return sevenZ.read(b, off, len);
+					}
+
+					@Override
+					public int read() throws IOException {
+						int n = read(single, 0, 1);
+						return (n == -1) ? -1 : (single[0] & 0xff);
+					}
+
+					@Override
+					public void close() throws IOException {
+						// Reader を閉じるとここに到達 → SevenZFile も確実に閉じる
+						sevenZ.close();
+					}
+				};
+				BufferedReader reader = new BufferedReader(new InputStreamReader(is, charset));
+				return reader;
+
+			} else {
+				sevenZ.close();
+				throw new IOException("Entry not found");
+			}
+
+		}
 		// OPEN AS PLAIN TEXT
 		else {
 			BufferedReader br = new BufferedReader( //
@@ -105,6 +150,18 @@ public class IOUtils {
 							new FileInputStream(file), StandardCharsets.UTF_8));
 			return br;
 		}
+	}
+
+	/**
+	 * created on: 2024-08-26
+	 * 
+	 * @param (gzip File) or (7z File) or (plain text File)
+	 * @return BufferedReader
+	 * @throws IOException
+	 * @since 1.3.7.14
+	 */
+	static public BufferedReader bufferedReader(File file) throws IOException {
+		return bufferedReader(file, StandardCharsets.UTF_8);
 	}
 
 	/**
