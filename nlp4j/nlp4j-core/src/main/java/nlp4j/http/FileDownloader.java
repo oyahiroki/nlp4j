@@ -132,7 +132,9 @@ public class FileDownloader {
 		final long UNKNOWN_SIZE_NOTIFY_INTERVAL = 1L * 1024 * 1024; // 1MB
 
 		if (!overwrite && outFile.exists()) {
-			throw new IOException("File already exists: " + outFile.getAbsolutePath());
+//			throw new IOException();
+			logger.info("File already exists: " + outFile.getAbsolutePath());
+			return;
 		}
 
 		try (final CloseableHttpClient client = HttpClients.createDefault();

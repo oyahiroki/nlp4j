@@ -17,6 +17,8 @@ public class DumpDownloader {
 		String media = "wiki";
 		String version = "20250901";
 
+		String filter_regex = ".*history.*7z";
+
 		{
 			String baseurl = "https://dumps.wikimedia.org/" + lang + media + "/" + version + "/";
 			String url = baseurl + "dumpstatus.json";
@@ -35,11 +37,12 @@ public class DumpDownloader {
 //				System.err.println(key);
 				JsonObject f = files.get(key).getAsJsonObject();
 				URL full_url = (new URL(new URL(baseurl), f.get("url").getAsString()));
-				System.err.println(full_url);
 
-				File outFile2 = new File(dir, full_url.getFile());
-
-				FileDownloader.download(full_url.toString(), outFile2, true);
+				if (full_url.toString().matches(filter_regex)) {
+					System.err.println(full_url);
+					File outFile2 = new File(dir, full_url.getFile());
+					FileDownloader.download(full_url.toString(), outFile2, false);
+				}
 
 			}
 		}

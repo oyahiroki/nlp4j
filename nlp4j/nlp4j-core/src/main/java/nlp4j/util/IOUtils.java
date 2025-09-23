@@ -114,6 +114,7 @@ public class IOUtils {
 			if (entry != null && !entry.isDirectory()) {
 
 				InputStream is = SevenZUtils.readAsInputStream(file);
+
 				BufferedReader reader = new BufferedReader(new InputStreamReader(is, charset));
 				return reader;
 
@@ -200,7 +201,10 @@ public class IOUtils {
 	}
 
 	/**
+	 * <pre>
+	 * Open file as InputStream
 	 * created on: 2025-03-16
+	 * </pre>
 	 * 
 	 * @param (gzip File) or (7z File) or (plain text File)
 	 * @return InputStream of File
