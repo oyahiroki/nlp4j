@@ -25,12 +25,7 @@ public class ReadWikipediaDump1 {
 
 		String itemString = "Nintendo";
 
-		// Index File
-		File indexFile = new File(dumpIndexFileName);
-		// Dump File
-		File dumpFile = new File(dumpFileName);
-
-		try (WikiDumpReader dumpReader = new WikiDumpReader(dumpFile, indexFile);) {
+		try (WikiDumpReader dumpReader = new WikiDumpReader(dumpFileName, dumpIndexFileName);) {
 
 			WikiPage page = dumpReader.getItem(itemString);
 

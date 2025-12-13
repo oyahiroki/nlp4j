@@ -1,4 +1,4 @@
-package nlp4j.wiki.util;
+package nlp4j.wiki.app;
 
 import java.io.File;
 import java.net.URL;
@@ -9,7 +9,7 @@ import com.google.gson.JsonObject;
 
 import nlp4j.http.FileDownloader;
 
-public class DumpDownloader {
+public class DumpWithHistory_Downloader {
 
 	public static void main(String[] args) throws Exception {
 

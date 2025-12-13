@@ -131,9 +131,9 @@ public class FileDownloader {
 		// Interval for progress reporting when total size unknown / 総サイズ不明時の進捗通知間隔
 		final long UNKNOWN_SIZE_NOTIFY_INTERVAL = 1L * 1024 * 1024; // 1MB
 
-		if (!overwrite && outFile.exists()) {
+		if (overwrite == false && outFile.exists()) {
 //			throw new IOException();
-			logger.info("File already exists: " + outFile.getAbsolutePath());
+			logger.info("File already exists: overwrite=" + overwrite + ",file=" + outFile.getAbsolutePath());
 			return;
 		}
 
