@@ -5,13 +5,15 @@ import nlp4j.wiki.WikiDumpReader;
 import nlp4j.wiki.WikiPage;
 import nlp4j.wiki.WikiPageHandler;
 
-public class ReadWikipediaDump2 {
+public class Example002Ja_ReadWikipediaDumpWithoutIndex {
 
 	public static void main(String[] args) throws Exception {
 
-		String dir = "/usr/local/wiki/enwiki/20230101/";
+		String dir = "/usr/local/wiki/jawiki/20230101/";
 
-		String dumpFileName = dir + "enwiki-20230101-pages-articles-multistream.xml.bz2";
+		String dumpFileName = dir + "jawiki-20230101-pages-articles-multistream.xml.bz2";
+
+		int max_print = 10;
 
 		// Create WikiPage handler
 		WikiPageHandler wikiPageHander = new WikiPageHandler() {
@@ -19,12 +21,12 @@ public class ReadWikipediaDump2 {
 
 			@Override
 			public void read(WikiPage page) throws BreakException {
-				System.err.println(page);
-				System.err.println(page.getNamespace());
+//				System.err.println(page);
+//				System.err.println(page.getNamespace());
 				if (page != null && page.getNamespace().equals("0")) {
 					count++;
-					System.err.println(page.getTitle());
-					if (count > 3) { // IF YOU WANT TO BREAK
+					System.err.println("title: " + page.getTitle() + ",timestamp: " + page.getTimestamp());
+					if (count > max_print) { // IF YOU WANT TO BREAK
 						throw new BreakException();
 					}
 				} else {

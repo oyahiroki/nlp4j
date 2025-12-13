@@ -1,7 +1,5 @@
 package examples;
 
-import java.io.File;
-
 import nlp4j.wiki.WikiDumpReader;
 import nlp4j.wiki.WikiPage;
 
@@ -14,7 +12,7 @@ import nlp4j.wiki.WikiPage;
  * @author Hiroki Oya
  *
  */
-public class ReadWikipediaDump1 {
+public class Example001En_ReadWikipediaDumpWithIndex {
 
 	public static void main(String[] args) throws Exception {
 

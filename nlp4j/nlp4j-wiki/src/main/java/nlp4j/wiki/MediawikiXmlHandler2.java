@@ -20,6 +20,7 @@ import nlp4j.xml.AbstractXmlHandler;
  * 
  * created on 2021-06-25
  * 
+ * @deprecated
  * @author Hiroki Oya
  */
 public class MediawikiXmlHandler2 extends AbstractXmlHandler {

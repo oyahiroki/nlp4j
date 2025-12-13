@@ -8,10 +8,8 @@
                         
         
         <wb-resource deploy-path="/" source-path="/src/main/resources"/>
-                
         <wb-resource deploy-path="/" source-path="/target/generated-sources/annotations"/>
-        <wb-resource deploy-path="/" source-path="/.apt_generated"/>
-        <wb-resource deploy-path="/" source-path="/.apt_generated_tests"/>
+        <wb-resource deploy-path="/" source-path="/target/generated-sources/test-annotations"/>
                     
     
     </wb-module>
