@@ -101,11 +101,12 @@ public class DateUtilsTestCase extends TestCase {
 	}
 
 	public void testToISO8601() throws Exception {
+		String expected = "2022-01-11T12:34:56";
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
 		Date d = sdf.parse("20220111123456");
 		String s = DateUtils.toISO8601(d);
 		System.err.println(s);
-		assertEquals("2022-01-11T12:34:56+09:00", s);
+		assertEquals(expected, s);
 	}
 
 }

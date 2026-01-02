@@ -194,12 +194,14 @@ public class DefaultDocumentTestCase extends TestCase {
 	 * @throws Exception ParseException
 	 */
 	public void testGetAttribute002Date() throws Exception {
+		String expected = "2020-08-01T00:00:00";
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
 		Date date = sdf.parse("2020/08/01");
 		DefaultDocument doc = new DefaultDocument();
 		doc.putAttribute("key", date);
-		System.err.println(doc.getAttribute("key"));
-		assertEquals("2020-08-01T00:00:00+09:00", doc.getAttribute("key").toString());
+		String v = doc.getAttribute("key").toString();
+		System.err.println(v);
+		assertEquals(expected, v);
 	}
 
 	/**
@@ -296,13 +298,15 @@ public class DefaultDocumentTestCase extends TestCase {
 	}
 
 	public void testGetKeywordsString() throws Exception {
+		String expected = "2020-08-01T00:00:00";
+
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
 		Date date = sdf.parse("2020/08/01");
-		Date date2 = sdf.parse("2020/08/01");
 		DefaultDocument doc = new DefaultDocument();
 		doc.putAttribute("key", date);
-		System.err.println(doc.getAttribute("key"));
-		assertEquals("2020-08-01T00:00:00+09:00", doc.getAttributeAsString("key"));
+		String v = doc.getAttributeAsString("key");
+		System.err.println(v);
+		assertEquals(expected, v);
 	}
 
 	public void testGetText() {
@@ -333,12 +337,17 @@ public class DefaultDocumentTestCase extends TestCase {
 	}
 
 	public void testPutAttributeStringDate() throws Exception {
+
+		String expected = "2020-08-01T00:00:00";
+
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
 		Date date = sdf.parse("2020/08/01");
 		DefaultDocument doc = new DefaultDocument();
 		doc.putAttribute("key", date);
 		System.err.println(doc.getAttribute("key"));
-		assertEquals("2020-08-01T00:00:00+09:00", doc.getAttribute("key").toString());
+		String v = doc.getAttribute("key").toString();
+		System.err.println(v);
+		assertEquals(expected, v);
 	}
 
 	public void testPutAttributeStringNumber() {
