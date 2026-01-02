@@ -69,89 +69,8 @@
 			<timezone>-9</timezone>
 		</developer>
 	</developers>
-	<distributionManagement>
-		<snapshotRepository>
-			<id>ossrh</id>
-			<name>nlp4j.org Repository</name>
-			<uniqueVersion>false</uniqueVersion>
-			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
-		</snapshotRepository>
-		<repository>
-			<id>ossrh</id>
-			<name>Nexus Release Repository</name>
-			<uniqueVersion>false</uniqueVersion>
-			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2
-			</url>
-		</repository>
-	</distributionManagement>
 	<profiles>
-		<profile>
-			<id>release-sign-artifacts</id>
-			<!-- for release -->
-			<!-- mvn -DperformRelease=true deploy -->
-			<activation>
-				<property>
-					<name>performRelease</name>
-					<value>true</value>
-				</property>
-			</activation>
-			<build>
-				<plugins>
-					<!--
-					https://mvnrepository.com/artifact/org.sonatype.plugins/nexus-staging-maven-plugin -->
-					<!-- sonatype release -->
-					<plugin>
-						<groupId>org.sonatype.plugins</groupId>
-						<artifactId>nexus-staging-maven-plugin</artifactId>
-						<!-- 1.6.8 Feb 13, 2017 -->
-						<!-- 1.6.13 Apr 21, 2022 -->
-						<version>1.7.0</version><!-- May 27, 2024 -->
-						<extensions>true</extensions>
-						<configuration>
-							<serverId>ossrh</serverId>
-							<nexusUrl>https://oss.sonatype.org/</nexusUrl>
-							<autoReleaseAfterClose>true</autoReleaseAfterClose>
-						</configuration>
-					</plugin>
-					<!-- gpg sign -->
-					<!-- https://maven.apache.org/plugins/maven-gpg-plugin/ -->
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-gpg-plugin</artifactId>
-						<version>1.6</version>
-						<executions>
-							<execution>
-								<id>sign-artifacts</id>
-								<phase>verify</phase>
-								<goals>
-									<goal>sign</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
-					<!-- javadoc -->
-					<!-- https://maven.apache.org/plugins/maven-javadoc-plugin/ -->
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-javadoc-plugin</artifactId>
-				<!-- version>3.1.1</version -->
-				<version>3.8.0</version>
-						<configuration>
-							<author>true</author>
-							<source>1.8</source>
-							<encoding>UTF-8</encoding>
-							<charset>UTF-8</charset>
-							<docencoding>UTF-8</docencoding>
-							<additionalparam>-Xdoclint:none</additionalparam>
-							<additionalOptions>-Xdoclint:none</additionalOptions>
-							<additionalJOption>-Xdoclint:none</additionalJOption>
-							<additionalJOption>-Xdoclint:all</additionalJOption>
-							<additionalJOption>-Xdoclint:-missing</additionalJOption>
-						</configuration>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
+		<!-- profile は親pom.xml に定義されている -->
 	</profiles>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -299,7 +218,8 @@
 			<artifactId>commons-lang3</artifactId>
 			<!-- 2023-08-16 : 3.12.0 to 3.13.0  -->
 			<!-- 2023-11-23 : 3.13.0 to 3.14.0  -->
-			<version>3.14.0</version>
+			<!-- 2026-01-02 : 3.14.0 to 3.18.0  -->
+			<version>3.18.0</version>
 		</dependency>
 		<!--
 		https://mvnrepository.com/artifact/org.apache.commons/commons-collections4 -->

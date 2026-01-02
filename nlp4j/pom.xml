@@ -43,21 +43,23 @@
 		</developer>
 	</developers>
 
-	<distributionManagement>
-		<snapshotRepository>
-			<id>ossrh</id>
-			<name>nlp4j.org Repository</name>
-			<uniqueVersion>false</uniqueVersion>
-			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
-		</snapshotRepository>
-		<repository>
-			<id>ossrh</id>
-			<name>Nexus Release Repository</name>
-			<uniqueVersion>false</uniqueVersion>
-			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2
-            </url>
-		</repository>
-	</distributionManagement>
+	<!-- 2026-01-02_comment_out distributionManagement -->
+	<!-- 2026-01-02_comment_out -->
+		<!-- snapshotRepository -->
+			<!-- id>ossrh</id -->
+			<!-- name>nlp4j.org Repository</name -->
+			<!-- uniqueVersion>false</uniqueVersion -->
+			<!-- url>https://oss.sonatype.org/content/repositories/snapshots</url -->
+		<!-- /snapshotRepository -->
+		<!-- repository -->
+			<!-- id>ossrh</id -->
+			<!-- name>Nexus Release Repository</name -->
+			<!-- uniqueVersion>false</uniqueVersion -->
+			<!-- url>https://oss.sonatype.org/service/local/staging/deploy/maven2
+			</url -->
+		<!-- /repository -->
+	<!-- /2026-01-02_comment_out -->
+	<!-- 2026-01-02_comment_outdistributionManagement -->
 
 	<profiles>
 		<profile>
@@ -73,20 +75,37 @@
 			<build>
 				<plugins>
 					<!-- sonatype release -->
-					<plugin>
-						<groupId>org.sonatype.plugins</groupId>
-						<artifactId>nexus-staging-maven-plugin</artifactId>
+					<!-- 2026-01-02_comment_out -->
+					<!-- https://mvnrepository.com/artifact/org.sonatype.plugins/nexus-staging-maven-plugin -->
+					<!-- sonatype release -->
+					<!-- plugin -->
+						<!-- groupId>org.sonatype.plugins</groupId -->
+						<!-- artifactId>nexus-staging-maven-plugin</artifactId -->
 						<!-- 1.6.8 Feb 13, 2017 -->
 						<!-- 1.6.13 Apr 21, 2022 -->
-						<version>1.7.0</version><!-- May 27, 2024 -->
+						<!-- version>1.7.0</version --><!-- May 27, 2024 -->
+						<!-- extensions>true</extensions -->
+						<!-- configuration -->
+							<!-- serverId>ossrh</serverId -->
+							<!-- nexusUrl>https://oss.sonatype.org/</nexusUrl -->
+							<!-- autoReleaseAfterClose>true</autoReleaseAfterClose -->
+						<!-- /configuration -->
+					<!-- /plugin -->
+					<!-- /2026-01-02_comment_out -->
+
+					<plugin>
+						<groupId>org.sonatype.central</groupId>
+						<artifactId>central-publishing-maven-plugin</artifactId>
+						<version>0.9.0</version>
 						<extensions>true</extensions>
 						<configuration>
-							<serverId>ossrh</serverId>
-							<nexusUrl>https://oss.sonatype.org/</nexusUrl>
-							<autoReleaseAfterClose>true</autoReleaseAfterClose>
+							<publishingServerId>central</publishingServerId>
+							<!-- 自動で Portal 側を Publish まで進めたい場合 -->
+							<autoPublish>true</autoPublish>
+							<waitUntil>published</waitUntil>
 						</configuration>
 					</plugin>
-
+					
 					<!-- gpg sign -->
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>

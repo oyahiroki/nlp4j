@@ -24,9 +24,10 @@
 hs_err_pid*
 
 # Eclipse
-.project
-.classpath
-.settings
+**/.project
+**/.classpath
+**/.settings
+**/.settings/
 
 # OS
 Thumbs.db
@@ -44,4 +45,27 @@ nlp4j/nlp4j-core/.settings/org.eclipse.wst.common.component
 nlp4j/nlp4j-core/.classpath
 nlp4j/nlp4j-core/.classpath
 nlp4j/nlp4j-core/.classpath
+nlp4j/nlp4j-core/.classpath
+nlp4j/nlp4j-azure/.factorypath
+nlp4j/nlp4j-chatgpt/.factorypath
+nlp4j/nlp4j-core/.classpath
+nlp4j/nlp4j-deeplearning/.factorypath
+nlp4j/nlp4j-ginza/.factorypath
+nlp4j/nlp4j-ibm-wex/.factorypath
+nlp4j/nlp4j-kuromoji/.factorypath
+nlp4j/nlp4j-llm/.factorypath
+nlp4j/nlp4j-mecab/.classpath
+nlp4j/nlp4j-mecab/.factorypath
+nlp4j/nlp4j-okt/.factorypath
+nlp4j/nlp4j-openai/.factorypath
+nlp4j/nlp4j-opensearch/.factorypath
+nlp4j/nlp4j-solr/.factorypath
+nlp4j/nlp4j-solr9/.factorypath
+nlp4j/nlp4j-sudachi/.factorypath
+nlp4j/nlp4j-web-app/.factorypath
+nlp4j/nlp4j-web-core/.factorypath
+nlp4j/nlp4j-web-rag/.factorypath
+nlp4j/nlp4j-web-vectorsearch/.factorypath
+nlp4j/nlp4j-webcrawler/.factorypath
+nlp4j/nlp4j-yahoojp/.factorypath
 nlp4j/nlp4j-core/.classpath

@@ -16,7 +16,6 @@ import com.google.gson.JsonObject;
 
 import nlp4j.NlpServiceResponse;
 import nlp4j.http.HttpClient;
-import nlp4j.http.HttpClient5;
 import nlp4j.http.HttpClientBuilder;
 import nlp4j.util.HtmlUtils;
 import nlp4j.util.JsonObjectUtils;
@@ -101,6 +100,10 @@ public class MediaWikiClient implements Closeable {
 		// api.php?action=expandtemplates&text={{Project:Sandbox}}&prop=wikitext [try in
 		// ApiSandbox]
 
+		Map<String, String> headers = new LinkedHashMap<>();
+		{
+			headers.put("User-Agent", "nlp4j.wiki.client.MediaWikiClient/1.0 (https://nlp4j.org/; admin@nlp4j.org)");
+		}
 		Map<String, String> params = new LinkedHashMap<>();
 		{
 			params.put("action", "expandtemplates");
@@ -109,7 +112,7 @@ public class MediaWikiClient implements Closeable {
 			params.put("format", "json");
 		}
 
-		NlpServiceResponse res = client.get(url, params);
+		NlpServiceResponse res = client.get(url, headers, params);
 
 		// content-type
 		JsonObject jo = res.getAsJsonObject();
@@ -129,6 +132,10 @@ public class MediaWikiClient implements Closeable {
 	 */
 	public MediaWikiApiResponse parse(String wikiText) throws IOException {
 		String url = "https://" + "www.mediawiki.org" + "/w/api.php";
+		Map<String, String> headers = new LinkedHashMap<>();
+		{
+			headers.put("User-Agent", "nlp4j.wiki.client.MediaWikiClient/1.0 (https://nlp4j.org/; admin@nlp4j.org)");
+		}
 		Map<String, String> params = new LinkedHashMap<>();
 		{
 			params.put("action", "parse");
@@ -136,7 +143,7 @@ public class MediaWikiClient implements Closeable {
 			params.put("text", wikiText);
 			params.put("contentmodel", "wikitext");
 		}
-		NlpServiceResponse res = client.get(url, params);
+		NlpServiceResponse res = client.get(url, headers, params);
 		// content-type
 		JsonObject jo = res.getAsJsonObject();
 		MediaWikiApiResponse r = new AbstractMediaWikiApiResponse(jo) {
@@ -170,6 +177,12 @@ public class MediaWikiClient implements Closeable {
 
 		String url = "https://" + host + "/w/api.php";
 
+		System.err.println(url);
+
+		Map<String, String> headers = new LinkedHashMap<>();
+		{
+			headers.put("User-Agent", "nlp4j.wiki.client.MediaWikiClient/1.0 (https://nlp4j.org/; admin@nlp4j.org)");
+		}
 		Map<String, String> params = new LinkedHashMap<>();
 		{
 			params.put("action", "query");
@@ -181,7 +194,9 @@ public class MediaWikiClient implements Closeable {
 			params.put("format", "json");
 		}
 
-		NlpServiceResponse res = client.get(url, params);
+		NlpServiceResponse res = client.get(url, headers, params);
+
+		System.err.println(res.getResponseCode());
 
 		// content-type
 		JsonObject jo = res.getAsJsonObject();
@@ -189,6 +204,8 @@ public class MediaWikiClient implements Closeable {
 		if (logger.isDebugEnabled()) {
 			logger.debug(res.getOriginalResponseBody());
 		}
+
+		JsonUtils.prettyPrint(jo);
 
 		String key = jo //
 				.get("query").getAsJsonObject() //
@@ -239,6 +256,10 @@ public class MediaWikiClient implements Closeable {
 
 		String from = "";
 
+		Map<String, String> headers = new LinkedHashMap<>();
+		{
+			headers.put("User-Agent", "nlp4j.wiki.client.MediaWikiClient/1.0 (https://nlp4j.org/; admin@nlp4j.org)");
+		}
 		for (int x = 0; x < MAX_QUERY_COUNT; x++) {
 			logger.info("count=" + x);
 
@@ -263,7 +284,7 @@ public class MediaWikiClient implements Closeable {
 				params.put("cmstarthexsortkey", from);
 			}
 
-			NlpServiceResponse res = client.get(url, params);
+			NlpServiceResponse res = client.get(url, headers, params);
 
 			// content-type
 			JsonObject jo = res.getAsJsonObject();
@@ -338,6 +359,10 @@ public class MediaWikiClient implements Closeable {
 
 		String from = "";
 
+		Map<String, String> headers = new LinkedHashMap<>();
+		{
+			headers.put("User-Agent", "nlp4j.wiki.client.MediaWikiClient/1.0 (https://nlp4j.org/; admin@nlp4j.org)");
+		}
 		for (int x = 0; x < MAX_QUERY_COUNT; x++) {
 			logger.info("count=" + x);
 
@@ -362,7 +387,7 @@ public class MediaWikiClient implements Closeable {
 				params.put("cmstarthexsortkey", from);
 			}
 
-			NlpServiceResponse res = client.get(url, params);
+			NlpServiceResponse res = client.get(url, headers, params);
 
 			// content-type
 			JsonObject jo = res.getAsJsonObject();
@@ -432,6 +457,10 @@ public class MediaWikiClient implements Closeable {
 		// php, phpfm, rawfm,
 		// xml, xmlfm
 
+		Map<String, String> headers = new LinkedHashMap<>();
+		{
+			headers.put("User-Agent", "nlp4j.wiki.client.MediaWikiClient/1.0 (https://nlp4j.org/; admin@nlp4j.org)");
+		}
 		Map<String, String> params = new LinkedHashMap<>();
 		{
 			params.put("action", "query");
@@ -441,7 +470,7 @@ public class MediaWikiClient implements Closeable {
 			params.put("utf8", "1");
 		}
 
-		NlpServiceResponse res = client.get(url, params);
+		NlpServiceResponse res = client.get(url, headers, params);
 
 		// content-type
 		JsonObject jo = res.getAsJsonObject();
@@ -471,6 +500,10 @@ public class MediaWikiClient implements Closeable {
 
 		String url = "https://" + host + "/w/api.php";
 
+		Map<String, String> headers = new LinkedHashMap<>();
+		{
+			headers.put("User-Agent", "nlp4j.wiki.client.MediaWikiClient/1.0 (https://nlp4j.org/; admin@nlp4j.org)");
+		}
 		Map<String, String> params = new LinkedHashMap<>();
 		{
 			params.put("action", "parse");
@@ -479,7 +512,7 @@ public class MediaWikiClient implements Closeable {
 			params.put("prop", "text");
 		}
 
-		NlpServiceResponse res = client.get(url, params);
+		NlpServiceResponse res = client.get(url, headers, params);
 
 		// content-type
 		JsonObject jo = res.getAsJsonObject();
@@ -542,6 +575,10 @@ public class MediaWikiClient implements Closeable {
 
 		String url = "https://" + host + "/w/api.php";
 
+		Map<String, String> headers = new LinkedHashMap<>();
+		{
+			headers.put("User-Agent", "nlp4j.wiki.client.MediaWikiClient/1.0 (https://nlp4j.org/; admin@nlp4j.org)");
+		}
 		Map<String, String> params = new LinkedHashMap<>();
 		{
 			params.put("action", "query");
@@ -552,7 +589,7 @@ public class MediaWikiClient implements Closeable {
 			params.put("redirects", "1");
 		}
 
-		NlpServiceResponse res = client.get(url, params);
+		NlpServiceResponse res = client.get(url, headers, params);
 
 		// content-type
 		JsonObject jo = res.getAsJsonObject();

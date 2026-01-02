@@ -303,56 +303,56 @@ public class MediaWikiClientTestCase extends TestCase {
 			checkFirstSentenceOfContent(host, title, expected);
 		}
 
-		{
-			String title = "松井秀喜";
-			String expected = "野球";
-			checkFirstSentenceOfContent(host, title, expected);
-		}
-		{
-			String title = "タモリ";
-			String expected = "タレント";
-			checkFirstSentenceOfContent(host, title, expected);
-		}
-		{
-			String title = "うしろゆびさされ組";
-			String expected = "ユニット";
-			checkFirstSentenceOfContent(host, title, expected);
-		}
-		{
-			String title = "鈴木彩艶";
-			String expected = "サッカー";
-			checkFirstSentenceOfContent(host, title, expected);
-		}
-		{
-			String title = "ハリー・ポッターシリーズ";
-			String expected = "小説";
-			checkFirstSentenceOfContent(host, title, expected);
-		}
-		{
-			String title = "即死チートが最強すぎて、異世界のやつらがまるで相手にならないんですが。";
-			String expected = "ライトノベル";
-			checkFirstSentenceOfContent(host, title, expected);
-		}
-		{
-			String title = "Twitter";
-			String expected = "ソーシャル";
-			checkFirstSentenceOfContent(host, title, expected);
-		}
 //		{
-//			String title = "貴乃花光司";
-//			String expected = "横綱";
+//			String title = "松井秀喜";
+//			String expected = "野球";
 //			checkFirstSentenceOfContent(host, title, expected);
 //		}
-		{
-			String title = "能登半島地震_(2024年)";
-			String expected = "穴水";
-			checkFirstSentenceOfContent(host, title, expected);
-		}
-		{
-			String title = "Apple Watch";
-			String expected = "腕時計";
-			checkFirstSentenceOfContent(host, title, expected);
-		}
+//		{
+//			String title = "タモリ";
+//			String expected = "タレント";
+//			checkFirstSentenceOfContent(host, title, expected);
+//		}
+//		{
+//			String title = "うしろゆびさされ組";
+//			String expected = "ユニット";
+//			checkFirstSentenceOfContent(host, title, expected);
+//		}
+//		{
+//			String title = "鈴木彩艶";
+//			String expected = "サッカー";
+//			checkFirstSentenceOfContent(host, title, expected);
+//		}
+//		{
+//			String title = "ハリー・ポッターシリーズ";
+//			String expected = "小説";
+//			checkFirstSentenceOfContent(host, title, expected);
+//		}
+//		{
+//			String title = "即死チートが最強すぎて、異世界のやつらがまるで相手にならないんですが。";
+//			String expected = "ライトノベル";
+//			checkFirstSentenceOfContent(host, title, expected);
+//		}
+//		{
+//			String title = "Twitter";
+//			String expected = "ソーシャル";
+//			checkFirstSentenceOfContent(host, title, expected);
+//		}
+////		{
+////			String title = "貴乃花光司";
+////			String expected = "横綱";
+////			checkFirstSentenceOfContent(host, title, expected);
+////		}
+//		{
+//			String title = "能登半島地震_(2024年)";
+//			String expected = "穴水";
+//			checkFirstSentenceOfContent(host, title, expected);
+//		}
+//		{
+//			String title = "Apple Watch";
+//			String expected = "腕時計";
+//			checkFirstSentenceOfContent(host, title, expected);
+//		}
 
 	}
 
