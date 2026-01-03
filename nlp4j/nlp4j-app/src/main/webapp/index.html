@@ -1,0 +1,43 @@
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+<meta name="format-detection" content="email=no,telephone=no,address=no">
+<link rel="icon" href="./favicon.ico">
+</head>
+<body>
+<h2>Hello World! 2</h2>
+<ul>
+<li><a href="helloservlet1">helloservlet1</a></li>
+<li><a href="helloservlet3">helloservlet3</a></li>
+<li><a href="nlp1.html">nlp1</a></li>
+</ul>
+
+<div><img src="./img/NLP4J.png"/></div>
+
+<div id="messages"></div>
+
+    <script>
+        if (!!window.EventSource) {
+            const source = new EventSource("helloservlet2");
+
+            source.onmessage = function(event) {
+                const messagesDiv = document.getElementById("messages");
+                const newMessage = document.createElement("div");
+                newMessage.textContent = event.data;
+                messagesDiv.appendChild(newMessage);
+            };
+
+            source.onerror = function(event) {
+                console.error("EventSource failed.", event);
+                source.close();
+            };
+        } else {
+            console.log("Your browser doesn't support EventSource.");
+        }
+    </script>
+
+
+</body>
+</html>
