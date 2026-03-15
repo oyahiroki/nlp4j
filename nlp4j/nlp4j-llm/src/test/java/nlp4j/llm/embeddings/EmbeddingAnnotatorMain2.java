@@ -3,11 +3,11 @@ package nlp4j.llm.embeddings;
 import nlp4j.Document;
 import nlp4j.DocumentBuilder;
 
-public class EmbeddingAnnotatorMain {
+public class EmbeddingAnnotatorMain2 {
 
 	static public void main(String[] args) throws Exception {
 
-		int max = 100;
+		int max = 1000;
 
 		EmbeddingAnnotator ann = new EmbeddingAnnotator();
 		ann.setProperty("target", "text");
@@ -15,7 +15,7 @@ public class EmbeddingAnnotatorMain {
 		long time1 = System.currentTimeMillis();
 
 		for (int n = 0; n < max; n++) {
-			Document doc = (new DocumentBuilder()).text("今日はいい天気です " + n).build();
+			Document doc = (new DocumentBuilder()).text("今日はいい天気です ".repeat(n)).build();
 			ann.annotate(doc);
 //			System.err.println(doc.getAttributeAsListNumbers("vector").size());
 		}

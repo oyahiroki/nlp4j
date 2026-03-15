@@ -434,6 +434,33 @@ public class MediaWikiClientTestCase extends TestCase {
 		}
 	}
 
+	public void testgetPageContentByTitleAsPlaintext002() throws Exception {
+		String host = "ja.wiktionary.org";
+		{
+			try (MediaWikiClient client = new MediaWikiClient(host);) {
+				{
+					String title = "学校";
+					String wiki_content = client.getPageContentByTitle(title);
+					System.out.println(wiki_content);
+
+					{
+						String rootNodeText = MediaWikiTextUtils.getRootNodeTextFirstSentence(wiki_content, title,
+								"ja");
+						System.out.println("<rootNodeText>");
+						System.out.println(rootNodeText);
+						System.out.println("</rootNodeText>");
+					}
+					{
+						String plainText = MediaWikiTextUtils.toPlainText(title, wiki_content);
+						System.out.println("<plainText>");
+						System.out.println(plainText);
+						System.out.println("</plainText>");
+					}
+				}
+			}
+		}
+	}
+
 	public void testgetPageContentByTitle101() throws Exception {
 		String host = "en.wikipedia.org";
 		{
@@ -462,6 +489,19 @@ public class MediaWikiClientTestCase extends TestCase {
 
 	}
 
+	public void testgetPageContentByTitle201() throws Exception {
+		String host = "ja.wikipedia.org";
+		{
+			String title = "青函トンネル";
+			try (MediaWikiClient client = new MediaWikiClient(host);) {
+				String wiki_content = client.getPageContentByTitle(title);
+				String rootNodeText = MediaWikiTextUtils.getRootNodeTextFirstSentence(wiki_content, title, "ja");
+				System.out.println(rootNodeText);
+			}
+		}
+
+	}
+	
 	/**
 	 * Query "Category:en:Medicine" 英語版 WikiPedia 医療用語
 	 * 
