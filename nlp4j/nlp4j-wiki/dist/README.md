@@ -264,15 +264,3 @@ java -jar wikidump-sampler.jar \
 
 本ツールは nlp4j プロジェクトの一部です。
 
-```
-
----
-
-必要であれば、
-
-- バッジ（GitHub / license / release）
-- GIFデモ
-- 「なぜこのツールが必要か」のストーリー
-
-を追加して、さらに“使われるREADME”に仕上げることもできます 👍
-```
