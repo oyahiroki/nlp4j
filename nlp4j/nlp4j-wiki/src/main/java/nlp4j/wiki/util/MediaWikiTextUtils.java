@@ -176,11 +176,16 @@ public class MediaWikiTextUtils {
 		{
 			rootNodeText = MediaWikiTextUtils.removeTemplateAll(rootNodeText);
 		}
+
+		{ // 「ファイル」へのリンクを削除する
+			rootNodeText = MediaWikiTextUtils.removeFilelinkAll(rootNodeText);
+		}
+
 		{
 //			rootNodeText = rootNodeText.replaceAll("\\{\\{.*?\\}\\}", "");
 		}
 		{
-//			rootNodeText = rootNodeText.replaceAll("<ref .*?</ref>", "");
+			rootNodeText = rootNodeText.replaceAll("<ref>.*?</ref>", "");
 
 			rootNodeText = Jsoup.parse(rootNodeText).text();
 		}
@@ -246,6 +251,20 @@ public class MediaWikiTextUtils {
 		text = text.replaceAll("\\s+", " "); // 2回以上連続する空白を削除
 
 		return text;
+	}
+
+	/**
+	 * 「[[ファイル ... 」「[[File ... 」を削除する
+	 * 
+	 * @param rootNodeText
+	 * @return
+	 */
+	private static String removeFilelinkAll(String rootNodeText) {
+		String result = rootNodeText.lines() //
+				.filter(line -> !line.startsWith("[[ファイル")) //
+				.filter(line -> !line.startsWith("[[File")) //
+				.collect(java.util.stream.Collectors.joining("\n")); //
+		return result;
 	}
 
 	/**

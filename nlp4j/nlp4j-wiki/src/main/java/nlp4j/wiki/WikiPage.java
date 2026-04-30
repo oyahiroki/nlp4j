@@ -173,7 +173,16 @@ public class WikiPage {
 	 * @return Root Node Wiki text
 	 */
 	public String getRootNodeWikiText() {
+
+		checkText();
+
 		return MediaWikiTextUtils.getRootNodeText(this.text);
+	}
+
+	private void checkText() {
+		if (this.xml != null && this.text == null) {
+			this.text = org.apache.commons.text.StringEscapeUtils.unescapeXml(this.xml);
+		}
 	}
 
 	/**
@@ -190,9 +199,7 @@ public class WikiPage {
 	 * @return Wiki Text
 	 */
 	public String getText() {
-		if(this.xml != null && this.text == null) {
-			this.text = org.apache.commons.text.StringEscapeUtils.unescapeXml(this.xml);
-		}
+		checkText();
 		return text;
 	}
 
