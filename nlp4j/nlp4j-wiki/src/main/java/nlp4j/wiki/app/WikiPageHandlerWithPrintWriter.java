@@ -4,6 +4,7 @@ import java.io.PrintWriter;
 
 import com.google.gson.JsonObject;
 
+import nlp4j.util.JsonObjectUtils;
 import nlp4j.wiki.BreakException;
 import nlp4j.wiki.WikiPage;
 import nlp4j.wiki.WikiPageHandler;
@@ -41,9 +42,13 @@ public class WikiPageHandlerWithPrintWriter implements WikiPageHandler {
 		}
 
 		JsonObject jo = new JsonObject();
+		jo.addProperty("id", page.getId());
 		jo.addProperty("timestamp", page.getTimestamp());
 		jo.addProperty("title", page.getTitle());
 		jo.addProperty("text", rootNodePlainText);
+		{
+			JsonObjectUtils.add(jo, "categories", page.getCategoryTags());
+		}
 
 		if (pw != null) {
 			pw.println(jo.toString());

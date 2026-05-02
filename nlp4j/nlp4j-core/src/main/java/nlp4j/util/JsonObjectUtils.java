@@ -18,6 +18,15 @@ import com.google.gson.JsonPrimitive;
 public class JsonObjectUtils {
 
 	/**
+	 * @param jo
+	 * @param property
+	 * @param list
+	 */
+	static public void add(JsonObject jo, String property, List<String> list) {
+		jo.add(property, toJsonArray(list));
+	}
+
+	/**
 	 * @param json
 	 * @return
 	 * @since 1.3.7.9
