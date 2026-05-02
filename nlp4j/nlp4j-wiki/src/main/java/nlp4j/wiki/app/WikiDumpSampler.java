@@ -11,6 +11,14 @@ import nlp4j.wiki.WikiDumpReader;
 
 public class WikiDumpSampler {
 
+	/**
+	 * <pre>
+	 * version 1.0: Initial
+	 * version 1.1: Filter function
+	 * </pre>
+	 * @param args
+	 * @throws Exception
+	 */
 	public static void main(String[] args) throws Exception {
 
 		Map<String, String> options = ArgUtils.parseArgs(args);
@@ -28,7 +36,7 @@ public class WikiDumpSampler {
 		String output = options.get("output");
 //		String seed = options.get("seed");
 //		String lang = options.get("lang");
-//		String filter = options.get("filter");
+		String filter = options.get("filter");
 
 		// ===== ダミー処理 =====
 		System.out.println("Input  : " + inputFile);
@@ -37,7 +45,7 @@ public class WikiDumpSampler {
 		System.out.println("Output : " + output);
 //		System.out.println("Seed   : " + seed);
 //		System.out.println("Lang   : " + lang);
-//		System.out.println("Filter : " + filter);
+		System.out.println("Filter : " + filter);
 
 		// TODO: 本処理
 
@@ -48,7 +56,7 @@ public class WikiDumpSampler {
 				WikiDumpReader reader = new WikiDumpReader(inputFile);//
 		) {
 
-			WikiPageHandlerWithPrintWriter handler = new WikiPageHandlerWithPrintWriter(pw, count);
+			WikiPageHandlerWithPrintWriter handler = new WikiPageHandlerWithPrintWriter(pw, count,filter);
 
 			reader.read(handler);
 		} catch (BreakException e) {
@@ -67,7 +75,7 @@ public class WikiDumpSampler {
 		System.out.println("  --output <file>        Output file (default: stdout)");
 //		System.out.println("  --seed <number>        Random seed");
 //		System.out.println("  --lang <code>          Language (e.g., ja, en)");
-//		System.out.println("  --filter <expr>        Filter condition");
+		System.out.println("  --filter <expr>        Filter condition");
 	}
 
 }

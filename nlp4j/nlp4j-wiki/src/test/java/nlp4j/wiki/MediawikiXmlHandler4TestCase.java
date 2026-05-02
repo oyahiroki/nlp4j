@@ -15,6 +15,7 @@ public class MediawikiXmlHandler4TestCase extends TestCase {
 		WikiPageHandler h = new WikiPageHandler() {
 			@Override
 			public void read(WikiPage page) throws BreakException {
+				System.err.println("id: " + page.getId());
 				System.err.println("---");
 				System.err.println(page.toString());
 				System.err.println("---");
@@ -23,13 +24,28 @@ public class MediawikiXmlHandler4TestCase extends TestCase {
 				System.err.println(page.getTitle());
 				System.err.println("---");
 				System.err.println("<xml>");
-				System.err.println(page.getXml());
+				if (page.getXml().length() > 100) {
+					System.err.println(page.getXml().substring(0, 100) + "\n...");
+				} else {
+					System.err.println(page.getXml());
+
+				}
 				System.err.println("</xml>");
 				System.err.println("<text>");
-				System.err.println(page.getText());
+				if (page.getText().length() > 100) {
+					System.err.println(page.getText().substring(0, 100) + "\n...");
+				} else {
+					System.err.println(page.getText());
+
+				}
 				System.err.println("</text>");
 				System.err.println("<plaintext>");
-				System.err.println(page.getPlainText());
+				if (page.getPlainText().length() > 100) {
+					System.err.println(page.getPlainText().substring(0, 100) + "\n...");
+				} else {
+					System.err.println(page.getPlainText());
+
+				}
 				System.err.println("</plaintext>");
 				System.err.println("---");
 			}

@@ -11,11 +11,13 @@ import nlp4j.wiki.WikiPageHandler;
 public class WikiPageHandlerWithPrintWriter implements WikiPageHandler {
 	private int count = 0;
 	private int count_max = -1;
+	private String filter = null;
 	PrintWriter pw;
 
-	public WikiPageHandlerWithPrintWriter(PrintWriter pw, int count_max) {
+	public WikiPageHandlerWithPrintWriter(PrintWriter pw, int count_max, String filter) {
 		this.pw = pw;
 		this.count_max = count_max;
+		this.filter = filter;
 	}
 
 	@Override
@@ -29,10 +31,19 @@ public class WikiPageHandlerWithPrintWriter implements WikiPageHandler {
 			return;
 		}
 
+		String rootNodePlainText = page.getRootNodePlainText();
+
+		if (this.filter != null) {
+			String target = rootNodePlainText + " " + String.join(", ", page.getCategoryTags());
+			if (target.matches(filter) == false) {
+				return;
+			}
+		}
+
 		JsonObject jo = new JsonObject();
 		jo.addProperty("timestamp", page.getTimestamp());
 		jo.addProperty("title", page.getTitle());
-		jo.addProperty("text", page.getRootNodePlainText());
+		jo.addProperty("text", rootNodePlainText);
 
 		if (pw != null) {
 			pw.println(jo.toString());

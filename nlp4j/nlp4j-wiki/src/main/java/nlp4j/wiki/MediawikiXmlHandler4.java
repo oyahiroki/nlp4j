@@ -118,6 +118,11 @@ public class MediawikiXmlHandler4 extends DefaultHandler {
 		case "id": // page/id, page/revision/id, page/revision/contributor/id
 
 			switch (pre_qName) {
+			case "ns":
+				// <ns></ns>
+				// <id>xxx</id>
+				sb = new StringBuilder(8);
+				break;
 			case "page":
 				sb = new StringBuilder(8);
 				break;
