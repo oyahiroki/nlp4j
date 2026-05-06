@@ -24,6 +24,7 @@ public class DateUtils {
 
 	private static final String YYYY_MM_DD_T_HH_MM_SS = "yyyy-MM-dd'T'HH:mm:ss";
 
+	private static final String YYYY_MM_DD_ISO8601DATE = "yyyy-MM-dd";
 	/**
 	 * yyyyMMdd-HHmmss
 	 */
@@ -45,6 +46,9 @@ public class DateUtils {
 //	static private final SimpleDateFormat sdf_ISO8601 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX");
 	private static final ThreadLocal<SimpleDateFormat> sdf_ISO8601 = ThreadLocal
 			.withInitial(() -> new SimpleDateFormat(YYYY_MM_DD_T_HH_MM_SS));
+
+	private static final ThreadLocal<SimpleDateFormat> sdf_ISO8601DATE = ThreadLocal
+			.withInitial(() -> new SimpleDateFormat(YYYY_MM_DD_ISO8601DATE));
 	/**
 	 * yyyyMMdd-HHmmss
 	 */
@@ -319,6 +323,23 @@ public class DateUtils {
 		try {
 			Date d = sdf.parse(date);
 			return sdf_ISO8601.get().format(d);
+		} catch (ParseException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	/**
+	 * @param date
+	 * @param format
+	 * @return
+	 * @since 1.3.7.19
+	 */
+	static public String toISO8601Date(String date, String format) {
+		SimpleDateFormat sdf = new SimpleDateFormat(format);
+		try {
+			Date d = sdf.parse(date);
+			return sdf_ISO8601DATE.get().format(d);
 		} catch (ParseException e) {
 			e.printStackTrace();
 			return null;

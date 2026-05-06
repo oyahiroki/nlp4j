@@ -37,8 +37,14 @@ public interface Document {
 	 * 
 	 * @param from
 	 * @param to
+	 * @deprecated
 	 */
-	void changeAttributeKey(String from, String to);
+	Document changeAttributeKey(String from, String to);
+
+	/**
+	 * @since 1.3.7.19
+	 */
+	Document renameAttribute(String oldKey, String newKey);
 
 	/**
 	 * 属性を返します。<br>
@@ -159,9 +165,10 @@ public interface Document {
 	 * 
 	 * @param key   属性名
 	 * @param value 属性の値
-	 * @since 1.3
+	 * @since 1.3 Changed return type from void to {@link nlp4j.Document} in
+	 *        1.3.7.19.
 	 */
-	void putAttribute(String key, Date value);
+	Document putAttribute(String key, Date value);
 
 	/**
 	 * この文書の属性をセットします。<br>
@@ -169,9 +176,10 @@ public interface Document {
 	 * 
 	 * @param key   属性名
 	 * @param value 属性の値
-	 * @since 1.3
+	 * @since 1.3 Changed return type from void to {@link nlp4j.Document} in
+	 *        1.3.7.19.
 	 */
-	void putAttribute(String key, Number value);
+	Document putAttribute(String key, Number value);
 
 	/**
 	 * この文書の属性をセットします。<br>
@@ -179,9 +187,10 @@ public interface Document {
 	 * 
 	 * @param key    属性名
 	 * @param object 属性の値
-	 * @since 1.3
+	 * @since 1.3 Changed return type from void to {@link nlp4j.Document} in
+	 *        1.3.7.19.
 	 */
-	void putAttribute(String key, Object object);
+	Document putAttribute(String key, Object object);
 
 	/**
 	 * この文書の属性をセットします。<br>
@@ -189,18 +198,20 @@ public interface Document {
 	 * 
 	 * @param key   属性名
 	 * @param value 属性の値
-	 * @since 1.0
+	 * @since 1.0 Changed return type from void to {@link nlp4j.Document} in
+	 *        1.3.7.19.
 	 */
-	void putAttribute(String key, String value);
+	Document putAttribute(String key, String value);
 
 	/**
 	 * この文書の属性を削除します。<br>
 	 * Remove attribute of this document.
 	 * 
 	 * @param key キー
-	 * @since 1.3
+	 * @since 1.3 Changed return type from void to {@link nlp4j.Document} in
+	 *        1.3.7.19.
 	 */
-	void remove(String key);
+	Document remove(String key);
 
 	/**
 	 * フラグが設定されたキーワードを削除する

@@ -19,8 +19,7 @@ import nlp4j.util.DateUtils;
  * Document class for NLP
  * 
  * @author Hiroki Oya
- * @version 1.0
- *
+ * @since 1.0
  */
 public class DefaultDocument implements Document {
 
@@ -28,7 +27,7 @@ public class DefaultDocument implements Document {
 	static private final String KEY_TEXT = "text";
 
 	// 1.1.0 HashMap to LinkedHashMap
-	Map<String, Object> attributes = new LinkedHashMap<String, Object>();
+	Map<String, Object> attributes = Collections.synchronizedMap(new LinkedHashMap<String, Object>());
 
 	List<Keyword> keywords = Collections.synchronizedList(new ArrayList<Keyword>());
 
@@ -64,6 +63,16 @@ public class DefaultDocument implements Document {
 		this.keywords.addAll(kwds);
 	}
 
+	/**
+	 * use renameAttribute()
+	 * 
+	 * @deprecated
+	 */
+	@Override
+	public Document changeAttributeKey(String from, String to) {
+		return renameAttribute(from, to);
+	}
+
 	@Override
 	public Object getAttribute(String key) {
 		Object o = this.attributes.get(key);
@@ -87,35 +96,6 @@ public class DefaultDocument implements Document {
 
 	}
 
-	/**
-	 * @param key of attribute
-	 * @return value
-	 */
-	public String getAttributeAsString(String key) {
-		Object o = this.attributes.get(key);
-
-		if (o == null) {
-			return null;
-		}
-		// Date
-		else if (o instanceof Date) {
-			return DateUtils.toISO8601((Date) o);
-		}
-		// Number
-		else if (o instanceof Number) {
-			return o.toString();
-		}
-		// String
-		else if (o instanceof String) {
-			return (String) o;
-		}
-		//
-		else {
-			return o.toString();
-		}
-
-	}
-
 	@Override
 	public Date getAttributeAsDate(String key) {
 		Object o = this.attributes.get(key);
@@ -130,6 +110,45 @@ public class DefaultDocument implements Document {
 		else {
 			return (Date) this.attributes.get(key);
 		}
+
+	}
+
+	@Override
+	public List<Object> getAttributeAsList(String key) {
+		Object o = attributes.get(key);
+		if (o instanceof List<?>) {
+			return (List<Object>) o;
+		}
+		if (o instanceof Object[]) {
+			return Arrays.asList((Object[]) o);
+		}
+		return null;
+	}
+
+	@Override
+	public List<Number> getAttributeAsListNumbers(String key) {
+		Object o = attributes.get(key);
+		if (o instanceof Number[]) {
+			return Arrays.asList((Number[]) o);
+		} //
+			// 2024-07-15
+		else if (o instanceof List) {
+			List<Number> nn = new ArrayList<Number>();
+			List<Object> oo = (List) o;
+			for (Object obj : oo) {
+				if (obj instanceof String) {
+					Number n = Double.parseDouble((String) obj);
+					nn.add(n);
+				} else if (obj instanceof Number) {
+					nn.add((Number) obj);
+				} else {
+					Number n = Double.parseDouble(obj.toString());
+					nn.add(n);
+				}
+			}
+			return nn;
+		}
+		return null;
 
 	}
 
@@ -161,6 +180,35 @@ public class DefaultDocument implements Document {
 		} //
 
 		throw new ClassCastException();
+	}
+
+	/**
+	 * @param key of attribute
+	 * @return value
+	 */
+	public String getAttributeAsString(String key) {
+		Object o = this.attributes.get(key);
+
+		if (o == null) {
+			return null;
+		}
+		// Date
+		else if (o instanceof Date) {
+			return DateUtils.toISO8601((Date) o);
+		}
+		// Number
+		else if (o instanceof Number) {
+			return o.toString();
+		}
+		// String
+		else if (o instanceof String) {
+			return (String) o;
+		}
+		//
+		else {
+			return o.toString();
+		}
+
 	}
 
 	@Override
@@ -211,6 +259,18 @@ public class DefaultDocument implements Document {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public <T extends Keyword> List<T> getKeywords(Class<T> classOfT) {
+		List<T> ret = new ArrayList<T>();
+		for (Keyword kwd : this.keywords) {
+			if (classOfT.isInstance(kwd)) {
+				ret.add((T) kwd);
+			}
+		}
+		return ret;
+	}
+
 	@Override
 	public List<Keyword> getKeywords(String facet) {
 
@@ -227,38 +287,28 @@ public class DefaultDocument implements Document {
 		return ret;
 	}
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public <T extends Keyword> List<T> getKeywords(Class<T> classOfT) {
-		List<T> ret = new ArrayList<T>();
-		for (Keyword kwd : this.keywords) {
-			if (classOfT.isInstance(kwd)) {
-				ret.add((T) kwd);
-			}
-		}
-		return ret;
-	}
-
 	@Override
 	public String getText() {
 		return (String) attributes.get(KEY_TEXT);
 	}
 
 	@Override
-	public void putAttribute(String key, Date value) {
+	public Document putAttribute(String key, Date value) {
 		this.attributes.put(key, value);
+		return this;
 	}
 
 	@Override
-	public void putAttribute(String key, Number value) {
+	public Document putAttribute(String key, Number value) {
 		this.attributes.put(key, value);
+		return this;
 	}
 
 	/**
 	 * @param key     of Object
 	 * @param object: Object[] will be converted to List<Object> internally
 	 */
-	public void putAttribute(String key, Object object) {
+	public Document putAttribute(String key, Object object) {
 
 		// convert Object[] to List
 		if (object instanceof Object[]) {
@@ -281,43 +331,19 @@ public class DefaultDocument implements Document {
 		else {
 			this.attributes.put(key, object);
 		}
+		return this;
 	}
 
 	@Override
-	public void putAttribute(String key, String value) {
+	public Document putAttribute(String key, String value) {
 		this.attributes.put(key, value);
+		return this;
 	}
 
 	@Override
-	public void remove(String key) {
+	public Document remove(String key) {
 		this.attributes.remove(key);
-
-	}
-
-	@Override
-	public void setId(String id) {
-		attributes.put(KEY_ID, id);
-	}
-
-	@Override
-	public void setKeywords(List<Keyword> keywords) {
-		this.keywords = keywords;
-	}
-
-	@Override
-	public void setText(String text) {
-		attributes.put(KEY_TEXT, text);
-	}
-
-	@Override
-	public String toString() {
-		return "Document [attributes=" + attributes + ", keywords=" + keywords + "]";
-	}
-
-	@Override
-	public boolean removeKeyword(Keyword kwd) {
-		return this.keywords.remove(kwd);
-
+		return this;
 	}
 
 	/**
@@ -337,41 +363,8 @@ public class DefaultDocument implements Document {
 	}
 
 	@Override
-	public List<Object> getAttributeAsList(String key) {
-		Object o = attributes.get(key);
-		if (o instanceof List<?>) {
-			return (List<Object>) o;
-		}
-		if (o instanceof Object[]) {
-			return Arrays.asList((Object[]) o);
-		}
-		return null;
-	}
-
-	@Override
-	public List<Number> getAttributeAsListNumbers(String key) {
-		Object o = attributes.get(key);
-		if (o instanceof Number[]) {
-			return Arrays.asList((Number[]) o);
-		} //
-			// 2024-07-15
-		else if (o instanceof List) {
-			List<Number> nn = new ArrayList<Number>();
-			List<Object> oo = (List) o;
-			for (Object obj : oo) {
-				if (obj instanceof String) {
-					Number n = Double.parseDouble((String) obj);
-					nn.add(n);
-				} else if (obj instanceof Number) {
-					nn.add((Number) obj);
-				} else {
-					Number n = Double.parseDouble(obj.toString());
-					nn.add(n);
-				}
-			}
-			return nn;
-		}
-		return null;
+	public boolean removeKeyword(Keyword kwd) {
+		return this.keywords.remove(kwd);
 
 	}
 
@@ -381,13 +374,34 @@ public class DefaultDocument implements Document {
 	}
 
 	@Override
-	public void changeAttributeKey(String from, String to) {
-		Object obj = this.attributes.get(from);
+	public Document renameAttribute(String oldKey, String newKey) {
+		Object obj = this.attributes.get(oldKey);
 		if (obj == null) {
-			return;
+			return this;
 		}
-		this.attributes.remove(from);
-		this.attributes.put(to, obj);
+		this.attributes.remove(oldKey);
+		this.attributes.put(newKey, obj);
+		return this;
+	}
+
+	@Override
+	public void setId(String id) {
+		attributes.put(KEY_ID, id);
+	}
+
+	@Override
+	public void setKeywords(List<Keyword> keywords) {
+		this.keywords = keywords;
+	}
+
+	@Override
+	public void setText(String text) {
+		attributes.put(KEY_TEXT, text);
+	}
+
+	@Override
+	public String toString() {
+		return "Document [" + attributes + ", keywords=" + keywords + "]";
 	}
 
 }
