@@ -34,7 +34,11 @@ nlp4j-core provides
 
 # Build for Release
 
-	mvn -DperformRelease=true clean deploy
+```
+echo test | gpg --clearsign
+
+mvn -DperformRelease=true clean deploy
+```
 
 	mvn -e -X -DperformRelease=true clean deploy
 	
@@ -43,7 +47,7 @@ nlp4j-core provides
 	-D,--define <arg> Define a system property
 	-e,--errors Produce execution error messages
 	-X,--debug  Produce execution debug output
-	
+
 # Maven Commands
 
 	mvn test

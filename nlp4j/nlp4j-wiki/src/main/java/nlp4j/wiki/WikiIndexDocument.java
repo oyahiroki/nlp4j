@@ -6,6 +6,7 @@ import java.lang.invoke.MethodHandles;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import nlp4j.Document;
 import nlp4j.impl.DefaultDocument;
 
 /**
@@ -126,7 +127,7 @@ public class WikiIndexDocument extends DefaultDocument {
 	}
 
 	@Override
-	public void putAttribute(String key, Object object) {
+	public Document putAttribute(String key, Object object) {
 
 		logger.debug("WikiIndexDocument putAttribute key=" + key);
 
@@ -139,17 +140,18 @@ public class WikiIndexDocument extends DefaultDocument {
 			this.wikiplaintext = null;
 			this.wikihtml = null;
 			logger.debug("data null set");
-			return;
 		}
+		return this;
 
 	}
 
 	@Override
-	public void putAttribute(String key, String value) {
+	public Document putAttribute(String key, String value) {
 //		if ("item".equals(key) == false) {
 //			System.err.println("WikiIndexDocument putAttribute key=" + key);
 //		}
 		super.putAttribute(key, value);
+		return this;
 	}
 
 	/**
