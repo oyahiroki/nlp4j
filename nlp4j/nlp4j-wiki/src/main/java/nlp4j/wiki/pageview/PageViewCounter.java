@@ -14,7 +14,7 @@ import nlp4j.util.TextFileUtils;
 
 public class PageViewCounter {
 
-	static private Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
+	static private final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
 	private Counter<String> counter = new Counter<>();
 

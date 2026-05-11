@@ -20,7 +20,7 @@ import nlp4j.wiki.util.MediaWikiMD5Util;
  */
 public class MediaWikiDownloader extends AbstractWebCrawler implements Crawler {
 
-	static private Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
+	static private final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
 	static public class Builder {
 		private String version;
@@ -166,8 +166,8 @@ public class MediaWikiDownloader extends AbstractWebCrawler implements Crawler {
 			String outfilenameMd5 = this.outdir + "/" + filenameMd5;
 			md5File = new File(outfilenameMd5);
 			String url = getURL_md5();
-			System.out.println("Download: " + url);
-			System.out.println("File: " + outfilenameMd5);
+			logger.info("Download: " + url);
+			logger.info("File: " + outfilenameMd5);
 			try {
 				downloader.download(url, outfilenameMd5);
 			} catch (IOException e) {
@@ -182,8 +182,8 @@ public class MediaWikiDownloader extends AbstractWebCrawler implements Crawler {
 			String outfilenameIndex = this.outdir + "/" + filenameIndex;
 			indexFile = new File(outfilenameIndex);
 			String url = getURL_dumpIndex();
-			System.out.println("Download: " + url);
-			System.out.println("File: " + outfilenameIndex);
+			logger.info("Download: " + url);
+			logger.info("File: " + outfilenameIndex);
 			try {
 				downloader.download(url, outfilenameIndex);
 				// CHECK INDEX MD5
@@ -205,8 +205,8 @@ public class MediaWikiDownloader extends AbstractWebCrawler implements Crawler {
 			String outfilenameDump = this.outdir + "/" + filenameDump;
 			dumpFile = new File(outfilenameDump);
 			String url = getURL_dumpData();
-			System.out.println("Download: " + url);
-			System.out.println("File: " + outfilenameDump);
+			logger.info("Download: " + url);
+			logger.info("File: " + outfilenameDump);
 			try {
 				downloader.download(url, outfilenameDump);
 				logger.info("Checking MD5: " + dumpFile.getAbsolutePath());
@@ -284,9 +284,9 @@ public class MediaWikiDownloader extends AbstractWebCrawler implements Crawler {
 	}
 
 	public void printURL() {
-		System.out.println("MD5  : " + this.getURL_md5());
-		System.out.println("INDEX: " + this.getURL_dumpIndex());
-		System.out.println("DATA : " + this.getURL_dumpData());
+		logger.info("MD5  : " + this.getURL_md5());
+		logger.info("INDEX: " + this.getURL_dumpIndex());
+		logger.info("DATA : " + this.getURL_dumpData());
 	}
 
 }

@@ -104,36 +104,6 @@ public class WikiUtils {
 
 		org.jsoup.nodes.Document document = Jsoup.parse(html);
 
-		// System.out.println(document.text());
-
-		// ol > li
-//		{
-//			Elements elements = document.select("ol > li");
-//
-//			if (elements.size() > 0) {
-//				String text = elements.get(0).text();
-//				if (text.indexOf("。") != -1) {
-//					String text0 = text;
-//					text = text.substring(0, text.indexOf("。"));
-//				}
-//				Elements els = elements.get(0).select("a[title]");
-//				for (int n = 0; n < els.size(); n++) {
-//					String title = els.get(n).attr("title");
-//					String t = els.get(n).text();
-//					if (title.startsWith("Template") == false) {
-//						// System.err.println("\t" + title + " (" + t + ")");
-//						// System.err.println("\t" + t);
-//						Keyword kwd = new DefaultKeyword();
-//						kwd.setLex(title);
-//						kwd.setStr(t);
-//						kwd.setFacet(keywordFacet);
-//						keywords.add(kwd);
-//					}
-//				}
-//
-//			}
-//		}
-
 		{
 			Elements elements = document.select("a");
 			for (int idx = 0; idx < elements.size(); idx++) {

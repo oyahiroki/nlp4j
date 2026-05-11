@@ -32,7 +32,7 @@ import nlp4j.wiki.util.MediaWikiTextUtils;
  */
 public class WikiCategoryIndexCreator {
 
-	static private Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
+	static private final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
 	public void processCategoryFiles(String indexFileName, String dumpFileName, String outCategoryFileName,
 			String outCategoryIndexFileName) throws IOException {

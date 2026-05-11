@@ -36,23 +36,24 @@ import nlp4j.util.JsonUtils;
  */
 public class MediaWikiClient implements Closeable {
 
-	static private Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
+	static private final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
+
 	/**
 	 * en.wikipedia.org
 	 */
-	static public String HOST_EN_WIKIPEDIA_ORG = "en.wikipedia.org";
+	static public final String HOST_EN_WIKIPEDIA_ORG = "en.wikipedia.org";
 	/**
 	 * en.wiktionary.org
 	 */
-	static public String HOST_EN_WIKTIONARY_ORG = "en.wiktionary.org";
+	static public final String HOST_EN_WIKTIONARY_ORG = "en.wiktionary.org";
 	/**
 	 * ja.wikipedia.org
 	 */
-	static public String HOST_JA_WIKIPEDIA_ORG = "ja.wikipedia.org";
+	static public final String HOST_JA_WIKIPEDIA_ORG = "ja.wikipedia.org";
 	/**
 	 * ja.wiktionary.org
 	 */
-	static public String HOST_JA_WIKTIONARY_ORG = "ja.wiktionary.org";
+	static public final String HOST_JA_WIKTIONARY_ORG = "ja.wiktionary.org";
 
 	private static final int MAX_QUERY_COUNT = 100;
 
@@ -117,9 +118,9 @@ public class MediaWikiClient implements Closeable {
 		// content-type
 		JsonObject jo = res.getAsJsonObject();
 
-		System.err.println(jo);
+		logger.debug(jo);
 
-		System.out.println(jo.get("expandtemplates").getAsJsonObject().get("wikitext").getAsString());
+		logger.info(jo.get("expandtemplates").getAsJsonObject().get("wikitext").getAsString());
 
 	}
 
@@ -517,42 +518,9 @@ public class MediaWikiClient implements Closeable {
 		// content-type
 		JsonObject jo = res.getAsJsonObject();
 
-		System.err.println(res.getOriginalResponseBody());
+		logger.debug(res.getOriginalResponseBody());
 
-//		if (logger.isDebugEnabled()) {
-//			logger.debug(res.getOriginalResponseBody());
-//		}
-//
-//		String key = jo //
-//				.get("query").getAsJsonObject() //
-//				.get("pages").getAsJsonObject().keySet() //
-//				.toArray(new String[0])[0];
-//
-//		if (jo. //
-//				get("query").getAsJsonObject() //
-//				.get("pages").getAsJsonObject() //
-//				.get(key).getAsJsonObject().get("revisions") == null) {
-//			logger.info("null");
-//			return null;
-//		}
-//
-//		// String wiki_content = jo. //
-//		// get("query").getAsJsonObject() //
-//		// .get("pages").getAsJsonObject() //
-//		// .get(key).getAsJsonObject() //
-//		// .get("revisions").getAsJsonArray() //
-//		// .get(0).getAsJsonObject() //
-//		// .get("slots").getAsJsonObject() //
-//		// .get("main").getAsJsonObject() //
-//		// .get("*").getAsString() //
-//		// ;
-//
-//		String wiki_content = JsonObjectUtils.query(jo, String.class,
-//				"/query/pages/" + key + "/revisions[0]/slots/main/*");
-//
-//		return wiki_content;
-
-		System.out.println(jo.get("parse").getAsJsonObject().get("text").getAsJsonObject().get("*").getAsString());
+		logger.info(jo.get("parse").getAsJsonObject().get("text").getAsJsonObject().get("*").getAsString());
 
 		return "";
 	}
@@ -594,43 +562,12 @@ public class MediaWikiClient implements Closeable {
 		// content-type
 		JsonObject jo = res.getAsJsonObject();
 
-		System.err.println(res.getOriginalResponseBody());
+		if (logger.isDebugEnabled()) {
+			logger.debug(res.getOriginalResponseBody());
+		}
 
-		// if (logger.isDebugEnabled()) {
-		// logger.debug(res.getOriginalResponseBody());
-		// }
-		//
-		// String key = jo //
-		// .get("query").getAsJsonObject() //
-		// .get("pages").getAsJsonObject().keySet() //
-		// .toArray(new String[0])[0];
-		//
-		// if (jo. //
-		// get("query").getAsJsonObject() //
-		// .get("pages").getAsJsonObject() //
-		// .get(key).getAsJsonObject().get("revisions") == null) {
-		// logger.info("null");
-		// return null;
-		// }
-		//
-		// // String wiki_content = jo. //
-		// // get("query").getAsJsonObject() //
-		// // .get("pages").getAsJsonObject() //
-		// // .get(key).getAsJsonObject() //
-		// // .get("revisions").getAsJsonArray() //
-		// // .get(0).getAsJsonObject() //
-		// // .get("slots").getAsJsonObject() //
-		// // .get("main").getAsJsonObject() //
-		// // .get("*").getAsString() //
-		// // ;
-		//
-		// String wiki_content = JsonObjectUtils.query(jo, String.class,
-		// "/query/pages/" + key + "/revisions[0]/slots/main/*");
-		//
-		// return wiki_content;
-
-		System.out.println(jo.get("query").getAsJsonObject().get("pages").getAsJsonObject().get("135686")
-				.getAsJsonObject().get("extract").getAsString());
+		logger.info(jo.get("query").getAsJsonObject().get("pages").getAsJsonObject().get("135686").getAsJsonObject()
+				.get("extract").getAsString());
 
 		return "";
 	}

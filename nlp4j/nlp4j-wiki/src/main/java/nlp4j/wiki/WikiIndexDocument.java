@@ -27,7 +27,7 @@ import nlp4j.impl.DefaultDocument;
  */
 public class WikiIndexDocument extends DefaultDocument {
 
-	static private Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
+	static private final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
 	WikiDumpReader dumpReader;
 

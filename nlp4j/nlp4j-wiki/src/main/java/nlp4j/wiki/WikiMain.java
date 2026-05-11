@@ -1,14 +1,17 @@
 package nlp4j.wiki;
 
 import java.io.File;
-//import java.nio.charset.StandardCharsets;
-import java.util.List;
+import java.lang.invoke.MethodHandles;
 import java.util.Scanner;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import nlp4j.util.EnvUtil;
-import nlp4j.util.StringUtils;
 
 public class WikiMain {
+
+	static private final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
 	private static void print(String itemString) throws Exception {
 		String indexFileName = EnvUtil.get("NLP4J_WIKI_INDEX");
@@ -21,7 +24,7 @@ public class WikiMain {
 			WikiPage page = dumpReader.getItem(itemString);
 			if (page == null) {
 			} else {
-				System.out.println(page.getText());
+				logger.info("page_text:\n" + page.getText());
 			}
 		}
 	}

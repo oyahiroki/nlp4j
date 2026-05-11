@@ -14,7 +14,7 @@ import nlp4j.webcrawler.FileDownloader;
 
 public class WikipediaDumpIndexDownloader extends AbstractWebCrawler implements Crawler {
 
-	static private Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
+	static private final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
 	static private final String filename1 = "jawiki-%s-pages-articles-multistream-index.txt.bz2";
 	static private final String url1 = "https://dumps.wikimedia.org/jawiki/%s" + "/" + filename1;

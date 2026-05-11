@@ -26,6 +26,8 @@ import nlp4j.wiki.WikiPageNode;
 
 public class MediaWikiTextUtils {
 
+	static private final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
+
 	private static final String S2 = "\n|}";
 
 	private static final String S = "\n{|";
@@ -51,8 +53,6 @@ public class MediaWikiTextUtils {
 	private static final String NEWLINE = "\n";
 
 	private static final String CATEGORY = "[[Category:";
-
-	static private Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
 	static private final WtEngineImpl engine;
 

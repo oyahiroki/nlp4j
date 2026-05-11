@@ -26,7 +26,7 @@ import nlp4j.wiki.util.WikiUtils;
  */
 public class WikiDocumentAnnotator extends AbstractDocumentAnnotator implements DocumentAnnotator, FieldAnnotator {
 
-	static private Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
+	static private final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
 //	 String[] paths = { "=={{ja}}==/==={{noun}}===", "=={{ja}}==/==={{adj}}===", "=={{ja}}==/===和語の漢字表記===" };
 

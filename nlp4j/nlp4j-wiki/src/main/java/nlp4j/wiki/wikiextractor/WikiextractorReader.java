@@ -15,7 +15,7 @@ import com.google.gson.JsonObject;
 
 public class WikiextractorReader {
 
-	static private Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
+	static private final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
 	public void convert(File wikiextractorFileOrDir, File outFile) throws IOException {
 

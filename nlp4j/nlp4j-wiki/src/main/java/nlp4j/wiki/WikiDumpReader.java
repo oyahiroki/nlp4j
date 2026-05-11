@@ -31,20 +31,14 @@ import nlp4j.util.FileUtils;
  */
 public class WikiDumpReader implements AutoCloseable {
 
-	private static final String ENCODING_UTF8 = "utf-8";
-
 	static private final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
+	private static final String ENCODING_UTF8 = "utf-8";
 	private static final String TAG1_MEDIAWIKI = "<mediawiki>";
-
 	private static final String TAG1_PAGE = "<page>";
-
 	private static final String TAG1_TITLE = "<title>";
-
 	private static final String TAG2_MEDIAWIKI = "</mediawiki>";
-
 	private static final String TAG2_PAGE = "</page>";
-
 	private static final String TAG2_TITLE = "</title>";
 
 	File dumpFile;
@@ -237,7 +231,7 @@ public class WikiDumpReader implements AutoCloseable {
 
 			System.err.println(item);
 
-			WikiPage page = pages.get("" + item.getTitle() );
+			WikiPage page = pages.get("" + item.getTitle());
 			page.setXml(blockXml);
 
 			{

@@ -1,8 +1,12 @@
 package nlp4j.wiki.pageview;
 
 import java.io.File;
+import java.lang.invoke.MethodHandles;
 import java.nio.file.Files;
 import java.util.stream.Stream;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import nlp4j.http.FileDownloader;
 import nlp4j.util.UTCUtils;
@@ -18,6 +22,8 @@ import java.util.regex.Pattern;
  * Wikipedia の PageView について、何分後に出力されているのかを確認するプログラム
  */
 public class PageViewsTimestampDiffCalculator {
+
+	static private final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
 	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
@@ -40,7 +46,7 @@ public class PageViewsTimestampDiffCalculator {
 		File tempFile = File.createTempFile("nlp4j-", ".txt");
 		FileDownloader.download(url_dump_wiki_pageviews_of_this_month, tempFile, true);
 
-		System.err.println(tempFile.getAbsolutePath());
+		logger.info(tempFile.getAbsolutePath());
 
 		/*
 		 * 
@@ -100,19 +106,25 @@ public class PageViewsTimestampDiffCalculator {
 					long diffMinutes = Duration.between(fileTimestamp, actualTimestamp).toMinutes();
 					totalDiffMinutes += diffMinutes;
 					count++;
-//					System.out.println("File timestamp   : " + fileTimestamp);
-//					System.out.println("Actual timestamp : " + actualTimestamp);
-//					System.out.println("Difference (min) : " + diffMinutes);
+					if (logger.isDebugEnabled()) {
+						logger.debug("File timestamp   : " + fileTimestamp);
+						logger.debug("Actual timestamp : " + actualTimestamp);
+						logger.debug("Difference (min) : " + diffMinutes);
+
+					}
 				} else {
-//					System.out.println("Could not parse timestamps.");
+					if (logger.isDebugEnabled()) {
+						logger.debug("Could not parse timestamps.");
+
+					}
 				}
 			} // END_OF_FOR
 
 			if (count > 0) {
 				double averageDiff = (double) totalDiffMinutes / count;
-				System.out.printf("Average difference (min): %.2f%n", averageDiff);
+				logger.info("Average difference (min): %.2f%n", averageDiff);
 			} else {
-				System.out.println("No valid lines to calculate average.");
+				logger.info("No valid lines to calculate average.");
 			}
 
 		}

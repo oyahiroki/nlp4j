@@ -2,6 +2,10 @@ package nlp4j.wiki.util;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.invoke.MethodHandles;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -20,6 +24,8 @@ import nlp4j.wiki.WikiPageHandler;
  * @since 1.1.0.0
  */
 public class MediaWikiDumpFileUtils {
+
+	static private final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
 	/**
 	 * @param mediaWikiDumpFile
@@ -49,8 +55,8 @@ public class MediaWikiDumpFileUtils {
 //						throw new BreakException();
 //					}
 					count++;
-					if (count % 1000 == 0) {
-						System.out.println("count: " + count);
+					if (count % 10000 == 0) {
+						logger.info("count: " + count);
 					}
 				}
 			}
@@ -78,8 +84,7 @@ public class MediaWikiDumpFileUtils {
 				System.err.println("OK");
 			}
 		}
-
-		System.out.println("" + wikiPageHander.toString());
+		logger.info("" + wikiPageHander.toString());
 
 	}
 

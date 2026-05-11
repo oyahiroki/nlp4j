@@ -1,8 +1,11 @@
 package nlp4j.wiki.printer;
 
 import java.io.File;
-import java.io.IOError;
 import java.io.IOException;
+import java.lang.invoke.MethodHandles;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import nlp4j.wiki.BreakException;
 import nlp4j.wiki.WikiIndexItem;
@@ -10,6 +13,8 @@ import nlp4j.wiki.WikiIndexItemHandler;
 import nlp4j.wiki.WikiIndexReader;
 
 public class WikiIndexPrinter implements AutoCloseable {
+
+	static private final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
 	File indexFile;
 
@@ -36,7 +41,7 @@ public class WikiIndexPrinter implements AutoCloseable {
 				if (maxCount != -1 && count >= maxCount) {
 					throw new BreakException();
 				}
-				System.out.println(item.getTitle());
+				logger.info(item.getTitle());
 			}
 		}); // throws IOException
 

@@ -26,7 +26,7 @@ import nlp4j.util.FileUtils;
  */
 public class WikiCategoryIndexReader {
 
-	static private Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
+	static private final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
 	Map<String, String> mapIdTitle = new HashMap<String, String>();
 	Map<String, WikiCategory> mapTitleObj = new HashMap<>();

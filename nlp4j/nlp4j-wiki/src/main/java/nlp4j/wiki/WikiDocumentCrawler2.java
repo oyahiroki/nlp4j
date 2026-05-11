@@ -42,7 +42,7 @@ import nlp4j.crawler.Crawler;
  */
 public class WikiDocumentCrawler2 extends AbstractCrawler implements Crawler {
 
-	static private Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
+	static private final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
 	File wikidumpfile = null;
 	File wikiindexfile = null;

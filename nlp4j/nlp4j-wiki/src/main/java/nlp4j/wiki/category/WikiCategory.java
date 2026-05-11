@@ -12,7 +12,7 @@ import org.apache.logging.log4j.Logger;
 
 public class WikiCategory {
 
-	static private Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
+	static private final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
 	private String title;
 	private String id;

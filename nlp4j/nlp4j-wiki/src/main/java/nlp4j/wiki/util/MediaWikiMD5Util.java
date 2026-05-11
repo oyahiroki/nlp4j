@@ -19,7 +19,7 @@ import org.apache.logging.log4j.Logger;
  */
 public class MediaWikiMD5Util {
 
-	static private Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
+	static private final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
 	static public boolean checkMD5(String md5sumsFileName, String targetFileName) throws IOException {
 
