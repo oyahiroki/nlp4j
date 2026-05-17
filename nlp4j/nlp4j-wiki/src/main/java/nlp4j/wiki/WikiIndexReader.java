@@ -127,6 +127,8 @@ public class WikiIndexReader {
 
 			String line;
 
+			handler.begin();
+
 			// Example of line
 			// 382308:2239:水素
 			while ((line = br.readLine()) != null) {
@@ -156,6 +158,8 @@ public class WikiIndexReader {
 
 		} catch (CompressorException e) {
 			throw new IOException(e);
+		} finally {
+			handler.end();
 		}
 
 		long time2 = System.currentTimeMillis();

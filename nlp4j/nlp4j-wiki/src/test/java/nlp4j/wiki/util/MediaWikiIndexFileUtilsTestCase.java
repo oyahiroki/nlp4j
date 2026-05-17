@@ -19,4 +19,15 @@ public class MediaWikiIndexFileUtilsTestCase extends TestCase {
 		MediaWikiIndexFileUtils.printTitles(indexFile);
 	}
 
+	public void testPrintProperties() throws IOException {
+		File indexFile = new File(
+				"C:/usr/local/wiki/jawiki/20260501/" + "jawiki-20260501-pages-articles-multistream-index.txt.bz2");
+
+		if (indexFile.exists() == false) {
+			System.err.println("Not found: " + indexFile.getAbsolutePath());
+			return; // SKIP THIS FILE
+		}
+
+		MediaWikiIndexFileUtils.printProperties(indexFile);
+	}
 }
