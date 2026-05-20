@@ -35,7 +35,11 @@ public class Counter<T> {
 	}
 
 	/**
+	 * <pre>
 	 * Constructor
+	 * initialCapacity: default size 16 (1 << 4) is used
+	 * loadFactor: default value 0.75f is used
+	 * </pre>
 	 */
 	public Counter() {
 		this.objCounter = new HashMap<T, Integer>();

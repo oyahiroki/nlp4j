@@ -16,7 +16,7 @@ import nlp4j.wiki.util.MediaWikiIndexFileUtils;
  *
  * Example output (出力例):
  * <pre>
- * Index file name: C:\usr\local\wiki\jawiki\20260501\jawiki-20260501-pages-articles-multistream-index.txt.bz2
+ * Index file name: C:/usr/local/wiki/jawiki/20260501/jawiki-20260501-pages-articles-multistream-index.txt.bz2
  * Index file size: 31,015,361
  * Index file last update: 2026-05-02T20:59:38
  * count: 3,076,894
@@ -72,10 +72,4 @@ public class WikiDumpIndexPropertyPrinter {
 	}
 
 }
-
-// Expected output to System.out
-//Index file name: C:\usr\local\wiki\jawiki\20260501\jawiki-20260501-pages-articles-multistream-index.txt.bz2
-//Index file size: 31,015,361
-//Index file last update: 2026-05-02T20:59:38
-//count: 3,076,894
 

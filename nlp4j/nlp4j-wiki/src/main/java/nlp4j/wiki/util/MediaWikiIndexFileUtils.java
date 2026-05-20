@@ -37,6 +37,23 @@ public class MediaWikiIndexFileUtils {
 
 	}
 
+	static int getEstimatedDocumentCount(File indexFile) throws IOException {
+
+		AtomicInteger count = new AtomicInteger(0);
+
+		// Read Wiki Index File
+		WikiIndexReader.readIndexFile(indexFile, new WikiIndexItemHandler() {
+
+			@Override
+			public void read(WikiIndexItem item) throws BreakException {
+				count.incrementAndGet();
+			}
+
+		}); // throws IOException
+
+		return count.get();
+	}
+
 	static public void printProperties(File indexFile) throws IOException {
 
 		Counter<String> counter_ns = new Counter<String>();

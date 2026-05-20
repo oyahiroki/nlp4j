@@ -164,7 +164,8 @@ public class WikiPage {
 	 * @return Root Node Plain text
 	 */
 	public String getRootNodePlainText() {
-		return MediaWikiTextUtils.toPlainText(this.title, this.getRootNodeWikiText());
+		String s = MediaWikiTextUtils.toPlainText(this.title, this.getRootNodeWikiText());
+		return (s == null) ? "" : s;
 	}
 
 	/**

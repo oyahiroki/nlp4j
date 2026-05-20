@@ -30,4 +30,18 @@ public class MediaWikiIndexFileUtilsTestCase extends TestCase {
 
 		MediaWikiIndexFileUtils.printProperties(indexFile);
 	}
+
+	public void testGetEstimatedCount() throws IOException {
+		File indexFile = new File(
+				"C:/usr/local/wiki/jawiki/20260501/" + "jawiki-20260501-pages-articles-multistream-index.txt.bz2");
+
+		if (indexFile.exists() == false) {
+			System.err.println("Not found: " + indexFile.getAbsolutePath());
+			return; // SKIP THIS FILE
+		}
+
+		int count = MediaWikiIndexFileUtils.getEstimatedDocumentCount(indexFile);
+		assertNotSame(0, count);
+		System.err.println("count: " + count);
+	}
 }
