@@ -36,12 +36,12 @@ public class LuceneInMemoryAggregationExample {
 
 		Analyzer analyzer = new WhitespaceAnalyzer();
 
-		Directory directory = new ByteBuffersDirectory();
+		Directory onmem_directory = new ByteBuffersDirectory();
 
 		FacetsConfig facetsConfig = new FacetsConfig();
 		facetsConfig.setMultiValued(FIELD_KEYWORD, true);
 
-		try (IndexWriter indexWriter = new IndexWriter(directory, new IndexWriterConfig(analyzer))) {
+		try (IndexWriter indexWriter = new IndexWriter(onmem_directory, new IndexWriterConfig(analyzer))) {
 
 			addDoc(indexWriter, facetsConfig, "1", "東京", "東京 は 日本 の 首都 です", new String[] { "日本", "都市", "首都" });
 
@@ -55,7 +55,7 @@ public class LuceneInMemoryAggregationExample {
 			indexWriter.commit();
 		}
 
-		try (DirectoryReader reader = DirectoryReader.open(directory)) {
+		try (DirectoryReader reader = DirectoryReader.open(onmem_directory)) {
 
 			IndexSearcher searcher = new IndexSearcher(reader);
 

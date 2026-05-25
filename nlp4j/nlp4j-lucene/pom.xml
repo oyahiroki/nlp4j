@@ -71,6 +71,11 @@
 			<artifactId>lucene-facet</artifactId>
 			<version>${lucene.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.apache.lucene</groupId>
+			<artifactId>lucene-analysis-kuromoji</artifactId>
+			<version>${lucene.version}</version>
+		</dependency>
 		<!-- https://mvnrepository.com/artifact/junit/junit -->
 		<!-- 3.8.2 : May 14, 2007 -->
 		<dependency>

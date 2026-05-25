@@ -17,6 +17,17 @@ import com.google.gson.JsonPrimitive;
  */
 public class JsonObjectUtils {
 
+	static public List<String> toList(JsonArray ja) {
+		List<String> list = new ArrayList<String>(16);
+		if (ja == null) {
+			return list;
+		}
+		for (int n = 0; n < ja.size(); n++) {
+			list.add(ja.get(n).getAsString());
+		}
+		return list;
+	}
+
 	/**
 	 * @param jo
 	 * @param property
