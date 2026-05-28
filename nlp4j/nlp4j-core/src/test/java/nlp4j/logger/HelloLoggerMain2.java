@@ -9,7 +9,7 @@ import nlp4j.util.LoggerUtils;
 
 public class HelloLoggerMain2 {
 
-	static private Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
+	static private final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
 	public static void main(String[] args) throws Exception {
 		LoggerUtils.setLoggerDebug();
