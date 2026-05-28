@@ -8,9 +8,9 @@ import nlp4j.json.JsonNode;
 import nlp4j.lucene9.LuceneIndex.SearchSession;
 
 /**
- * Local search API for Lucene that provides OpenSearch-compatible REST API interface.
- * This class accepts OpenSearch-style JSON requests and returns JSON responses.
- * Uses LuceneIndex for managing the search infrastructure.
+ * Local search API for Lucene that provides OpenSearch-compatible REST API
+ * interface. This class accepts OpenSearch-style JSON requests and returns JSON
+ * responses. Uses LuceneIndex for managing the search infrastructure.
  */
 public class LuceneLocalSearchApi {
 
@@ -28,7 +28,7 @@ public class LuceneLocalSearchApi {
 	/**
 	 * Executes a search request using OpenSearch-compatible JSON format.
 	 *
-	 * @param path the search path (e.g., "myindex/_search")
+	 * @param path        the search path (e.g., "myindex/_search")
 	 * @param requestBody the search request body in JSON format
 	 * @return the search response in JSON format
 	 * @throws IOException if an I/O error occurs during search
@@ -43,7 +43,9 @@ public class LuceneLocalSearchApi {
 
 			JsonNode aggregations = AggregationExecutor.execute(session.getSearcher(), query, request);
 
-			return SearchResponseBuilder.build(hits, aggregations);
+			JsonNode searchResult = SearchResponseBuilder.build(hits, aggregations);
+
+			return searchResult;
 		}
 	}
 }
