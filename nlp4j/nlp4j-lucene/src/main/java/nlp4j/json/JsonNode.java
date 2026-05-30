@@ -214,15 +214,11 @@ public class JsonNode {
 	}
 
 	public double asDouble(double defaultValue) {
-
 		try {
-
 			if (!isPrimitive()) {
 				return defaultValue;
 			}
-
 			return element.getAsDouble();
-
 		} catch (Exception e) {
 			return defaultValue;
 		}
@@ -395,5 +391,9 @@ public class JsonNode {
 
 	public JsonNode getAsJsonObject(String key) {
 		return get(key);
+	}
+
+	public int getAsInt() {
+		return asInt();
 	}
 }

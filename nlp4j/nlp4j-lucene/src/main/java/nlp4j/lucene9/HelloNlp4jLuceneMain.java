@@ -6,6 +6,7 @@ import org.apache.lucene.document.StringField;
 import org.apache.lucene.document.TextField;
 import org.apache.lucene.document.SortedDocValuesField;
 import org.apache.lucene.util.BytesRef;
+
 import nlp4j.json.JsonNode;
 
 /**
@@ -85,7 +86,6 @@ public class HelloNlp4jLuceneMain {
 			{
 				matchAllRequest.put("query", JsonNode.object().put("match_all", JsonNode.object()));
 				matchAllRequest.put("size", 10);
-
 			}
 //			{
 //			  "query": {

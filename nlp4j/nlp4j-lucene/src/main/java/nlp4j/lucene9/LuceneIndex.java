@@ -24,6 +24,7 @@ import org.apache.lucene.store.Directory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.lucene.analysis.Analyzer;
+import org.apache.lucene.analysis.en.EnglishAnalyzer;
 import org.apache.lucene.analysis.ja.JapaneseAnalyzer;
 import org.apache.lucene.analysis.miscellaneous.PerFieldAnalyzerWrapper;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
@@ -43,7 +44,7 @@ import org.apache.lucene.store.Directory;
 public class LuceneIndex implements Closeable {
 
 	static private final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
-	
+
 	private final Directory directory;
 
 	/**
@@ -73,9 +74,12 @@ public class LuceneIndex implements Closeable {
 		// ----------------------------
 
 		Map<String, Analyzer> fieldAnalyzers = new HashMap<>();
-
-		// text_ja -> kuromoji
-		fieldAnalyzers.put("text_ja", new JapaneseAnalyzer());
+		{
+			// text_en -> English
+			fieldAnalyzers.put("text_en", new EnglishAnalyzer());
+			// text_ja -> kuromoji
+			fieldAnalyzers.put("text_ja", new JapaneseAnalyzer());
+		}
 
 		// ----------------------------
 		// per field analyzer
@@ -95,6 +99,10 @@ public class LuceneIndex implements Closeable {
 	 */
 	public void add(Document doc) throws IOException {
 		writer.addDocument(doc);
+	}
+
+	public void commit() throws IOException {
+		this.writer.commit();
 	}
 
 	/**
