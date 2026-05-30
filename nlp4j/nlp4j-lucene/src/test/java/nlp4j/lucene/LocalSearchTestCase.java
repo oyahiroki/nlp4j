@@ -4,7 +4,7 @@ import junit.framework.TestCase;
 
 public class LocalSearchTestCase extends TestCase {
 
-	public void testSearch() throws Exception {
+	public void testSearch001() throws Exception {
 
 		try (LocalSearch search = new LocalSearch("ja")) {
 			search.add("1", "東京都は日本の都道府県のひとつです");
@@ -17,15 +17,17 @@ public class LocalSearchTestCase extends TestCase {
 					}
 					""");
 			search.commit();
-			SearchResult[] result = search.search("京都", 10);
-			System.out.println("size: " + result.length);
-			for (int n = 0; n < result.length; n++) {
-				System.out.println("result[" + n + "].id: " + result[n].id);
-				System.out.println("result[" + n + "].body: " + result[n].body);
-				System.out.println("result[" + n + "].score: " + result[n].score);
+			SearchResult[] results = search.search("京都", 10);
+			System.out.println("size: " + results.length);
+			for (int n = 0; n < results.length; n++) {
+				System.out.println("result[" + n + "].id: " + results[n].id);
+				System.out.println("result[" + n + "].body: " + results[n].body);
+				System.out.println("result[" + n + "].score: " + results[n].score);
 			}
-		}
 
+			assertEquals(3, results.length);
+
+		}
 // Expected output
 //		size: 3
 //		result[0].id: 1
@@ -37,8 +39,48 @@ public class LocalSearchTestCase extends TestCase {
 //		result[2].id: 2
 //		result[2].body: 京都市には任天堂の本社があります
 //		result[2].score: 0.16212496
-
-
 	}
 
+	public void testSearch002() throws Exception {
+
+		try (LocalSearch search = new LocalSearch("ja")) {
+			search.add("1", "東京都は日本の都道府県のひとつです");
+			search.add("2", "京都は日本の都市です。");
+			search.add("3", "京都市には任天堂の本社があります");
+
+			search.add("3", "京都市には任天堂の本社があります"); // duplicated!
+
+			search.commit();
+			SearchResult[] results = search.search("京都", 10);
+			System.out.println("size: " + results.length);
+			for (int n = 0; n < results.length; n++) {
+				System.out.println("result[" + n + "].id: " + results[n].id);
+				System.out.println("result[" + n + "].body: " + results[n].body);
+				System.out.println("result[" + n + "].score: " + results[n].score);
+			}
+
+			assertEquals(2, results.length);
+
+		}
+	}
+
+	public void testSearch003() throws Exception {
+
+		try (LocalSearch search = new LocalSearch("ja")) {
+			search.add("1", "東京都です。1");
+			search.add("2", "それは京都です。2");
+			search.add("3", "京都です。3");
+			search.commit();
+			SearchResult[] results = search.search("京都", 10);
+			System.out.println("size: " + results.length);
+			for (int n = 0; n < results.length; n++) {
+				System.out.println("result[" + n + "].id: " + results[n].id);
+				System.out.println("result[" + n + "].body: " + results[n].body);
+				System.out.println("result[" + n + "].score: " + results[n].score);
+			}
+
+			assertEquals(2, results.length);
+
+		}
+	}
 }

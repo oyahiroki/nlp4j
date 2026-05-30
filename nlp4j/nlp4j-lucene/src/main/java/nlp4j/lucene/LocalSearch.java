@@ -92,8 +92,8 @@ public class LocalSearch implements AutoCloseable {
 				JsonNode hits = result3.get("hits").get("hits");
 
 				for (int n = 0; n < size; n++) {
-					String id = hits.get(n).get("_id").asString();
 					float score = (float) hits.get(n).get("_score").asDouble(-1);
+					String id = hits.get(n).get("_source").get("id").asString();
 					String text = hits.get(n).get("_source").get(default_field_name).asString();
 					results[n] = new SearchResult();
 					results[n].id = id;
