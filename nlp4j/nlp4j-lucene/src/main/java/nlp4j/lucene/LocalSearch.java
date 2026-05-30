@@ -3,11 +3,6 @@ package nlp4j.lucene;
 import java.io.IOException;
 
 import org.apache.lucene.document.Document;
-import org.apache.lucene.document.Field;
-import org.apache.lucene.document.SortedDocValuesField;
-import org.apache.lucene.document.StringField;
-import org.apache.lucene.document.TextField;
-import org.apache.lucene.util.BytesRef;
 
 import nlp4j.json.JsonNode;
 import nlp4j.lucene9.FieldTypeDef;
