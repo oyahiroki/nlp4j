@@ -1,5 +1,17 @@
 package nlp4j.lucene9;
 
+import java.io.File;
+import java.io.IOException;
+import java.net.URI;
+import java.nio.file.FileSystem;
+import java.nio.file.Files;
+import java.nio.file.LinkOption;
+import java.nio.file.Path;
+import java.nio.file.WatchKey;
+import java.nio.file.WatchService;
+import java.nio.file.WatchEvent.Kind;
+import java.nio.file.WatchEvent.Modifier;
+
 import junit.framework.TestCase;
 import nlp4j.json.JsonNode;
 
@@ -127,5 +139,71 @@ public class LuceneIndexTestCase extends TestCase {
 			System.out.println(result1.toJson());
 			assertTrue(result1.get("hits") != null);
 		}
+	}
+
+	public void testSearch100() throws Exception {
+		SearchSchema schema = new SearchSchema();
+		{
+			schema.add("id", FieldTypeDef.keyword().stored(true));
+			schema.add("category", FieldTypeDef.keyword().stored(true).aggregatable(true).sortable(true));
+			schema.add("text_ja", FieldTypeDef.text().stored(true));
+			schema.add("data", FieldTypeDef.storedOnly());
+		}
+
+		// Create a new in-memory Lucene index
+		try (LuceneIndex index = new LuceneIndex()) {
+
+			// --------------------
+			// Add sample documents
+			// --------------------
+
+			// Document 1
+			{
+				index.add(schema.document() //
+						.put("id", "1") //
+						.put("category", "greeting") //
+						.put("text_ja", "東京都の人口は多いです。") //
+						.put("data", "THIS IS DATA1") //
+						.build());
+			}
+			// Document 2
+			{
+				index.add(schema.document() //
+						.put("id", "2") //
+						.put("category", "greeting") //
+						.put("text_ja", "京都の人口は多いです。") //
+						.put("data", "THIS IS DATA2") //
+						.build());
+			}
+
+			// Create the search API
+			LuceneLocalSearchApi api = new LuceneLocalSearchApi(index);
+
+			// --------------------
+			// Example 1: Basic Vector Search
+			// --------------------
+			System.out.println("\n[Example 1] Basic Vector Search");
+			System.out.println("-".repeat(80));
+
+			JsonNode result1 = api.search("myindex/_search", JsonNode.parse("""
+					{
+						"size": 10,
+						"query": {
+							"match_all": {}
+						}
+					}
+					"""));
+
+			System.out.println(result1.toJson());
+			assertTrue(result1.get("hits") != null);
+
+			Path tempDir = Files.createTempDirectory("temp_");
+
+			index.writeTo(tempDir);
+
+			System.err.println(tempDir);
+
+		}
+
 	}
 }

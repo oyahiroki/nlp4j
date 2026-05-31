@@ -3,7 +3,8 @@ package nlp4j.lucene9;
 import java.io.Closeable;
 import java.io.IOException;
 import java.lang.invoke.MethodHandles;
-import java.util.ArrayList;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,94 +19,31 @@ import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
+import org.apache.lucene.index.IndexWriterConfig.OpenMode;
 import org.apache.lucene.index.Term;
-import org.apache.lucene.queryparser.classic.QueryParser;
 import org.apache.lucene.search.IndexSearcher;
-import org.apache.lucene.search.MatchAllDocsQuery;
-import org.apache.lucene.search.Query;
-import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.search.SearcherManager;
-import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.store.ByteBuffersDirectory;
 import org.apache.lucene.store.Directory;
+import org.apache.lucene.store.FSDirectory;
+import org.apache.lucene.store.IOContext;
 
 public class LuceneIndex implements Closeable {
 
-	/**
-	 * Search Session
-	 */
-	public static class SearchSession implements Closeable {
-
-		private final IndexSearcher searcher;
-
-		private final SearcherManager manager;
-
-		private final Analyzer analyzer;
-
-		public SearchSession(IndexSearcher searcher, SearcherManager manager, Analyzer analyzer) {
-
-			this.searcher = searcher;
-			this.manager = manager;
-			this.analyzer = analyzer;
-		}
-
-		@Override
-		public void close() throws IOException {
-			manager.release(searcher);
-		}
-
-		/**
-		 * Returns the Analyzer for this session.
-		 *
-		 * @return the Analyzer
-		 */
-		public Analyzer getAnalyzer() {
-			return analyzer;
-		}
-
-		/**
-		 * Returns the IndexSearcher for this session.
-		 *
-		 * @return the IndexSearcher
-		 */
-		public IndexSearcher getSearcher() {
-			return searcher;
-		}
-
-		/**
-		 * search
-		 */
-		public List<Document> search(String queryString, int size) throws Exception {
-
-			Query query;
-
-			if ("*:*".equals(queryString)) {
-
-				query = new MatchAllDocsQuery();
-
-			} else {
-
-				QueryParser parser = new QueryParser("text_ja", analyzer);
-
-				query = parser.parse(queryString);
-			}
-
-			TopDocs topDocs = searcher.search(query, size);
-
-			List<Document> docs = new ArrayList<>();
-
-			for (ScoreDoc sd : topDocs.scoreDocs) {
-
-				Document doc = searcher.doc(sd.doc);
-
-				docs.add(doc);
-			}
-
-			return docs;
-		}
-	}
-
 	static private final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
+
+	private static Analyzer createAnalyzer() {
+
+		StandardAnalyzer defaultAnalyzer = new StandardAnalyzer();
+
+		Map<String, Analyzer> fieldAnalyzers = new HashMap<>();
+		{
+			fieldAnalyzers.put("text_en", new EnglishAnalyzer());
+			fieldAnalyzers.put("text_ja", new JapaneseAnalyzer());
+		}
+
+		return new PerFieldAnalyzerWrapper(defaultAnalyzer, fieldAnalyzers);
+	}
 
 	private final Directory directory;
 
@@ -115,9 +53,9 @@ public class LuceneIndex implements Closeable {
 	private final Analyzer analyzer;
 
 	private final IndexWriter writer;
-
 	private final SearcherManager searcherManager;
 	private int count_added = 0;
+
 	private int count_committed = 0;
 
 	private int count_searched = 0;
@@ -129,31 +67,43 @@ public class LuceneIndex implements Closeable {
 
 		this.directory = new ByteBuffersDirectory();
 
-		// ----------------------------
-		// default analyzer
-		// ----------------------------
-
-		StandardAnalyzer defaultAnalyzer = new StandardAnalyzer();
-
-		// ----------------------------
-		// field analyzers
-		// ----------------------------
-
-		Map<String, Analyzer> fieldAnalyzers = new HashMap<>();
-		{
-			// text_en -> English
-			fieldAnalyzers.put("text_en", new EnglishAnalyzer());
-			// text_ja -> kuromoji
-			fieldAnalyzers.put("text_ja", new JapaneseAnalyzer());
-		}
-
-		// ----------------------------
-		// per field analyzer
-		// ----------------------------
-
-		this.analyzer = new PerFieldAnalyzerWrapper(defaultAnalyzer, fieldAnalyzers);
+		this.analyzer = createAnalyzer();
 
 		IndexWriterConfig config = new IndexWriterConfig(analyzer);
+
+		this.writer = new IndexWriter(directory, config);
+
+		this.searcherManager = new SearcherManager(writer, null);
+	}
+
+	/**
+	 * constructor
+	 *
+	 * Creates an in-memory Lucene index from an existing filesystem index.
+	 *
+	 * @param inputDir existing Lucene index directory
+	 * @throws IOException if an I/O error occurs
+	 */
+	public LuceneIndex(Path inputDir) throws IOException {
+
+		if (Files.notExists(inputDir)) {
+			throw new IOException("Input directory does not exist: " + inputDir);
+		}
+
+		this.directory = new ByteBuffersDirectory();
+
+		try (Directory inputDirectory = FSDirectory.open(inputDir)) {
+			for (String fileName : inputDirectory.listAll()) {
+				this.directory.copyFrom(inputDirectory, fileName, fileName, IOContext.DEFAULT);
+			}
+		}
+
+		this.analyzer = createAnalyzer();
+
+		IndexWriterConfig config = new IndexWriterConfig(analyzer);
+
+		// 既存インデックスを使うことを明示
+		config.setOpenMode(OpenMode.CREATE_OR_APPEND);
 
 		this.writer = new IndexWriter(directory, config);
 
@@ -209,6 +159,34 @@ public class LuceneIndex implements Closeable {
 		count_searched++;
 		try (SearchSession session = acquireSearcher()) {
 			return session.search(queryString, size);
+		}
+	}
+
+	/**
+	 * Writes this in-memory Lucene index to a filesystem directory.
+	 *
+	 * @param outputDir output directory
+	 * @throws IOException if an I/O error occurs
+	 */
+	public void writeTo(Path outputDir) throws IOException {
+
+		// 未コミットの変更を保存対象に含める
+		commit();
+
+		Files.createDirectories(outputDir);
+
+		try (Directory outputDirectory = FSDirectory.open(outputDir)) {
+
+			// copyFrom はコピー先ファイルが既に存在すると失敗するため、
+			// 既存ファイルがある場合は明示的にエラーにする。
+			String[] existingFiles = outputDirectory.listAll();
+			if (existingFiles.length > 0) {
+				throw new IOException("Output directory is not empty: " + outputDir);
+			}
+
+			for (String fileName : directory.listAll()) {
+				outputDirectory.copyFrom(directory, fileName, fileName, IOContext.DEFAULT);
+			}
 		}
 	}
 

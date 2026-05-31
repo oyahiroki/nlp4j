@@ -5,7 +5,6 @@ import java.io.IOException;
 import org.apache.lucene.search.Query;
 
 import nlp4j.json.JsonNode;
-import nlp4j.lucene9.LuceneIndex.SearchSession;
 
 /**
  * Local search API for Lucene that provides OpenSearch-compatible REST API
@@ -37,7 +36,7 @@ public class LuceneLocalSearchApi {
 		SearchRequest request = SearchRequestParser.parse(path, requestBody);
 
 		try (SearchSession session = index.acquireSearcher()) {
-			
+
 			Query query = LuceneQueryBuilder.build(request, session.getAnalyzer());
 
 			SearchResult hits = SearchExecutor.execute(session.getSearcher(), query, request);
