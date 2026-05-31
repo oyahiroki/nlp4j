@@ -30,6 +30,22 @@ public class SearchSchema {
 		return this;
 	}
 
+	public Map<String, FieldTypeDef> asMap() {
+		return Collections.unmodifiableMap(fields);
+	}
+
+	public boolean contains(String fieldName) {
+		return fields.containsKey(fieldName);
+	}
+
+	public SearchDocumentBuilder document() {
+		return new SearchDocumentBuilder(this);
+	}
+
+	public Set<String> fieldNames() {
+		return Collections.unmodifiableSet(fields.keySet());
+	}
+
 	public FieldTypeDef get(String fieldName) {
 		FieldTypeDef def = fields.get(fieldName);
 		if (def == null) {
@@ -38,19 +54,8 @@ public class SearchSchema {
 		return def;
 	}
 
-	public boolean contains(String fieldName) {
-		return fields.containsKey(fieldName);
-	}
-
-	public Set<String> fieldNames() {
-		return Collections.unmodifiableSet(fields.keySet());
-	}
-
-	public Map<String, FieldTypeDef> asMap() {
-		return Collections.unmodifiableMap(fields);
-	}
-
-	public SearchDocumentBuilder document() {
-		return new SearchDocumentBuilder(this);
+	@Override
+	public String toString() {
+		return "SearchSchema [fields=" + fields + "]";
 	}
 }

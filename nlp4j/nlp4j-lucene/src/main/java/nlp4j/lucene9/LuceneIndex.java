@@ -31,6 +31,80 @@ import org.apache.lucene.store.Directory;
 
 public class LuceneIndex implements Closeable {
 
+	/**
+	 * Search Session
+	 */
+	public static class SearchSession implements Closeable {
+
+		private final IndexSearcher searcher;
+
+		private final SearcherManager manager;
+
+		private final Analyzer analyzer;
+
+		public SearchSession(IndexSearcher searcher, SearcherManager manager, Analyzer analyzer) {
+
+			this.searcher = searcher;
+			this.manager = manager;
+			this.analyzer = analyzer;
+		}
+
+		@Override
+		public void close() throws IOException {
+			manager.release(searcher);
+		}
+
+		/**
+		 * Returns the Analyzer for this session.
+		 *
+		 * @return the Analyzer
+		 */
+		public Analyzer getAnalyzer() {
+			return analyzer;
+		}
+
+		/**
+		 * Returns the IndexSearcher for this session.
+		 *
+		 * @return the IndexSearcher
+		 */
+		public IndexSearcher getSearcher() {
+			return searcher;
+		}
+
+		/**
+		 * search
+		 */
+		public List<Document> search(String queryString, int size) throws Exception {
+
+			Query query;
+
+			if ("*:*".equals(queryString)) {
+
+				query = new MatchAllDocsQuery();
+
+			} else {
+
+				QueryParser parser = new QueryParser("text_ja", analyzer);
+
+				query = parser.parse(queryString);
+			}
+
+			TopDocs topDocs = searcher.search(query, size);
+
+			List<Document> docs = new ArrayList<>();
+
+			for (ScoreDoc sd : topDocs.scoreDocs) {
+
+				Document doc = searcher.doc(sd.doc);
+
+				docs.add(doc);
+			}
+
+			return docs;
+		}
+	}
+
 	static private final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
 	private final Directory directory;
@@ -43,6 +117,10 @@ public class LuceneIndex implements Closeable {
 	private final IndexWriter writer;
 
 	private final SearcherManager searcherManager;
+	private int count_added = 0;
+	private int count_committed = 0;
+
+	private int count_searched = 0;
 
 	/**
 	 * constructor
@@ -83,22 +161,6 @@ public class LuceneIndex implements Closeable {
 	}
 
 	/**
-	 * add document
-	 */
-	public void add(Document doc) throws IOException {
-		String id = doc.get("id");
-		if (id != null) {
-			writer.updateDocument(new Term("id", id), doc);
-		} else {
-			writer.addDocument(doc);
-		}
-	}
-
-	public void commit() throws IOException {
-		this.writer.commit();
-	}
-
-	/**
 	 * acquire searcher
 	 */
 	public SearchSession acquireSearcher() throws IOException {
@@ -111,13 +173,15 @@ public class LuceneIndex implements Closeable {
 	}
 
 	/**
-	 * easy search
+	 * add document
 	 */
-	public List<Document> search(String queryString, int size) throws Exception {
-
-		try (SearchSession session = acquireSearcher()) {
-
-			return session.search(queryString, size);
+	public void add(Document doc) throws IOException {
+		count_added++;
+		String id = doc.get("id");
+		if (id != null) {
+			writer.updateDocument(new Term("id", id), doc);
+		} else {
+			writer.addDocument(doc);
 		}
 	}
 
@@ -133,77 +197,24 @@ public class LuceneIndex implements Closeable {
 		analyzer.close();
 	}
 
+	public void commit() throws IOException {
+		count_committed++;
+		this.writer.commit();
+	}
+
 	/**
-	 * Search Session
+	 * easy search
 	 */
-	public static class SearchSession implements Closeable {
-
-		private final IndexSearcher searcher;
-
-		private final SearcherManager manager;
-
-		private final Analyzer analyzer;
-
-		public SearchSession(IndexSearcher searcher, SearcherManager manager, Analyzer analyzer) {
-
-			this.searcher = searcher;
-			this.manager = manager;
-			this.analyzer = analyzer;
+	public List<Document> search(String queryString, int size) throws Exception {
+		count_searched++;
+		try (SearchSession session = acquireSearcher()) {
+			return session.search(queryString, size);
 		}
+	}
 
-		/**
-		 * Returns the IndexSearcher for this session.
-		 *
-		 * @return the IndexSearcher
-		 */
-		public IndexSearcher getSearcher() {
-			return searcher;
-		}
-
-		/**
-		 * Returns the Analyzer for this session.
-		 *
-		 * @return the Analyzer
-		 */
-		public Analyzer getAnalyzer() {
-			return analyzer;
-		}
-
-		/**
-		 * search
-		 */
-		public List<Document> search(String queryString, int size) throws Exception {
-
-			Query query;
-
-			if ("*:*".equals(queryString)) {
-
-				query = new MatchAllDocsQuery();
-
-			} else {
-
-				QueryParser parser = new QueryParser("text_ja", analyzer);
-
-				query = parser.parse(queryString);
-			}
-
-			TopDocs topDocs = searcher.search(query, size);
-
-			List<Document> docs = new ArrayList<>();
-
-			for (ScoreDoc sd : topDocs.scoreDocs) {
-
-				Document doc = searcher.doc(sd.doc);
-
-				docs.add(doc);
-			}
-
-			return docs;
-		}
-
-		@Override
-		public void close() throws IOException {
-			manager.release(searcher);
-		}
+	@Override
+	public String toString() {
+		return "LuceneIndex [count_added=" + count_added + ", count_committed=" + count_committed + ", count_searched="
+				+ count_searched + "]";
 	}
 }

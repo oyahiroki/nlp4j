@@ -1,19 +1,15 @@
 package nlp4j.lucene9;
 
-import org.apache.lucene.document.Document;
-import org.apache.lucene.document.Field;
-import org.apache.lucene.document.StringField;
-import org.apache.lucene.document.TextField;
-import org.apache.lucene.document.SortedDocValuesField;
-import org.apache.lucene.util.BytesRef;
-
 import nlp4j.json.JsonNode;
 
 /**
- * Sample application demonstrating the usage of LuceneLocalSearchApi. This
- * example shows how to: - Create a Lucene index - Add documents with multiple
- * fields - Perform various types of searches (match_all, term, match,
- * query_string) - Execute aggregations
+ * <pre>
+ * Sample application demonstrating the usage of LuceneLocalSearchApi. 
+ * This example shows how to:
+ *  - Create a Lucene index - Add documents with multiple fields
+ *  - Perform various types of searches (match_all, term, match, * query_string) 
+ *  - Execute aggregations
+ * </pre>
  */
 public class LuceneIndex_HelloMain3 {
 
@@ -57,7 +53,7 @@ public class LuceneIndex_HelloMain3 {
 
 			// Create the search API
 			LuceneLocalSearchApi api = new LuceneLocalSearchApi(index);
-			
+
 			System.out.println("=".repeat(80));
 			System.out.println("Vector Search Demo with LuceneLocalSearchApi");
 			System.out.println("=".repeat(80));
@@ -67,7 +63,7 @@ public class LuceneIndex_HelloMain3 {
 			// --------------------
 			System.out.println("\n[Example 1] Basic Vector Search");
 			System.out.println("-".repeat(80));
-			
+
 			JsonNode result1 = api.search("myindex/_search", JsonNode.parse("""
 					{
 						"size": 10,
@@ -78,7 +74,7 @@ public class LuceneIndex_HelloMain3 {
 						}
 					}
 					"""));
-			
+
 			System.out.println(result1.toJson());
 
 			// --------------------
@@ -86,7 +82,7 @@ public class LuceneIndex_HelloMain3 {
 			// --------------------
 			System.out.println("\n[Example 2] Vector Search with Term Filter (category:greeting)");
 			System.out.println("-".repeat(80));
-			
+
 			JsonNode result2 = api.search("myindex/_search", JsonNode.parse("""
 					{
 						"size": 10,
@@ -102,7 +98,7 @@ public class LuceneIndex_HelloMain3 {
 						}
 					}
 					"""));
-			
+
 			System.out.println(result2.toJson());
 
 			// --------------------
@@ -110,7 +106,7 @@ public class LuceneIndex_HelloMain3 {
 			// --------------------
 			System.out.println("\n[Example 3] Vector Search with Match Filter (text_ja:東京)");
 			System.out.println("-".repeat(80));
-			
+
 			JsonNode result3 = api.search("myindex/_search", JsonNode.parse("""
 					{
 						"size": 10,
@@ -126,7 +122,7 @@ public class LuceneIndex_HelloMain3 {
 						}
 					}
 					"""));
-			
+
 			System.out.println(result3.toJson());
 
 			System.out.println("\n" + "=".repeat(80));
@@ -134,8 +130,5 @@ public class LuceneIndex_HelloMain3 {
 			System.out.println("=".repeat(80));
 		}
 
-		
 	}
 }
-
-
