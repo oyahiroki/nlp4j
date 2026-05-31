@@ -10,6 +10,28 @@ import nlp4j.lucene9.LuceneIndex;
 import nlp4j.lucene9.LuceneLocalSearchApi;
 import nlp4j.lucene9.SearchSchema;
 
+/**
+ * Simple local search engine wrapper for Lucene.
+ * Provides a simplified API for adding documents and performing text searches
+ * with language-specific field support (Japanese, English, or default).
+ *
+ * <p>This class automatically manages the Lucene index lifecycle and provides
+ * a high-level interface for common search operations.</p>
+ *
+ * <p>Example usage:</p>
+ * <pre>
+ * try (LocalSearch search = new LocalSearch("ja")) {
+ *     search.add("doc1", "東京の観光スポット");
+ *     search.add("doc2", "京都の寺院");
+ *     search.commit();
+ *
+ *     SearchResult[] results = search.search("東京", 10);
+ *     for (SearchResult result : results) {
+ *         System.out.println(result.id + ": " + result.body);
+ *     }
+ * }
+ * </pre>
+ */
 public class LocalSearch implements AutoCloseable {
 
 	private String language;
@@ -19,6 +41,13 @@ public class LocalSearch implements AutoCloseable {
 	LuceneIndex index;
 	LuceneLocalSearchApi api;
 
+	/**
+	 * Constructs a new LocalSearch instance with the specified language.
+	 *
+	 * @param language the language code ("ja" for Japanese, "en" for English,
+	 *                 or any other value for default text field)
+	 * @throws LocalSearchException if index initialization fails
+	 */
 	public LocalSearch(String language) {
 		this.language = language;
 		try {
@@ -48,6 +77,13 @@ public class LocalSearch implements AutoCloseable {
 
 	}
 
+	/**
+	 * Adds a document to the search index.
+	 *
+	 * @param id the unique identifier for the document
+	 * @param body the text content to be indexed
+	 * @throws LocalSearchException if adding the document fails
+	 */
 	public void add(String id, String body) {
 		Document doc1 = schema.document() //
 				.put("id", id) //
@@ -60,6 +96,12 @@ public class LocalSearch implements AutoCloseable {
 		}
 	}
 
+	/**
+	 * Commits all pending changes to the index.
+	 * This method should be called after adding documents to make them searchable.
+	 *
+	 * @throws LocalSearchException if commit fails
+	 */
 	public void commit() {
 		try {
 			this.index.commit();
@@ -68,6 +110,14 @@ public class LocalSearch implements AutoCloseable {
 		}
 	}
 
+	/**
+	 * Performs a text search on the indexed documents.
+	 *
+	 * @param query the search query string
+	 * @param limit the maximum number of results to return
+	 * @return an array of SearchResult objects, ordered by relevance score
+	 * @throws LocalSearchException if search fails
+	 */
 	public SearchResult[] search(String query, int limit) {
 		JsonNode matchRequest = JsonNode.object();
 		{
@@ -110,6 +160,12 @@ public class LocalSearch implements AutoCloseable {
 		}
 	}
 
+	/**
+	 * Closes the search index and releases all resources.
+	 * This method is automatically called when using try-with-resources.
+	 *
+	 * @throws LocalSearchException if closing the index fails
+	 */
 	@Override
 	public void close() {
 		if (this.index != null) {
@@ -121,6 +177,21 @@ public class LocalSearch implements AutoCloseable {
 		}
 	}
 
+	/**
+	 * Adds a document from a JSON string.
+	 * The JSON must contain "id" and "body" fields.
+	 *
+	 * <p>Example JSON format:</p>
+	 * <pre>
+	 * {
+	 *   "id": "doc1",
+	 *   "body": "Document text content"
+	 * }
+	 * </pre>
+	 *
+	 * @param json_string the JSON string containing document data
+	 * @throws LocalSearchException if JSON parsing or document addition fails
+	 */
 	public void addJson(String json_string) {
 		try {
 			JsonNode json = JsonNode.parse(json_string);
