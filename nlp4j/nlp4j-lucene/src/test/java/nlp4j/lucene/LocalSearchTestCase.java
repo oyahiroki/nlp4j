@@ -83,4 +83,27 @@ public class LocalSearchTestCase extends TestCase {
 
 		}
 	}
+
+	public void testSearch100() throws Exception {
+
+		try (LocalSearch search = new LocalSearch("ja", 2)) {
+			search.add("1_East", new float[] { 1.0f, 0.0f });
+			search.add("2_North", new float[] { 1.0f, 1.0f });
+			search.add("3_West", new float[] { -1.0f, 0.0f });
+			search.add("4_South", new float[] { -1.0f, -1.0f });
+			search.commit();
+			SearchResult[] results = search.search(new float[] { 0.9f, 0.1f }, 10);
+			System.out.println("size: " + results.length);
+			for (int n = 0; n < results.length; n++) {
+				System.out.println("result[" + n + "].id: " + results[n].id);
+				System.out.println("result[" + n + "].body: " + results[n].body);
+				System.out.println("result[" + n + "].score: " + results[n].score);
+				System.out.println("---");
+			}
+
+			assertEquals(4, results.length);
+
+		}
+	}
+
 }

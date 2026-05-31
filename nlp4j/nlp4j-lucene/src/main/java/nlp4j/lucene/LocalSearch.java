@@ -5,6 +5,7 @@ import java.io.IOException;
 import org.apache.lucene.document.Document;
 
 import nlp4j.json.JsonNode;
+import nlp4j.lucene9.FieldTypeDef;
 import nlp4j.lucene9.LuceneIndex;
 import nlp4j.lucene9.LuceneLocalSearchApi;
 import nlp4j.lucene9.SearchSchema;
@@ -91,6 +92,18 @@ public class LocalSearch implements AutoCloseable {
 		}
 	}
 
+	public void add(String id, float[] vector) {
+		Document doc1 = schema.document() //
+				.put("id", id) //
+				.putVector("vector", vector) //
+				.build();
+		try {
+			this.index.add(doc1);
+		} catch (IOException e) {
+			throw new LocalSearchException(e.getMessage(), e);
+		}
+	}
+
 	/**
 	 * Adds a document from a JSON string. The JSON must contain "id" and "body"
 	 * fields.
@@ -152,7 +165,17 @@ public class LocalSearch implements AutoCloseable {
 	}
 
 	private SearchSchema createSchema(int vectorDimension) {
-		this.schema = createSchema(vectorDimension);
+		SearchSchema schema = new SearchSchema();
+
+		schema.add("id", FieldTypeDef.keyword().stored(true));
+		schema.add("text", FieldTypeDef.text().stored(true));
+		schema.add("text_en", FieldTypeDef.text().stored(true));
+		schema.add("text_ja", FieldTypeDef.text().stored(true));
+		schema.add("data", FieldTypeDef.storedOnly());
+
+		if (vectorDimension > 0) {
+			schema.add("vector", FieldTypeDef.knnVector(vectorDimension));
+		}
 
 		return schema;
 	}
@@ -185,45 +208,83 @@ public class LocalSearch implements AutoCloseable {
 	 * @throws LocalSearchException if search fails
 	 */
 	public SearchResult[] search(String query, int limit) {
-		JsonNode matchRequest = JsonNode.object();
-		{
-			JsonNode matchQuery = JsonNode.object();
-			matchQuery.put("match", JsonNode.object().put(this.default_field_name, query));
-			matchRequest.put("query", matchQuery);
-			matchRequest.put("size", limit);
-		}
-		JsonNode result3;
+		return executeSearch(createTextSearchRequest(query, limit));
+	}
+
+	public SearchResult[] search(float[] vector, int limit) {
+//		{
+//			"size": 10,
+//			"knn": {
+//				"field": "vector",
+//				"query_vector": [0.8, 0.0],
+//				"k": 10
+//			}
+//		}
+
+		return executeSearch(createVectorSearchRequest(vector, limit));
+	}
+
+	private SearchResult[] executeSearch(JsonNode request) {
 		try {
-			result3 = api.search("myindex/_search", matchRequest);
-
-//			System.out.println(result3.toJson());
-
-			int size = result3.get("hits").get("total").get("value").getAsInt();
-
-			if (size < 1) {
-				return new SearchResult[0];
-			} else {
-				SearchResult[] results = new SearchResult[size];
-
-				JsonNode hits = result3.get("hits").get("hits");
-
-				for (int n = 0; n < size; n++) {
-					float score = (float) hits.get(n).get("_score").asDouble(-1);
-					String id = hits.get(n).get("_source").get("id").asString();
-					String text = hits.get(n).get("_source").get(default_field_name).asString();
-					results[n] = new SearchResult();
-					results[n].id = id;
-					results[n].body = text;
-					results[n].score = score;
-				}
-
-//				System.err.println(size);
-				return results;
-			}
-
+			JsonNode response = api.search("myindex/_search", request);
+			return toSearchResults(response);
 		} catch (IOException e) {
 			throw new LocalSearchException(e.getMessage(), e);
 		}
+	}
+
+	private JsonNode createTextSearchRequest(String query, int limit) {
+		JsonNode request = JsonNode.object();
+
+		JsonNode matchQuery = JsonNode.object();
+		matchQuery.put("match", JsonNode.object().put(this.default_field_name, query));
+
+		request.put("query", matchQuery);
+		request.put("size", limit);
+
+		return request;
+	}
+
+	private JsonNode createVectorSearchRequest(float[] vector, int limit) {
+		JsonNode request = JsonNode.object();
+
+		JsonNode knn = JsonNode.object();
+		knn.put("field", "vector");
+		knn.put("query_vector", vector);
+		knn.put("k", limit);
+
+		request.put("size", limit);
+		request.put("knn", knn);
+
+		return request;
+	}
+
+	private SearchResult[] toSearchResults(JsonNode response) {
+		JsonNode hits = response.get("hits").get("hits");
+
+		int size = hits.size();
+
+		if (size < 1) {
+			return new SearchResult[0];
+		}
+
+		SearchResult[] results = new SearchResult[size];
+
+		for (int n = 0; n < size; n++) {
+			JsonNode hit = hits.get(n);
+			JsonNode source = hit.get("_source");
+
+			SearchResult result = new SearchResult();
+			result.score = (float) hit.get("_score").asDouble(-1);
+			result.id = source.get("id").asString();
+
+			JsonNode textNode = source.get(default_field_name);
+			result.body = (textNode != null) ? textNode.asString() : null;
+
+			results[n] = result;
+		}
+
+		return results;
 	}
 
 	@Override

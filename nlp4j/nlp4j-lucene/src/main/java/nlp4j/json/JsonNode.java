@@ -252,6 +252,16 @@ public class JsonNode {
 		return this;
 	}
 
+	public JsonNode put(String key, float[] vector) {
+		ensureObject();
+		JsonArray vv = new JsonArray(vector.length);
+		for (int n = 0; n < vector.length; n++) {
+			vv.add(vector[n]);
+		}
+		element.getAsJsonObject().add(key, vv);
+		return this;
+	}
+
 	public JsonNode put(String key, Number value) {
 
 		ensureObject();
