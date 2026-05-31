@@ -95,6 +95,9 @@ public class SearchDocumentBuilder {
 		case KNN_VECTOR:
 			addKnnVectorField(doc, fieldName, def, value);
 			break;
+		case STORED_ONLY:
+			addStoredOnlyField(doc, fieldName, def, value);
+			break;
 		default:
 			throw new IllegalStateException("Unsupported field kind: " + def.kind());
 		}
@@ -203,5 +206,29 @@ public class SearchDocumentBuilder {
 		}
 		sb.append("]");
 		return sb.toString();
+	}
+
+	/**
+		* Adds a stored-only field that is not searchable, sortable, or aggregatable.
+		* Only stores the value for retrieval in search results.
+		*
+		* @param doc the Document to add the field to
+		* @param fieldName the name of the field
+		* @param def the field type definition
+		* @param value the value to store (String or Long)
+		*/
+	private void addStoredOnlyField(Document doc, String fieldName, FieldTypeDef def, Object value) {
+		if (value instanceof String text) {
+			doc.add(new StoredField(fieldName, text));
+		} else if (value instanceof Long number) {
+			doc.add(new StoredField(fieldName, number.longValue()));
+		} else if (value instanceof Integer number) {
+			doc.add(new StoredField(fieldName, number.longValue()));
+		} else if (value instanceof Number number) {
+			doc.add(new StoredField(fieldName, number.longValue()));
+		} else {
+			throw new IllegalArgumentException(
+					"STORED_ONLY field must be String or Number: " + fieldName + ", type=" + value.getClass());
+		}
 	}
 }

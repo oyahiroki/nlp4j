@@ -37,6 +37,7 @@ public class LuceneLocalSearchApi {
 		SearchRequest request = SearchRequestParser.parse(path, requestBody);
 
 		try (SearchSession session = index.acquireSearcher()) {
+			
 			Query query = LuceneQueryBuilder.build(request, session.getAnalyzer());
 
 			SearchResult hits = SearchExecutor.execute(session.getSearcher(), query, request);

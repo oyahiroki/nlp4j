@@ -244,4 +244,4 @@ public class LuceneIndex_HelloMain1 {
 	}
 }
 
-// Made with Bob
+

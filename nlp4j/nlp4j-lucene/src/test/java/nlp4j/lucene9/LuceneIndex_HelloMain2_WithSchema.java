@@ -15,7 +15,7 @@ import nlp4j.json.JsonNode;
  * fields - Perform various types of searches (match_all, term, match,
  * query_string) - Execute aggregations
  */
-public class LuceneIndex_HelloMain2 {
+public class LuceneIndex_HelloMain2_WithSchema {
 
 	public static void main(String[] args) throws Exception {
 
@@ -78,4 +78,4 @@ public class LuceneIndex_HelloMain2 {
 	}
 }
 
-// Made with Bob
+

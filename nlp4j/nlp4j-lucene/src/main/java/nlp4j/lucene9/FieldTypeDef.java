@@ -12,7 +12,7 @@ import org.apache.lucene.index.VectorSimilarityFunction;
 public class FieldTypeDef {
 
 	public enum Kind {
-		KEYWORD, TEXT, LONG, KNN_VECTOR
+		KEYWORD, TEXT, LONG, KNN_VECTOR, STORED_ONLY
 	}
 
 	private final Kind kind;
@@ -48,6 +48,20 @@ public class FieldTypeDef {
 
 		FieldTypeDef def = new FieldTypeDef(Kind.KNN_VECTOR);
 		def.dimension = dimension;
+		return def;
+	}
+
+	/**
+	 * Creates a stored-only field definition.
+	 * This field is not searchable, sortable, or aggregatable.
+	 * It only stores data for retrieval in search results.
+	 * Useful for storing raw JSON, metadata, or display-only data.
+	 *
+	 * @return a new FieldTypeDef for stored-only fields
+	 */
+	public static FieldTypeDef storedOnly() {
+		FieldTypeDef def = new FieldTypeDef(Kind.STORED_ONLY);
+		def.stored = true; // Always stored
 		return def;
 	}
 
