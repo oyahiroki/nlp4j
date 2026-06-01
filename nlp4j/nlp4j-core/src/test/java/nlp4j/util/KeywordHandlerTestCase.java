@@ -35,5 +35,23 @@ public class KeywordHandlerTestCase extends NLP4JTestCase {
 		}
 
 	}
+	public void test002() throws Exception {
+
+		SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
+
+		SAXParser saxParser = saxParserFactory.newSAXParser();
+
+		KeywordHandler handler = new KeywordHandler();
+
+		saxParser.parse(new FileInputStream("src/test/resources/nlp4j.pattern/pattern-test-ja-001-adj_noun2.xml"),
+				handler);
+
+		List<KeywordWithDependency> kwds = handler.getKeywords();
+
+		for (KeywordWithDependency kwd : kwds) {
+			System.err.println(kwd.toStringAsXml());
+		}
+
+	}
 
 }

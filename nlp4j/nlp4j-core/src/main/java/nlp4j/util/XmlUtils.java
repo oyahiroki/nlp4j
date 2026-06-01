@@ -1,18 +1,23 @@
 package nlp4j.util;
 
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringWriter;
+import java.nio.charset.StandardCharsets;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
+import org.w3c.dom.DOMException;
 import org.w3c.dom.Document;
+import org.xml.sax.SAXException;
 
 /**
  * XML用ユーティリティのクラスです。<br>
@@ -67,15 +72,24 @@ public class XmlUtils {
 	 * @return
 	 * @throws Exception
 	 */
-	static public Document toW3CDocument(String xml) throws Exception {
+	static public Document toW3CDocument(String xml) throws IOException {
 
-		try (InputStream bais = new ByteArrayInputStream(xml.getBytes("utf-8"))) {
+		try (InputStream bais = new ByteArrayInputStream(xml.getBytes(StandardCharsets.UTF_8))) {
 			// be closed safely automatically
 			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+			{ // XXE対策
+				factory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
+				factory.setFeature("http://xml.org/sax/features/external-general-entities", false);
+				factory.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
+				factory.setXIncludeAware(false);
+				factory.setExpandEntityReferences(false);
+			}
 			DocumentBuilder builder = factory.newDocumentBuilder();
 			Document w3cdoc = builder.parse(bais);
 			w3cdoc.setXmlStandalone(true);
 			return w3cdoc;
+		} catch (ParserConfigurationException | SAXException e) {
+			throw new IOException(e);
 		}
 	}
 

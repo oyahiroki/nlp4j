@@ -110,16 +110,13 @@ public abstract class AbstractKeyword implements Keyword {
 
 		if (obj instanceof Keyword) {
 			Keyword kw = (Keyword) obj;
-			// IF(BOTH FACET IS NULL)
-			if (this.facet == null && kw.getFacet() == null) {
-				return this.lex.equals(kw.getLex());
-			} //
-				// ELSE_IF(LEX OR FACE IS NULL)
-			else if (this.lex == null || kw.getLex() == null || this.facet == null || kw.getFacet() == null) {
-				return false;
-			} //
-				// ELSE -> SAME FACET AND SAME LEX
-			else {
+
+			// NULL チェックを先に実行
+			if (this.lex == null || kw.getLex() == null || this.facet == null || kw.getFacet() == null) {
+				// 両方nullの場合のみtrue
+				return (this.lex == null && kw.getLex() == null && this.facet == null && kw.getFacet() == null);
+			} else {
+				// 両方とも非nullの場合
 				return this.facet.equals(kw.getFacet()) && this.lex.equals(kw.getLex());
 			}
 		} //

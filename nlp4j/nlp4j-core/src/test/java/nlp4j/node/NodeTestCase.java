@@ -715,6 +715,49 @@ public class NodeTestCase extends NLP4JTestCase {
 
 	}
 
+	public void testRemove003() {
+		Node<String> n1 = new Node<>("a");
+		{
+			Node<String> n2 = new Node<>("b");
+			n1.addChildNode(n2);
+			{
+				Node<String> n2a = new Node<>("x1");
+				n2.addChildNode(n2a);
+				Node<String> n2b = new Node<>("y2");
+				n2.addChildNode(n2b);
+				Node<String> n2c = new Node<>("z3");
+				n2.addChildNode(n2c);
+			}
+		}
+		{
+			Node<String> n2 = new Node<>("c");
+			n1.addChildNode(n2);
+			{
+				Node<String> n2a = new Node<>("x4");
+				n2.addChildNode(n2a);
+				Node<String> n2b = new Node<>("y5");
+				n2.addChildNode(n2b);
+				Node<String> n2c = new Node<>("z6");
+				n2.addChildNode(n2c);
+			}
+		}
+		System.err.println("<obj>");
+		n1.print();
+		System.err.println("</obj>");
+		{
+			Node<String> clone = n1.clone();
+			System.err.println("<clone>");
+			clone.print();
+			System.err.println("</clone>");
+			Node<String> removed = clone.removeChild(1);
+			System.err.println("<removed>");
+			removed.print();
+			System.err.println("</removed>");
+			System.err.println("<object>");
+			clone.print();
+			System.err.println("</object>");
+		}
+	}
 	public void testToString001() {
 		Node<String> n1 = new Node<String>("a");
 		Node<String> n2 = new Node<String>("b");

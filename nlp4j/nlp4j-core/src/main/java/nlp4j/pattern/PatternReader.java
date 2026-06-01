@@ -55,6 +55,11 @@ public class PatternReader {
 		try {
 
 			SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
+			{ // XXE対策
+				saxParserFactory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
+				saxParserFactory.setFeature("http://xml.org/sax/features/external-general-entities", false);
+				saxParserFactory.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
+			}
 
 			SAXParser saxParser = saxParserFactory.newSAXParser();
 

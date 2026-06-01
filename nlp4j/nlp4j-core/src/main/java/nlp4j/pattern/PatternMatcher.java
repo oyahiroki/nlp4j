@@ -25,7 +25,10 @@ public class PatternMatcher {
 	static private final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
 	/**
+	 * <pre>
 	 * {.*?} にマッチする Matcher
+	 * Pattern to match template variables like {0.lex}, {1.str}, etc.
+	 * </pre>
 	 */
 	static private java.util.regex.Pattern matchPattern //
 			= java.util.regex.Pattern.compile("\\{.*?\\}");

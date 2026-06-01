@@ -196,7 +196,9 @@ public class Node<T> implements CloneablePublicly<Node<T>> {
 			boolean matched = this.value.equals(target.value);
 			if (matched) {
 				if (target.hitNode != null) {
-					throw new RuntimeException("hitNode is not null");
+					throw new IllegalStateException(
+		                    "Target node already has a hit node: " + target.hitNode.value + 
+		                    ". Cannot match with: " + this.value);
 				}
 				target.hitNode = this;
 			}
@@ -297,7 +299,7 @@ public class Node<T> implements CloneablePublicly<Node<T>> {
 		for (int n = 0; n < depth; n++) {
 			sb.append("--");
 		}
-		System.err.println(sb.toString() + value + "[" + depth + "]");
+		System.err.println(sb.toString() + value + "[depth=" + depth + "]");
 
 		for (Node<T> n : childNodes) {
 			n.print(depth + 1);
@@ -310,7 +312,15 @@ public class Node<T> implements CloneablePublicly<Node<T>> {
 	 * @return removed node or null
 	 */
 	public Node<T> removeChild(int index) {
-		if (this.childNodes == null || this.childNodes.size() == 0 || this.childNodes.size() < index) {
+		if (this.childNodes == null || this.childNodes.size() == 0 || this.childNodes.size() <= index) { // 20260601
+																											// fixed
+			if (logger.isDebugEnabled()) {
+				logger.debug("(this.childNodes == null): " + (this.childNodes == null));
+				logger.debug("(this.childNodes.size() == 0):" + (this.childNodes.size() == 0));
+				logger.debug("(this.childNodes.size() <= index):" + (this.childNodes.size() <= index));
+				logger.debug("(this.childNodes.size()): " + (this.childNodes.size()));
+				logger.debug("(index): " + (index));
+			}
 			return null;
 		} //
 		else {

@@ -128,8 +128,11 @@ public class KeywordHandler extends DefaultHandler {
 			this.ptr = this.ptr.getParent();
 		}
 
-		if (qName.equals("w") && depth_of_w == 0) {
-			this.ptr = null;
+		if (qName.equals("w")) {
+			depth_of_w--;
+			if (depth_of_w == 0) {
+				this.ptr = null;
+			}
 		}
 	}
 
