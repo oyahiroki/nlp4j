@@ -32,6 +32,8 @@ public class LuceneIndex implements Closeable {
 
 	static private final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
+	private boolean closed = false;
+
 	private static Analyzer createAnalyzer() {
 
 		StandardAnalyzer defaultAnalyzer = new StandardAnalyzer();
@@ -65,7 +67,10 @@ public class LuceneIndex implements Closeable {
 	 */
 	public LuceneIndex() throws IOException {
 
-		this.directory = new ByteBuffersDirectory();
+		// Index設定
+		{
+			this.directory = new ByteBuffersDirectory();
+		}
 
 		this.analyzer = createAnalyzer();
 
@@ -86,15 +91,16 @@ public class LuceneIndex implements Closeable {
 	 */
 	public LuceneIndex(Path inputDir) throws IOException {
 
-		if (Files.notExists(inputDir)) {
-			throw new IOException("Input directory does not exist: " + inputDir);
-		}
-
-		this.directory = new ByteBuffersDirectory();
-
-		try (Directory inputDirectory = FSDirectory.open(inputDir)) {
-			for (String fileName : inputDirectory.listAll()) {
-				this.directory.copyFrom(inputDirectory, fileName, fileName, IOContext.DEFAULT);
+		// Index設定
+		{
+			if (Files.notExists(inputDir)) {
+				throw new IOException("Input directory does not exist: " + inputDir);
+			}
+			this.directory = new ByteBuffersDirectory();
+			try (Directory inputDirectory = FSDirectory.open(inputDir)) {
+				for (String fileName : inputDirectory.listAll()) {
+					this.directory.copyFrom(inputDirectory, fileName, fileName, IOContext.DEFAULT);
+				}
 			}
 		}
 
@@ -114,7 +120,7 @@ public class LuceneIndex implements Closeable {
 	 * acquire searcher
 	 */
 	public SearchSession acquireSearcher() throws IOException {
-
+		ensureOpen();
 		searcherManager.maybeRefresh();
 
 		IndexSearcher searcher = searcherManager.acquire();
@@ -126,6 +132,7 @@ public class LuceneIndex implements Closeable {
 	 * add document
 	 */
 	public void add(Document doc) throws IOException {
+		ensureOpen();
 		count_added++;
 		String id = doc.get("id");
 		if (id != null) {
@@ -138,16 +145,23 @@ public class LuceneIndex implements Closeable {
 	@Override
 	public void close() throws IOException {
 
-		searcherManager.close();
+		if (searcherManager != null) {
+			searcherManager.close();
+		}
+		if (writer != null) {
+			writer.close();
+		}
 
-		writer.close();
-
-		directory.close();
-
-		analyzer.close();
+		if (directory != null) {
+			directory.close();
+		}
+		if (analyzer != null) {
+			analyzer.close();
+		}
 	}
 
 	public void commit() throws IOException {
+		ensureOpen();
 		count_committed++;
 		this.writer.commit();
 	}
@@ -167,6 +181,8 @@ public class LuceneIndex implements Closeable {
 	 *
 	 * @param outputDir output directory
 	 * @throws IOException if an I/O error occurs
+	 * 
+	 * @deprecated Use writeToAndClose(Path) instead.
 	 */
 	public void writeTo(Path outputDir) throws IOException {
 
@@ -187,6 +203,82 @@ public class LuceneIndex implements Closeable {
 			for (String fileName : directory.listAll()) {
 				outputDirectory.copyFrom(directory, fileName, fileName, IOContext.DEFAULT);
 			}
+		}
+	}
+
+	private void ensureOpen() throws IOException {
+		if (closed) {
+			throw new IOException("LuceneIndex is already closed.");
+		}
+	}
+
+	/**
+	 * Writes this in-memory Lucene index to a filesystem directory, then closes
+	 * this LuceneIndex.
+	 *
+	 * After calling this method, this LuceneIndex instance must not be used.
+	 *
+	 * @param outputDir output directory
+	 * @throws IOException if an I/O error occurs
+	 */
+	public synchronized void writeToAndClose(Path outputDir) throws IOException {
+
+		if (closed) {
+			throw new IOException("LuceneIndex is already closed.");
+		}
+
+		Files.createDirectories(outputDir);
+
+		IOException thrown = null;
+
+		try {
+			// SearcherManager は writer を参照しているため先に閉じる
+			searcherManager.close();
+
+			// 保存用なので、時間がかかってもよい前提なら実行してよい
+			// doWait=true なので merge 完了まで待つ
+			writer.forceMerge(1, true);
+
+			// commitOnClose=true の場合:
+			// 変更を書き出し、実行中 merge を待ち、commit して close
+			writer.close();
+
+			try (Directory outputDirectory = FSDirectory.open(outputDir)) {
+
+				String[] existingFiles = outputDirectory.listAll();
+				if (existingFiles.length > 0) {
+					throw new IOException("Output directory is not empty: " + outputDir);
+				}
+
+				for (String fileName : directory.listAll()) {
+
+					// write.lock はコピー不要
+					if (IndexWriter.WRITE_LOCK_NAME.equals(fileName)) {
+						continue;
+					}
+
+					outputDirectory.copyFrom(directory, fileName, fileName, IOContext.DEFAULT);
+				}
+			}
+
+		} catch (IOException e) {
+			thrown = e;
+			throw e;
+
+		} finally {
+			try {
+				directory.close();
+			} catch (IOException e) {
+				if (thrown != null) {
+					thrown.addSuppressed(e);
+				} else {
+					thrown = e;
+				}
+			}
+
+			analyzer.close();
+
+			closed = true;
 		}
 	}
 

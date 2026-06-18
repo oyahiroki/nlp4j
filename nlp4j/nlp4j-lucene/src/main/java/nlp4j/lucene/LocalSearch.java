@@ -1,6 +1,8 @@
 package nlp4j.lucene;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 
 import org.apache.lucene.document.Document;
 
@@ -39,11 +41,16 @@ import nlp4j.lucene9.SearchSchema;
  */
 public class LocalSearch implements AutoCloseable {
 
-	private String language;
-	private String default_field_name;
+	public static LocalSearch open(String language, int vectorDimension, Path indexDir) {
+		return new LocalSearch(language, vectorDimension, indexDir);
+	}
 
+	private String language;
+
+	private String default_field_name;
 	SearchSchema schema;
 	LuceneIndex index;
+
 	LuceneLocalSearchApi api;
 
 	/**
@@ -55,10 +62,22 @@ public class LocalSearch implements AutoCloseable {
 	 */
 	public LocalSearch(String language) {
 
-		this.language = language;
-		initIndex();
-		this.schema = createSchema(0);
-		this.default_field_name = resolveDefaultFieldName(language);
+		// 1. Language
+		{
+			this.language = language;
+		}
+		// 2. Index
+		{
+			initIndex();
+		}
+		// 3. Schema
+		{
+			this.schema = createSchema(0);
+		}
+		// 4. Field
+		{
+			this.default_field_name = resolveDefaultFieldName(language);
+		}
 	}
 
 	public LocalSearch(String language, int vectorDimension) {
@@ -67,10 +86,53 @@ public class LocalSearch implements AutoCloseable {
 					new IllegalArgumentException("vectorDimension must be >= 0"));
 		}
 
+		// 1. Language
+		{
+			this.language = language;
+		}
+		// 2. Index
+		{
+			initIndex();
+		}
+		// 3. Schema ** with vector dimension **
+		{
+			this.schema = createSchema(vectorDimension);
+		}
+		// 4. Field
+		{
+			this.default_field_name = resolveDefaultFieldName(language);
+		}
+	}
+
+	public LocalSearch(String language, int vectorDimension, File indexDir) {
+		this(language, vectorDimension, indexDir.toPath());
+	}
+
+	public LocalSearch(String language, int vectorDimension, Path indexDir) {
+		if (vectorDimension < 0) {
+			throw new LocalSearchException("vectorDimension must be >= 0",
+					new IllegalArgumentException("vectorDimension must be >= 0"));
+		}
+
 		this.language = language;
-		initIndex();
+
+		initIndex(indexDir);
+
 		this.schema = createSchema(vectorDimension);
+
 		this.default_field_name = resolveDefaultFieldName(language);
+	}
+
+	public void add(String id, float[] vector) {
+		Document doc1 = schema.document() //
+				.put("id", id) //
+				.putVector("vector", vector) //
+				.build();
+		try {
+			this.index.add(doc1);
+		} catch (IOException e) {
+			throw new LocalSearchException(e.getMessage(), e);
+		}
 	}
 
 	/**
@@ -84,18 +146,6 @@ public class LocalSearch implements AutoCloseable {
 		Document doc1 = schema.document() //
 				.put("id", id) //
 				.put(default_field_name, body) //
-				.build();
-		try {
-			this.index.add(doc1);
-		} catch (IOException e) {
-			throw new LocalSearchException(e.getMessage(), e);
-		}
-	}
-
-	public void add(String id, float[] vector) {
-		Document doc1 = schema.document() //
-				.put("id", id) //
-				.putVector("vector", vector) //
 				.build();
 		try {
 			this.index.add(doc1);
@@ -180,59 +230,6 @@ public class LocalSearch implements AutoCloseable {
 		return schema;
 	}
 
-	private void initIndex() {
-		try {
-			index = new LuceneIndex();
-			api = new LuceneLocalSearchApi(index);
-		} catch (IOException e) {
-			throw new LocalSearchException(e.getMessage(), e);
-		}
-	}
-
-	private String resolveDefaultFieldName(String language) {
-		if ("ja".equals(language)) {
-			return "text_ja";
-		} else if ("en".equals(language)) {
-			return "text_en";
-		} else {
-			return "text";
-		}
-	}
-
-	/**
-	 * Performs a text search on the indexed documents.
-	 *
-	 * @param query the search query string
-	 * @param limit the maximum number of results to return
-	 * @return an array of SearchResult objects, ordered by relevance score
-	 * @throws LocalSearchException if search fails
-	 */
-	public SearchResult[] search(String query, int limit) {
-		return executeSearch(createTextSearchRequest(query, limit));
-	}
-
-	public SearchResult[] search(float[] vector, int limit) {
-//		{
-//			"size": 10,
-//			"knn": {
-//				"field": "vector",
-//				"query_vector": [0.8, 0.0],
-//				"k": 10
-//			}
-//		}
-
-		return executeSearch(createVectorSearchRequest(vector, limit));
-	}
-
-	private SearchResult[] executeSearch(JsonNode request) {
-		try {
-			JsonNode response = api.search("myindex/_search", request);
-			return toSearchResults(response);
-		} catch (IOException e) {
-			throw new LocalSearchException(e.getMessage(), e);
-		}
-	}
-
 	private JsonNode createTextSearchRequest(String query, int limit) {
 		JsonNode request = JsonNode.object();
 
@@ -257,6 +254,78 @@ public class LocalSearch implements AutoCloseable {
 		request.put("knn", knn);
 
 		return request;
+	}
+
+	private SearchResult[] executeSearch(JsonNode request) {
+		try {
+			JsonNode response = api.search("myindex/_search", request);
+			return toSearchResults(response);
+		} catch (IOException e) {
+			throw new LocalSearchException(e.getMessage(), e);
+		}
+	}
+
+	private void initIndex() {
+		try {
+			index = new LuceneIndex();
+			api = new LuceneLocalSearchApi(index);
+		} catch (IOException e) {
+			throw new LocalSearchException(e.getMessage(), e);
+		}
+	}
+
+	private void initIndex(Path indexDir) {
+		try {
+			index = new LuceneIndex(indexDir);
+			api = new LuceneLocalSearchApi(index);
+		} catch (IOException e) {
+			throw new LocalSearchException(e.getMessage(), e);
+		}
+	}
+
+	private String resolveDefaultFieldName(String language) {
+		if ("ja".equals(language)) {
+			return "text_ja";
+		} else if ("en".equals(language)) {
+			return "text_en";
+		} else {
+			return "text";
+		}
+	}
+
+	public void saveIndexTo(Path dir) throws IOException {
+		if (index != null) {
+			this.index.writeToAndClose(dir);
+		}
+	}
+
+	public void saveIndexTo(File dir) throws IOException {
+		saveIndexTo(dir.toPath());
+	}
+
+	public SearchResult[] search(float[] vector, int limit) {
+//		{
+//			"size": 10,
+//			"knn": {
+//				"field": "vector",
+//				"query_vector": [0.8, 0.0],
+//				"k": 10
+//			}
+//		}
+
+		return executeSearch(createVectorSearchRequest(vector, limit));
+	}
+
+	/**
+	 * Performs a text search on the indexed documents.
+	 *
+	 * @param query the search query string
+	 * @param limit the maximum number of results to return
+	 * @return an array of SearchResult objects, ordered by relevance score
+	 * @throws LocalSearchException if search fails
+	 */
+	public SearchResult[] search(String query, int limit) {
+		return executeSearch(createTextSearchRequest(query, limit));
 	}
 
 	private SearchResult[] toSearchResults(JsonNode response) {

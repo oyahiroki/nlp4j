@@ -199,7 +199,9 @@ public class LuceneIndexTestCase extends TestCase {
 
 			Path tempDir = Files.createTempDirectory("temp_");
 
-			index.writeTo(tempDir);
+			index.writeToAndClose(tempDir);
+
+			index.close();
 
 			System.err.println(tempDir);
 

@@ -9,6 +9,8 @@ import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import nlp4j.Document;
 import nlp4j.Keyword;
@@ -147,9 +149,25 @@ public class DefaultDocument implements Document {
 				}
 			}
 			return nn;
+		} //
+		else if (o instanceof float[]) {
+			float[] ff = (float[]) o;
+			return IntStream.range(0, ff.length) //
+					.mapToObj(i -> (Number) ff[i]) //
+					.collect(Collectors.toList() //
+					);
 		}
 		return null;
+	}
 
+	@Override
+	public float[] getAttributeAsFloatArray(String key) {
+		Object o = attributes.get(key);
+		if (o instanceof float[]) {
+			float[] ff = (float[]) o;
+			return ff;
+		}
+		return null;
 	}
 
 	@Override

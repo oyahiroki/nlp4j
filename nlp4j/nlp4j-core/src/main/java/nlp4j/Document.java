@@ -42,11 +42,6 @@ public interface Document {
 	Document changeAttributeKey(String from, String to);
 
 	/**
-	 * @since 1.3.7.19
-	 */
-	Document renameAttribute(String oldKey, String newKey);
-
-	/**
 	 * 属性を返します。<br>
 	 * Return Attribute value.
 	 * 
@@ -65,6 +60,13 @@ public interface Document {
 	 * @since 1.3
 	 */
 	Date getAttributeAsDate(String key);
+
+	/**
+	 * @param key
+	 * @return
+	 * @since 1.3.7.21 (2026-06-07)
+	 */
+	float[] getAttributeAsFloatArray(String key);
 
 	/**
 	 * @param key
@@ -234,6 +236,11 @@ public interface Document {
 	 * @since 1.3.7.15
 	 */
 	public void removeKeywords();
+
+	/**
+	 * @since 1.3.7.19
+	 */
+	Document renameAttribute(String oldKey, String newKey);
 
 	/**
 	 * この文書のIDをセットします。<br>

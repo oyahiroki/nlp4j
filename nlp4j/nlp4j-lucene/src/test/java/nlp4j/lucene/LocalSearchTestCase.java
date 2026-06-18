@@ -88,7 +88,7 @@ public class LocalSearchTestCase extends TestCase {
 
 		try (LocalSearch search = new LocalSearch("ja", 2)) {
 			search.add("1_East", new float[] { 1.0f, 0.0f });
-			search.add("2_North", new float[] { 1.0f, 1.0f });
+			search.add("2_North", new float[] { 0.0f, 1.0f });
 			search.add("3_West", new float[] { -1.0f, 0.0f });
 			search.add("4_South", new float[] { -1.0f, -1.0f });
 			search.commit();

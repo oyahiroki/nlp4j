@@ -65,7 +65,9 @@ public class EmbeddingAnnotator extends AbstractDocumentAnnotator implements Doc
 	public void annotate(Document doc) throws Exception {
 		for (String target : targets) {
 			long time1 = System.currentTimeMillis();
-			logger.info("embedding ... ");
+			if (logger.isDebugEnabled()) {
+				logger.debug("embedding ... ");
+			}
 			String text = doc.getAttributeAsString(target);
 
 			try (LlmClient client = new LlmClient(EMBEDDING_ENDPOINT);) {
@@ -74,7 +76,9 @@ public class EmbeddingAnnotator extends AbstractDocumentAnnotator implements Doc
 
 				doc.putAttribute(vector_fieldname, ff);
 				long time2 = System.currentTimeMillis();
-				logger.info("embedding ... done " + (time2 - time1));
+				if (logger.isDebugEnabled()) {
+					logger.debug("embedding ... done " + (time2 - time1));
+				}
 			}
 		}
 	}
