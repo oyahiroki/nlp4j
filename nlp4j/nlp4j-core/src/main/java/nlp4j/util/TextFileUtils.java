@@ -149,7 +149,7 @@ public class TextFileUtils {
 			// Cache Not Found
 			if (cacheFile.exists() == false) {
 				logger.info("download_from: " + textFileUrl);
-				FileUtils.copyURLToFile(textFileUrl, cacheFile);
+				nlp4j.util.FileUtils.copyURLToFile(textFileUrl, cacheFile);
 			}
 			// Cache Found
 			else {

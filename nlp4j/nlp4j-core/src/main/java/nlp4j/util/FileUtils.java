@@ -6,11 +6,13 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.SequenceInputStream;
 import java.lang.invoke.MethodHandles;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
@@ -34,24 +36,6 @@ import nlp4j.Document;
 public class FileUtils {
 
 	static private Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
-
-	/**
-	 * @param gzipTextOrPlainTextFile
-	 * @return
-	 * @throws IOException
-	 * @since 1.3.7.18
-	 */
-	public static Stream<String> stream(File gzipTextOrPlainTextFile) throws IOException {
-		// gzipなどに対応
-		BufferedReader br = nlp4j.util.FileUtils.openTextFileAsBufferedReader(gzipTextOrPlainTextFile, "UTF-8");
-		return nlp4j.util.IOUtils.stream(br);
-	}
-
-	public static Stream<String> stream(URL url) throws IOException {
-		// gzipなどに対応
-		BufferedReader br = nlp4j.util.IOUtils.br(url);
-		return nlp4j.util.IOUtils.stream(br);
-	}
 
 	/**
 	 * Checks if the specified file or its parent directory exists. This method logs
@@ -124,6 +108,51 @@ public class FileUtils {
 		try (SequenceInputStream sis = new SequenceInputStream(Collections.enumeration(fiss));) {
 			number_of_bytes_copied = IOUtils.copy(sis, new FileOutputStream(toFile));
 			return number_of_bytes_copied;
+		}
+	}
+
+	/**
+	 * 
+	 * <pre>
+	 * https://meta.wikimedia.org/wiki/Tech/News/2026/27
+	 * 
+	 * Starting June 29th, automated downloads from the dumps.wikimedia.org website
+	 * will be subject to the user-agent policy. Automated requests that provide a
+	 * generic or empty user-agent will be blocked. Access to dumps through
+	 * Wikimedia Cloud Services remains unaffected. This is a follow up to the
+	 * announcement made in the 2026/25 issue of Tech News.
+	 * 
+	 * https://foundation.wikimedia.org/wiki/Policy:Wikimedia_Foundation_User-Agent_Policy
+	 * 
+	 * https://meta.wikimedia.org/wiki/Tech/News/2026/25
+	 * </pre>
+	 * 
+	 * @param url
+	 * @param destination
+	 * @throws IOException
+	 */
+	public static void copyURLToFile(URL url, File destination) throws IOException {
+
+		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+
+		connection.setRequestProperty("User-Agent", "NLP4J/1.0 " + "(https://github.com/oyahiroki/nlp4j)");
+
+		connection.setConnectTimeout(30_000);
+		connection.setReadTimeout(120_000);
+		connection.setInstanceFollowRedirects(true);
+
+		try {
+			int status = connection.getResponseCode();
+
+			if (status != HttpURLConnection.HTTP_OK) {
+				throw new IOException("HTTP status " + status + " for URL: " + url);
+			}
+
+			try (InputStream input = connection.getInputStream()) {
+				org.apache.commons.io.FileUtils.copyInputStreamToFile(input, destination);
+			}
+		} finally {
+			connection.disconnect();
 		}
 	}
 
@@ -299,6 +328,24 @@ public class FileUtils {
 //			}
 //		}
 //		return list;
+	}
+
+	/**
+	 * @param gzipTextOrPlainTextFile
+	 * @return
+	 * @throws IOException
+	 * @since 1.3.7.18
+	 */
+	public static Stream<String> stream(File gzipTextOrPlainTextFile) throws IOException {
+		// gzipなどに対応
+		BufferedReader br = nlp4j.util.FileUtils.openTextFileAsBufferedReader(gzipTextOrPlainTextFile, "UTF-8");
+		return nlp4j.util.IOUtils.stream(br);
+	}
+
+	public static Stream<String> stream(URL url) throws IOException {
+		// gzipなどに対応
+		BufferedReader br = nlp4j.util.IOUtils.br(url);
+		return nlp4j.util.IOUtils.stream(br);
 	}
 
 	static public void write(File file, Collection<String> data, String charsetName, boolean append)
