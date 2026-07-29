@@ -16,7 +16,7 @@ public class HttpClient5TestCase extends TestCase {
 	public void testGetString() throws Exception {
 
 		try (HttpClient5 client = new HttpClient5();) {
-			String url = "https://nlp4j.org";
+			String url = "https://nlp4j.sakura.ne.jp/test/test.txt";
 			DefaultNlpServiceResponse res = client.get(url);
 			System.err.println(res.getOriginalResponseBody());
 		}
@@ -25,7 +25,7 @@ public class HttpClient5TestCase extends TestCase {
 
 	public void testGetStringMapOfStringString() throws IOException {
 
-		String url = "http://httpbin.org/get";
+		String url = "https://nlp4j.sakura.ne.jp/test/test.txt";
 
 		Map<String, String> params = new LinkedHashMap<>();
 		params.put("param1", "value1");
@@ -38,7 +38,7 @@ public class HttpClient5TestCase extends TestCase {
 	}
 
 	public void testGetContentLength() throws IOException {
-		String url = "http://httpbin.org/get";
+		String url = "https://nlp4j.sakura.ne.jp/test/test.txt";
 
 		Map<String, String> params = new LinkedHashMap<>();
 		params.put("param1", "value1");
@@ -51,7 +51,7 @@ public class HttpClient5TestCase extends TestCase {
 	}
 
 	public void testGetInputStream() throws IOException {
-		String url = "http://httpbin.org/get";
+		String url = "https://nlp4j.sakura.ne.jp/test/test.txt";
 
 		Map<String, String> params = new LinkedHashMap<>();
 		params.put("param1", "value1");
@@ -65,7 +65,7 @@ public class HttpClient5TestCase extends TestCase {
 	}
 
 	public void testPostStringMapOfStringStringString() throws IOException {
-		String url = "http://httpbin.org/post";
+		String url = "https://nlp4j.sakura.ne.jp/test/test.txt";
 		String requestBody = "{\"test\":\"This is test.\"}";
 
 		Map<String, String> params = new LinkedHashMap<>();
@@ -78,7 +78,7 @@ public class HttpClient5TestCase extends TestCase {
 	}
 
 	public void testPostStringString() throws IOException {
-		String url = "http://httpbin.org/post";
+		String url = "https://nlp4j.sakura.ne.jp/test/test.txt";
 		String requestBody = "{\"test\":\"This is test.\"}";
 
 		try (HttpClient5 client = new HttpClient5();) {
