@@ -1,9 +1,14 @@
 package nlp4j.lucene9;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.document.KnnFloatVectorField;
 import org.apache.lucene.index.Term;
 import org.apache.lucene.queryparser.classic.QueryParser;
+import org.apache.lucene.search.BooleanClause;
+import org.apache.lucene.search.BooleanQuery;
 import org.apache.lucene.search.KnnFloatVectorQuery;
 import org.apache.lucene.search.MatchAllDocsQuery;
 import org.apache.lucene.search.Query;
@@ -48,7 +53,11 @@ public class LuceneQueryBuilder {
 			if (queryJson.has("knn")) {
 				return buildKnnQuery(queryJson.get("knn"), analyzer);
 			}
-
+	
+			if (queryJson.has("bool")) {
+				return buildBoolQuery(queryJson.get("bool"), analyzer);
+			}
+	
 			throw new IllegalArgumentException("Unsupported query: " + queryJson);
 
 		} catch (Exception e) {
@@ -101,6 +110,61 @@ public class LuceneQueryBuilder {
 
 		QueryParser parser = new QueryParser(defaultField, analyzer);
 		return parser.parse(q);
+	}
+
+	/**
+	 * Builds a bool query supporting must and filter clauses.
+	 * must clauses are scored (MUST occurrence), filter clauses are unscored (FILTER occurrence).
+	 *
+	 * @param boolJson the bool query definition in JSON format
+	 * @param analyzer the analyzer to use for inner query parsing
+	 * @return a BooleanQuery object
+	 * @throws Exception if inner query parsing fails
+	 */
+	private static Query buildBoolQuery(JsonNode boolJson, Analyzer analyzer) throws Exception {
+		BooleanQuery.Builder builder = new BooleanQuery.Builder();
+
+		if (boolJson.has("must")) {
+			JsonNode mustNode = boolJson.get("must");
+			List<JsonNode> clauses = mustNode.isArray() ? mustNode.asList()
+					: List.of(mustNode);
+			for (JsonNode clause : clauses) {
+				SearchRequest dummy = new SearchRequest(null, 0, 0, clause, null);
+				builder.add(build(dummy, analyzer), BooleanClause.Occur.MUST);
+			}
+		}
+
+		if (boolJson.has("filter")) {
+			JsonNode filterNode = boolJson.get("filter");
+			List<JsonNode> clauses = filterNode.isArray() ? filterNode.asList()
+					: List.of(filterNode);
+			for (JsonNode clause : clauses) {
+				SearchRequest dummy = new SearchRequest(null, 0, 0, clause, null);
+				builder.add(build(dummy, analyzer), BooleanClause.Occur.FILTER);
+			}
+		}
+
+		if (boolJson.has("should")) {
+			JsonNode shouldNode = boolJson.get("should");
+			List<JsonNode> clauses = shouldNode.isArray() ? shouldNode.asList()
+					: List.of(shouldNode);
+			for (JsonNode clause : clauses) {
+				SearchRequest dummy = new SearchRequest(null, 0, 0, clause, null);
+				builder.add(build(dummy, analyzer), BooleanClause.Occur.SHOULD);
+			}
+		}
+
+		if (boolJson.has("must_not")) {
+			JsonNode mustNotNode = boolJson.get("must_not");
+			List<JsonNode> clauses = mustNotNode.isArray() ? mustNotNode.asList()
+					: List.of(mustNotNode);
+			for (JsonNode clause : clauses) {
+				SearchRequest dummy = new SearchRequest(null, 0, 0, clause, null);
+				builder.add(build(dummy, analyzer), BooleanClause.Occur.MUST_NOT);
+			}
+		}
+
+		return builder.build();
 	}
 
 	/**

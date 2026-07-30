@@ -175,9 +175,37 @@ public class LocalSearch implements AutoCloseable {
 	public void addJson(String json_string) {
 		try {
 			JsonNode json = JsonNode.parse(json_string);
+
 			String id = json.get("id").asString();
 			String body = json.get("body").asString();
-			add(id, body);
+
+			var builder = schema.document()
+					.put("id", id)
+					.put(default_field_name, body)
+					.put("data", json_string);
+
+			// body 以外の JSON フィールドを keyword フィールドとして追加
+			for (String fieldName : json.keys()) {
+				if ("id".equals(fieldName) || "body".equals(fieldName)) {
+					continue;
+				}
+
+				JsonNode valueNode = json.get(fieldName);
+				if (valueNode == null) {
+					continue;
+				}
+
+				String value = valueNode.asString(null);
+				if (value == null) {
+					continue;
+				}
+
+				ensureKeywordField(fieldName);
+				builder.put(fieldName, value);
+			}
+
+			this.index.add(builder.build());
+
 		} catch (Throwable th) {
 			throw new LocalSearchException(th.getMessage(), th);
 		}
@@ -214,6 +242,18 @@ public class LocalSearch implements AutoCloseable {
 		}
 	}
 
+	/**
+	 * 指定フィールドがスキーマに未登録の場合のみ keyword フィールドとして追加します。
+	 * addJson() から動的フィールド登録のために使用します。
+	 *
+	 * @param fieldName the field name to ensure
+	 */
+	private void ensureKeywordField(String fieldName) {
+		// aggregatable() を付けることで SortedDocValuesField がインデックスされ、
+		// terms aggregation (TermsAggregation) でも使用可能になる
+		schema.addIfAbsent(fieldName, FieldTypeDef.keyword().stored(true).aggregatable(true));
+	}
+
 	private SearchSchema createSchema(int vectorDimension) {
 		SearchSchema schema = new SearchSchema();
 
@@ -230,13 +270,89 @@ public class LocalSearch implements AutoCloseable {
 		return schema;
 	}
 
+	/**
+	 * 簡易形式のリクエスト JSON（query, limit, filters）から OpenSearch 形式のリクエストを生成します。
+	 *
+	 * <p>入力 JSON 形式:</p>
+	 * <pre>
+	 * {
+	 *   "query": "検索キーワード",   // 全文検索クエリ（省略時は match_all）
+	 *   "limit": 10,                // 取得件数（省略時は 10）
+	 *   "filters": {                // keyword フィールドの絞り込み条件（省略可）
+	 *     "category": "技術",
+	 *     "country": "Japan"
+	 *   }
+	 * }
+	 * </pre>
+	 *
+	 * @param request 簡易形式のリクエスト JsonNode
+	 * @return OpenSearch 形式のリクエスト JsonNode
+	 */
+	private JsonNode createSearchRequest(JsonNode request) {
+		String query = request.get("query").asString("");
+		int limit = request.get("limit").asInt(10);
+
+		JsonNode filters = request.get("filters");
+		boolean hasFilters = filters != null && !filters.isNull() && filters.size() > 0;
+
+		if (!hasFilters) {
+			return createTextSearchRequest(query, limit);
+		}
+
+		// bool クエリ: must（全文検索） + filter（keyword 絞り込み）
+		JsonNode root = JsonNode.object();
+		root.put("size", limit);
+
+		JsonNode must = JsonNode.array();
+		if (query == null || query.isEmpty()) {
+			must.add(JsonNode.object().put("match_all", JsonNode.object()));
+		} else {
+			must.add(JsonNode.object().put(
+					"match",
+					JsonNode.object().put(this.default_field_name, query)));
+		}
+
+		JsonNode filter = JsonNode.array();
+		for (String fieldName : filters.keys()) {
+			String value = filters.get(fieldName).asString(null);
+			if (value == null) {
+				continue;
+			}
+			filter.add(JsonNode.object().put(
+					"term",
+					JsonNode.object().put(fieldName, value)));
+		}
+
+		JsonNode boolQuery = JsonNode.object();
+		boolQuery.put("must", must);
+		boolQuery.put("filter", filter);
+
+		root.put("query", JsonNode.object().put("bool", boolQuery));
+
+		return root;
+	}
+
 	private JsonNode createTextSearchRequest(String query, int limit) {
+		return createTextSearchRequest(this.default_field_name, query, limit);
+	}
+
+	private JsonNode createTextSearchRequest(String field, String query, int limit) {
 		JsonNode request = JsonNode.object();
 
-		JsonNode matchQuery = JsonNode.object();
-		matchQuery.put("match", JsonNode.object().put(this.default_field_name, query));
+		// keyword フィールドは term クエリ（完全一致）、text フィールドは match クエリ（全文検索）
+		boolean isKeyword = schema.contains(field)
+				&& schema.get(field).kind() == FieldTypeDef.Kind.KEYWORD;
 
-		request.put("query", matchQuery);
+		JsonNode innerQuery;
+		if (isKeyword) {
+			innerQuery = JsonNode.object();
+			innerQuery.put("term", JsonNode.object().put(field, query));
+		} else {
+			innerQuery = JsonNode.object();
+			innerQuery.put("match", JsonNode.object().put(field, query));
+		}
+
+		request.put("query", innerQuery);
 		request.put("size", limit);
 
 		return request;
@@ -293,6 +409,127 @@ public class LocalSearch implements AutoCloseable {
 		}
 	}
 
+	/**
+	 * 指定フィールドに対してテキスト検索を行います。
+	 * addJson() で追加した category, country, source などの追加フィールドを対象に検索できます。
+	 *
+	 * @param field the field name to search
+	 * @param query the search query string
+	 * @param limit the maximum number of results to return
+	 * @return an array of SearchResult objects, ordered by relevance score
+	 * @throws LocalSearchException if search fails
+	 */
+	public SearchResult[] search(String field, String query, int limit) {
+		return executeSearch(createTextSearchRequest(field, query, limit));
+	}
+
+	/**
+	 * フィールドの値ごとのドキュメント件数を集計します（terms aggregation）。
+	 *
+	 * <p>入力 JSON 形式:</p>
+	 * <pre>
+	 * // フィールド全体を集計
+	 * search.aggregateJson("{\"field\":\"category\",\"size\":10}")
+	 *
+	 * // 全文検索で絞り込んだ上で集計
+	 * search.aggregateJson("{\"field\":\"category\",\"query\":\"東京\",\"size\":5}")
+	 * </pre>
+	 *
+	 * <p>戻り値 JSON 形式:</p>
+	 * <pre>
+	 * {
+	 *   "field": "category",
+	 *   "buckets": [
+	 *     {"key": "観光", "count": 5},
+	 *     {"key": "技術", "count": 3}
+	 *   ]
+	 * }
+	 * </pre>
+	 *
+	 * @param requestJson 集計リクエスト JSON 文字列（field, query?, size?）
+	 * @return 集計結果の独自形式 JSON 文字列
+	 * @throws LocalSearchException if JSON parsing or aggregation fails
+	 */
+	public String aggregateJson(String requestJson) {
+		try {
+			JsonNode request = JsonNode.parse(requestJson);
+
+			String field = request.get("field").asString();
+			String query = request.get("query").asString(null);
+			int size = request.get("size").asInt(10);
+
+			JsonNode searchRequest = createAggregationRequest(field, query, size);
+
+			JsonNode response = api.search("myindex/_search", searchRequest);
+
+			return toAggregationResult(field, response).toJson();
+
+		} catch (Throwable th) {
+			throw new LocalSearchException(th.getMessage(), th);
+		}
+	}
+
+	/**
+	 * aggregateJson() 用の OpenSearch 形式リクエストを生成します。
+	 *
+	 * @param field 集計対象フィールド名
+	 * @param query 全文検索クエリ（null または空文字の場合は match_all）
+	 * @param size  返すバケット数の上限
+	 * @return OpenSearch 形式のリクエスト JsonNode
+	 */
+	private JsonNode createAggregationRequest(String field, String query, int size) {
+		JsonNode root = JsonNode.object();
+
+		// ヒット本文は不要なので size=0
+		root.put("size", 0);
+
+		if (query != null && !query.isEmpty()) {
+			root.put("query", JsonNode.object().put(
+					"match", JsonNode.object().put(this.default_field_name, query)));
+		}
+
+		JsonNode terms = JsonNode.object();
+		terms.put("field", field);
+		terms.put("size", size);
+
+		JsonNode aggs = JsonNode.object();
+		aggs.put("values", JsonNode.object().put("terms", terms));
+
+		root.put("aggs", aggs);
+
+		return root;
+	}
+
+	/**
+	 * OpenSearch 形式の aggregation レスポンスを独自形式に変換します。
+	 *
+	 * <pre>
+	 * {"field":"category","buckets":[{"key":"観光","count":5},{"key":"技術","count":3}]}
+	 * </pre>
+	 *
+	 * @param field    集計対象フィールド名
+	 * @param response api.search() からのレスポンス
+	 * @return 独自形式の JsonNode
+	 */
+	private JsonNode toAggregationResult(String field, JsonNode response) {
+		JsonNode result = JsonNode.object();
+		result.put("field", field);
+
+		JsonNode buckets = JsonNode.array();
+
+		JsonNode rawBuckets = response.get("aggregations").get("values").get("buckets");
+		for (JsonNode raw : rawBuckets.asList()) {
+			JsonNode bucket = JsonNode.object();
+			bucket.put("key", raw.get("key").asString());
+			bucket.put("count", (Number) raw.get("doc_count").asLong(0));
+			buckets.add(bucket);
+		}
+
+		result.put("buckets", buckets);
+
+		return result;
+	}
+
 	public void saveIndexTo(Path dir) throws IOException {
 		if (index != null) {
 			this.index.writeToAndClose(dir);
@@ -328,6 +565,96 @@ public class LocalSearch implements AutoCloseable {
 		return executeSearch(createTextSearchRequest(query, limit));
 	}
 
+	/**
+	 * 全文検索＋フィールド絞り込みを行います（Java 利用者向けオーバーロード）。
+	 *
+	 * <p>例:</p>
+	 * <pre>
+	 * SearchResult[] results = search.search(
+	 *     "Kyoto", 10,
+	 *     java.util.Map.of("category", "company")
+	 * );
+	 * </pre>
+	 *
+	 * @param query   全文検索クエリ（空文字列の場合は match_all）
+	 * @param limit   取得件数の上限
+	 * @param filters keyword フィールドの絞り込み条件（フィールド名 → 値）
+	 * @return an array of SearchResult objects, ordered by relevance score
+	 * @throws LocalSearchException if search fails
+	 */
+	public SearchResult[] search(String query, int limit, java.util.Map<String, String> filters) {
+		JsonNode request = JsonNode.object();
+		request.put("query", query);
+		request.put("limit", limit);
+
+		JsonNode filterNode = JsonNode.object();
+		for (java.util.Map.Entry<String, String> entry : filters.entrySet()) {
+			filterNode.put(entry.getKey(), entry.getValue());
+		}
+		request.put("filters", filterNode);
+
+		return executeSearch(createSearchRequest(request));
+	}
+
+	/**
+	 * JSON 文字列で検索条件を指定して検索を実行します。Python (JPype) など外部から
+	 * 複雑な検索条件を渡す場合に使用します。
+	 *
+	 * <p>OpenSearch 形式の JSON をそのまま渡せます。</p>
+	 *
+	 * <pre>
+	 * // term クエリ（完全一致）
+	 * search.searchJson("{\"query\":{\"term\":{\"category\":\"技術\"}},\"size\":10}")
+	 *
+	 * // match クエリ（全文検索）
+	 * search.searchJson("{\"query\":{\"match\":{\"text_ja\":\"東京\"}},\"size\":5}")
+	 *
+	 * // bool クエリ（must + filter）
+	 * search.searchJson("{\"query\":{\"bool\":{\"must\":[{\"match\":{\"text_ja\":\"東京\"}}],\"filter\":[{\"term\":{\"category\":\"技術\"}}]}},\"size\":10}")
+	 * </pre>
+	 *
+	 * @param requestJson OpenSearch 形式の検索リクエスト JSON 文字列
+	 * @return an array of SearchResult objects, ordered by relevance score
+	 * @throws LocalSearchException if JSON parsing or search fails
+	 */
+	public SearchResult[] searchJson(String requestJson) {
+		try {
+			JsonNode request = JsonNode.parse(requestJson);
+			return executeSearch(request);
+		} catch (Throwable th) {
+			throw new LocalSearchException(th.getMessage(), th);
+		}
+	}
+
+	/**
+	 * 簡易形式の JSON 文字列で全文検索＋フィールド絞り込みを実行します。
+	 * Python (JPype) など外部から絞り込み条件を渡す場合に便利です。
+	 *
+	 * <p>入力 JSON 形式（searchJson の OpenSearch 形式とは異なる簡易形式です）:</p>
+	 * <pre>
+	 * // 全文検索のみ
+	 * search.searchByQuery("{\"query\":\"東京\",\"limit\":10}")
+	 *
+	 * // 全文検索 + filters による keyword 絞り込み
+	 * search.searchByQuery("{\"query\":\"東京\",\"limit\":5,\"filters\":{\"category\":\"技術\"}}")
+	 *
+	 * // filters のみ（query 省略 → match_all）
+	 * search.searchByQuery("{\"filters\":{\"category\":\"観光\"},\"limit\":10}")
+	 * </pre>
+	 *
+	 * @param requestJson 簡易形式の検索リクエスト JSON 文字列
+	 * @return an array of SearchResult objects, ordered by relevance score
+	 * @throws LocalSearchException if JSON parsing or search fails
+	 */
+	public SearchResult[] searchByQuery(String requestJson) {
+		try {
+			JsonNode request = JsonNode.parse(requestJson);
+			return executeSearch(createSearchRequest(request));
+		} catch (Throwable th) {
+			throw new LocalSearchException(th.getMessage(), th);
+		}
+	}
+
 	private SearchResult[] toSearchResults(JsonNode response) {
 		JsonNode hits = response.get("hits").get("hits");
 
@@ -349,6 +676,9 @@ public class LocalSearch implements AutoCloseable {
 
 			JsonNode textNode = source.get(default_field_name);
 			result.body = (textNode != null) ? textNode.asString() : null;
+
+			JsonNode dataNode = source.get("data");
+			result.data = (dataNode != null) ? dataNode.asString() : null;
 
 			results[n] = result;
 		}

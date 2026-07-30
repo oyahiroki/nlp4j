@@ -30,6 +30,24 @@ public class SearchSchema {
 		return this;
 	}
 
+	/**
+	 * Adds a field only if it does not already exist. No-op if the field is already registered.
+	 *
+	 * @param fieldName    the field name
+	 * @param fieldTypeDef the field type definition
+	 * @return this schema
+	 */
+	public SearchSchema addIfAbsent(String fieldName, FieldTypeDef fieldTypeDef) {
+		if (fieldName == null || fieldName.isBlank()) {
+			throw new IllegalArgumentException("fieldName must not be blank");
+		}
+		if (fieldTypeDef == null) {
+			throw new IllegalArgumentException("fieldTypeDef must not be null");
+		}
+		fields.putIfAbsent(fieldName, fieldTypeDef);
+		return this;
+	}
+
 	public Map<String, FieldTypeDef> asMap() {
 		return Collections.unmodifiableMap(fields);
 	}
