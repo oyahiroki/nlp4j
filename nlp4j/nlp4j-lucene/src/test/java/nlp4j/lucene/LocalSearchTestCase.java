@@ -107,8 +107,95 @@ public class LocalSearchTestCase extends TestCase {
 	}
 
 	/**
-	 * addJson() で登録した追加フィールド（category）をフィールド検索できることを確認する。
-	 * category=技術 を持つドキュメントのみが返ること。
+	 * add(id, vector, fields) でフィールド付きベクトル文書を登録し、
+	 * search(vector, limit, filters) で単一フィールドフィルターが動作することを確認する。
+	 * category=technology を持つ文書のみがヒットすること。
+	 */
+	public void testVectorSearchWithFilter001() throws Exception {
+
+		try (LocalSearch search = new LocalSearch("ja", 2)) {
+			search.add("1_tech_east",  new float[] { 1.0f, 0.0f },
+					java.util.Map.of("category", "technology"));
+			search.add("2_tech_north", new float[] { 0.0f, 1.0f },
+					java.util.Map.of("category", "technology"));
+			search.add("3_travel_east", new float[] { 0.9f, 0.1f },
+					java.util.Map.of("category", "travel"));
+			search.add("4_travel_west",  new float[] { -1.0f, 0.0f },
+					java.util.Map.of("category", "travel"));
+			search.commit();
+
+			// クエリベクトル (0.9, 0.1) は 1_tech_east に最近傍
+			// category=technology でフィルターすると 1_tech_east, 2_tech_north の 2 件
+			SearchResult[] results = search.search(
+					new float[] { 0.9f, 0.1f }, 10,
+					java.util.Map.of("category", "technology"));
+
+			System.out.println("testVectorSearchWithFilter001 size: " + results.length);
+			for (int n = 0; n < results.length; n++) {
+				System.out.println("result[" + n + "].id: " + results[n].id);
+				System.out.println("result[" + n + "].score: " + results[n].score);
+			}
+
+			assertEquals(2, results.length);
+			assertEquals("1_tech_east", results[0].id);
+		}
+	}
+
+	/**
+	 * 複数フィルター（category + country）でベクトル検索が絞り込まれることを確認する。
+	 */
+	public void testVectorSearchWithFilter002() throws Exception {
+
+		try (LocalSearch search = new LocalSearch("en", 2)) {
+			search.add("1", new float[] { 1.0f, 0.0f },
+					java.util.Map.of("category", "technology", "country", "Japan"));
+			search.add("2", new float[] { 0.9f, 0.2f },
+					java.util.Map.of("category", "technology", "country", "USA"));
+			search.add("3", new float[] { 0.8f, 0.3f },
+					java.util.Map.of("category", "travel",     "country", "Japan"));
+			search.add("4", new float[] { -1.0f, 0.0f },
+					java.util.Map.of("category", "technology", "country", "Japan"));
+			search.commit();
+
+			// category=technology + country=Japan → id=1, id=4 の 2 件
+			SearchResult[] results = search.search(
+					new float[] { 0.9f, 0.1f }, 10,
+					java.util.Map.of("category", "technology", "country", "Japan"));
+
+			System.out.println("testVectorSearchWithFilter002 size: " + results.length);
+			for (int n = 0; n < results.length; n++) {
+				System.out.println("result[" + n + "].id: " + results[n].id);
+			}
+
+			assertEquals(2, results.length);
+		}
+	}
+
+	/**
+	 * フィルターに一致する文書が存在しない場合、空の結果が返ることを確認する。
+	 */
+	public void testVectorSearchWithFilter003() throws Exception {
+
+		try (LocalSearch search = new LocalSearch("en", 2)) {
+			search.add("1", new float[] { 1.0f, 0.0f },
+					java.util.Map.of("category", "technology"));
+			search.add("2", new float[] { 0.0f, 1.0f },
+					java.util.Map.of("category", "technology"));
+			search.commit();
+
+			// category=travel は存在しない → 0 件
+			SearchResult[] results = search.search(
+					new float[] { 0.9f, 0.1f }, 10,
+					java.util.Map.of("category", "travel"));
+
+			System.out.println("testVectorSearchWithFilter003 size: " + results.length);
+			assertEquals(0, results.length);
+		}
+	}
+
+	/**
+	 * addJson() で登録した追加フィールド（category）をフィールド検索できることを確認する。 category=技術
+	 * を持つドキュメントのみが返ること。
 	 */
 	public void testFieldSearch001() throws Exception {
 
@@ -203,8 +290,8 @@ public class LocalSearchTestCase extends TestCase {
 	}
 
 	/**
-	 * addJson() で body フィールド検索と category フィールド検索を組み合わせて動作確認する。
-	 * body の全文検索と追加フィールド検索が共存できることを確認する。
+	 * addJson() で body フィールド検索と category フィールド検索を組み合わせて動作確認する。 body
+	 * の全文検索と追加フィールド検索が共存できることを確認する。
 	 */
 	public void testFieldSearch004() throws Exception {
 
@@ -446,9 +533,10 @@ public class LocalSearchTestCase extends TestCase {
 			search.addJson("""
 					{"id":"1","body":"Kyoto is a historic city in Japan.","category":"city","country":"Japan"}
 					""");
-			search.addJson("""
-					{"id":"2","body":"Nintendo is a video game company headquartered in Kyoto.","category":"company","country":"Japan"}
-					""");
+			search.addJson(
+					"""
+							{"id":"2","body":"Nintendo is a video game company headquartered in Kyoto.","category":"company","country":"Japan"}
+							""");
 			search.addJson("""
 					{"id":"3","body":"Paris is the capital city of France.","category":"city","country":"France"}
 					""");
@@ -468,8 +556,8 @@ public class LocalSearchTestCase extends TestCase {
 	}
 
 	/**
-	 * addJson() で追加したドキュメントの SearchResult.data に元 JSON が入ることを確認する。
-	 * add(id, body) で追加した場合は data が null であることも確認する。
+	 * addJson() で追加したドキュメントの SearchResult.data に元 JSON が入ることを確認する。 add(id, body)
+	 * で追加した場合は data が null であることも確認する。
 	 */
 	public void testSearchResultData001() throws Exception {
 
@@ -494,8 +582,8 @@ public class LocalSearchTestCase extends TestCase {
 	}
 
 	/**
-	 * aggregateJson() で category フィールドの terms aggregation が動作することを確認する。
-	 * バケット件数と key の検証を行う。
+	 * aggregateJson() で category フィールドの terms aggregation が動作することを確認する。 バケット件数と key
+	 * の検証を行う。
 	 */
 	public void testAggregateJson001() throws Exception {
 
@@ -519,26 +607,32 @@ public class LocalSearchTestCase extends TestCase {
 
 			// category の全件集計 → 観光:3, 技術:2 の 2 バケット
 			String json = search.aggregateJson("""
-					{"field":"category","size":10}
+					{"field":"category","query":null,"size":10}
 					""");
 			System.out.println("testAggregateJson001: " + json);
 
 			nlp4j.json.JsonNode result = nlp4j.json.JsonNode.parse(json);
-			assertEquals("category", result.get("field").asString());
+			System.out.println(result);
 
-			nlp4j.json.JsonNode buckets = result.get("buckets");
+			nlp4j.json.JsonNode buckets = result.get("aggregations").get("values").get("buckets");
 			assertEquals(2, buckets.size());
-			// 先頭バケットは件数最多の "観光"
-			assertEquals("観光", buckets.get(0).get("key").asString());
-			assertEquals(3, buckets.get(0).get("count").asInt());
-			assertEquals("技術", buckets.get(1).get("key").asString());
-			assertEquals(2, buckets.get(1).get("count").asInt());
+
+			{
+				// 先頭バケットは件数最多の "観光"
+				assertEquals("観光", buckets.get(0).get("key").asString());
+				assertEquals(3, buckets.get(0).get("doc_count").asInt());
+			}
+			{
+				assertEquals("技術", buckets.get(1).get("key").asString());
+				assertEquals(2, buckets.get(1).get("doc_count").asInt());
+			}
+
 		}
 	}
 
 	/**
-	 * aggregateJson() で全文検索クエリで絞り込んだ上での集計が動作することを確認する。
-	 * query=東京 で絞り込むと category=観光, 技術 の 2 バケットがヒットすること。
+	 * aggregateJson() で全文検索クエリで絞り込んだ上での集計が動作することを確認する。 query=東京 で絞り込むと category=観光,
+	 * 技術 の 2 バケットがヒットすること。
 	 */
 	public void testAggregateJson002() throws Exception {
 
@@ -561,9 +655,8 @@ public class LocalSearchTestCase extends TestCase {
 			System.out.println("testAggregateJson002: " + json);
 
 			nlp4j.json.JsonNode result = nlp4j.json.JsonNode.parse(json);
-			assertEquals("category", result.get("field").asString());
 
-			nlp4j.json.JsonNode buckets = result.get("buckets");
+			nlp4j.json.JsonNode buckets = result.get("aggregations").get("values").get("buckets");
 			assertEquals(2, buckets.size());
 		}
 	}
@@ -586,6 +679,15 @@ public class LocalSearchTestCase extends TestCase {
 			search.addJson("""
 					{"id":"4","body":"doc4","category":"D"}
 					""");
+			search.addJson("""
+					{"id":"5","body":"doc4","category":"D"}
+					""");
+			search.addJson("""
+					{"id":"6","body":"doc4","category":"D"}
+					""");
+			search.addJson("""
+					{"id":"7","body":"doc4","category":"D"}
+					""");
 			search.commit();
 
 			// size=2 で上位 2 バケットのみ返す
@@ -593,10 +695,18 @@ public class LocalSearchTestCase extends TestCase {
 					{"field":"category","size":2}
 					""");
 			System.out.println("testAggregateJson003: " + json);
+			{
+				nlp4j.json.JsonNode result = nlp4j.json.JsonNode.parse(json);
+				nlp4j.json.JsonNode buckets = result.get("aggregations").get("values").get("buckets");
+				{
+					assertEquals(2, buckets.size());
 
-			nlp4j.json.JsonNode result = nlp4j.json.JsonNode.parse(json);
-			nlp4j.json.JsonNode buckets = result.get("buckets");
-			assertEquals(2, buckets.size());
+				}
+				{
+					assertEquals(4, buckets.get(0).get("doc_count").getAsInt());
+
+				}
+			}
 		}
 	}
 
@@ -621,13 +731,17 @@ public class LocalSearchTestCase extends TestCase {
 					  "country": "Japan"
 					}
 					""");
+			search.addJson("""
+					{
+					  "id": "3",
+					  "body": "Sony is a video game company headquartered in Tokyo.",
+					  "category": "company",
+					  "country": "Japan"
+					}
+					""");
 			search.commit();
 
-			SearchResult[] results = search.search(
-					"Kyoto",
-					10,
-					java.util.Map.of("category", "company")
-			);
+			SearchResult[] results = search.search("Kyoto", 10, java.util.Map.of("category", "company"));
 
 			assertEquals(1, results.length);
 			assertEquals("2", results[0].id);
@@ -672,14 +786,14 @@ public class LocalSearchTestCase extends TestCase {
 			System.out.println(json);
 
 			nlp4j.json.JsonNode result = nlp4j.json.JsonNode.parse(json);
-			nlp4j.json.JsonNode buckets = result.get("buckets");
+			nlp4j.json.JsonNode buckets = result.get("aggregations").get("values").get("buckets");
 
 			// city: 2, company: 1 の 2 バケット
 			assertEquals(2, buckets.size());
 			assertEquals("city", buckets.get(0).get("key").asString());
-			assertEquals(2, buckets.get(0).get("count").asInt());
+			assertEquals(2, buckets.get(0).get("doc_count").asInt());
 			assertEquals("company", buckets.get(1).get("key").asString());
-			assertEquals(1, buckets.get(1).get("count").asInt());
+			assertEquals(1, buckets.get(1).get("doc_count").asInt());
 		}
 	}
 
@@ -707,11 +821,7 @@ public class LocalSearchTestCase extends TestCase {
 			search.commit();
 
 			// search: "Kyoto" + category=company → id=2 のみ
-			SearchResult[] results = search.search(
-					"Kyoto",
-					10,
-					java.util.Map.of("category", "company")
-			);
+			SearchResult[] results = search.search("Kyoto", 10, java.util.Map.of("category", "company"));
 			assertEquals(1, results.length);
 			assertEquals("2", results[0].id);
 
@@ -725,9 +835,159 @@ public class LocalSearchTestCase extends TestCase {
 					""");
 			System.out.println(agg);
 
-			nlp4j.json.JsonNode aggResult = nlp4j.json.JsonNode.parse(agg);
-			assertEquals("category", aggResult.get("field").asString());
-			assertEquals(2, aggResult.get("buckets").size());
+			nlp4j.json.JsonNode result = nlp4j.json.JsonNode.parse(agg);
+			nlp4j.json.JsonNode buckets = result.get("aggregations").get("values").get("buckets");
+			assertEquals("city", buckets.get(0).get("key").asString());
+			assertEquals(1, buckets.get(0).get("doc_count").asInt());
+		}
+	}
+
+	/**
+	 * aggregateJson() で filters（keyword 絞り込み）を使った terms aggregation が動作することを確認する。
+	 * query=東京 + source=news で絞り込んだ上での category 集計。
+	 */
+	public void testAggregateJson_WithFilters001() throws Exception {
+		try (LocalSearch search = new LocalSearch("ja")) {
+			search.addJson("""
+					{"id":"1","body":"東京のAI企業について","category":"technology","country":"Japan","source":"news"}
+					""");
+			search.addJson("""
+					{"id":"2","body":"東京の観光スポット","category":"travel","country":"Japan","source":"blog"}
+					""");
+			search.addJson("""
+					{"id":"3","body":"大阪のIT企業","category":"technology","country":"Japan","source":"news"}
+					""");
+			search.commit();
+
+			// query=東京 + source=news → id=1 のみ → category=technology:1
+			String json = search.aggregateJson("""
+					{"field":"category","query":"東京","size":10,"filters":{"source":"news"}}
+					""");
+
+			System.out.println("testAggregateJson_WithFilters001: " + json);
+
+			nlp4j.json.JsonNode result = nlp4j.json.JsonNode.parse(json);
+			{
+// v1				nlp4j.json.JsonNode buckets = result.get("buckets");
+// v1			assertEquals(1, buckets.size());
+// v1				assertEquals("technology", buckets.get(0).get("key").asString());
+// v1				assertEquals(1, buckets.get(0).get("count").asInt());
+			}
+			{
+				nlp4j.json.JsonNode aggregations = result.get("aggregations");
+				assertEquals(1, aggregations.size());
+				nlp4j.json.JsonNode values = aggregations.get("values");
+				assertEquals(3, values.size()); //
+				nlp4j.json.JsonNode buckets = values.get("buckets");
+				System.out.println(buckets);
+				assertEquals("technology", buckets.get(0).get("key").asString());
+				assertEquals(1, buckets.get(0).get("doc_count").asInt());
+			}
+
+		}
+	}
+
+	/**
+	 * aggregateJson() で filters のみ（query なし）の terms aggregation が動作することを確認する。
+	 * country=Japan に絞り込んだ上での category 集計。
+	 */
+	public void testAggregateJson_WithFilters002() throws Exception {
+		try (LocalSearch search = new LocalSearch("ja")) {
+			search.addJson("""
+					{"id":"1","body":"東京の観光スポット","category":"travel","country":"Japan"}
+					""");
+			search.addJson("""
+					{"id":"2","body":"東京のIT企業","category":"technology","country":"Japan"}
+					""");
+			search.addJson("""
+					{"id":"3","body":"パリの観光地","category":"travel","country":"France"}
+					""");
+			search.commit();
+
+			// filters のみ（query なし）: country=Japan → id=1, id=2 を対象に category 集計
+			String json = search.aggregateJson("""
+					{"field":"category","size":10,"filters":{"country":"Japan"}}
+					""");
+			System.out.println("testAggregateJson_WithFilters002: " + json);
+
+			nlp4j.json.JsonNode result = nlp4j.json.JsonNode.parse(json);
+			nlp4j.json.JsonNode buckets = result.get("aggregations").get("values").get("buckets");
+
+			// travel:1, technology:1 の 2 バケット（France の travel は除外）
+			assertEquals(2, buckets.size());
+		}
+	}
+
+	/**
+	 * aggregateJson() で複数 filters の terms aggregation が動作することを確認する。
+	 * 調査結果の使用例と同じパターン。
+	 */
+	public void testAggregateJson_WithFilters003() throws Exception {
+		try (LocalSearch search = new LocalSearch("ja")) {
+			search.addJson("""
+					{"id":"1","body":"東京のAI企業について","category":"technology","country":"Japan","source":"news"}
+					""");
+			search.addJson("""
+					{"id":"2","body":"東京の観光スポット","category":"travel","country":"Japan","source":"blog"}
+					""");
+			search.addJson("""
+					{"id":"3","body":"大阪のIT企業","category":"technology","country":"Japan","source":"news"}
+					""");
+			search.commit();
+
+			// query=東京 + country=Japan + source=news → id=1 のみ → category=technology:1
+			String json = search.aggregateJson("""
+					{"field":"category","query":"東京","size":10,"filters":{"country":"Japan","source":"news"}}
+					""");
+			System.out.println("testAggregateJson_WithFilters003: " + json);
+
+			nlp4j.json.JsonNode result = nlp4j.json.JsonNode.parse(json);
+			nlp4j.json.JsonNode buckets = result.get("aggregations").get("values").get("buckets");
+
+			assertEquals(1, buckets.size());
+			assertEquals("technology", buckets.get(0).get("key").asString());
+			assertEquals(1, buckets.get(0).get("doc_count").asInt());
+		}
+	}
+
+	/**
+	 * searchResponseJson() が OpenSearch 形式のレスポンス全体（hits + aggregations）を返すことを確認する。
+	 */
+	public void testSearchResponseJson001() throws Exception {
+		try (LocalSearch search = new LocalSearch("en")) {
+			search.addJson("""
+					{"id":"1","body":"Kyoto is a historic city in Japan.","category":"city","country":"Japan"}
+					""");
+			search.addJson(
+					"""
+							{"id":"2","body":"Nintendo is a video game company headquartered in Kyoto.","category":"company","country":"Japan"}
+							""");
+			search.addJson("""
+					{"id":"3","body":"Paris is the capital city of France.","category":"city","country":"France"}
+					""");
+			search.commit();
+
+			// hits + aggregations を同時に取得
+			String responseJson = search.searchResponseJson("""
+					{
+					  "size": 10,
+					  "query": {"match": {"text_en": "Kyoto"}},
+					  "aggs": {
+					    "values": {"terms": {"field": "category", "size": 10}}
+					  }
+					}
+					""");
+			System.out.println("testSearchResponseJson001: " + responseJson);
+
+			nlp4j.json.JsonNode response = nlp4j.json.JsonNode.parse(responseJson);
+
+			// hits が含まれること
+			nlp4j.json.JsonNode hits = response.get("hits").get("hits");
+			assertEquals(2, hits.size()); // Kyoto を含む id=1, id=2
+
+			// aggregations が含まれること（searchJson() では失われる）
+			nlp4j.json.JsonNode buckets = response.get("aggregations").get("values").get("buckets");
+			assertEquals(2, buckets.size()); // city:1, company:1
 		}
 	}
 

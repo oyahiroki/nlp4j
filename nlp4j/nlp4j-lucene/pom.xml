@@ -12,7 +12,9 @@
 	<!-- JAR -->
 	<packaging>jar</packaging>
 	<name>nlp4j-lucene</name>
-	<version>1.0.0.0</version>
+	<!-- 2026-07-30 https://central.sonatype.com/artifact/org.nlp4j/nlp4j-lucene/1.0.0.0 -->
+	<!-- 1.1.0.0 field search and aggregation -->
+	<version>1.1.0.0</version>
 	<description>NLP4J for Apache Lucene</description>
 	<url>https://nlp4j.org/</url>
 	<licenses>

@@ -136,6 +136,49 @@ public class LocalSearch implements AutoCloseable {
 	}
 
 	/**
+	 * ベクトルと追加フィールドを同一 Document に登録します。
+	 * ベクトル検索時のフィールドフィルターを利用するには、このメソッドで文書を追加してください。
+	 *
+	 * <p>例:</p>
+	 * <pre>
+	 * search.add(
+	 *     "1",
+	 *     new float[] { 1.0f, 0.0f },
+	 *     java.util.Map.of("category", "technology", "country", "Japan")
+	 * );
+	 * </pre>
+	 *
+	 * @param id      ドキュメントの一意識別子
+	 * @param vector  ベクトル
+	 * @param fields  keyword フィールドの追加値（フィールド名 → 値）
+	 * @throws LocalSearchException if adding the document fails
+	 */
+	public void add(String id, float[] vector, java.util.Map<String, String> fields) {
+		try {
+			var builder = schema.document()
+					.put("id", id)
+					.putVector("vector", vector);
+
+			if (fields != null) {
+				for (java.util.Map.Entry<String, String> entry : fields.entrySet()) {
+					String fieldName = entry.getKey();
+					String value = entry.getValue();
+					if (fieldName == null || value == null) {
+						continue;
+					}
+					ensureKeywordField(fieldName);
+					builder.put(fieldName, value);
+				}
+			}
+
+			this.index.add(builder.build());
+
+		} catch (IOException e) {
+			throw new LocalSearchException(e.getMessage(), e);
+		}
+	}
+
+	/**
 	 * Adds a document to the search index.
 	 *
 	 * @param id   the unique identifier for the document
@@ -359,14 +402,43 @@ public class LocalSearch implements AutoCloseable {
 	}
 
 	private JsonNode createVectorSearchRequest(float[] vector, int limit) {
+		return createVectorSearchRequest(vector, limit, null);
+	}
+
+	/**
+	 * フィルター付きベクトル検索リクエストを生成します。
+	 *
+	 * @param vector  クエリベクトル
+	 * @param limit   取得件数の上限
+	 * @param filters keyword フィールドの絞り込み条件（null または空の場合はフィルターなし）
+	 * @return KNN 検索リクエスト JsonNode
+	 */
+	private JsonNode createVectorSearchRequest(float[] vector, int limit,
+			java.util.Map<String, String> filters) {
 		JsonNode request = JsonNode.object();
+		request.put("size", limit);
 
 		JsonNode knn = JsonNode.object();
 		knn.put("field", "vector");
 		knn.put("query_vector", vector);
 		knn.put("k", limit);
 
-		request.put("size", limit);
+		if (filters != null && !filters.isEmpty()) {
+			JsonNode filterQueries = JsonNode.array();
+
+			for (java.util.Map.Entry<String, String> entry : filters.entrySet()) {
+				filterQueries.add(
+						JsonNode.object().put(
+								"term",
+								JsonNode.object().put(entry.getKey(), entry.getValue())));
+			}
+
+			JsonNode boolFilter = JsonNode.object();
+			boolFilter.put("must", filterQueries);
+
+			knn.put("filter", JsonNode.object().put("bool", boolFilter));
+		}
+
 		request.put("knn", knn);
 
 		return request;
@@ -429,10 +501,13 @@ public class LocalSearch implements AutoCloseable {
 	 * <p>入力 JSON 形式:</p>
 	 * <pre>
 	 * // フィールド全体を集計
-	 * search.aggregateJson("{\"field\":\"category\",\"size\":10}")
+	 * {"field":"category","size":10}
 	 *
 	 * // 全文検索で絞り込んだ上で集計
-	 * search.aggregateJson("{\"field\":\"category\",\"query\":\"東京\",\"size\":5}")
+	 * {"field":"category","query":"東京","size":10}
+	 *
+	 * // 全文検索 + filters（keyword 完全一致）で絞り込んだ上で集計
+	 * {"field":"category","query":"東京","size":10,"filters":{"country":"Japan","source":"news"}}
 	 * </pre>
 	 *
 	 * <p>戻り値 JSON 形式:</p>
@@ -440,25 +515,25 @@ public class LocalSearch implements AutoCloseable {
 	 * {
 	 *   "field": "category",
 	 *   "buckets": [
-	 *     {"key": "観光", "count": 5},
-	 *     {"key": "技術", "count": 3}
+	 *     {"key": "technology", "count": 1}
 	 *   ]
 	 * }
 	 * </pre>
 	 *
-	 * @param requestJson 集計リクエスト JSON 文字列（field, query?, size?）
+	 * @param requestJson 集計リクエスト JSON 文字列（field, query?, size?, filters?）
 	 * @return 集計結果の独自形式 JSON 文字列
 	 * @throws LocalSearchException if JSON parsing or aggregation fails
 	 */
-	public String aggregateJson(String requestJson) {
+	public String aggregateJson_bak(String requestJson) {
 		try {
 			JsonNode request = JsonNode.parse(requestJson);
 
 			String field = request.get("field").asString();
 			String query = request.get("query").asString(null);
 			int size = request.get("size").asInt(10);
+			JsonNode filters = request.get("filters");
 
-			JsonNode searchRequest = createAggregationRequest(field, query, size);
+			JsonNode searchRequest = createAggregationRequest(field, query, size, filters);
 
 			JsonNode response = api.search("myindex/_search", searchRequest);
 
@@ -471,21 +546,47 @@ public class LocalSearch implements AutoCloseable {
 
 	/**
 	 * aggregateJson() 用の OpenSearch 形式リクエストを生成します。
+	 * query / filters が両方ない場合は match_all と等価（query 節なし）になります。
 	 *
-	 * @param field 集計対象フィールド名
-	 * @param query 全文検索クエリ（null または空文字の場合は match_all）
-	 * @param size  返すバケット数の上限
+	 * @param field   集計対象フィールド名
+	 * @param query   全文検索クエリ（null または空文字の場合はスキップ）
+	 * @param size    返すバケット数の上限
+	 * @param filters keyword フィールドの絞り込み条件（null または空の場合はスキップ）
 	 * @return OpenSearch 形式のリクエスト JsonNode
 	 */
-	private JsonNode createAggregationRequest(String field, String query, int size) {
+	private JsonNode createAggregationRequest(String field, String query, int size, JsonNode filters) {
 		JsonNode root = JsonNode.object();
 
 		// ヒット本文は不要なので size=0
 		root.put("size", 0);
 
-		if (query != null && !query.isEmpty()) {
-			root.put("query", JsonNode.object().put(
-					"match", JsonNode.object().put(this.default_field_name, query)));
+		boolean hasQuery = query != null && !query.isEmpty();
+		boolean hasFilters = filters != null && !filters.isNull() && filters.size() > 0;
+
+		if (hasQuery || hasFilters) {
+			JsonNode boolQuery = JsonNode.object();
+
+			if (hasQuery) {
+				JsonNode must = JsonNode.array();
+				must.add(JsonNode.object().put(
+						"match", JsonNode.object().put(this.default_field_name, query)));
+				boolQuery.put("must", must);
+			}
+
+			if (hasFilters) {
+				JsonNode filter = JsonNode.array();
+				for (String fieldName : filters.keys()) {
+					String value = filters.get(fieldName).asString(null);
+					if (value == null) {
+						continue;
+					}
+					filter.add(JsonNode.object().put(
+							"term", JsonNode.object().put(fieldName, value)));
+				}
+				boolQuery.put("filter", filter);
+			}
+
+			root.put("query", JsonNode.object().put("bool", boolQuery));
 		}
 
 		JsonNode terms = JsonNode.object();
@@ -541,16 +642,30 @@ public class LocalSearch implements AutoCloseable {
 	}
 
 	public SearchResult[] search(float[] vector, int limit) {
-//		{
-//			"size": 10,
-//			"knn": {
-//				"field": "vector",
-//				"query_vector": [0.8, 0.0],
-//				"k": 10
-//			}
-//		}
-
 		return executeSearch(createVectorSearchRequest(vector, limit));
+	}
+
+	/**
+	 * フィールドフィルター付きベクトル検索を行います。
+	 * フィルター対象フィールドを持つ文書は {@link #add(String, float[], java.util.Map)} で
+	 * 登録してください。
+	 *
+	 * <p>例:</p>
+	 * <pre>
+	 * SearchResult[] results = search.search(
+	 *     new float[] { 0.9f, 0.1f }, 10,
+	 *     java.util.Map.of("category", "technology", "country", "Japan")
+	 * );
+	 * </pre>
+	 *
+	 * @param vector  クエリベクトル
+	 * @param limit   取得件数の上限
+	 * @param filters keyword フィールドの絞り込み条件（フィールド名 → 値）
+	 * @return an array of SearchResult objects, ordered by similarity score
+	 * @throws LocalSearchException if search fails
+	 */
+	public SearchResult[] search(float[] vector, int limit, java.util.Map<String, String> filters) {
+		return executeSearch(createVectorSearchRequest(vector, limit, filters));
 	}
 
 	/**
@@ -627,6 +742,43 @@ public class LocalSearch implements AutoCloseable {
 	}
 
 	/**
+	 * OpenSearch Query DSL 形式のリクエストを実行し、OpenSearch 形式のレスポンス JSON をそのまま返します。
+	 *
+	 * <p>
+	 * {@link #searchJson(String)} は結果を {@link SearchResult}[] に変換するため、
+	 * レスポンスに含まれる {@code aggregations} などの情報が失われます。
+	 * このメソッドはレスポンス全体を JSON 文字列として返すため、
+	 * aggregations や hits のメタ情報も含めて取得できます。
+	 * </p>
+	 *
+	 * <pre>
+	 * // hits + aggregations を同時に取得する例
+	 * String response = search.searchResponseJson("""
+	 *     {
+	 *       "size": 10,
+	 *       "query": {"match": {"text_en": "Kyoto"}},
+	 *       "aggs": {
+	 *         "values": {"terms": {"field": "category", "size": 10}}
+	 *       }
+	 *     }
+	 *     """);
+	 * </pre>
+	 *
+	 * @param requestJson OpenSearch Query DSL 形式の検索リクエスト JSON 文字列
+	 * @return OpenSearch 形式のレスポンス JSON 文字列
+	 * @throws LocalSearchException if JSON parsing or search fails
+	 */
+	public String searchResponseJson(String requestJson) {
+		try {
+			JsonNode request = JsonNode.parse(requestJson);
+			JsonNode response = api.search("myindex/_search", request);
+			return response.toJson();
+		} catch (Throwable th) {
+			throw new LocalSearchException(th.getMessage(), th);
+		}
+	}
+
+	/**
 	 * 簡易形式の JSON 文字列で全文検索＋フィールド絞り込みを実行します。
 	 * Python (JPype) など外部から絞り込み条件を渡す場合に便利です。
 	 *
@@ -684,6 +836,455 @@ public class LocalSearch implements AutoCloseable {
 		}
 
 		return results;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/**
+	 * 簡易形式のaggregationリクエストを実行し、
+	 * OpenSearch互換形式のaggregationレスポンスを返します。
+	 *
+	 * <p>入力例:</p>
+	 * <pre>
+	 * {
+	 *   "name": "categories",
+	 *   "field": "category",
+	 *   "size": 10,
+	 *   "query": "東京",
+	 *   "filters": {
+	 *     "country": "Japan"
+	 *   }
+	 * }
+	 * </pre>
+	 *
+	 * <p>出力例:</p>
+	 * <pre>
+	 * {
+	 *   "aggregations": {
+	 *     "categories": {
+	 *       "buckets": [
+	 *         {
+	 *           "key": "観光",
+	 *           "doc_count": 5
+	 *         }
+	 *       ]
+	 *     }
+	 *   }
+	 * }
+	 * </pre>
+	 *
+	 * @param requestJson 簡易形式のaggregationリクエスト
+	 * @return OpenSearch互換形式のaggregationレスポンス
+	 */
+	public String aggregateJson(String requestJson) {
+	    try {
+	        JsonNode request = JsonNode.parse(requestJson);
+
+	        String field = getRequiredString(
+	                request,
+	                "field"
+	        );
+
+	        String aggregationName = getOptionalString(
+	                request,
+	                "name",
+	                "values"
+	        );
+
+	        String query = getOptionalString(
+	                request,
+	                "query",
+	                null
+	        );
+
+	        int size = getOptionalInt(
+	                request,
+	                "size",
+	                10
+	        );
+
+	        if (size < 1) {
+	            throw new IllegalArgumentException(
+	                    "size must be greater than 0"
+	            );
+	        }
+
+	        JsonNode filters = request.get("filters");
+
+	        JsonNode searchRequest =
+	                createAggregationRequest(
+	                        aggregationName,
+	                        field,
+	                        query,
+	                        size,
+	                        filters
+	                );
+
+	        /*
+	         * ここで返るのはLuceneLocalSearchApiの内部レスポンス。
+	         * 公開形式としてそのまま返さない。
+	         */
+	        JsonNode luceneResponse =
+	                api.search(
+	                        "myindex/_search",
+	                        searchRequest
+	                );
+
+	        JsonNode openSearchResponse =
+	                toOpenSearchAggregationResponse(
+	                        aggregationName,
+	                        luceneResponse
+	                );
+
+	        return openSearchResponse.toJson();
+
+	    } catch (Exception e) {
+	        throw new LocalSearchException(
+	                e.getMessage(),
+	                e
+	        );
+	    }
+	}
+	
+	
+	private JsonNode createAggregationRequest(
+	        String aggregationName,
+	        String field,
+	        String query,
+	        int size,
+	        JsonNode filters) {
+
+	    JsonNode root = JsonNode.object();
+
+	    // 検索ヒット本文は不要
+	    root.put("size", 0);
+
+	    boolean hasQuery =
+	            query != null && !query.isEmpty();
+
+	    boolean hasFilters =
+	            filters != null
+	            && !filters.isNull()
+	            && filters.size() > 0;
+
+	    if (hasQuery || hasFilters) {
+	        JsonNode boolQuery = JsonNode.object();
+
+	        if (hasQuery) {
+	            JsonNode must = JsonNode.array();
+
+	            must.add(
+	                    JsonNode.object().put(
+	                            "match",
+	                            JsonNode.object().put(
+	                                    this.default_field_name,
+	                                    query
+	                            )
+	                    )
+	            );
+
+	            boolQuery.put("must", must);
+	        }
+
+	        if (hasFilters) {
+	            JsonNode filter = JsonNode.array();
+
+	            for (String fieldName : filters.keys()) {
+	                JsonNode valueNode =
+	                        filters.get(fieldName);
+
+	                if (valueNode == null
+	                        || valueNode.isNull()) {
+	                    continue;
+	                }
+
+	                String value =
+	                        valueNode.asString(null);
+
+	                if (value == null) {
+	                    continue;
+	                }
+
+	                filter.add(
+	                        JsonNode.object().put(
+	                                "term",
+	                                JsonNode.object().put(
+	                                        fieldName,
+	                                        value
+	                                )
+	                        )
+	                );
+	            }
+
+	            if (filter.size() > 0) {
+	                boolQuery.put("filter", filter);
+	            }
+	        }
+
+	        root.put(
+	                "query",
+	                JsonNode.object().put(
+	                        "bool",
+	                        boolQuery
+	                )
+	        );
+	    }
+
+	    JsonNode terms = JsonNode.object();
+	    terms.put("field", field);
+	    terms.put("size", size);
+
+	    JsonNode aggregation = JsonNode.object();
+	    aggregation.put("terms", terms);
+
+	    JsonNode aggregations = JsonNode.object();
+	    aggregations.put(
+	            aggregationName,
+	            aggregation
+	    );
+
+	    root.put("aggs", aggregations);
+
+	    return root;
+	}
+	
+	
+	/**
+	 * LuceneLocalSearchApiのaggregation結果を、
+	 * OpenSearch互換形式に変換します。
+	 *
+	 * @param aggregationName aggregation名
+	 * @param luceneResponse LuceneLocalSearchApiのレスポンス
+	 * @return OpenSearch互換形式のレスポンス
+	 */
+	private JsonNode toOpenSearchAggregationResponse(
+	        String aggregationName,
+	        JsonNode luceneResponse) {
+
+	    JsonNode rawAggregations =
+	            requireNode(
+	                    luceneResponse,
+	                    "aggregations",
+	                    "Lucene response"
+	            );
+
+	    JsonNode rawAggregation =
+	            requireNode(
+	                    rawAggregations,
+	                    aggregationName,
+	                    "aggregations"
+	            );
+
+	    JsonNode rawBuckets =
+	            requireNode(
+	                    rawAggregation,
+	                    "buckets",
+	                    "aggregation '" + aggregationName + "'"
+	            );
+
+	    JsonNode openSearchBuckets =
+	            JsonNode.array();
+
+	    for (JsonNode rawBucket :
+	            rawBuckets.asList()) {
+
+	        JsonNode rawKey =
+	                requireNode(
+	                        rawBucket,
+	                        "key",
+	                        "aggregation bucket"
+	                );
+
+	        JsonNode rawDocCount =
+	                rawBucket.get("doc_count");
+
+	        /*
+	         * Lucene側で count という名前の場合にも
+	         * 対応できるようにする。
+	         */
+	        if (rawDocCount == null
+	                || rawDocCount.isNull()) {
+	            rawDocCount =
+	                    rawBucket.get("count");
+	        }
+
+	        if (rawDocCount == null
+	                || rawDocCount.isNull()) {
+	            throw new IllegalStateException(
+	                    "Aggregation bucket does not "
+	                    + "contain doc_count or count"
+	            );
+	        }
+
+	        JsonNode bucket = JsonNode.object();
+
+	        /*
+	         * keyを文字列化せず、そのJSON型を維持する。
+	         * keywordでは文字列、将来の数値集計では数値になる。
+	         */
+	        bucket.put("key", rawKey);
+
+	        JsonNode keyAsString =
+	                rawBucket.get("key_as_string");
+
+	        if (keyAsString != null
+	                && !keyAsString.isNull()) {
+	            bucket.put(
+	                    "key_as_string",
+	                    keyAsString
+	            );
+	        }
+
+	        bucket.put(
+	                "doc_count",
+	                (Number) rawDocCount.asLong(0)
+	        );
+
+	        openSearchBuckets.add(bucket);
+	    }
+
+	    JsonNode openSearchAggregation =
+	            JsonNode.object();
+
+	    copyIfPresent(
+	            rawAggregation,
+	            openSearchAggregation,
+	            "doc_count_error_upper_bound"
+	    );
+
+	    copyIfPresent(
+	            rawAggregation,
+	            openSearchAggregation,
+	            "sum_other_doc_count"
+	    );
+
+	    openSearchAggregation.put(
+	            "buckets",
+	            openSearchBuckets
+	    );
+
+	    JsonNode openSearchAggregations =
+	            JsonNode.object();
+
+	    openSearchAggregations.put(
+	            aggregationName,
+	            openSearchAggregation
+	    );
+
+	    JsonNode result = JsonNode.object();
+
+	    result.put(
+	            "aggregations",
+	            openSearchAggregations
+	    );
+
+	    return result;
+	}
+	
+	
+	/**
+	 * @param parent
+	 * @param fieldName
+	 * @param context
+	 * @return
+	 */
+	private JsonNode requireNode(
+	        JsonNode parent,
+	        String fieldName,
+	        String context) {
+
+	    if (parent == null || parent.isNull()) {
+	        throw new IllegalStateException(
+	                context + " is null"
+	        );
+	    }
+
+	    JsonNode value =
+	            parent.get(fieldName);
+
+	    if (value == null || value.isNull()) {
+	        throw new IllegalStateException(
+	                context
+	                + " does not contain '"
+	                + fieldName
+	                + "'"
+	        );
+	    }
+
+	    return value;
+	}
+
+	private void copyIfPresent(
+	        JsonNode source,
+	        JsonNode target,
+	        String fieldName) {
+
+	    JsonNode value = source.get(fieldName);
+
+	    if (value != null && !value.isNull()) {
+	        target.put(fieldName, value);
+	    }
+	}
+
+	private String getRequiredString(
+	        JsonNode object,
+	        String fieldName) {
+
+	    JsonNode value = object.get(fieldName);
+
+	    if (value == null || value.isNull()) {
+	        throw new IllegalArgumentException(
+	                "Required field is missing: "
+	                + fieldName
+	        );
+	    }
+
+	    String result = value.asString(null);
+
+	    if (result == null || result.isBlank()) {
+	        throw new IllegalArgumentException(
+	                "Field must not be empty: "
+	                + fieldName
+	        );
+	    }
+
+	    return result;
+	}
+
+	private String getOptionalString(
+	        JsonNode object,
+	        String fieldName,
+	        String defaultValue) {
+
+	    JsonNode value = object.get(fieldName);
+
+	    if (value == null || value.isNull()) {
+	        return defaultValue;
+	    }
+
+	    return value.asString(defaultValue);
+	}
+
+	private int getOptionalInt(
+	        JsonNode object,
+	        String fieldName,
+	        int defaultValue) {
+
+	    JsonNode value = object.get(fieldName);
+
+	    if (value == null || value.isNull()) {
+	        return defaultValue;
+	    }
+
+	    return value.asInt(defaultValue);
 	}
 
 	@Override

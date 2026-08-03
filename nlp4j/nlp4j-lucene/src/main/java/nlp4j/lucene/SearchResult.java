@@ -10,4 +10,9 @@ public class SearchResult {
 	 * add(id, body) で追加した場合は null。
 	 */
 	public String data;
+
+	@Override
+	public String toString() {
+		return "SearchResult [id=" + id + ", body=" + body + ", score=" + score + ", data=" + data + "]";
+	}
 }
