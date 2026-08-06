@@ -198,17 +198,27 @@ public class LocalSearch implements AutoCloseable {
 	}
 
 	/**
-	 * Adds a document from a JSON string. The JSON must contain "id" and "body"
-	 * fields.
+	 * Adds a document from a JSON string. The JSON must contain "id" and either
+	 * "body" or "text" field. Additional fields are indexed as keyword fields.
+	 * JSON array values are indexed as multi-valued keyword fields.
 	 *
 	 * <p>
 	 * Example JSON format:
 	 * </p>
-	 * 
+	 *
 	 * <pre>
+	 * // body field (traditional)
 	 * {
 	 *   "id": "doc1",
-	 *   "body": "Document text content"
+	 *   "body": "Document text content",
+	 *   "category": "tech"
+	 * }
+	 *
+	 * // text field + array values
+	 * {
+	 *   "id": "doc2",
+	 *   "text": "Document text content",
+	 *   "keywords": ["java", "lucene", "search"]
 	 * }
 	 * </pre>
 	 *
@@ -219,30 +229,47 @@ public class LocalSearch implements AutoCloseable {
 		try {
 			JsonNode json = JsonNode.parse(json_string);
 
-			String id = json.get("id").asString();
-			String body = json.get("body").asString();
+			String id = getRequiredString(json, "id");
+			String body = getDocumentText(json);
 
 			var builder = schema.document()
 					.put("id", id)
 					.put(default_field_name, body)
 					.put("data", json_string);
 
-			// body 以外の JSON フィールドを keyword フィールドとして追加
 			for (String fieldName : json.keys()) {
-				if ("id".equals(fieldName) || "body".equals(fieldName)) {
+				if ("id".equals(fieldName)
+						|| "body".equals(fieldName)
+						|| "text".equals(fieldName)) {
 					continue;
 				}
 
 				JsonNode valueNode = json.get(fieldName);
-				if (valueNode == null) {
+				if (valueNode == null || valueNode.isNull()) {
 					continue;
 				}
 
+				// JSON array: index each element as a separate keyword value
+				if (valueNode.isArray()) {
+					ensureMultiValuedKeywordField(fieldName);
+					for (JsonNode itemNode : valueNode.asList()) {
+						if (itemNode == null || itemNode.isNull()) {
+							continue;
+						}
+						String value = itemNode.asString(null);
+						if (value == null) {
+							continue;
+						}
+						builder.put(fieldName, value);
+					}
+					continue;
+				}
+
+				// Single scalar value
 				String value = valueNode.asString(null);
 				if (value == null) {
 					continue;
 				}
-
 				ensureKeywordField(fieldName);
 				builder.put(fieldName, value);
 			}
@@ -252,6 +279,39 @@ public class LocalSearch implements AutoCloseable {
 		} catch (Throwable th) {
 			throw new LocalSearchException(th.getMessage(), th);
 		}
+	}
+
+	/**
+	 * "body" フィールドを優先し、なければ "text" フィールドを返します。
+	 * どちらも存在しない場合は IllegalArgumentException をスローします。
+	 */
+	private String getDocumentText(JsonNode json) {
+		JsonNode bodyNode = json.get("body");
+		if (bodyNode != null && !bodyNode.isNull()) {
+			String body = bodyNode.asString(null);
+			if (body != null) {
+				return body;
+			}
+		}
+		JsonNode textNode = json.get("text");
+		if (textNode != null && !textNode.isNull()) {
+			String text = textNode.asString(null);
+			if (text != null) {
+				return text;
+			}
+		}
+		throw new IllegalArgumentException("Required field is missing: body or text");
+	}
+
+	/**
+	 * 指定フィールドが未登録の場合、複数値を持つ keyword フィールドとして登録します。
+	 * addJson() でのJSON配列フィールド登録に使用します。
+	 *
+	 * @param fieldName the field name to ensure
+	 */
+	private void ensureMultiValuedKeywordField(String fieldName) {
+		schema.addIfAbsent(fieldName,
+				FieldTypeDef.keyword().stored(true).aggregatable(true).multiValued(true));
 	}
 
 	/**

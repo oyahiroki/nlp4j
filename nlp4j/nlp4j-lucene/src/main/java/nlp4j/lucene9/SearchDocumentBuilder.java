@@ -1,6 +1,8 @@
 package nlp4j.lucene9;
 
-import java.util.LinkedHashMap;
+import java.util.AbstractMap;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.lucene.document.Document;
@@ -9,6 +11,7 @@ import org.apache.lucene.document.KnnFloatVectorField;
 import org.apache.lucene.document.LongPoint;
 import org.apache.lucene.document.NumericDocValuesField;
 import org.apache.lucene.document.SortedDocValuesField;
+import org.apache.lucene.document.SortedSetDocValuesField;
 import org.apache.lucene.document.StoredField;
 import org.apache.lucene.document.StringField;
 import org.apache.lucene.document.TextField;
@@ -26,7 +29,8 @@ import org.apache.lucene.util.BytesRef;
 public class SearchDocumentBuilder {
 
 	private final SearchSchema schema;
-	private final Map<String, Object> values = new LinkedHashMap<>();
+	// List to allow multiple values for the same field name (multi-valued fields)
+	private final List<Map.Entry<String, Object>> values = new ArrayList<>();
 
 	public SearchDocumentBuilder(SearchSchema schema) {
 		if (schema == null) {
@@ -63,14 +67,14 @@ public class SearchDocumentBuilder {
 			throw new IllegalArgumentException("value must not be null: " + fieldName);
 		}
 
-		values.put(fieldName, value);
+		values.add(new AbstractMap.SimpleImmutableEntry<>(fieldName, value));
 		return this;
 	}
 
 	public Document build() {
 		Document doc = new Document();
 
-		for (Map.Entry<String, Object> entry : values.entrySet()) {
+		for (Map.Entry<String, Object> entry : values) {
 			String fieldName = entry.getKey();
 			Object value = entry.getValue();
 			FieldTypeDef def = schema.get(fieldName);
@@ -113,7 +117,13 @@ public class SearchDocumentBuilder {
 
 		// Aggregation / sort
 		if (def.is_aggregatable() || def.is_sortable()) {
-			doc.add(new SortedDocValuesField(fieldName, new BytesRef(text)));
+			if (def.is_multiValued()) {
+				// Multi-valued: SortedSetDocValuesField allows multiple values per field per document
+				doc.add(new SortedSetDocValuesField(fieldName, new BytesRef(text)));
+			} else {
+				// Single-valued: SortedDocValuesField
+				doc.add(new SortedDocValuesField(fieldName, new BytesRef(text)));
+			}
 		}
 	}
 

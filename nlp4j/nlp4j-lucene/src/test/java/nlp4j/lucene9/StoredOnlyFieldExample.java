@@ -128,4 +128,4 @@ public class StoredOnlyFieldExample {
 	}
 }
 
-// Made with Bob
+

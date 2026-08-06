@@ -991,4 +991,436 @@ public class LocalSearchTestCase extends TestCase {
 		}
 	}
 
+	/**
+	 * addJson() で JSON 配列フィールド（keywords）を登録し、
+	 * aggregateJson() で各キーワードの doc_count が正しく集計されることを確認する。
+	 *
+	 * <p>期待結果:</p>
+	 * <pre>
+	 * keywords の集計:
+	 *   "これ"   → 2件 (id001, id002)
+	 *   "テスト" → 2件 (id001, id002)
+	 *   "Java"   → 1件 (id003)
+	 *   "だ"     → 1件 (id001)
+	 *   "は"     → 1件 (id001)
+	 *   "サンプル" → 1件 (id003)
+	 *   "別"     → 1件 (id002)
+	 * </pre>
+	 */
+	public void testAddJsonArray001() throws Exception {
+		try (LocalSearch search = new LocalSearch("ja")) {
+			search.addJson("""
+					{
+					  "id": "id001",
+					  "text": "これはテキストです",
+					  "keywords": ["これ", "は", "テスト", "だ"]
+					}
+					""");
+			search.addJson("""
+					{
+					  "id": "id002",
+					  "text": "これは別のテストです",
+					  "keywords": ["これ", "テスト", "別"]
+					}
+					""");
+			search.addJson("""
+					{
+					  "id": "id003",
+					  "text": "Javaのサンプルです",
+					  "keywords": ["Java", "サンプル"]
+					}
+					""");
+			search.commit();
+
+			String json = search.aggregateJson("""
+					{
+					  "name": "keyword_counts",
+					  "field": "keywords",
+					  "size": 100
+					}
+					""");
+
+			System.out.println("testAddJsonArray001: " + json);
+
+			nlp4j.json.JsonNode result = nlp4j.json.JsonNode.parse(json);
+			nlp4j.json.JsonNode buckets = result.get("aggregations").get("keyword_counts").get("buckets");
+
+			// 7種類のキーワードが集計されること
+			assertEquals(7, buckets.size());
+
+			// "これ" と "テスト" が doc_count=2 であること
+			boolean foundKore = false;
+			boolean foundTest = false;
+			for (nlp4j.json.JsonNode bucket : buckets.asList()) {
+				String key = bucket.get("key").asString();
+				int count = bucket.get("doc_count").asInt();
+				if ("これ".equals(key)) {
+					assertEquals(2, count);
+					foundKore = true;
+				}
+				if ("テスト".equals(key)) {
+					assertEquals(2, count);
+					foundTest = true;
+				}
+			}
+			assertTrue("'これ' bucket not found", foundKore);
+			assertTrue("'テスト' bucket not found", foundTest);
+		}
+	}
+
+	/**
+	 * addJson() で "text" フィールドが "body" の代替として動作することを確認する。
+	 * 全文検索で text フィールドの内容がヒットすること。
+	 */
+	public void testAddJsonTextField001() throws Exception {
+		try (LocalSearch search = new LocalSearch("ja")) {
+			search.addJson("""
+					{
+					  "id": "1",
+					  "text": "東京の観光スポット",
+					  "category": "観光"
+					}
+					""");
+			search.addJson("""
+					{
+					  "id": "2",
+					  "body": "京都の寺院",
+					  "category": "観光"
+					}
+					""");
+			search.commit();
+
+			// "text" で登録した id=1 も全文検索でヒットすること
+			SearchResult[] results = search.search("東京", 10);
+			assertEquals(1, results.length);
+			assertEquals("1", results[0].id);
+
+			// category フィールド検索は両方ヒット
+			SearchResult[] byCategory = search.search("category", "観光", 10);
+			assertEquals(2, byCategory.length);
+		}
+	}
+
+
+	// =========================================================
+	// MultiValued Field - Aggregation テスト
+	// =========================================================
+
+	/**
+	 * addJson() で JSON 配列フィールド（tags）を MultiValued keyword として登録し、
+	 * aggregateJson() で各タグの doc_count が正しく集計されることを確認する。
+	 *
+	 * <pre>
+	 * ドキュメント:
+	 *   id=1  tags=["city","tourism","Japan"]
+	 *   id=2  tags=["company","Japan"]
+	 *   id=3  tags=["city","capital","Japan"]
+	 *   id=4  tags=["city","tourism","France"]
+	 *   id=5  tags=["company","Japan"]
+	 *
+	 * 期待結果（件数降順）:
+	 *   Japan   = 4
+	 *   city    = 3
+	 *   company = 2
+	 *   tourism = 2
+	 *   capital = 1
+	 *   France  = 1
+	 * </pre>
+	 */
+	public void testMultiValuedAggregation001() throws Exception {
+		try (LocalSearch search = new LocalSearch("en")) {
+			search.addJson("""
+					{"id":"1","body":"Kyoto is a historic city.","tags":["city","tourism","Japan"]}
+					""");
+			search.addJson("""
+					{"id":"2","body":"Nintendo is headquartered in Kyoto.","tags":["company","Japan"]}
+					""");
+			search.addJson("""
+					{"id":"3","body":"Tokyo is the capital city of Japan.","tags":["city","capital","Japan"]}
+					""");
+			search.addJson("""
+					{"id":"4","body":"Paris is a beautiful city in France.","tags":["city","tourism","France"]}
+					""");
+			search.addJson("""
+					{"id":"5","body":"Sony is a Japanese company based in Tokyo.","tags":["company","Japan"]}
+					""");
+			search.commit();
+
+			String json = search.aggregateJson("""
+					{"name":"tags","field":"tags","size":10}
+					""");
+			System.out.println("testMultiValuedAggregation001: " + json);
+
+			nlp4j.json.JsonNode result = nlp4j.json.JsonNode.parse(json);
+			nlp4j.json.JsonNode buckets = result.get("aggregations").get("tags").get("buckets");
+
+			// 6 種類のタグが集計されること
+			assertEquals(6, buckets.size());
+
+			// 先頭バケット: Japan = 4
+			assertEquals("Japan", buckets.get(0).get("key").asString());
+			assertEquals(4, buckets.get(0).get("doc_count").asInt());
+
+			// 2番目: city = 3
+			assertEquals("city", buckets.get(1).get("key").asString());
+			assertEquals(3, buckets.get(1).get("doc_count").asInt());
+		}
+	}
+
+	/**
+	 * aggregateJson() で全文検索クエリで絞り込んだ上での MultiValued フィールド集計が
+	 * 正しく動作することを確認する。
+	 *
+	 * <pre>
+	 * query="Kyoto" → id=1（tags=city,tourism,Japan）, id=2（tags=company,Japan）
+	 * 期待結果:
+	 *   Japan   = 2
+	 *   city    = 1
+	 *   tourism = 1
+	 *   company = 1
+	 * </pre>
+	 */
+	public void testMultiValuedAggregation002() throws Exception {
+		try (LocalSearch search = new LocalSearch("en")) {
+			search.addJson("""
+					{"id":"1","body":"Kyoto is a historic city.","tags":["city","tourism","Japan"]}
+					""");
+			search.addJson("""
+					{"id":"2","body":"Nintendo is headquartered in Kyoto.","tags":["company","Japan"]}
+					""");
+			search.addJson("""
+					{"id":"3","body":"Tokyo is the capital city of Japan.","tags":["city","capital","Japan"]}
+					""");
+			search.commit();
+
+			String json = search.aggregateJson("""
+					{"name":"tags","field":"tags","query":"Kyoto","size":10}
+					""");
+			System.out.println("testMultiValuedAggregation002: " + json);
+
+			nlp4j.json.JsonNode result = nlp4j.json.JsonNode.parse(json);
+			nlp4j.json.JsonNode buckets = result.get("aggregations").get("tags").get("buckets");
+
+			// Kyoto を含む id=1, id=2 のタグ: Japan=2, city=1, tourism=1, company=1 → 4 バケット
+			assertEquals(4, buckets.size());
+
+			// Japan が最多 (2件)
+			assertEquals("Japan", buckets.get(0).get("key").asString());
+			assertEquals(2, buckets.get(0).get("doc_count").asInt());
+		}
+	}
+
+	/**
+	 * aggregateJson() で size パラメータが MultiValued フィールドの集計にも適用されることを確認する。
+	 * size=3 で上位 3 バケットのみ返ること。
+	 */
+	public void testMultiValuedAggregation003() throws Exception {
+		try (LocalSearch search = new LocalSearch("en")) {
+			search.addJson("""
+					{"id":"1","body":"Kyoto is a historic city.","tags":["city","tourism","Japan"]}
+					""");
+			search.addJson("""
+					{"id":"2","body":"Nintendo is headquartered in Kyoto.","tags":["company","Japan"]}
+					""");
+			search.addJson("""
+					{"id":"3","body":"Tokyo is the capital city of Japan.","tags":["city","capital","Japan"]}
+					""");
+			search.addJson("""
+					{"id":"4","body":"Paris is a beautiful city in France.","tags":["city","tourism","France"]}
+					""");
+			search.addJson("""
+					{"id":"5","body":"Sony is a Japanese company based in Tokyo.","tags":["company","Japan"]}
+					""");
+			search.commit();
+
+			// size=3 → 上位 3 バケット（Japan=4, city=3, tourism=2 or company=2）のみ
+			String json = search.aggregateJson("""
+					{"name":"tags","field":"tags","size":3}
+					""");
+			System.out.println("testMultiValuedAggregation003: " + json);
+
+			nlp4j.json.JsonNode result = nlp4j.json.JsonNode.parse(json);
+			nlp4j.json.JsonNode buckets = result.get("aggregations").get("tags").get("buckets");
+
+			assertEquals(3, buckets.size());
+			// 先頭は Japan=4
+			assertEquals("Japan", buckets.get(0).get("key").asString());
+			assertEquals(4, buckets.get(0).get("doc_count").asInt());
+		}
+	}
+
+	// =========================================================
+	// MultiValued Field - Filter テスト
+	// =========================================================
+
+	/**
+	 * addJson() で JSON 配列フィールド（tags）を登録し、
+	 * search(field, value, limit) で MultiValued フィールドの単一値フィルターが
+	 * 正しく動作することを確認する。
+	 *
+	 * <pre>
+	 * tags="Japan" → id=1,2,3,5 の 4件（id=4 は France のみ）
+	 * tags="city"  → id=1,3,4 の 3件
+	 * </pre>
+	 */
+	public void testMultiValuedFilter001() throws Exception {
+		try (LocalSearch search = new LocalSearch("en")) {
+			search.addJson("""
+					{"id":"1","body":"Kyoto is a historic city.","tags":["city","tourism","Japan"]}
+					""");
+			search.addJson("""
+					{"id":"2","body":"Nintendo is headquartered in Kyoto.","tags":["company","Japan"]}
+					""");
+			search.addJson("""
+					{"id":"3","body":"Tokyo is the capital city of Japan.","tags":["city","capital","Japan"]}
+					""");
+			search.addJson("""
+					{"id":"4","body":"Paris is a beautiful city in France.","tags":["city","tourism","France"]}
+					""");
+			search.addJson("""
+					{"id":"5","body":"Sony is a Japanese company based in Tokyo.","tags":["company","Japan"]}
+					""");
+			search.commit();
+
+			// tags="Japan" → 4件
+			SearchResult[] byJapan = search.search("tags", "Japan", 10);
+			System.out.println("testMultiValuedFilter001 tags=Japan size: " + byJapan.length);
+			assertEquals(4, byJapan.length);
+
+			// tags="city" → 3件
+			SearchResult[] byCity = search.search("tags", "city", 10);
+			System.out.println("testMultiValuedFilter001 tags=city size: " + byCity.length);
+			assertEquals(3, byCity.length);
+
+			// tags="tourism" → 2件
+			SearchResult[] byTourism = search.search("tags", "tourism", 10);
+			System.out.println("testMultiValuedFilter001 tags=tourism size: " + byTourism.length);
+			assertEquals(2, byTourism.length);
+
+			// tags="capital" → 1件
+			SearchResult[] byCapital = search.search("tags", "capital", 10);
+			System.out.println("testMultiValuedFilter001 tags=capital size: " + byCapital.length);
+			assertEquals(1, byCapital.length);
+			assertEquals("3", byCapital[0].id);
+
+			// tags="sports"（存在しない値）→ 0件
+			SearchResult[] byNone = search.search("tags", "sports", 10);
+			assertEquals(0, byNone.length);
+		}
+	}
+
+	/**
+	 * search(query, limit, filters) で全文検索と MultiValued フィールドフィルターの
+	 * 組み合わせが正しく動作することを確認する。
+	 *
+	 * <pre>
+	 * "Kyoto" + tags="Japan" → id=1,2 の 2件
+	 * "Japan" + tags="city" → id=3 の 1件（Japan を含む body で tags に city を持つ）
+	 * "Tokyo" + tags="company" → id=5 の 1件
+	 * </pre>
+	 */
+	public void testMultiValuedFilter002() throws Exception {
+		try (LocalSearch search = new LocalSearch("en")) {
+			search.addJson("""
+					{"id":"1","body":"Kyoto is a historic city.","tags":["city","tourism","Japan"]}
+					""");
+			search.addJson("""
+					{"id":"2","body":"Nintendo is headquartered in Kyoto.","tags":["company","Japan"]}
+					""");
+			search.addJson("""
+					{"id":"3","body":"Tokyo is the capital city of Japan.","tags":["city","capital","Japan"]}
+					""");
+			search.addJson("""
+					{"id":"4","body":"Paris is a beautiful city in France.","tags":["city","tourism","France"]}
+					""");
+			search.addJson("""
+					{"id":"5","body":"Sony is a Japanese company based in Tokyo.","tags":["company","Japan"]}
+					""");
+			search.commit();
+
+			// "Kyoto" + tags="Japan" → id=1, id=2 の 2件
+			SearchResult[] r1 = search.search("Kyoto", 10, java.util.Map.of("tags", "Japan"));
+			System.out.println("testMultiValuedFilter002 Kyoto+Japan size: " + r1.length);
+			assertEquals(2, r1.length);
+
+			// "Tokyo" + tags="company" → id=5 の 1件
+			// （id=3 は Tokyo を含むが tags に company がない）
+			SearchResult[] r2 = search.search("Tokyo", 10, java.util.Map.of("tags", "company"));
+			System.out.println("testMultiValuedFilter002 Tokyo+company size: " + r2.length);
+			assertEquals(1, r2.length);
+			assertEquals("5", r2[0].id);
+
+			// "city" + tags="France" → id=4 の 1件
+			SearchResult[] r3 = search.search("city", 10, java.util.Map.of("tags", "France"));
+			System.out.println("testMultiValuedFilter002 city+France size: " + r3.length);
+			assertEquals(1, r3.length);
+			assertEquals("4", r3[0].id);
+		}
+	}
+
+	/**
+	 * searchResponseJson() で bool/filter に複数 term を指定することで、
+	 * MultiValued フィールドの値を AND 条件で絞り込めることを確認する。
+	 *
+	 * <pre>
+	 * tags="Japan" AND tags="city"    → id=1,3 の 2件
+	 * tags="Japan" AND tags="tourism" → id=1 の 1件（id=4 は tourism だが France）
+	 * tags="Japan" AND tags="capital" → id=3 の 1件
+	 * </pre>
+	 */
+	public void testMultiValuedFilter003() throws Exception {
+		try (LocalSearch search = new LocalSearch("en")) {
+			search.addJson("""
+					{"id":"1","body":"Kyoto is a historic city.","tags":["city","tourism","Japan"]}
+					""");
+			search.addJson("""
+					{"id":"2","body":"Nintendo is headquartered in Kyoto.","tags":["company","Japan"]}
+					""");
+			search.addJson("""
+					{"id":"3","body":"Tokyo is the capital city of Japan.","tags":["city","capital","Japan"]}
+					""");
+			search.addJson("""
+					{"id":"4","body":"Paris is a beautiful city in France.","tags":["city","tourism","France"]}
+					""");
+			search.addJson("""
+					{"id":"5","body":"Sony is a Japanese company based in Tokyo.","tags":["company","Japan"]}
+					""");
+			search.commit();
+
+			// tags="Japan" AND tags="city" → id=1, id=3 の 2件
+			String resp1 = search.searchResponseJson(
+					"{\"size\":10,\"query\":{\"bool\":{\"filter\":["
+					+ "{\"term\":{\"tags\":\"Japan\"}},"
+					+ "{\"term\":{\"tags\":\"city\"}}"
+					+ "]}}}");
+			System.out.println("testMultiValuedFilter003 Japan+city: " + resp1);
+			nlp4j.json.JsonNode r1 = nlp4j.json.JsonNode.parse(resp1);
+			assertEquals(2, r1.get("hits").get("hits").size());
+
+			// tags="Japan" AND tags="tourism" → id=1 の 1件
+			// （id=4 は tourism を持つが Japan を持たない）
+			String resp2 = search.searchResponseJson(
+					"{\"size\":10,\"query\":{\"bool\":{\"filter\":["
+					+ "{\"term\":{\"tags\":\"Japan\"}},"
+					+ "{\"term\":{\"tags\":\"tourism\"}}"
+					+ "]}}}");
+			System.out.println("testMultiValuedFilter003 Japan+tourism: " + resp2);
+			nlp4j.json.JsonNode r2 = nlp4j.json.JsonNode.parse(resp2);
+			assertEquals(1, r2.get("hits").get("hits").size());
+			assertEquals("1", r2.get("hits").get("hits").get(0).get("_source").get("id").asString());
+
+			// tags="Japan" AND tags="capital" → id=3 の 1件
+			String resp3 = search.searchResponseJson(
+					"{\"size\":10,\"query\":{\"bool\":{\"filter\":["
+					+ "{\"term\":{\"tags\":\"Japan\"}},"
+					+ "{\"term\":{\"tags\":\"capital\"}}"
+					+ "]}}}");
+			System.out.println("testMultiValuedFilter003 Japan+capital: " + resp3);
+			nlp4j.json.JsonNode r3 = nlp4j.json.JsonNode.parse(resp3);
+			assertEquals(1, r3.get("hits").get("hits").size());
+			assertEquals("3", r3.get("hits").get("hits").get(0).get("_source").get("id").asString());
+		}
+	}
+
+
 }

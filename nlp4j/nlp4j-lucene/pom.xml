@@ -12,9 +12,11 @@
 	<!-- JAR -->
 	<packaging>jar</packaging>
 	<name>nlp4j-lucene</name>
-	<!-- 2026-07-30 1.0.0.0 https://central.sonatype.com/artifact/org.nlp4j/nlp4j-lucene/1.0.0.0 -->
-	<!-- 2026-08-03 1.1.0.0 field search and aggregation https://central.sonatype.com/artifact/org.nlp4j/nlp4j-lucene/1.1.0.0 https://repo1.maven.org/maven2/org/nlp4j/nlp4j-lucene/1.1.0.0/ -->
-	<version>1.1.0.0</version>
+	<!-- https://central.sonatype.com/artifact/org.nlp4j/nlp4j-lucene/ -->
+	<!-- 2026-07-30 1.0.0.0 Keyword Search -->
+	<!-- 2026-08-03 1.1.0.0 Field search and aggregation -->
+	<!-- 2026-08-06 1.4.0.0 Multi valued field search and aggregation -->
+	<version>1.4.0.0</version>
 	<description>NLP4J for Apache Lucene</description>
 	<url>https://nlp4j.org/</url>
 	<licenses>

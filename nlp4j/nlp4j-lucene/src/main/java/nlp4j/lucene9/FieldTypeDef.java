@@ -21,6 +21,7 @@ public class FieldTypeDef {
 	private boolean aggregatable;
 	private boolean sortable;
 	private boolean range;
+	private boolean multiValued;
 
 	private int dimension = -1;
 	private VectorSimilarityFunction vectorSimilarityFunction = VectorSimilarityFunction.COSINE;
@@ -101,6 +102,15 @@ public class FieldTypeDef {
 		return this;
 	}
 
+	public FieldTypeDef multiValued() {
+		return multiValued(true);
+	}
+
+	public FieldTypeDef multiValued(boolean multiValued) {
+		this.multiValued = multiValued;
+		return this;
+	}
+
 	public FieldTypeDef similarity(VectorSimilarityFunction vectorSimilarityFunction) {
 		if (vectorSimilarityFunction == null) {
 			throw new IllegalArgumentException("vectorSimilarityFunction must not be null");
@@ -127,6 +137,10 @@ public class FieldTypeDef {
 
 	public boolean is_range() {
 		return range;
+	}
+
+	public boolean is_multiValued() {
+		return multiValued;
 	}
 
 	public int get_dimension() {

@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 
 import org.apache.lucene.index.LeafReaderContext;
 import org.apache.lucene.index.SortedDocValues;
+import org.apache.lucene.index.SortedSetDocValues;
 import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.Query;
 import org.apache.lucene.search.ScoreMode;
@@ -19,6 +20,8 @@ import nlp4j.json.JsonNode;
 /**
  * Aggregation for counting term occurrences in a field. Similar to OpenSearch's
  * terms aggregation, returns the top N terms by document count.
+ * Supports both single-valued (SortedDocValues) and multi-valued
+ * (SortedSetDocValues) fields.
  */
 public class TermsAggregation {
 
@@ -92,12 +95,15 @@ public class TermsAggregation {
 
 	/**
 	 * Collector for gathering term counts from matching documents.
+	 * Automatically detects whether the field uses SortedDocValues (single-valued)
+	 * or SortedSetDocValues (multi-valued) and handles both.
 	 */
 	private static class TermsCollector extends SimpleCollector {
 
 		private final String field;
 		private final Map<String, Long> counts = new HashMap<>();
-		private SortedDocValues docValues;
+		private SortedDocValues sortedDocValues;
+		private SortedSetDocValues sortedSetDocValues;
 
 		/**
 		 * Constructs a new TermsCollector.
@@ -110,26 +116,45 @@ public class TermsAggregation {
 
 		/**
 		 * Collects term data from a document.
+		 * Handles both single-valued and multi-valued fields.
 		 *
 		 * @param doc the document ID
 		 * @throws IOException if an I/O error occurs
 		 */
 		@Override
 		public void collect(int doc) throws IOException {
-			if (docValues.advanceExact(doc)) {
-				BytesRef term = docValues.lookupOrd(docValues.ordValue());
-				String termString = term.utf8ToString();
-				counts.merge(termString, 1L, Long::sum);
+			if (sortedSetDocValues != null) {
+				// Multi-valued: iterate over all values for this document
+				if (sortedSetDocValues.advanceExact(doc)) {
+					long ord;
+					while ((ord = sortedSetDocValues.nextOrd()) != SortedSetDocValues.NO_MORE_ORDS) {
+						BytesRef term = sortedSetDocValues.lookupOrd(ord);
+						counts.merge(term.utf8ToString(), 1L, Long::sum);
+					}
+				}
+			} else if (sortedDocValues != null) {
+				// Single-valued
+				if (sortedDocValues.advanceExact(doc)) {
+					BytesRef term = sortedDocValues.lookupOrd(sortedDocValues.ordValue());
+					counts.merge(term.utf8ToString(), 1L, Long::sum);
+				}
 			}
 		}
 
 		@Override
 		protected void doSetNextReader(LeafReaderContext context) throws IOException {
-			docValues = context.reader().getSortedDocValues(field);
+			// Try SortedSetDocValues first (multi-valued), then fall back to SortedDocValues
+			sortedSetDocValues = context.reader().getSortedSetDocValues(field);
+			if (sortedSetDocValues != null) {
+				sortedDocValues = null;
+				return;
+			}
 
-			if (docValues == null) {
-				throw new IllegalArgumentException("Field [" + field + "] does not have SortedSetDocValues. "
-						+ "Please add SortedSetDocValuesField when indexing.");
+			sortedDocValues = context.reader().getSortedDocValues(field);
+			if (sortedDocValues == null) {
+				throw new IllegalArgumentException(
+						"Field [" + field + "] does not have SortedDocValues or SortedSetDocValues. "
+						+ "Please add SortedDocValuesField or SortedSetDocValuesField when indexing.");
 			}
 		}
 
