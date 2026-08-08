@@ -3,10 +3,14 @@ package nlp4j.lucene;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.List;
+import java.util.Locale;
 
 import org.apache.lucene.document.Document;
 
+import nlp4j.impl.DefaultDocument;
 import nlp4j.json.JsonNode;
+import nlp4j.krmj.annotator.KuromojiAnnotator;
 import nlp4j.lucene9.FieldTypeDef;
 import nlp4j.lucene9.LuceneIndex;
 import nlp4j.lucene9.LuceneLocalSearchApi;
@@ -181,17 +185,48 @@ public class LocalSearch implements AutoCloseable {
 	/**
 	 * Adds a document to the search index.
 	 *
+	 * <p>language が "ja" の場合は KuromojiAnnotator による形態素解析を自動実行し、
+	 * word.* フィールドに原形（見出し語）を登録します。</p>
+	 *
 	 * @param id   the unique identifier for the document
 	 * @param body the text content to be indexed
 	 * @throws LocalSearchException if adding the document fails
 	 */
 	public void add(String id, String body) {
-		Document doc1 = schema.document() //
-				.put("id", id) //
-				.put(default_field_name, body) //
-				.build();
+		SearchRecord record = new SearchRecord(id, body);
+		add(record);
+	}
+
+	/**
+	 * SearchRecord をそのまま登録します。
+	 *
+	 * <p>language が "ja" の場合は KuromojiAnnotator による形態素解析を自動実行し、
+	 * word.* フィールドに原形（見出し語）を登録します。</p>
+	 *
+	 * @param record 登録するドキュメントレコード
+	 * @throws LocalSearchException if adding the document fails
+	 */
+	public void add(SearchRecord record) {
 		try {
-			this.index.add(doc1);
+			enrich(record);
+
+			var builder = schema.document()
+					.put("id", record.getId())
+					.put(default_field_name, record.getBody());
+
+			// word.* フィールドへキーワードを登録
+			for (SearchKeyword kw : record.getKeywords()) {
+				builder.put(kw.getPos(), kw.getLex());
+			}
+
+			// 追加フィールドを登録
+			for (String fieldName : record.dataKeys()) {
+				for (String value : record.getDataValues(fieldName)) {
+					builder.put(fieldName, value);
+				}
+			}
+
+			this.index.add(builder.build());
 		} catch (IOException e) {
 			throw new LocalSearchException(e.getMessage(), e);
 		}
@@ -232,11 +267,9 @@ public class LocalSearch implements AutoCloseable {
 			String id = getRequiredString(json, "id");
 			String body = getDocumentText(json);
 
-			var builder = schema.document()
-					.put("id", id)
-					.put(default_field_name, body)
-					.put("data", json_string);
+			SearchRecord record = new SearchRecord(id, body);
 
+			// JSON の追加フィールドを SearchRecord に転写
 			for (String fieldName : json.keys()) {
 				if ("id".equals(fieldName)
 						|| "body".equals(fieldName)
@@ -249,29 +282,47 @@ public class LocalSearch implements AutoCloseable {
 					continue;
 				}
 
-				// JSON array: index each element as a separate keyword value
 				if (valueNode.isArray()) {
-					ensureMultiValuedKeywordField(fieldName);
 					for (JsonNode itemNode : valueNode.asList()) {
 						if (itemNode == null || itemNode.isNull()) {
 							continue;
 						}
 						String value = itemNode.asString(null);
-						if (value == null) {
-							continue;
+						if (value != null) {
+							record.addData(fieldName, value);
 						}
-						builder.put(fieldName, value);
 					}
-					continue;
+				} else {
+					String value = valueNode.asString(null);
+					if (value != null) {
+						record.addData(fieldName, value);
+					}
 				}
+			}
 
-				// Single scalar value
-				String value = valueNode.asString(null);
-				if (value == null) {
-					continue;
+			enrich(record);
+
+			var builder = schema.document()
+					.put("id", record.getId())
+					.put(default_field_name, record.getBody())
+					.put("data", json_string);
+
+			// word.* フィールドへキーワードを登録
+			for (SearchKeyword kw : record.getKeywords()) {
+				builder.put(kw.getPos(), kw.getLex());
+			}
+
+			// 追加フィールドを登録
+			for (String fieldName : record.dataKeys()) {
+				List<String> values = record.getDataValues(fieldName);
+				if (values.size() > 1) {
+					ensureMultiValuedKeywordField(fieldName);
+				} else {
+					ensureKeywordField(fieldName);
 				}
-				ensureKeywordField(fieldName);
-				builder.put(fieldName, value);
+				for (String value : values) {
+					builder.put(fieldName, value);
+				}
 			}
 
 			this.index.add(builder.build());
@@ -366,11 +417,107 @@ public class LocalSearch implements AutoCloseable {
 		schema.add("text_ja", FieldTypeDef.text().stored(true));
 		schema.add("data", FieldTypeDef.storedOnly());
 
+		// 形態素解析結果の word.* フィールド（multiValued keyword）
+		schema.add("word",      FieldTypeDef.keyword().stored(true).aggregatable(true).multiValued(true));
+		schema.add("word.noun", FieldTypeDef.keyword().stored(true).aggregatable(true).multiValued(true));
+		schema.add("word.verb", FieldTypeDef.keyword().stored(true).aggregatable(true).multiValued(true));
+		schema.add("word.adj",  FieldTypeDef.keyword().stored(true).aggregatable(true).multiValued(true));
+		schema.add("word.adp",  FieldTypeDef.keyword().stored(true).aggregatable(true).multiValued(true));
+		schema.add("word.aux",  FieldTypeDef.keyword().stored(true).aggregatable(true).multiValued(true));
+		schema.add("word.sym",  FieldTypeDef.keyword().stored(true).aggregatable(true).multiValued(true));
+		schema.add("word.propn",FieldTypeDef.keyword().stored(true).aggregatable(true).multiValued(true));
+		schema.add("word.num",  FieldTypeDef.keyword().stored(true).aggregatable(true).multiValued(true));
+
 		if (vectorDimension > 0) {
 			schema.add("vector", FieldTypeDef.knnVector(vectorDimension));
 		}
 
 		return schema;
+	}
+
+	/**
+	 * SearchRecord に形態素解析結果を付与します（エンリッチ処理）。
+	 *
+	 * <p>language が "ja" の場合のみ KuromojiAnnotator を実行します。
+	 * word.* フィールドへ登録するのは NOUN / PROPN / VERB / ADJ のみ（テキストマイニング向け）。
+	 * 全品詞は word.{pos} フィールドにも登録します。</p>
+	 *
+	 * @param record エンリッチ対象のレコード
+	 */
+	private void enrich(SearchRecord record) {
+		if (!"ja".equals(this.language)) {
+			return;
+		}
+		if (record.getBody() == null || record.getBody().isEmpty()) {
+			return;
+		}
+		try {
+			nlp4j.Document doc = new DefaultDocument();
+			doc.setText(record.getBody());
+
+			KuromojiAnnotator annotator = new KuromojiAnnotator();
+			annotator.setProperty("target", "text");
+			annotator.annotate(doc);
+
+			// 重複登録を防ぐために登録済みの (pos, lex) ペアを管理
+			java.util.Set<String> registered = new java.util.HashSet<>();
+
+			for (nlp4j.Keyword kw : doc.getKeywords()) {
+				String upos = kw.getUPos();
+				String lex = kw.getLex();
+				String str = kw.getStr();
+				int begin = kw.getBegin();
+				int end = kw.getEnd();
+
+				if (upos == null || lex == null) {
+					continue;
+				}
+
+				// word.{pos} フィールドへ全品詞を登録
+				String wordField = toWordField(upos);
+				String wordKey = wordField + "\t" + lex;
+				if (registered.add(wordKey)) {
+					record.addKeyword(wordField, lex, str, begin, end);
+				}
+
+				// word フィールドへは NOUN / PROPN / VERB / ADJ のみ登録
+				if (isContentWord(upos)) {
+					String mainKey = "word\t" + lex;
+					if (registered.add(mainKey)) {
+						record.addKeyword("word", lex, str, begin, end);
+					}
+				}
+			}
+		} catch (Exception e) {
+			throw new LocalSearchException("形態素解析に失敗しました: " + e.getMessage(), e);
+		}
+	}
+
+	/**
+	 * UPOS タグ名を word.* フィールド名に変換します。
+	 *
+	 * <p>例: "NOUN" → "word.noun"</p>
+	 *
+	 * @param upos KuromojiAnnotator が返す UPOS 文字列
+	 * @return word.* フィールド名
+	 */
+	private String toWordField(String upos) {
+		return "word." + upos.toLowerCase(Locale.ROOT);
+	}
+
+	/**
+	 * テキストマイニング向けの主要品詞（内容語）かどうかを判定します。
+	 *
+	 * <p>NOUN / PROPN / VERB / ADJ を内容語として扱います。</p>
+	 *
+	 * @param upos UPOS 文字列
+	 * @return 内容語なら true
+	 */
+	private boolean isContentWord(String upos) {
+		return "NOUN".equals(upos)
+				|| "PROPN".equals(upos)
+				|| "VERB".equals(upos)
+				|| "ADJ".equals(upos);
 	}
 
 	/**

@@ -1422,5 +1422,257 @@ public class LocalSearchTestCase extends TestCase {
 		}
 	}
 
+	// =========================================================
+	// 形態素解析（Kuromoji）- word.* フィールドテスト
+	// =========================================================
+
+	/**
+		* add(id, body) で日本語テキストを登録すると、KuromojiAnnotator が自動実行され
+		* word.verb フィールドに動詞の原形が登録されることを確認する。
+		*
+		* <pre>
+		* 入力: "私は歩いて学校に行きました。"
+		* 期待:
+		*   word.verb = ["歩く", "行く"]   （活用形 → 原形に変換済み）
+		*   word.noun = ["私", "学校"]
+		*   word      = ["私", "学校", "歩く", "行く"]
+		* </pre>
+		*/
+	public void testMorphologicalAnalysis001() throws Exception {
+		try (LocalSearch search = new LocalSearch("ja")) {
+			search.add("1", "私は歩いて学校に行きました。");
+			search.commit();
+
+			// word.verb = ["歩く", "行く"] の 2 件が集計されること
+			String verbJson = search.aggregateJson("""
+					{"field":"word.verb","size":10}
+					""");
+			System.out.println("testMorphologicalAnalysis001 word.verb: " + verbJson);
+
+			nlp4j.json.JsonNode verbResult = nlp4j.json.JsonNode.parse(verbJson);
+			nlp4j.json.JsonNode verbBuckets = verbResult.get("aggregations").get("values").get("buckets");
+
+			assertEquals(2, verbBuckets.size());
+
+			boolean foundAruku = false;
+			boolean foundIku = false;
+			for (nlp4j.json.JsonNode bucket : verbBuckets.asList()) {
+				String key = bucket.get("key").asString();
+				if ("歩く".equals(key)) {
+					foundAruku = true;
+					assertEquals(1, bucket.get("doc_count").asInt());
+				}
+				if ("行く".equals(key)) {
+					foundIku = true;
+					assertEquals(1, bucket.get("doc_count").asInt());
+				}
+			}
+			assertTrue("'歩く' not found in word.verb", foundAruku);
+			assertTrue("'行く' not found in word.verb", foundIku);
+
+			// word.noun = ["私", "学校"] の 2 件が集計されること
+			String nounJson = search.aggregateJson("""
+					{"field":"word.noun","size":10}
+					""");
+			System.out.println("testMorphologicalAnalysis001 word.noun: " + nounJson);
+
+			nlp4j.json.JsonNode nounResult = nlp4j.json.JsonNode.parse(nounJson);
+			nlp4j.json.JsonNode nounBuckets = nounResult.get("aggregations").get("values").get("buckets");
+
+			assertEquals(2, nounBuckets.size());
+
+			boolean foundWatashi = false;
+			boolean foundGakkou = false;
+			for (nlp4j.json.JsonNode bucket : nounBuckets.asList()) {
+				String key = bucket.get("key").asString();
+				if ("私".equals(key)) foundWatashi = true;
+				if ("学校".equals(key)) foundGakkou = true;
+			}
+			assertTrue("'私' not found in word.noun", foundWatashi);
+			assertTrue("'学校' not found in word.noun", foundGakkou);
+		}
+	}
+
+	/**
+		* 同一文書に同じ語が複数回出た場合でも、aggregation の doc_count は文書数（1）であることを確認する。
+		*
+		* <pre>
+		* 入力: "東京は東京の都市です。"  → "東京" が 2回出現
+		* 期待: word.noun.東京.doc_count = 1  （文書数）
+		* </pre>
+		*/
+	public void testMorphologicalAnalysis002() throws Exception {
+		try (LocalSearch search = new LocalSearch("ja")) {
+			search.add("1", "東京は東京の都市です。");
+			search.commit();
+
+			String json = search.aggregateJson("""
+					{"field":"word.noun","size":10}
+					""");
+			System.out.println("testMorphologicalAnalysis002 word.noun: " + json);
+
+			nlp4j.json.JsonNode result = nlp4j.json.JsonNode.parse(json);
+			nlp4j.json.JsonNode buckets = result.get("aggregations").get("values").get("buckets");
+
+			// "東京" の doc_count は 1（文書数）であること
+			boolean foundTokyo = false;
+			for (nlp4j.json.JsonNode bucket : buckets.asList()) {
+				if ("東京".equals(bucket.get("key").asString())) {
+					assertEquals("東京 の doc_count は文書数（1）であること",
+							1, bucket.get("doc_count").asInt());
+					foundTokyo = true;
+				}
+			}
+			assertTrue("'東京' not found in word.noun", foundTokyo);
+		}
+	}
+
+	/**
+		* add(id, body) と addJson() で同じ本文を登録したとき、
+		* word.verb の aggregation 結果が等しくなることを確認する。
+		*/
+	public void testMorphologicalAnalysis003() throws Exception {
+		try (LocalSearch search = new LocalSearch("ja")) {
+			search.add("1", "私は歩いて学校に行きました。");
+			search.addJson("""
+					{"id":"2","body":"私は歩いて学校に行きました。"}
+					""");
+			search.commit();
+
+			String json = search.aggregateJson("""
+					{"field":"word.verb","size":10}
+					""");
+			System.out.println("testMorphologicalAnalysis003 word.verb: " + json);
+
+			nlp4j.json.JsonNode result = nlp4j.json.JsonNode.parse(json);
+			nlp4j.json.JsonNode buckets = result.get("aggregations").get("values").get("buckets");
+
+			// add() と addJson() 合計で doc_count=2 になること
+			for (nlp4j.json.JsonNode bucket : buckets.asList()) {
+				String key = bucket.get("key").asString();
+				if ("歩く".equals(key) || "行く".equals(key)) {
+					assertEquals("add() と addJson() で " + key + " は各 2文書にヒットすること",
+							2, bucket.get("doc_count").asInt());
+				}
+			}
+		}
+	}
+
+	/**
+		* word フィールド（NOUN/PROPN/VERB/ADJ のみ）に内容語が登録されることを確認する。
+		* 助詞（ADP）・助動詞（AUX）・記号（SYM）は word フィールドに含まれないこと。
+		*
+		* <pre>
+		* 入力: "今日はいい天気です。"
+		* Kuromoji 出力:
+		*   NOUN 今日, ADP は, ADJ いい, NOUN 天気, AUX です, SYM 。
+		* word フィールドに期待する値:
+		*   今日（NOUN）, いい（ADJ）, 天気（NOUN）
+		* word フィールドに含まれてはいけない値:
+		*   は（ADP）, です（AUX）, 。（SYM）
+		* </pre>
+		*/
+	public void testMorphologicalAnalysis004() throws Exception {
+		try (LocalSearch search = new LocalSearch("ja")) {
+			search.add("1", "今日はいい天気です。");
+			search.commit();
+
+			String json = search.aggregateJson("""
+					{"field":"word","size":20}
+					""");
+			System.out.println("testMorphologicalAnalysis004 word: " + json);
+
+			nlp4j.json.JsonNode result = nlp4j.json.JsonNode.parse(json);
+			nlp4j.json.JsonNode buckets = result.get("aggregations").get("values").get("buckets");
+
+			java.util.Set<String> wordKeys = new java.util.HashSet<>();
+			for (nlp4j.json.JsonNode bucket : buckets.asList()) {
+				wordKeys.add(bucket.get("key").asString());
+			}
+
+			// 内容語が含まれること
+			assertTrue("'今日' should be in word", wordKeys.contains("今日"));
+			assertTrue("'天気' should be in word", wordKeys.contains("天気"));
+			assertTrue("'いい' should be in word", wordKeys.contains("いい"));
+
+			// 機能語が含まれないこと
+			assertFalse("'は' should NOT be in word", wordKeys.contains("は"));
+			assertFalse("'です' should NOT be in word", wordKeys.contains("です"));
+			assertFalse("'。' should NOT be in word", wordKeys.contains("。"));
+		}
+	}
+
+	/**
+		* word.verb フィールドで絞り込み検索が動作することを確認する。
+		* "歩く" が word.verb に登録されている文書のみがヒットすること。
+		*/
+	public void testMorphologicalAnalysis005() throws Exception {
+		try (LocalSearch search = new LocalSearch("ja")) {
+			search.add("1", "私は歩いて学校に行きました。");
+			search.add("2", "彼女は車で学校に行きました。");
+			search.add("3", "今日はいい天気です。");
+			search.commit();
+
+			// word.verb="歩く" でフィルター → id=1 のみ
+			SearchResult[] results = search.search("word.verb", "歩く", 10);
+			System.out.println("testMorphologicalAnalysis005 word.verb=歩く size: " + results.length);
+			for (int n = 0; n < results.length; n++) {
+				System.out.println("result[" + n + "].id: " + results[n].id);
+				System.out.println("result[" + n + "].body: " + results[n].body);
+			}
+			assertEquals(1, results.length);
+			assertEquals("1", results[0].id);
+		}
+	}
+
+	/**
+		* 複数文書に対する word.verb aggregation が正しく集計されることを確認する。
+		* 会話 kaiwa0808.md で示された最終的なユースケース。
+		*/
+	public void testMorphologicalAnalysis006() throws Exception {
+		try (LocalSearch search = new LocalSearch("ja")) {
+			search.add("1", "私は歩いて学校に行きました。");
+			search.add("2", "彼女は走って学校に行きました。");
+			search.commit();
+
+			String json = search.aggregateJson("""
+					{
+					  "field": "word.verb",
+					  "size": 10
+					}
+					""");
+			System.out.println("testMorphologicalAnalysis006 word.verb: " + json);
+
+			nlp4j.json.JsonNode result = nlp4j.json.JsonNode.parse(json);
+			nlp4j.json.JsonNode buckets = result.get("aggregations").get("values").get("buckets");
+
+			// "行く" は 2文書に出現 → doc_count=2
+			// "歩く" は 1文書 → doc_count=1
+			// "走る" は 1文書 → doc_count=1
+			boolean foundIku = false;
+			boolean foundAruku = false;
+			boolean foundHashiru = false;
+			for (nlp4j.json.JsonNode bucket : buckets.asList()) {
+				String key = bucket.get("key").asString();
+				int count = bucket.get("doc_count").asInt();
+				System.out.println("  word.verb: " + key + " = " + count);
+				if ("行く".equals(key)) {
+					foundIku = true;
+					assertEquals(2, count);
+				}
+				if ("歩く".equals(key)) {
+					foundAruku = true;
+					assertEquals(1, count);
+				}
+				if ("走る".equals(key)) {
+					foundHashiru = true;
+					assertEquals(1, count);
+				}
+			}
+			assertTrue("'行く' not found", foundIku);
+			assertTrue("'歩く' not found", foundAruku);
+			assertTrue("'走る' not found", foundHashiru);
+		}
+	}
 
 }

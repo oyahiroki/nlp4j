@@ -14,7 +14,7 @@ import nlp4j.util.JsonUtils;
  * @author Hiroki Oya
  *
  */
-public class HelloTextMiningKuromojiMain11 {
+public class HelloTextMiningKuromojiMain4 {
 
 	/**
 	 * メイン関数です。<br>
@@ -27,7 +27,7 @@ public class HelloTextMiningKuromojiMain11 {
 
 		// ドキュメントの用意（CSVを読み込むなどでも可）
 		Document doc = new DefaultDocument();
-		doc.setText("今日はいい天気です。日本ＩＢＭ。ドラえもん。");
+		doc.setText("私は歩いて学校に行きました。");
 
 		// 形態素解析アノテーター
 		DocumentAnnotator annotator = new KuromojiAnnotator(); // 形態素解析
@@ -35,24 +35,24 @@ public class HelloTextMiningKuromojiMain11 {
 		{
 			annotator.annotate(doc);
 		}
+
 		{
-//			System.err.println(doc);
-//			System.err.println(JsonUtils.prettyPrint(DocumentUtil.toJsonObject(doc)));
+			doc.getKeywords().forEach(kw -> {
+				System.out.println(
+						kw.getUPos() + "," + kw.getLex() + "," + kw.getStr() + "," + kw.getBegin() + "," + kw.getEnd());
+			});
 		}
 
-		doc.getKeywords().forEach(kw -> {
-			System.err.println(kw.getFacet() + " " + kw.getLex());
-		});
 	}
+
 }
-// Kuromoji は固有名詞の抽出を行わない
-//名詞 今日
-//助詞 は
-//形容詞 いい
-//名詞 天気
-//助動詞 です
-//記号 。
-//名詞 日本ＩＢＭ
-//記号 。
-//名詞 ドラえもん
-//記号 。
+//NOUN,私,私,0,1
+//ADP,は,は,1,2
+//VERB,歩く,歩い,2,4
+//ADP,て,て,4,5
+//NOUN,学校,学校,5,7
+//ADP,に,に,7,8
+//VERB,行く,行き,8,10
+//AUX,ます,まし,10,12
+//AUX,た,た,12,13
+//SYM,。,。,13,14

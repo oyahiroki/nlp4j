@@ -57,3 +57,137 @@ public class HelloTextMiningKuromojiMain3 {
 	}
 
 }
+//{
+//	  "text": "今日はいい天気です。",
+//	  "keywords": [
+//	    {
+//	      "facet": "名詞",
+//	      "upos": "NOUN",
+//	      "lex": "今日",
+//	      "str": "今日",
+//	      "begin": 0,
+//	      "end": 2,
+//	      "@classname": "nlp4j.impl.DefaultKeyword"
+//	    },
+//	    {
+//	      "facet": "助詞",
+//	      "upos": "ADP",
+//	      "lex": "は",
+//	      "str": "は",
+//	      "begin": 2,
+//	      "end": 3,
+//	      "@classname": "nlp4j.impl.DefaultKeyword"
+//	    },
+//	    {
+//	      "facet": "形容詞",
+//	      "upos": "ADJ",
+//	      "lex": "いい",
+//	      "str": "いい",
+//	      "begin": 3,
+//	      "end": 5,
+//	      "@classname": "nlp4j.impl.DefaultKeyword"
+//	    },
+//	    {
+//	      "facet": "名詞",
+//	      "upos": "NOUN",
+//	      "lex": "天気",
+//	      "str": "天気",
+//	      "begin": 5,
+//	      "end": 7,
+//	      "@classname": "nlp4j.impl.DefaultKeyword"
+//	    },
+//	    {
+//	      "facet": "助動詞",
+//	      "upos": "AUX",
+//	      "lex": "です",
+//	      "str": "です",
+//	      "begin": 7,
+//	      "end": 9,
+//	      "@classname": "nlp4j.impl.DefaultKeyword"
+//	    },
+//	    {
+//	      "facet": "記号",
+//	      "upos": "SYM",
+//	      "lex": "。",
+//	      "str": "。",
+//	      "begin": 9,
+//	      "end": 10,
+//	      "@classname": "nlp4j.impl.DefaultKeyword"
+//	    }
+//	  ]
+//	}
+//	{
+//	  "text": "今日はいい天気です。",
+//	  "word": [
+//	    "今日",
+//	    "は",
+//	    "いい",
+//	    "天気",
+//	    "です",
+//	    "。"
+//	  ],
+//	  "keywords": [
+//	    {
+//	      "facet": "名詞",
+//	      "upos": "NOUN",
+//	      "lex": "今日",
+//	      "str": "今日",
+//	      "begin": 0,
+//	      "end": 2,
+//	      "@classname": "nlp4j.impl.DefaultKeyword"
+//	    },
+//	    {
+//	      "facet": "助詞",
+//	      "upos": "ADP",
+//	      "lex": "は",
+//	      "str": "は",
+//	      "begin": 2,
+//	      "end": 3,
+//	      "@classname": "nlp4j.impl.DefaultKeyword"
+//	    },
+//	    {
+//	      "facet": "形容詞",
+//	      "upos": "ADJ",
+//	      "lex": "いい",
+//	      "str": "いい",
+//	      "begin": 3,
+//	      "end": 5,
+//	      "@classname": "nlp4j.impl.DefaultKeyword"
+//	    },
+//	    {
+//	      "facet": "名詞",
+//	      "upos": "NOUN",
+//	      "lex": "天気",
+//	      "str": "天気",
+//	      "begin": 5,
+//	      "end": 7,
+//	      "@classname": "nlp4j.impl.DefaultKeyword"
+//	    },
+//	    {
+//	      "facet": "助動詞",
+//	      "upos": "AUX",
+//	      "lex": "です",
+//	      "str": "です",
+//	      "begin": 7,
+//	      "end": 9,
+//	      "@classname": "nlp4j.impl.DefaultKeyword"
+//	    },
+//	    {
+//	      "facet": "記号",
+//	      "upos": "SYM",
+//	      "lex": "。",
+//	      "str": "。",
+//	      "begin": 9,
+//	      "end": 10,
+//	      "@classname": "nlp4j.impl.DefaultKeyword"
+//	    }
+//	  ]
+//	}
+//	[
+//	  "今日",
+//	  "は",
+//	  "いい",
+//	  "天気",
+//	  "です",
+//	  "。"
+//	]

@@ -137,3 +137,58 @@ public class HelloTextMiningKuromojiMain2 {
 	}
 
 }
+//形態素解析
+//処理時間[ms]：1902
+//Document [{item=Toyota, text=ハイブリッドカーを作っています。}, keywords=[[begin=0,end=6,facet=名詞,upos=NOUN,lex=ハイブリッド,str=ハイブリッド], [begin=6,end=8,facet=名詞,upos=NOUN,lex=カー,str=カー], [begin=8,end=9,facet=助詞,upos=ADP,lex=を,str=を], [begin=9,end=11,facet=動詞,up
+//os=VERB,lex=作る,str=作っ], [begin=11,end=12,facet=助詞,upos=ADP,lex=て,str=て], [begin=12,end=13,facet=動詞,upos=VERB,lex=いる,str=い], [begin=13,end=15,facet=助動詞,upos=AUX,lex=ます,str=ます], [begin=15,end=16,facet=記号,upos=SYM,lex=。,str=。]]]
+//Document [{item=Toyota, text=ハイブリッドカーを売っています。}, keywords=[[begin=0,end=6,facet=名詞,upos=NOUN,lex=ハイブリッド,str=ハイブリッド], [begin=6,end=8,facet=名詞,upos=NOUN,lex=カー,str=カー], [begin=8,end=9,facet=助詞,upos=ADP,lex=を,str=を], [begin=9,end=11,facet=動詞,up
+//os=VERB,lex=売る,str=売っ], [begin=11,end=12,facet=助詞,upos=ADP,lex=て,str=て], [begin=12,end=13,facet=動詞,upos=VERB,lex=いる,str=い], [begin=13,end=15,facet=助動詞,upos=AUX,lex=ます,str=ます], [begin=15,end=16,facet=記号,upos=SYM,lex=。,str=。]]]
+//Document [{item=Toyota, text=自動車を作っています。}, keywords=[[begin=0,end=3,facet=名詞,upos=NOUN,lex=自動車,str=自動車], [begin=3,end=4,facet=助詞,upos=ADP,lex=を,str=を], [begin=4,end=6,facet=動詞,upos=VERB,lex=作る,str=作っ], [begin=6,end=7,facet=助詞,upos=ADP,lex=て
+//,str=て], [begin=7,end=8,facet=動詞,upos=VERB,lex=いる,str=い], [begin=8,end=10,facet=助動詞,upos=AUX,lex=ます,str=ます], [begin=10,end=11,facet=記号,upos=SYM,lex=。,str=。]]]
+//Document [{item=Toyota, text=自動車を売っています。}, keywords=[[begin=0,end=3,facet=名詞,upos=NOUN,lex=自動車,str=自動車], [begin=3,end=4,facet=助詞,upos=ADP,lex=を,str=を], [begin=4,end=6,facet=動詞,upos=VERB,lex=売る,str=売っ], [begin=6,end=7,facet=助詞,upos=ADP,lex=て
+//,str=て], [begin=7,end=8,facet=動詞,upos=VERB,lex=いる,str=い], [begin=8,end=10,facet=助動詞,upos=AUX,lex=ます,str=ます], [begin=10,end=11,facet=記号,upos=SYM,lex=。,str=。]]]
+//Document [{item=Nissan, text=EVを作っています。}, keywords=[[begin=0,end=2,facet=名詞,upos=NOUN,lex=EV,str=EV], [begin=2,end=3,facet=助詞,upos=ADP,lex=を,str=を], [begin=3,end=5,facet=動詞,upos=VERB,lex=作る,str=作っ], [begin=5,end=6,facet=助詞,upos=ADP,lex=て,st
+//r=て], [begin=6,end=7,facet=動詞,upos=VERB,lex=いる,str=い], [begin=7,end=9,facet=助動詞,upos=AUX,lex=ます,str=ます], [begin=9,end=10,facet=記号,upos=SYM,lex=。,str=。]]]
+//Document [{item=Nissan, text=EVを売っています。}, keywords=[[begin=0,end=2,facet=名詞,upos=NOUN,lex=EV,str=EV], [begin=2,end=3,facet=助詞,upos=ADP,lex=を,str=を], [begin=3,end=5,facet=動詞,upos=VERB,lex=売る,str=売っ], [begin=5,end=6,facet=助詞,upos=ADP,lex=て,st
+//r=て], [begin=6,end=7,facet=動詞,upos=VERB,lex=いる,str=い], [begin=7,end=9,facet=助動詞,upos=AUX,lex=ます,str=ます], [begin=9,end=10,facet=記号,upos=SYM,lex=。,str=。]]]
+//Document [{item=Nissan, text=自動車を売っています。}, keywords=[[begin=0,end=3,facet=名詞,upos=NOUN,lex=自動車,str=自動車], [begin=3,end=4,facet=助詞,upos=ADP,lex=を,str=を], [begin=4,end=6,facet=動詞,upos=VERB,lex=売る,str=売っ], [begin=6,end=7,facet=助詞,upos=ADP,lex=て
+//,str=て], [begin=7,end=8,facet=動詞,upos=VERB,lex=いる,str=い], [begin=8,end=10,facet=助動詞,upos=AUX,lex=ます,str=ます], [begin=10,end=11,facet=記号,upos=SYM,lex=。,str=。]]]
+//Document [{item=Nissan, text=ルノーと提携しています。}, keywords=[[begin=0,end=3,facet=名詞,upos=NOUN,lex=ルノー,str=ルノー], [begin=3,end=4,facet=助詞,upos=ADP,lex=と,str=と], [begin=4,end=6,facet=名詞,upos=NOUN,lex=提携,str=提携], [begin=6,end=7,facet=動詞,upos=VERB,lex
+//=する,str=し], [begin=7,end=8,facet=助詞,upos=ADP,lex=て,str=て], [begin=8,end=9,facet=動詞,upos=VERB,lex=いる,str=い], [begin=9,end=11,facet=助動詞,upos=AUX,lex=ます,str=ます], [begin=11,end=12,facet=記号,upos=SYM,lex=。,str=。]]]
+//Document [{item=Nissan, text=軽自動車を売っています。}, keywords=[[begin=0,end=4,facet=名詞,upos=NOUN,lex=軽自動車,str=軽自動車], [begin=4,end=5,facet=助詞,upos=ADP,lex=を,str=を], [begin=5,end=7,facet=動詞,upos=VERB,lex=売る,str=売っ], [begin=7,end=8,facet=助詞,upos=ADP,le
+//x=て,str=て], [begin=8,end=9,facet=動詞,upos=VERB,lex=いる,str=い], [begin=9,end=11,facet=助動詞,upos=AUX,lex=ます,str=ます], [begin=11,end=12,facet=記号,upos=SYM,lex=。,str=。]]]
+//Document [{item=Honda, text=自動車を作っています。}, keywords=[[begin=0,end=3,facet=名詞,upos=NOUN,lex=自動車,str=自動車], [begin=3,end=4,facet=助詞,upos=ADP,lex=を,str=を], [begin=4,end=6,facet=動詞,upos=VERB,lex=作る,str=作っ], [begin=6,end=7,facet=助詞,upos=ADP,lex=て,
+//str=て], [begin=7,end=8,facet=動詞,upos=VERB,lex=いる,str=い], [begin=8,end=10,facet=助動詞,upos=AUX,lex=ます,str=ます], [begin=10,end=11,facet=記号,upos=SYM,lex=。,str=。]]]
+//Document [{item=Honda, text=自動車を売っています。}, keywords=[[begin=0,end=3,facet=名詞,upos=NOUN,lex=自動車,str=自動車], [begin=3,end=4,facet=助詞,upos=ADP,lex=を,str=を], [begin=4,end=6,facet=動詞,upos=VERB,lex=売る,str=売っ], [begin=6,end=7,facet=助詞,upos=ADP,lex=て,
+//str=て], [begin=7,end=8,facet=動詞,upos=VERB,lex=いる,str=い], [begin=8,end=10,facet=助動詞,upos=AUX,lex=ます,str=ます], [begin=10,end=11,facet=記号,upos=SYM,lex=。,str=。]]]
+//Document [{item=Honda, text=バイクを作っています。}, keywords=[[begin=0,end=3,facet=名詞,upos=NOUN,lex=バイク,str=バイク], [begin=3,end=4,facet=助詞,upos=ADP,lex=を,str=を], [begin=4,end=6,facet=動詞,upos=VERB,lex=作る,str=作っ], [begin=6,end=7,facet=助詞,upos=ADP,lex=て,
+//str=て], [begin=7,end=8,facet=動詞,upos=VERB,lex=いる,str=い], [begin=8,end=10,facet=助動詞,upos=AUX,lex=ます,str=ます], [begin=10,end=11,facet=記号,upos=SYM,lex=。,str=。]]]
+//Document [{item=Honda, text=バイクを売っています。}, keywords=[[begin=0,end=3,facet=名詞,upos=NOUN,lex=バイク,str=バイク], [begin=3,end=4,facet=助詞,upos=ADP,lex=を,str=を], [begin=4,end=6,facet=動詞,upos=VERB,lex=売る,str=売っ], [begin=6,end=7,facet=助詞,upos=ADP,lex=て,
+//str=て], [begin=7,end=8,facet=動詞,upos=VERB,lex=いる,str=い], [begin=8,end=10,facet=助動詞,upos=AUX,lex=ます,str=ます], [begin=10,end=11,facet=記号,upos=SYM,lex=。,str=。]]]
+//Document [{item=Honda, text=軽自動車を売っています。}, keywords=[[begin=0,end=4,facet=名詞,upos=NOUN,lex=軽自動車,str=軽自動車], [begin=4,end=5,facet=助詞,upos=ADP,lex=を,str=を], [begin=5,end=7,facet=動詞,upos=VERB,lex=売る,str=売っ], [begin=7,end=8,facet=助詞,upos=ADP,lex
+//=て,str=て], [begin=8,end=9,facet=動詞,upos=VERB,lex=いる,str=い], [begin=9,end=11,facet=助動詞,upos=AUX,lex=ます,str=ます], [begin=11,end=12,facet=記号,upos=SYM,lex=。,str=。]]]
+//Document [{item=Honda, text=軽自動車を作っています。}, keywords=[[begin=0,end=4,facet=名詞,upos=NOUN,lex=軽自動車,str=軽自動車], [begin=4,end=5,facet=助詞,upos=ADP,lex=を,str=を], [begin=5,end=7,facet=動詞,upos=VERB,lex=作る,str=作っ], [begin=7,end=8,facet=助詞,upos=ADP,lex
+//=て,str=て], [begin=8,end=9,facet=動詞,upos=VERB,lex=いる,str=い], [begin=9,end=11,facet=助動詞,upos=AUX,lex=ます,str=ます], [begin=11,end=12,facet=記号,upos=SYM,lex=。,str=。]]]
+//インデックス作成
+//名詞の頻度順
+//処理時間[ms]：2
+//count=5,facet=名詞,lex=自動車
+//count=3,facet=名詞,lex=軽自動車
+//count=2,facet=名詞,lex=バイク
+//count=2,facet=名詞,lex=EV
+//count=2,facet=名詞,lex=カー
+//count=2,facet=名詞,lex=ハイブリッド
+//名詞 for Nissan
+//count=2,correlation=3.0,lex=EV
+//count=1,correlation=3.0,lex=ルノー
+//count=1,correlation=3.0,lex=提携
+//count=1,correlation=1.0,lex=軽自動車
+//count=1,correlation=0.6,lex=自動車
+//名詞 for Toyota
+//count=2,correlation=3.8,lex=ハイブリッド
+//count=2,correlation=3.8,lex=カー
+//count=2,correlation=1.5,lex=自動車
+//名詞 for Honda
+//count=2,correlation=2.5,lex=バイク
+//count=2,correlation=1.7,lex=軽自動車
+//count=2,correlation=1.0,lex=自動車
