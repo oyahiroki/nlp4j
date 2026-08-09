@@ -9,6 +9,8 @@
 		<version>1.3.1.0</version>
 	</parent>
 	<artifactId>nlp4j-opennlp</artifactId>
+	<name>nlp4j-opennlp</name>
+	<!-- https://central.sonatype.com/artifact/org.nlp4j/nlp4j-opennlp -->
 	<version>1.3.7.21</version>
 	<description>NLP4J for Apache OpenNLP</description>
 	<url>https://nlp4j.org/</url>
@@ -51,6 +53,14 @@
 			<groupId>org.apache.opennlp</groupId>
 			<artifactId>opennlp-tools</artifactId>
 			<version>2.5.11</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/junit/junit -->
+		<!-- 3.8.2 : May 14, 2007 -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>3.8.2</version>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 

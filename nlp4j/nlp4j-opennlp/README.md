@@ -5,6 +5,10 @@ English text annotation for NLP4J using Apache OpenNLP.
 `nlp4j-opennlp` provides an NLP4J `DocumentAnnotator` implementation based on Apache OpenNLP.  
 It performs tokenization, part-of-speech (POS) tagging, and lemmatization on English text and adds the analysis results to an NLP4J `Document` as keywords.
 
+##Requirements
+
+- Java 17 or later
+
 ## Features
 
 - English text tokenization
@@ -14,6 +18,16 @@ It performs tokenization, part-of-speech (POS) tagging, and lemmatization on Eng
 - Character offsets (`begin`, `end`)
 - Integration with the NLP4J `Document` / `Keyword` framework
 - Simple API: pass a document to `OpenNLPAnnotator`
+
+## pom.xml
+
+```
+<dependency>
+    <groupId>org.nlp4j</groupId>
+    <artifactId>nlp4j-opennlp</artifactId>
+    <version>1.3.7.21</version>
+</dependency>
+```
 
 ## Example
 
