@@ -1,9 +1,4 @@
-以下に、そのまま使える **README.md** を用意しました。
-（英語 → 日本語の順です）
 
----
-
-````markdown
 # wikidump-sampler
 
 A simple and fast command-line tool to extract a specified number of documents from a Wikipedia dump file and output them in JSONL format.
