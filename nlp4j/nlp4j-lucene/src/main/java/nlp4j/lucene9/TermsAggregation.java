@@ -6,6 +6,8 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import org.apache.lucene.index.DocValuesType;
+import org.apache.lucene.index.FieldInfo;
 import org.apache.lucene.index.LeafReaderContext;
 import org.apache.lucene.index.SortedDocValues;
 import org.apache.lucene.index.SortedSetDocValues;
@@ -19,9 +21,8 @@ import nlp4j.json.JsonNode;
 
 /**
  * Aggregation for counting term occurrences in a field. Similar to OpenSearch's
- * terms aggregation, returns the top N terms by document count.
- * Supports both single-valued (SortedDocValues) and multi-valued
- * (SortedSetDocValues) fields.
+ * terms aggregation, returns the top N terms by document count. Supports both
+ * single-valued (SortedDocValues) and multi-valued (SortedSetDocValues) fields.
  */
 public class TermsAggregation {
 
@@ -94,9 +95,9 @@ public class TermsAggregation {
 	}
 
 	/**
-	 * Collector for gathering term counts from matching documents.
-	 * Automatically detects whether the field uses SortedDocValues (single-valued)
-	 * or SortedSetDocValues (multi-valued) and handles both.
+	 * Collector for gathering term counts from matching documents. Automatically
+	 * detects whether the field uses SortedDocValues (single-valued) or
+	 * SortedSetDocValues (multi-valued) and handles both.
 	 */
 	private static class TermsCollector extends SimpleCollector {
 
@@ -115,8 +116,8 @@ public class TermsAggregation {
 		}
 
 		/**
-		 * Collects term data from a document.
-		 * Handles both single-valued and multi-valued fields.
+		 * Collects term data from a document. Handles both single-valued and
+		 * multi-valued fields.
 		 *
 		 * @param doc the document ID
 		 * @throws IOException if an I/O error occurs
@@ -143,19 +144,41 @@ public class TermsAggregation {
 
 		@Override
 		protected void doSetNextReader(LeafReaderContext context) throws IOException {
-			// Try SortedSetDocValues first (multi-valued), then fall back to SortedDocValues
-			sortedSetDocValues = context.reader().getSortedSetDocValues(field);
-			if (sortedSetDocValues != null) {
-				sortedDocValues = null;
+
+			// セグメント切り替え時に前の参照をクリア
+			sortedDocValues = null;
+			sortedSetDocValues = null;
+
+			FieldInfo fieldInfo = context.reader().getFieldInfos().fieldInfo(field);
+
+			/*
+			 * このセグメントに対象フィールドが存在しない場合。
+			 *
+			 * これはエラーではない。 このセグメントには集計対象の値がないものとしてスキップする。
+			 */
+			if (fieldInfo == null) {
 				return;
 			}
 
-			sortedDocValues = context.reader().getSortedDocValues(field);
-			if (sortedDocValues == null) {
-				throw new IllegalArgumentException(
-						"Field [" + field + "] does not have SortedDocValues or SortedSetDocValues. "
-						+ "Please add SortedDocValuesField or SortedSetDocValuesField when indexing.");
+			DocValuesType docValuesType = fieldInfo.getDocValuesType();
+
+			if (docValuesType == DocValuesType.SORTED_SET) {
+				sortedSetDocValues = context.reader().getSortedSetDocValues(field);
+				return;
 			}
+
+			if (docValuesType == DocValuesType.SORTED) {
+				sortedDocValues = context.reader().getSortedDocValues(field);
+				return;
+			}
+
+			/*
+			 * フィールド自体は存在するが、 aggregation に必要な DocValues が設定されていない。
+			 *
+			 * これはスキーマ／インデックス設定上の問題なので例外にする。
+			 */
+			throw new IllegalArgumentException("Field [" + field + "] is not aggregatable. "
+					+ "Expected SortedDocValues or SortedSetDocValues, but was " + docValuesType + ".");
 		}
 
 		@Override
@@ -173,5 +196,3 @@ public class TermsAggregation {
 		}
 	}
 }
-
-
