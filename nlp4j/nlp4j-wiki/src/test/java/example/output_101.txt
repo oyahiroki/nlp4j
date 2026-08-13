@@ -1,0 +1,11 @@
+indexFile: \usr\local\wiki\jawiki\20260801\jawiki-20260801-pages-articles-multistream-index.txt.bz2
+dumpFile: \usr\local\wiki\jawiki\20260801\jawiki-20260801-pages-articles-multistream.xml.bz2
+itemString: 日本x
+2026/08/11 17:06:58.348 [main] INFO   nlp4j.wiki.WikiIndexReader      :55   Reading: C:\usr\local\wiki\jawiki\20260801\jawiki-20260801-pages-articles-multistream-index.txt.bz2
+2026/08/11 17:06:58.352 [main] INFO   nlp4j.wiki.WikiIndexReader      :56   Reading File size (bytes): 31,277,924
+2026/08/11 17:07:05.111 [main] INFO   nlp4j.wiki.WikiIndexReader      :98   Read done (ms): 6,752
+2026/08/11 17:07:05.112 [main] INFO   nlp4j.wiki.WikiIndexReader      :99   WikiIndex item size (bytes): 3100497
+Not Found: 日本x
+2026/08/11 17:07:05.112 [main] INFO   nlp4j.wiki.WikiDumpReader       :123  countCacheFound: 0
+2026/08/11 17:07:05.113 [main] INFO   nlp4j.wiki.WikiDumpReader       :125  time: 6769
+2026/08/11 17:07:05.114 [main] INFO   nlp4j.wiki.WikiDumpReader       :130  File closed.

@@ -1,0 +1,7 @@
+indexFile: \usr\local\wiki\jawiki\20260801\jawiki-20260801-pages-articles-multistream-index.txt.bz2
+dumpFile: \usr\local\wiki\jawiki\20260801\jawiki-20260801-pages-articles-multistream.xml.bz2__
+itemString: 日本
+Exception in thread "main" java.io.FileNotFoundException: Dump File Not Found: C:\usr\local\wiki\jawiki\20260801\jawiki-20260801-pages-articles-multistream.xml.bz2__
+	at nlp4j.wiki.WikiDumpReader.init1(WikiDumpReader.java:106)
+	at nlp4j.wiki.WikiDumpReader.<init>(WikiDumpReader.java:90)
+	at example.ExampleWikiDumpReader.main(ExampleWikiDumpReader.java:22)

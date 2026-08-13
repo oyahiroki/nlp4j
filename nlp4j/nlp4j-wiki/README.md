@@ -343,3 +343,11 @@ Contributions are welcome! Please feel free to submit issues and pull requests.
 ---
 
 **Note**: Processing large Wikipedia dumps may take significant time and memory. For production use, consider using the index file for random access or implementing appropriate filtering in your `WikiPageHandler`.
+
+
+
+# Tips
+
+$ bzip2 -dc jawiki-20260401-pages-articles-multistream.xml.bz2 | head -n 1000 > head_1000.txt
+
+

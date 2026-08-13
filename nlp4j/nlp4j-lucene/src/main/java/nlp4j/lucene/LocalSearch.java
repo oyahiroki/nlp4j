@@ -27,35 +27,163 @@ import nlp4j.lucene9.SearchSchema;
  * </p>
  *
  * <p>
- * Example usage:
+ * Builder を使った標準的な利用方法:
  * </p>
- * 
- * <pre>
- * try (LocalSearch search = new LocalSearch("ja")) {
- * 	search.add("doc1", "東京の観光スポット");
- * 	search.add("doc2", "京都の寺院");
- * 	search.commit();
  *
+ * <pre>
+ * // オンメモリ、日本語、自動解析あり（デフォルト設定）
+ * try (LocalSearch search = LocalSearch.builder("ja").build()) {
+ * 	search.add("doc1", "東京の観光スポット");
+ * 	search.commit();
  * 	SearchResult[] results = search.search("東京", 10);
- * 	for (SearchResult result : results) {
- * 		System.out.println(result.id + ": " + result.body);
- * 	}
+ * }
+ *
+ * // 自動解析を無効化
+ * try (LocalSearch search = LocalSearch.builder("ja")
+ * 		.autoAnalyze(false)
+ * 		.build()) {
+ * 	// ...
+ * }
+ *
+ * // ディスクインデックス + ベクトル検索
+ * try (LocalSearch search = LocalSearch.builder("ja")
+ * 		.vectorDimension(1024)
+ * 		.indexDirectory(Path.of("./index"))
+ * 		.build()) {
+ * 	// ...
  * }
  * </pre>
+ *
+ * <p>
+ * 従来の new LocalSearch("ja") も引き続き利用できます。
+ * </p>
  */
 public class LocalSearch implements AutoCloseable {
 
-	public static LocalSearch open(String language, int vectorDimension, Path indexDir) {
-		return new LocalSearch(language, vectorDimension, indexDir);
+	// -----------------------------------------------------------------------
+	// Builder
+	// -----------------------------------------------------------------------
+
+	/**
+	 * Returns a new {@link Builder} for the specified language.
+	 *
+	 * @param language the language code ("ja" for Japanese, "en" for English, or
+	 *                 any other value for default text field)
+	 * @return a new Builder
+	 */
+	public static Builder builder(String language) {
+		return new Builder(language);
 	}
 
+	/**
+	 * Builder for {@link LocalSearch}.
+	 *
+	 * <pre>
+	 * LocalSearch search = LocalSearch.builder("ja")
+	 *         .autoAnalyze(true)
+	 *         .vectorDimension(1024)
+	 *         .indexDirectory(Path.of("./index"))
+	 *         .build();
+	 * </pre>
+	 */
+	public static class Builder {
+
+		private final String language;
+		private boolean autoAnalyze = true;
+		private int vectorDimension = 0;
+		private Path indexDir = null;
+
+		private Builder(String language) {
+			this.language = language;
+		}
+
+		/**
+		 * KuromojiAnnotator による形態素解析（自動エンリッチ）を有効／無効にします。
+		 * デフォルトは {@code true}（有効）。language が "ja" 以外の場合は
+		 * この設定によらず解析は実行されません。
+		 *
+		 * @param autoAnalyze true で自動解析を有効化
+		 * @return this Builder
+		 */
+		public Builder autoAnalyze(boolean autoAnalyze) {
+			this.autoAnalyze = autoAnalyze;
+			return this;
+		}
+
+		/**
+		 * KNN ベクトル検索に使用するベクトルの次元数を設定します。
+		 * 0（デフォルト）の場合はベクトルフィールドを作成しません。
+		 *
+		 * @param vectorDimension ベクトルの次元数（0 以上）
+		 * @return this Builder
+		 */
+		public Builder vectorDimension(int vectorDimension) {
+			this.vectorDimension = vectorDimension;
+			return this;
+		}
+
+		/**
+		 * ディスク上の Lucene インデックスディレクトリを指定します。
+		 * 指定しない場合はオンメモリインデックスを使用します。
+		 *
+		 * @param indexDir インデックスを格納するディレクトリパス
+		 * @return this Builder
+		 */
+		public Builder indexDirectory(Path indexDir) {
+			this.indexDir = indexDir;
+			return this;
+		}
+
+		/**
+		 * 設定した内容で {@link LocalSearch} インスタンスを生成します。
+		 *
+		 * @return 新しい LocalSearch インスタンス
+		 * @throws LocalSearchException if initialization fails
+		 */
+		public LocalSearch build() {
+			return new LocalSearch(this);
+		}
+	}
+
+	// -----------------------------------------------------------------------
+	// Fields
+	// -----------------------------------------------------------------------
+
 	private String language;
+	private boolean autoAnalyze;
 
 	private String default_field_name;
 	SearchSchema schema;
 	LuceneIndex index;
 
 	LuceneLocalSearchApi api;
+
+	// -----------------------------------------------------------------------
+	// Constructors
+	// -----------------------------------------------------------------------
+
+	/**
+	 * Builder から LocalSearch を生成するプライベートコンストラクタ。
+	 * すべての公開コンストラクタはここに委譲します。
+	 */
+	private LocalSearch(Builder builder) {
+		if (builder.vectorDimension < 0) {
+			throw new LocalSearchException("vectorDimension must be >= 0",
+					new IllegalArgumentException("vectorDimension must be >= 0"));
+		}
+
+		this.language = builder.language;
+		this.autoAnalyze = builder.autoAnalyze;
+
+		if (builder.indexDir == null) {
+			initIndex();
+		} else {
+			initIndex(builder.indexDir);
+		}
+
+		this.schema = createSchema(builder.vectorDimension);
+		this.default_field_name = resolveDefaultFieldName(builder.language);
+	}
 
 	/**
 	 * Constructs a new LocalSearch instance with the specified language.
@@ -65,66 +193,27 @@ public class LocalSearch implements AutoCloseable {
 	 * @throws LocalSearchException if index initialization fails
 	 */
 	public LocalSearch(String language) {
-
-		// 1. Language
-		{
-			this.language = language;
-		}
-		// 2. Index
-		{
-			initIndex();
-		}
-		// 3. Schema
-		{
-			this.schema = createSchema(0);
-		}
-		// 4. Field
-		{
-			this.default_field_name = resolveDefaultFieldName(language);
-		}
+		this(new Builder(language));
 	}
 
 	public LocalSearch(String language, int vectorDimension) {
-		if (vectorDimension < 0) {
-			throw new LocalSearchException("vectorDimension must be >= 0",
-					new IllegalArgumentException("vectorDimension must be >= 0"));
-		}
-
-		// 1. Language
-		{
-			this.language = language;
-		}
-		// 2. Index
-		{
-			initIndex();
-		}
-		// 3. Schema ** with vector dimension **
-		{
-			this.schema = createSchema(vectorDimension);
-		}
-		// 4. Field
-		{
-			this.default_field_name = resolveDefaultFieldName(language);
-		}
+		this(new Builder(language).vectorDimension(vectorDimension));
 	}
 
 	public LocalSearch(String language, int vectorDimension, File indexDir) {
-		this(language, vectorDimension, indexDir.toPath());
+		this(new Builder(language).vectorDimension(vectorDimension).indexDirectory(indexDir.toPath()));
 	}
 
 	public LocalSearch(String language, int vectorDimension, Path indexDir) {
-		if (vectorDimension < 0) {
-			throw new LocalSearchException("vectorDimension must be >= 0",
-					new IllegalArgumentException("vectorDimension must be >= 0"));
-		}
+		this(new Builder(language).vectorDimension(vectorDimension).indexDirectory(indexDir));
+	}
 
-		this.language = language;
+	// -----------------------------------------------------------------------
+	// Static factory
+	// -----------------------------------------------------------------------
 
-		initIndex(indexDir);
-
-		this.schema = createSchema(vectorDimension);
-
-		this.default_field_name = resolveDefaultFieldName(language);
+	public static LocalSearch open(String language, int vectorDimension, Path indexDir) {
+		return new Builder(language).vectorDimension(vectorDimension).indexDirectory(indexDir).build();
 	}
 
 	public void add(String id, float[] vector) {
@@ -445,6 +534,9 @@ public class LocalSearch implements AutoCloseable {
 	 * @param record エンリッチ対象のレコード
 	 */
 	private void enrich(SearchRecord record) {
+		if (!this.autoAnalyze) {
+			return;
+		}
 		if (!"ja".equals(this.language)) {
 			return;
 		}
@@ -1496,7 +1588,8 @@ public class LocalSearch implements AutoCloseable {
 
 	@Override
 	public String toString() {
-		return "LocalSearch [language=" + language + ", default_field_name=" + default_field_name + ", schema=" + schema
+		return "LocalSearch [language=" + language + ", autoAnalyze=" + autoAnalyze
+				+ ", default_field_name=" + default_field_name + ", schema=" + schema
 				+ ", index=" + index + "]";
 	}
 }

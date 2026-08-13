@@ -1675,4 +1675,171 @@ public class LocalSearchTestCase extends TestCase {
 		}
 	}
 
+	// =========================================================
+	// Builder API テスト
+	// =========================================================
+
+	/**
+	 * {@code LocalSearch.builder("ja").build()} がデフォルト設定（autoAnalyze=true）で
+	 * 動作することを確認する。従来の {@code new LocalSearch("ja")} と同等の動作になること。
+	 */
+	public void testBuilder001() throws Exception {
+		try (LocalSearch search = LocalSearch.builder("ja").build()) {
+			search.add("1", "東京の観光スポット");
+			search.add("2", "京都の寺院と歴史");
+			search.commit();
+
+			// 全文検索
+			SearchResult[] results = search.search("東京", 10);
+			assertEquals(1, results.length);
+			assertEquals("1", results[0].id);
+		}
+	}
+
+	/**
+	 * {@code .autoAnalyze(false)} を指定すると Kuromoji 形態素解析がスキップされ、
+	 * word.verb フィールドで検索してもヒットしないことを確認する。
+	 *
+	 * <pre>
+	 * autoAnalyze=true  → word.verb="行く" で検索するとヒットする
+	 * autoAnalyze=false → word.verb="行く" で検索しても 0 件
+	 * </pre>
+	 */
+	public void testBuilder002_autoAnalyzeFalse() throws Exception {
+		try (LocalSearch search = LocalSearch.builder("ja")
+				.autoAnalyze(false)
+				.build()) {
+			search.add("1", "私は歩いて学校に行きました。");
+			search.commit();
+
+			// word.verb="行く" で検索しても 0 件（形態素解析されていないため登録なし）
+			SearchResult[] results = search.search("word.verb", "行く", 10);
+			assertEquals("autoAnalyze=false では word.verb に値が登録されないこと", 0, results.length);
+		}
+	}
+
+	/**
+	 * {@code .autoAnalyze(true)} が明示指定された場合も形態素解析が正しく動作することを確認する。
+	 * デフォルト値（true）と同じ挙動であること。
+	 */
+	public void testBuilder003_autoAnalyzeTrue() throws Exception {
+		try (LocalSearch search = LocalSearch.builder("ja")
+				.autoAnalyze(true)
+				.build()) {
+			search.add("1", "私は歩いて学校に行きました。");
+			search.commit();
+
+			// word.verb に "行く" が集計されること
+			String json = search.aggregateJson("""
+					{"field":"word.verb","size":10}
+					""");
+			nlp4j.json.JsonNode buckets = nlp4j.json.JsonNode.parse(json)
+					.get("aggregations").get("values").get("buckets");
+
+			boolean foundIku = false;
+			for (nlp4j.json.JsonNode bucket : buckets.asList()) {
+				if ("行く".equals(bucket.get("key").asString())) {
+					foundIku = true;
+				}
+			}
+			assertTrue("autoAnalyze=true では word.verb に '行く' が登録されること", foundIku);
+		}
+	}
+
+	/**
+	 * {@code .vectorDimension(2)} を指定してベクトル検索が動作することを確認する。
+	 */
+	public void testBuilder004_vectorDimension() throws Exception {
+		try (LocalSearch search = LocalSearch.builder("en")
+				.vectorDimension(2)
+				.build()) {
+			search.add("1_East",  new float[] { 1.0f, 0.0f });
+			search.add("2_North", new float[] { 0.0f, 1.0f });
+			search.add("3_West",  new float[] { -1.0f, 0.0f });
+			search.commit();
+
+			// クエリ (0.9, 0.1) に最近傍の 1_East がスコア最高
+			SearchResult[] results = search.search(new float[] { 0.9f, 0.1f }, 3);
+			assertEquals(3, results.length);
+			assertEquals("1_East", results[0].id);
+		}
+	}
+
+	/**
+	 * {@code .autoAnalyze(false).vectorDimension(2)} の組み合わせが正しく動作することを確認する。
+	 * 形態素解析なし＋ベクトル検索の両方が有効であること。
+	 */
+	public void testBuilder005_autoAnalyzeFalseWithVector() throws Exception {
+		try (LocalSearch search = LocalSearch.builder("ja")
+				.autoAnalyze(false)
+				.vectorDimension(2)
+				.build()) {
+			search.add("1", new float[] { 1.0f, 0.0f });
+			search.add("2", new float[] { 0.0f, 1.0f });
+			search.commit();
+
+			// ベクトル検索が動作すること
+			SearchResult[] results = search.search(new float[] { 0.9f, 0.1f }, 2);
+			assertEquals(2, results.length);
+			assertEquals("1", results[0].id);
+
+			// word.verb="行く" で検索しても 0 件
+			// （add(id, vector) では本文がなく、かつ autoAnalyze=false のため word フィールドは空）
+			SearchResult[] verbResults = search.search("word.verb", "行く", 10);
+			assertEquals(0, verbResults.length);
+		}
+	}
+
+	/**
+	 * {@code .indexDirectory(Path)} でディスクインデックスを使用した場合に
+	 * 文書の追加・検索が正しく動作することを確認する。
+	 */
+	public void testBuilder006_indexDirectory() throws Exception {
+		java.nio.file.Path tempDir = java.nio.file.Files.createTempDirectory("localsearch_test_");
+		try {
+			try (LocalSearch search = LocalSearch.builder("en")
+					.indexDirectory(tempDir)
+					.build()) {
+				search.addJson("""
+						{"id":"1","body":"Kyoto is a historic city.","category":"city"}
+						""");
+				search.addJson("""
+						{"id":"2","body":"Nintendo is headquartered in Kyoto.","category":"company"}
+						""");
+				search.commit();
+
+				// 全文検索
+				SearchResult[] results = search.search("Kyoto", 10);
+				assertEquals(2, results.length);
+
+				// フィールド検索
+				SearchResult[] byCategory = search.search("category", "city", 10);
+				assertEquals(1, byCategory.length);
+				assertEquals("1", byCategory[0].id);
+			}
+		} finally {
+			// 一時ディレクトリを削除
+			try (java.util.stream.Stream<java.nio.file.Path> files =
+					java.nio.file.Files.walk(tempDir)) {
+				files.sorted(java.util.Comparator.reverseOrder())
+						.forEach(p -> {
+							try { java.nio.file.Files.deleteIfExists(p); } catch (Exception ignored) {}
+						});
+			}
+		}
+	}
+
+	/**
+	 * {@code .vectorDimension(n)} に負の値を渡すと {@link LocalSearchException} がスローされることを確認する。
+	 */
+	public void testBuilder007_negativeDimensionThrows() throws Exception {
+		try {
+			LocalSearch.builder("ja").vectorDimension(-1).build();
+			fail("vectorDimension < 0 では LocalSearchException がスローされること");
+		} catch (LocalSearchException e) {
+			// 期待通り
+			assertTrue(e.getMessage().contains("vectorDimension must be >= 0"));
+		}
+	}
+
 }

@@ -16,7 +16,8 @@
 	<!-- 2026-07-30 1.0.0.0 Keyword Search -->
 	<!-- 2026-08-03 1.1.0.0 Field search and aggregation -->
 	<!-- 2026-08-06 1.4.0.0 Multi valued field search and aggregation -->
-	<version>1.4.0.0</version>
+	<!-- 2026-MM-DD 1.5.0.0 Built-in Language Analyzer -->
+	<version>1.5.0.0</version>
 	<description>NLP4J for Apache Lucene</description>
 	<url>https://nlp4j.org/</url>
 	<licenses>

@@ -230,3 +230,11 @@ mvn test
 - Apache Lucene: 9.12.2
 - nlp4j-core: 1.3.7.21
 - Java: 17+
+
+## History
+
+2026-07-30 1.0.0.0 Keyword Search
+2026-08-03 1.1.0.0 Field search and aggregation
+2026-08-06 1.4.0.0 Multi valued field search and aggregation
+2026-MM-DD 1.5.0.0 Built-in Language Analyzer
+	
