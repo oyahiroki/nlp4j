@@ -21,7 +21,7 @@ import nlp4j.util.JsonUtils;
  */
 public abstract class AbstractDocumentImporter implements DocumentImporter {
 
-	static private Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
+	static private final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
 	protected Properties props = new Properties();
 	protected boolean debug = false;

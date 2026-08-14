@@ -125,7 +125,7 @@ public class PrintUtils {
 
 	}
 
-	static private Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
+	static private final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
 	static public void grepJson(String regex, String fileName, int max) throws IOException {
 

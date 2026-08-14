@@ -3,8 +3,10 @@ package nlp4j.lucene;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import org.apache.lucene.document.Document;
 
@@ -743,13 +745,16 @@ public class LocalSearch implements AutoCloseable {
 		return request;
 	}
 
-	private SearchResult[] executeSearch(JsonNode request) {
+	private JsonNode executeRequest(JsonNode request) {
 		try {
-			JsonNode response = api.search("myindex/_search", request);
-			return toSearchResults(response);
+			return api.search("myindex/_search", request);
 		} catch (IOException e) {
 			throw new LocalSearchException(e.getMessage(), e);
 		}
+	}
+
+	private SearchResult[] executeSearch(JsonNode request) {
+		return toSearchResults(executeRequest(request));
 	}
 
 	private void initIndex() {
@@ -794,141 +799,6 @@ public class LocalSearch implements AutoCloseable {
 		return executeSearch(createTextSearchRequest(field, query, limit));
 	}
 
-	/**
-	 * フィールドの値ごとのドキュメント件数を集計します（terms aggregation）。
-	 *
-	 * <p>入力 JSON 形式:</p>
-	 * <pre>
-	 * // フィールド全体を集計
-	 * {"field":"category","size":10}
-	 *
-	 * // 全文検索で絞り込んだ上で集計
-	 * {"field":"category","query":"東京","size":10}
-	 *
-	 * // 全文検索 + filters（keyword 完全一致）で絞り込んだ上で集計
-	 * {"field":"category","query":"東京","size":10,"filters":{"country":"Japan","source":"news"}}
-	 * </pre>
-	 *
-	 * <p>戻り値 JSON 形式:</p>
-	 * <pre>
-	 * {
-	 *   "field": "category",
-	 *   "buckets": [
-	 *     {"key": "technology", "count": 1}
-	 *   ]
-	 * }
-	 * </pre>
-	 *
-	 * @param requestJson 集計リクエスト JSON 文字列（field, query?, size?, filters?）
-	 * @return 集計結果の独自形式 JSON 文字列
-	 * @throws LocalSearchException if JSON parsing or aggregation fails
-	 */
-	public String aggregateJson_bak(String requestJson) {
-		try {
-			JsonNode request = JsonNode.parse(requestJson);
-
-			String field = request.get("field").asString();
-			String query = request.get("query").asString(null);
-			int size = request.get("size").asInt(10);
-			JsonNode filters = request.get("filters");
-
-			JsonNode searchRequest = createAggregationRequest(field, query, size, filters);
-
-			JsonNode response = api.search("myindex/_search", searchRequest);
-
-			return toAggregationResult(field, response).toJson();
-
-		} catch (Throwable th) {
-			throw new LocalSearchException(th.getMessage(), th);
-		}
-	}
-
-	/**
-	 * aggregateJson() 用の OpenSearch 形式リクエストを生成します。
-	 * query / filters が両方ない場合は match_all と等価（query 節なし）になります。
-	 *
-	 * @param field   集計対象フィールド名
-	 * @param query   全文検索クエリ（null または空文字の場合はスキップ）
-	 * @param size    返すバケット数の上限
-	 * @param filters keyword フィールドの絞り込み条件（null または空の場合はスキップ）
-	 * @return OpenSearch 形式のリクエスト JsonNode
-	 */
-	private JsonNode createAggregationRequest(String field, String query, int size, JsonNode filters) {
-		JsonNode root = JsonNode.object();
-
-		// ヒット本文は不要なので size=0
-		root.put("size", 0);
-
-		boolean hasQuery = query != null && !query.isEmpty();
-		boolean hasFilters = filters != null && !filters.isNull() && filters.size() > 0;
-
-		if (hasQuery || hasFilters) {
-			JsonNode boolQuery = JsonNode.object();
-
-			if (hasQuery) {
-				JsonNode must = JsonNode.array();
-				must.add(JsonNode.object().put(
-						"match", JsonNode.object().put(this.default_field_name, query)));
-				boolQuery.put("must", must);
-			}
-
-			if (hasFilters) {
-				JsonNode filter = JsonNode.array();
-				for (String fieldName : filters.keys()) {
-					String value = filters.get(fieldName).asString(null);
-					if (value == null) {
-						continue;
-					}
-					filter.add(JsonNode.object().put(
-							"term", JsonNode.object().put(fieldName, value)));
-				}
-				boolQuery.put("filter", filter);
-			}
-
-			root.put("query", JsonNode.object().put("bool", boolQuery));
-		}
-
-		JsonNode terms = JsonNode.object();
-		terms.put("field", field);
-		terms.put("size", size);
-
-		JsonNode aggs = JsonNode.object();
-		aggs.put("values", JsonNode.object().put("terms", terms));
-
-		root.put("aggs", aggs);
-
-		return root;
-	}
-
-	/**
-	 * OpenSearch 形式の aggregation レスポンスを独自形式に変換します。
-	 *
-	 * <pre>
-	 * {"field":"category","buckets":[{"key":"観光","count":5},{"key":"技術","count":3}]}
-	 * </pre>
-	 *
-	 * @param field    集計対象フィールド名
-	 * @param response api.search() からのレスポンス
-	 * @return 独自形式の JsonNode
-	 */
-	private JsonNode toAggregationResult(String field, JsonNode response) {
-		JsonNode result = JsonNode.object();
-		result.put("field", field);
-
-		JsonNode buckets = JsonNode.array();
-
-		JsonNode rawBuckets = response.get("aggregations").get("values").get("buckets");
-		for (JsonNode raw : rawBuckets.asList()) {
-			JsonNode bucket = JsonNode.object();
-			bucket.put("key", raw.get("key").asString());
-			bucket.put("count", (Number) raw.get("doc_count").asLong(0));
-			buckets.add(bucket);
-		}
-
-		result.put("buckets", buckets);
-
-		return result;
-	}
 
 	public void saveIndexTo(Path dir) throws IOException {
 		if (index != null) {
@@ -1070,7 +940,7 @@ public class LocalSearch implements AutoCloseable {
 	public String searchResponseJson(String requestJson) {
 		try {
 			JsonNode request = JsonNode.parse(requestJson);
-			JsonNode response = api.search("myindex/_search", request);
+			JsonNode response = executeRequest(request);
 			return response.toJson();
 		} catch (Throwable th) {
 			throw new LocalSearchException(th.getMessage(), th);
@@ -1227,15 +1097,7 @@ public class LocalSearch implements AutoCloseable {
 	                        filters
 	                );
 
-	        /*
-	         * ここで返るのはLuceneLocalSearchApiの内部レスポンス。
-	         * 公開形式としてそのまま返さない。
-	         */
-	        JsonNode luceneResponse =
-	                api.search(
-	                        "myindex/_search",
-	                        searchRequest
-	                );
+	        JsonNode luceneResponse = executeRequest(searchRequest);
 
 	        JsonNode openSearchResponse =
 	                toOpenSearchAggregationResponse(
@@ -1251,6 +1113,279 @@ public class LocalSearch implements AutoCloseable {
 	                e
 	        );
 	    }
+	}
+
+	// -----------------------------------------------------------------------
+	// Java API: count()
+	// -----------------------------------------------------------------------
+
+	/**
+	 * インデックス内の全ドキュメント件数を返します。
+	 *
+	 * @return ドキュメント件数
+	 * @throws LocalSearchException if search fails
+	 */
+	public long count() {
+	    return count(null, (Map<String, String>) null);
+	}
+
+	/**
+	 * 全文検索クエリにマッチするドキュメント件数を返します。
+	 *
+	 * @param query 全文検索クエリ（null または空文字の場合は全件）
+	 * @return マッチするドキュメント件数
+	 * @throws LocalSearchException if search fails
+	 */
+	public long count(String query) {
+	    return count(query, (Map<String, String>) null);
+	}
+
+	/**
+	 * 全文検索クエリ＋フィールド絞り込みにマッチするドキュメント件数を返します。
+	 *
+	 * @param query   全文検索クエリ（null または空文字の場合は match_all）
+	 * @param filters keyword フィールドの絞り込み条件（フィールド名 → 値）
+	 * @return マッチするドキュメント件数
+	 * @throws LocalSearchException if search fails
+	 */
+	public long count(String query, Map<String, String> filters) {
+	    JsonNode searchRequest = createCountRequest(query, toFilterNode(filters));
+	    return toTotalHits(executeRequest(searchRequest));
+	}
+
+	/**
+	 * 指定フィールドの値が一致するドキュメント件数を返します。
+	 *
+	 * <p>全文検索ではなく、keyword フィールドの完全一致で絞り込みます。
+	 * 形態素解析で生成された word.* フィールドなど、分析フィールドを条件に使う場合に便利です。</p>
+	 *
+	 * <p>例:</p>
+	 * <pre>
+	 * // word.noun=ニッサン が出現する文書の件数
+	 * long count = search.count("word.noun", "ニッサン");
+	 *
+	 * // category=technology の文書の件数
+	 * long count = search.count("category", "technology");
+	 * </pre>
+	 *
+	 * @param filterField 絞り込み対象のフィールド名
+	 * @param filterValue 絞り込み対象のフィールド値
+	 * @return マッチするドキュメント件数
+	 * @throws LocalSearchException if search fails
+	 */
+	public long count(String filterField, String filterValue) {
+	    return count(null, java.util.Map.of(filterField, filterValue));
+	}
+
+	// -----------------------------------------------------------------------
+	// Java API: aggregate()
+	// -----------------------------------------------------------------------
+
+	/**
+	 * 全ドキュメントを対象に、指定フィールドの terms aggregation を実行します。
+	 *
+	 * @param field 集計対象フィールド名
+	 * @param size  返すバケット数の上限
+	 * @return フィールド値 → ドキュメント件数のマップ（件数降順）
+	 * @throws LocalSearchException if aggregation fails
+	 */
+	public Map<String, Long> aggregate(String field, int size) {
+	    return aggregate(field, null, size, null);
+	}
+
+	/**
+	 * 全文検索クエリで絞り込んだ上で、指定フィールドの terms aggregation を実行します。
+	 *
+	 * @param field 集計対象フィールド名
+	 * @param query 全文検索クエリ（null または空文字の場合は全件）
+	 * @param size  返すバケット数の上限
+	 * @return フィールド値 → ドキュメント件数のマップ（件数降順）
+	 * @throws LocalSearchException if aggregation fails
+	 */
+	public Map<String, Long> aggregate(String field, String query, int size) {
+	    return aggregate(field, query, size, null);
+	}
+
+	/**
+	 * 全文検索クエリ＋フィールド絞り込みで絞り込んだ上で、指定フィールドの terms aggregation を実行します。
+	 *
+	 * @param field   集計対象フィールド名
+	 * @param query   全文検索クエリ（null または空文字の場合は全件）
+	 * @param size    返すバケット数の上限
+	 * @param filters keyword フィールドの絞り込み条件（null または空の場合はスキップ）
+	 * @return フィールド値 → ドキュメント件数のマップ（件数降順）
+	 * @throws LocalSearchException if aggregation fails
+	 */
+	public Map<String, Long> aggregate(
+	        String field,
+	        String query,
+	        int size,
+	        Map<String, String> filters) {
+	    JsonNode searchRequest =
+	            createAggregationRequest(
+	                    "values",
+	                    field,
+	                    query,
+	                    size,
+	                    toFilterNode(filters));
+	    JsonNode response = executeRequest(searchRequest);
+	    return toAggregationMap("values", response);
+	}
+
+	/**
+	 * 指定フィールドの値で絞り込んだ上で、別フィールドの terms aggregation を実行します。
+	 *
+	 * <p>全文検索ではなく、keyword フィールドの完全一致で絞り込みます。
+	 * 形態素解析で生成された word.* フィールドなどを条件に使う場合に便利です。</p>
+	 *
+	 * <p>例:</p>
+	 * <pre>
+	 * // word.noun=ニッサン が出現する文書の中で word.noun を集計
+	 * Map&lt;String, Long&gt; result =
+	 *         search.aggregate("word.noun", "word.noun", "ニッサン", 1000);
+	 *
+	 * // word.noun=ニッサン が出現する文書の中で word.verb を集計
+	 * Map&lt;String, Long&gt; result =
+	 *         search.aggregate("word.verb", "word.noun", "ニッサン", 1000);
+	 *
+	 * // category=car が設定された文書の中で word.noun を集計
+	 * Map&lt;String, Long&gt; result =
+	 *         search.aggregate("word.noun", "category", "car", 1000);
+	 * </pre>
+	 *
+	 * @param aggregationField 集計対象フィールド名
+	 * @param filterField      絞り込み対象のフィールド名
+	 * @param filterValue      絞り込み対象のフィールド値
+	 * @param size             返すバケット数の上限
+	 * @return フィールド値 → ドキュメント件数のマップ（件数降順）
+	 * @throws LocalSearchException if aggregation fails
+	 */
+	public Map<String, Long> aggregate(
+	        String aggregationField,
+	        String filterField,
+	        String filterValue,
+	        int size) {
+	    return aggregate(
+	            aggregationField,
+	            null,
+	            size,
+	            java.util.Map.of(filterField, filterValue));
+	}
+
+	// -----------------------------------------------------------------------
+	// Private helpers
+	// -----------------------------------------------------------------------
+
+	/**
+	 * count() 用のリクエストを生成します（aggs なし、size=0）。
+	 * query が null または空文字の場合は match_all になります。
+	 *
+	 * @param query   全文検索クエリ（null または空文字の場合は match_all）
+	 * @param filters keyword フィールドの絞り込み条件（null の場合はスキップ）
+	 * @return OpenSearch 形式のリクエスト JsonNode
+	 */
+	private JsonNode createCountRequest(String query, JsonNode filters) {
+	    JsonNode root = JsonNode.object();
+	    root.put("size", 0);
+
+	    boolean hasQuery = query != null && !query.isEmpty();
+	    boolean hasFilters = filters != null && !filters.isNull() && filters.size() > 0;
+
+	    if (hasQuery || hasFilters) {
+	        JsonNode boolQuery = JsonNode.object();
+
+	        if (hasQuery) {
+	            JsonNode must = JsonNode.array();
+	            must.add(JsonNode.object().put(
+	                    "match",
+	                    JsonNode.object().put(this.default_field_name, query)));
+	            boolQuery.put("must", must);
+	        }
+
+	        if (hasFilters) {
+	            JsonNode filter = JsonNode.array();
+	            for (String fieldName : filters.keys()) {
+	                String value = filters.get(fieldName).asString(null);
+	                if (value == null) {
+	                    continue;
+	                }
+	                filter.add(JsonNode.object().put(
+	                        "term",
+	                        JsonNode.object().put(fieldName, value)));
+	            }
+	            if (filter.size() > 0) {
+	                boolQuery.put("filter", filter);
+	            }
+	        }
+
+	        root.put("query", JsonNode.object().put("bool", boolQuery));
+	    }
+
+	    return root;
+	}
+
+	/**
+	 * レスポンスの hits.total.value を返します。
+	 *
+	 * @param response api.search() からのレスポンス
+	 * @return ヒット件数
+	 */
+	private long toTotalHits(JsonNode response) {
+	    return response
+	            .get("hits")
+	            .get("total")
+	            .get("value")
+	            .asLong(0);
+	}
+
+	/**
+	 * aggregation レスポンスから {@code Map<String, Long>} を生成します。
+	 * LinkedHashMap を使用して件数降順を保持します。
+	 *
+	 * @param aggregationName aggregation 名
+	 * @param response        api.search() からのレスポンス
+	 * @return フィールド値 → ドキュメント件数のマップ
+	 */
+	private Map<String, Long> toAggregationMap(
+	        String aggregationName,
+	        JsonNode response) {
+
+	    JsonNode buckets =
+	            response
+	                .get("aggregations")
+	                .get(aggregationName)
+	                .get("buckets");
+
+	    Map<String, Long> result = new LinkedHashMap<>();
+
+	    for (JsonNode bucket : buckets.asList()) {
+	        String key = bucket.get("key").asString();
+	        long docCount = bucket.get("doc_count").asLong(0);
+	        result.put(key, docCount);
+	    }
+
+	    return result;
+	}
+
+	/**
+	 * {@code Map<String, String>} を filters 用の JsonNode に変換します。
+	 * null または空の場合は null を返します。
+	 *
+	 * @param filters フィールド名 → 値のマップ
+	 * @return filters 用 JsonNode（null の場合あり）
+	 */
+	private JsonNode toFilterNode(Map<String, String> filters) {
+	    if (filters == null || filters.isEmpty()) {
+	        return null;
+	    }
+	    JsonNode node = JsonNode.object();
+	    for (Map.Entry<String, String> entry : filters.entrySet()) {
+	        if (entry.getKey() == null || entry.getValue() == null) {
+	            continue;
+	        }
+	        node.put(entry.getKey(), entry.getValue());
+	    }
+	    return node;
 	}
 	
 	

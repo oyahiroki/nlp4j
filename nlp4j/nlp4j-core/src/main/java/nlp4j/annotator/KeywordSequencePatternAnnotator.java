@@ -33,7 +33,7 @@ import nlp4j.impl.DefaultKeyword;
 public class KeywordSequencePatternAnnotator extends AbstractDocumentAnnotator
 		implements DocumentAnnotator, KeywordAnnotator {
 
-	static private Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
+	static private final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
 	@Override
 	public void annotate(Document doc) throws Exception {

@@ -21,7 +21,7 @@ import nlp4j.io.LimitedLineBufferedReader;
 
 public class TextFileUtils {
 
-	static private Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
+	static private final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
 	/**
 	 * @param n

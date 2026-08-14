@@ -21,7 +21,7 @@ import nlp4j.Keyword;
  */
 public class UserDictionaryStringMatchAnnotator extends AbstractDocumentAnnotator implements DocumentAnnotator {
 
-	static private Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
+	static private final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
 	UserDictionaryStringMatcher matcher;
 

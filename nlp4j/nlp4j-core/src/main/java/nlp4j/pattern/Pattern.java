@@ -13,8 +13,6 @@ import nlp4j.KeywordWithDependency;
  */
 public class Pattern implements Cloneable {
 
-//	static private final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
-
 	String facet;
 
 	KeywordRule keywordRule;

@@ -23,7 +23,7 @@ import nlp4j.KeywordBuilder;
  */
 public class UserDictionaryStringMatcher {
 
-	static private Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
+	static private final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
 	// MAP(正規形 → ファセット)
 	Map<String, List<String>> mapLexFacets = new HashMap<>();

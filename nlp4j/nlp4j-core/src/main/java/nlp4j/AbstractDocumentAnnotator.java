@@ -18,7 +18,7 @@ import org.apache.logging.log4j.Logger;
  */
 public abstract class AbstractDocumentAnnotator implements DocumentAnnotator {
 
-	static private Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
+	static private final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
 	protected ArrayList<String> targets = new ArrayList<>();
 

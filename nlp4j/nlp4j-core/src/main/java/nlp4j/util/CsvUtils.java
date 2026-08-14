@@ -2,11 +2,14 @@ package nlp4j.util;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.UncheckedIOException;
 import java.lang.invoke.MethodHandles;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
@@ -14,8 +17,11 @@ import org.apache.commons.csv.CSVRecord;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.google.gson.JsonArray;
+
 import nlp4j.Document;
 import nlp4j.crawler.CsvFileStreamCrawler;
+import nlp4j.impl.DefaultDocument;
 
 /**
  * created on: 2022-12-31
@@ -26,8 +32,9 @@ public class CsvUtils {
 
 	static private final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
+	static private final String encoding = "UTF-8";
+
 	static public List<List<String>> readCsv(File csvFile) throws IOException {
-		String encoding = "UTF-8";
 		CSVParser parser = CSVParser.parse(csvFile, //
 				Charset.forName(encoding), //
 				CSVFormat.EXCEL //
@@ -64,5 +71,6 @@ public class CsvUtils {
 		CsvFileStreamCrawler crl = new CsvFileStreamCrawler();
 		return crl.streamDocuments(csvFile_or_gzipCsvFile);
 	}
+
 
 }

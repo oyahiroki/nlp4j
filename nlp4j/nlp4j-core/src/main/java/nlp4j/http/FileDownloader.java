@@ -31,7 +31,7 @@ import org.apache.logging.log4j.Logger;
  */
 public class FileDownloader {
 
-	static private Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
+	static private final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
 	/**
 	 * <p>

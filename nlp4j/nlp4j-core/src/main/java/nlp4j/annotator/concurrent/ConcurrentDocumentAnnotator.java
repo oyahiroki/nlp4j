@@ -31,7 +31,7 @@ import nlp4j.util.CollectionUtils;
  */
 public class ConcurrentDocumentAnnotator extends AbstractDocumentAnnotator implements DocumentAnnotator, Closeable {
 
-	static private Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
+	static private final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
 	/**
 	 * 並列処理に利用するAnnotator

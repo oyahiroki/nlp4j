@@ -9,7 +9,20 @@ public class CsvFileStreamCrawlerTestCase extends TestCase {
 	public void testCrawlDocuments() {
 	}
 
-	public void testStreamDocuments() {
+	public void testStreamDocumentsResource_001() throws Exception {
+		CsvFileStreamCrawler crl = new CsvFileStreamCrawler();
+		crl.streamDocumentsResource("nlp4j.crawler/CsvFileStreamCrawlerTestCase.csv") //
+				.forEach(d -> {
+					System.err.println(d);
+				});
+	}
+
+	public void testStreamDocumentsResource_002() throws Exception {
+		CsvFileStreamCrawler crl = new CsvFileStreamCrawler();
+		crl.streamDocumentsResource("nlp4j.crawler/CsvFileStreamCrawlerTestCase_mlit.csv") //
+				.forEach(d -> {
+					System.err.println(d.getAttribute("番号") + "," + d.getAttribute("申告内容"));
+				});
 	}
 
 	/**

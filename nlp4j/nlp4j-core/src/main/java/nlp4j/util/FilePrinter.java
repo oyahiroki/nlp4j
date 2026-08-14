@@ -17,7 +17,7 @@ import org.apache.logging.log4j.Logger;
  */
 public class FilePrinter implements Closeable {
 
-	static private Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
+	static private final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
 	File outFile = null;
 

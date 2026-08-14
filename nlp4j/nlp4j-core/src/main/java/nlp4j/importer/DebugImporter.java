@@ -19,7 +19,7 @@ import nlp4j.util.JsonUtils;
  */
 public class DebugImporter extends AbstractDocumentImporter implements DocumentImporter {
 
-	static private Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
+	static private final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
 	public DebugImporter() {
 		super();

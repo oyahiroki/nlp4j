@@ -35,7 +35,7 @@ import nlp4j.Document;
  */
 public class FileUtils {
 
-	static private Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
+	static private final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
 	/**
 	 * Checks if the specified file or its parent directory exists. This method logs

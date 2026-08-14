@@ -15,7 +15,7 @@ import org.apache.logging.log4j.Logger;
  */
 public class MultiOutputStream extends OutputStream {
 
-	static private Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
+	static private final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 	private OutputStream[] outputStreams;
 
 	public MultiOutputStream(OutputStream... outputStreams) {

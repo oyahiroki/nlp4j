@@ -29,7 +29,7 @@ import nlp4j.FieldAnnotator;
  */
 public class AttributeTypeConverter extends AbstractDocumentAnnotator implements DocumentAnnotator, FieldAnnotator {
 
-	static private Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
+	static private final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
 	HashMap<String, String> fieldMap = new LinkedHashMap<String, String>();
 

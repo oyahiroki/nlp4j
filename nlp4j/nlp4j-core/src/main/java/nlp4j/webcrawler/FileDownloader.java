@@ -27,7 +27,7 @@ import nlp4j.http.HttpClientBuilder;
 public class FileDownloader {
 
 	private static final int DOWNLOAD_BUFF_SIZE = 1024 * 1024 * 10;
-	static private Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
+	static private final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
 	/**
 	 * @param url     to fetch data

@@ -21,7 +21,7 @@ import nlp4j.util.StringUtils;
  */
 public class EmojiAnnotator extends AbstractDocumentAnnotator implements DocumentAnnotator, FieldAnnotator {
 
-	static private Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
+	static private final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
 	@Override
 	public void setProperty(String key, String value) {

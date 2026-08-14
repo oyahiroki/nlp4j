@@ -17,7 +17,7 @@ import nlp4j.util.DocumentUtil;
  */
 public class DebugAnnotator extends AbstractDocumentAnnotator {
 
-	static private Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
+	static private final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
 	private boolean wait = false;
 	private long wait_time_ms = 0;

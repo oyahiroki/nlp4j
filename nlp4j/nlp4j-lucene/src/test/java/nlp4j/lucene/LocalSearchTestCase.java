@@ -107,27 +107,21 @@ public class LocalSearchTestCase extends TestCase {
 	}
 
 	/**
-	 * add(id, vector, fields) でフィールド付きベクトル文書を登録し、
-	 * search(vector, limit, filters) で単一フィールドフィルターが動作することを確認する。
-	 * category=technology を持つ文書のみがヒットすること。
+	 * add(id, vector, fields) でフィールド付きベクトル文書を登録し、 search(vector, limit, filters)
+	 * で単一フィールドフィルターが動作することを確認する。 category=technology を持つ文書のみがヒットすること。
 	 */
 	public void testVectorSearchWithFilter001() throws Exception {
 
 		try (LocalSearch search = new LocalSearch("ja", 2)) {
-			search.add("1_tech_east",  new float[] { 1.0f, 0.0f },
-					java.util.Map.of("category", "technology"));
-			search.add("2_tech_north", new float[] { 0.0f, 1.0f },
-					java.util.Map.of("category", "technology"));
-			search.add("3_travel_east", new float[] { 0.9f, 0.1f },
-					java.util.Map.of("category", "travel"));
-			search.add("4_travel_west",  new float[] { -1.0f, 0.0f },
-					java.util.Map.of("category", "travel"));
+			search.add("1_tech_east", new float[] { 1.0f, 0.0f }, java.util.Map.of("category", "technology"));
+			search.add("2_tech_north", new float[] { 0.0f, 1.0f }, java.util.Map.of("category", "technology"));
+			search.add("3_travel_east", new float[] { 0.9f, 0.1f }, java.util.Map.of("category", "travel"));
+			search.add("4_travel_west", new float[] { -1.0f, 0.0f }, java.util.Map.of("category", "travel"));
 			search.commit();
 
 			// クエリベクトル (0.9, 0.1) は 1_tech_east に最近傍
 			// category=technology でフィルターすると 1_tech_east, 2_tech_north の 2 件
-			SearchResult[] results = search.search(
-					new float[] { 0.9f, 0.1f }, 10,
+			SearchResult[] results = search.search(new float[] { 0.9f, 0.1f }, 10,
 					java.util.Map.of("category", "technology"));
 
 			System.out.println("testVectorSearchWithFilter001 size: " + results.length);
@@ -147,19 +141,15 @@ public class LocalSearchTestCase extends TestCase {
 	public void testVectorSearchWithFilter002() throws Exception {
 
 		try (LocalSearch search = new LocalSearch("en", 2)) {
-			search.add("1", new float[] { 1.0f, 0.0f },
-					java.util.Map.of("category", "technology", "country", "Japan"));
-			search.add("2", new float[] { 0.9f, 0.2f },
-					java.util.Map.of("category", "technology", "country", "USA"));
-			search.add("3", new float[] { 0.8f, 0.3f },
-					java.util.Map.of("category", "travel",     "country", "Japan"));
+			search.add("1", new float[] { 1.0f, 0.0f }, java.util.Map.of("category", "technology", "country", "Japan"));
+			search.add("2", new float[] { 0.9f, 0.2f }, java.util.Map.of("category", "technology", "country", "USA"));
+			search.add("3", new float[] { 0.8f, 0.3f }, java.util.Map.of("category", "travel", "country", "Japan"));
 			search.add("4", new float[] { -1.0f, 0.0f },
 					java.util.Map.of("category", "technology", "country", "Japan"));
 			search.commit();
 
 			// category=technology + country=Japan → id=1, id=4 の 2 件
-			SearchResult[] results = search.search(
-					new float[] { 0.9f, 0.1f }, 10,
+			SearchResult[] results = search.search(new float[] { 0.9f, 0.1f }, 10,
 					java.util.Map.of("category", "technology", "country", "Japan"));
 
 			System.out.println("testVectorSearchWithFilter002 size: " + results.length);
@@ -177,15 +167,12 @@ public class LocalSearchTestCase extends TestCase {
 	public void testVectorSearchWithFilter003() throws Exception {
 
 		try (LocalSearch search = new LocalSearch("en", 2)) {
-			search.add("1", new float[] { 1.0f, 0.0f },
-					java.util.Map.of("category", "technology"));
-			search.add("2", new float[] { 0.0f, 1.0f },
-					java.util.Map.of("category", "technology"));
+			search.add("1", new float[] { 1.0f, 0.0f }, java.util.Map.of("category", "technology"));
+			search.add("2", new float[] { 0.0f, 1.0f }, java.util.Map.of("category", "technology"));
 			search.commit();
 
 			// category=travel は存在しない → 0 件
-			SearchResult[] results = search.search(
-					new float[] { 0.9f, 0.1f }, 10,
+			SearchResult[] results = search.search(new float[] { 0.9f, 0.1f }, 10,
 					java.util.Map.of("category", "travel"));
 
 			System.out.println("testVectorSearchWithFilter003 size: " + results.length);
@@ -992,10 +979,13 @@ public class LocalSearchTestCase extends TestCase {
 	}
 
 	/**
-	 * addJson() で JSON 配列フィールド（keywords）を登録し、
-	 * aggregateJson() で各キーワードの doc_count が正しく集計されることを確認する。
+	 * addJson() で JSON 配列フィールド（keywords）を登録し、 aggregateJson() で各キーワードの doc_count
+	 * が正しく集計されることを確認する。
 	 *
-	 * <p>期待結果:</p>
+	 * <p>
+	 * 期待結果:
+	 * </p>
+	 * 
 	 * <pre>
 	 * keywords の集計:
 	 *   "これ"   → 2件 (id001, id002)
@@ -1069,8 +1059,8 @@ public class LocalSearchTestCase extends TestCase {
 	}
 
 	/**
-	 * addJson() で "text" フィールドが "body" の代替として動作することを確認する。
-	 * 全文検索で text フィールドの内容がヒットすること。
+	 * addJson() で "text" フィールドが "body" の代替として動作することを確認する。 全文検索で text
+	 * フィールドの内容がヒットすること。
 	 */
 	public void testAddJsonTextField001() throws Exception {
 		try (LocalSearch search = new LocalSearch("ja")) {
@@ -1101,14 +1091,13 @@ public class LocalSearchTestCase extends TestCase {
 		}
 	}
 
-
 	// =========================================================
 	// MultiValued Field - Aggregation テスト
 	// =========================================================
 
 	/**
-	 * addJson() で JSON 配列フィールド（tags）を MultiValued keyword として登録し、
-	 * aggregateJson() で各タグの doc_count が正しく集計されることを確認する。
+	 * addJson() で JSON 配列フィールド（tags）を MultiValued keyword として登録し、 aggregateJson()
+	 * で各タグの doc_count が正しく集計されることを確認する。
 	 *
 	 * <pre>
 	 * ドキュメント:
@@ -1168,8 +1157,7 @@ public class LocalSearchTestCase extends TestCase {
 	}
 
 	/**
-	 * aggregateJson() で全文検索クエリで絞り込んだ上での MultiValued フィールド集計が
-	 * 正しく動作することを確認する。
+	 * aggregateJson() で全文検索クエリで絞り込んだ上での MultiValued フィールド集計が 正しく動作することを確認する。
 	 *
 	 * <pre>
 	 * query="Kyoto" → id=1（tags=city,tourism,Japan）, id=2（tags=company,Japan）
@@ -1211,8 +1199,8 @@ public class LocalSearchTestCase extends TestCase {
 	}
 
 	/**
-	 * aggregateJson() で size パラメータが MultiValued フィールドの集計にも適用されることを確認する。
-	 * size=3 で上位 3 バケットのみ返ること。
+	 * aggregateJson() で size パラメータが MultiValued フィールドの集計にも適用されることを確認する。 size=3 で上位
+	 * 3 バケットのみ返ること。
 	 */
 	public void testMultiValuedAggregation003() throws Exception {
 		try (LocalSearch search = new LocalSearch("en")) {
@@ -1254,9 +1242,8 @@ public class LocalSearchTestCase extends TestCase {
 	// =========================================================
 
 	/**
-	 * addJson() で JSON 配列フィールド（tags）を登録し、
-	 * search(field, value, limit) で MultiValued フィールドの単一値フィルターが
-	 * 正しく動作することを確認する。
+	 * addJson() で JSON 配列フィールド（tags）を登録し、 search(field, value, limit) で MultiValued
+	 * フィールドの単一値フィルターが 正しく動作することを確認する。
 	 *
 	 * <pre>
 	 * tags="Japan" → id=1,2,3,5 の 4件（id=4 は France のみ）
@@ -1359,8 +1346,8 @@ public class LocalSearchTestCase extends TestCase {
 	}
 
 	/**
-	 * searchResponseJson() で bool/filter に複数 term を指定することで、
-	 * MultiValued フィールドの値を AND 条件で絞り込めることを確認する。
+	 * searchResponseJson() で bool/filter に複数 term を指定することで、 MultiValued フィールドの値を
+	 * AND 条件で絞り込めることを確認する。
 	 *
 	 * <pre>
 	 * tags="Japan" AND tags="city"    → id=1,3 の 2件
@@ -1388,33 +1375,24 @@ public class LocalSearchTestCase extends TestCase {
 			search.commit();
 
 			// tags="Japan" AND tags="city" → id=1, id=3 の 2件
-			String resp1 = search.searchResponseJson(
-					"{\"size\":10,\"query\":{\"bool\":{\"filter\":["
-					+ "{\"term\":{\"tags\":\"Japan\"}},"
-					+ "{\"term\":{\"tags\":\"city\"}}"
-					+ "]}}}");
+			String resp1 = search.searchResponseJson("{\"size\":10,\"query\":{\"bool\":{\"filter\":["
+					+ "{\"term\":{\"tags\":\"Japan\"}}," + "{\"term\":{\"tags\":\"city\"}}" + "]}}}");
 			System.out.println("testMultiValuedFilter003 Japan+city: " + resp1);
 			nlp4j.json.JsonNode r1 = nlp4j.json.JsonNode.parse(resp1);
 			assertEquals(2, r1.get("hits").get("hits").size());
 
 			// tags="Japan" AND tags="tourism" → id=1 の 1件
 			// （id=4 は tourism を持つが Japan を持たない）
-			String resp2 = search.searchResponseJson(
-					"{\"size\":10,\"query\":{\"bool\":{\"filter\":["
-					+ "{\"term\":{\"tags\":\"Japan\"}},"
-					+ "{\"term\":{\"tags\":\"tourism\"}}"
-					+ "]}}}");
+			String resp2 = search.searchResponseJson("{\"size\":10,\"query\":{\"bool\":{\"filter\":["
+					+ "{\"term\":{\"tags\":\"Japan\"}}," + "{\"term\":{\"tags\":\"tourism\"}}" + "]}}}");
 			System.out.println("testMultiValuedFilter003 Japan+tourism: " + resp2);
 			nlp4j.json.JsonNode r2 = nlp4j.json.JsonNode.parse(resp2);
 			assertEquals(1, r2.get("hits").get("hits").size());
 			assertEquals("1", r2.get("hits").get("hits").get(0).get("_source").get("id").asString());
 
 			// tags="Japan" AND tags="capital" → id=3 の 1件
-			String resp3 = search.searchResponseJson(
-					"{\"size\":10,\"query\":{\"bool\":{\"filter\":["
-					+ "{\"term\":{\"tags\":\"Japan\"}},"
-					+ "{\"term\":{\"tags\":\"capital\"}}"
-					+ "]}}}");
+			String resp3 = search.searchResponseJson("{\"size\":10,\"query\":{\"bool\":{\"filter\":["
+					+ "{\"term\":{\"tags\":\"Japan\"}}," + "{\"term\":{\"tags\":\"capital\"}}" + "]}}}");
 			System.out.println("testMultiValuedFilter003 Japan+capital: " + resp3);
 			nlp4j.json.JsonNode r3 = nlp4j.json.JsonNode.parse(resp3);
 			assertEquals(1, r3.get("hits").get("hits").size());
@@ -1427,17 +1405,17 @@ public class LocalSearchTestCase extends TestCase {
 	// =========================================================
 
 	/**
-		* add(id, body) で日本語テキストを登録すると、KuromojiAnnotator が自動実行され
-		* word.verb フィールドに動詞の原形が登録されることを確認する。
-		*
-		* <pre>
-		* 入力: "私は歩いて学校に行きました。"
-		* 期待:
-		*   word.verb = ["歩く", "行く"]   （活用形 → 原形に変換済み）
-		*   word.noun = ["私", "学校"]
-		*   word      = ["私", "学校", "歩く", "行く"]
-		* </pre>
-		*/
+	 * add(id, body) で日本語テキストを登録すると、KuromojiAnnotator が自動実行され word.verb
+	 * フィールドに動詞の原形が登録されることを確認する。
+	 *
+	 * <pre>
+	* 入力: "私は歩いて学校に行きました。"
+	* 期待:
+	*   word.verb = ["歩く", "行く"]   （活用形 → 原形に変換済み）
+	*   word.noun = ["私", "学校"]
+	*   word      = ["私", "学校", "歩く", "行く"]
+	 * </pre>
+	 */
 	public void testMorphologicalAnalysis001() throws Exception {
 		try (LocalSearch search = new LocalSearch("ja")) {
 			search.add("1", "私は歩いて学校に行きました。");
@@ -1485,8 +1463,10 @@ public class LocalSearchTestCase extends TestCase {
 			boolean foundGakkou = false;
 			for (nlp4j.json.JsonNode bucket : nounBuckets.asList()) {
 				String key = bucket.get("key").asString();
-				if ("私".equals(key)) foundWatashi = true;
-				if ("学校".equals(key)) foundGakkou = true;
+				if ("私".equals(key))
+					foundWatashi = true;
+				if ("学校".equals(key))
+					foundGakkou = true;
 			}
 			assertTrue("'私' not found in word.noun", foundWatashi);
 			assertTrue("'学校' not found in word.noun", foundGakkou);
@@ -1494,13 +1474,13 @@ public class LocalSearchTestCase extends TestCase {
 	}
 
 	/**
-		* 同一文書に同じ語が複数回出た場合でも、aggregation の doc_count は文書数（1）であることを確認する。
-		*
-		* <pre>
-		* 入力: "東京は東京の都市です。"  → "東京" が 2回出現
-		* 期待: word.noun.東京.doc_count = 1  （文書数）
-		* </pre>
-		*/
+	 * 同一文書に同じ語が複数回出た場合でも、aggregation の doc_count は文書数（1）であることを確認する。
+	 *
+	 * <pre>
+	* 入力: "東京は東京の都市です。"  → "東京" が 2回出現
+	* 期待: word.noun.東京.doc_count = 1  （文書数）
+	 * </pre>
+	 */
 	public void testMorphologicalAnalysis002() throws Exception {
 		try (LocalSearch search = new LocalSearch("ja")) {
 			search.add("1", "東京は東京の都市です。");
@@ -1518,8 +1498,7 @@ public class LocalSearchTestCase extends TestCase {
 			boolean foundTokyo = false;
 			for (nlp4j.json.JsonNode bucket : buckets.asList()) {
 				if ("東京".equals(bucket.get("key").asString())) {
-					assertEquals("東京 の doc_count は文書数（1）であること",
-							1, bucket.get("doc_count").asInt());
+					assertEquals("東京 の doc_count は文書数（1）であること", 1, bucket.get("doc_count").asInt());
 					foundTokyo = true;
 				}
 			}
@@ -1528,9 +1507,9 @@ public class LocalSearchTestCase extends TestCase {
 	}
 
 	/**
-		* add(id, body) と addJson() で同じ本文を登録したとき、
-		* word.verb の aggregation 結果が等しくなることを確認する。
-		*/
+	 * add(id, body) と addJson() で同じ本文を登録したとき、 word.verb の aggregation
+	 * 結果が等しくなることを確認する。
+	 */
 	public void testMorphologicalAnalysis003() throws Exception {
 		try (LocalSearch search = new LocalSearch("ja")) {
 			search.add("1", "私は歩いて学校に行きました。");
@@ -1551,27 +1530,26 @@ public class LocalSearchTestCase extends TestCase {
 			for (nlp4j.json.JsonNode bucket : buckets.asList()) {
 				String key = bucket.get("key").asString();
 				if ("歩く".equals(key) || "行く".equals(key)) {
-					assertEquals("add() と addJson() で " + key + " は各 2文書にヒットすること",
-							2, bucket.get("doc_count").asInt());
+					assertEquals("add() と addJson() で " + key + " は各 2文書にヒットすること", 2, bucket.get("doc_count").asInt());
 				}
 			}
 		}
 	}
 
 	/**
-		* word フィールド（NOUN/PROPN/VERB/ADJ のみ）に内容語が登録されることを確認する。
-		* 助詞（ADP）・助動詞（AUX）・記号（SYM）は word フィールドに含まれないこと。
-		*
-		* <pre>
-		* 入力: "今日はいい天気です。"
-		* Kuromoji 出力:
-		*   NOUN 今日, ADP は, ADJ いい, NOUN 天気, AUX です, SYM 。
-		* word フィールドに期待する値:
-		*   今日（NOUN）, いい（ADJ）, 天気（NOUN）
-		* word フィールドに含まれてはいけない値:
-		*   は（ADP）, です（AUX）, 。（SYM）
-		* </pre>
-		*/
+	 * word フィールド（NOUN/PROPN/VERB/ADJ のみ）に内容語が登録されることを確認する。
+	 * 助詞（ADP）・助動詞（AUX）・記号（SYM）は word フィールドに含まれないこと。
+	 *
+	 * <pre>
+	* 入力: "今日はいい天気です。"
+	* Kuromoji 出力:
+	*   NOUN 今日, ADP は, ADJ いい, NOUN 天気, AUX です, SYM 。
+	* word フィールドに期待する値:
+	*   今日（NOUN）, いい（ADJ）, 天気（NOUN）
+	* word フィールドに含まれてはいけない値:
+	*   は（ADP）, です（AUX）, 。（SYM）
+	 * </pre>
+	 */
 	public void testMorphologicalAnalysis004() throws Exception {
 		try (LocalSearch search = new LocalSearch("ja")) {
 			search.add("1", "今日はいい天気です。");
@@ -1603,9 +1581,8 @@ public class LocalSearchTestCase extends TestCase {
 	}
 
 	/**
-		* word.verb フィールドで絞り込み検索が動作することを確認する。
-		* "歩く" が word.verb に登録されている文書のみがヒットすること。
-		*/
+	 * word.verb フィールドで絞り込み検索が動作することを確認する。 "歩く" が word.verb に登録されている文書のみがヒットすること。
+	 */
 	public void testMorphologicalAnalysis005() throws Exception {
 		try (LocalSearch search = new LocalSearch("ja")) {
 			search.add("1", "私は歩いて学校に行きました。");
@@ -1626,9 +1603,9 @@ public class LocalSearchTestCase extends TestCase {
 	}
 
 	/**
-		* 複数文書に対する word.verb aggregation が正しく集計されることを確認する。
-		* 会話 kaiwa0808.md で示された最終的なユースケース。
-		*/
+	 * 複数文書に対する word.verb aggregation が正しく集計されることを確認する。 会話 kaiwa0808.md
+	 * で示された最終的なユースケース。
+	 */
 	public void testMorphologicalAnalysis006() throws Exception {
 		try (LocalSearch search = new LocalSearch("ja")) {
 			search.add("1", "私は歩いて学校に行きました。");
@@ -1697,8 +1674,8 @@ public class LocalSearchTestCase extends TestCase {
 	}
 
 	/**
-	 * {@code .autoAnalyze(false)} を指定すると Kuromoji 形態素解析がスキップされ、
-	 * word.verb フィールドで検索してもヒットしないことを確認する。
+	 * {@code .autoAnalyze(false)} を指定すると Kuromoji 形態素解析がスキップされ、 word.verb
+	 * フィールドで検索してもヒットしないことを確認する。
 	 *
 	 * <pre>
 	 * autoAnalyze=true  → word.verb="行く" で検索するとヒットする
@@ -1706,9 +1683,7 @@ public class LocalSearchTestCase extends TestCase {
 	 * </pre>
 	 */
 	public void testBuilder002_autoAnalyzeFalse() throws Exception {
-		try (LocalSearch search = LocalSearch.builder("ja")
-				.autoAnalyze(false)
-				.build()) {
+		try (LocalSearch search = LocalSearch.builder("ja").autoAnalyze(false).build()) {
 			search.add("1", "私は歩いて学校に行きました。");
 			search.commit();
 
@@ -1723,9 +1698,7 @@ public class LocalSearchTestCase extends TestCase {
 	 * デフォルト値（true）と同じ挙動であること。
 	 */
 	public void testBuilder003_autoAnalyzeTrue() throws Exception {
-		try (LocalSearch search = LocalSearch.builder("ja")
-				.autoAnalyze(true)
-				.build()) {
+		try (LocalSearch search = LocalSearch.builder("ja").autoAnalyze(true).build()) {
 			search.add("1", "私は歩いて学校に行きました。");
 			search.commit();
 
@@ -1733,8 +1706,8 @@ public class LocalSearchTestCase extends TestCase {
 			String json = search.aggregateJson("""
 					{"field":"word.verb","size":10}
 					""");
-			nlp4j.json.JsonNode buckets = nlp4j.json.JsonNode.parse(json)
-					.get("aggregations").get("values").get("buckets");
+			nlp4j.json.JsonNode buckets = nlp4j.json.JsonNode.parse(json).get("aggregations").get("values")
+					.get("buckets");
 
 			boolean foundIku = false;
 			for (nlp4j.json.JsonNode bucket : buckets.asList()) {
@@ -1750,12 +1723,10 @@ public class LocalSearchTestCase extends TestCase {
 	 * {@code .vectorDimension(2)} を指定してベクトル検索が動作することを確認する。
 	 */
 	public void testBuilder004_vectorDimension() throws Exception {
-		try (LocalSearch search = LocalSearch.builder("en")
-				.vectorDimension(2)
-				.build()) {
-			search.add("1_East",  new float[] { 1.0f, 0.0f });
+		try (LocalSearch search = LocalSearch.builder("en").vectorDimension(2).build()) {
+			search.add("1_East", new float[] { 1.0f, 0.0f });
 			search.add("2_North", new float[] { 0.0f, 1.0f });
-			search.add("3_West",  new float[] { -1.0f, 0.0f });
+			search.add("3_West", new float[] { -1.0f, 0.0f });
 			search.commit();
 
 			// クエリ (0.9, 0.1) に最近傍の 1_East がスコア最高
@@ -1770,10 +1741,7 @@ public class LocalSearchTestCase extends TestCase {
 	 * 形態素解析なし＋ベクトル検索の両方が有効であること。
 	 */
 	public void testBuilder005_autoAnalyzeFalseWithVector() throws Exception {
-		try (LocalSearch search = LocalSearch.builder("ja")
-				.autoAnalyze(false)
-				.vectorDimension(2)
-				.build()) {
+		try (LocalSearch search = LocalSearch.builder("ja").autoAnalyze(false).vectorDimension(2).build()) {
 			search.add("1", new float[] { 1.0f, 0.0f });
 			search.add("2", new float[] { 0.0f, 1.0f });
 			search.commit();
@@ -1791,15 +1759,12 @@ public class LocalSearchTestCase extends TestCase {
 	}
 
 	/**
-	 * {@code .indexDirectory(Path)} でディスクインデックスを使用した場合に
-	 * 文書の追加・検索が正しく動作することを確認する。
+	 * {@code .indexDirectory(Path)} でディスクインデックスを使用した場合に 文書の追加・検索が正しく動作することを確認する。
 	 */
 	public void testBuilder006_indexDirectory() throws Exception {
 		java.nio.file.Path tempDir = java.nio.file.Files.createTempDirectory("localsearch_test_");
 		try {
-			try (LocalSearch search = LocalSearch.builder("en")
-					.indexDirectory(tempDir)
-					.build()) {
+			try (LocalSearch search = LocalSearch.builder("en").indexDirectory(tempDir).build()) {
 				search.addJson("""
 						{"id":"1","body":"Kyoto is a historic city.","category":"city"}
 						""");
@@ -1819,18 +1784,20 @@ public class LocalSearchTestCase extends TestCase {
 			}
 		} finally {
 			// 一時ディレクトリを削除
-			try (java.util.stream.Stream<java.nio.file.Path> files =
-					java.nio.file.Files.walk(tempDir)) {
-				files.sorted(java.util.Comparator.reverseOrder())
-						.forEach(p -> {
-							try { java.nio.file.Files.deleteIfExists(p); } catch (Exception ignored) {}
-						});
+			try (java.util.stream.Stream<java.nio.file.Path> files = java.nio.file.Files.walk(tempDir)) {
+				files.sorted(java.util.Comparator.reverseOrder()).forEach(p -> {
+					try {
+						java.nio.file.Files.deleteIfExists(p);
+					} catch (Exception ignored) {
+					}
+				});
 			}
 		}
 	}
 
 	/**
-	 * {@code .vectorDimension(n)} に負の値を渡すと {@link LocalSearchException} がスローされることを確認する。
+	 * {@code .vectorDimension(n)} に負の値を渡すと {@link LocalSearchException}
+	 * がスローされることを確認する。
 	 */
 	public void testBuilder007_negativeDimensionThrows() throws Exception {
 		try {
@@ -1839,6 +1806,504 @@ public class LocalSearchTestCase extends TestCase {
 		} catch (LocalSearchException e) {
 			// 期待通り
 			assertTrue(e.getMessage().contains("vectorDimension must be >= 0"));
+		}
+	}
+
+	// =========================================================
+	// count() テスト
+	// =========================================================
+
+	/**
+	 * count() が全ドキュメント件数を返すことを確認する。
+	 */
+	public void testCount001() throws Exception {
+		try (LocalSearch search = new LocalSearch("ja")) {
+			search.add("1", "東京都は日本の都道府県のひとつです");
+			search.add("2", "京都は日本の都市です。");
+			search.add("3", "京都市には任天堂の本社があります");
+			search.commit();
+
+			long count = search.count();
+			System.out.println("testCount001 count: " + count);
+			assertEquals(3L, count);
+		}
+	}
+
+	/**
+	 * count(query) が全文検索にマッチするドキュメント件数を返すことを確認する。
+	 */
+	public void testCount002() throws Exception {
+		try (LocalSearch search = new LocalSearch("ja")) {
+			search.add("1", "東京都は日本の都道府県のひとつです");
+			search.add("2", "京都は日本の都市です。");
+			search.add("3", "京都市には任天堂の本社があります");
+			search.commit();
+
+			long countKyoto = search.count("京都");
+			System.out.println("testCount002 count(京都): " + countKyoto);
+			assertEquals(2L, countKyoto);
+
+			long countTokyo = search.count("東京");
+			System.out.println("testCount002 count(東京): " + countTokyo);
+			assertEquals(1L, countTokyo);
+		}
+	}
+
+	/**
+	 * count(query) でマッチしない場合は 0 を返すことを確認する。
+	 */
+	public void testCount003() throws Exception {
+		try (LocalSearch search = new LocalSearch("ja")) {
+			search.add("1", "東京都は日本の都道府県のひとつです");
+			search.add("2", "京都は日本の都市です。");
+			search.commit();
+
+			long count = search.count("大阪");
+			System.out.println("testCount003 count(大阪): " + count);
+			assertEquals(0L, count);
+		}
+	}
+
+	/**
+	 * count(query, filters) が全文検索＋フィールド絞り込みの件数を返すことを確認する。
+	 */
+	public void testCount004() throws Exception {
+		try (LocalSearch search = new LocalSearch("ja")) {
+			search.addJson("""
+					{"id":"1","body":"東京の観光スポット","category":"観光"}
+					""");
+			search.addJson("""
+					{"id":"2","body":"東京のIT企業","category":"技術"}
+					""");
+			search.addJson("""
+					{"id":"3","body":"大阪の観光地","category":"観光"}
+					""");
+			search.commit();
+
+			// "東京" + category=観光 → 1件
+			long count = search.count("東京", java.util.Map.of("category", "観光"));
+			System.out.println("testCount004 count(東京, category=観光): " + count);
+			assertEquals(1L, count);
+		}
+	}
+
+	/**
+	 * count(query, filters) で filters のみ（query なし）の場合も正しく動作することを確認する。
+	 */
+	public void testCount005() throws Exception {
+		try (LocalSearch search = new LocalSearch("ja")) {
+			search.addJson("""
+					{"id":"1","body":"東京の観光スポット","category":"観光"}
+					""");
+			search.addJson("""
+					{"id":"2","body":"東京のIT企業","category":"技術"}
+					""");
+			search.addJson("""
+					{"id":"3","body":"大阪の観光地","category":"観光"}
+					""");
+			search.commit();
+
+			// query=null + category=観光 → 2件
+			long count = search.count(null, java.util.Map.of("category", "観光"));
+			System.out.println("testCount005 count(null, category=観光): " + count);
+			assertEquals(2L, count);
+		}
+	}
+
+	// =========================================================
+	// aggregate() Java API テスト
+	// =========================================================
+
+	/**
+	 * aggregate(field, size) が全ドキュメントを対象に terms aggregation を実行し、
+	 * {@code Map<String, Long>} を返すことを確認する。
+	 */
+	public void testAggregate001() throws Exception {
+		try (LocalSearch search = new LocalSearch("ja")) {
+			search.addJson("""
+					{"id":"1","body":"東京の観光スポット","category":"観光"}
+					""");
+			search.addJson("""
+					{"id":"2","body":"Javaプログラミング","category":"技術"}
+					""");
+			search.addJson("""
+					{"id":"3","body":"京都の寺院","category":"観光"}
+					""");
+			search.commit();
+
+			java.util.Map<String, Long> result = search.aggregate("category", 10);
+			System.out.println("testAggregate001 aggregate(category, 10): " + result);
+
+			// 観光:2, 技術:1 の 2 エントリー
+			assertEquals(2, result.size());
+			assertEquals(Long.valueOf(2L), result.get("観光"));
+			assertEquals(Long.valueOf(1L), result.get("技術"));
+		}
+	}
+
+	/**
+	 * aggregate(field, query, size) が全文検索クエリで絞り込んだ上で集計することを確認する。
+	 */
+	public void testAggregate002() throws Exception {
+		try (LocalSearch search = new LocalSearch("ja")) {
+			search.addJson("""
+					{"id":"1","body":"東京の観光スポット","category":"観光"}
+					""");
+			search.addJson("""
+					{"id":"2","body":"東京のIT企業","category":"技術"}
+					""");
+			search.addJson("""
+					{"id":"3","body":"大阪の観光地","category":"観光"}
+					""");
+			search.commit();
+
+			// query="東京" で絞り込み → 観光:1, 技術:1
+			java.util.Map<String, Long> result = search.aggregate("category", "東京", 10);
+			System.out.println("testAggregate002 aggregate(category, 東京, 10): " + result);
+
+			assertEquals(2, result.size());
+			assertEquals(Long.valueOf(1L), result.get("観光"));
+			assertEquals(Long.valueOf(1L), result.get("技術"));
+		}
+	}
+
+	/**
+	 * aggregate(field, query, size, filters) が全文検索＋フィールド絞り込みで集計することを確認する。
+	 */
+	public void testAggregate003() throws Exception {
+		try (LocalSearch search = new LocalSearch("ja")) {
+			search.addJson("""
+					{"id":"1","body":"東京のAI企業","category":"技術","source":"news"}
+					""");
+			search.addJson("""
+					{"id":"2","body":"東京の観光スポット","category":"観光","source":"blog"}
+					""");
+			search.addJson("""
+					{"id":"3","body":"大阪のIT企業","category":"技術","source":"news"}
+					""");
+			search.commit();
+
+			// query="東京" + source=news → id=1 のみ → 技術:1
+			java.util.Map<String, Long> result = search.aggregate("category", "東京", 10,
+					java.util.Map.of("source", "news"));
+			System.out.println("testAggregate003 aggregate(category, 東京, 10, source=news): " + result);
+
+			assertEquals(1, result.size());
+			assertEquals(Long.valueOf(1L), result.get("技術"));
+		}
+	}
+
+	/**
+	 * aggregate(field, size) の返却 Map の順序が件数降順であることを確認する（LinkedHashMap）。
+	 */
+	public void testAggregate004() throws Exception {
+		try (LocalSearch search = new LocalSearch("ja")) {
+			search.addJson("""
+					{"id":"1","body":"doc1","category":"技術"}
+					""");
+			search.addJson("""
+					{"id":"2","body":"doc2","category":"観光"}
+					""");
+			search.addJson("""
+					{"id":"3","body":"doc3","category":"観光"}
+					""");
+			search.addJson("""
+					{"id":"4","body":"doc4","category":"観光"}
+					""");
+			search.commit();
+
+			java.util.Map<String, Long> result = search.aggregate("category", 10);
+			System.out.println("testAggregate004 aggregate(category, 10): " + result);
+
+			// 先頭は最多件数の "観光"（3件）
+			String firstKey = result.keySet().iterator().next();
+			assertEquals("観光", firstKey);
+			assertEquals(Long.valueOf(3L), result.get("観光"));
+			assertEquals(Long.valueOf(1L), result.get("技術"));
+		}
+	}
+
+	/**
+	 * aggregate(field, null, size) が全件集計と等価であることを確認する。
+	 */
+	public void testAggregate005() throws Exception {
+		try (LocalSearch search = new LocalSearch("ja")) {
+			search.addJson("""
+					{"id":"1","body":"doc1","category":"A"}
+					""");
+			search.addJson("""
+					{"id":"2","body":"doc2","category":"B"}
+					""");
+			search.addJson("""
+					{"id":"3","body":"doc3","category":"A"}
+					""");
+			search.commit();
+
+			// query=null は全件集計と同じ
+			java.util.Map<String, Long> result = search.aggregate("category", null, 10);
+			System.out.println("testAggregate005 aggregate(category, null, 10): " + result);
+
+			assertEquals(2, result.size());
+			assertEquals(Long.valueOf(2L), result.get("A"));
+			assertEquals(Long.valueOf(1L), result.get("B"));
+		}
+	}
+
+	/**
+	 * count() と aggregate() を組み合わせた利用が Example10 と同等に動作することを確認する。 kaiwa0813.md
+	 * のユースケース検証。
+	 */
+	public void testCountAndAggregate001() throws Exception {
+		try (LocalSearch search = new LocalSearch("ja")) {
+			search.add("1", "ニッサン ドアミラーが破損");
+			search.add("2", "ニッサン ドアミラーが動かない");
+			search.add("3", "トヨタ ドアミラーが外れた");
+			search.add("4", "トヨタ ブレーキの効きが悪い");
+			search.add("5", "トヨタ ドアから水が入った");
+			search.commit();
+
+			// 全件数 = 5
+			long countAll = search.count();
+			System.out.println("testCountAndAggregate001 countAll: " + countAll);
+			assertEquals(5L, countAll);
+
+			// ニッサンに関する文書 = 2件
+			long countNissan = search.count("ニッサン");
+			System.out.println("testCountAndAggregate001 count(ニッサン): " + countNissan);
+			assertEquals(2L, countNissan);
+
+			// 全体の word.noun 集計
+			// Kuromoji は「ドアミラー」を「ドア」「ミラー」に分割するため、それぞれで確認する
+			java.util.Map<String, Long> nounAll = search.aggregate("word.noun", 1000);
+			System.out.println("testCountAndAggregate001 nounAll: " + nounAll);
+			assertFalse("nounAll は空でないこと", nounAll.isEmpty());
+			// "ドア" または "ドアミラー" のいずれかが含まれること（Kuromoji の分割に依存）
+			assertTrue("'ドア' か 'ドアミラー' が noun に含まれること", nounAll.containsKey("ドア") || nounAll.containsKey("ドアミラー"));
+
+			// ニッサンで絞り込んだ word.noun 集計
+			java.util.Map<String, Long> nounNissan = search.aggregate("word.noun", "ニッサン", 1000);
+			System.out.println("testCountAndAggregate001 nounNissan: " + nounNissan);
+			assertFalse("nounNissan は空でないこと", nounNissan.isEmpty());
+			// ニッサン絞り込みでは「ドア」または「ドアミラー」が 2件
+			String doorKey = nounNissan.containsKey("ドアミラー") ? "ドアミラー" : "ドア";
+			assertTrue("ニッサン noun の " + doorKey + " は 2件であること",
+					nounNissan.containsKey(doorKey) && nounNissan.get(doorKey) == 2L);
+		}
+	}
+
+	// =========================================================
+	// count(filterField, filterValue) テスト
+	// =========================================================
+
+	/**
+	 * count(filterField, filterValue) が keyword フィールドの完全一致で ドキュメント件数を返すことを確認する。
+	 * category="観光" を持つ文書 2件が返ること。
+	 */
+	public void testCountByField001() throws Exception {
+		try (LocalSearch search = new LocalSearch("ja")) {
+			search.addJson("""
+					{"id":"1","body":"東京の観光スポット","category":"観光"}
+					""");
+			search.addJson("""
+					{"id":"2","body":"Javaプログラミング","category":"技術"}
+					""");
+			search.addJson("""
+					{"id":"3","body":"京都の寺院","category":"観光"}
+					""");
+			search.commit();
+
+			long count = search.count("category", "観光");
+			System.out.println("testCountByField001 count(category, 観光): " + count);
+			assertEquals(2L, count);
+		}
+	}
+
+	/**
+	 * count(filterField, filterValue) で word.noun フィールドを絞り込み条件に使えることを確認する。
+	 * 形態素解析によって word.noun に登録された値で件数を取得できること。
+	 */
+	public void testCountByField002() throws Exception {
+		try (LocalSearch search = new LocalSearch("ja")) {
+			search.add("1", "ニッサン ドアが破損");
+			search.add("2", "ニッサン ドアが動かない");
+			search.add("3", "トヨタ ドアが外れた");
+			search.add("4", "トヨタ ブレーキの効きが悪い");
+			search.add("5", "トヨタ ドアから水が入った");
+			search.commit();
+
+			// word.noun=ニッサン が出現する文書 → 2件
+			long countNissan = search.count("word.noun", "ニッサン");
+			System.out.println("testCountByField002 count(word.noun, ニッサン): " + countNissan);
+			assertEquals(2L, countNissan);
+
+			// word.noun=トヨタ が出現する文書 → 3件
+			long countToyota = search.count("word.noun", "トヨタ");
+			System.out.println("testCountByField002 count(word.noun, トヨタ): " + countToyota);
+			assertEquals(3L, countToyota);
+		}
+	}
+
+	/**
+	 * count(filterField, filterValue) でマッチしない場合は 0 を返すことを確認する。
+	 */
+	public void testCountByField003() throws Exception {
+		try (LocalSearch search = new LocalSearch("ja")) {
+			search.addJson("""
+					{"id":"1","body":"東京の観光スポット","category":"観光"}
+					""");
+			search.commit();
+
+			long count = search.count("category", "技術");
+			System.out.println("testCountByField003 count(category, 技術): " + count);
+			assertEquals(0L, count);
+		}
+	}
+
+	// =========================================================
+	// aggregate(aggregationField, filterField, filterValue, size) テスト
+	// =========================================================
+
+	/**
+	 * aggregate(aggregationField, filterField, filterValue, size) が
+	 * 指定フィールドの完全一致で絞り込んだ上で集計することを確認する。
+	 *
+	 * <pre>
+	 * category="観光" に絞り込んだ上で source を集計
+	 * → id=1（source=news）, id=3（source=blog）
+	 * → news:1, blog:1
+	 * </pre>
+	 */
+	public void testAggregateByField001() throws Exception {
+		try (LocalSearch search = new LocalSearch("ja")) {
+			search.addJson("""
+					{"id":"1","body":"東京の観光スポット","category":"観光","source":"news"}
+					""");
+			search.addJson("""
+					{"id":"2","body":"東京のIT企業","category":"技術","source":"news"}
+					""");
+			search.addJson("""
+					{"id":"3","body":"京都の寺院","category":"観光","source":"blog"}
+					""");
+			search.commit();
+
+			// category=観光 に絞り込んで source を集計 → news:1, blog:1
+			java.util.Map<String, Long> result = search.aggregate("source", "category", "観光", 10);
+			System.out.println("testAggregateByField001 aggregate(source, category, 観光, 10): " + result);
+
+			assertEquals(2, result.size());
+			assertEquals(Long.valueOf(1L), result.get("news"));
+			assertEquals(Long.valueOf(1L), result.get("blog"));
+		}
+	}
+
+	/**
+	 * aggregate(aggregationField, filterField, filterValue, size) で word.noun
+	 * フィールドを絞り込み条件、word.verb を集計対象に使えることを確認する。
+	 *
+	 * <pre>
+	 * word.noun=ニッサン が出現する文書の word.verb を集計
+	 * </pre>
+	 */
+	public void testAggregateByField002() throws Exception {
+		try (LocalSearch search = new LocalSearch("ja")) {
+			search.add("1", "ニッサン ドアが破損した");
+			search.add("2", "ニッサン ドアが動かない");
+			search.add("3", "トヨタ ドアが外れた");
+			search.add("4", "トヨタ ブレーキが効かない");
+			search.commit();
+
+			// word.noun=ニッサン に絞り込んで word.verb を集計
+			java.util.Map<String, Long> result = search.aggregate("word.verb", "word.noun", "ニッサン", 1000);
+			System.out.println("testAggregateByField002 aggregate(word.verb, word.noun, ニッサン, 1000): " + result);
+
+			// ニッサンが出現する文書（id=1, id=2）の verb が集計されていること
+			assertFalse("結果は空でないこと", result.isEmpty());
+		}
+	}
+
+	/**
+	 * aggregate(aggregationField, filterField, filterValue, size) と
+	 * aggregate(field, null, size, Map.of(filterField, filterValue)) が
+	 * 同じ結果を返すことを確認する（API等価性）。
+	 */
+	public void testAggregateByField003() throws Exception {
+		try (LocalSearch search = new LocalSearch("ja")) {
+			search.addJson("""
+					{"id":"1","body":"東京の観光スポット","category":"観光","country":"Japan"}
+					""");
+			search.addJson("""
+					{"id":"2","body":"パリの観光地","category":"観光","country":"France"}
+					""");
+			search.addJson("""
+					{"id":"3","body":"東京のIT企業","category":"技術","country":"Japan"}
+					""");
+			search.commit();
+
+			// 新シグネチャ
+			java.util.Map<String, Long> result1 = search.aggregate("category", "country", "Japan", 10);
+
+			// 既存シグネチャ（等価な呼び出し）
+			java.util.Map<String, Long> result2 = search.aggregate("category", null, 10,
+					java.util.Map.of("country", "Japan"));
+
+			System.out.println("testAggregateByField003 result1: " + result1);
+			System.out.println("testAggregateByField003 result2: " + result2);
+
+			assertEquals(result2.size(), result1.size());
+			for (java.util.Map.Entry<String, Long> entry : result2.entrySet()) {
+				assertEquals("キー '" + entry.getKey() + "' の値が一致すること", entry.getValue(), result1.get(entry.getKey()));
+			}
+		}
+	}
+
+	/**
+	 * count(filterField, filterValue) と aggregate(aggregationField, filterField,
+	 * filterValue, size) を 組み合わせた kaiwa0813-2048.md のユースケースを確認する。
+	 *
+	 * <pre>
+	 * word.noun=ニッサン が出現する文書を基準に relativeRate を計算する
+	 * （全文検索ではなく分析フィールドで定義した「ニッサンが出現する文書」）
+	 * </pre>
+	 */
+	public void testCountAndAggregateByField001() throws Exception {
+		try (LocalSearch search = new LocalSearch("ja")) {
+			search.add("1", "ニッサン ドアが破損した");
+			search.add("2", "ニッサン ドアが動かない");
+			search.add("3", "トヨタ ドアが外れた");
+			search.add("4", "トヨタ ブレーキが効かない");
+			search.add("5", "トヨタ ドアから水が入った");
+			search.commit();
+
+			{ // 全件=5
+				long countAll = search.count();
+				System.out.println("testCountAndAggregateByField001 countAll: " + countAll);
+				assertEquals(5L, countAll);
+
+			}
+			{ // ニッサン=2
+				// word.noun=ニッサン が出現する文書の件数（分析フィールドによる絞り込み）
+				long countNissan = search.count("word.noun", "ニッサン");
+				System.out.println("testCountAndAggregateByField001 count(word.noun, ニッサン): " + countNissan);
+				assertEquals(2L, countNissan);
+			}
+			{ // word.noun=トヨタ が出現する文書の件数 = 3
+				long countToyota = search.count("word.noun", "トヨタ");
+				System.out.println("testCountAndAggregateByField001 count(word.noun, トヨタ): " + countToyota);
+				assertEquals(3L, countToyota);
+			}
+			{ // word.noun=ニッサン の文書で word.noun を集計（新シグネチャ）
+				java.util.Map<String, Long> nounNissan = search.aggregate("word.noun", "word.noun", "ニッサン", 1000);
+				System.out.println("testCountAndAggregateByField001 nounNissan: " + nounNissan);
+				assertFalse("nounNissan は空でないこと", nounNissan.isEmpty());
+				assertEquals("ニッサンが含まれること", Long.valueOf(2L), nounNissan.get("ニッサン"));
+
+				{ // word.noun=ニッサン の文書で word.noun を集計（既存シグネチャで等価）
+					java.util.Map<String, Long> nounNissan2 = search.aggregate("word.noun", null, 1000,
+							java.util.Map.of("word.noun", "ニッサン"));
+					assertEquals("新旧シグネチャの結果が一致すること", nounNissan, nounNissan2);
+				}
+			}
+
 		}
 	}
 
