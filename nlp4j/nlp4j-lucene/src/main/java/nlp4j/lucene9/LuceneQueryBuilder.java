@@ -1,6 +1,5 @@
 package nlp4j.lucene9;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.lucene.analysis.Analyzer;
@@ -17,15 +16,53 @@ import org.apache.lucene.search.TermQuery;
 import nlp4j.json.JsonNode;
 
 /**
- * Builder for converting OpenSearch-style JSON queries into Lucene Query objects.
- * Supports match_all, term, match, query_string, and knn query types.
+ * Builder for converting OpenSearch-style JSON queries into Lucene Query
+ * objects. Supports match_all, term, match, query_string, and knn query types.
  */
 public class LuceneQueryBuilder {
-	
+
+	/**
+	 * Parses a Lucene query string.
+	 *
+	 * <p>
+	 * This method only parses the query and does not execute a search.
+	 * </p>
+	 *
+	 * @param query        Lucene query string
+	 * @param defaultField default field used by QueryParser
+	 * @param analyzer     analyzer used for query parsing
+	 * @return parsed Lucene Query
+	 * @throws Exception if parsing fails
+	 */
+	public static Query parseQueryString(String query, String defaultField, Analyzer analyzer) throws Exception {
+
+		if (query == null || query.isBlank()) {
+			throw new IllegalArgumentException("query must not be null or empty");
+		}
+
+		if (defaultField == null || defaultField.isBlank()) {
+			throw new IllegalArgumentException("defaultField must not be null or empty");
+		}
+
+		QueryParser parser = new QueryParser(defaultField, analyzer);
+
+		return parser.parse(query);
+	}
+
+//	public static Query parseQueryString(
+//	        String query,
+//	        String defaultField,
+//	        Analyzer analyzer) throws Exception {
+//
+//	    QueryParser parser =
+//	        new QueryParser(defaultField, analyzer);
+//
+//	    return parser.parse(query);
+//	}	
 	/**
 	 * Builds a Lucene Query from a SearchRequest.
 	 *
-	 * @param request the search request containing the query definition
+	 * @param request  the search request containing the query definition
 	 * @param analyzer the analyzer to use for query parsing
 	 * @return a Lucene Query object
 	 * @throws RuntimeException if the query type is unsupported or parsing fails
@@ -49,15 +86,15 @@ public class LuceneQueryBuilder {
 			if (queryJson.has("query_string")) {
 				return buildQueryStringQuery(queryJson.get("query_string"), analyzer);
 			}
-			
+
 			if (queryJson.has("knn")) {
 				return buildKnnQuery(queryJson.get("knn"), analyzer);
 			}
-	
+
 			if (queryJson.has("bool")) {
 				return buildBoolQuery(queryJson.get("bool"), analyzer);
 			}
-	
+
 			throw new IllegalArgumentException("Unsupported query: " + queryJson);
 
 		} catch (Exception e) {
@@ -81,7 +118,7 @@ public class LuceneQueryBuilder {
 	 * Builds a match query with text analysis.
 	 *
 	 * @param matchJson the match query definition in JSON format
-	 * @param analyzer the analyzer to use for text analysis
+	 * @param analyzer  the analyzer to use for text analysis
 	 * @return a Query object
 	 * @throws Exception if query parsing fails
 	 */
@@ -91,30 +128,59 @@ public class LuceneQueryBuilder {
 		String text = matchJson.get(field).asString();
 
 		QueryParser parser = new QueryParser(field, analyzer);
-		return parser.parse(QueryParser.escape(text));
+		return parser.parse(QueryParser.escape(text)); // throws ParseException
 	}
 
 	/**
 	 * Builds a query_string query for advanced query syntax.
 	 *
-	 * @param qsJson the query_string definition in JSON format
+	 * @param qsJson   the query_string definition in JSON format
 	 * @param analyzer the analyzer to use for query parsing
 	 * @return a Query object
 	 * @throws Exception if query parsing fails
 	 */
 	private static Query buildQueryStringQuery(JsonNode qsJson, Analyzer analyzer) throws Exception {
 
-		String q = qsJson.get("query").asString();
+		if (qsJson == null || qsJson.isNull()) {
+			throw new IllegalArgumentException("query_string must not be null");
+		}
 
-		String defaultField = qsJson.has("default_field") ? qsJson.get("default_field").asString() : "text";
+		JsonNode queryNode = qsJson.get("query");
 
-		QueryParser parser = new QueryParser(defaultField, analyzer);
-		return parser.parse(q);
+		if (queryNode == null || queryNode.isNull()) {
+			throw new IllegalArgumentException("query_string.query is required");
+		}
+
+		String query = queryNode.asString(null);
+
+		if (query == null || query.isBlank()) {
+			throw new IllegalArgumentException("query_string.query must not be empty");
+		}
+
+		String defaultField = "text";
+
+		JsonNode defaultFieldNode = qsJson.get("default_field");
+
+		if (defaultFieldNode != null && !defaultFieldNode.isNull()) {
+
+			String value = defaultFieldNode.asString(null);
+
+			if (value != null && !value.isBlank()) {
+				defaultField = value;
+			}
+		}
+
+//		QueryParser parser = new QueryParser(defaultField, analyzer);
+
+//		return parser.parse(query); // throws ParseException
+
+		return parseQueryString(query, defaultField, analyzer);
+
 	}
 
 	/**
-	 * Builds a bool query supporting must and filter clauses.
-	 * must clauses are scored (MUST occurrence), filter clauses are unscored (FILTER occurrence).
+	 * Builds a bool query supporting must and filter clauses. must clauses are
+	 * scored (MUST occurrence), filter clauses are unscored (FILTER occurrence).
 	 *
 	 * @param boolJson the bool query definition in JSON format
 	 * @param analyzer the analyzer to use for inner query parsing
@@ -126,8 +192,7 @@ public class LuceneQueryBuilder {
 
 		if (boolJson.has("must")) {
 			JsonNode mustNode = boolJson.get("must");
-			List<JsonNode> clauses = mustNode.isArray() ? mustNode.asList()
-					: List.of(mustNode);
+			List<JsonNode> clauses = mustNode.isArray() ? mustNode.asList() : List.of(mustNode);
 			for (JsonNode clause : clauses) {
 				SearchRequest dummy = new SearchRequest(null, 0, 0, clause, null);
 				builder.add(build(dummy, analyzer), BooleanClause.Occur.MUST);
@@ -136,8 +201,7 @@ public class LuceneQueryBuilder {
 
 		if (boolJson.has("filter")) {
 			JsonNode filterNode = boolJson.get("filter");
-			List<JsonNode> clauses = filterNode.isArray() ? filterNode.asList()
-					: List.of(filterNode);
+			List<JsonNode> clauses = filterNode.isArray() ? filterNode.asList() : List.of(filterNode);
 			for (JsonNode clause : clauses) {
 				SearchRequest dummy = new SearchRequest(null, 0, 0, clause, null);
 				builder.add(build(dummy, analyzer), BooleanClause.Occur.FILTER);
@@ -146,8 +210,7 @@ public class LuceneQueryBuilder {
 
 		if (boolJson.has("should")) {
 			JsonNode shouldNode = boolJson.get("should");
-			List<JsonNode> clauses = shouldNode.isArray() ? shouldNode.asList()
-					: List.of(shouldNode);
+			List<JsonNode> clauses = shouldNode.isArray() ? shouldNode.asList() : List.of(shouldNode);
 			for (JsonNode clause : clauses) {
 				SearchRequest dummy = new SearchRequest(null, 0, 0, clause, null);
 				builder.add(build(dummy, analyzer), BooleanClause.Occur.SHOULD);
@@ -156,8 +219,7 @@ public class LuceneQueryBuilder {
 
 		if (boolJson.has("must_not")) {
 			JsonNode mustNotNode = boolJson.get("must_not");
-			List<JsonNode> clauses = mustNotNode.isArray() ? mustNotNode.asList()
-					: List.of(mustNotNode);
+			List<JsonNode> clauses = mustNotNode.isArray() ? mustNotNode.asList() : List.of(mustNotNode);
 			for (JsonNode clause : clauses) {
 				SearchRequest dummy = new SearchRequest(null, 0, 0, clause, null);
 				builder.add(build(dummy, analyzer), BooleanClause.Occur.MUST_NOT);
@@ -168,21 +230,21 @@ public class LuceneQueryBuilder {
 	}
 
 	/**
-		* Builds a KNN (k-nearest neighbors) vector search query.
-		*
-		* @param knnJson the knn query definition in JSON format
-		* @param analyzer the analyzer to use for filter query parsing
-		* @return a Query object for vector search
-		* @throws Exception if query parsing fails
-		*/
+	 * Builds a KNN (k-nearest neighbors) vector search query.
+	 *
+	 * @param knnJson  the knn query definition in JSON format
+	 * @param analyzer the analyzer to use for filter query parsing
+	 * @return a Query object for vector search
+	 * @throws Exception if query parsing fails
+	 */
 	private static Query buildKnnQuery(JsonNode knnJson, Analyzer analyzer) throws Exception {
 		String field = knnJson.get("field").asString();
 		JsonNode vectorNode = knnJson.get("query_vector");
 		int k = knnJson.get("k").asInt();
-		
+
 		// Convert query_vector to float[]
 		float[] queryVector = parseFloatArray(vectorNode);
-		
+
 		// Check if filter exists
 		if (knnJson.has("filter")) {
 			// Build filter query recursively
@@ -190,30 +252,30 @@ public class LuceneQueryBuilder {
 			Query filterQuery = build(dummyRequest, analyzer);
 			return new KnnFloatVectorQuery(field, queryVector, k, filterQuery);
 		}
-		
+
 		// No filter
 		return KnnFloatVectorField.newVectorQuery(field, queryVector, k);
 	}
 
 	/**
-		* Converts a JsonNode array to a float array.
-		*
-		* @param arrayNode the JsonNode containing an array of numbers
-		* @return a float array
-		* @throws IllegalArgumentException if the node is not an array
-		*/
+	 * Converts a JsonNode array to a float array.
+	 *
+	 * @param arrayNode the JsonNode containing an array of numbers
+	 * @return a float array
+	 * @throws IllegalArgumentException if the node is not an array
+	 */
 	private static float[] parseFloatArray(JsonNode arrayNode) {
 		if (!arrayNode.isArray()) {
 			throw new IllegalArgumentException("query_vector must be an array");
 		}
-		
+
 		int size = arrayNode.size();
 		float[] result = new float[size];
-		
+
 		for (int i = 0; i < size; i++) {
 			result[i] = (float) arrayNode.get(i).asDouble(0.0);
 		}
-		
+
 		return result;
 	}
 }

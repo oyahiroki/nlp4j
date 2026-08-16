@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import nlp4j.analytics.AnalyticsAggregationBucket;
+import nlp4j.analytics.AnalyticsResult;
 import nlp4j.analytics.LocalAnalytics;
 import nlp4j.lucene.LocalSearch;
 
@@ -48,23 +50,20 @@ public class Example01_AnalyticsJa {
 
 				LocalAnalytics analytics = new LocalAnalytics(search);
 
-				Map<String, Double> result = analytics.relativeRate("maker", "ニッサン", "word.noun", 100);
+				AnalyticsResult result = analytics.relativeRate("maker", "ニッサン", "word.noun", 100);
 
-				List<String> keys = new ArrayList<>(result.keySet());
-
-				for (String key : keys) {
-					System.err.println(key + "=" + result.get(key));
+				for (AnalyticsAggregationBucket b : result.getBuckets()) {
+					System.out.println(b.toString());
 				}
 
-				assertEquals(3, keys.size());
-
+				assertEquals(3, result.getTotalCount());
 				{
-					assertEquals("破損", keys.get(0));
-					assertEquals(1.5, result.get(keys.get(0)));
+					assertEquals("破損", result.getBuckets().get(0).getKeyword().getLex());
+					assertEquals(1.5, result.getBuckets().get(0).getRelativeRate());
 				}
 				{
-					assertEquals("ミラー", keys.get(1));
-					assertEquals(1.5, result.get(keys.get(1)));
+					assertEquals("ミラー", result.getBuckets().get(1).getKeyword().getLex());
+					assertEquals(1.5, result.getBuckets().get(1).getRelativeRate());
 				}
 
 			}

@@ -6,19 +6,20 @@ import com.atilika.kuromoji.TokenizerBase.Mode;
 import com.atilika.kuromoji.ipadic.Token;
 import com.atilika.kuromoji.ipadic.Tokenizer;
 
-public class HelloKuromojiMain1 {
+public class HelloKuromojiMain1_Normal {
 
 	public static void main(String[] args) throws Exception {
 
 		String text = "私はJALに乗って関西国際空港から旅行に行った。";
 
 		Tokenizer tokenizer = (new Tokenizer.Builder()) //
-				.mode(Mode.SEARCH) //
+				.mode(Mode.NORMAL) //
 //				.isSplitOnNakaguro(false)
 				.build();
 
 		List<Token> tokens = tokenizer.tokenize(text);
 
+		// 「Mode.NORMAL」だと「関西国際空港」が１つに切れる
 		for (Token token : tokens) {
 			System.err.println("baseform: " + token.getBaseForm());
 			System.err.println("surface: " + token.getSurface());
@@ -96,34 +97,14 @@ public class HelloKuromojiMain1 {
 //pos3: *
 //pos4: *
 //---
-//baseform: 関西
-//surface: 関西
-//reading: カンサイ
+//baseform: 関西国際空港
+//surface: 関西国際空港
+//reading: カンサイコクサイクウコウ
 //begin: 9
-//end: 11
-//pos1: 名詞
-//pos2: 固有名詞
-//pos3: 地域
-//pos4: 一般
-//---
-//baseform: 国際
-//surface: 国際
-//reading: コクサイ
-//begin: 11
-//end: 13
-//pos1: 名詞
-//pos2: 一般
-//pos3: *
-//pos4: *
-//---
-//baseform: 空港
-//surface: 空港
-//reading: クウコウ
-//begin: 13
 //end: 15
 //pos1: 名詞
-//pos2: 一般
-//pos3: *
+//pos2: 固有名詞
+//pos3: 組織
 //pos4: *
 //---
 //baseform: から

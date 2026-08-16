@@ -3,7 +3,7 @@ package examples;
 import nlp4j.json.JsonNode;
 import nlp4j.lucene.LocalSearch;
 
-public class Example08_TextMining {
+public class Example08_TextMining_Ja1 {
 	public static void main(String[] args) throws Exception {
 
 		try (LocalSearch search = new LocalSearch("ja")) {

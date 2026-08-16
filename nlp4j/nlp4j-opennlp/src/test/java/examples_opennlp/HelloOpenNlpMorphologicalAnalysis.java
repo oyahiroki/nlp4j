@@ -1,4 +1,4 @@
-package examples;
+package examples_opennlp;
 
 import java.io.InputStream;
 import java.util.Objects;

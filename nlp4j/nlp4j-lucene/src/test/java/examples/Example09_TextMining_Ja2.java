@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 import nlp4j.json.JsonNode;
 import nlp4j.lucene.LocalSearch;
 
-public class Example09_TextMining2 {
+public class Example09_TextMining_Ja2 {
 	public static void main(String[] args) throws Exception {
 
 		try (LocalSearch search = new LocalSearch("ja")) {

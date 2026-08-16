@@ -1,6 +1,9 @@
 package nlp4j.analytics;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -28,7 +31,16 @@ import nlp4j.lucene.LocalSearch;
  *
  * 	LocalAnalytics analytics = new LocalAnalytics(search);
  *
- * 	Map&lt;String, Double&gt; rates = analytics.relativeRate("word.noun", "ニッサン", "word.verb", 1000);
+ * 	AnalyticsAggregationResult result = analytics.relativeRate("word.noun", "ニッサン", "word.verb", 1000);
+ *
+ * 	System.out.println("count=" + result.getCount());
+ * 	System.out.println("totalCount=" + result.getTotalCount());
+ *
+ * 	for (AnalyticsAggregationBucket bucket : result.getBuckets()) {
+ *
+ * 		System.out.println(bucket.getKey() + " count=" + bucket.getCount() + " allCount=" + bucket.getAllCount()
+ * 				+ " relativeRate=" + bucket.getRelativeRate());
+ * 	}
  * }
  * </pre>
  */
@@ -61,25 +73,46 @@ public class LocalAnalytics {
 	 * </pre>
 	 *
 	 * <p>
-	 * 例:
+	 * 例えば、 {@code queryField="maker"}, {@code queryValue="ニッサン"},
+	 * {@code aggregationField="word.noun"} とした場合、ニッサンの文書に特徴的に出現する名詞を取得できます。
+	 * </p>
+	 *
+	 * <p>
+	 * 戻り値の {@link AnalyticsResult} は、 分析全体に関する以下の情報を保持します。
 	 * </p>
 	 *
 	 * <pre>
-	 * // word.noun=ニッサン の文書について、
-	 * // word.verb の relativeRate を計算
+	 * queryField
+	 * queryValue
+	 * field
+	 * count
+	 * totalCount
+	 * buckets
+	 * </pre>
 	 *
-	 * Map&lt;String, Double&gt; result = analytics.relativeRate("word.noun", "ニッサン", "word.verb", 1000);
+	 * <p>
+	 * 各 {@link AnalyticsAggregationBucket} は、 以下の情報を保持します。
+	 * </p>
+	 *
+	 * <pre>
+	 * keyword
+	 * key
+	 * count
+	 * allCount
+	 * relativeRate
 	 * </pre>
 	 *
 	 * @param queryField       基準となるフィールド
 	 * @param queryValue       基準となる値
 	 * @param aggregationField 分析対象フィールド
 	 * @param size             aggregation の最大バケット数
-	 * @return 値 → relativeRate のマップ（relativeRate 降順）
+	 * @return relativeRate 分析結果
 	 */
-	public Map<String, Double> relativeRate(String queryField, String queryValue, String aggregationField, int size) {
+	public AnalyticsResult relativeRate(String queryField, String queryValue, String aggregationField,
+			int size) {
 
 		validateField(queryField, "queryField");
+
 		validateField(aggregationField, "aggregationField");
 
 		if (queryValue == null) {
@@ -90,55 +123,70 @@ public class LocalAnalytics {
 			throw new IllegalArgumentException("size must be greater than 0");
 		}
 
+		/*
+		 * 全文書数。
+		 */
 		long countAll = search.count();
 
 		if (countAll == 0) {
-			return Map.of();
+
+			return createResult(queryField, queryValue, aggregationField, 0, 0);
 		}
 
+		/*
+		 * queryField=queryValue に該当する文書数。
+		 */
 		long countQuery = search.count(queryField, queryValue);
 
 		if (countQuery == 0) {
-			return Map.of();
+
+			return createResult(queryField, queryValue, aggregationField, 0, countAll);
 		}
 
 		/*
 		 * 全文書における aggregation。
 		 *
-		 * relativeRate の分母として使用します。
+		 * 各キーワードの allCount を取得するために使用します。
 		 */
 		Map<String, Long> aggregationAll = search.aggregate(aggregationField, size);
 
 		/*
-		 * queryField=queryValue に該当する文書だけを対象とした aggregation。
+		 * queryField=queryValue に該当する文書のみを対象とした aggregation。
+		 *
+		 * bucket の count に相当します。
 		 */
 		Map<String, Long> aggregationQuery = search.aggregate(aggregationField, queryField, queryValue, size);
 
-		return calculateRelativeRates(aggregationField, countAll, countQuery, aggregationAll, aggregationQuery);
+		return calculateRelativeRates(queryField, queryValue, aggregationField, countAll, countQuery, aggregationAll,
+				aggregationQuery);
 	}
 
 	/**
 	 * queryField に存在するすべての値について relativeRate を計算します。
 	 *
 	 * <p>
-	 * 例:
+	 * 例えば、
 	 * </p>
 	 *
 	 * <pre>
-	 * Map&lt;String, Map&lt;String, Double&gt;&gt; result = analytics.relativeRates("word.noun", "word.verb", 1000);
+	 * Map&lt;String, AnalyticsAggregationResult&gt; result = analytics.relativeRates("maker", "word.noun", 100);
 	 *
-	 * // result.get("ニッサン")
-	 * // → ニッサンが出現する文書に特徴的な word.verb
+	 * AnalyticsAggregationResult nissan = result.get("ニッサン");
 	 * </pre>
+	 *
+	 * <p>
+	 * 全体の aggregation は queryValue ごとに再計算せず、 一度だけ実行します。
+	 * </p>
 	 *
 	 * @param queryField       基準フィールド
 	 * @param aggregationField 分析対象フィールド
 	 * @param size             aggregation の最大バケット数
-	 * @return queryValue → (aggregationValue → relativeRate)
+	 * @return queryValue → AnalyticsAggregationResult
 	 */
-	public Map<String, Map<String, Double>> relativeRates(String queryField, String aggregationField, int size) {
+	public Map<String, AnalyticsResult> relativeRates(String queryField, String aggregationField, int size) {
 
 		validateField(queryField, "queryField");
+
 		validateField(aggregationField, "aggregationField");
 
 		if (size < 1) {
@@ -152,20 +200,35 @@ public class LocalAnalytics {
 		}
 
 		/*
-		 * queryField に存在する値を取得します。
+		 * queryField に存在する各値と doc_count を取得します。
+		 *
+		 * 例:
+		 *
+		 * A -> 10 B -> 20
 		 */
 		Map<String, Long> queryValues = search.aggregate(queryField, size);
 
 		/*
-		 * 全体の aggregation は queryValue ごとに 再計算する必要がないため、ここで一度だけ取得します。
+		 * aggregationField の全文書での集計。
+		 *
+		 * queryValue ごとに再計算する必要はありません。
 		 */
 		Map<String, Long> aggregationAll = search.aggregate(aggregationField, size);
 
-		Map<String, Map<String, Double>> result = new LinkedHashMap<>();
+		Map<String, AnalyticsResult> results = new LinkedHashMap<>();
 
-		for (String queryValue : queryValues.keySet()) {
+		for (Map.Entry<String, Long> queryEntry : queryValues.entrySet()) {
 
-			long countQuery = search.count(queryField, queryValue);
+			String queryValue = queryEntry.getKey();
+
+			/*
+			 * queryField の aggregation で取得した doc_count は、
+			 *
+			 * count(queryField, queryValue)
+			 *
+			 * と同じ意味なので、そのまま利用できます。
+			 */
+			long countQuery = queryEntry.getValue();
 
 			if (countQuery == 0) {
 				continue;
@@ -173,39 +236,57 @@ public class LocalAnalytics {
 
 			Map<String, Long> aggregationQuery = search.aggregate(aggregationField, queryField, queryValue, size);
 
-			Map<String, Double> rates = calculateRelativeRates(aggregationField, countAll, countQuery, aggregationAll,
-					aggregationQuery);
+			AnalyticsResult result = calculateRelativeRates(queryField, queryValue, aggregationField,
+					countAll, countQuery, aggregationAll, aggregationQuery);
 
-			result.put(queryValue, rates);
+			results.put(queryValue, result);
 		}
 
-		return result;
+		return results;
 	}
 
 	/**
 	 * relativeRate の実際の計算処理。
+	 *
+	 * @param queryField       基準フィールド
+	 * @param queryValue       基準値
+	 * @param aggregationField aggregation 対象フィールド
+	 * @param countAll         全文書数
+	 * @param countQuery       基準条件に該当する文書数
+	 * @param aggregationAll   全文書に対する aggregation
+	 * @param aggregationQuery 基準条件に該当する文書の aggregation
+	 * @return AnalyticsAggregationResult
 	 */
-	private Map<String, Double> calculateRelativeRates(String aggregationField, long countAll, long countQuery,
-			Map<String, Long> aggregationAll, Map<String, Long> aggregationQuery) {
+	private AnalyticsResult calculateRelativeRates(String queryField, String queryValue,
+			String aggregationField, long countAll, long countQuery, Map<String, Long> aggregationAll,
+			Map<String, Long> aggregationQuery) {
 
-		Map<String, Double> rates = new LinkedHashMap<>();
+		AnalyticsResult result = createResult(queryField, queryValue, aggregationField, countQuery,
+				countAll);
+
+		List<AnalyticsAggregationBucket> buckets = new ArrayList<>();
 
 		for (Map.Entry<String, Long> entry : aggregationQuery.entrySet()) {
 
 			String key = entry.getKey();
+
+			/*
+			 * queryField=queryValue に該当する文書群のうち、 このキーワードを含む文書数。
+			 */
 			long targetCount = entry.getValue();
 
 			/*
-			 * 通常はこちらから取得できます。
+			 * 全文書のうち、 このキーワードを含む文書数。
 			 */
 			Long allCount = aggregationAll.get(key);
 
 			/*
-			 * aggregation の size 制限によって aggregationAll に対象語が含まれていない可能性があります。
+			 * aggregation の size 制限によって、 aggregationAll に対象の key が含まれていない場合があります。
 			 *
-			 * その場合は count(field, value) で正確な文書数を取得します。
+			 * その場合は count(field, value) によって 正確な文書数を取得します。
 			 */
 			if (allCount == null) {
+
 				allCount = search.count(aggregationField, key);
 			}
 
@@ -223,23 +304,56 @@ public class LocalAnalytics {
 
 			double relativeRate = targetRate / allRate;
 
-			rates.put(key, relativeRate);
+			/*
+			 * aggregation の key を AnalyticsKeyword として表現します。
+			 */
+			AnalyticsKeyword keyword = new AnalyticsKeyword(aggregationField, key);
+
+			AnalyticsAggregationBucket bucket = new AnalyticsAggregationBucket(keyword, targetCount, allCount,
+					relativeRate);
+
+			buckets.add(bucket);
 		}
 
 		/*
-		 * relativeRate 降順で返します。
+		 * relativeRate 降順。
 		 */
-		Map<String, Double> sorted = new LinkedHashMap<>();
+		buckets.sort(Comparator.comparingDouble(AnalyticsAggregationBucket::getRelativeRate).reversed());
 
-		rates.entrySet().stream().sorted(Map.Entry.<String, Double>comparingByValue().reversed())
-				.forEach(entry -> sorted.put(entry.getKey(), entry.getValue()));
+		for (AnalyticsAggregationBucket bucket : buckets) {
 
-		return sorted;
+			result.addBucket(bucket);
+		}
+
+		return result;
 	}
 
+	/**
+	 * AnalyticsAggregationResult を生成します。
+	 *
+	 * @param queryField       基準フィールド
+	 * @param queryValue       基準値
+	 * @param aggregationField aggregation 対象フィールド
+	 * @param countQuery       基準条件に該当する文書数
+	 * @param countAll         全文書数
+	 * @return AnalyticsAggregationResult
+	 */
+	private AnalyticsResult createResult(String queryField, String queryValue, String aggregationField,
+			long countQuery, long countAll) {
+
+		return new AnalyticsResult(queryField, queryValue, aggregationField, countQuery, countAll);
+	}
+
+	/**
+	 * フィールド名を検証します。
+	 *
+	 * @param field フィールド名
+	 * @param name  引数名
+	 */
 	private void validateField(String field, String name) {
 
 		if (field == null || field.isBlank()) {
+
 			throw new IllegalArgumentException(name + " must not be empty");
 		}
 	}
