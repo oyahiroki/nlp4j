@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2026 Hiroki OYA
+ *
+ * Licensed under the Apache License, Version 2.0
+ */
 package nlp4j.lucene9;
 
 import java.io.Closeable;
@@ -29,8 +34,6 @@ import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.store.IOContext;
 
 public class LuceneIndex implements Closeable {
-
-	static private final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
 	private boolean closed = false;
 

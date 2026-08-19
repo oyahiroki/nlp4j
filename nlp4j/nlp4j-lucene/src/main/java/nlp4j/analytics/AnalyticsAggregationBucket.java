@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2026 Hiroki OYA
+ *
+ * Licensed under the Apache License, Version 2.0
+ */
 package nlp4j.analytics;
 
 import java.util.Objects;
@@ -6,9 +11,8 @@ import java.util.Objects;
  * Analytics aggregation の1つの bucket を表すクラス。
  *
  * <p>
- * OpenSearch の aggregation bucket に相当する
- * key / doc_count を基本とし、分析用の値として
- * allCount / relativeRate を保持します。
+ * OpenSearch の aggregation bucket に相当する key / doc_count を基本とし、分析用の値として allCount
+ * / relativeRate を保持します。
  * </p>
  *
  * <p>
@@ -16,18 +20,12 @@ import java.util.Objects;
  * </p>
  *
  * <pre>
- * AnalyticsAggregationBucket bucket =
- * 		new AnalyticsAggregationBucket(
- * 				new AnalyticsKeyword(
- * 						"word.noun",
- * 						"ドア"),
- * 				10,
- * 				20,
- * 				2.5);
+ * AnalyticsAggregationBucket bucket = new AnalyticsAggregationBucket(new AnalyticsKeyword("word.noun", "ドア"), 10, 20,
+ * 		2.5);
  *
- * bucket.getKey();          // "ドア"
- * bucket.getCount();        // 10
- * bucket.getAllCount();     // 20
+ * bucket.getKey(); // "ドア"
+ * bucket.getCount(); // 10
+ * bucket.getAllCount(); // 20
  * bucket.getRelativeRate(); // 2.5
  * </pre>
  */
@@ -39,16 +37,14 @@ public class AnalyticsAggregationBucket {
 	private final AnalyticsKeyword keyword;
 
 	/**
-	 * 分析対象文書群の中で、
-	 * このキーワードを含む文書数。
+	 * 分析対象文書群の中で、 このキーワードを含む文書数。
 	 *
 	 * OpenSearch の doc_count に相当します。
 	 */
 	private final long count;
 
 	/**
-	 * 全文書の中で、
-	 * このキーワードを含む文書数。
+	 * 全文書の中で、 このキーワードを含む文書数。
 	 */
 	private final long allCount;
 
@@ -63,24 +59,16 @@ public class AnalyticsAggregationBucket {
 	 * @param allCount     全文書での文書数
 	 * @param relativeRate relativeRate
 	 */
-	public AnalyticsAggregationBucket(
-			AnalyticsKeyword keyword,
-			long count,
-			long allCount,
-			double relativeRate) {
+	public AnalyticsAggregationBucket(AnalyticsKeyword keyword, long count, long allCount, double relativeRate) {
 
-		this.keyword = Objects.requireNonNull(
-				keyword,
-				"keyword must not be null");
+		this.keyword = Objects.requireNonNull(keyword, "keyword must not be null");
 
 		if (count < 0) {
-			throw new IllegalArgumentException(
-					"count must be >= 0");
+			throw new IllegalArgumentException("count must be >= 0");
 		}
 
 		if (allCount < 0) {
-			throw new IllegalArgumentException(
-					"allCount must be >= 0");
+			throw new IllegalArgumentException("allCount must be >= 0");
 		}
 
 		this.count = count;
@@ -152,11 +140,7 @@ public class AnalyticsAggregationBucket {
 
 	@Override
 	public String toString() {
-		return "AnalyticsAggregationBucket [keyword="
-				+ keyword
-				+ ", count=" + count
-				+ ", allCount=" + allCount
-				+ ", relativeRate=" + relativeRate
-				+ "]";
+		return "AnalyticsAggregationBucket [keyword=" + keyword + ", count=" + count + ", allCount=" + allCount
+				+ ", relativeRate=" + relativeRate + "]";
 	}
 }

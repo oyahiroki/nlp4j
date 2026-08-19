@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2026 Hiroki OYA
+ *
+ * Licensed under the Apache License, Version 2.0
+ */
 package nlp4j.lucene;
 
 import java.util.Locale;

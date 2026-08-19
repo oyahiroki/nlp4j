@@ -150,3 +150,64 @@ public class Example10_TextMining_Ja3 {
 				.forEach(entry -> System.out.println(entry.getKey() + " : " + entry.getValue()));
 	}
 }
+// Expected Output
+//=== All Nouns ===
+//ドア : 4
+//トヨタ : 3
+//ドアミラー : 3
+//ミラー : 3
+//ニッサン : 2
+//水 : 1
+//ブレーキ : 1
+//破損 : 1
+//
+//=== All Verbs ===
+//動く : 1
+//外れる : 1
+//入る : 1
+//効く : 1
+//
+//=== query=[ニッサン] aggregation=[word.noun] ===
+//ニッサン : 2.5000
+//破損 : 2.5000
+//
+//=== query=[ニッサン] aggregation=[word.verb] ===
+//動く : 2.5000
+//
+//=== query=[ブレーキ] aggregation=[word.noun] ===
+//ブレーキ : 5.0000
+//
+//=== query=[ブレーキ] aggregation=[word.verb] ===
+//効く : 5.0000
+//
+//=== query=[入る] aggregation=[word.noun] ===
+//水 : 5.0000
+//
+//=== query=[入る] aggregation=[word.verb] ===
+//入る : 5.0000
+//
+//=== query=[効く] aggregation=[word.noun] ===
+//ブレーキ : 5.0000
+//
+//=== query=[効く] aggregation=[word.verb] ===
+//効く : 5.0000
+//
+//=== query=[動く] aggregation=[word.noun] ===
+//ニッサン : 2.5000
+//
+//=== query=[動く] aggregation=[word.verb] ===
+//動く : 5.0000
+//
+//=== query=[外れる] aggregation=[word.verb] ===
+//外れる : 5.0000
+//
+//=== query=[水] aggregation=[word.noun] ===
+//水 : 5.0000
+//
+//=== query=[水] aggregation=[word.verb] ===
+//入る : 5.0000
+//
+//=== query=[破損] aggregation=[word.noun] ===
+//破損 : 5.0000
+//ニッサン : 2.5000
+
