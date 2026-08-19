@@ -10,7 +10,7 @@ import nlp4j.lucene.LocalSearch;
 
 public class Example15_TextMining_En1 {
 
-	private static final double MIN_RELATIVE_RATE = 2.0;
+	private static final double MIN_RELATIVE_RATE = -1.0;
 
 	public static void main(String[] args) throws Exception {
 
@@ -18,9 +18,9 @@ public class Example15_TextMining_En1 {
 
 			search.add("1", "Nissan side mirror is damaged");
 			search.add("2", "Nissan side mirror does not move");
-			search.add("3", "Toyota side mirror came off");
+			search.add("3", "Toyota mirror came off");
 			search.add("4", "Toyota brakes are not working well");
-			search.add("5", "Water leaked in through the Toyota door");
+			search.add("5", "Water leaked in through the Toyota left side door");
 
 			search.commit();
 
@@ -49,8 +49,8 @@ public class Example15_TextMining_En1 {
 
 			queryWords.add("Toyota");
 			queryWords.add("Nissan");
-			queryWords.addAll(nounAll.keySet());
-			queryWords.addAll(verbAll.keySet());
+//			queryWords.addAll(nounAll.keySet());
+//			queryWords.addAll(verbAll.keySet());
 
 			// ------------------------------------------------------------
 			// Calculate relativeRate
@@ -74,6 +74,9 @@ public class Example15_TextMining_En1 {
 
 				long countQuery = search.count(queryWord);
 
+				System.out.println("");
+				System.out.println("" + queryWord + " -> " + countQuery);
+
 				if (countQuery == 0) {
 					continue;
 				}
@@ -90,9 +93,9 @@ public class Example15_TextMining_En1 {
 	 */
 	private static void calculateAndPrintRelativeRate(LocalSearch search, String queryWord, long countQuery,
 			String aggregationField, Map<String, Long> aggregationAll) throws Exception {
-		
+
 		long countAll = search.count();
-		
+
 		Map<String, Long> aggregationQuery = search.aggregate(aggregationField, queryWord, 1000);
 
 		Map<String, Double> relativeRates = new LinkedHashMap<>();
@@ -151,8 +154,8 @@ public class Example15_TextMining_En1 {
 
 		aggregation.entrySet().stream().sorted(Map.Entry.<String, Long>comparingByValue().reversed())
 				.forEach(entry -> System.out.println(entry.getKey() + " : " + entry.getValue()));
-		
-		if(aggregation.size()==0) {
+
+		if (aggregation.size() == 0) {
 			System.out.println("[NOT FOUND]");
 		}
 	}
@@ -230,5 +233,3 @@ public class Example15_TextMining_En1 {
 //
 //=== query=[work] aggregation=[word.verb] ===
 //work : 5.0000
-
-

@@ -94,6 +94,8 @@ public class LocalSearch implements AutoCloseable {
 
 		private SearchRecordEnricher enricher;
 
+		private final java.util.Map<String, FieldTypeDef> fields = new java.util.LinkedHashMap<>();
+
 		private Builder(String language) {
 			this.language = language;
 		}
@@ -138,6 +140,19 @@ public class LocalSearch implements AutoCloseable {
 		}
 
 		/**
+		 * 明示フィールド定義を追加します。
+		 * suffix パターンより優先されます。
+		 *
+		 * @param fieldName    フィールド名
+		 * @param fieldTypeDef フィールド型定義
+		 * @return this Builder
+		 */
+		public Builder field(String fieldName, FieldTypeDef fieldTypeDef) {
+			fields.put(fieldName, fieldTypeDef);
+			return this;
+		}
+
+		/**
 		 * 設定した内容で {@link LocalSearch} インスタンスを生成します。
 		 *
 		 * @return 新しい LocalSearch インスタンス
@@ -162,6 +177,8 @@ public class LocalSearch implements AutoCloseable {
 
 	LuceneLocalSearchApi api;
 
+	private final nlp4j.lucene9.DynamicFieldResolver dynamicFieldResolver = new nlp4j.lucene9.DynamicFieldResolver();
+
 	// -----------------------------------------------------------------------
 	// Constructors
 	// -----------------------------------------------------------------------
@@ -184,7 +201,8 @@ public class LocalSearch implements AutoCloseable {
 			initIndex(builder.indexDir);
 		}
 
-		this.schema = createSchema(builder.vectorDimension);
+		this.schema = createSchema(builder);
+		this.api = new LuceneLocalSearchApi(index, this.schema);
 		this.default_field_name = resolveDefaultFieldName(builder.language);
 
 		if (builder.enricher != null) {
@@ -266,7 +284,7 @@ public class LocalSearch implements AutoCloseable {
 					if (fieldName == null || value == null) {
 						continue;
 					}
-					ensureKeywordField(fieldName);
+					ensureField(fieldName, false);
 					builder.put(fieldName, value);
 				}
 			}
@@ -408,11 +426,7 @@ public class LocalSearch implements AutoCloseable {
 			// 追加フィールドを登録
 			for (String fieldName : record.dataKeys()) {
 				List<String> values = record.getDataValues(fieldName);
-				if (values.size() > 1) {
-					ensureMultiValuedKeywordField(fieldName);
-				} else {
-					ensureKeywordField(fieldName);
-				}
+				ensureField(fieldName, values.size() > 1);
 				for (String value : values) {
 					builder.put(fieldName, value);
 				}
@@ -448,12 +462,21 @@ public class LocalSearch implements AutoCloseable {
 	}
 
 	/**
-	 * 指定フィールドが未登録の場合、複数値を持つ keyword フィールドとして登録します。 addJson() でのJSON配列フィールド登録に使用します。
+	 * 指定フィールドが未登録の場合、DynamicFieldResolver で型を解決してスキーマに登録します。
+	 * 明示 schema 済みのフィールドは変更しません。
 	 *
-	 * @param fieldName the field name to ensure
+	 * @param fieldName   フィールド名
+	 * @param multiValued 複数値フィールドの場合 true
 	 */
-	private void ensureMultiValuedKeywordField(String fieldName) {
-		schema.addIfAbsent(fieldName, FieldTypeDef.keyword().stored(true).aggregatable(true).multiValued(true));
+	private void ensureField(String fieldName, boolean multiValued) {
+		if (schema.contains(fieldName)) {
+			return;
+		}
+		nlp4j.lucene9.FieldTypeDef type = dynamicFieldResolver.resolve(fieldName);
+		if (multiValued) {
+			type = type.multiValued(true);
+		}
+		schema.addIfAbsent(fieldName, type);
 	}
 
 	/**
@@ -487,16 +510,6 @@ public class LocalSearch implements AutoCloseable {
 		}
 	}
 
-	/**
-	 * 指定フィールドがスキーマに未登録の場合のみ keyword フィールドとして追加します。 addJson() から動的フィールド登録のために使用します。
-	 *
-	 * @param fieldName the field name to ensure
-	 */
-	private void ensureKeywordField(String fieldName) {
-		// aggregatable() を付けることで SortedDocValuesField がインデックスされ、
-		// terms aggregation (TermsAggregation) でも使用可能になる
-		schema.addIfAbsent(fieldName, FieldTypeDef.keyword().stored(true).aggregatable(true));
-	}
 
 	private static final Set<String> DEFAULT_WORD_FIELDS = Set.of("word", "word.noun", "word.verb", "word.adj",
 			"word.adp", "word.aux", "word.sym", "word.propn", "word.num", "word.adv");
@@ -507,7 +520,7 @@ public class LocalSearch implements AutoCloseable {
 		}
 	}
 
-	private SearchSchema createSchema(int vectorDimension) {
+	private SearchSchema createSchema(Builder builder) {
 		SearchSchema schema = new SearchSchema();
 
 		schema.add("id", FieldTypeDef.keyword().stored(true));
@@ -519,8 +532,13 @@ public class LocalSearch implements AutoCloseable {
 		// 形態素解析結果の word.* フィールド（multiValued keyword）
 		addDefaultWordFields(schema);
 
-		if (vectorDimension > 0) {
-			schema.add("vector", FieldTypeDef.knnVector(vectorDimension));
+		if (builder.vectorDimension > 0) {
+			schema.add("vector", FieldTypeDef.knnVector(builder.vectorDimension));
+		}
+
+		// 明示フィールド定義（suffix patternより優先）
+		for (java.util.Map.Entry<String, FieldTypeDef> entry : builder.fields.entrySet()) {
+			schema.add(entry.getKey(), entry.getValue());
 		}
 
 		return schema;
@@ -695,7 +713,7 @@ public class LocalSearch implements AutoCloseable {
 	private void initIndex() {
 		try {
 			index = new LuceneIndex();
-			api = new LuceneLocalSearchApi(index);
+			// api は schema 生成後に再設定される（reinitApi()）
 		} catch (IOException e) {
 			throw new LocalSearchException(e.getMessage(), e);
 		}
@@ -704,7 +722,7 @@ public class LocalSearch implements AutoCloseable {
 	private void initIndex(Path indexDir) {
 		try {
 			index = new LuceneIndex(indexDir);
-			api = new LuceneLocalSearchApi(index);
+			// api は schema 生成後に再設定される（reinitApi()）
 		} catch (IOException e) {
 			throw new LocalSearchException(e.getMessage(), e);
 		}
@@ -1195,7 +1213,8 @@ public class LocalSearch implements AutoCloseable {
 
 		try (nlp4j.lucene9.SearchSession session = index.acquireSearcher()) {
 
-			nlp4j.lucene9.LuceneQueryBuilder.parseQueryString(query, this.default_field_name, session.getAnalyzer());
+			nlp4j.lucene9.LuceneQueryBuilder.parseQueryString(
+					query, this.default_field_name, session.getAnalyzer(), this.schema);
 
 			return LuceneQueryValidationResult.valid();
 

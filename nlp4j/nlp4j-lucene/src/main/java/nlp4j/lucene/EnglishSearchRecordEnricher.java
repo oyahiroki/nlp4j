@@ -68,10 +68,11 @@ public class EnglishSearchRecordEnricher implements SearchRecordEnricher {
 			if (UPOS20.NOUN.equals(kwd.getUPos())) {
 
 				count++;
-				if (count == 0) {
+				
+				if (count == 1) {
 				    s = kwd.getLex();
 				} else {
-				    s += " " + kwd.getLex();
+				    s += spacer + kwd.getLex();
 				}
 				count++;
 

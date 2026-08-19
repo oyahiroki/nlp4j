@@ -12,7 +12,7 @@ import org.apache.lucene.index.VectorSimilarityFunction;
 public class FieldTypeDef {
 
 	public enum Kind {
-		KEYWORD, TEXT, LONG, KNN_VECTOR, STORED_ONLY
+		KEYWORD, TEXT, INTEGER, LONG, DOUBLE, DATE, KNN_VECTOR, STORED_ONLY
 	}
 
 	private final Kind kind;
@@ -38,8 +38,20 @@ public class FieldTypeDef {
 		return new FieldTypeDef(Kind.TEXT);
 	}
 
+	public static FieldTypeDef integer() {
+		return new FieldTypeDef(Kind.INTEGER);
+	}
+
 	public static FieldTypeDef longNumber() {
 		return new FieldTypeDef(Kind.LONG);
+	}
+
+	public static FieldTypeDef doubleNumber() {
+		return new FieldTypeDef(Kind.DOUBLE);
+	}
+
+	public static FieldTypeDef date() {
+		return new FieldTypeDef(Kind.DATE);
 	}
 
 	public static FieldTypeDef knnVector(int dimension) {

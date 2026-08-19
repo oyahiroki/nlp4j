@@ -14,6 +14,7 @@ import nlp4j.json.JsonNode;
 public class LuceneLocalSearchApi {
 
 	private final LuceneIndex index;
+	private final SearchSchema schema;
 
 	/**
 	 * Constructs a new LuceneLocalSearchApi instance.
@@ -21,7 +22,18 @@ public class LuceneLocalSearchApi {
 	 * @param index the LuceneIndex to use for searching
 	 */
 	public LuceneLocalSearchApi(LuceneIndex index) {
+		this(index, new SearchSchema());
+	}
+
+	/**
+	 * Constructs a new LuceneLocalSearchApi instance with schema for typed queries.
+	 *
+	 * @param index  the LuceneIndex to use for searching
+	 * @param schema the SearchSchema used to resolve field types for queries
+	 */
+	public LuceneLocalSearchApi(LuceneIndex index, SearchSchema schema) {
 		this.index = index;
+		this.schema = (schema != null) ? schema : new SearchSchema();
 	}
 
 	/**
@@ -37,7 +49,7 @@ public class LuceneLocalSearchApi {
 
 		try (SearchSession session = index.acquireSearcher()) {
 
-			Query query = LuceneQueryBuilder.build(request, session.getAnalyzer());
+			Query query = LuceneQueryBuilder.build(request, session.getAnalyzer(), schema);
 
 			SearchResult hits = SearchExecutor.execute(session.getSearcher(), query, request);
 

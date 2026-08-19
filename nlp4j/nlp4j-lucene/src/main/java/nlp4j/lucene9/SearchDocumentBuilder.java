@@ -6,11 +6,14 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.lucene.document.Document;
+import org.apache.lucene.document.DoublePoint;
 import org.apache.lucene.document.Field;
+import org.apache.lucene.document.IntPoint;
 import org.apache.lucene.document.KnnFloatVectorField;
 import org.apache.lucene.document.LongPoint;
 import org.apache.lucene.document.NumericDocValuesField;
 import org.apache.lucene.document.SortedDocValuesField;
+import org.apache.lucene.document.SortedNumericDocValuesField;
 import org.apache.lucene.document.SortedSetDocValuesField;
 import org.apache.lucene.document.StoredField;
 import org.apache.lucene.document.StringField;
@@ -50,7 +53,12 @@ public class SearchDocumentBuilder {
 	}
 
 	public SearchDocumentBuilder put(String fieldName, int value) {
-		putValue(fieldName, Long.valueOf(value));
+		putValue(fieldName, Integer.valueOf(value));
+		return this;
+	}
+
+	public SearchDocumentBuilder put(String fieldName, double value) {
+		putValue(fieldName, Double.valueOf(value));
 		return this;
 	}
 
@@ -93,8 +101,17 @@ public class SearchDocumentBuilder {
 		case TEXT:
 			addTextField(doc, fieldName, def, value);
 			break;
+		case INTEGER:
+			addIntegerField(doc, fieldName, def, value);
+			break;
 		case LONG:
 			addLongField(doc, fieldName, def, value);
+			break;
+		case DOUBLE:
+			addDoubleField(doc, fieldName, def, value);
+			break;
+		case DATE:
+			addDateField(doc, fieldName, def, value);
 			break;
 		case KNN_VECTOR:
 			addKnnVectorField(doc, fieldName, def, value);
@@ -141,13 +158,28 @@ public class SearchDocumentBuilder {
 		}
 	}
 
+	private void addIntegerField(Document doc, String fieldName, FieldTypeDef def, Object value) {
+		int number = asInteger(fieldName, value);
+
+		// Point for range queries and exact queries
+		doc.add(new IntPoint(fieldName, number));
+
+		// Sort / numeric aggregation
+		if (def.is_sortable() || def.is_aggregatable()) {
+			doc.add(new SortedNumericDocValuesField(fieldName, number));
+		}
+
+		// Stored result value
+		if (def.is_stored()) {
+			doc.add(new StoredField(fieldName, number));
+		}
+	}
+
 	private void addLongField(Document doc, String fieldName, FieldTypeDef def, Object value) {
 		long number = asLong(fieldName, value);
 
-		// Range query
-		if (def.is_range()) {
-			doc.add(new LongPoint(fieldName, number));
-		}
+		// Point for range queries and exact queries
+		doc.add(new LongPoint(fieldName, number));
 
 		// Sort / numeric aggregation foundation
 		if (def.is_sortable() || def.is_aggregatable()) {
@@ -157,6 +189,47 @@ public class SearchDocumentBuilder {
 		// Stored result value
 		if (def.is_stored()) {
 			doc.add(new StoredField(fieldName, number));
+		}
+	}
+
+	private void addDoubleField(Document doc, String fieldName, FieldTypeDef def, Object value) {
+		double number = asDouble(fieldName, value);
+
+		// Point for range queries and exact queries
+		doc.add(new DoublePoint(fieldName, number));
+
+		// Sort / numeric aggregation
+		if (def.is_sortable() || def.is_aggregatable()) {
+			doc.add(new SortedNumericDocValuesField(fieldName,
+					Double.doubleToRawLongBits(number)));
+		}
+
+		// Stored result value
+		if (def.is_stored()) {
+			doc.add(new StoredField(fieldName, number));
+		}
+	}
+
+	private void addDateField(Document doc, String fieldName, FieldTypeDef def, Object value) {
+		// DATE is stored as epoch millis (long) internally
+		long epochMillis;
+		if (value instanceof String s) {
+			epochMillis = FieldValueConverter.dateToEpochMillis(s);
+		} else {
+			epochMillis = asLong(fieldName, value);
+		}
+
+		// Point for range queries and exact queries
+		doc.add(new LongPoint(fieldName, epochMillis));
+
+		// Sort / numeric aggregation
+		if (def.is_sortable() || def.is_aggregatable()) {
+			doc.add(new NumericDocValuesField(fieldName, epochMillis));
+		}
+
+		// Stored result value (as epoch millis)
+		if (def.is_stored()) {
+			doc.add(new StoredField(fieldName, epochMillis));
 		}
 	}
 
@@ -185,6 +258,22 @@ public class SearchDocumentBuilder {
 		throw new IllegalArgumentException("Field must be String: " + fieldName);
 	}
 
+	private int asInteger(String fieldName, Object value) {
+		if (value instanceof Integer i) {
+			return i;
+		}
+		if (value instanceof Long l) {
+			return l.intValue();
+		}
+		if (value instanceof Number n) {
+			return n.intValue();
+		}
+		if (value instanceof String s) {
+			return FieldValueConverter.toInteger(s);
+		}
+		throw new IllegalArgumentException("Field must be int-compatible: " + fieldName);
+	}
+
 	private long asLong(String fieldName, Object value) {
 		if (value instanceof Long l) {
 			return l.longValue();
@@ -195,7 +284,23 @@ public class SearchDocumentBuilder {
 		if (value instanceof Number n) {
 			return n.longValue();
 		}
+		if (value instanceof String s) {
+			return FieldValueConverter.toLong(s);
+		}
 		throw new IllegalArgumentException("Field must be long-compatible number: " + fieldName);
+	}
+
+	private double asDouble(String fieldName, Object value) {
+		if (value instanceof Double d) {
+			return d;
+		}
+		if (value instanceof Number n) {
+			return n.doubleValue();
+		}
+		if (value instanceof String s) {
+			return FieldValueConverter.toDouble(s);
+		}
+		throw new IllegalArgumentException("Field must be double-compatible: " + fieldName);
 	}
 
 	private float[] asFloatArray(String fieldName, Object value) {
