@@ -3,6 +3,9 @@ package examples;
 import nlp4j.lucene.LocalSearch;
 import nlp4j.lucene.LuceneQueryValidationResult;
 
+/**
+ * @since 1.5
+ */
 public class Example13_ValidateQuery {
 
 	public static void main(String[] args) {

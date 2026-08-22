@@ -5,6 +5,7 @@
  */
 package nlp4j.lucene9;
 
+import java.time.ZoneId;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -63,6 +64,10 @@ public class SearchSchema {
 
 	public SearchDocumentBuilder document() {
 		return new SearchDocumentBuilder(this);
+	}
+
+	public SearchDocumentBuilder document(ZoneId zoneId) {
+		return new SearchDocumentBuilder(this, zoneId);
 	}
 
 	public Set<String> fieldNames() {

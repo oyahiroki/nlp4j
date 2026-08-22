@@ -5,6 +5,7 @@ import nlp4j.lucene.SearchResult;
 import nlp4j.lucene9.FieldTypeDef;
 
 /**
+ * @since 1.5
  * Example: Lucene Query syntax for date fields (DATE / *_dt suffix).
  *
  * <p>
@@ -40,7 +41,7 @@ import nlp4j.lucene9.FieldTypeDef;
  * ...
  * </pre>
  */
-public class Example17_LuceneQuery_Date {
+public class Example17_LuceneQuery_Date_ISO8609DateTime {
 
 	public static void main(String[] args) throws Exception {
 

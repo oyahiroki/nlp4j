@@ -6,6 +6,7 @@
 package nlp4j.lucene9;
 
 import java.io.IOException;
+import java.time.ZoneId;
 
 import org.apache.lucene.search.Query;
 
@@ -20,6 +21,7 @@ public class LuceneLocalSearchApi {
 
 	private final LuceneIndex index;
 	private final SearchSchema schema;
+	private final ZoneId zoneId;
 
 	/**
 	 * Constructs a new LuceneLocalSearchApi instance.
@@ -27,7 +29,7 @@ public class LuceneLocalSearchApi {
 	 * @param index the LuceneIndex to use for searching
 	 */
 	public LuceneLocalSearchApi(LuceneIndex index) {
-		this(index, new SearchSchema());
+		this(index, new SearchSchema(), ZoneId.systemDefault());
 	}
 
 	/**
@@ -37,8 +39,20 @@ public class LuceneLocalSearchApi {
 	 * @param schema the SearchSchema used to resolve field types for queries
 	 */
 	public LuceneLocalSearchApi(LuceneIndex index, SearchSchema schema) {
+		this(index, schema, ZoneId.systemDefault());
+	}
+
+	/**
+	 * Constructs a new LuceneLocalSearchApi instance with schema and timezone.
+	 *
+	 * @param index  the LuceneIndex to use for searching
+	 * @param schema the SearchSchema used to resolve field types for queries
+	 * @param zoneId timezone for DATE fields without offset
+	 */
+	public LuceneLocalSearchApi(LuceneIndex index, SearchSchema schema, ZoneId zoneId) {
 		this.index = index;
 		this.schema = (schema != null) ? schema : new SearchSchema();
+		this.zoneId = (zoneId != null) ? zoneId : ZoneId.systemDefault();
 	}
 
 	/**
@@ -54,7 +68,7 @@ public class LuceneLocalSearchApi {
 
 		try (SearchSession session = index.acquireSearcher()) {
 
-			Query query = LuceneQueryBuilder.build(request, session.getAnalyzer(), schema);
+			Query query = LuceneQueryBuilder.build(request, session.getAnalyzer(), schema, zoneId);
 
 			SearchResult hits = SearchExecutor.execute(session.getSearcher(), query, request);
 

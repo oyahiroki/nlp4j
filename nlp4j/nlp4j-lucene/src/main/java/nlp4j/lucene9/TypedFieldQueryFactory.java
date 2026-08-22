@@ -5,6 +5,8 @@
  */
 package nlp4j.lucene9;
 
+import java.time.ZoneId;
+
 import org.apache.lucene.document.DoublePoint;
 import org.apache.lucene.document.IntPoint;
 import org.apache.lucene.document.LongPoint;
@@ -27,8 +29,14 @@ import org.apache.lucene.search.TermQuery;
  * <li>INTEGER → {@link IntPoint}</li>
  * <li>LONG → {@link LongPoint}</li>
  * <li>DOUBLE → {@link DoublePoint}</li>
- * <li>DATE → ISO 8601 → epoch millis → {@link LongPoint}</li>
+ * <li>DATE → ISO 8601 (date / local datetime / offset datetime) → epoch millis → {@link LongPoint}</li>
  * </ul>
+ *
+ * <p>
+ * For DATE fields, when the value has no timezone offset, the {@code zoneId} parameter
+ * is used. Passing {@code null} for {@code zoneId} falls back to
+ * {@link ZoneId#systemDefault()}.
+ * </p>
  */
 public final class TypedFieldQueryFactory {
 
@@ -77,12 +85,33 @@ public final class TypedFieldQueryFactory {
 	 * Numeric/date fields are converted to the appropriate Lucene Point query;
 	 * other field types fall back to {@link TermQuery}.
 	 *
+	 * <p>
+	 * For DATE fields without a timezone offset, {@link ZoneId#systemDefault()} is used.
+	 * Prefer {@link #newExactQuery(String, String, SearchSchema, ZoneId)} for reproducible behavior.
+	 * </p>
+	 *
 	 * @param field  the field name
 	 * @param value  the string representation of the value
 	 * @param schema the SearchSchema, or {@code null}
 	 * @return a Lucene Query
 	 */
 	public static Query newExactQuery(String field, String value, SearchSchema schema) {
+		return newExactQuery(field, value, schema, ZoneId.systemDefault());
+	}
+
+	/**
+	 * Creates an exact (term) query for the given field and string value,
+	 * using the given {@link ZoneId} for DATE fields that carry no offset.
+	 *
+	 * @param field   the field name
+	 * @param value   the string representation of the value
+	 * @param schema  the SearchSchema, or {@code null}
+	 * @param zoneId  default timezone for DATE parsing when no offset is present;
+	 *                falls back to {@link ZoneId#systemDefault()} when {@code null}
+	 * @return a Lucene Query
+	 */
+	public static Query newExactQuery(String field, String value, SearchSchema schema, ZoneId zoneId) {
+		ZoneId zone = zoneId != null ? zoneId : ZoneId.systemDefault();
 		FieldTypeDef def = resolveFieldType(field, schema);
 		switch (def.kind()) {
 		case INTEGER:
@@ -92,7 +121,7 @@ public final class TypedFieldQueryFactory {
 		case DOUBLE:
 			return DoublePoint.newExactQuery(field, FieldValueConverter.toDouble(value));
 		case DATE:
-			return LongPoint.newExactQuery(field, FieldValueConverter.dateToEpochMillis(value));
+			return LongPoint.newExactQuery(field, FieldValueConverter.dateToEpochMillis(value, zone));
 		default:
 			return new TermQuery(new Term(field, value));
 		}
@@ -103,6 +132,12 @@ public final class TypedFieldQueryFactory {
 	 *
 	 * <p>
 	 * {@code null} or {@code "*"} for lowerValue/upperValue means open-ended.
+	 * </p>
+	 *
+	 * <p>
+	 * For DATE fields without a timezone offset, {@link ZoneId#systemDefault()} is used.
+	 * Prefer {@link #newRangeQuery(String, String, String, boolean, boolean, SearchSchema, ZoneId)}
+	 * for reproducible behavior.
 	 * </p>
 	 *
 	 * @param field          the field name
@@ -121,7 +156,39 @@ public final class TypedFieldQueryFactory {
 			boolean lowerInclusive,
 			boolean upperInclusive,
 			SearchSchema schema) {
+		return newRangeQuery(field, lowerValue, upperValue, lowerInclusive, upperInclusive,
+				schema, ZoneId.systemDefault());
+	}
 
+	/**
+	 * Creates a range query for the given field, using the given {@link ZoneId} for
+	 * DATE fields that carry no offset.
+	 *
+	 * <p>
+	 * {@code null} or {@code "*"} for lowerValue/upperValue means open-ended.
+	 * </p>
+	 *
+	 * @param field          the field name
+	 * @param lowerValue     lower bound as string, or {@code null}/{@code "*"} for open
+	 * @param upperValue     upper bound as string, or {@code null}/{@code "*"} for open
+	 * @param lowerInclusive whether the lower bound is inclusive
+	 * @param upperInclusive whether the upper bound is inclusive
+	 * @param schema         the SearchSchema, or {@code null}
+	 * @param zoneId         default timezone for DATE parsing when no offset is present;
+	 *                       falls back to {@link ZoneId#systemDefault()} when {@code null}
+	 * @return a Lucene range Query
+	 * @throws IllegalArgumentException if the field is not a numeric/date type
+	 */
+	public static Query newRangeQuery(
+			String field,
+			String lowerValue,
+			String upperValue,
+			boolean lowerInclusive,
+			boolean upperInclusive,
+			SearchSchema schema,
+			ZoneId zoneId) {
+
+		ZoneId zone = zoneId != null ? zoneId : ZoneId.systemDefault();
 		FieldTypeDef def = resolveFieldType(field, schema);
 		switch (def.kind()) {
 		case INTEGER:
@@ -131,7 +198,7 @@ public final class TypedFieldQueryFactory {
 		case DOUBLE:
 			return doubleRange(field, lowerValue, upperValue, lowerInclusive, upperInclusive);
 		case DATE:
-			return dateRange(field, lowerValue, upperValue, lowerInclusive, upperInclusive);
+			return dateRange(field, lowerValue, upperValue, lowerInclusive, upperInclusive, zone);
 		default:
 			throw new IllegalArgumentException(
 					"Range query is only supported for numeric/date fields: " + field);
@@ -240,13 +307,14 @@ public final class TypedFieldQueryFactory {
 			String lowerValue,
 			String upperValue,
 			boolean lowerInclusive,
-			boolean upperInclusive) {
+			boolean upperInclusive,
+			ZoneId zoneId) {
 
 		long lower = Long.MIN_VALUE;
 		long upper = Long.MAX_VALUE;
 
 		if (!isOpen(lowerValue)) {
-			lower = FieldValueConverter.dateToEpochMillis(lowerValue);
+			lower = FieldValueConverter.dateToEpochMillis(lowerValue, zoneId);
 			if (!lowerInclusive) {
 				if (lower == Long.MAX_VALUE) {
 					return new MatchNoDocsQuery();
@@ -256,7 +324,7 @@ public final class TypedFieldQueryFactory {
 		}
 
 		if (!isOpen(upperValue)) {
-			upper = FieldValueConverter.dateToEpochMillis(upperValue);
+			upper = FieldValueConverter.dateToEpochMillis(upperValue, zoneId);
 			if (!upperInclusive) {
 				if (upper == Long.MIN_VALUE) {
 					return new MatchNoDocsQuery();

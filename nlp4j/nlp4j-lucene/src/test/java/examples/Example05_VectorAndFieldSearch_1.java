@@ -46,7 +46,7 @@ import nlp4j.lucene.SearchResult;
  *   ...
  * </pre>
  */
-public class Example05_VectorAndFieldSearch {
+public class Example05_VectorAndFieldSearch_1 {
 
     public static void main(String[] args) throws Exception {
 

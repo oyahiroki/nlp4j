@@ -8,6 +8,9 @@ import java.util.stream.Collectors;
 import nlp4j.json.JsonNode;
 import nlp4j.lucene.LocalSearch;
 
+/**
+ * @since 1.5
+ */
 public class Example09_TextMining_Ja2 {
 	public static void main(String[] args) throws Exception {
 

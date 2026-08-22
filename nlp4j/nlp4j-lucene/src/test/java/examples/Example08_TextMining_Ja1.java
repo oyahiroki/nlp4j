@@ -3,6 +3,9 @@ package examples;
 import nlp4j.json.JsonNode;
 import nlp4j.lucene.LocalSearch;
 
+/**
+ * @since 1.5
+ */
 public class Example08_TextMining_Ja1 {
 	public static void main(String[] args) throws Exception {
 

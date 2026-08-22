@@ -8,6 +8,7 @@ package nlp4j.lucene;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -55,7 +56,7 @@ import nlp4j.util.StringUtils;
  * }
  *
  * // ディスクインデックス + ベクトル検索
- * try (LocalSearch search = LocalSearch.builder("ja").vectorDimension(1024).indexDirectory(Path.of("./index"))
+ * try (LocalSearch search = LocalSearch.builder("ja").vectorDimension(1024).loadIndexFrom(Path.of("./index"))
  * 		.build()) {
  * 	// ...
  * }
@@ -87,7 +88,7 @@ public class LocalSearch implements AutoCloseable {
 	 *
 	 * <pre>
 	 * LocalSearch search = LocalSearch.builder("ja").autoAnalyze(true).vectorDimension(1024)
-	 * 		.indexDirectory(Path.of("./index")).build();
+	 * 		.loadIndexFrom(Path.of("./index")).build();
 	 * </pre>
 	 */
 	public static class Builder {
@@ -96,6 +97,7 @@ public class LocalSearch implements AutoCloseable {
 		private boolean autoAnalyze = true;
 		private int vectorDimension = 0;
 		private Path indexDir = null;
+		private ZoneId zoneId = ZoneId.systemDefault();
 
 		private SearchRecordEnricher enricher;
 
@@ -129,18 +131,48 @@ public class LocalSearch implements AutoCloseable {
 		}
 
 		/**
-		 * ディスク上の Lucene インデックスディレクトリを指定します。 指定しない場合はオンメモリインデックスを使用します。
+		 * ディスク上の Lucene インデックス読み込みディレクトリを指定します。 
 		 *
-		 * @param indexDir インデックスを格納するディレクトリパス
+		 * @param indexDir インデックスを読み込むディレクトリパス
 		 * @return this Builder
 		 */
-		public Builder indexDirectory(Path indexDir) {
+		public Builder loadIndexFrom(Path indexDir) {
 			this.indexDir = indexDir;
 			return this;
 		}
 
 		public Builder enricher(SearchRecordEnricher enricher) {
 			this.enricher = enricher;
+			return this;
+		}
+
+		/**
+		 * タイムゾーンを設定します。
+		 *
+		 * <p>
+		 * Date フィールドの値にオフセットが含まれない場合（例: {@code 2026-08-21}、
+		 * {@code 2026-08-21T14:30:00}）、このタイムゾーンが使用されます。
+		 * オフセット付きの値（例: {@code 2026-08-21T14:30:00+09:00}、{@code ...Z}）では
+		 * 指定されたオフセットが優先されます。
+		 * </p>
+		 *
+		 * <p>
+		 * 省略時は {@link ZoneId#systemDefault()} が使用されます。
+		 * ディスクインデックスを別環境で利用する場合は明示指定を推奨します。
+		 * </p>
+		 *
+		 * <pre>
+		 * LocalSearch.builder("ja")
+		 *     .timeZone("Asia/Tokyo")
+		 *     .build();
+		 * </pre>
+		 *
+		 * @param zoneId タイムゾーン文字列（例: {@code "Asia/Tokyo"}、{@code "UTC"}）
+		 * @return this Builder
+		 * @throws java.time.zone.ZoneRulesException if the zone ID is unknown
+		 */
+		public Builder timeZone(String zoneId) {
+			this.zoneId = ZoneId.of(zoneId);
 			return this;
 		}
 
@@ -174,7 +206,10 @@ public class LocalSearch implements AutoCloseable {
 
 	private String language;
 	private boolean autoAnalyze;
-	private SearchRecordEnricher enricher;
+	private int vectorDimension;
+	private ZoneId zoneId;
+	private SearchRecordEnricher textEnricher;
+	private SearchRecordEnricher dateFieldEnricher;
 
 	private String default_field_name;
 	SearchSchema schema;
@@ -199,6 +234,7 @@ public class LocalSearch implements AutoCloseable {
 
 		this.language = builder.language;
 		this.autoAnalyze = builder.autoAnalyze;
+		this.vectorDimension = builder.vectorDimension;
 
 		if (builder.indexDir == null) {
 			initIndex();
@@ -207,13 +243,16 @@ public class LocalSearch implements AutoCloseable {
 		}
 
 		this.schema = createSchema(builder);
-		this.api = new LuceneLocalSearchApi(index, this.schema);
+		this.zoneId = builder.zoneId;
+		this.api = new LuceneLocalSearchApi(index, this.schema, this.zoneId);
 		this.default_field_name = resolveDefaultFieldName(builder.language);
 
+		this.dateFieldEnricher = new DateFieldEnricher(this.schema, builder.zoneId);
+
 		if (builder.enricher != null) {
-			this.enricher = builder.enricher;
+			this.textEnricher = builder.enricher;
 		} else {
-			this.enricher = SearchRecordEnrichers.forLanguage(builder.language);
+			this.textEnricher = SearchRecordEnrichers.forLanguage(builder.language);
 		}
 
 	}
@@ -234,11 +273,11 @@ public class LocalSearch implements AutoCloseable {
 	}
 
 	public LocalSearch(String language, int vectorDimension, File indexDir) {
-		this(new Builder(language).vectorDimension(vectorDimension).indexDirectory(indexDir.toPath()));
+		this(new Builder(language).vectorDimension(vectorDimension).loadIndexFrom(indexDir.toPath()));
 	}
 
 	public LocalSearch(String language, int vectorDimension, Path indexDir) {
-		this(new Builder(language).vectorDimension(vectorDimension).indexDirectory(indexDir));
+		this(new Builder(language).vectorDimension(vectorDimension).loadIndexFrom(indexDir));
 	}
 
 	// -----------------------------------------------------------------------
@@ -246,11 +285,11 @@ public class LocalSearch implements AutoCloseable {
 	// -----------------------------------------------------------------------
 
 	public static LocalSearch open(String language, int vectorDimension, Path indexDir) {
-		return new Builder(language).vectorDimension(vectorDimension).indexDirectory(indexDir).build();
+		return new Builder(language).vectorDimension(vectorDimension).loadIndexFrom(indexDir).build();
 	}
 
 	public void add(String id, float[] vector) {
-		Document doc1 = schema.document() //
+		Document doc1 = schema.document(zoneId) //
 				.put("id", id) //
 				.putVector("vector", vector) //
 				.build();
@@ -280,7 +319,7 @@ public class LocalSearch implements AutoCloseable {
 	 */
 	public void add(String id, float[] vector, java.util.Map<String, String> fields) {
 		try {
-			var builder = schema.document().put("id", id).putVector("vector", vector);
+			var builder = schema.document(zoneId).put("id", id).putVector("vector", vector);
 
 			if (fields != null) {
 				for (java.util.Map.Entry<String, String> entry : fields.entrySet()) {
@@ -332,16 +371,23 @@ public class LocalSearch implements AutoCloseable {
 		try {
 			enrich(record);
 
-			var builder = schema.document().put("id", record.getId()).put(default_field_name, record.getBody());
+			var builder = schema.document(zoneId).put("id", record.getId()).put(default_field_name, record.getBody());
+
+			// ベクトルを登録
+			if (record.hasVector()) {
+				builder.putVector("vector", record.getVector());
+			}
 
 			// word.* フィールドへキーワードを登録
 			for (SearchKeyword kw : record.getKeywords()) {
 				builder.put(kw.getPos(), kw.getLex());
 			}
 
-			// 追加フィールドを登録
+			// 追加フィールドを登録（addJson() と同様に ensureField() を呼ぶ）
 			for (String fieldName : record.dataKeys()) {
-				for (String value : record.getDataValues(fieldName)) {
+				List<String> values = record.getDataValues(fieldName);
+				ensureField(fieldName, values.size() > 1);
+				for (String value : values) {
 					builder.put(fieldName, value);
 				}
 			}
@@ -389,9 +435,16 @@ public class LocalSearch implements AutoCloseable {
 
 			SearchRecord record = new SearchRecord(id, body);
 
+			// vector フィールドを解析して SearchRecord に設定
+			float[] vector = parseVector(json);
+			if (vector != null) {
+				record.setVector(vector);
+			}
+
 			// JSON の追加フィールドを SearchRecord に転写
 			for (String fieldName : json.keys()) {
-				if ("id".equals(fieldName) || "body".equals(fieldName) || "text".equals(fieldName)) {
+				if ("id".equals(fieldName) || "body".equals(fieldName) || "text".equals(fieldName)
+						|| "vector".equals(fieldName)) {
 					continue;
 				}
 
@@ -420,8 +473,13 @@ public class LocalSearch implements AutoCloseable {
 
 			enrich(record);
 
-			var builder = schema.document().put("id", record.getId()).put(default_field_name, record.getBody())
+			var builder = schema.document(zoneId).put("id", record.getId()).put(default_field_name, record.getBody())
 					.put("data", json_string);
+
+			// ベクトルを登録
+			if (record.hasVector()) {
+				builder.putVector("vector", record.getVector());
+			}
 
 			// word.* フィールドへキーワードを登録
 			for (SearchKeyword kw : record.getKeywords()) {
@@ -464,6 +522,42 @@ public class LocalSearch implements AutoCloseable {
 			}
 		}
 		throw new IllegalArgumentException("Required field is missing: body or text");
+	}
+
+	/**
+	 * JSON ノードから "vector" フィールドを解析して float[] を返します。
+	 * vector フィールドが存在しない場合は null を返します。
+	 *
+	 * @param json 対象の JsonNode
+	 * @return float[] または null
+	 * @throws IllegalArgumentException vector が配列でない場合、vectorDimension 未設定の場合、次元数不一致の場合
+	 */
+	private float[] parseVector(JsonNode json) {
+		JsonNode node = json.get("vector");
+
+		if (node == null || node.isNull()) {
+			return null;
+		}
+
+		if (!node.isArray()) {
+			throw new IllegalArgumentException("vector must be an array");
+		}
+
+		if (vectorDimension <= 0) {
+			throw new IllegalArgumentException(
+					"Vector field is not enabled. Specify vectorDimension when building LocalSearch.");
+		}
+
+		if (node.size() != vectorDimension) {
+			throw new IllegalArgumentException(
+					"Vector dimension mismatch: expected=" + vectorDimension + ", actual=" + node.size());
+		}
+
+		float[] vector = new float[node.size()];
+		for (int i = 0; i < node.size(); i++) {
+			vector[i] = (float) node.get(i).asDouble(0.0);
+		}
+		return vector;
 	}
 
 	/**
@@ -516,6 +610,36 @@ public class LocalSearch implements AutoCloseable {
 	}
 
 
+	/**
+	 * Deletes the document with the specified ID from the index.
+	 *
+	 * <p>
+	 * If no document with the specified ID exists, this method does nothing (idempotent).
+	 * Call {@link #commit()} to commit the change.
+	 * </p>
+	 *
+	 * <pre>
+	 * search.delete("doc1");
+	 * search.commit();
+	 * </pre>
+	 *
+	 * @param id the document identifier to delete
+	 * @throws LocalSearchException if {@code id} is null or the index operation fails
+	 */
+	public void delete(String id) {
+		if (id == null) {
+			throw new LocalSearchException("id must not be null",
+					new IllegalArgumentException("id must not be null"));
+		}
+		try {
+			this.index.delete(id);
+		} catch (IOException e) {
+			throw new LocalSearchException(e.getMessage(), e);
+		}
+	}
+
+
+
 	private static final Set<String> DEFAULT_WORD_FIELDS = Set.of("word", "word.noun", "word.verb", "word.adj",
 			"word.adp", "word.aux", "word.sym", "word.propn", "word.num", "word.adv");
 
@@ -561,16 +685,30 @@ public class LocalSearch implements AutoCloseable {
 	 */
 	private void enrich(SearchRecord record) {
 
+		if (record == null) {
+			return;
+		}
+
+		// --------------------------------------------------
+		// Date field enrichment（autoAnalyze に関係なく常に実行）
+		// --------------------------------------------------
+
+		dateFieldEnricher.enrich(record);
+
+		// --------------------------------------------------
+		// Natural language enrichment
+		// --------------------------------------------------
+
 		if (!this.autoAnalyze) {
 			return;
 		}
 
-		if (record == null || record.getBody() == null || record.getBody().isEmpty()) {
+		if (record.getBody() == null || record.getBody().isEmpty()) {
 			return;
 		}
 
 		try {
-			enricher.enrich(record);
+			textEnricher.enrich(record);
 		} catch (Exception e) {
 			throw new LocalSearchException("Text enrichment failed: " + e.getMessage(), e);
 		}
@@ -841,7 +979,7 @@ public class LocalSearch implements AutoCloseable {
 	 * JSON 文字列で検索条件を指定して検索を実行します。Python (JPype) など外部から 複雑な検索条件を渡す場合に使用します。
 	 *
 	 * <p>
-	 * OpenSearch 形式の JSON をそのまま渡せます。
+	 * OpenSearch スタイルの JSON を渡せます。
 	 * </p>
 	 *
 	 * <pre>
@@ -855,7 +993,7 @@ public class LocalSearch implements AutoCloseable {
 	 * search.searchJson("{\"query\":{\"bool\":{\"must\":[{\"match\":{\"text_ja\":\"東京\"}}],\"filter\":[{\"term\":{\"category\":\"技術\"}}]}},\"size\":10}")
 	 * </pre>
 	 *
-	 * @param requestJson OpenSearch 形式の検索リクエスト JSON 文字列
+	 * @param requestJson OpenSearch スタイルの検索リクエスト JSON 文字列
 	 * @return an array of SearchResult objects, ordered by relevance score
 	 * @throws LocalSearchException if JSON parsing or search fails
 	 */
@@ -1219,7 +1357,7 @@ public class LocalSearch implements AutoCloseable {
 		try (nlp4j.lucene9.SearchSession session = index.acquireSearcher()) {
 
 			nlp4j.lucene9.LuceneQueryBuilder.parseQueryString(
-					query, this.default_field_name, session.getAnalyzer(), this.schema);
+					query, this.default_field_name, session.getAnalyzer(), this.schema, this.zoneId);
 
 			return LuceneQueryValidationResult.valid();
 

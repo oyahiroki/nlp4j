@@ -8,6 +8,9 @@ import java.util.stream.Collectors;
 
 import nlp4j.lucene.LocalSearch;
 
+/**
+ * @since 1.5
+ */
 public class Example15_TextMining_En1 {
 
 	private static final double MIN_RELATIVE_RATE = -1.0;

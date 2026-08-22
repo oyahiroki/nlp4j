@@ -2,6 +2,9 @@ package examples;
 
 import nlp4j.lucene.LocalSearch;
 
+/**
+ * @since 1.5
+ */
 public class Example12_Count {
 
 	public static void main(String[] args) throws Exception {

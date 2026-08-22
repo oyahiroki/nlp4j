@@ -5,6 +5,7 @@
  */
 package nlp4j.lucene9;
 
+import java.time.ZoneId;
 import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,14 +38,23 @@ import org.apache.lucene.util.BytesRef;
 public class SearchDocumentBuilder {
 
 	private final SearchSchema schema;
+	private final ZoneId zoneId;
 	// List to allow multiple values for the same field name (multi-valued fields)
 	private final List<Map.Entry<String, Object>> values = new ArrayList<>();
 
 	public SearchDocumentBuilder(SearchSchema schema) {
+		this(schema, ZoneId.systemDefault());
+	}
+
+	public SearchDocumentBuilder(SearchSchema schema, ZoneId zoneId) {
 		if (schema == null) {
 			throw new IllegalArgumentException("schema must not be null");
 		}
+		if (zoneId == null) {
+			throw new IllegalArgumentException("zoneId must not be null");
+		}
 		this.schema = schema;
+		this.zoneId = zoneId;
 	}
 
 	public SearchDocumentBuilder put(String fieldName, String value) {
@@ -219,7 +229,7 @@ public class SearchDocumentBuilder {
 		// DATE is stored as epoch millis (long) internally
 		long epochMillis;
 		if (value instanceof String s) {
-			epochMillis = FieldValueConverter.dateToEpochMillis(s);
+			epochMillis = FieldValueConverter.dateToEpochMillis(s, zoneId);
 		} else {
 			epochMillis = asLong(fieldName, value);
 		}

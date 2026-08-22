@@ -5,6 +5,7 @@ import nlp4j.lucene.SearchResult;
 import nlp4j.lucene9.FieldTypeDef;
 
 /**
+ * @since 1.5
  * Example: Lucene Query syntax for numeric fields (INTEGER and DOUBLE).
  *
  * <p>

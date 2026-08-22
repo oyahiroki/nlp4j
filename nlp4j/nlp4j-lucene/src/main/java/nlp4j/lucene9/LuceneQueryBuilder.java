@@ -5,6 +5,7 @@
  */
 package nlp4j.lucene9;
 
+import java.time.ZoneId;
 import java.util.List;
 
 import org.apache.lucene.analysis.Analyzer;
@@ -56,6 +57,26 @@ public class LuceneQueryBuilder {
 			String defaultField,
 			Analyzer analyzer,
 			SearchSchema schema) throws Exception {
+		return parseQueryString(query, defaultField, analyzer, schema, ZoneId.systemDefault());
+	}
+
+	/**
+	 * Parses a Lucene query string using a schema-aware parser with timezone support.
+	 *
+	 * @param query        Lucene query string
+	 * @param defaultField default field used by QueryParser
+	 * @param analyzer     analyzer used for query parsing
+	 * @param schema       the SearchSchema for field type resolution (may be null)
+	 * @param zoneId       timezone for DATE fields without offset
+	 * @return parsed Lucene Query
+	 * @throws Exception if parsing fails
+	 */
+	public static Query parseQueryString(
+			String query,
+			String defaultField,
+			Analyzer analyzer,
+			SearchSchema schema,
+			ZoneId zoneId) throws Exception {
 
 		if (query == null || query.isBlank()) {
 			throw new IllegalArgumentException("query must not be null or empty");
@@ -65,9 +86,10 @@ public class LuceneQueryBuilder {
 			throw new IllegalArgumentException("defaultField must not be null or empty");
 		}
 
+		ZoneId zone = (zoneId != null) ? zoneId : ZoneId.systemDefault();
 		QueryParser parser = (schema == null)
 				? new QueryParser(defaultField, analyzer)
-				: new SchemaAwareQueryParser(defaultField, analyzer, schema);
+				: new SchemaAwareQueryParser(defaultField, analyzer, schema, zone);
 
 		return parser.parse(query);
 	}
@@ -90,8 +112,23 @@ public class LuceneQueryBuilder {
 	 * @throws RuntimeException if the query type is unsupported or parsing fails
 	 */
 	public static Query build(SearchRequest request, Analyzer analyzer, SearchSchema schema) {
+		return build(request, analyzer, schema, ZoneId.systemDefault());
+	}
+
+	/**
+	 * Builds a Lucene Query from a SearchRequest (schema-aware, timezone-aware).
+	 *
+	 * @param request  the search request containing the query definition
+	 * @param analyzer the analyzer to use for query parsing
+	 * @param schema   the SearchSchema for field type resolution
+	 * @param zoneId   timezone for DATE fields without offset
+	 * @return a Lucene Query object
+	 * @throws RuntimeException if the query type is unsupported or parsing fails
+	 */
+	public static Query build(SearchRequest request, Analyzer analyzer, SearchSchema schema, ZoneId zoneId) {
 		JsonNode queryJson = request.query();
 		SearchSchema effectiveSchema = (schema != null) ? schema : new SearchSchema();
+		ZoneId zone = (zoneId != null) ? zoneId : ZoneId.systemDefault();
 
 		try {
 			if (queryJson.has("match_all")) {
@@ -99,7 +136,7 @@ public class LuceneQueryBuilder {
 			}
 
 			if (queryJson.has("term")) {
-				return buildTermQuery(queryJson.get("term"), effectiveSchema);
+				return buildTermQuery(queryJson.get("term"), effectiveSchema, zone);
 			}
 
 			if (queryJson.has("match")) {
@@ -107,19 +144,19 @@ public class LuceneQueryBuilder {
 			}
 
 			if (queryJson.has("query_string")) {
-				return buildQueryStringQuery(queryJson.get("query_string"), analyzer, effectiveSchema);
+				return buildQueryStringQuery(queryJson.get("query_string"), analyzer, effectiveSchema, zone);
 			}
 
 			if (queryJson.has("knn")) {
-				return buildKnnQuery(queryJson.get("knn"), analyzer, effectiveSchema);
+				return buildKnnQuery(queryJson.get("knn"), analyzer, effectiveSchema, zone);
 			}
 
 			if (queryJson.has("bool")) {
-				return buildBoolQuery(queryJson.get("bool"), analyzer, effectiveSchema);
+				return buildBoolQuery(queryJson.get("bool"), analyzer, effectiveSchema, zone);
 			}
 
 			if (queryJson.has("range")) {
-				return buildRangeQuery(queryJson.get("range"), effectiveSchema);
+				return buildRangeQuery(queryJson.get("range"), effectiveSchema, zone);
 			}
 
 			throw new IllegalArgumentException("Unsupported query: " + queryJson);
@@ -148,10 +185,10 @@ public class LuceneQueryBuilder {
 	 * @param schema   the SearchSchema for field type resolution
 	 * @return a Query object (TermQuery for KEYWORD/TEXT, numeric exact for others)
 	 */
-	private static Query buildTermQuery(JsonNode termJson, SearchSchema schema) {
+	private static Query buildTermQuery(JsonNode termJson, SearchSchema schema, ZoneId zoneId) {
 		String field = termJson.keys().iterator().next();
 		String value = termJson.get(field).asString();
-		return TypedFieldQueryFactory.newExactQuery(field, value, schema);
+		return TypedFieldQueryFactory.newExactQuery(field, value, schema, zoneId);
 	}
 
 	/**
@@ -170,7 +207,7 @@ public class LuceneQueryBuilder {
 	 * @param schema    the SearchSchema for field type resolution
 	 * @return a Lucene range Query
 	 */
-	private static Query buildRangeQuery(JsonNode rangeJson, SearchSchema schema) {
+	private static Query buildRangeQuery(JsonNode rangeJson, SearchSchema schema, ZoneId zoneId) {
 		String field = rangeJson.keys().iterator().next();
 		JsonNode conditions = rangeJson.get(field);
 
@@ -184,7 +221,7 @@ public class LuceneQueryBuilder {
 		if (conditions.has("lte")) { upper = conditions.get("lte").asString(); upperInclusive = true; }
 		if (conditions.has("lt"))  { upper = conditions.get("lt").asString();  upperInclusive = false; }
 
-		return TypedFieldQueryFactory.newRangeQuery(field, lower, upper, lowerInclusive, upperInclusive, schema);
+		return TypedFieldQueryFactory.newRangeQuery(field, lower, upper, lowerInclusive, upperInclusive, schema, zoneId);
 	}
 
 	/**
@@ -212,7 +249,7 @@ public class LuceneQueryBuilder {
 	 * @return a Query object
 	 * @throws Exception if query parsing fails
 	 */
-	private static Query buildQueryStringQuery(JsonNode qsJson, Analyzer analyzer, SearchSchema schema)
+	private static Query buildQueryStringQuery(JsonNode qsJson, Analyzer analyzer, SearchSchema schema, ZoneId zoneId)
 			throws Exception {
 
 		if (qsJson == null || qsJson.isNull()) {
@@ -242,7 +279,7 @@ public class LuceneQueryBuilder {
 			}
 		}
 
-		return parseQueryString(query, defaultField, analyzer, schema);
+		return parseQueryString(query, defaultField, analyzer, schema, zoneId);
 	}
 
 	/**
@@ -254,7 +291,7 @@ public class LuceneQueryBuilder {
 	 * @return a BooleanQuery object
 	 * @throws Exception if inner query parsing fails
 	 */
-	private static Query buildBoolQuery(JsonNode boolJson, Analyzer analyzer, SearchSchema schema) throws Exception {
+	private static Query buildBoolQuery(JsonNode boolJson, Analyzer analyzer, SearchSchema schema, ZoneId zoneId) throws Exception {
 		BooleanQuery.Builder builder = new BooleanQuery.Builder();
 
 		if (boolJson.has("must")) {
@@ -262,7 +299,7 @@ public class LuceneQueryBuilder {
 			List<JsonNode> clauses = mustNode.isArray() ? mustNode.asList() : List.of(mustNode);
 			for (JsonNode clause : clauses) {
 				SearchRequest dummy = new SearchRequest(null, 0, 0, clause, null);
-				builder.add(build(dummy, analyzer, schema), BooleanClause.Occur.MUST);
+				builder.add(build(dummy, analyzer, schema, zoneId), BooleanClause.Occur.MUST);
 			}
 		}
 
@@ -271,7 +308,7 @@ public class LuceneQueryBuilder {
 			List<JsonNode> clauses = filterNode.isArray() ? filterNode.asList() : List.of(filterNode);
 			for (JsonNode clause : clauses) {
 				SearchRequest dummy = new SearchRequest(null, 0, 0, clause, null);
-				builder.add(build(dummy, analyzer, schema), BooleanClause.Occur.FILTER);
+				builder.add(build(dummy, analyzer, schema, zoneId), BooleanClause.Occur.FILTER);
 			}
 		}
 
@@ -280,7 +317,7 @@ public class LuceneQueryBuilder {
 			List<JsonNode> clauses = shouldNode.isArray() ? shouldNode.asList() : List.of(shouldNode);
 			for (JsonNode clause : clauses) {
 				SearchRequest dummy = new SearchRequest(null, 0, 0, clause, null);
-				builder.add(build(dummy, analyzer, schema), BooleanClause.Occur.SHOULD);
+				builder.add(build(dummy, analyzer, schema, zoneId), BooleanClause.Occur.SHOULD);
 			}
 		}
 
@@ -289,7 +326,7 @@ public class LuceneQueryBuilder {
 			List<JsonNode> clauses = mustNotNode.isArray() ? mustNotNode.asList() : List.of(mustNotNode);
 			for (JsonNode clause : clauses) {
 				SearchRequest dummy = new SearchRequest(null, 0, 0, clause, null);
-				builder.add(build(dummy, analyzer, schema), BooleanClause.Occur.MUST_NOT);
+				builder.add(build(dummy, analyzer, schema, zoneId), BooleanClause.Occur.MUST_NOT);
 			}
 		}
 
@@ -305,7 +342,7 @@ public class LuceneQueryBuilder {
 	 * @return a Query object for vector search
 	 * @throws Exception if query parsing fails
 	 */
-	private static Query buildKnnQuery(JsonNode knnJson, Analyzer analyzer, SearchSchema schema) throws Exception {
+	private static Query buildKnnQuery(JsonNode knnJson, Analyzer analyzer, SearchSchema schema, ZoneId zoneId) throws Exception {
 		String field = knnJson.get("field").asString();
 		JsonNode vectorNode = knnJson.get("query_vector");
 		int k = knnJson.get("k").asInt();
@@ -317,7 +354,7 @@ public class LuceneQueryBuilder {
 		if (knnJson.has("filter")) {
 			// Build filter query recursively
 			SearchRequest dummyRequest = new SearchRequest(null, 0, 0, knnJson.get("filter"), null);
-			Query filterQuery = build(dummyRequest, analyzer, schema);
+			Query filterQuery = build(dummyRequest, analyzer, schema, zoneId);
 			return new KnnFloatVectorQuery(field, queryVector, k, filterQuery);
 		}
 

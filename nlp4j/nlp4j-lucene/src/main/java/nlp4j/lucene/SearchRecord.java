@@ -34,6 +34,9 @@ public class SearchRecord {
 	/** 本文テキスト */
 	private final String body;
 
+	/** KNN ベクトル（null の場合はベクトルなし） */
+	private float[] vector;
+
 	/** 形態素解析結果のキーワードリスト */
 	private final List<SearchKeyword> keywords = new ArrayList<>();
 
@@ -47,6 +50,18 @@ public class SearchRecord {
 	public SearchRecord(String id, String body) {
 		this.id = id;
 		this.body = body;
+	}
+
+	public float[] getVector() {
+		return vector;
+	}
+
+	public void setVector(float[] vector) {
+		this.vector = vector;
+	}
+
+	public boolean hasVector() {
+		return vector != null;
 	}
 
 	public String getId() {
@@ -105,6 +120,7 @@ public class SearchRecord {
 	@Override
 	public String toString() {
 		return "SearchRecord [id=" + id + ", body=" + body
-				+ ", keywords=" + keywords.size() + ", data=" + data.keySet() + "]";
+				+ ", keywords=" + keywords.size() + ", data=" + data.keySet()
+				+ ", hasVector=" + (vector != null) + "]";
 	}
 }

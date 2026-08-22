@@ -132,6 +132,26 @@ public class LuceneIndex implements Closeable {
 	}
 
 	/**
+	 * Deletes documents having the specified id.
+	 *
+	 * <p>
+	 * If no document with the specified ID exists, this method does nothing.
+	 * Call {@link #commit()} to commit the change.
+	 * </p>
+	 *
+	 * @param id document identifier
+	 * @throws IllegalArgumentException if id is null
+	 * @throws IOException if the index operation fails
+	 */
+	public void delete(String id) throws IOException {
+		ensureOpen();
+		if (id == null) {
+			throw new IllegalArgumentException("id must not be null");
+		}
+		writer.deleteDocuments(new Term("id", id));
+	}
+
+	/**
 	 * add document
 	 */
 	public void add(Document doc) throws IOException {

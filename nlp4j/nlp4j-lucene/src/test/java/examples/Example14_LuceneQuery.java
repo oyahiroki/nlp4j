@@ -3,6 +3,9 @@ package examples;
 import nlp4j.lucene.LocalSearch;
 import nlp4j.lucene.SearchResult;
 
+/**
+ * @since 1.5
+ */
 public class Example14_LuceneQuery {
 
 	public static void main(String[] args) throws Exception {

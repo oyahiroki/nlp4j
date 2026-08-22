@@ -5,6 +5,8 @@
  */
 package nlp4j.lucene9;
 
+import java.time.ZoneId;
+
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.queryparser.classic.ParseException;
 import org.apache.lucene.queryparser.classic.QueryParser;
@@ -31,17 +33,31 @@ import org.apache.lucene.search.Query;
 public class SchemaAwareQueryParser extends QueryParser {
 
 	private final SearchSchema schema;
+	private final ZoneId zoneId;
 
 	/**
-	 * Constructs a new SchemaAwareQueryParser.
+	 * Constructs a new SchemaAwareQueryParser using {@link ZoneId#systemDefault()}.
 	 *
 	 * @param defaultField the default field for query parsing
 	 * @param analyzer     the analyzer for text fields
 	 * @param schema       the SearchSchema for field type resolution
 	 */
 	public SchemaAwareQueryParser(String defaultField, Analyzer analyzer, SearchSchema schema) {
+		this(defaultField, analyzer, schema, ZoneId.systemDefault());
+	}
+
+	/**
+	 * Constructs a new SchemaAwareQueryParser with an explicit timezone.
+	 *
+	 * @param defaultField the default field for query parsing
+	 * @param analyzer     the analyzer for text fields
+	 * @param schema       the SearchSchema for field type resolution
+	 * @param zoneId       timezone used for DATE fields without an offset
+	 */
+	public SchemaAwareQueryParser(String defaultField, Analyzer analyzer, SearchSchema schema, ZoneId zoneId) {
 		super(defaultField, analyzer);
 		this.schema = schema;
+		this.zoneId = (zoneId != null) ? zoneId : ZoneId.systemDefault();
 	}
 
 	/**
@@ -53,7 +69,7 @@ public class SchemaAwareQueryParser extends QueryParser {
 			return super.getFieldQuery(field, queryText, quoted);
 		}
 		try {
-			return TypedFieldQueryFactory.newExactQuery(field, queryText, schema);
+			return TypedFieldQueryFactory.newExactQuery(field, queryText, schema, zoneId);
 		} catch (RuntimeException e) {
 			throw parseException("Invalid value for field [" + field + "]: " + queryText, e);
 		}
@@ -75,7 +91,7 @@ public class SchemaAwareQueryParser extends QueryParser {
 		}
 		try {
 			return TypedFieldQueryFactory.newRangeQuery(
-					field, part1, part2, startInclusive, endInclusive, schema);
+					field, part1, part2, startInclusive, endInclusive, schema, zoneId);
 		} catch (RuntimeException e) {
 			throw parseException("Invalid range for field [" + field + "]", e);
 		}

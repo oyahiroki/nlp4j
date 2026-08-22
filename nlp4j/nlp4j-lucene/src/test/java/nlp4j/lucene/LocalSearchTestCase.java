@@ -1759,12 +1759,12 @@ public class LocalSearchTestCase extends TestCase {
 	}
 
 	/**
-	 * {@code .indexDirectory(Path)} でディスクインデックスを使用した場合に 文書の追加・検索が正しく動作することを確認する。
+	 * {@code .loadIndexFrom(Path)} でディスクインデックスを使用した場合に 文書の追加・検索が正しく動作することを確認する。
 	 */
-	public void testBuilder006_indexDirectory() throws Exception {
+	public void testBuilder006_loadIndexFrom() throws Exception {
 		java.nio.file.Path tempDir = java.nio.file.Files.createTempDirectory("localsearch_test_");
 		try {
-			try (LocalSearch search = LocalSearch.builder("en").indexDirectory(tempDir).build()) {
+			try (LocalSearch search = LocalSearch.builder("en").loadIndexFrom(tempDir).build()) {
 				search.addJson("""
 						{"id":"1","body":"Kyoto is a historic city.","category":"city"}
 						""");
@@ -2304,6 +2304,125 @@ public class LocalSearchTestCase extends TestCase {
 				}
 			}
 
+		}
+	}
+
+	// =========================================================
+	// addJson() vector 対応テスト
+	// =========================================================
+
+	/**
+	 * ① addJson() で vector を登録し、ベクトル検索で最近傍が正しく返ることを確認する。
+	 *
+	 * <pre>
+	 * {"id":"1","body":"East","vector":[1.0,0.0]}
+	 * {"id":"2","body":"North","vector":[0.0,1.0]}
+	 * クエリ (0.9, 0.1) → id=1 が先頭
+	 * </pre>
+	 */
+	public void testAddJsonVector001() throws Exception {
+		try (LocalSearch search = LocalSearch.builder("en").vectorDimension(2).build()) {
+			search.addJson("{\"id\":\"1\",\"body\":\"East\",\"vector\":[1.0,0.0]}");
+			search.addJson("{\"id\":\"2\",\"body\":\"North\",\"vector\":[0.0,1.0]}");
+			search.commit();
+
+			SearchResult[] results = search.search(new float[] { 0.9f, 0.1f }, 10);
+			System.out.println("testAddJsonVector001 size: " + results.length);
+			for (int n = 0; n < results.length; n++) {
+				System.out.println("result[" + n + "].id: " + results[n].id);
+			}
+
+			assertEquals(2, results.length);
+			assertEquals("1", results[0].id);
+		}
+	}
+
+	/**
+	 * ② addJson() で vector + metadata を登録し、ベクトル検索＋フィールドフィルターが動作することを確認する。
+	 *
+	 * <pre>
+	 * id=1: category=technology, country=Japan, vector=[1.0,0.0]
+	 * id=2: category=technology, country=USA,   vector=[0.9,0.2]
+	 * id=3: category=travel,     country=Japan, vector=[0.8,0.3]
+	 * クエリ (0.9, 0.1) + category=technology + country=Japan → id=1 のみ
+	 * </pre>
+	 */
+	public void testAddJsonVectorWithFilter001() throws Exception {
+		try (LocalSearch search = LocalSearch.builder("en").vectorDimension(2).build()) {
+			search.addJson("{\"id\":\"1\",\"body\":\"Kyoto technology\","
+					+ "\"category\":\"technology\",\"country\":\"Japan\",\"vector\":[1.0,0.0]}");
+			search.addJson("{\"id\":\"2\",\"body\":\"US technology\","
+					+ "\"category\":\"technology\",\"country\":\"USA\",\"vector\":[0.9,0.2]}");
+			search.addJson("{\"id\":\"3\",\"body\":\"Kyoto travel\","
+					+ "\"category\":\"travel\",\"country\":\"Japan\",\"vector\":[0.8,0.3]}");
+			search.commit();
+
+			// category=technology + country=Japan → id=1 のみ
+			SearchResult[] results = search.search(new float[] { 0.9f, 0.1f }, 10,
+					java.util.Map.of("category", "technology", "country", "Japan"));
+			System.out.println("testAddJsonVectorWithFilter001 size: " + results.length);
+			for (int n = 0; n < results.length; n++) {
+				System.out.println("result[" + n + "].id: " + results[n].id);
+			}
+
+			assertEquals(1, results.length);
+			assertEquals("1", results[0].id);
+		}
+	}
+
+	/**
+	 * ③ addJson() で vector なし JSON が従来どおり登録できることを確認する（後方互換）。
+	 *
+	 * <pre>
+	 * vectorDimension(2) を指定していても vector フィールドがなければ通常ドキュメントとして登録可能。
+	 * </pre>
+	 */
+	public void testAddJsonVectorOptional001() throws Exception {
+		try (LocalSearch search = LocalSearch.builder("en").vectorDimension(2).build()) {
+			// vector なし
+			search.addJson("{\"id\":\"1\",\"body\":\"Kyoto\",\"category\":\"city\"}");
+			// vector あり
+			search.addJson("{\"id\":\"2\",\"body\":\"Tokyo\",\"category\":\"city\",\"vector\":[0.5,0.5]}");
+			search.commit();
+
+			// フィールド検索: category=city → 2件どちらも取得できること
+			SearchResult[] results = search.search("category", "city", 10);
+			System.out.println("testAddJsonVectorOptional001 size: " + results.length);
+			assertEquals(2, results.length);
+		}
+	}
+
+	/**
+	 * ④ vectorDimension(2) なのに vector=[1.0,0.0,0.5]（3次元）が来た場合、
+	 * LocalSearchException がスローされることを確認する。
+	 */
+	public void testAddJsonVectorDimensionMismatch001() throws Exception {
+		try (LocalSearch search = LocalSearch.builder("en").vectorDimension(2).build()) {
+			try {
+				search.addJson("{\"id\":\"1\",\"body\":\"test\",\"vector\":[1.0,0.0,0.5]}");
+				fail("次元数不一致では LocalSearchException がスローされること");
+			} catch (LocalSearchException e) {
+				System.out.println("testAddJsonVectorDimensionMismatch001 exception: " + e.getMessage());
+				assertTrue("メッセージに 'dimension mismatch' が含まれること",
+						e.getMessage().contains("dimension mismatch") || e.getMessage().contains("mismatch"));
+			}
+		}
+	}
+
+	/**
+	 * ⑤ vectorDimension 未設定の LocalSearch に vector フィールドを含む JSON を addJson() すると、
+	 * LocalSearchException がスローされることを確認する。
+	 */
+	public void testAddJsonVectorDimensionNotEnabled001() throws Exception {
+		try (LocalSearch search = LocalSearch.builder("en").build()) {
+			try {
+				search.addJson("{\"id\":\"1\",\"body\":\"test\",\"vector\":[1.0,0.0]}");
+				fail("vectorDimension 未設定では LocalSearchException がスローされること");
+			} catch (LocalSearchException e) {
+				System.out.println("testAddJsonVectorDimensionNotEnabled001 exception: " + e.getMessage());
+				assertTrue("メッセージに 'not enabled' が含まれること",
+						e.getMessage().contains("not enabled") || e.getMessage().contains("enabled"));
+			}
 		}
 	}
 
