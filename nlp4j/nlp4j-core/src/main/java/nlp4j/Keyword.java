@@ -14,9 +14,53 @@ public interface Keyword extends Serializable, Cloneable {
 
 	static public final int BEGIN_INIT = -1;
 	static public final double CORRELATION_INIT = -1;
-	static public final int COUNT_INIT = -1;
 	static public final int END_INIT = -1;
 	static public final int SEQUENCE_INIT = -1;
+
+	/**
+	 * 1.3.7.22 int -> long
+	 */
+	static public final long COUNT_INIT = -1;
+	/**
+	 * @since 1.3.7.22
+	 */
+	static public final long ALL_COUNT_INIT = -1;
+
+	/**
+	 * 
+	 * キーワードの全体集合における出現件数を返します。
+	 *
+	 * <p>
+	 * relativeRate など、対象集合と全体集合を比較する分析で使用します。 {@link #getCount()} が対象集合での出現件数を表す場合、
+	 * この値は比較対象となる全体集合での出現件数を表します。
+	 * </p>
+	 *
+	 * @return 全体集合での出現件数
+	 * 
+	 * @since 1.3.7.22
+	 */
+	public long getAllCount();
+
+	/**
+	 * @since 1.3.7.22
+	 */
+	public void setAllCount(long allCount);
+
+	/**
+	 * キーワードの相対出現率を返します。
+	 *
+	 * @return relative rate
+	 * @since 1.3.7.22
+	 */
+	public double getRelativeRate();
+
+	/**
+	 * キーワードの相対出現率をセットします。
+	 * 
+	 * @param relativeRate 相対出現率
+	 * @since 1.3.7.22
+	 */
+	public void setRelativeRate(double relativeRate);
 
 	/**
 	 * Shift begin, end

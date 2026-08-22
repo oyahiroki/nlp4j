@@ -15,6 +15,12 @@ import nlp4j.UPOS20;
  *
  */
 public class DefaultKeyword extends AbstractKeyword implements Keyword, Cloneable {
+	
+	
+	
+	
+	
+
 
 	/**
 	 * 

@@ -44,10 +44,10 @@ public abstract class AbstractKeyword implements Keyword {
 	 */
 	protected long count = COUNT_INIT;
 
-	/**
-	 * count
-	 */
-	protected long count2 = COUNT_INIT;
+//	/**
+//	 * count
+//	 */
+//	protected long count2 = COUNT_INIT;
 
 	/**
 	 * end
@@ -100,6 +100,30 @@ public abstract class AbstractKeyword implements Keyword {
 	 */
 	protected String upos;
 
+	protected long allCount;
+
+	protected double relativeRate;
+
+	@Override
+	public long getAllCount() {
+		return allCount;
+	}
+
+	@Override
+	public void setAllCount(long allCount) {
+		this.allCount = allCount;
+	}
+
+	@Override
+	public double getRelativeRate() {
+		return relativeRate;
+	}
+
+	@Override
+	public void setRelativeRate(double relativeRate) {
+		this.relativeRate = relativeRate;
+	}
+
 	/**
 	 * TRUE: (facet is same) and (lex is same)
 	 */
@@ -142,7 +166,7 @@ public abstract class AbstractKeyword implements Keyword {
 
 	@Override
 	public long getCount2() {
-		return this.count2;
+		return this.allCount;
 	}
 
 	@Override
@@ -249,7 +273,7 @@ public abstract class AbstractKeyword implements Keyword {
 
 	@Override
 	public void setCount2(long count2) {
-		this.count2 = count2;
+		this.allCount = count2;
 	}
 
 	@Override
