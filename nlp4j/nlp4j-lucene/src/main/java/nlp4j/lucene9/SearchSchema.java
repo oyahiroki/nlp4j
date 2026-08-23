@@ -8,6 +8,7 @@ package nlp4j.lucene9;
 import java.time.ZoneId;
 import java.util.Collections;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -72,6 +73,18 @@ public class SearchSchema {
 
 	public Set<String> fieldNames() {
 		return Collections.unmodifiableSet(fields.keySet());
+	}
+
+	/**
+	 * Returns the names of aggregatable fields in insertion order.
+	 *
+	 * @return list of field names where {@link FieldTypeDef#is_aggregatable()} is {@code true}
+	 */
+	public List<String> aggregatableFieldNames() {
+		return fields.entrySet().stream()
+				.filter(e -> e.getValue().is_aggregatable())
+				.map(Map.Entry::getKey)
+				.toList();
 	}
 
 	public FieldTypeDef get(String fieldName) {

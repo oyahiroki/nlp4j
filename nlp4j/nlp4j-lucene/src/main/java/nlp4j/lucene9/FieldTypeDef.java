@@ -167,4 +167,36 @@ public class FieldTypeDef {
 	public VectorSimilarityFunction vectorSimilarityFunction() {
 		return vectorSimilarityFunction;
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (!(obj instanceof FieldTypeDef)) {
+			return false;
+		}
+		FieldTypeDef other = (FieldTypeDef) obj;
+		return kind == other.kind
+				&& stored == other.stored
+				&& aggregatable == other.aggregatable
+				&& sortable == other.sortable
+				&& range == other.range
+				&& multiValued == other.multiValued
+				&& dimension == other.dimension
+				&& vectorSimilarityFunction == other.vectorSimilarityFunction;
+	}
+
+	@Override
+	public int hashCode() {
+		int result = kind.hashCode();
+		result = 31 * result + Boolean.hashCode(stored);
+		result = 31 * result + Boolean.hashCode(aggregatable);
+		result = 31 * result + Boolean.hashCode(sortable);
+		result = 31 * result + Boolean.hashCode(range);
+		result = 31 * result + Boolean.hashCode(multiValued);
+		result = 31 * result + dimension;
+		result = 31 * result + vectorSimilarityFunction.hashCode();
+		return result;
+	}
 }

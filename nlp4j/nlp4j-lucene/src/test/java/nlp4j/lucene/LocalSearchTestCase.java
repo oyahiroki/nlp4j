@@ -2426,4 +2426,370 @@ public class LocalSearchTestCase extends TestCase {
 		}
 	}
 
+	// =========================================================
+	// Schema 保存・再ロード テスト
+	// =========================================================
+
+	/**
+	 * addJson() で動的に追加されたフィールドが saveIndexTo() / loadIndexFrom() 後に復元されることを確認する。
+	 * maker(KEYWORD), year_i(INTEGER), tags(KEYWORD+multiValued) が正しく復元される。
+	 */
+	public void testSaveAndLoadSchema001() throws Exception {
+		java.nio.file.Path dir = java.nio.file.Files.createTempDirectory("nlp4j-test-schema-");
+		try {
+			// 1. インデックスを作成して保存
+			try (LocalSearch search = LocalSearch.builder("en").build()) {
+				search.addJson("""
+						{
+						  "id": "1",
+						  "body": "Nissan vehicle",
+						  "maker": "Nissan",
+						  "year_i": 2026,
+						  "tags": ["EV", "Japan"]
+						}
+						""");
+				search.commit();
+				search.saveIndexTo(dir);
+			}
+
+			// 2. 再ロードしてスキーマが復元されていることを確認
+			try (LocalSearch loaded = LocalSearch.builder("en").loadIndexFrom(dir).build()) {
+				nlp4j.lucene9.SearchSchema schema = loaded.schema;
+
+				// maker は KEYWORD として動的登録されていること
+				assertTrue("maker field should exist", schema.contains("maker"));
+				assertEquals(nlp4j.lucene9.FieldTypeDef.Kind.KEYWORD, schema.get("maker").kind());
+
+				// year_i は INTEGER（suffix ルール）として動的登録されていること
+				assertTrue("year_i field should exist", schema.contains("year_i"));
+				assertEquals(nlp4j.lucene9.FieldTypeDef.Kind.INTEGER, schema.get("year_i").kind());
+
+				// tags は KEYWORD + multiValued として動的登録されていること
+				assertTrue("tags field should exist", schema.contains("tags"));
+				nlp4j.lucene9.FieldTypeDef tagsDef = schema.get("tags");
+				assertEquals(nlp4j.lucene9.FieldTypeDef.Kind.KEYWORD, tagsDef.kind());
+				assertTrue(tagsDef.is_multiValued());
+
+				// 検索も動作すること
+				SearchResult[] results = loaded.search("maker", "Nissan", 10);
+				assertEquals(1, results.length);
+				assertEquals("1", results[0].id);
+			}
+		} finally {
+			deleteDirectory(dir);
+		}
+	}
+
+	/**
+	 * saveIndexTo() / loadIndexFrom() で vectorDimension が schema から復元されることを確認する。
+	 */
+	public void testSaveAndLoadSchemaVectorDimension001() throws Exception {
+		java.nio.file.Path dir = java.nio.file.Files.createTempDirectory("nlp4j-test-vecschema-");
+		try {
+			// 1. ベクトル付きインデックスを作成して保存
+			try (LocalSearch search = LocalSearch.builder("en").vectorDimension(3).build()) {
+				search.add("1", new float[]{1.0f, 0.0f, 0.0f});
+				search.add("2", new float[]{0.0f, 1.0f, 0.0f});
+				search.commit();
+				search.saveIndexTo(dir);
+			}
+
+			// 2. vectorDimension を指定せずに再ロード → schema から 3 が復元されること
+			try (LocalSearch loaded = LocalSearch.builder("en").loadIndexFrom(dir).build()) {
+				assertEquals("vectorDimension should be restored from schema", 3, loaded.vectorDimension);
+
+				// ベクトル検索も動作すること
+				SearchResult[] results = loaded.search(new float[]{1.0f, 0.0f, 0.0f}, 10);
+				assertEquals(2, results.length);
+				assertEquals("1", results[0].id);
+			}
+		} finally {
+			deleteDirectory(dir);
+		}
+	}
+
+	/**
+	 * Builder.field() で追加したフィールドが保存 schema に存在しない場合、schema に追加されることを確認する（merge）。
+	 */
+	public void testSaveAndLoadSchemaBuilderFieldMerge001() throws Exception {
+		java.nio.file.Path dir = java.nio.file.Files.createTempDirectory("nlp4j-test-merge-");
+		try {
+			// 1. 保存
+			try (LocalSearch search = LocalSearch.builder("en").build()) {
+				search.addJson("{\"id\":\"1\",\"body\":\"test\",\"maker\":\"Honda\"}");
+				search.commit();
+				search.saveIndexTo(dir);
+			}
+
+			// 2. 再ロード時に新規フィールドを Builder.field() で追加
+			try (LocalSearch loaded = LocalSearch.builder("en")
+					.loadIndexFrom(dir)
+					.field("new_field", nlp4j.lucene9.FieldTypeDef.keyword().stored(true).aggregatable(true))
+					.build()) {
+
+				nlp4j.lucene9.SearchSchema schema = loaded.schema;
+				assertTrue("new_field should be added via builder", schema.contains("new_field"));
+				assertEquals(nlp4j.lucene9.FieldTypeDef.Kind.KEYWORD, schema.get("new_field").kind());
+				assertTrue(schema.get("new_field").is_aggregatable());
+			}
+		} finally {
+			deleteDirectory(dir);
+		}
+	}
+
+	/**
+	 * Builder.field() で保存済みフィールドと型が異なる定義を指定した場合、LocalSearchException が
+	 * スローされることを確認する。
+	 */
+	public void testSaveAndLoadSchemaConflictThrows001() throws Exception {
+		java.nio.file.Path dir = java.nio.file.Files.createTempDirectory("nlp4j-test-conflict-");
+		try {
+			// 1. 保存（maker は KEYWORD として動的登録）
+			try (LocalSearch search = LocalSearch.builder("en").build()) {
+				search.addJson("{\"id\":\"1\",\"body\":\"test\",\"maker\":\"Toyota\"}");
+				search.commit();
+				search.saveIndexTo(dir);
+			}
+
+			// 2. 再ロード時に maker を INTEGER として指定 → 型の不一致でエラー
+			try {
+				LocalSearch loaded = LocalSearch.builder("en")
+						.loadIndexFrom(dir)
+						.field("maker", nlp4j.lucene9.FieldTypeDef.integer().stored(true))
+						.build();
+				loaded.close();
+				fail("Expected LocalSearchException for conflicting field definition");
+			} catch (LocalSearchException e) {
+				System.out.println("testSaveAndLoadSchemaConflictThrows001 exception: " + e.getMessage());
+				assertTrue(e.getMessage().contains("conflict"));
+			}
+		} finally {
+			deleteDirectory(dir);
+		}
+	}
+
+	/** Recursively deletes a temporary directory. */
+	private static void deleteDirectory(java.nio.file.Path dir) throws Exception {
+		if (dir == null || !java.nio.file.Files.exists(dir)) {
+			return;
+		}
+		java.nio.file.Files.walk(dir)
+				.sorted(java.util.Comparator.reverseOrder())
+				.map(java.nio.file.Path::toFile)
+				.forEach(java.io.File::delete);
+	}
+
+	// =========================================================
+	// aggregateLucene() テスト（kaiwa0824-0003.md）
+	// =========================================================
+
+	/**
+	 * aggregateLucene() の基本ケース: Lucene Query で text_en:Kyoto を検索し、
+	 * category フィールドを集計する。
+	 *
+	 * <pre>
+	 * id=1: body=Kyoto is a historic city in Japan.  category=city    country=Japan
+	 * id=2: body=Nintendo is headquartered in Kyoto. category=company country=Japan
+	 * id=3: body=Paris is the capital city of France. category=city   country=France
+	 *
+	 * aggregateLucene("category", "text_en:Kyoto", 10)
+	 * → city=1, company=1
+	 * </pre>
+	 */
+	public void testAggregateLucene001() throws Exception {
+		try (LocalSearch search = new LocalSearch("en")) {
+			search.addJson("""
+					{
+					  "id": "1",
+					  "body": "Kyoto is a historic city in Japan.",
+					  "category": "city",
+					  "country": "Japan"
+					}
+					""");
+			search.addJson("""
+					{
+					  "id": "2",
+					  "body": "Nintendo is a video game company headquartered in Kyoto.",
+					  "category": "company",
+					  "country": "Japan"
+					}
+					""");
+			search.addJson("""
+					{
+					  "id": "3",
+					  "body": "Paris is the capital city of France.",
+					  "category": "city",
+					  "country": "France"
+					}
+					""");
+			search.commit();
+
+			java.util.Map<String, Long> result = search.aggregateLucene("category", "text_en:Kyoto", 10);
+			System.out.println("testAggregateLucene001 result: " + result);
+
+			// Kyoto を含む id=1, id=2 の 2 件が対象 → city:1, company:1
+			assertEquals(2, result.size());
+			assertEquals(Long.valueOf(1L), result.get("city"));
+			assertEquals(Long.valueOf(1L), result.get("company"));
+		}
+	}
+
+	/**
+	 * aggregateLucene() の複数フィールド指定ケース:
+	 * filters で country=Japan を指定して絞り込み、category を集計する。
+	 *
+	 * <pre>
+	 * id=1: Kyoto + Japan → city
+	 * id=2: Kyoto + Japan → company
+	 * id=3: Paris + France → 除外（country フィルター）
+	 * → city=1, company=1
+	 * </pre>
+	 */
+	public void testAggregateLucene002() throws Exception {
+		try (LocalSearch search = new LocalSearch("en")) {
+			search.addJson("""
+					{
+					  "id": "1",
+					  "body": "Kyoto is a historic city in Japan.",
+					  "category": "city",
+					  "country": "Japan"
+					}
+					""");
+			search.addJson("""
+					{
+					  "id": "2",
+					  "body": "Nintendo is a video game company headquartered in Kyoto.",
+					  "category": "company",
+					  "country": "Japan"
+					}
+					""");
+			search.addJson("""
+					{
+					  "id": "3",
+					  "body": "Paris is the capital city of France.",
+					  "category": "city",
+					  "country": "France"
+					}
+					""");
+			search.commit();
+
+			// Lucene query で text_en:Kyoto + filters で country=Japan の組み合わせ
+			java.util.Map<String, Long> result = search.aggregateLucene(
+					"category", "text_en:Kyoto", 10, java.util.Map.of("country", "Japan"));
+			System.out.println("testAggregateLucene002 result: " + result);
+
+			// id=1, id=2 が対象（id=3 は country=France でフィルター除外）
+			assertEquals(2, result.size());
+			assertEquals(Long.valueOf(1L), result.get("city"));
+			assertEquals(Long.valueOf(1L), result.get("company"));
+		}
+	}
+
+	/**
+	 * aggregateLucene() の size 制限テスト:
+	 * size=1 を指定すると最多 1 バケットのみ返ること。
+	 */
+	public void testAggregateLuceneSize001() throws Exception {
+		try (LocalSearch search = new LocalSearch("en")) {
+			search.addJson("""
+					{"id":"1","body":"Kyoto city doc","category":"city","country":"Japan"}
+					""");
+			search.addJson("""
+					{"id":"2","body":"Kyoto city doc2","category":"city","country":"Japan"}
+					""");
+			search.addJson("""
+					{"id":"3","body":"Kyoto company doc","category":"company","country":"Japan"}
+					""");
+			search.commit();
+
+			// size=1 → 最多バケット（city=2）のみ
+			java.util.Map<String, Long> result = search.aggregateLucene("category", "text_en:Kyoto", 1);
+			System.out.println("testAggregateLuceneSize001 result: " + result);
+
+			assertEquals(1, result.size());
+			assertEquals(Long.valueOf(2L), result.get("city"));
+		}
+	}
+
+	/**
+	 * aggregateJson() に lucene_query を指定した場合、
+	 * Lucene Query Parser で絞り込んだ集計が動作することを確認する。
+	 *
+	 * <pre>
+	 * lucene_query="text_en:Kyoto" → city:1, company:1
+	 * </pre>
+	 */
+	public void testAggregateJsonLuceneQuery001() throws Exception {
+		try (LocalSearch search = new LocalSearch("en")) {
+			search.addJson("""
+					{
+					  "id": "1",
+					  "body": "Kyoto is a historic city in Japan.",
+					  "category": "city",
+					  "country": "Japan"
+					}
+					""");
+			search.addJson("""
+					{
+					  "id": "2",
+					  "body": "Nintendo is a video game company headquartered in Kyoto.",
+					  "category": "company",
+					  "country": "Japan"
+					}
+					""");
+			search.addJson("""
+					{
+					  "id": "3",
+					  "body": "Paris is the capital city of France.",
+					  "category": "city",
+					  "country": "France"
+					}
+					""");
+			search.commit();
+
+			String json = search.aggregateJson("""
+					{
+					  "field": "category",
+					  "lucene_query": "text_en:Kyoto",
+					  "size": 10
+					}
+					""");
+			System.out.println("testAggregateJsonLuceneQuery001: " + json);
+
+			nlp4j.json.JsonNode result = nlp4j.json.JsonNode.parse(json);
+			nlp4j.json.JsonNode buckets = result.get("aggregations").get("values").get("buckets");
+
+			// Kyoto を含む id=1, id=2 → city:1, company:1
+			assertEquals(2, buckets.size());
+			assertEquals(1L, buckets.get(0).get("doc_count").asLong(0));
+		}
+	}
+
+	/**
+	 * aggregateJson() で query と lucene_query を同時に指定した場合、
+	 * LocalSearchException がスローされることを確認する。
+	 */
+	public void testAggregateJsonLuceneQueryConflict001() throws Exception {
+		try (LocalSearch search = new LocalSearch("en")) {
+			search.addJson("{\"id\":\"1\",\"body\":\"Kyoto\",\"category\":\"city\"}");
+			search.commit();
+
+			try {
+				search.aggregateJson("""
+						{
+						  "field": "category",
+						  "query": "Kyoto",
+						  "lucene_query": "text_en:Kyoto",
+						  "size": 10
+						}
+						""");
+				fail("query と lucene_query の同時指定では LocalSearchException がスローされること");
+			} catch (LocalSearchException e) {
+				System.out.println("testAggregateJsonLuceneQueryConflict001 exception: " + e.getMessage());
+				assertTrue("エラーメッセージに 'lucene_query' が含まれること",
+						e.getMessage().contains("lucene_query") || e.getMessage().contains("query"));
+			}
+		}
+	}
+
 }

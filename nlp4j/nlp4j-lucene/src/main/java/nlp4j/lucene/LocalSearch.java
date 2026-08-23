@@ -26,6 +26,7 @@ import nlp4j.lucene9.FieldTypeDef;
 import nlp4j.lucene9.LuceneIndex;
 import nlp4j.lucene9.LuceneLocalSearchApi;
 import nlp4j.lucene9.SearchSchema;
+import nlp4j.lucene9.SearchSchemaStore;
 import nlp4j.util.StringUtils;
 
 /**
@@ -206,7 +207,7 @@ public class LocalSearch implements AutoCloseable {
 
 	private String language;
 	private boolean autoAnalyze;
-	private int vectorDimension;
+	int vectorDimension;
 	private ZoneId zoneId;
 	private SearchRecordEnricher textEnricher;
 	private SearchRecordEnricher dateFieldEnricher;
@@ -234,15 +235,26 @@ public class LocalSearch implements AutoCloseable {
 
 		this.language = builder.language;
 		this.autoAnalyze = builder.autoAnalyze;
-		this.vectorDimension = builder.vectorDimension;
 
 		if (builder.indexDir == null) {
 			initIndex();
+			this.schema = createSchema(builder);
 		} else {
 			initIndex(builder.indexDir);
+			if (SearchSchemaStore.exists(builder.indexDir)) {
+				try {
+					SearchSchema persisted = SearchSchemaStore.load(builder.indexDir);
+					this.schema = mergeSchemas(persisted, builder);
+				} catch (IOException e) {
+					throw new LocalSearchException("Failed to load schema: " + e.getMessage(), e);
+				}
+			} else {
+				// Backwards compatibility: no schema file found
+				this.schema = createSchema(builder);
+			}
 		}
 
-		this.schema = createSchema(builder);
+		this.vectorDimension = resolveVectorDimension(builder, this.schema);
 		this.zoneId = builder.zoneId;
 		this.api = new LuceneLocalSearchApi(index, this.schema, this.zoneId);
 		this.default_field_name = resolveDefaultFieldName(builder.language);
@@ -254,7 +266,6 @@ public class LocalSearch implements AutoCloseable {
 		} else {
 			this.textEnricher = SearchRecordEnrichers.forLanguage(builder.language);
 		}
-
 	}
 
 	/**
@@ -871,6 +882,64 @@ public class LocalSearch implements AutoCloseable {
 		}
 	}
 
+	/**
+	 * Merges a persisted schema with builder-specified fields.
+	 * Rules:
+	 * - Builder-only fields are added to the schema.
+	 * - Fields present in both must have identical definitions; otherwise an exception is thrown.
+	 */
+	private static SearchSchema mergeSchemas(SearchSchema persisted, Builder builder) {
+		if (builder.fields.isEmpty()) {
+			return persisted;
+		}
+		for (java.util.Map.Entry<String, FieldTypeDef> entry : builder.fields.entrySet()) {
+			String fieldName = entry.getKey();
+			FieldTypeDef builderDef = entry.getValue();
+			if (persisted.contains(fieldName)) {
+				FieldTypeDef persistedDef = persisted.get(fieldName);
+				if (!persistedDef.equals(builderDef)) {
+					throw new LocalSearchException(
+							"Field definition conflict for '" + fieldName + "': "
+							+ "persisted=" + persistedDef.kind() + ", builder=" + builderDef.kind(),
+							new IllegalArgumentException("Field definition conflict"));
+				}
+			} else {
+				persisted.add(fieldName, builderDef);
+			}
+		}
+		return persisted;
+	}
+
+	/**
+	 * Resolves vectorDimension from the builder and schema.
+	 * Schema wins when builder is 0; conflict (different non-zero values) throws.
+	 */
+	private static int resolveVectorDimension(Builder builder, SearchSchema schema) {
+		int builderDim = builder.vectorDimension;
+
+		// Find vector field dimension from schema
+		int schemaDim = 0;
+		if (schema.contains("vector")) {
+			FieldTypeDef vectorDef = schema.get("vector");
+			if (vectorDef.kind() == FieldTypeDef.Kind.KNN_VECTOR) {
+				schemaDim = vectorDef.get_dimension();
+			}
+		}
+
+		if (builderDim == 0) {
+			return schemaDim; // use schema dimension (may also be 0 = no vector)
+		}
+		if (schemaDim == 0) {
+			return builderDim;
+		}
+		if (builderDim != schemaDim) {
+			throw new LocalSearchException(
+					"vectorDimension conflict: builder=" + builderDim + ", schema=" + schemaDim,
+					new IllegalArgumentException("vectorDimension conflict"));
+		}
+		return builderDim;
+	}
+
 	private String resolveDefaultFieldName(String language) {
 		if ("ja".equals(language)) {
 			return "text_ja";
@@ -895,9 +964,29 @@ public class LocalSearch implements AutoCloseable {
 		return executeSearch(createTextSearchRequest(field, query, limit));
 	}
 
+	/**
+	 * Returns all field names registered in the schema, in insertion order.
+	 *
+	 * @return list of all field names
+	 */
+	public List<String> getFields() {
+		return new ArrayList<>(schema.fieldNames());
+	}
+
+	/**
+	 * Returns only the aggregatable field names, in insertion order.
+	 * Useful for building facet/aggregation UIs.
+	 *
+	 * @return list of field names where {@link nlp4j.lucene9.FieldTypeDef#is_aggregatable()} is {@code true}
+	 */
+	public List<String> getAggregatableFields() {
+		return schema.aggregatableFieldNames();
+	}
+
 	public void saveIndexTo(Path dir) throws IOException {
 		if (index != null) {
 			this.index.writeToAndClose(dir);
+			SearchSchemaStore.save(dir, schema);
 		}
 	}
 
@@ -1168,6 +1257,12 @@ public class LocalSearch implements AutoCloseable {
 
 			String query = getOptionalString(request, "query", null);
 
+			String luceneQuery = getOptionalString(request, "lucene_query", null);
+
+			if (query != null && luceneQuery != null) {
+				throw new IllegalArgumentException("query and lucene_query cannot be specified together");
+			}
+
 			int size = getOptionalInt(request, "size", 10);
 
 			if (size < 1) {
@@ -1176,7 +1271,13 @@ public class LocalSearch implements AutoCloseable {
 
 			JsonNode filters = request.get("filters");
 
-			JsonNode searchRequest = createAggregationRequest(aggregationName, field, query, size, filters);
+			JsonNode searchRequest;
+
+			if (luceneQuery != null) {
+				searchRequest = createLuceneAggregationRequest(aggregationName, field, luceneQuery, size, filters);
+			} else {
+				searchRequest = createAggregationRequest(aggregationName, field, query, size, filters);
+			}
 
 			JsonNode luceneResponse = executeRequest(searchRequest);
 
@@ -1296,8 +1397,49 @@ public class LocalSearch implements AutoCloseable {
 	 * @throws LocalSearchException if aggregation fails
 	 */
 	public Map<String, Long> aggregate(String field, String query, int size, Map<String, String> filters) {
+		validateAggregatableField(field);
 		JsonNode searchRequest = createAggregationRequest("values", field, query, size, toFilterNode(filters));
 		JsonNode response = executeRequest(searchRequest);
+		return toAggregationMap("values", response);
+	}
+
+	/**
+	 * Lucene Query Parser syntax で絞り込んだ上で、指定フィールドの terms aggregation を実行します。
+	 *
+	 * <p>
+	 * 例:
+	 * </p>
+	 *
+	 * <pre>
+	 * Map&lt;String, Long&gt; result =
+	 *     search.aggregateLucene("category", "text_en:Kyoto AND country:Japan", 10);
+	 * </pre>
+	 *
+	 * @param field       集計対象フィールド名
+	 * @param luceneQuery Lucene Query Parser syntax のクエリ文字列
+	 * @param size        返すバケット数の上限
+	 * @return フィールド値 → ドキュメント件数のマップ（件数降順）
+	 * @throws LocalSearchException if aggregation fails
+	 */
+	public Map<String, Long> aggregateLucene(String field, String luceneQuery, int size) {
+		return aggregateLucene(field, luceneQuery, size, null);
+	}
+
+	/**
+	 * Lucene Query Parser syntax で絞り込み＋フィールドフィルターした上で、指定フィールドの terms aggregation を実行します。
+	 *
+	 * @param field       集計対象フィールド名
+	 * @param luceneQuery Lucene Query Parser syntax のクエリ文字列
+	 * @param size        返すバケット数の上限
+	 * @param filters     keyword フィールドの絞り込み条件（null または空の場合はスキップ）
+	 * @return フィールド値 → ドキュメント件数のマップ（件数降順）
+	 * @throws LocalSearchException if aggregation fails
+	 */
+	public Map<String, Long> aggregateLucene(String field, String luceneQuery, int size,
+			Map<String, String> filters) {
+		validateAggregatableField(field);
+		JsonNode request = createLuceneAggregationRequest("values", field, luceneQuery, size, toFilterNode(filters));
+		JsonNode response = executeRequest(request);
 		return toAggregationMap("values", response);
 	}
 
@@ -1469,6 +1611,41 @@ public class LocalSearch implements AutoCloseable {
 		return node;
 	}
 
+	/**
+	 * aggregation 用の共通フィルタ配列を構築します。
+	 */
+	private JsonNode buildFilterArray(JsonNode filters) {
+		JsonNode filter = JsonNode.array();
+		for (String fieldName : filters.keys()) {
+			JsonNode valueNode = filters.get(fieldName);
+			if (valueNode == null || valueNode.isNull()) {
+				continue;
+			}
+			String value = valueNode.asString(null);
+			if (value == null) {
+				continue;
+			}
+			filter.add(JsonNode.object().put("term", JsonNode.object().put(fieldName, value)));
+		}
+		return filter;
+	}
+
+	/**
+	 * aggregation 用の terms 句を構築します。
+	 */
+	private JsonNode buildAggregationsNode(String aggregationName, String field, int size) {
+		JsonNode terms = JsonNode.object();
+		terms.put("field", field);
+		terms.put("size", size);
+
+		JsonNode aggregation = JsonNode.object();
+		aggregation.put("terms", terms);
+
+		JsonNode aggregations = JsonNode.object();
+		aggregations.put(aggregationName, aggregation);
+		return aggregations;
+	}
+
 	private JsonNode createAggregationRequest(String aggregationName, String field, String query, int size,
 			JsonNode filters) {
 
@@ -1486,31 +1663,12 @@ public class LocalSearch implements AutoCloseable {
 
 			if (hasQuery) {
 				JsonNode must = JsonNode.array();
-
 				must.add(JsonNode.object().put("match", JsonNode.object().put(this.default_field_name, query)));
-
 				boolQuery.put("must", must);
 			}
 
 			if (hasFilters) {
-				JsonNode filter = JsonNode.array();
-
-				for (String fieldName : filters.keys()) {
-					JsonNode valueNode = filters.get(fieldName);
-
-					if (valueNode == null || valueNode.isNull()) {
-						continue;
-					}
-
-					String value = valueNode.asString(null);
-
-					if (value == null) {
-						continue;
-					}
-
-					filter.add(JsonNode.object().put("term", JsonNode.object().put(fieldName, value)));
-				}
-
+				JsonNode filter = buildFilterArray(filters);
 				if (filter.size() > 0) {
 					boolQuery.put("filter", filter);
 				}
@@ -1519,19 +1677,71 @@ public class LocalSearch implements AutoCloseable {
 			root.put("query", JsonNode.object().put("bool", boolQuery));
 		}
 
-		JsonNode terms = JsonNode.object();
-		terms.put("field", field);
-		terms.put("size", size);
-
-		JsonNode aggregation = JsonNode.object();
-		aggregation.put("terms", terms);
-
-		JsonNode aggregations = JsonNode.object();
-		aggregations.put(aggregationName, aggregation);
-
-		root.put("aggs", aggregations);
+		root.put("aggs", buildAggregationsNode(aggregationName, field, size));
 
 		return root;
+	}
+
+	/**
+	 * query_string クエリ（Lucene Query Parser syntax）の JsonNode を生成します。
+	 */
+	private JsonNode createLuceneQueryNode(String luceneQuery) {
+		JsonNode queryString = JsonNode.object();
+		queryString.put("query", luceneQuery);
+		queryString.put("default_field", this.default_field_name);
+		return JsonNode.object().put("query_string", queryString);
+	}
+
+	/**
+	 * Lucene Query Parser syntax で絞り込んだ aggregation リクエストを生成します。
+	 */
+	private JsonNode createLuceneAggregationRequest(String aggregationName, String field, String luceneQuery,
+			int size, JsonNode filters) {
+
+		JsonNode root = JsonNode.object();
+		root.put("size", 0);
+
+		boolean hasFilters = filters != null && !filters.isNull() && filters.size() > 0;
+
+		if (hasFilters) {
+			JsonNode boolQuery = JsonNode.object();
+
+			JsonNode must = JsonNode.array();
+			must.add(createLuceneQueryNode(luceneQuery));
+			boolQuery.put("must", must);
+
+			JsonNode filter = buildFilterArray(filters);
+			if (filter.size() > 0) {
+				boolQuery.put("filter", filter);
+			}
+
+			root.put("query", JsonNode.object().put("bool", boolQuery));
+		} else {
+			root.put("query", createLuceneQueryNode(luceneQuery));
+		}
+
+		root.put("aggs", buildAggregationsNode(aggregationName, field, size));
+
+		return root;
+	}
+
+	/**
+	 * aggregate() 系メソッドの入口で field を検証します。
+	 * aggregatable でないフィールドを指定した場合に明快なエラーメッセージを返します。
+	 */
+	private void validateAggregatableField(String field) {
+		if (field == null || field.isBlank()) {
+			throw new LocalSearchException("field must not be blank",
+					new IllegalArgumentException("field must not be blank"));
+		}
+		if (!schema.contains(field)) {
+			// 動的フィールドは未登録の場合があるため、存在しないフィールドは警告せず通過させる
+			return;
+		}
+		if (!schema.get(field).is_aggregatable()) {
+			throw new LocalSearchException("Field is not aggregatable: " + field,
+					new IllegalArgumentException("Field is not aggregatable: " + field));
+		}
 	}
 
 	/**

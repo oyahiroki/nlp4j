@@ -102,6 +102,9 @@ public class LuceneIndex implements Closeable {
 			this.directory = new ByteBuffersDirectory();
 			try (Directory inputDirectory = FSDirectory.open(inputDir)) {
 				for (String fileName : inputDirectory.listAll()) {
+					if (SearchSchemaStore.FILE_NAME.equals(fileName)) {
+						continue;
+					}
 					this.directory.copyFrom(inputDirectory, fileName, fileName, IOContext.DEFAULT);
 				}
 			}

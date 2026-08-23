@@ -303,6 +303,114 @@ public class LocalSearchBuilderTestCase extends TestCase {
 	}
 
 	// -----------------------------------------------------------------------
+	// getFields() / getAggregatableFields() テスト
+	// -----------------------------------------------------------------------
+
+	/**
+	 * getFields() がスキーマに登録された全フィールド名を返すことを確認する。
+	 * id / text_ja / word.noun など基本フィールドが含まれること。
+	 */
+	public void testGetFields() throws Exception {
+		try (LocalSearch search = LocalSearch.builder("ja").build()) {
+			java.util.List<String> fields = search.getFields();
+
+			assertTrue("id should be in fields", fields.contains("id"));
+			assertTrue("text_ja should be in fields", fields.contains("text_ja"));
+			assertTrue("word.noun should be in fields", fields.contains("word.noun"));
+		}
+	}
+
+	/**
+	 * getAggregatableFields() が aggregatable=true のフィールドのみを返すことを確認する。
+	 * word / word.noun は含まれ、id / text_ja / data は含まれないこと。
+	 */
+	public void testGetAggregatableFields() throws Exception {
+		try (LocalSearch search = LocalSearch.builder("ja").build()) {
+			java.util.List<String> fields = search.getAggregatableFields();
+
+			assertTrue("word should be aggregatable", fields.contains("word"));
+			assertTrue("word.noun should be aggregatable", fields.contains("word.noun"));
+
+			assertFalse("id should NOT be aggregatable", fields.contains("id"));
+			assertFalse("text_ja should NOT be aggregatable", fields.contains("text_ja"));
+			assertFalse("data should NOT be aggregatable", fields.contains("data"));
+		}
+	}
+
+	/**
+	 * addJson() で動的登録された keyword フィールドが getAggregatableFields() に現れることを確認する。
+	 * DynamicFieldResolver によって maker / category が KEYWORD（aggregatable=true）として登録される。
+	 */
+	public void testGetAggregatableFieldsWithDynamicField() throws Exception {
+		try (LocalSearch search = LocalSearch.builder("en").build()) {
+			search.addJson("""
+					{
+					  "id": "1",
+					  "body": "Nissan EV",
+					  "maker": "Nissan",
+					  "category": "EV"
+					}
+					""");
+
+			java.util.List<String> fields = search.getAggregatableFields();
+
+			assertTrue("maker should be aggregatable after addJson", fields.contains("maker"));
+			assertTrue("category should be aggregatable after addJson", fields.contains("category"));
+		}
+	}
+
+	/**
+	 * saveIndexTo() / loadIndexFrom() 後に getAggregatableFields() が動的フィールドを正しく返すことを確認する。
+	 * SearchSchemaStore との連動確認。
+	 */
+	public void testGetAggregatableFieldsAfterSaveAndLoad() throws Exception {
+		Path dir = java.nio.file.Files.createTempDirectory("nlp4j-test-aggfields-");
+		try {
+			// 1. インデックス作成・保存
+			try (LocalSearch search = LocalSearch.builder("en").build()) {
+				search.addJson("""
+						{"id":"1","body":"Nissan vehicle","maker":"Nissan","category":"EV"}
+						""");
+				search.commit();
+				search.saveIndexTo(dir);
+			}
+
+			// 2. 再ロード後に getAggregatableFields() が動的フィールドを返すこと
+			try (LocalSearch loaded = LocalSearch.builder("en").loadIndexFrom(dir).build()) {
+				java.util.List<String> fields = loaded.getAggregatableFields();
+
+				assertTrue("maker should be aggregatable after load", fields.contains("maker"));
+				assertTrue("category should be aggregatable after load", fields.contains("category"));
+			}
+		} finally {
+			deleteRecursively(dir);
+		}
+	}
+
+	/**
+	 * getFields() と getAggregatableFields() の返す集合が正しい包含関係にあることを確認する。
+	 * aggregatable ⊆ fields。
+	 */
+	public void testAggregatableFieldsIsSubsetOfAllFields() throws Exception {
+		try (LocalSearch search = LocalSearch.builder("en").build()) {
+			search.addJson("""
+					{"id":"1","body":"test","category":"tech","year_i":2026}
+					""");
+
+			java.util.List<String> all = search.getFields();
+			java.util.List<String> agg = search.getAggregatableFields();
+
+			for (String field : agg) {
+				assertTrue("aggregatable field '" + field + "' must also appear in getFields()",
+						all.contains(field));
+			}
+			// all must be >= agg (non-aggregatable fields like id, text_en exist only in all)
+			assertTrue("getFields() should return at least as many fields as getAggregatableFields()",
+					all.size() >= agg.size());
+		}
+	}
+
+	// -----------------------------------------------------------------------
 	// Helpers
 	// -----------------------------------------------------------------------
 
