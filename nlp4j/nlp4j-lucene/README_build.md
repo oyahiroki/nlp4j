@@ -12,6 +12,12 @@
 
 ## 日常開発コマンド
 
+### PGP Check
+
+```
+echo test | gpg --clearsign
+```
+
 ### コンパイル
 
 ```
