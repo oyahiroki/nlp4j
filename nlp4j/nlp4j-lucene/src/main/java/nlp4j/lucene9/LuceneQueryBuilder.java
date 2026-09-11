@@ -6,6 +6,7 @@
 package nlp4j.lucene9;
 
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.lucene.analysis.Analyzer;
@@ -78,20 +79,52 @@ public class LuceneQueryBuilder {
 			SearchSchema schema,
 			ZoneId zoneId) throws Exception {
 
-		if (query == null || query.isBlank()) {
-			throw new IllegalArgumentException("query must not be null or empty");
-		}
-
 		if (defaultField == null || defaultField.isBlank()) {
 			throw new IllegalArgumentException("defaultField must not be null or empty");
 		}
 
-		ZoneId zone = (zoneId != null) ? zoneId : ZoneId.systemDefault();
-		QueryParser parser = (schema == null)
-				? new QueryParser(defaultField, analyzer)
-				: new SchemaAwareQueryParser(defaultField, analyzer, schema, zone);
+		return parseQueryString(query, new String[] { defaultField }, analyzer, schema, zoneId);
+	}
 
-		return parser.parse(query);
+	/**
+	 * Parses a Lucene query string targeting multiple default fields using a schema-aware parser.
+	 *
+	 * @param query        Lucene query string
+	 * @param defaultFields default fields used by MultiFieldQueryParser
+	 * @param analyzer     analyzer used for query parsing
+	 * @param schema       the SearchSchema for field type resolution (may be null)
+	 * @param zoneId       timezone for DATE fields without offset
+	 * @return parsed Lucene Query
+	 * @throws Exception if parsing fails
+	 */
+	public static Query parseQueryString(
+			String query,
+			String[] defaultFields,
+			Analyzer analyzer,
+			SearchSchema schema,
+			ZoneId zoneId) throws Exception {
+
+		if (query == null || query.isBlank()) {
+			throw new IllegalArgumentException("query must not be null or empty");
+		}
+
+		if (defaultFields == null || defaultFields.length == 0) {
+			throw new IllegalArgumentException("defaultFields must not be null or empty");
+		}
+
+		ZoneId zone = (zoneId != null) ? zoneId : ZoneId.systemDefault();
+
+		if (defaultFields.length == 1) {
+			QueryParser parser = (schema == null)
+					? new QueryParser(defaultFields[0], analyzer)
+					: new SchemaAwareQueryParser(defaultFields[0], analyzer, schema, zone);
+			return parser.parse(query);
+		} else {
+			org.apache.lucene.queryparser.classic.MultiFieldQueryParser parser = (schema == null)
+					? new org.apache.lucene.queryparser.classic.MultiFieldQueryParser(defaultFields, analyzer)
+					: new SchemaAwareMultiFieldQueryParser(defaultFields, analyzer, schema, zone);
+			return parser.parse(query);
+		}
 	}
 
 	/**
@@ -266,6 +299,22 @@ public class LuceneQueryBuilder {
 
 		if (query == null || query.isBlank()) {
 			throw new IllegalArgumentException("query_string.query must not be empty");
+		}
+
+		JsonNode fieldsNode = qsJson.get("fields");
+		if (fieldsNode != null && !fieldsNode.isNull() && fieldsNode.isArray() && fieldsNode.size() > 0) {
+			List<String> fieldList = new ArrayList<>();
+			for (JsonNode fn : fieldsNode.asList()) {
+				if (fn != null && !fn.isNull()) {
+					String f = fn.asString(null);
+					if (f != null && !f.isBlank()) {
+						fieldList.add(f);
+					}
+				}
+			}
+			if (!fieldList.isEmpty()) {
+				return parseQueryString(query, fieldList.toArray(new String[0]), analyzer, schema, zoneId);
+			}
 		}
 
 		String defaultField = "text";

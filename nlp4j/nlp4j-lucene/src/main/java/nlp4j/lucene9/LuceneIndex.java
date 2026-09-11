@@ -37,7 +37,7 @@ public class LuceneIndex implements Closeable {
 
 	private boolean closed = false;
 
-	private static Analyzer createAnalyzer() {
+	private static Analyzer createAnalyzer(String language) {
 
 		StandardAnalyzer defaultAnalyzer = new StandardAnalyzer();
 
@@ -45,6 +45,14 @@ public class LuceneIndex implements Closeable {
 		{
 			fieldAnalyzers.put("text_en", new EnglishAnalyzer());
 			fieldAnalyzers.put("text_ja", new JapaneseAnalyzer());
+
+			if ("ja".equals(language)) {
+				fieldAnalyzers.put("text", new JapaneseAnalyzer());
+				fieldAnalyzers.put("body", new JapaneseAnalyzer());
+			} else if ("en".equals(language)) {
+				fieldAnalyzers.put("text", new EnglishAnalyzer());
+				fieldAnalyzers.put("body", new EnglishAnalyzer());
+			}
 		}
 
 		return new PerFieldAnalyzerWrapper(defaultAnalyzer, fieldAnalyzers);
@@ -69,13 +77,23 @@ public class LuceneIndex implements Closeable {
 	 * constructor
 	 */
 	public LuceneIndex() throws IOException {
+		this((String) null);
+	}
+
+	/**
+	 * constructor with language
+	 *
+	 * @param language engine language (e.g. "ja", "en")
+	 * @throws IOException if an I/O error occurs
+	 */
+	public LuceneIndex(String language) throws IOException {
 
 		// Index設定
 		{
 			this.directory = new ByteBuffersDirectory();
 		}
 
-		this.analyzer = createAnalyzer();
+		this.analyzer = createAnalyzer(language);
 
 		IndexWriterConfig config = new IndexWriterConfig(analyzer);
 
@@ -93,6 +111,17 @@ public class LuceneIndex implements Closeable {
 	 * @throws IOException if an I/O error occurs
 	 */
 	public LuceneIndex(Path inputDir) throws IOException {
+		this(inputDir, null);
+	}
+
+	/**
+	 * constructor with inputDir and language
+	 *
+	 * @param inputDir existing Lucene index directory
+	 * @param language engine language (e.g. "ja", "en")
+	 * @throws IOException if an I/O error occurs
+	 */
+	public LuceneIndex(Path inputDir, String language) throws IOException {
 
 		// Index設定
 		{
@@ -110,7 +139,7 @@ public class LuceneIndex implements Closeable {
 			}
 		}
 
-		this.analyzer = createAnalyzer();
+		this.analyzer = createAnalyzer(language);
 
 		IndexWriterConfig config = new IndexWriterConfig(analyzer);
 
