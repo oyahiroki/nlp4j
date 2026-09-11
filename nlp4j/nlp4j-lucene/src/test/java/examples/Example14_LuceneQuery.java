@@ -17,7 +17,7 @@ public class Example14_LuceneQuery {
 			search.commit();
 			{
 				String q = "会社 OR 京都";
-				SearchResult[] results = search.searchLucene(q, 10);
+				SearchResult[] results = search.search(q, 10);
 				printResults("Results", results);
 //				Results size: 3
 //				result[0].id: 1
@@ -33,7 +33,7 @@ public class Example14_LuceneQuery {
 			System.out.println("---");
 			{
 				String q = "会社 AND 京都";
-				SearchResult[] results = search.searchLucene(q, 10);
+				SearchResult[] results = search.search(q, 10);
 				printResults("Results", results);
 //				Results size: 1
 //				result[0].id: 1

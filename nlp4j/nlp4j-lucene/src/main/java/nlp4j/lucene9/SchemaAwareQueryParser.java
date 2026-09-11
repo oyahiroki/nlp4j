@@ -61,18 +61,28 @@ public class SchemaAwareQueryParser extends QueryParser {
 	}
 
 	/**
-	 * Overrides field query generation to use Point queries for numeric/date fields.
+	 * Overrides field query generation to use Point queries for numeric/date fields,
+	 * and TermQuery (Analyzer bypass) for keyword fields.
 	 */
 	@Override
 	protected Query getFieldQuery(String field, String queryText, boolean quoted) throws ParseException {
-		if (!TypedFieldQueryFactory.isNumericOrDate(field, schema)) {
-			return super.getFieldQuery(field, queryText, quoted);
+		FieldTypeDef def = TypedFieldQueryFactory.resolveFieldType(field, schema);
+		if (def.kind() == FieldTypeDef.Kind.KEYWORD) {
+			// keyword フィールドは Analyzer を bypass して TermQuery で完全一致
+			try {
+				return TypedFieldQueryFactory.newExactQuery(field, queryText, schema, zoneId);
+			} catch (RuntimeException e) {
+				throw parseException("Invalid value for field [" + field + "]: " + queryText, e);
+			}
 		}
-		try {
-			return TypedFieldQueryFactory.newExactQuery(field, queryText, schema, zoneId);
-		} catch (RuntimeException e) {
-			throw parseException("Invalid value for field [" + field + "]: " + queryText, e);
+		if (TypedFieldQueryFactory.isNumericOrDate(field, schema)) {
+			try {
+				return TypedFieldQueryFactory.newExactQuery(field, queryText, schema, zoneId);
+			} catch (RuntimeException e) {
+				throw parseException("Invalid value for field [" + field + "]: " + queryText, e);
+			}
 		}
+		return super.getFieldQuery(field, queryText, quoted);
 	}
 
 	/**

@@ -37,16 +37,16 @@ public class LocalSearchDateFieldTestCase extends TestCase {
 			search.commit();
 
 			// event_year_i:2026 で2件ヒット
-			SearchResult[] results = search.searchLucene("event_year_i:2026", 10);
+			SearchResult[] results = search.search("event_year_i:2026", 10);
 			assertEquals(2, results.length);
 
 			// event_month_i:8 で1件（8月）
-			results = search.searchLucene("event_month_i:8", 10);
+			results = search.search("event_month_i:8", 10);
 			assertEquals(1, results.length);
 			assertEquals("1", results[0].id);
 
 			// event_month_i:9 で1件（9月）
-			results = search.searchLucene("event_month_i:9", 10);
+			results = search.search("event_month_i:9", 10);
 			assertEquals(1, results.length);
 			assertEquals("2", results[0].id);
 		}
@@ -73,16 +73,16 @@ public class LocalSearchDateFieldTestCase extends TestCase {
 			search.commit();
 
 			// event_day_i:19 で2件
-			SearchResult[] results = search.searchLucene("event_day_i:19", 10);
+			SearchResult[] results = search.search("event_day_i:19", 10);
 			assertEquals(2, results.length);
 
 			// event_hour_i:8 で1件（朝）
-			results = search.searchLucene("event_hour_i:8", 10);
+			results = search.search("event_hour_i:8", 10);
 			assertEquals(1, results.length);
 			assertEquals("1", results[0].id);
 
 			// event_hour_i:20 で1件（夜）
-			results = search.searchLucene("event_hour_i:20", 10);
+			results = search.search("event_hour_i:20", 10);
 			assertEquals(1, results.length);
 			assertEquals("2", results[0].id);
 		}
@@ -111,12 +111,12 @@ public class LocalSearchDateFieldTestCase extends TestCase {
 			search.commit();
 
 			// 平日（月〜金）のイベント: dow [1 TO 5]
-			SearchResult[] results = search.searchLucene("event_dow_i:[1 TO 5]", 10);
+			SearchResult[] results = search.search("event_dow_i:[1 TO 5]", 10);
 			assertEquals(1, results.length);
 			assertEquals("1", results[0].id);
 
 			// 土曜日のイベント: dow=6
-			results = search.searchLucene("event_dow_i:6", 10);
+			results = search.search("event_dow_i:6", 10);
 			assertEquals(1, results.length);
 			assertEquals("2", results[0].id);
 		}
@@ -144,21 +144,21 @@ public class LocalSearchDateFieldTestCase extends TestCase {
 			search.commit();
 
 			// year/month/day/dow はヒットすること
-			SearchResult[] results = search.searchLucene("event_year_i:2026", 10);
+			SearchResult[] results = search.search("event_year_i:2026", 10);
 			assertEquals(1, results.length);
 
-			results = search.searchLucene("event_month_i:8", 10);
+			results = search.search("event_month_i:8", 10);
 			assertEquals(1, results.length);
 
-			results = search.searchLucene("event_day_i:21", 10);
+			results = search.search("event_day_i:21", 10);
 			assertEquals(1, results.length);
 
 			// 2026-08-21 = Friday → dow=5
-			results = search.searchLucene("event_dow_i:5", 10);
+			results = search.search("event_dow_i:5", 10);
 			assertEquals(1, results.length);
 
 			// hour_i が生成されないため event_hour_i:0 はヒットしないこと
-			results = search.searchLucene("event_hour_i:0", 10);
+			results = search.search("event_hour_i:0", 10);
 			assertEquals(0, results.length);
 		}
 	}
@@ -181,14 +181,14 @@ public class LocalSearchDateFieldTestCase extends TestCase {
 			search.commit();
 
 			// year/day/dow はヒット
-			SearchResult[] results = search.searchLucene("event_year_i:2026", 10);
+			SearchResult[] results = search.search("event_year_i:2026", 10);
 			assertEquals(1, results.length);
 
-			results = search.searchLucene("event_day_i:21", 10);
+			results = search.search("event_day_i:21", 10);
 			assertEquals(1, results.length);
 
 			// hour_i が生成されないこと（0時 midnight として誤解されないよう）
-			results = search.searchLucene("event_hour_i:0", 10);
+			results = search.search("event_hour_i:0", 10);
 			assertEquals(0, results.length);
 		}
 	}
@@ -215,12 +215,12 @@ public class LocalSearchDateFieldTestCase extends TestCase {
 			search.commit();
 
 			// hour=14 (ローカル時刻) でヒット
-			SearchResult[] results = search.searchLucene("event_hour_i:14", 10);
+			SearchResult[] results = search.search("event_hour_i:14", 10);
 			assertEquals(1, results.length);
 			assertEquals("1", results[0].id);
 
 			// year/month/day も正しいこと
-			results = search.searchLucene("event_day_i:21", 10);
+			results = search.search("event_day_i:21", 10);
 			assertEquals(1, results.length);
 		}
 	}
@@ -243,7 +243,7 @@ public class LocalSearchDateFieldTestCase extends TestCase {
 			search.commit();
 
 			// hour=9 (UTC ローカル) でヒット
-			SearchResult[] results = search.searchLucene("event_hour_i:9", 10);
+			SearchResult[] results = search.search("event_hour_i:9", 10);
 			assertEquals(1, results.length);
 		}
 	}
@@ -311,20 +311,20 @@ public class LocalSearchDateFieldTestCase extends TestCase {
 			search.commit();
 
 			// created_year_i:2025
-			SearchResult[] results = search.searchLucene("created_year_i:2025", 10);
+			SearchResult[] results = search.search("created_year_i:2025", 10);
 			assertEquals(1, results.length);
 			assertEquals("1", results[0].id);
 
 			// created_month_i:3
-			results = search.searchLucene("created_month_i:3", 10);
+			results = search.search("created_month_i:3", 10);
 			assertEquals(1, results.length);
 
 			// created_day_i:15
-			results = search.searchLucene("created_day_i:15", 10);
+			results = search.search("created_day_i:15", 10);
 			assertEquals(1, results.length);
 
 			// created_hour_i:9
-			results = search.searchLucene("created_hour_i:9", 10);
+			results = search.search("created_hour_i:9", 10);
 			assertEquals(1, results.length);
 		}
 	}
@@ -347,7 +347,7 @@ public class LocalSearchDateFieldTestCase extends TestCase {
 			search.commit();
 
 			// autoAnalyze=false でも event_year_i でヒットすること
-			SearchResult[] results = search.searchLucene("event_year_i:2026", 10);
+			SearchResult[] results = search.search("event_year_i:2026", 10);
 			assertEquals(1, results.length);
 			assertEquals("1", results[0].id);
 		}
@@ -372,11 +372,11 @@ public class LocalSearchDateFieldTestCase extends TestCase {
 			search.commit();
 
 			// ローカル時刻ベースの派生フィールド: day=19 でヒット
-			SearchResult[] results = search.searchLucene("event_day_i:19", 10);
+			SearchResult[] results = search.search("event_day_i:19", 10);
 			assertEquals(1, results.length);
 
 			// UTC ベースの day=20 ではヒットしないこと
-			results = search.searchLucene("event_day_i:20", 10);
+			results = search.search("event_day_i:20", 10);
 			assertEquals(0, results.length);
 		}
 	}
@@ -401,10 +401,10 @@ public class LocalSearchDateFieldTestCase extends TestCase {
 			search.commit();
 
 			// event_month_i:8 で2件、event_month_i:9 で1件
-			SearchResult[] aug = search.searchLucene("event_month_i:8", 10);
+			SearchResult[] aug = search.search("event_month_i:8", 10);
 			assertEquals(2, aug.length);
 
-			SearchResult[] sep = search.searchLucene("event_month_i:9", 10);
+			SearchResult[] sep = search.search("event_month_i:9", 10);
 			assertEquals(1, sep.length);
 		}
 	}

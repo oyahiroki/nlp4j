@@ -26,6 +26,53 @@ import nlp4j.xml.AbstractXmlHandler;
  */
 public class MediawikiXmlHandler4 extends DefaultHandler {
 
+	public static Builder builder() {
+		return new Builder();
+	}
+
+	public static class Builder {
+
+		private boolean parseCategoryTags = false;
+		private boolean parseTemplate = false;
+		private boolean keepObject = false;
+		private WikiPageHandler wikiPageHandler;
+
+		public Builder parseCategory(boolean value) {
+			this.parseCategoryTags = value;
+			return this;
+		}
+
+		public Builder parseTemplate(boolean value) {
+			this.parseTemplate = value;
+			return this;
+		}
+
+		public Builder keepObject(boolean value) {
+			this.keepObject = value;
+			return this;
+		}
+
+		public Builder wikiPageHandler(WikiPageHandler handler) {
+			this.wikiPageHandler = handler;
+			return this;
+		}
+
+		public MediawikiXmlHandler4 build() {
+			return new MediawikiXmlHandler4(this);
+		}
+	}
+
+	private MediawikiXmlHandler4(Builder builder) {
+		this.parseCategoryTags = builder.parseCategoryTags;
+		this.parseTemplate = builder.parseTemplate;
+		this.keepObject = builder.keepObject;
+		this.wikiPageHander = builder.wikiPageHandler;
+	}
+
+	public MediawikiXmlHandler4() {
+		this(new Builder());
+	}
+
 	private static final String ATT_BYTES = "bytes";
 //	private static final String TAG_TEXT = "text";
 
@@ -38,6 +85,9 @@ public class MediawikiXmlHandler4 extends DefaultHandler {
 
 //	static private final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
+	private final boolean parseCategoryTags;
+
+	private final boolean parseTemplate;
 	private boolean keepObject = false;
 
 //	private String ROOT = null;
@@ -267,8 +317,33 @@ public class MediawikiXmlHandler4 extends DefaultHandler {
 			page.setTimestamp(this.page_revision_timestamp);
 			// REDIRECT
 			page.setRedirectTitle(this.page_redirect);
+			
+			
 			// TEXT (xml)
-			page.setXml(this.page_revision_text);
+			{
+				String text = this.page_revision_text;
+			    page.setXml(text);
+
+			    if (text != null) {
+
+			        if (this.parseCategoryTags) {
+			            List<String> categoryTags =
+			                    MediaWikiTextUtils.parseCategoryTags(text);
+			            page.setCategoryTags(categoryTags);
+			        }
+
+			        if (this.parseTemplate) {
+			            List<String> templateTags =
+			                    MediaWikiTextUtils.parseTemplateTags(text);
+			            page.setTemplateTags(templateTags);
+			        }
+			    }				
+			}
+			
+			
+			
+			
+			
 
 			if (this.wikiPageHander != null) {
 				try {

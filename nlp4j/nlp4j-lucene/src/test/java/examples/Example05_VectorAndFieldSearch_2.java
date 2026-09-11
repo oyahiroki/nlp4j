@@ -13,7 +13,7 @@ public class Example05_VectorAndFieldSearch_2 {
 			search.addJson("{\"id\":\"4\",\"body\":\"South\",\"vector\":[0.0,-1.0]}");
 			search.commit();
 
-			SearchResult[] results = search.search(new float[] { 0.9f, 0.1f }, 10);
+			SearchResult[] results = search.searchVector(new float[] { 0.9f, 0.1f }, 10);
 			System.out.println("size: " + results.length);
 			for (int n = 0; n < results.length; n++) {
 				System.out.println("result[" + n + "].id: " + results[n].id + results[n].body);

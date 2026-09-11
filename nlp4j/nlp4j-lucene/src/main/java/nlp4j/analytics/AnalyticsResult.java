@@ -22,7 +22,7 @@ import java.util.List;
  * </p>
  *
  * <pre>
- * AnalyticsAggregationResult result =
+ * AnalyticsResult result =
  * 		analytics.relativeRate(
  * 				"maker",
  * 				"ニッサン",
@@ -49,20 +49,9 @@ import java.util.List;
 public class AnalyticsResult {
 
 	/**
-	 * 分析の基準となるフィールド。
-	 *
-	 * 例:
-	 * maker
+	 * 分析条件。FIELD_VALUE または LUCENE。
 	 */
-	private final String queryField;
-
-	/**
-	 * 分析の基準となる値。
-	 *
-	 * 例:
-	 * ニッサン
-	 */
-	private final String queryValue;
+	private final AnalyticsQuery query;
 
 	/**
 	 * aggregation 対象フィールド。
@@ -73,22 +62,68 @@ public class AnalyticsResult {
 	private final String field;
 
 	/**
-	 * queryField=queryValue に該当する文書数。
+	 * 分析条件に該当する文書数（countQuery）。
 	 */
 	private final long count;
 
 	/**
-	 * 分析対象となった全文書数。
+	 * 分析対象となった全文書数（countAll）。
 	 */
 	private final long totalCount;
 
 	/**
 	 * aggregation buckets。
 	 */
-	private final List<AnalyticsAggregationBucket> buckets =
-			new ArrayList<>();
+	private final List<AnalyticsAggregationBucket> buckets = new ArrayList<>();
+
+	// -----------------------------------------------------------------------
+	// Constructors
+	// -----------------------------------------------------------------------
 
 	/**
+	 * AnalyticsQuery を使った基本コンストラクタ。
+	 *
+	 * @param query      分析条件
+	 * @param field      aggregation 対象フィールド
+	 * @param count      分析条件に該当する文書数
+	 * @param totalCount 全文書数
+	 */
+	public AnalyticsResult(
+			AnalyticsQuery query,
+			String field,
+			long count,
+			long totalCount) {
+
+		if (query == null) {
+			throw new IllegalArgumentException("query must not be null");
+		}
+
+		if (field == null || field.isBlank()) {
+			throw new IllegalArgumentException("field must not be empty");
+		}
+
+		if (count < 0) {
+			throw new IllegalArgumentException("count must be >= 0");
+		}
+
+		if (totalCount < 0) {
+			throw new IllegalArgumentException("totalCount must be >= 0");
+		}
+
+		if (count > totalCount) {
+			throw new IllegalArgumentException(
+					"count must be <= totalCount: count=" + count + ", totalCount=" + totalCount);
+		}
+
+		this.query = query;
+		this.field = field;
+		this.count = count;
+		this.totalCount = totalCount;
+	}
+
+	/**
+	 * フィールド値条件を使った後方互換コンストラクタ。
+	 *
 	 * @param queryField 基準フィールド
 	 * @param queryValue 基準値
 	 * @param field      aggregation 対象フィールド
@@ -102,44 +137,57 @@ public class AnalyticsResult {
 			long count,
 			long totalCount) {
 
-		if (queryField == null || queryField.isBlank()) {
-			throw new IllegalArgumentException(
-					"queryField must not be empty");
-		}
-
-		if (queryValue == null) {
-			throw new IllegalArgumentException(
-					"queryValue must not be null");
-		}
-
-		if (field == null || field.isBlank()) {
-			throw new IllegalArgumentException(
-					"field must not be empty");
-		}
-
-		if (count < 0) {
-			throw new IllegalArgumentException(
-					"count must be >= 0");
-		}
-
-		if (totalCount < 0) {
-			throw new IllegalArgumentException(
-					"totalCount must be >= 0");
-		}
-
-		this.queryField = queryField;
-		this.queryValue = queryValue;
-		this.field = field;
-		this.count = count;
-		this.totalCount = totalCount;
+		this(
+				AnalyticsQuery.fieldValue(queryField, queryValue),
+				field,
+				count,
+				totalCount);
 	}
 
+	// -----------------------------------------------------------------------
+	// Getters
+	// -----------------------------------------------------------------------
+
+	/**
+	 * 分析条件を返します。
+	 *
+	 * @return AnalyticsQuery
+	 */
+	public AnalyticsQuery getQuery() {
+		return query;
+	}
+
+	/**
+	 * 分析条件が FIELD_VALUE の場合は基準フィールド名を返します。 LUCENE の場合は null を返します。
+	 *
+	 * @return フィールド名または null
+	 */
 	public String getQueryField() {
-		return queryField;
+		return query.getKind() == AnalyticsQuery.Kind.FIELD_VALUE
+				? query.getField()
+				: null;
 	}
 
+	/**
+	 * 分析条件が FIELD_VALUE の場合は基準値を返します。 LUCENE の場合は null を返します。
+	 *
+	 * @return 基準値または null
+	 */
 	public String getQueryValue() {
-		return queryValue;
+		return query.getKind() == AnalyticsQuery.Kind.FIELD_VALUE
+				? query.getValue()
+				: null;
+	}
+
+	/**
+	 * 分析条件が LUCENE の場合は Lucene クエリ文字列を返します。 FIELD_VALUE の場合は null を返します。
+	 *
+	 * @return Lucene クエリ文字列または null
+	 */
+	public String getLuceneQuery() {
+		return query.getKind() == AnalyticsQuery.Kind.LUCENE
+				? query.getLuceneQuery()
+				: null;
 	}
 
 	/**
@@ -206,9 +254,8 @@ public class AnalyticsResult {
 
 	@Override
 	public String toString() {
-		return "AnalyticsAggregationResult [queryField="
-				+ queryField
-				+ ", queryValue=" + queryValue
+		return "AnalyticsResult ["
+				+ "query=" + query
 				+ ", field=" + field
 				+ ", count=" + count
 				+ ", totalCount=" + totalCount

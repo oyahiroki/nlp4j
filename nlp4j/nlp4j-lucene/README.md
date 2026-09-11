@@ -1,3 +1,5 @@
+Copyright © Hiroki OYA / Official repository
+
 # nlp4j-lucene
 
 Apache Lucene を使用したローカル検索ライブラリ

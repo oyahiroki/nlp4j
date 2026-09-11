@@ -3,7 +3,7 @@ package nlp4j.lucene;
 import junit.framework.TestCase;
 
 /**
- * LocalSearch.searchLucene(String, int) のテストケース。
+ * LocalSearch.search(String, int) のテストケース。
  *
  * <p>
  * Lucene Query Parser syntax を使用した検索について、
@@ -14,7 +14,7 @@ import junit.framework.TestCase;
 public class LocalSearchLuceneQueryTestCase extends TestCase {
 
 	// =========================================================
-	// searchLucene()
+	// search() - Lucene Query
 	// =========================================================
 
 	/**
@@ -32,7 +32,7 @@ public class LocalSearchLuceneQueryTestCase extends TestCase {
 
 		try (LocalSearch search = createStandardSearch()) {
 
-			SearchResult[] results = search.searchLucene("Kyoto", 10);
+			SearchResult[] results = search.search("Kyoto", 10);
 
 			printResults("testSearchLucene001_Basic", results);
 
@@ -59,7 +59,7 @@ public class LocalSearchLuceneQueryTestCase extends TestCase {
 		try (LocalSearch search = createStandardSearch()) {
 
 			SearchResult[] results =
-					search.searchLucene("Kyoto AND Nintendo", 10);
+					search.search("Kyoto AND Nintendo", 10);
 
 			printResults("testSearchLucene002_And", results);
 
@@ -86,7 +86,7 @@ public class LocalSearchLuceneQueryTestCase extends TestCase {
 		try (LocalSearch search = createStandardSearch()) {
 
 			SearchResult[] results =
-					search.searchLucene("Kyoto OR Tokyo", 10);
+					search.search("Kyoto OR Tokyo", 10);
 
 			printResults("testSearchLucene003_Or", results);
 
@@ -116,7 +116,7 @@ public class LocalSearchLuceneQueryTestCase extends TestCase {
 		try (LocalSearch search = createStandardSearch()) {
 
 			SearchResult[] results =
-					search.searchLucene(
+					search.search(
 							"Kyoto AND NOT Nintendo",
 							10);
 
@@ -147,7 +147,7 @@ public class LocalSearchLuceneQueryTestCase extends TestCase {
 		try (LocalSearch search = createStandardSearch()) {
 
 			SearchResult[] results =
-					search.searchLucene(
+					search.search(
 							"Kyoto AND (Nintendo OR historic)",
 							10);
 
@@ -176,7 +176,7 @@ public class LocalSearchLuceneQueryTestCase extends TestCase {
 		try (LocalSearch search = createStandardSearch()) {
 
 			SearchResult[] results =
-					search.searchLucene(
+					search.search(
 							"\"historic city\"",
 							10);
 
@@ -199,7 +199,7 @@ public class LocalSearchLuceneQueryTestCase extends TestCase {
 		try (LocalSearch search = createStandardSearch()) {
 
 			SearchResult[] results =
-					search.searchLucene(
+					search.search(
 							"text_en:Kyoto AND text_en:Nintendo",
 							10);
 
@@ -220,7 +220,7 @@ public class LocalSearchLuceneQueryTestCase extends TestCase {
 		try (LocalSearch search = createStandardSearch()) {
 
 			SearchResult[] results =
-					search.searchLucene("Kyoto", 1);
+					search.search("Kyoto", 1);
 
 			printResults("testSearchLucene008_Limit", results);
 
@@ -237,7 +237,7 @@ public class LocalSearchLuceneQueryTestCase extends TestCase {
 		try (LocalSearch search = createStandardSearch()) {
 
 			SearchResult[] results =
-					search.searchLucene(
+					search.search(
 							"Kyoto AND Osaka",
 							10);
 
@@ -261,7 +261,7 @@ public class LocalSearchLuceneQueryTestCase extends TestCase {
 
 			try {
 
-				search.searchLucene(
+				search.search(
 						"Kyoto AND (Nintendo OR",
 						10);
 

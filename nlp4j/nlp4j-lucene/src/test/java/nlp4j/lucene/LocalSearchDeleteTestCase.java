@@ -113,7 +113,7 @@ public class LocalSearchDeleteTestCase extends TestCase {
 			search.commit();
 
 			// id=1 が "new" で1件だけ存在すること
-			SearchResult[] results = search.search("id", "1", 10);
+			SearchResult[] results = search.search("id:1", 10);
 			System.out.println("testDelete005_addAgain size: " + results.length);
 			assertEquals(1, results.length);
 			assertEquals("1", results[0].id);
@@ -135,12 +135,12 @@ public class LocalSearchDeleteTestCase extends TestCase {
 			search.commit();
 
 			// category=company の文書が削除されていること
-			SearchResult[] byCompany = search.search("category", "company", 10);
+			SearchResult[] byCompany = search.search("category:company", 10);
 			System.out.println("testDelete006_json category=company size: " + byCompany.length);
 			assertEquals(0, byCompany.length);
 
 			// category=city の2件は残っていること
-			SearchResult[] byCity = search.search("category", "city", 10);
+			SearchResult[] byCity = search.search("category:city", 10);
 			System.out.println("testDelete006_json category=city size: " + byCity.length);
 			assertEquals(2, byCity.length);
 		}
@@ -160,7 +160,7 @@ public class LocalSearchDeleteTestCase extends TestCase {
 			search.commit();
 
 			// クエリ (1.0, 0.0) に最近傍は id=1 だったが削除されているので id=2 のみ返る
-			SearchResult[] results = search.search(new float[] { 1.0f, 0.0f }, 10);
+			SearchResult[] results = search.searchVector(new float[] { 1.0f, 0.0f }, 10);
 			System.out.println("testDelete007_vector size: " + results.length);
 			assertEquals(1, results.length);
 			assertEquals("2", results[0].id);
@@ -226,14 +226,14 @@ public class LocalSearchDeleteTestCase extends TestCase {
 				assertEquals(2L, count);
 
 				// id=2 が存在しないことを確認
-				SearchResult[] r2 = search.search("id", "2", 10);
+				SearchResult[] r2 = search.search("id:2", 10);
 				assertEquals(0, r2.length);
 
 				// id=1, id=3 は残っていること
-				SearchResult[] r1 = search.search("id", "1", 10);
+				SearchResult[] r1 = search.search("id:1", 10);
 				assertEquals(1, r1.length);
 
-				SearchResult[] r3 = search.search("id", "3", 10);
+				SearchResult[] r3 = search.search("id:3", 10);
 				assertEquals(1, r3.length);
 			}
 

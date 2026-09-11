@@ -12,22 +12,17 @@ import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
 import org.apache.lucene.document.Document;
 
-import nlp4j.KeywordBuilder;
-import nlp4j.impl.DefaultDocument;
 import nlp4j.json.JsonNode;
-import nlp4j.krmj.annotator.KuromojiAnnotator;
 import nlp4j.lucene9.FieldTypeDef;
 import nlp4j.lucene9.LuceneIndex;
 import nlp4j.lucene9.LuceneLocalSearchApi;
 import nlp4j.lucene9.SearchSchema;
 import nlp4j.lucene9.SearchSchemaStore;
-import nlp4j.util.StringUtils;
 
 /**
  * Simple local search engine wrapper for Lucene. Provides a simplified API for
@@ -35,8 +30,7 @@ import nlp4j.util.StringUtils;
  * support (Japanese, English, or default).
  *
  * <p>
- * This class automatically manages the Lucene index lifecycle and provides a
- * high-level interface for common search operations.
+ * すべての文字列クエリは <b>Lucene Query Parser syntax</b> として扱われます。
  * </p>
  *
  * <p>
@@ -74,11 +68,10 @@ public class LocalSearch implements AutoCloseable {
 	// -----------------------------------------------------------------------
 
 	/**
-	 * Returns a new {@link Builder} for the specified language.
+	 * 指定した言語の {@link Builder} を返します。
 	 *
-	 * @param language the language code ("ja" for Japanese, "en" for English, or
-	 *                 any other value for default text field)
-	 * @return a new Builder
+	 * @param language 言語コード（"ja" で日本語、"en" で英語、それ以外はデフォルトテキストフィールド）
+	 * @return 新しい Builder インスタンス
 	 */
 	public static Builder builder(String language) {
 		return new Builder(language);
@@ -109,8 +102,7 @@ public class LocalSearch implements AutoCloseable {
 		}
 
 		/**
-		 * KuromojiAnnotator による形態素解析（自動エンリッチ）を有効／無効にします。 デフォルトは
-		 * {@code true}（有効）。language が "ja" 以外の場合は この設定によらず解析は実行されません。
+		 * 言語固有の自然言語解析（自動エンリッチ）を有効／無効にします。 デフォルトは true（有効）です。
 		 *
 		 * @param autoAnalyze true で自動解析を有効化
 		 * @return this Builder
@@ -132,7 +124,7 @@ public class LocalSearch implements AutoCloseable {
 		}
 
 		/**
-		 * ディスク上の Lucene インデックス読み込みディレクトリを指定します。 
+		 * ディスク上の Lucene インデックス読み込みディレクトリを指定します。
 		 *
 		 * @param indexDir インデックスを読み込むディレクトリパス
 		 * @return this Builder
@@ -152,9 +144,8 @@ public class LocalSearch implements AutoCloseable {
 		 *
 		 * <p>
 		 * Date フィールドの値にオフセットが含まれない場合（例: {@code 2026-08-21}、
-		 * {@code 2026-08-21T14:30:00}）、このタイムゾーンが使用されます。
-		 * オフセット付きの値（例: {@code 2026-08-21T14:30:00+09:00}、{@code ...Z}）では
-		 * 指定されたオフセットが優先されます。
+		 * {@code 2026-08-21T14:30:00}）、このタイムゾーンが使用されます。 オフセット付きの値（例:
+		 * {@code 2026-08-21T14:30:00+09:00}、{@code ...Z}）では 指定されたオフセットが優先されます。
 		 * </p>
 		 *
 		 * <p>
@@ -163,9 +154,7 @@ public class LocalSearch implements AutoCloseable {
 		 * </p>
 		 *
 		 * <pre>
-		 * LocalSearch.builder("ja")
-		 *     .timeZone("Asia/Tokyo")
-		 *     .build();
+		 * LocalSearch.builder("ja").timeZone("Asia/Tokyo").build();
 		 * </pre>
 		 *
 		 * @param zoneId タイムゾーン文字列（例: {@code "Asia/Tokyo"}、{@code "UTC"}）
@@ -178,8 +167,7 @@ public class LocalSearch implements AutoCloseable {
 		}
 
 		/**
-		 * 明示フィールド定義を追加します。
-		 * suffix パターンより優先されます。
+		 * 明示フィールド定義を追加します。 suffix パターンより優先されます。
 		 *
 		 * @param fieldName    フィールド名
 		 * @param fieldTypeDef フィールド型定義
@@ -205,6 +193,9 @@ public class LocalSearch implements AutoCloseable {
 	// Fields
 	// -----------------------------------------------------------------------
 
+	/** ベクトルフィールド名の定数 */
+	private static final String VECTOR_FIELD = "vector";
+
 	private String language;
 	private boolean autoAnalyze;
 	int vectorDimension;
@@ -213,7 +204,7 @@ public class LocalSearch implements AutoCloseable {
 	private SearchRecordEnricher dateFieldEnricher;
 
 	private String default_field_name;
-	SearchSchema schema;
+	private final SearchSchema schema;
 	LuceneIndex index;
 
 	LuceneLocalSearchApi api;
@@ -236,16 +227,19 @@ public class LocalSearch implements AutoCloseable {
 		this.language = builder.language;
 		this.autoAnalyze = builder.autoAnalyze;
 
+		// ------------------------------------------------------------------
+		// スキーマ解決（schema / vectorDimension を先に確定させる）
+		// initIndex() より先に行うことで、schema conflict が起きても
+		// LuceneIndex の resource leak を防ぎます。
+		// ------------------------------------------------------------------
 		if (builder.indexDir == null) {
-			initIndex();
 			this.schema = createSchema(builder);
 		} else {
-			initIndex(builder.indexDir);
 			if (SearchSchemaStore.exists(builder.indexDir)) {
 				try {
 					SearchSchema persisted = SearchSchemaStore.load(builder.indexDir);
 					this.schema = mergeSchemas(persisted, builder);
-				} catch (IOException e) {
+				} catch (IOException | IllegalArgumentException e) {
 					throw new LocalSearchException("Failed to load schema: " + e.getMessage(), e);
 				}
 			} else {
@@ -255,6 +249,15 @@ public class LocalSearch implements AutoCloseable {
 		}
 
 		this.vectorDimension = resolveVectorDimension(builder, this.schema);
+
+		// ------------------------------------------------------------------
+		// スキーマが確定した後に LuceneIndex を開く
+		// ------------------------------------------------------------------
+		if (builder.indexDir == null) {
+			initIndex();
+		} else {
+			initIndex(builder.indexDir);
+		}
 		this.zoneId = builder.zoneId;
 		this.api = new LuceneLocalSearchApi(index, this.schema, this.zoneId);
 		this.default_field_name = resolveDefaultFieldName(builder.language);
@@ -269,24 +272,46 @@ public class LocalSearch implements AutoCloseable {
 	}
 
 	/**
-	 * Constructs a new LocalSearch instance with the specified language.
+	 * 指定した言語で LocalSearch インスタンスを生成します。
 	 *
-	 * @param language the language code ("ja" for Japanese, "en" for English, or
-	 *                 any other value for default text field)
-	 * @throws LocalSearchException if index initialization fails
+	 * @param language 言語コード（"ja" で日本語、"en" で英語、それ以外はデフォルトテキストフィールド）
+	 * @throws LocalSearchException インデックスの初期化に失敗した場合
 	 */
 	public LocalSearch(String language) {
 		this(new Builder(language));
 	}
 
+	/**
+	 * 指定した言語とベクトル次元数で LocalSearch インスタンスを生成します。
+	 *
+	 * @param language        言語コード（"ja" で日本語、"en" で英語、それ以外はデフォルトテキストフィールド）
+	 * @param vectorDimension KNN ベクトル検索に使用するベクトルの次元数（0 の場合はベクトルフィールドなし）
+	 * @throws LocalSearchException インデックスの初期化に失敗した場合
+	 */
 	public LocalSearch(String language, int vectorDimension) {
 		this(new Builder(language).vectorDimension(vectorDimension));
 	}
 
+	/**
+	 * 指定した言語・ベクトル次元数・ディスクインデックスディレクトリで LocalSearch インスタンスを生成します。
+	 *
+	 * @param language        言語コード（"ja" で日本語、"en" で英語、それ以外はデフォルトテキストフィールド）
+	 * @param vectorDimension KNN ベクトル検索に使用するベクトルの次元数（0 の場合はベクトルフィールドなし）
+	 * @param indexDir        Lucene インデックスを読み書きするディレクトリ
+	 * @throws LocalSearchException インデックスの初期化に失敗した場合
+	 */
 	public LocalSearch(String language, int vectorDimension, File indexDir) {
 		this(new Builder(language).vectorDimension(vectorDimension).loadIndexFrom(indexDir.toPath()));
 	}
 
+	/**
+	 * 指定した言語・ベクトル次元数・ディスクインデックスパスで LocalSearch インスタンスを生成します。
+	 *
+	 * @param language        言語コード（"ja" で日本語、"en" で英語、それ以外はデフォルトテキストフィールド）
+	 * @param vectorDimension KNN ベクトル検索に使用するベクトルの次元数（0 の場合はベクトルフィールドなし）
+	 * @param indexDir        Lucene インデックスを読み書きするディレクトリパス
+	 * @throws LocalSearchException インデックスの初期化に失敗した場合
+	 */
 	public LocalSearch(String language, int vectorDimension, Path indexDir) {
 		this(new Builder(language).vectorDimension(vectorDimension).loadIndexFrom(indexDir));
 	}
@@ -295,14 +320,32 @@ public class LocalSearch implements AutoCloseable {
 	// Static factory
 	// -----------------------------------------------------------------------
 
+	/**
+	 * 指定した言語・ベクトル次元数・ディスクインデックスパスで LocalSearch インスタンスを生成するファクトリメソッドです。
+	 * {@code new LocalSearch(language, vectorDimension, indexDir)} と同等です。
+	 *
+	 * @param language        言語コード（"ja" で日本語、"en" で英語、それ以外はデフォルトテキストフィールド）
+	 * @param vectorDimension KNN ベクトル検索に使用するベクトルの次元数（0 の場合はベクトルフィールドなし）
+	 * @param indexDir        Lucene インデックスを読み書きするディレクトリパス
+	 * @return 新しい LocalSearch インスタンス
+	 * @throws LocalSearchException インデックスの初期化に失敗した場合
+	 */
 	public static LocalSearch open(String language, int vectorDimension, Path indexDir) {
 		return new Builder(language).vectorDimension(vectorDimension).loadIndexFrom(indexDir).build();
 	}
 
+	/**
+	 * ベクトルのみを持つドキュメントをインデックスに追加します。 テキストフィールドは登録されません。
+	 *
+	 * @param id     ドキュメントの一意識別子
+	 * @param vector 登録するベクトル
+	 * @throws LocalSearchException ドキュメントの追加に失敗した場合
+	 */
 	public void add(String id, float[] vector) {
+		validateVector(vector);
 		Document doc1 = schema.document(zoneId) //
 				.put("id", id) //
-				.putVector("vector", vector) //
+				.putVector(VECTOR_FIELD, vector) //
 				.build();
 		try {
 			this.index.add(doc1);
@@ -329,8 +372,9 @@ public class LocalSearch implements AutoCloseable {
 	 * @throws LocalSearchException if adding the document fails
 	 */
 	public void add(String id, float[] vector, java.util.Map<String, String> fields) {
+		validateVector(vector);
 		try {
-			var builder = schema.document(zoneId).put("id", id).putVector("vector", vector);
+			var builder = schema.document(zoneId).put("id", id).putVector(VECTOR_FIELD, vector);
 
 			if (fields != null) {
 				for (java.util.Map.Entry<String, String> entry : fields.entrySet()) {
@@ -352,18 +396,78 @@ public class LocalSearch implements AutoCloseable {
 	}
 
 	/**
-	 * Adds a document to the search index.
+	 * ドキュメントをインデックスに追加します。
 	 *
 	 * <p>
-	 * language に対応する SearchRecordEnricher により 言語固有のテキスト解析を自動実行します。
+	 * language に対応する SearchRecordEnricher により言語固有のテキスト解析を自動実行します。
 	 * </p>
 	 *
-	 * @param id   the unique identifier for the document
-	 * @param body the text content to be indexed
-	 * @throws LocalSearchException if adding the document fails
+	 * @param id   ドキュメントの一意識別子
+	 * @param body インデックスに登録するテキスト本文
+	 * @throws LocalSearchException ドキュメントの追加に失敗した場合
 	 */
 	public void add(String id, String body) {
 		SearchRecord record = new SearchRecord(id, body);
+		add(record);
+	}
+
+	/**
+	 * テキスト本文とベクトルを持つドキュメントをインデックスに追加します。
+	 *
+	 * <p>
+	 * language に対応する SearchRecordEnricher により言語固有のテキスト解析を自動実行します。
+	 * </p>
+	 *
+	 * <pre>
+	 * search.add("1", "Kyoto is a historic city.", vector);
+	 * </pre>
+	 *
+	 * @param id     ドキュメントの一意識別子
+	 * @param body   インデックスに登録するテキスト本文
+	 * @param vector KNN ベクトル
+	 * @throws LocalSearchException ドキュメントの追加に失敗した場合
+	 */
+	public void add(String id, String body, float[] vector) {
+		if (vector == null) {
+			throw new LocalSearchException("vector must not be null",
+					new IllegalArgumentException("vector must not be null"));
+		}
+		SearchRecord record = new SearchRecord(id, body);
+		record.setVector(vector);
+		add(record);
+	}
+
+	/**
+	 * テキスト本文・ベクトル・追加フィールドを持つドキュメントをインデックスに追加します。
+	 *
+	 * <p>
+	 * language に対応する SearchRecordEnricher により言語固有のテキスト解析を自動実行します。
+	 * </p>
+	 *
+	 * <pre>
+	 * search.add("Kyoto", "Kyoto is a historic city in Japan.", vector, Map.of("title_s", "Kyoto", "category_s", "city"));
+	 * </pre>
+	 *
+	 * @param id     ドキュメントの一意識別子
+	 * @param body   インデックスに登録するテキスト本文
+	 * @param vector KNN ベクトル
+	 * @param fields keyword フィールドの追加値（フィールド名 → 値）
+	 * @throws LocalSearchException ドキュメントの追加に失敗した場合
+	 */
+	public void add(String id, String body, float[] vector, java.util.Map<String, String> fields) {
+		if (vector == null) {
+			throw new LocalSearchException("vector must not be null",
+					new IllegalArgumentException("vector must not be null"));
+		}
+		SearchRecord record = new SearchRecord(id, body);
+		record.setVector(vector);
+		if (fields != null) {
+			for (java.util.Map.Entry<String, String> entry : fields.entrySet()) {
+				if (entry.getKey() != null && entry.getValue() != null) {
+					record.addData(entry.getKey(), entry.getValue());
+				}
+			}
+		}
 		add(record);
 	}
 
@@ -379,72 +483,38 @@ public class LocalSearch implements AutoCloseable {
 	 * @throws LocalSearchException if adding the document fails
 	 */
 	public void add(SearchRecord record) {
+		if (record.hasVector()) {
+			validateVector(record.getVector());
+		}
 		try {
 			enrich(record);
-
-			var builder = schema.document(zoneId).put("id", record.getId()).put(default_field_name, record.getBody());
-
-			// ベクトルを登録
-			if (record.hasVector()) {
-				builder.putVector("vector", record.getVector());
-			}
-
-			// word.* フィールドへキーワードを登録
-			for (SearchKeyword kw : record.getKeywords()) {
-				builder.put(kw.getPos(), kw.getLex());
-			}
-
-			// 追加フィールドを登録（addJson() と同様に ensureField() を呼ぶ）
-			for (String fieldName : record.dataKeys()) {
-				List<String> values = record.getDataValues(fieldName);
-				ensureField(fieldName, values.size() > 1);
-				for (String value : values) {
-					builder.put(fieldName, value);
-				}
-			}
-
-			this.index.add(builder.build());
+			addDocument(record, null);
 		} catch (IOException e) {
 			throw new LocalSearchException(e.getMessage(), e);
 		}
 	}
 
 	/**
-	 * Adds a document from a JSON string. The JSON must contain "id" and either
-	 * "body" or "text" field. Additional fields are indexed as keyword fields. JSON
-	 * array values are indexed as multi-valued keyword fields.
+	 * JSON 文字列からドキュメントをインデックスに追加します。
 	 *
-	 * <p>
-	 * Example JSON format:
-	 * </p>
+	 * JSON には "id" が必須です。 本文は以下の順で解決されます。
 	 *
-	 * <pre>
-	 * // body field (traditional)
-	 * {
-	 *   "id": "doc1",
-	 *   "body": "Document text content",
-	 *   "category": "tech"
-	 * }
+	 * <ul>
+	 * <li>body</li>
+	 * <li>text</li>
+	 * <li>language に対応する text_ja / text_en / text</li>
+	 * </ul>
 	 *
-	 * // text field + array values
-	 * {
-	 *   "id": "doc2",
-	 *   "text": "Document text content",
-	 *   "keywords": ["java", "lucene", "search"]
-	 * }
-	 * </pre>
-	 *
-	 * @param json_string the JSON string containing document data
-	 * @throws LocalSearchException if JSON parsing or document addition fails
+	 * 複数の本文候補が指定された場合、値が同一であれば許可し、 異なる場合はエラーとします。
 	 */
 	public void addJson(String json_string) {
 		try {
 			JsonNode json = JsonNode.parse(json_string);
 
-			String id = getRequiredString(json, "id");
-			String body = getDocumentText(json);
+			String id = getRequiredString(json, "id"); // may throw IllegalArgumentException
+			ResolvedDocumentText resolved = resolveDocumentText(json); // may throw IllegalArgumentException
 
-			SearchRecord record = new SearchRecord(id, body);
+			SearchRecord record = new SearchRecord(id, resolved.value());
 
 			// vector フィールドを解析して SearchRecord に設定
 			float[] vector = parseVector(json);
@@ -454,8 +524,8 @@ public class LocalSearch implements AutoCloseable {
 
 			// JSON の追加フィールドを SearchRecord に転写
 			for (String fieldName : json.keys()) {
-				if ("id".equals(fieldName) || "body".equals(fieldName) || "text".equals(fieldName)
-						|| "vector".equals(fieldName)) {
+				if ("id".equals(fieldName) || VECTOR_FIELD.equals(fieldName)
+						|| resolved.consumedFields().contains(fieldName)) {
 					continue;
 				}
 
@@ -483,30 +553,7 @@ public class LocalSearch implements AutoCloseable {
 			}
 
 			enrich(record);
-
-			var builder = schema.document(zoneId).put("id", record.getId()).put(default_field_name, record.getBody())
-					.put("data", json_string);
-
-			// ベクトルを登録
-			if (record.hasVector()) {
-				builder.putVector("vector", record.getVector());
-			}
-
-			// word.* フィールドへキーワードを登録
-			for (SearchKeyword kw : record.getKeywords()) {
-				builder.put(kw.getPos(), kw.getLex());
-			}
-
-			// 追加フィールドを登録
-			for (String fieldName : record.dataKeys()) {
-				List<String> values = record.getDataValues(fieldName);
-				ensureField(fieldName, values.size() > 1);
-				for (String value : values) {
-					builder.put(fieldName, value);
-				}
-			}
-
-			this.index.add(builder.build());
+			addDocument(record, buildStoredDataJson(json));
 
 		} catch (Throwable th) {
 			throw new LocalSearchException(th.getMessage(), th);
@@ -514,37 +561,162 @@ public class LocalSearch implements AutoCloseable {
 	}
 
 	/**
-	 * "body" フィールドを優先し、なければ "text" フィールドを返します。 どちらも存在しない場合は
-	 * IllegalArgumentException をスローします。
+	 * SearchRecord を Lucene Document としてインデックスに追加します。 add(SearchRecord) と addJson()
+	 * の共通登録経路です。
+	 *
+	 * @param record  登録するドキュメントレコード（enrich 済み）
+	 * @param rawJson 元の JSON 文字列。null の場合は "data" フィールドを登録しません。
+	 * @throws IOException インデックスへの追加に失敗した場合
 	 */
-	private String getDocumentText(JsonNode json) {
-		JsonNode bodyNode = json.get("body");
-		if (bodyNode != null && !bodyNode.isNull()) {
-			String body = bodyNode.asString(null);
-			if (body != null) {
-				return body;
+	private void addDocument(SearchRecord record, String rawJson) throws IOException {
+		var builder = schema.document(zoneId).put("id", record.getId()).put("body", record.getBody())
+				.put(default_field_name, record.getBody());
+
+		if (rawJson != null) {
+			builder.put("data", rawJson);
+		}
+
+		// ベクトルを登録
+		if (record.hasVector()) {
+			builder.putVector(VECTOR_FIELD, record.getVector());
+		}
+
+		// word.* フィールドへキーワードを登録
+		for (SearchKeyword kw : record.getKeywords()) {
+			builder.put(kw.getPos(), kw.getLex());
+		}
+
+		// 追加フィールドを登録
+		for (String fieldName : record.dataKeys()) {
+			List<String> values = record.getDataValues(fieldName);
+			ensureField(fieldName, values.size() > 1);
+			for (String value : values) {
+				builder.put(fieldName, value);
 			}
 		}
-		JsonNode textNode = json.get("text");
-		if (textNode != null && !textNode.isNull()) {
-			String text = textNode.asString(null);
-			if (text != null) {
-				return text;
-			}
-		}
-		throw new IllegalArgumentException("Required field is missing: body or text");
+
+		this.index.add(builder.build());
 	}
 
 	/**
-	 * JSON ノードから "vector" フィールドを解析して float[] を返します。
-	 * vector フィールドが存在しない場合は null を返します。
+	 * {@code data} stored field に保存する JSON 文字列を生成します。
+	 *
+	 * <p>
+	 * 入力 JSON から {@code "vector"} フィールドを除外した JSON を返します。 KNN ベクトルは Lucene
+	 * の専用フィールドに保存されるため、{@code data} への二重保存は不要です。 これにより大規模インデックス（Wikipedia
+	 * 等）でのストレージ肥大化を防ぎます。
+	 * </p>
+	 *
+	 * <p>
+	 * 例: 入力 JSON が {@code {"id":"1","body":"...","vector":[...],"category":"city"}}
+	 * のとき、 返値は {@code {"id":"1","body":"...","category":"city"}} になります。
+	 * </p>
+	 *
+	 * @param json 元の入力 JsonNode
+	 * @return {@code "vector"} フィールドを除いた JSON 文字列
+	 */
+	private String buildStoredDataJson(JsonNode json) {
+		com.google.gson.JsonObject copy = json.rawObject().deepCopy();
+		copy.remove(VECTOR_FIELD);
+		return copy.toString();
+	}
+
+	private record ResolvedDocumentText(String value, Set<String> consumedFields) {
+	}
+
+	/**
+	 * JSON 内の本文候補フィールド（body, text, default_field_name）を解決します。
+	 * 複数存在する場合は値の一致を検証し、競合（異なる値）がある場合は IllegalArgumentException をスローします。
+	 */
+	private ResolvedDocumentText resolveDocumentText(JsonNode json) {
+		String[] candidateFields;
+		if ("text".equals(this.default_field_name)) {
+			candidateFields = new String[] { "body", "text" };
+		} else {
+			candidateFields = new String[] { "body", "text", this.default_field_name };
+		}
+
+		String resolvedText = null;
+		Set<String> consumed = new java.util.HashSet<>();
+		String firstField = null;
+
+		for (String fieldName : candidateFields) {
+			JsonNode node = json.get(fieldName);
+			if (node != null && !node.isNull()) {
+				String val = node.asString(null);
+				if (val != null) {
+					if (resolvedText == null) {
+						resolvedText = val;
+						firstField = fieldName;
+						consumed.add(fieldName);
+					} else {
+						if (!resolvedText.equals(val)) {
+							throw new IllegalArgumentException(
+									"Conflicting text fields: " + firstField + " and " + fieldName);
+						}
+						consumed.add(fieldName);
+					}
+				}
+			}
+		}
+
+		if (resolvedText == null) {
+			throw new IllegalArgumentException("Required field is missing: body, text, or " + this.default_field_name);
+		}
+
+		return new ResolvedDocumentText(resolvedText, consumed);
+	}
+
+	/**
+	 * ベクトルの妥当性を検証します。
+	 *
+	 * <p>
+	 * 以下の条件を検証します:
+	 * </p>
+	 * <ul>
+	 * <li>vector が null でないこと</li>
+	 * <li>vectorDimension が 0 より大きいこと（ベクトルフィールドが有効であること）</li>
+	 * <li>vector.length が vectorDimension と一致すること</li>
+	 * <li>各要素が NaN / Infinity でないこと</li>
+	 * </ul>
+	 *
+	 * @param vector 検証するベクトル
+	 * @throws LocalSearchException 検証失敗時
+	 */
+	private void validateVector(float[] vector) {
+		if (vector == null) {
+			throw new LocalSearchException("vector must not be null",
+					new IllegalArgumentException("vector must not be null"));
+		}
+		if (vectorDimension <= 0) {
+			throw new LocalSearchException(
+					"Vector field is not enabled. Specify vectorDimension when building LocalSearch.",
+					new IllegalArgumentException("Vector field is not enabled"));
+		}
+		if (vector.length != vectorDimension) {
+			throw new LocalSearchException(
+					"Vector dimension mismatch: expected=" + vectorDimension + ", actual=" + vector.length,
+					new IllegalArgumentException("Vector dimension mismatch"));
+		}
+		for (int i = 0; i < vector.length; i++) {
+			if (Float.isNaN(vector[i]) || Float.isInfinite(vector[i])) {
+				throw new LocalSearchException("vector[" + i + "] contains invalid value: " + vector[i],
+						new IllegalArgumentException("Vector contains NaN or Infinite value"));
+			}
+		}
+	}
+
+	/**
+	 * JSON ノードから "vector" フィールドを解析して float[] を返します。 vector フィールドが存在しない場合は null
+	 * を返します。
 	 *
 	 * @param json 対象の JsonNode
 	 * @return float[] または null
-	 * @throws IllegalArgumentException vector が配列でない場合、vectorDimension 未設定の場合、次元数不一致の場合
+	 * @throws IllegalArgumentException vector が配列でない場合、vectorDimension
+	 *                                  未設定の場合、次元数不一致の場合
 	 */
 	private float[] parseVector(JsonNode json) {
-		JsonNode node = json.get("vector");
+		JsonNode node = json.get(VECTOR_FIELD);
 
 		if (node == null || node.isNull()) {
 			return null;
@@ -554,26 +726,17 @@ public class LocalSearch implements AutoCloseable {
 			throw new IllegalArgumentException("vector must be an array");
 		}
 
-		if (vectorDimension <= 0) {
-			throw new IllegalArgumentException(
-					"Vector field is not enabled. Specify vectorDimension when building LocalSearch.");
-		}
-
-		if (node.size() != vectorDimension) {
-			throw new IllegalArgumentException(
-					"Vector dimension mismatch: expected=" + vectorDimension + ", actual=" + node.size());
-		}
-
 		float[] vector = new float[node.size()];
 		for (int i = 0; i < node.size(); i++) {
 			vector[i] = (float) node.get(i).asDouble(0.0);
 		}
+		validateVector(vector);
 		return vector;
 	}
 
 	/**
-	 * 指定フィールドが未登録の場合、DynamicFieldResolver で型を解決してスキーマに登録します。
-	 * 明示 schema 済みのフィールドは変更しません。
+	 * 指定フィールドが未登録の場合、DynamicFieldResolver で型を解決してスキーマに登録します。 明示 schema
+	 * 済みのフィールドは変更しません。
 	 *
 	 * @param fieldName   フィールド名
 	 * @param multiValued 複数値フィールドの場合 true
@@ -590,10 +753,9 @@ public class LocalSearch implements AutoCloseable {
 	}
 
 	/**
-	 * Closes the search index and releases all resources. This method is
-	 * automatically called when using try-with-resources.
+	 * 検索インデックスを閉じ、すべてのリソースを解放します。 try-with-resources 構文を使用している場合は自動的に呼び出されます。
 	 *
-	 * @throws LocalSearchException if closing the index fails
+	 * @throws LocalSearchException インデックスのクローズに失敗した場合
 	 */
 	@Override
 	public void close() {
@@ -607,10 +769,9 @@ public class LocalSearch implements AutoCloseable {
 	}
 
 	/**
-	 * Commits all pending changes to the index. This method should be called after
-	 * adding documents to make them searchable.
+	 * インデックスへの保留中の変更をすべてコミットします。 ドキュメントを追加した後、検索可能にするためにこのメソッドを呼び出す必要があります。
 	 *
-	 * @throws LocalSearchException if commit fails
+	 * @throws LocalSearchException コミットに失敗した場合
 	 */
 	public void commit() {
 		try {
@@ -620,13 +781,11 @@ public class LocalSearch implements AutoCloseable {
 		}
 	}
 
-
 	/**
-	 * Deletes the document with the specified ID from the index.
+	 * 指定した ID のドキュメントをインデックスから削除します。
 	 *
 	 * <p>
-	 * If no document with the specified ID exists, this method does nothing (idempotent).
-	 * Call {@link #commit()} to commit the change.
+	 * 指定した ID のドキュメントが存在しない場合は何もしません（冪等）。 変更を反映するには {@link #commit()} を呼び出してください。
 	 * </p>
 	 *
 	 * <pre>
@@ -634,13 +793,12 @@ public class LocalSearch implements AutoCloseable {
 	 * search.commit();
 	 * </pre>
 	 *
-	 * @param id the document identifier to delete
-	 * @throws LocalSearchException if {@code id} is null or the index operation fails
+	 * @param id 削除するドキュメントの識別子
+	 * @throws LocalSearchException {@code id} が null の場合、またはインデックス操作に失敗した場合
 	 */
 	public void delete(String id) {
 		if (id == null) {
-			throw new LocalSearchException("id must not be null",
-					new IllegalArgumentException("id must not be null"));
+			throw new LocalSearchException("id must not be null", new IllegalArgumentException("id must not be null"));
 		}
 		try {
 			this.index.delete(id);
@@ -649,14 +807,12 @@ public class LocalSearch implements AutoCloseable {
 		}
 	}
 
-
-
 	private static final Set<String> DEFAULT_WORD_FIELDS = Set.of("word", "word.noun", "word.verb", "word.adj",
 			"word.adp", "word.aux", "word.sym", "word.propn", "word.num", "word.adv");
 
 	private static void addDefaultWordFields(SearchSchema schema) {
 		for (String fieldName : DEFAULT_WORD_FIELDS) {
-			schema.add(fieldName, FieldTypeDef.keyword().stored(true).aggregatable(true).multiValued(true));
+			schema.addIfAbsent(fieldName, FieldTypeDef.keyword().stored(true).aggregatable(true).multiValued(true));
 		}
 	}
 
@@ -664,16 +820,17 @@ public class LocalSearch implements AutoCloseable {
 		SearchSchema schema = new SearchSchema();
 
 		schema.add("id", FieldTypeDef.keyword().stored(true));
-		schema.add("text", FieldTypeDef.text().stored(true));
-		schema.add("text_en", FieldTypeDef.text().stored(true));
-		schema.add("text_ja", FieldTypeDef.text().stored(true));
+		schema.add("body", FieldTypeDef.storedOnly());
+		schema.add("text", FieldTypeDef.text());
+		schema.add("text_en", FieldTypeDef.text());
+		schema.add("text_ja", FieldTypeDef.text());
 		schema.add("data", FieldTypeDef.storedOnly());
 
 		// 形態素解析結果の word.* フィールド（multiValued keyword）
 		addDefaultWordFields(schema);
 
 		if (builder.vectorDimension > 0) {
-			schema.add("vector", FieldTypeDef.knnVector(builder.vectorDimension));
+			schema.add(VECTOR_FIELD, FieldTypeDef.knnVector(builder.vectorDimension));
 		}
 
 		// 明示フィールド定義（suffix patternより優先）
@@ -726,92 +883,6 @@ public class LocalSearch implements AutoCloseable {
 
 	}
 
-	/**
-	 * 簡易形式のリクエスト JSON（query, limit, filters）から OpenSearch 形式のリクエストを生成します。
-	 *
-	 * <p>
-	 * 入力 JSON 形式:
-	 * </p>
-	 * 
-	 * <pre>
-	 * {
-	 *   "query": "検索キーワード",   // 全文検索クエリ（省略時は match_all）
-	 *   "limit": 10,                // 取得件数（省略時は 10）
-	 *   "filters": {                // keyword フィールドの絞り込み条件（省略可）
-	 *     "category": "技術",
-	 *     "country": "Japan"
-	 *   }
-	 * }
-	 * </pre>
-	 *
-	 * @param request 簡易形式のリクエスト JsonNode
-	 * @return OpenSearch 形式のリクエスト JsonNode
-	 */
-	private JsonNode createSearchRequest(JsonNode request) {
-		String query = request.get("query").asString("");
-		int limit = request.get("limit").asInt(10);
-
-		JsonNode filters = request.get("filters");
-		boolean hasFilters = filters != null && !filters.isNull() && filters.size() > 0;
-
-		if (!hasFilters) {
-			return createTextSearchRequest(query, limit);
-		}
-
-		// bool クエリ: must（全文検索） + filter（keyword 絞り込み）
-		JsonNode root = JsonNode.object();
-		root.put("size", limit);
-
-		JsonNode must = JsonNode.array();
-		if (query == null || query.isEmpty()) {
-			must.add(JsonNode.object().put("match_all", JsonNode.object()));
-		} else {
-			must.add(JsonNode.object().put("match", JsonNode.object().put(this.default_field_name, query)));
-		}
-
-		JsonNode filter = JsonNode.array();
-		for (String fieldName : filters.keys()) {
-			String value = filters.get(fieldName).asString(null);
-			if (value == null) {
-				continue;
-			}
-			filter.add(JsonNode.object().put("term", JsonNode.object().put(fieldName, value)));
-		}
-
-		JsonNode boolQuery = JsonNode.object();
-		boolQuery.put("must", must);
-		boolQuery.put("filter", filter);
-
-		root.put("query", JsonNode.object().put("bool", boolQuery));
-
-		return root;
-	}
-
-	private JsonNode createTextSearchRequest(String query, int limit) {
-		return createTextSearchRequest(this.default_field_name, query, limit);
-	}
-
-	private JsonNode createTextSearchRequest(String field, String query, int limit) {
-		JsonNode request = JsonNode.object();
-
-		// keyword フィールドは term クエリ（完全一致）、text フィールドは match クエリ（全文検索）
-		boolean isKeyword = schema.contains(field) && schema.get(field).kind() == FieldTypeDef.Kind.KEYWORD;
-
-		JsonNode innerQuery;
-		if (isKeyword) {
-			innerQuery = JsonNode.object();
-			innerQuery.put("term", JsonNode.object().put(field, query));
-		} else {
-			innerQuery = JsonNode.object();
-			innerQuery.put("match", JsonNode.object().put(field, query));
-		}
-
-		request.put("query", innerQuery);
-		request.put("size", limit);
-
-		return request;
-	}
-
 	private JsonNode createVectorSearchRequest(float[] vector, int limit) {
 		return createVectorSearchRequest(vector, limit, null);
 	}
@@ -829,7 +900,7 @@ public class LocalSearch implements AutoCloseable {
 		request.put("size", limit);
 
 		JsonNode knn = JsonNode.object();
-		knn.put("field", "vector");
+		knn.put("field", VECTOR_FIELD);
 		knn.put("query_vector", vector);
 		knn.put("k", limit);
 
@@ -883,15 +954,50 @@ public class LocalSearch implements AutoCloseable {
 	}
 
 	/**
-	 * Merges a persisted schema with builder-specified fields.
-	 * Rules:
-	 * - Builder-only fields are added to the schema.
-	 * - Fields present in both must have identical definitions; otherwise an exception is thrown.
+	 * Merges a persisted schema with builder-specified fields and vectorDimension.
+	 * Rules: - Builder-only fields are added to the schema. - Fields present in
+	 * both must have identical definitions; otherwise an exception is thrown. - If
+	 * builder.vectorDimension > 0 and the persisted schema has no "vector" field, a
+	 * KNN_VECTOR field is added to the persisted schema. - If the persisted schema
+	 * already has a "vector" field with a different dimension or a non-KNN_VECTOR
+	 * kind, an exception is thrown.
 	 */
+	private static void ensureCoreFields(SearchSchema schema) {
+		schema.addIfAbsent("id", FieldTypeDef.keyword().stored(true));
+		schema.addIfAbsent("body", FieldTypeDef.storedOnly());
+		schema.addIfAbsent("text", FieldTypeDef.text());
+		schema.addIfAbsent("text_en", FieldTypeDef.text());
+		schema.addIfAbsent("text_ja", FieldTypeDef.text());
+		schema.addIfAbsent("data", FieldTypeDef.storedOnly());
+		addDefaultWordFields(schema);
+	}
+
 	private static SearchSchema mergeSchemas(SearchSchema persisted, Builder builder) {
-		if (builder.fields.isEmpty()) {
-			return persisted;
+		ensureCoreFields(persisted);
+
+		// --- vectorDimension の merge ---
+		if (builder.vectorDimension > 0) {
+			if (persisted.contains(VECTOR_FIELD)) {
+				FieldTypeDef vectorDef = persisted.get(VECTOR_FIELD);
+				if (vectorDef.kind() != FieldTypeDef.Kind.KNN_VECTOR) {
+					throw new LocalSearchException("Field '" + VECTOR_FIELD
+							+ "' exists in schema but is not KNN_VECTOR " + "(kind=" + vectorDef.kind() + ")",
+							new IllegalArgumentException("vectorDimension conflict"));
+				}
+				if (vectorDef.get_dimension() != builder.vectorDimension) {
+					throw new LocalSearchException(
+							"vectorDimension conflict: builder=" + builder.vectorDimension + ", schema="
+									+ vectorDef.get_dimension(),
+							new IllegalArgumentException("vectorDimension conflict"));
+				}
+				// 既存 vector と builder が一致 → OK
+			} else {
+				// persisted schema に vector フィールドがない → 追加
+				persisted.add(VECTOR_FIELD, FieldTypeDef.knnVector(builder.vectorDimension));
+			}
 		}
+
+		// --- builder.fields の merge ---
 		for (java.util.Map.Entry<String, FieldTypeDef> entry : builder.fields.entrySet()) {
 			String fieldName = entry.getKey();
 			FieldTypeDef builderDef = entry.getValue();
@@ -899,8 +1005,8 @@ public class LocalSearch implements AutoCloseable {
 				FieldTypeDef persistedDef = persisted.get(fieldName);
 				if (!persistedDef.equals(builderDef)) {
 					throw new LocalSearchException(
-							"Field definition conflict for '" + fieldName + "': "
-							+ "persisted=" + persistedDef.kind() + ", builder=" + builderDef.kind(),
+							"Field definition conflict for '" + fieldName + "': " + "persisted=" + persistedDef.kind()
+									+ ", builder=" + builderDef.kind(),
 							new IllegalArgumentException("Field definition conflict"));
 				}
 			} else {
@@ -911,16 +1017,16 @@ public class LocalSearch implements AutoCloseable {
 	}
 
 	/**
-	 * Resolves vectorDimension from the builder and schema.
-	 * Schema wins when builder is 0; conflict (different non-zero values) throws.
+	 * Resolves vectorDimension from the builder and schema. Schema wins when
+	 * builder is 0; conflict (different non-zero values) throws.
 	 */
 	private static int resolveVectorDimension(Builder builder, SearchSchema schema) {
 		int builderDim = builder.vectorDimension;
 
 		// Find vector field dimension from schema
 		int schemaDim = 0;
-		if (schema.contains("vector")) {
-			FieldTypeDef vectorDef = schema.get("vector");
+		if (schema.contains(VECTOR_FIELD)) {
+			FieldTypeDef vectorDef = schema.get(VECTOR_FIELD);
 			if (vectorDef.kind() == FieldTypeDef.Kind.KNN_VECTOR) {
 				schemaDim = vectorDef.get_dimension();
 			}
@@ -933,8 +1039,7 @@ public class LocalSearch implements AutoCloseable {
 			return builderDim;
 		}
 		if (builderDim != schemaDim) {
-			throw new LocalSearchException(
-					"vectorDimension conflict: builder=" + builderDim + ", schema=" + schemaDim,
+			throw new LocalSearchException("vectorDimension conflict: builder=" + builderDim + ", schema=" + schemaDim,
 					new IllegalArgumentException("vectorDimension conflict"));
 		}
 		return builderDim;
@@ -951,38 +1056,53 @@ public class LocalSearch implements AutoCloseable {
 	}
 
 	/**
-	 * 指定フィールドに対してテキスト検索を行います。 addJson() で追加した category, country, source
-	 * などの追加フィールドを対象に検索できます。
+	 * KNN ベクトルの次元数を返します。
 	 *
-	 * @param field the field name to search
-	 * @param query the search query string
-	 * @param limit the maximum number of results to return
-	 * @return an array of SearchResult objects, ordered by relevance score
-	 * @throws LocalSearchException if search fails
+	 * <p>
+	 * ベクトルフィールドが無効な場合は 0 を返します。 Python から {@code engine.vector_dimension}
+	 * として取得する場合に使用します。
+	 * </p>
+	 *
+	 * @return ベクトルの次元数（0 の場合はベクトルフィールドなし）
 	 */
-	public SearchResult[] search(String field, String query, int limit) {
-		return executeSearch(createTextSearchRequest(field, query, limit));
+	public int getVectorDimension() {
+		return vectorDimension;
 	}
 
 	/**
-	 * Returns all field names registered in the schema, in insertion order.
+	 * ベクトルフィールドが有効かどうかを返します。
 	 *
-	 * @return list of all field names
+	 * @return vectorDimension > 0 の場合 {@code true}
+	 */
+	public boolean hasVectorField() {
+		return vectorDimension > 0;
+	}
+
+	/**
+	 * スキーマに登録されているすべてのフィールド名を、登録順で返します。
+	 *
+	 * @return フィールド名のリスト
 	 */
 	public List<String> getFields() {
 		return new ArrayList<>(schema.fieldNames());
 	}
 
 	/**
-	 * Returns only the aggregatable field names, in insertion order.
-	 * Useful for building facet/aggregation UIs.
+	 * スキーマに登録されている集計可能なフィールド名のみを、登録順で返します。 ファセット・集計 UI の構築に利用できます。
 	 *
-	 * @return list of field names where {@link nlp4j.lucene9.FieldTypeDef#is_aggregatable()} is {@code true}
+	 * @return {@link nlp4j.lucene9.FieldTypeDef#is_aggregatable()} が {@code true}
+	 *         のフィールド名のリスト
 	 */
 	public List<String> getAggregatableFields() {
 		return schema.aggregatableFieldNames();
 	}
 
+	/**
+	 * 現在のインデックスを指定したディレクトリに保存します。 保存後はインデックスが閉じられます。 スキーマ情報も同ディレクトリに保存されます。
+	 *
+	 * @param dir インデックスを保存するディレクトリパス
+	 * @throws IOException インデックスまたはスキーマの書き込みに失敗した場合
+	 */
 	public void saveIndexTo(Path dir) throws IOException {
 		if (index != null) {
 			this.index.writeToAndClose(dir);
@@ -990,85 +1110,151 @@ public class LocalSearch implements AutoCloseable {
 		}
 	}
 
+	/**
+	 * 現在のインデックスを指定したディレクトリに保存します。 保存後はインデックスが閉じられます。 スキーマ情報も同ディレクトリに保存されます。
+	 *
+	 * @param dir インデックスを保存するディレクトリ
+	 * @throws IOException インデックスまたはスキーマの書き込みに失敗した場合
+	 */
 	public void saveIndexTo(File dir) throws IOException {
 		saveIndexTo(dir.toPath());
 	}
 
-	public SearchResult[] search(float[] vector, int limit) {
+	/**
+	 * ベクトル検索を行います。 指定したクエリベクトルに最も近いドキュメントを類似度スコア順で返します。
+	 *
+	 * <p>
+	 * ベクトル類似度による KNN 検索であり、テキストクエリとは独立した検索方式です。
+	 * </p>
+	 *
+	 * @param vector クエリベクトル
+	 * @param limit  返す結果の最大件数
+	 * @return 類似度スコア順の SearchResult 配列
+	 * @throws LocalSearchException 検索に失敗した場合
+	 */
+	public SearchResult[] searchVector(float[] vector, int limit) {
+		validateVector(vector);
+		if (limit < 1) {
+			throw new LocalSearchException("limit must be greater than 0",
+					new IllegalArgumentException("limit must be greater than 0"));
+		}
 		return executeSearch(createVectorSearchRequest(vector, limit));
 	}
 
 	/**
 	 * フィールドフィルター付きベクトル検索を行います。 フィルター対象フィールドを持つ文書は
-	 * {@link #add(String, float[], java.util.Map)} で 登録してください。
+	 * {@link #add(String, float[], java.util.Map)} で登録してください。
+	 *
+	 * <p>
+	 * ベクトル類似度による KNN 検索であり、テキストクエリとは独立した検索方式です。 絞り込みは {@code filters} による keyword
+	 * フィールドの完全一致のみ指定できます。
+	 * </p>
 	 *
 	 * <p>
 	 * 例:
 	 * </p>
-	 * 
+	 *
 	 * <pre>
-	 * SearchResult[] results = search.search(new float[] { 0.9f, 0.1f }, 10,
+	 * SearchResult[] results = search.searchVector(new float[] { 0.9f, 0.1f }, 10,
 	 * 		java.util.Map.of("category", "technology", "country", "Japan"));
 	 * </pre>
 	 *
 	 * @param vector  クエリベクトル
 	 * @param limit   取得件数の上限
 	 * @param filters keyword フィールドの絞り込み条件（フィールド名 → 値）
-	 * @return an array of SearchResult objects, ordered by similarity score
-	 * @throws LocalSearchException if search fails
+	 * @return 類似度スコア順の SearchResult 配列
+	 * @throws LocalSearchException 検索に失敗した場合
 	 */
-	public SearchResult[] search(float[] vector, int limit, java.util.Map<String, String> filters) {
+	public SearchResult[] searchVector(float[] vector, int limit, java.util.Map<String, String> filters) {
+		validateVector(vector);
+		if (limit < 1) {
+			throw new LocalSearchException("limit must be greater than 0",
+					new IllegalArgumentException("limit must be greater than 0"));
+		}
 		return executeSearch(createVectorSearchRequest(vector, limit, filters));
 	}
 
 	/**
-	 * Performs a text search on the indexed documents.
+	 * Lucene Query Parser syntax でインデックスを検索します。
 	 *
-	 * @param query the search query string
-	 * @param limit the maximum number of results to return
-	 * @return an array of SearchResult objects, ordered by relevance score
-	 * @throws LocalSearchException if search fails
-	 */
-	public SearchResult[] search(String query, int limit) {
-		return executeSearch(createTextSearchRequest(query, limit));
-	}
-
-	/**
-	 * 全文検索＋フィールド絞り込みを行います（Java 利用者向けオーバーロード）。
+	 * <p>
+	 * クエリ文字列は常に <b>Lucene Query Parser syntax</b> として解釈されます。 シンプルなキーワード検索から AND /
+	 * OR / フィールド指定・範囲検索まで利用できます。
+	 * </p>
 	 *
 	 * <p>
 	 * 例:
 	 * </p>
-	 * 
+	 *
 	 * <pre>
-	 * SearchResult[] results = search.search("Kyoto", 10, java.util.Map.of("category", "company"));
+	 * // キーワード検索
+	 * search.search("Kyoto", 10);
+	 *
+	 * // AND 検索
+	 * search.search("Kyoto AND historic", 10);
+	 *
+	 * // フィールド指定
+	 * search.search("category:company AND text_en:Kyoto", 10);
+	 *
+	 * // 数値範囲検索
+	 * search.search("year_i:[2020 TO 2026]", 10);
 	 * </pre>
 	 *
-	 * @param query   全文検索クエリ（空文字列の場合は match_all）
-	 * @param limit   取得件数の上限
-	 * @param filters keyword フィールドの絞り込み条件（フィールド名 → 値）
-	 * @return an array of SearchResult objects, ordered by relevance score
-	 * @throws LocalSearchException if search fails
+	 * @param query Lucene Query Parser syntax のクエリ文字列
+	 * @param limit 返す結果の最大件数
+	 * @return 関連度スコア順の SearchResult 配列
+	 * @throws LocalSearchException 検索に失敗した場合
 	 */
-	public SearchResult[] search(String query, int limit, java.util.Map<String, String> filters) {
+	public SearchResult[] search(String query, int limit) {
+		validateSearchArgs(query, limit);
+		JsonNode queryString = JsonNode.object();
+		queryString.put("query", query);
+		queryString.put("default_field", this.default_field_name);
+
 		JsonNode request = JsonNode.object();
-		request.put("query", query);
-		request.put("limit", limit);
+		request.put("query", JsonNode.object().put("query_string", queryString));
+		request.put("size", limit);
 
-		JsonNode filterNode = JsonNode.object();
-		for (java.util.Map.Entry<String, String> entry : filters.entrySet()) {
-			filterNode.put(entry.getKey(), entry.getValue());
-		}
-		request.put("filters", filterNode);
-
-		return executeSearch(createSearchRequest(request));
+		return executeSearch(request);
 	}
 
 	/**
-	 * JSON 文字列で検索条件を指定して検索を実行します。Python (JPype) など外部から 複雑な検索条件を渡す場合に使用します。
+	 * Lucene Query Parser syntax ＋フィールドフィルターでインデックスを検索します。
 	 *
 	 * <p>
-	 * OpenSearch スタイルの JSON を渡せます。
+	 * クエリ文字列は <b>Lucene Query Parser syntax</b> として解釈されます。 {@code filters}
+	 * はスコアリングに影響しない filter 句として適用されます。
+	 * </p>
+	 *
+	 * <p>
+	 * 例:
+	 * </p>
+	 *
+	 * <pre>
+	 * search.search("text_en:Kyoto", 10, java.util.Map.of("category", "company"));
+	 * </pre>
+	 *
+	 * @param query   Lucene Query Parser syntax のクエリ文字列
+	 * @param limit   取得件数の上限
+	 * @param filters keyword フィールドの絞り込み条件（フィールド名 → 値）
+	 * @return 関連度スコア順の SearchResult 配列
+	 * @throws LocalSearchException 検索に失敗した場合
+	 */
+	public SearchResult[] search(String query, int limit, java.util.Map<String, String> filters) {
+		validateSearchArgs(query, limit);
+		JsonNode request = JsonNode.object();
+		request.put("size", limit);
+		request.put("query", createQueryWithFilters(query, toFilterNode(filters)));
+		return executeSearch(request);
+	}
+
+	/**
+	 * OpenSearch Query DSL 形式の JSON 文字列で検索を実行します（低レベル API）。 Python (JPype)
+	 * など外部から複雑な検索条件を渡す場合に使用します。
+	 *
+	 * <p>
+	 * このメソッドは OpenSearch 互換の JSON DSL（term / match / bool など）を受け付けます。
+	 * {@code query_string} クエリを JSON に含めることで Lucene Query 構文を間接的に利用できます。
 	 * </p>
 	 *
 	 * <pre>
@@ -1082,9 +1268,9 @@ public class LocalSearch implements AutoCloseable {
 	 * search.searchJson("{\"query\":{\"bool\":{\"must\":[{\"match\":{\"text_ja\":\"東京\"}}],\"filter\":[{\"term\":{\"category\":\"技術\"}}]}},\"size\":10}")
 	 * </pre>
 	 *
-	 * @param requestJson OpenSearch スタイルの検索リクエスト JSON 文字列
-	 * @return an array of SearchResult objects, ordered by relevance score
-	 * @throws LocalSearchException if JSON parsing or search fails
+	 * @param requestJson OpenSearch Query DSL 形式の検索リクエスト JSON 文字列
+	 * @return 関連度スコア順の SearchResult 配列
+	 * @throws LocalSearchException JSON の解析または検索に失敗した場合
 	 */
 	public SearchResult[] searchJson(String requestJson) {
 		try {
@@ -1096,11 +1282,17 @@ public class LocalSearch implements AutoCloseable {
 	}
 
 	/**
-	 * OpenSearch Query DSL 形式のリクエストを実行し、OpenSearch 形式のレスポンス JSON をそのまま返します。
+	 * OpenSearch Query DSL 形式のリクエストを実行し、OpenSearch 形式のレスポンス JSON をそのまま返します（低レベル
+	 * API）。
 	 *
 	 * <p>
-	 * {@link #searchJson(String)} は結果を {@link SearchResult}[] に変換するため、 レスポンスに含まれる
-	 * {@code aggregations} などの情報が失われます。 このメソッドはレスポンス全体を JSON 文字列として返すため、
+	 * このメソッドは OpenSearch 互換の JSON DSL を受け付けます。 {@code query_string} クエリを JSON
+	 * に含めることで Lucene Query 構文を間接的に利用できます。
+	 * </p>
+	 *
+	 * <p>
+	 * {@link #searchJson(String)} は結果を {@link SearchResult}[] に変換するため、レスポンスに含まれる
+	 * {@code aggregations} などの情報が失われます。このメソッドはレスポンス全体を JSON 文字列として返すため、
 	 * aggregations や hits のメタ情報も含めて取得できます。
 	 * </p>
 	 *
@@ -1119,7 +1311,7 @@ public class LocalSearch implements AutoCloseable {
 	 *
 	 * @param requestJson OpenSearch Query DSL 形式の検索リクエスト JSON 文字列
 	 * @return OpenSearch 形式のレスポンス JSON 文字列
-	 * @throws LocalSearchException if JSON parsing or search fails
+	 * @throws LocalSearchException JSON の解析または検索に失敗した場合
 	 */
 	public String searchResponseJson(String requestJson) {
 		try {
@@ -1129,50 +1321,6 @@ public class LocalSearch implements AutoCloseable {
 		} catch (Throwable th) {
 			throw new LocalSearchException(th.getMessage(), th);
 		}
-	}
-
-	/**
-	 * 簡易形式の JSON 文字列で全文検索＋フィールド絞り込みを実行します。 Python (JPype) など外部から絞り込み条件を渡す場合に便利です。
-	 *
-	 * <p>
-	 * 入力 JSON 形式（searchJson の OpenSearch 形式とは異なる簡易形式です）:
-	 * </p>
-	 * 
-	 * <pre>
-	 * // 全文検索のみ
-	 * search.searchByQuery("{\"query\":\"東京\",\"limit\":10}")
-	 *
-	 * // 全文検索 + filters による keyword 絞り込み
-	 * search.searchByQuery("{\"query\":\"東京\",\"limit\":5,\"filters\":{\"category\":\"技術\"}}")
-	 *
-	 * // filters のみ（query 省略 → match_all）
-	 * search.searchByQuery("{\"filters\":{\"category\":\"観光\"},\"limit\":10}")
-	 * </pre>
-	 *
-	 * @param requestJson 簡易形式の検索リクエスト JSON 文字列
-	 * @return an array of SearchResult objects, ordered by relevance score
-	 * @throws LocalSearchException if JSON parsing or search fails
-	 */
-	public SearchResult[] searchByQuery(String requestJson) {
-		try {
-			JsonNode request = JsonNode.parse(requestJson);
-			return executeSearch(createSearchRequest(request));
-		} catch (Throwable th) {
-			throw new LocalSearchException(th.getMessage(), th);
-		}
-	}
-
-	public SearchResult[] searchLucene(String query, int limit) {
-
-		JsonNode queryString = JsonNode.object();
-		queryString.put("query", query);
-		queryString.put("default_field", this.default_field_name);
-
-		JsonNode request = JsonNode.object();
-		request.put("query", JsonNode.object().put("query_string", queryString));
-		request.put("size", limit);
-
-		return executeSearch(request);
 	}
 
 	private SearchResult[] toSearchResults(JsonNode response) {
@@ -1194,8 +1342,11 @@ public class LocalSearch implements AutoCloseable {
 			result.score = (float) hit.get("_score").asDouble(-1);
 			result.id = source.get("id").asString();
 
-			JsonNode textNode = source.get(default_field_name);
-			result.body = (textNode != null) ? textNode.asString() : null;
+			JsonNode bodyNode = source.get("body");
+			if (bodyNode == null || bodyNode.isNull()) {
+				bodyNode = source.get(default_field_name);
+			}
+			result.body = (bodyNode != null && !bodyNode.isNull()) ? bodyNode.asString(null) : null;
 
 			JsonNode dataNode = source.get("data");
 			result.data = (dataNode != null) ? dataNode.asString() : null;
@@ -1207,45 +1358,31 @@ public class LocalSearch implements AutoCloseable {
 	}
 
 	/**
-	 * 簡易形式のaggregationリクエストを実行し、 OpenSearch互換形式のaggregationレスポンスを返します。
+	 * JSON 文字列で aggregation を実行し、OpenSearch 互換形式のレスポンスを返します。
+	 *
+	 * <p>
+	 * {@code "query"} フィールドは <b>Lucene Query Parser syntax</b> として解釈されます。
+	 * </p>
 	 *
 	 * <p>
 	 * 入力例:
 	 * </p>
-	 * 
+	 *
 	 * <pre>
 	 * {
 	 *   "name": "categories",
 	 *   "field": "category",
 	 *   "size": 10,
-	 *   "query": "東京",
+	 *   "query": "text_en:Kyoto AND country:Japan",
 	 *   "filters": {
-	 *     "country": "Japan"
+	 *     "source": "news"
 	 *   }
 	 * }
 	 * </pre>
 	 *
-	 * <p>
-	 * 出力例:
-	 * </p>
-	 * 
-	 * <pre>
-	 * {
-	 *   "aggregations": {
-	 *     "categories": {
-	 *       "buckets": [
-	 *         {
-	 *           "key": "観光",
-	 *           "doc_count": 5
-	 *         }
-	 *       ]
-	 *     }
-	 *   }
-	 * }
-	 * </pre>
-	 *
-	 * @param requestJson 簡易形式のaggregationリクエスト
-	 * @return OpenSearch互換形式のaggregationレスポンス
+	 * @param requestJson aggregation リクエスト JSON 文字列
+	 * @return OpenSearch 互換形式の aggregation レスポンス JSON 文字列
+	 * @throws LocalSearchException JSON の解析または集計に失敗した場合
 	 */
 	public String aggregateJson(String requestJson) {
 		try {
@@ -1257,12 +1394,6 @@ public class LocalSearch implements AutoCloseable {
 
 			String query = getOptionalString(request, "query", null);
 
-			String luceneQuery = getOptionalString(request, "lucene_query", null);
-
-			if (query != null && luceneQuery != null) {
-				throw new IllegalArgumentException("query and lucene_query cannot be specified together");
-			}
-
 			int size = getOptionalInt(request, "size", 10);
 
 			if (size < 1) {
@@ -1271,13 +1402,7 @@ public class LocalSearch implements AutoCloseable {
 
 			JsonNode filters = request.get("filters");
 
-			JsonNode searchRequest;
-
-			if (luceneQuery != null) {
-				searchRequest = createLuceneAggregationRequest(aggregationName, field, luceneQuery, size, filters);
-			} else {
-				searchRequest = createAggregationRequest(aggregationName, field, query, size, filters);
-			}
+			JsonNode searchRequest = createAggregationRequest(aggregationName, field, query, size, filters);
 
 			JsonNode luceneResponse = executeRequest(searchRequest);
 
@@ -1298,63 +1423,43 @@ public class LocalSearch implements AutoCloseable {
 	 * インデックス内の全ドキュメント件数を返します。
 	 *
 	 * @return ドキュメント件数
-	 * @throws LocalSearchException if search fails
+	 * @throws LocalSearchException 検索に失敗した場合
 	 */
 	public long count() {
 		return count(null, (Map<String, String>) null);
 	}
 
 	/**
-	 * 全文検索クエリにマッチするドキュメント件数を返します。
+	 * Lucene Query Parser syntax にマッチするドキュメント件数を返します。
 	 *
-	 * @param query 全文検索クエリ（null または空文字の場合は全件）
+	 * <p>
+	 * クエリ文字列は <b>Lucene Query Parser syntax</b> として解釈されます。 null または空文字の場合は全件を返します。
+	 * </p>
+	 *
+	 * @param query Lucene Query Parser syntax のクエリ文字列（null または空文字の場合は全件）
 	 * @return マッチするドキュメント件数
-	 * @throws LocalSearchException if search fails
+	 * @throws LocalSearchException 検索に失敗した場合
 	 */
 	public long count(String query) {
 		return count(query, (Map<String, String>) null);
 	}
 
 	/**
-	 * 全文検索クエリ＋フィールド絞り込みにマッチするドキュメント件数を返します。
+	 * Lucene Query Parser syntax ＋フィールドフィルターにマッチするドキュメント件数を返します。
 	 *
-	 * @param query   全文検索クエリ（null または空文字の場合は match_all）
+	 * <p>
+	 * クエリ文字列は <b>Lucene Query Parser syntax</b> として解釈されます。 {@code filters}
+	 * はスコアリングに影響しない filter 句として適用されます。
+	 * </p>
+	 *
+	 * @param query   Lucene Query Parser syntax のクエリ文字列（null または空文字の場合は全件）
 	 * @param filters keyword フィールドの絞り込み条件（フィールド名 → 値）
 	 * @return マッチするドキュメント件数
-	 * @throws LocalSearchException if search fails
+	 * @throws LocalSearchException 検索に失敗した場合
 	 */
 	public long count(String query, Map<String, String> filters) {
 		JsonNode searchRequest = createCountRequest(query, toFilterNode(filters));
 		return toTotalHits(executeRequest(searchRequest));
-	}
-
-	/**
-	 * 指定フィールドの値が一致するドキュメント件数を返します。
-	 *
-	 * <p>
-	 * 全文検索ではなく、keyword フィールドの完全一致で絞り込みます。 形態素解析で生成された word.*
-	 * フィールドなど、分析フィールドを条件に使う場合に便利です。
-	 * </p>
-	 *
-	 * <p>
-	 * 例:
-	 * </p>
-	 * 
-	 * <pre>
-	 * // word.noun=ニッサン が出現する文書の件数
-	 * long count = search.count("word.noun", "ニッサン");
-	 *
-	 * // category=technology の文書の件数
-	 * long count = search.count("category", "technology");
-	 * </pre>
-	 *
-	 * @param filterField 絞り込み対象のフィールド名
-	 * @param filterValue 絞り込み対象のフィールド値
-	 * @return マッチするドキュメント件数
-	 * @throws LocalSearchException if search fails
-	 */
-	public long count(String filterField, String filterValue) {
-		return count(null, java.util.Map.of(filterField, filterValue));
 	}
 
 	// -----------------------------------------------------------------------
@@ -1367,34 +1472,44 @@ public class LocalSearch implements AutoCloseable {
 	 * @param field 集計対象フィールド名
 	 * @param size  返すバケット数の上限
 	 * @return フィールド値 → ドキュメント件数のマップ（件数降順）
-	 * @throws LocalSearchException if aggregation fails
+	 * @throws LocalSearchException 集計に失敗した場合
 	 */
 	public Map<String, Long> aggregate(String field, int size) {
 		return aggregate(field, null, size, null);
 	}
 
 	/**
-	 * 全文検索クエリで絞り込んだ上で、指定フィールドの terms aggregation を実行します。
+	 * Lucene Query Parser syntax で絞り込んだ上で、指定フィールドの terms aggregation を実行します。
+	 *
+	 * <p>
+	 * クエリ文字列は <b>Lucene Query Parser syntax</b> として解釈されます。
+	 * </p>
 	 *
 	 * @param field 集計対象フィールド名
-	 * @param query 全文検索クエリ（null または空文字の場合は全件）
+	 * @param query Lucene Query Parser syntax のクエリ文字列（null または空文字の場合は全件）
 	 * @param size  返すバケット数の上限
 	 * @return フィールド値 → ドキュメント件数のマップ（件数降順）
-	 * @throws LocalSearchException if aggregation fails
+	 * @throws LocalSearchException 集計に失敗した場合
 	 */
 	public Map<String, Long> aggregate(String field, String query, int size) {
 		return aggregate(field, query, size, null);
 	}
 
 	/**
-	 * 全文検索クエリ＋フィールド絞り込みで絞り込んだ上で、指定フィールドの terms aggregation を実行します。
+	 * Lucene Query Parser syntax ＋フィールドフィルターで絞り込んだ上で、指定フィールドの terms aggregation
+	 * を実行します。
+	 *
+	 * <p>
+	 * クエリ文字列は <b>Lucene Query Parser syntax</b> として解釈されます。 {@code filters}
+	 * はスコアリングに影響しない filter 句として適用されます。
+	 * </p>
 	 *
 	 * @param field   集計対象フィールド名
-	 * @param query   全文検索クエリ（null または空文字の場合は全件）
+	 * @param query   Lucene Query Parser syntax のクエリ文字列（null または空文字の場合は全件）
 	 * @param size    返すバケット数の上限
 	 * @param filters keyword フィールドの絞り込み条件（null または空の場合はスキップ）
 	 * @return フィールド値 → ドキュメント件数のマップ（件数降順）
-	 * @throws LocalSearchException if aggregation fails
+	 * @throws LocalSearchException 集計に失敗した場合
 	 */
 	public Map<String, Long> aggregate(String field, String query, int size, Map<String, String> filters) {
 		validateAggregatableField(field);
@@ -1403,88 +1518,20 @@ public class LocalSearch implements AutoCloseable {
 		return toAggregationMap("values", response);
 	}
 
-	/**
-	 * Lucene Query Parser syntax で絞り込んだ上で、指定フィールドの terms aggregation を実行します。
-	 *
-	 * <p>
-	 * 例:
-	 * </p>
-	 *
-	 * <pre>
-	 * Map&lt;String, Long&gt; result =
-	 *     search.aggregateLucene("category", "text_en:Kyoto AND country:Japan", 10);
-	 * </pre>
-	 *
-	 * @param field       集計対象フィールド名
-	 * @param luceneQuery Lucene Query Parser syntax のクエリ文字列
-	 * @param size        返すバケット数の上限
-	 * @return フィールド値 → ドキュメント件数のマップ（件数降順）
-	 * @throws LocalSearchException if aggregation fails
-	 */
-	public Map<String, Long> aggregateLucene(String field, String luceneQuery, int size) {
-		return aggregateLucene(field, luceneQuery, size, null);
-	}
-
-	/**
-	 * Lucene Query Parser syntax で絞り込み＋フィールドフィルターした上で、指定フィールドの terms aggregation を実行します。
-	 *
-	 * @param field       集計対象フィールド名
-	 * @param luceneQuery Lucene Query Parser syntax のクエリ文字列
-	 * @param size        返すバケット数の上限
-	 * @param filters     keyword フィールドの絞り込み条件（null または空の場合はスキップ）
-	 * @return フィールド値 → ドキュメント件数のマップ（件数降順）
-	 * @throws LocalSearchException if aggregation fails
-	 */
-	public Map<String, Long> aggregateLucene(String field, String luceneQuery, int size,
-			Map<String, String> filters) {
-		validateAggregatableField(field);
-		JsonNode request = createLuceneAggregationRequest("values", field, luceneQuery, size, toFilterNode(filters));
-		JsonNode response = executeRequest(request);
-		return toAggregationMap("values", response);
-	}
-
-	/**
-	 * 指定フィールドの値で絞り込んだ上で、別フィールドの terms aggregation を実行します。
-	 *
-	 * <p>
-	 * 全文検索ではなく、keyword フィールドの完全一致で絞り込みます。 形態素解析で生成された word.* フィールドなどを条件に使う場合に便利です。
-	 * </p>
-	 *
-	 * <p>
-	 * 例:
-	 * </p>
-	 * 
-	 * <pre>
-	 * // word.noun=ニッサン が出現する文書の中で word.noun を集計
-	 * Map&lt;String, Long&gt; result = search.aggregate("word.noun", "word.noun", "ニッサン", 1000);
-	 *
-	 * // word.noun=ニッサン が出現する文書の中で word.verb を集計
-	 * Map&lt;String, Long&gt; result = search.aggregate("word.verb", "word.noun", "ニッサン", 1000);
-	 *
-	 * // category=car が設定された文書の中で word.noun を集計
-	 * Map&lt;String, Long&gt; result = search.aggregate("word.noun", "category", "car", 1000);
-	 * </pre>
-	 *
-	 * @param aggregationField 集計対象フィールド名
-	 * @param filterField      絞り込み対象のフィールド名
-	 * @param filterValue      絞り込み対象のフィールド値
-	 * @param size             返すバケット数の上限
-	 * @return フィールド値 → ドキュメント件数のマップ（件数降順）
-	 * @throws LocalSearchException if aggregation fails
-	 */
-	public Map<String, Long> aggregate(String aggregationField, String filterField, String filterValue, int size) {
-		return aggregate(aggregationField, null, size, java.util.Map.of(filterField, filterValue));
-	}
+	// -----------------------------------------------------------------------
+	// Java API: validateQuery()
+	// -----------------------------------------------------------------------
 
 	/**
 	 * Lucene Query Parser syntax を検証します。
 	 *
 	 * <p>
-	 * このメソッドはクエリを実行せず、 Lucene QueryParser で正常に解析できるかどうかだけを確認します。
+	 * このメソッドはクエリを実行せず、Lucene QueryParser で正常に解析できるかどうかだけを確認します。
+	 * {@link #search(String, int)} などに渡す前に構文チェックする用途に使用してください。
 	 * </p>
 	 *
 	 * <pre>
-	 * LuceneQueryValidationResult result = search.validateLuceneQuery("京都 AND (寺院 OR 神社)");
+	 * LuceneQueryValidationResult result = search.validateQuery("京都 AND (寺院 OR 神社)");
 	 *
 	 * if (!result.isValid()) {
 	 * 	System.out.println(result.getMessage());
@@ -1492,14 +1539,14 @@ public class LocalSearch implements AutoCloseable {
 	 * </pre>
 	 *
 	 * @param query Lucene Query Parser syntax のクエリ文字列
-	 * @return validation result
+	 * @return 検証結果
 	 */
-	public LuceneQueryValidationResult validateLuceneQuery(String query) {
+	public LuceneQueryValidationResult validateQuery(String query) {
 
 		try (nlp4j.lucene9.SearchSession session = index.acquireSearcher()) {
 
-			nlp4j.lucene9.LuceneQueryBuilder.parseQueryString(
-					query, this.default_field_name, session.getAnalyzer(), this.schema, this.zoneId);
+			nlp4j.lucene9.LuceneQueryBuilder.parseQueryString(query, this.default_field_name, session.getAnalyzer(),
+					this.schema, this.zoneId);
 
 			return LuceneQueryValidationResult.valid();
 
@@ -1512,50 +1559,6 @@ public class LocalSearch implements AutoCloseable {
 	// -----------------------------------------------------------------------
 	// Private helpers
 	// -----------------------------------------------------------------------
-
-	/**
-	 * count() 用のリクエストを生成します（aggs なし、size=0）。 query が null または空文字の場合は match_all
-	 * になります。
-	 *
-	 * @param query   全文検索クエリ（null または空文字の場合は match_all）
-	 * @param filters keyword フィールドの絞り込み条件（null の場合はスキップ）
-	 * @return OpenSearch 形式のリクエスト JsonNode
-	 */
-	private JsonNode createCountRequest(String query, JsonNode filters) {
-		JsonNode root = JsonNode.object();
-		root.put("size", 0);
-
-		boolean hasQuery = query != null && !query.isEmpty();
-		boolean hasFilters = filters != null && !filters.isNull() && filters.size() > 0;
-
-		if (hasQuery || hasFilters) {
-			JsonNode boolQuery = JsonNode.object();
-
-			if (hasQuery) {
-				JsonNode must = JsonNode.array();
-				must.add(JsonNode.object().put("match", JsonNode.object().put(this.default_field_name, query)));
-				boolQuery.put("must", must);
-			}
-
-			if (hasFilters) {
-				JsonNode filter = JsonNode.array();
-				for (String fieldName : filters.keys()) {
-					String value = filters.get(fieldName).asString(null);
-					if (value == null) {
-						continue;
-					}
-					filter.add(JsonNode.object().put("term", JsonNode.object().put(fieldName, value)));
-				}
-				if (filter.size() > 0) {
-					boolQuery.put("filter", filter);
-				}
-			}
-
-			root.put("query", JsonNode.object().put("bool", boolQuery));
-		}
-
-		return root;
-	}
 
 	/**
 	 * レスポンスの hits.total.value を返します。
@@ -1646,78 +1649,82 @@ public class LocalSearch implements AutoCloseable {
 		return aggregations;
 	}
 
-	private JsonNode createAggregationRequest(String aggregationName, String field, String query, int size,
-			JsonNode filters) {
-
-		JsonNode root = JsonNode.object();
-
-		// 検索ヒット本文は不要
-		root.put("size", 0);
-
-		boolean hasQuery = query != null && !query.isEmpty();
-
-		boolean hasFilters = filters != null && !filters.isNull() && filters.size() > 0;
-
-		if (hasQuery || hasFilters) {
-			JsonNode boolQuery = JsonNode.object();
-
-			if (hasQuery) {
-				JsonNode must = JsonNode.array();
-				must.add(JsonNode.object().put("match", JsonNode.object().put(this.default_field_name, query)));
-				boolQuery.put("must", must);
-			}
-
-			if (hasFilters) {
-				JsonNode filter = buildFilterArray(filters);
-				if (filter.size() > 0) {
-					boolQuery.put("filter", filter);
-				}
-			}
-
-			root.put("query", JsonNode.object().put("bool", boolQuery));
-		}
-
-		root.put("aggs", buildAggregationsNode(aggregationName, field, size));
-
-		return root;
-	}
-
 	/**
 	 * query_string クエリ（Lucene Query Parser syntax）の JsonNode を生成します。
 	 */
-	private JsonNode createLuceneQueryNode(String luceneQuery) {
+	private JsonNode createQueryNode(String query) {
 		JsonNode queryString = JsonNode.object();
-		queryString.put("query", luceneQuery);
+		queryString.put("query", query);
 		queryString.put("default_field", this.default_field_name);
 		return JsonNode.object().put("query_string", queryString);
 	}
 
 	/**
-	 * Lucene Query Parser syntax で絞り込んだ aggregation リクエストを生成します。
+	 * Lucene Query ＋ filters の query 部分を生成します（search / count / aggregation 共通）。
+	 *
+	 * @param query   Lucene Query Parser syntax のクエリ文字列
+	 * @param filters keyword フィールドの絞り込み条件（null の場合はスキップ）
+	 * @return query 部分の JsonNode
 	 */
-	private JsonNode createLuceneAggregationRequest(String aggregationName, String field, String luceneQuery,
-			int size, JsonNode filters) {
-
-		JsonNode root = JsonNode.object();
-		root.put("size", 0);
-
+	private JsonNode createQueryWithFilters(String query, JsonNode filters) {
+		boolean hasQuery = query != null && !query.isEmpty();
 		boolean hasFilters = filters != null && !filters.isNull() && filters.size() > 0;
 
 		if (hasFilters) {
 			JsonNode boolQuery = JsonNode.object();
 
-			JsonNode must = JsonNode.array();
-			must.add(createLuceneQueryNode(luceneQuery));
-			boolQuery.put("must", must);
+			if (hasQuery) {
+				JsonNode must = JsonNode.array();
+				must.add(createQueryNode(query));
+				boolQuery.put("must", must);
+			}
 
 			JsonNode filter = buildFilterArray(filters);
 			if (filter.size() > 0) {
 				boolQuery.put("filter", filter);
 			}
 
-			root.put("query", JsonNode.object().put("bool", boolQuery));
+			return JsonNode.object().put("bool", boolQuery);
+		} else if (hasQuery) {
+			return createQueryNode(query);
 		} else {
-			root.put("query", createLuceneQueryNode(luceneQuery));
+			// match_all
+			return JsonNode.object().put("match_all", JsonNode.object());
+		}
+	}
+
+	/**
+	 * count() 用のリクエストを生成します（aggs なし、size=0）。 query が null または空文字の場合は match_all
+	 * になります。
+	 *
+	 * @param query   Lucene Query Parser syntax のクエリ文字列（null または空文字の場合は match_all）
+	 * @param filters keyword フィールドの絞り込み条件（null の場合はスキップ）
+	 * @return count 用リクエスト JsonNode
+	 */
+	private JsonNode createCountRequest(String query, JsonNode filters) {
+		JsonNode root = JsonNode.object();
+		root.put("size", 0);
+		boolean hasQuery = query != null && !query.isEmpty();
+		if (hasQuery || (filters != null && !filters.isNull() && filters.size() > 0)) {
+			root.put("query", createQueryWithFilters(hasQuery ? query : null, filters));
+		}
+		return root;
+	}
+
+	/**
+	 * aggregation リクエストを生成します。 query は Lucene Query Parser syntax として解釈されます。
+	 */
+	private JsonNode createAggregationRequest(String aggregationName, String field, String query, int size,
+			JsonNode filters) {
+
+		JsonNode root = JsonNode.object();
+		root.put("size", 0);
+
+		boolean hasQuery = query != null && !query.isEmpty();
+		boolean hasFilters = filters != null && !filters.isNull() && filters.size() > 0;
+
+		if (hasQuery || hasFilters) {
+			root.put("query", createQueryWithFilters(hasQuery ? query : null, filters));
 		}
 
 		root.put("aggs", buildAggregationsNode(aggregationName, field, size));
@@ -1726,8 +1733,22 @@ public class LocalSearch implements AutoCloseable {
 	}
 
 	/**
-	 * aggregate() 系メソッドの入口で field を検証します。
-	 * aggregatable でないフィールドを指定した場合に明快なエラーメッセージを返します。
+	 * search() 系メソッドの入口で query と limit を検証します。
+	 */
+	private void validateSearchArgs(String query, int limit) {
+		if (query == null || query.isBlank()) {
+			throw new LocalSearchException("query must not be blank",
+					new IllegalArgumentException("query must not be blank"));
+		}
+		if (limit < 1) {
+			throw new LocalSearchException("limit must be greater than 0",
+					new IllegalArgumentException("limit must be greater than 0"));
+		}
+	}
+
+	/**
+	 * aggregate() 系メソッドの入口で field を検証します。 aggregatable
+	 * でないフィールドを指定した場合に明快なエラーメッセージを返します。
 	 */
 	private void validateAggregatableField(String field) {
 		if (field == null || field.isBlank()) {
@@ -1882,6 +1903,10 @@ public class LocalSearch implements AutoCloseable {
 		}
 
 		return value.asInt(defaultValue);
+	}
+
+	SearchSchema getSchema() {
+		return schema;
 	}
 
 	@Override

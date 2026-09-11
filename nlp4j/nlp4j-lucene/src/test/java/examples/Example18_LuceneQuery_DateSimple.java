@@ -31,7 +31,7 @@ public class Example18_LuceneQuery_DateSimple {
 			// -----------------------------------------------------------
 			{
 				System.out.println("=== created_dt:[2026-08-01 TO 2026-09-01} ===");
-				SearchResult[] r1 = search.searchLucene("created_dt:[2026-08-01 TO 2026-09-01}",
+				SearchResult[] r1 = search.search("created_dt:[2026-08-01 TO 2026-09-01}",
 						10);
 				for (SearchResult r : r1) {
 					System.out.println(r.id + " : " + r.body);
@@ -40,7 +40,7 @@ public class Example18_LuceneQuery_DateSimple {
 
 			{
 				System.out.println("=== created_dt:[2026-07-01 TO 2026-09-30] ===");
-				SearchResult[] r1 = search.searchLucene("created_dt:[2026-07-01 TO 2026-09-30]",
+				SearchResult[] r1 = search.search("created_dt:[2026-07-01 TO 2026-09-30]",
 						10);
 				for (SearchResult r : r1) {
 					System.out.println(r.id + " : " + r.body);
@@ -50,7 +50,7 @@ public class Example18_LuceneQuery_DateSimple {
 			{
 				System.out.println(
 						"=== created_dt:{2026-07-01 TO 2026-09-30] (not include 2026-07-01) ===");
-				SearchResult[] r1 = search.searchLucene("created_dt:{2026-07-01 TO 2026-09-30]",
+				SearchResult[] r1 = search.search("created_dt:{2026-07-01 TO 2026-09-30]",
 						10);
 				for (SearchResult r : r1) {
 					System.out.println(r.id + " : " + r.body);
@@ -63,7 +63,7 @@ public class Example18_LuceneQuery_DateSimple {
 			System.out.println();
 			{
 				System.out.println("=== created_dt:[2026-07-01 TO *] ===");
-				SearchResult[] r2 = search.searchLucene("created_dt:[2026-07-01 TO *]", 10);
+				SearchResult[] r2 = search.search("created_dt:[2026-07-01 TO *]", 10);
 				for (SearchResult r : r2) {
 					System.out.println(r.id + " : " + r.body);
 				}
@@ -71,7 +71,7 @@ public class Example18_LuceneQuery_DateSimple {
 			System.out.println();
 			{
 				System.out.println("=== created_dt:{2026-07-01 TO *] ===");
-				SearchResult[] r2 = search.searchLucene("created_dt:{2026-07-01 TO *]", 10);
+				SearchResult[] r2 = search.search("created_dt:{2026-07-01 TO *]", 10);
 				for (SearchResult r : r2) {
 					System.out.println(r.id + " : " + r.body);
 				}
@@ -83,7 +83,7 @@ public class Example18_LuceneQuery_DateSimple {
 			System.out.println();
 			{
 				System.out.println("=== created_dt:[* TO 2026-07-31T23:59:59Z] ===");
-				SearchResult[] r3 = search.searchLucene("created_dt:[* TO 2026-07-31T23:59:59Z]", 10);
+				SearchResult[] r3 = search.search("created_dt:[* TO 2026-07-31T23:59:59Z]", 10);
 				for (SearchResult r : r3) {
 					System.out.println(r.id + " : " + r.body);
 				}

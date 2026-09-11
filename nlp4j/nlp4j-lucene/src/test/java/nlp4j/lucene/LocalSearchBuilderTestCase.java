@@ -109,7 +109,7 @@ public class LocalSearchBuilderTestCase extends TestCase {
 			search.add("3_West", new float[] { -1.0f, 0.0f });
 			search.commit();
 
-			SearchResult[] results = search.search(new float[] { 0.9f, 0.1f }, 10);
+			SearchResult[] results = search.searchVector(new float[] { 0.9f, 0.1f }, 10);
 			assertEquals(3, results.length);
 			assertEquals("1_East", results[0].id);
 		}
@@ -272,7 +272,7 @@ public class LocalSearchBuilderTestCase extends TestCase {
 					""");
 			search.commit();
 
-			SearchResult[] results = search.search("category", "city", 10);
+			SearchResult[] results = search.search("category:city", 10);
 			assertEquals(1, results.length);
 			assertEquals("1", results[0].id);
 		}
@@ -296,7 +296,7 @@ public class LocalSearchBuilderTestCase extends TestCase {
 			search.add("2_B", new float[] { 0.0f, 1.0f, 0.0f });
 			search.commit();
 
-			SearchResult[] results = search.search(new float[] { 0.9f, 0.1f, 0.0f }, 10);
+			SearchResult[] results = search.searchVector(new float[] { 0.9f, 0.1f, 0.0f }, 10);
 			assertEquals(2, results.length);
 			assertEquals("1_A", results[0].id);
 		}
@@ -407,6 +407,235 @@ public class LocalSearchBuilderTestCase extends TestCase {
 			// all must be >= agg (non-aggregatable fields like id, text_en exist only in all)
 			assertTrue("getFields() should return at least as many fields as getAggregatableFields()",
 					all.size() >= agg.size());
+		}
+	}
+
+	// -----------------------------------------------------------------------
+	// vectorDimension merge テスト（schema 再ロード）
+	// -----------------------------------------------------------------------
+
+	/**
+	 * vectorDimension なしで保存したインデックスを、後から vectorDimension(3) を指定して
+	 * ロードした場合、schema に KNN_VECTOR フィールドが追加され、ベクトル検索が動作することを確認する。
+	 *
+	 * <p>
+	 * これは「persisted schema に vector がない + Builder.vectorDimension > 0」ケースです。
+	 * mergeSchemas() が KNN_VECTOR を追加し、正常に動作すること。
+	 * </p>
+	 */
+	public void testVectorDimensionMerge_PersistNoVector_BuilderHasVector() throws Exception {
+		Path dir = java.nio.file.Files.createTempDirectory("nlp4j-test-vd-merge-");
+		try {
+			// フェーズ 1: vectorDimension なしで保存
+			try (LocalSearch search = LocalSearch.builder("en").autoAnalyze(false).build()) {
+				search.addJson("{\"id\":\"1\",\"body\":\"doc1\",\"category\":\"A\"}");
+				search.commit();
+				search.saveIndexTo(dir);
+			}
+
+			// フェーズ 2: vectorDimension(3) を指定して再ロード
+			// mergeSchemas() が schema に KNN_VECTOR を追加し、ベクトル検索が使えること
+			try (LocalSearch search = LocalSearch.builder("en")
+					.autoAnalyze(false)
+					.vectorDimension(3)
+					.loadIndexFrom(dir)
+					.build()) {
+
+				assertEquals(3, search.getVectorDimension());
+				assertTrue("hasVectorField() should return true after merge", search.hasVectorField());
+
+				// ベクトル付きドキュメントを追加して検索できること
+				search.add("v1", new float[]{1.0f, 0.0f, 0.0f});
+				search.commit();
+
+				SearchResult[] results = search.searchVector(new float[]{0.9f, 0.1f, 0.0f}, 5);
+				assertEquals(1, results.length);
+				assertEquals("v1", results[0].id);
+			}
+		} finally {
+			deleteRecursively(dir);
+		}
+	}
+
+	/**
+	 * persisted schema に vectorDimension=3 の KNN_VECTOR がある状態で、
+	 * Builder に vectorDimension(3)（同一）を指定してロードした場合、
+	 * conflict が起きず正常にロードできることを確認する。
+	 */
+	public void testVectorDimensionMerge_SameDimension_OK() throws Exception {
+		Path dir = java.nio.file.Files.createTempDirectory("nlp4j-test-vd-same-");
+		try {
+			// フェーズ 1: vectorDimension=3 で保存
+			try (LocalSearch search = LocalSearch.builder("en")
+					.autoAnalyze(false)
+					.vectorDimension(3)
+					.build()) {
+				search.add("1", new float[]{1.0f, 0.0f, 0.0f});
+				search.commit();
+				search.saveIndexTo(dir);
+			}
+
+			// フェーズ 2: 同じ vectorDimension(3) を指定して再ロード → conflict なし
+			try (LocalSearch search = LocalSearch.builder("en")
+					.autoAnalyze(false)
+					.vectorDimension(3)
+					.loadIndexFrom(dir)
+					.build()) {
+
+				assertEquals(3, search.getVectorDimension());
+
+				SearchResult[] results = search.searchVector(new float[]{0.9f, 0.1f, 0.0f}, 5);
+				assertEquals(1, results.length);
+				assertEquals("1", results[0].id);
+			}
+		} finally {
+			deleteRecursively(dir);
+		}
+	}
+
+	/**
+	 * persisted schema に vectorDimension=3 の KNN_VECTOR があるのに、
+	 * Builder で vectorDimension(2) を指定した場合、LocalSearchException が発生することを確認する。
+	 */
+	public void testVectorDimensionMerge_DifferentDimension_Conflict() throws Exception {
+		Path dir = java.nio.file.Files.createTempDirectory("nlp4j-test-vd-conflict-");
+		try {
+			// フェーズ 1: vectorDimension=3 で保存
+			try (LocalSearch search = LocalSearch.builder("en")
+					.autoAnalyze(false)
+					.vectorDimension(3)
+					.build()) {
+				search.add("1", new float[]{1.0f, 0.0f, 0.0f});
+				search.commit();
+				search.saveIndexTo(dir);
+			}
+
+			// フェーズ 2: vectorDimension(2) を指定して再ロード → conflict
+			try {
+				LocalSearch search = LocalSearch.builder("en")
+						.autoAnalyze(false)
+						.vectorDimension(2)
+						.loadIndexFrom(dir)
+						.build();
+				search.close();
+				fail("vectorDimension conflict では LocalSearchException が期待される");
+			} catch (LocalSearchException e) {
+				assertTrue("例外メッセージに 'vectorDimension conflict' が含まれること",
+						e.getMessage().contains("vectorDimension conflict"));
+			}
+		} finally {
+			deleteRecursively(dir);
+		}
+	}
+
+	// -----------------------------------------------------------------------
+	// Builder.field() 同一定義での再ロード
+	// -----------------------------------------------------------------------
+
+	/**
+	 * persisted schema に存在するフィールドと同一定義を Builder.field() で指定して再ロードした場合、
+	 * conflict が起きず正常にロードできることを確認する。
+	 *
+	 * <p>
+	 * これは FieldTypeDef.equals() が全属性を正しく比較していることも検証します。
+	 * </p>
+	 */
+	public void testBuilderField_SameDefinition_Reload_OK() throws Exception {
+		Path dir = java.nio.file.Files.createTempDirectory("nlp4j-test-field-same-");
+		try {
+			FieldTypeDef makerDef = FieldTypeDef.keyword().stored(true).aggregatable(true);
+
+			// フェーズ 1: maker フィールドを明示定義して保存
+			try (LocalSearch search = LocalSearch.builder("en")
+					.autoAnalyze(false)
+					.field("maker", makerDef)
+					.build()) {
+				search.addJson("{\"id\":\"1\",\"body\":\"doc1\",\"maker\":\"Nissan\"}");
+				search.commit();
+				search.saveIndexTo(dir);
+			}
+
+			// フェーズ 2: 同一定義で再ロード → conflict なし
+			try (LocalSearch search = LocalSearch.builder("en")
+					.autoAnalyze(false)
+					.field("maker", makerDef)
+					.loadIndexFrom(dir)
+					.build()) {
+
+				assertTrue("maker should be in fields after reload", search.getFields().contains("maker"));
+				assertEquals(1, search.count());
+			}
+		} finally {
+			deleteRecursively(dir);
+		}
+	}
+
+	// -----------------------------------------------------------------------
+	// 不正 formatVersion → LocalSearchException
+	// -----------------------------------------------------------------------
+
+	/**
+	 * 不正な formatVersion を持つ schema ファイルをロードしようとした場合、
+	 * LocalSearchException がスローされることを確認する。
+	 *
+	 * <p>
+	 * SearchSchemaStore.load() が投げる IllegalArgumentException が
+	 * LocalSearchException にラップされること。
+	 * </p>
+	 */
+	public void testInvalidFormatVersion_ThrowsLocalSearchException() throws Exception {
+		Path dir = java.nio.file.Files.createTempDirectory("nlp4j-test-badver-");
+		try {
+			// 壊れた schema ファイルを手動で書き込む（formatVersion=999）
+			Path schemaFile = dir.resolve(nlp4j.lucene9.SearchSchemaStore.FILE_NAME);
+			java.nio.file.Files.writeString(schemaFile,
+					"{\"formatVersion\":999,\"fields\":[]}",
+					java.nio.charset.StandardCharsets.UTF_8);
+
+			// Lucene インデックスファイルを作る（schema がないとフォールバックする）
+			// ダミーの segments_N ファイルを作らなくても schema ファイルがあれば load される
+			try {
+				LocalSearch search = LocalSearch.builder("en")
+						.loadIndexFrom(dir)
+						.build();
+				search.close();
+				fail("不正な formatVersion では LocalSearchException が期待される");
+			} catch (LocalSearchException e) {
+				assertTrue("例外メッセージに 'Failed to load schema' または 'formatVersion' が含まれること",
+						e.getMessage().contains("Failed to load schema")
+						|| e.getMessage().contains("formatVersion"));
+			}
+		} finally {
+			deleteRecursively(dir);
+		}
+	}
+
+	// -----------------------------------------------------------------------
+	// saveIndexTo() 後の二重 close
+	// -----------------------------------------------------------------------
+
+	/**
+	 * saveIndexTo() 後に try-with-resources で LocalSearch.close() が呼ばれた場合、
+	 * 二重 close でも例外が発生しないことを確認する。
+	 *
+	 * <p>
+	 * LuceneIndex.close() が idempotent であることを検証します。
+	 * </p>
+	 */
+	public void testSaveIndexTo_DoubleClose_NoException() throws Exception {
+		Path dir = java.nio.file.Files.createTempDirectory("nlp4j-test-dblclose-");
+		try {
+			// try-with-resources の close() で二重 close が起きるケース
+			try (LocalSearch search = LocalSearch.builder("en").autoAnalyze(false).build()) {
+				search.add("1", "hello world");
+				search.commit();
+				search.saveIndexTo(dir);
+				// saveIndexTo() で内部の LuceneIndex が close される
+				// try-with-resources の終わりでも close() が呼ばれる → 二重 close
+			}
+			// 例外が発生しなければ OK
+		} finally {
+			deleteRecursively(dir);
 		}
 	}
 

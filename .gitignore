@@ -1,78 +1,64 @@
-# Compiled class file
+# ============================================================
+# Java / Maven build artifacts
+# ============================================================
+
+target/
 *.class
 
-# Log file
-*.log
 
-# BlueJ files
-*.ctxt
+# ============================================================
+# Packaged artifacts
+# ============================================================
 
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
-
-# Package Files #
-# 2025-03-10 *.jar
-*-javadoc.jar
-# 2025-03-10 *.war
-*.nar
+*.jar
+*.war
 *.ear
-*.zip
-*.tar.gz
-*.rar
+*.nar
 
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+# Keep distributable JAR files
+!dist/*.jar
+
+
+# ============================================================
+# Logs / JVM crash files
+# ============================================================
+
+*.log
 hs_err_pid*
+replay_pid*
 
+
+# ============================================================
 # Eclipse
-**/.project
-**/.classpath
-**/.settings
-**/.settings/
+# ============================================================
 
-# OS
-Thumbs.db
+.classpath
+.project
+.factorypath
+.settings/
+
+
+# ============================================================
+# IntelliJ IDEA
+# ============================================================
+
+.idea/
+*.iml
+
+
+# ============================================================
+# OS generated files
+# ============================================================
+
 .DS_Store
-
-nlp4j/nlp4j-solr/.classpath
-nlp4j/nlp4j-word2vec/.classpath
-nlp4j/nlp4j-word2vec/.project
-nlp4j/nlp4j-word2vec/.classpath
-nlp4j/nlp4j-word2vec/.project
-nlp4j/nlp4j-mecab/.classpath
-nlp4j/nlp4j-mecab/.classpath
-nlp4j/nlp4j-core/.classpath
-nlp4j/nlp4j-core/.settings/org.eclipse.wst.common.component
-nlp4j/nlp4j-core/.classpath
-nlp4j/nlp4j-core/.classpath
-nlp4j/nlp4j-core/.classpath
-nlp4j/nlp4j-core/.classpath
-nlp4j/nlp4j-azure/.factorypath
-nlp4j/nlp4j-chatgpt/.factorypath
-nlp4j/nlp4j-core/.classpath
-nlp4j/nlp4j-deeplearning/.factorypath
-nlp4j/nlp4j-ginza/.factorypath
-nlp4j/nlp4j-ibm-wex/.factorypath
-nlp4j/nlp4j-kuromoji/.factorypath
-nlp4j/nlp4j-llm/.factorypath
-nlp4j/nlp4j-mecab/.classpath
-nlp4j/nlp4j-mecab/.factorypath
-nlp4j/nlp4j-okt/.factorypath
-nlp4j/nlp4j-openai/.factorypath
-nlp4j/nlp4j-opensearch/.factorypath
-nlp4j/nlp4j-solr/.factorypath
-nlp4j/nlp4j-solr9/.factorypath
-nlp4j/nlp4j-sudachi/.factorypath
-nlp4j/nlp4j-web-app/.factorypath
-nlp4j/nlp4j-web-core/.factorypath
-nlp4j/nlp4j-web-rag/.factorypath
-nlp4j/nlp4j-web-vectorsearch/.factorypath
-nlp4j/nlp4j-webcrawler/.factorypath
-nlp4j/nlp4j-yahoojp/.factorypath
-nlp4j/nlp4j-core/.classpath
-nlp4j/nlp4j-wiki/.factorypath
-nlp4j/nlp4j-lucene/.factorypath
+Thumbs.db
 
 
-/nlp4j/nlp4j-opennlp/target
-/nlp4j/nlp4j-opennlp/target
-/nlp4j/nlp4j-opennlp/target
+# ============================================================
+# Project-local files
+# ============================================================
+
+/local/
+/private/
+
+

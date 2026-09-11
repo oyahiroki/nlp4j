@@ -94,19 +94,19 @@ public class Example07_FilterMultiValuedField {
 
             // --- 1. MultiValued フィールド単体でフィルター検索 ---
             System.out.println("=== 1. フィールド検索: tags=\"Japan\" ===");
-            SearchResult[] r1 = search.search("tags", "Japan", 10);
+            SearchResult[] r1 = search.search("tags:Japan", 10);
             printResults(r1);
 
             System.out.println("=== 2. フィールド検索: tags=\"city\" ===");
-            SearchResult[] r2 = search.search("tags", "city", 10);
+            SearchResult[] r2 = search.search("tags:city", 10);
             printResults(r2);
 
             System.out.println("=== 3. フィールド検索: tags=\"tourism\" ===");
-            SearchResult[] r3 = search.search("tags", "tourism", 10);
+            SearchResult[] r3 = search.search("tags:tourism", 10);
             printResults(r3);
 
             System.out.println("=== 4. フィールド検索: tags=\"capital\" ===");
-            SearchResult[] r4 = search.search("tags", "capital", 10);
+            SearchResult[] r4 = search.search("tags:capital", 10);
             printResults(r4);
 
             // --- 2. 全文検索 ＋ MultiValued フィールドフィルター ---
@@ -162,7 +162,7 @@ public class Example07_FilterMultiValuedField {
 
             // --- 4. 該当なしのケース ---
             System.out.println("=== 10. フィールド検索: tags=\"sports\" (該当なし) ===");
-            SearchResult[] r10 = search.search("tags", "sports", 10);
+            SearchResult[] r10 = search.search("tags:sports", 10);
             printResults(r10);
         }
     }

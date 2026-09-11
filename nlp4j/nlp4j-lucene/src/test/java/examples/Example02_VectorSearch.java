@@ -53,15 +53,15 @@ public class Example02_VectorSearch {
 
             // --- ベクトル検索 ---
             System.out.println("=== ベクトル検索: queryVector=[0.9, 0.1] (East 寄り) ===");
-            SearchResult[] r1 = search.search(new float[]{ 0.9f, 0.1f }, 4);
+            SearchResult[] r1 = search.searchVector(new float[]{ 0.9f, 0.1f }, 4);
             printResults(r1);
 
             System.out.println("=== ベクトル検索: queryVector=[0.1, 0.9] (North 寄り) ===");
-            SearchResult[] r2 = search.search(new float[]{ 0.1f, 0.9f }, 4);
+            SearchResult[] r2 = search.searchVector(new float[]{ 0.1f, 0.9f }, 4);
             printResults(r2);
 
             System.out.println("=== ベクトル検索: limit=2 (上位2件のみ) ===");
-            SearchResult[] r3 = search.search(new float[]{ 0.9f, 0.1f }, 2);
+            SearchResult[] r3 = search.searchVector(new float[]{ 0.9f, 0.1f }, 2);
             printResults(r3);
         }
     }

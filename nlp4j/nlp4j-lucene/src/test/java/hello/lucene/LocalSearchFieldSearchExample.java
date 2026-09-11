@@ -13,10 +13,10 @@ import nlp4j.lucene.SearchResult;
  *
  * <pre>
  * 示すパターン:
- *   1. 全文検索のみ（body フィールド）
- *   2. フィールド指定の完全一致検索（category フィールド）
- *   3. 全文検索 + フィールド絞り込みの組み合わせ（search with filters）
- *   4. 複数フィールドによる絞り込み
+ *   1. 全文検索のみ（Lucene Query）
+ *   2. Lucene Query フィールド指定検索（category:city）
+ *   3. Lucene Query + フィールド絞り込みの組み合わせ（search with filters）
+ *   4. Lucene Query 複数フィールド絞り込み（AND演算子）
  * </pre>
  */
 public class LocalSearchFieldSearchExample {
@@ -72,20 +72,20 @@ public class LocalSearchFieldSearchExample {
 			System.out.println("=== 1. 全文検索: \"Kyoto\" ===");
 			SearchResult[] r1 = search.search("Kyoto", 10);
 			printResults(r1);
-
-			// --- 2. フィールド指定の完全一致検索 ---
-			System.out.println("=== 2. フィールド検索: category=\"city\" ===");
-			SearchResult[] r2 = search.search("category", "city", 10);
+	
+			// --- 2. Lucene Query フィールド指定検索 ---
+			System.out.println("=== 2. Lucene Query: category:city ===");
+			SearchResult[] r2 = search.search("category:city", 10);
 			printResults(r2);
-
-			// --- 3. 全文検索 + フィールド絞り込み ---
-			System.out.println("=== 3. 全文検索 + フィールド絞り込み: \"Kyoto\" + category=\"company\" ===");
+	
+			// --- 3. Lucene Query + フィールド絞り込み ---
+			System.out.println("=== 3. Lucene Query + フィールド絞り込み: \"Kyoto\" + category=company ===");
 			SearchResult[] r3 = search.search("Kyoto", 10, Map.of("category", "company"));
 			printResults(r3);
-
+	
 			// --- 4. 複数フィールド絞り込み ---
-			System.out.println("=== 4. 複数フィールド絞り込み: category=\"city\" + country=\"Japan\" ===");
-			SearchResult[] r4 = search.search("", 10, Map.of("category", "city", "country", "Japan"));
+			System.out.println("=== 4. 複数フィールド絞り込み: category:city AND country:Japan ===");
+			SearchResult[] r4 = search.search("category:city AND country:Japan", 10);
 			printResults(r4);
 		}
 	}

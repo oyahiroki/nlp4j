@@ -64,6 +64,13 @@ public class MediaWikiTextUtils {
 
 	static final Pattern p = Pattern.compile("\\[\\[(.*?)\\]\\]");
 
+	private static final String OPEN = "{|";
+
+	private static final String CLOSE = "|}";
+
+	// DOTALLでもOK: Pattern.compile("\\{\\|.*?\\|\\}", Pattern.DOTALL)
+	private static final Pattern TABLE = Pattern.compile("\\{\\|[\\s\\S]*?\\|\\}");
+
 	private static void extractedInfobox(String wikiText, StringBuilder sb, List<String> infoBoxes) {
 		StringBuilder sbInfobox = new StringBuilder();
 
@@ -126,21 +133,95 @@ public class MediaWikiTextUtils {
 	 * @return Root Node Wiki text
 	 */
 	static public String getRootNodeText(String wikiText) {
+		return parseRootNodeText(wikiText);
+	}
+
+	/**
+	 * Wikipedia記事の第一文をPlainTextで取得する
+	 * 
+	 * @param wikiText
+	 * @param title
+	 * @param lang
+	 * @return
+	 */
+	static public String getRootNodeTextFirstSentence(String wikiText, String title, String lang) {
+		return parseRootNodeTextFirstSentence(wikiText, title, lang);
+	}
+
+	/**
+	 * @param wikiText in Wikipedia Markdown format
+	 * @return
+	 */
+	static public List<String> getWikiPageLinks(String wikiText) {
+		return parseWikiPageLinks(wikiText);
+	}
+
+	/**
+	 * wiki形式のテキストからカテゴリーのタグを取得する
+	 * 
+	 * @param wikiText
+	 * @return
+	 */
+	public static List<String> parseCategoryTags(String wikiText) {
+		List<String> tags = new ArrayList<>();
+
+		if (wikiText != null) {
+			for (String line : wikiText.split(NEWLINE)) {
+				line = line.trim();
+
+				if (line.startsWith(CATEGORY)) {
+					if (line.contains(S_PIPE)) {
+						int beginIndex = 11;
+						int endIndex = line.indexOf(CH_PIPE);
+						if (beginIndex < endIndex) {
+							String v = line.substring(beginIndex, endIndex);
+							{
+								int idx = v.indexOf(STR);
+								if (idx != -1) {
+									v = v.substring(0, idx);
+								}
+							}
+							tags.add(v);
+						}
+					} else {
+						int beginIndex = 11;
+						int endIndex = line.length() - 2;
+						if (beginIndex < endIndex) {
+							String v = line.substring(beginIndex, endIndex);
+							{
+								int idx = v.indexOf(STR);
+								if (idx != -1) {
+									v = v.substring(0, idx);
+								}
+							}
+							tags.add(v);
+						} //
+						else {
+							if (logger.isInfoEnabled()) {
+								logger.info("Invalid_String: " + line);
+							}
+						}
+					}
+				}
+			}
+		}
+
+		return tags;
+	}
+
+	/**
+	 * @param wikiText
+	 * @return Root Node Wiki text
+	 */
+	static public String parseRootNodeText(String wikiText) {
 		if (wikiText == null) {
 			return null;
 		}
+
 		WikiItemTextParserInterface parser = new WikiItemTextParser();
 		parser.parse(wikiText);
 
 		WikiPageNode rootNode = parser.getRoot();
-//		System.err.println("<out>");
-
-//		{
-//			String s = rootNode.getText().length() > 16 ? rootNode.getText().substring(0, 16)
-//					: rootNode.getText();
-//			s = s.replace("\n", "").trim();
-//			System.err.println(page.getTitle() + "\t" + s);
-//		}
 
 		String t = rootNode.getText();
 
@@ -155,7 +236,7 @@ public class MediaWikiTextUtils {
 	 * @param lang
 	 * @return
 	 */
-	static public String getRootNodeTextFirstSentence(String wikiText, String title, String lang) {
+	static public String parseRootNodeTextFirstSentence(String wikiText, String title, String lang) {
 		String rootNodeText = MediaWikiTextUtils.getRootNodeText(wikiText);
 
 		if (logger.isDebugEnabled()) {
@@ -253,93 +334,34 @@ public class MediaWikiTextUtils {
 		return text;
 	}
 
-	/**
-	 * 「[[ファイル ... 」「[[File ... 」を削除する
-	 * 
-	 * @param rootNodeText
-	 * @return
-	 */
-	private static String removeFilelinkAll(String rootNodeText) {
-		String result = rootNodeText.lines() //
-				.filter(line -> !line.startsWith("[[ファイル")) //
-				.filter(line -> !line.startsWith("[[File")) //
-				.collect(java.util.stream.Collectors.joining("\n")); //
-		return result;
-	}
-
-	/**
-	 * @param wikiText in Wikipedia Markdown format
-	 * @return
-	 */
-	static public List<String> getWikiPageLinks(String wikiText) {
-		List<String> ss = new ArrayList<>();
-
-		if (wikiText != null) {
-			Matcher m = p.matcher(wikiText);
-			while (m.find()) {
-				String g = m.group();
-				if (g.length() > 4) {
-					String s = g.substring(2, g.length() - 2);
-					ss.add(s);
-				}
-			}
-		}
-
-		return ss;
-	}
-
-	/**
-	 * wiki形式のテキストからカテゴリーのタグを取得する
-	 * 
-	 * @param wikiText
-	 * @return
-	 */
-	public static List<String> parseCategoryTags(String wikiText) {
-		List<String> tags = new ArrayList<>();
-
-		if (wikiText != null) {
-			for (String line : wikiText.split(NEWLINE)) {
-				line = line.trim();
-
-				if (line.startsWith(CATEGORY)) {
-					if (line.contains(S_PIPE)) {
-						int beginIndex = 11;
-						int endIndex = line.indexOf(CH_PIPE);
-						if (beginIndex < endIndex) {
-							String v = line.substring(beginIndex, endIndex);
-							{
-								int idx = v.indexOf(STR);
-								if (idx != -1) {
-									v = v.substring(0, idx);
-								}
-							}
-							tags.add(v);
-						}
-					} else {
-						int beginIndex = 11;
-						int endIndex = line.length() - 2;
-						if (beginIndex < endIndex) {
-							String v = line.substring(beginIndex, endIndex);
-							{
-								int idx = v.indexOf(STR);
-								if (idx != -1) {
-									v = v.substring(0, idx);
-								}
-							}
-							tags.add(v);
-						} //
-						else {
-							if (logger.isInfoEnabled()) {
-								logger.info("Invalid_String: " + line);
-							}
-						}
-					}
-				}
-			}
-		}
-
-		return tags;
-	}
+//	private static String parseTextFromLink(String link) {
+//		// https://ja.wikipedia.org/wiki/Help:%E3%83%AA%E3%83%B3%E3%82%AF
+//
+//		// パイプ付き
+//		if (link.split("\\|").length == 2) {
+//			return link.split("\\|")[1];
+//		}
+//		// 特別:転送
+//		else if (link.startsWith("特別:転送")) {
+//			return "";
+//		}
+//		//
+//		else if (link.startsWith(":")) {
+//			return "";
+//		}
+//		//
+//		else if (link.startsWith("ファイル")) {
+//			return "";
+//		} else if (link.contains("#")) {
+//			int idx = link.indexOf("#");
+//			return link.substring(0, idx);
+//		}
+//		//
+//		else {
+//			return link;
+//		}
+//
+//	}
 
 	private static String parseTag(String line) {
 		if (line == null) {
@@ -374,35 +396,6 @@ public class MediaWikiTextUtils {
 
 		return tag;
 	}
-
-//	private static String parseTextFromLink(String link) {
-//		// https://ja.wikipedia.org/wiki/Help:%E3%83%AA%E3%83%B3%E3%82%AF
-//
-//		// パイプ付き
-//		if (link.split("\\|").length == 2) {
-//			return link.split("\\|")[1];
-//		}
-//		// 特別:転送
-//		else if (link.startsWith("特別:転送")) {
-//			return "";
-//		}
-//		//
-//		else if (link.startsWith(":")) {
-//			return "";
-//		}
-//		//
-//		else if (link.startsWith("ファイル")) {
-//			return "";
-//		} else if (link.contains("#")) {
-//			int idx = link.indexOf("#");
-//			return link.substring(0, idx);
-//		}
-//		//
-//		else {
-//			return link;
-//		}
-//
-//	}
 
 	/**
 	 * @param wikiText wiki形式のテキスト wiki format text
@@ -440,6 +433,24 @@ public class MediaWikiTextUtils {
 		return tags;
 	}
 
+	static public List<String> parseWikiPageLinks(String wikiText) {
+		List<String> ss = new ArrayList<>();
+
+		if (wikiText != null) {
+			Matcher m = p.matcher(wikiText);
+			while (m.find()) {
+				String g = m.group();
+				if (g.length() > 4) {
+					String s = g.substring(2, g.length() - 2);
+					ss.add(s);
+				}
+			}
+		}
+
+		return ss;
+
+	}
+
 	static public String processRedirect(String t) {
 
 		if (t == null) {
@@ -456,6 +467,20 @@ public class MediaWikiTextUtils {
 		}
 
 		return t;
+	}
+
+	/**
+	 * 「[[ファイル ... 」「[[File ... 」を削除する
+	 * 
+	 * @param rootNodeText
+	 * @return
+	 */
+	private static String removeFilelinkAll(String rootNodeText) {
+		String result = rootNodeText.lines() //
+				.filter(line -> !line.startsWith("[[ファイル")) //
+				.filter(line -> !line.startsWith("[[File")) //
+				.collect(java.util.stream.Collectors.joining("\n")); //
+		return result;
 	}
 
 	public static String removeFirstTemplate(String wikitext) {
@@ -538,11 +563,6 @@ public class MediaWikiTextUtils {
 		}
 		return sb.toString();
 	}
-
-	private static final String OPEN = "{|";
-	private static final String CLOSE = "|}";
-	// DOTALLでもOK: Pattern.compile("\\{\\|.*?\\|\\}", Pattern.DOTALL)
-	private static final Pattern TABLE = Pattern.compile("\\{\\|[\\s\\S]*?\\|\\}");
 
 	/**
 	 * @param wikitext

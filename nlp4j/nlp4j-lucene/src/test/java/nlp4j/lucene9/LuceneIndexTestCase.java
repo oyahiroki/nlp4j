@@ -208,4 +208,36 @@ public class LuceneIndexTestCase extends TestCase {
 		}
 
 	}
+
+	public void testWriteToAndClosePreflightCheckFailsOnNonEmptyDir() throws Exception {
+		Path tempDir = Files.createTempDirectory("temp_nonempty_");
+		try {
+			// ディレクトリ内にダミーファイルを作成
+			Files.writeString(tempDir.resolve("dummy.txt"), "dummy content");
+
+			LuceneIndex index = new LuceneIndex();
+			org.apache.lucene.document.Document doc = new org.apache.lucene.document.Document();
+			doc.add(new org.apache.lucene.document.TextField("text", "hello world", org.apache.lucene.document.Field.Store.YES));
+			index.add(doc);
+			index.commit();
+
+			try {
+				index.writeToAndClose(tempDir);
+				fail("Expected IOException because output dir is not empty");
+			} catch (IOException e) {
+				assertTrue(e.getMessage().contains("Output directory is not empty"));
+			}
+
+			// 事前チェックで失敗した場合、index はまだ closed にならず利用可能（あるいは明示的に close 可能）
+			// 検索やクローズが正常に行えることを確認
+			java.util.List<org.apache.lucene.document.Document> docs = index.search("text:hello", 10);
+			assertEquals(1, docs.size());
+			index.close();
+		} finally {
+			Files.walk(tempDir)
+					.sorted(java.util.Comparator.reverseOrder())
+					.map(Path::toFile)
+					.forEach(java.io.File::delete);
+		}
+	}
 }

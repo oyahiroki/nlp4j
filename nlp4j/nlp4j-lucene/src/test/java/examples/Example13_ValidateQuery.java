@@ -13,7 +13,7 @@ public class Example13_ValidateQuery {
 
 			{
 				String q = "京都 AND (寺院 OR 神社)";
-				LuceneQueryValidationResult result = search.validateLuceneQuery(q);
+				LuceneQueryValidationResult result = search.validateQuery(q);
 				if (result.isValid()) {
 					System.out.println("Valid query");
 				} else {
@@ -22,7 +22,7 @@ public class Example13_ValidateQuery {
 			}
 			{
 				String q = "京都 AND (寺院 OR 神社";
-				LuceneQueryValidationResult result = search.validateLuceneQuery(q);
+				LuceneQueryValidationResult result = search.validateQuery(q);
 				if (result.isValid()) {
 					System.out.println("Valid query");
 				} else {

@@ -75,7 +75,7 @@ public class SchemaAwareQueryParserTestCase extends TestCase {
 					""");
 			search.commit();
 
-			SearchResult[] results = search.searchLucene("year_i:2025", 10);
+			SearchResult[] results = search.search("year_i:2025", 10);
 			System.out.println("testSearchLucene_integerExact: hits=" + results.length);
 			assertEquals(1, results.length);
 			assertEquals("2", results[0].id);
@@ -104,7 +104,7 @@ public class SchemaAwareQueryParserTestCase extends TestCase {
 			search.commit();
 
 			// year_i:[2025 TO 2026] → 2件
-			SearchResult[] results = search.searchLucene("year_i:[2025 TO 2026]", 10);
+			SearchResult[] results = search.search("year_i:[2025 TO 2026]", 10);
 			System.out.println("testSearchLucene_integerRange: hits=" + results.length);
 			assertEquals(2, results.length);
 		}
@@ -132,7 +132,7 @@ public class SchemaAwareQueryParserTestCase extends TestCase {
 			search.commit();
 
 			// price_d:[100 TO 200] → 1件 (150)
-			SearchResult[] results = search.searchLucene("price_d:[100 TO 200]", 10);
+			SearchResult[] results = search.search("price_d:[100 TO 200]", 10);
 			System.out.println("testSearchLucene_doubleRange: hits=" + results.length);
 			assertEquals(1, results.length);
 			assertEquals("2", results[0].id);
@@ -161,7 +161,7 @@ public class SchemaAwareQueryParserTestCase extends TestCase {
 			search.commit();
 
 			// August 2026 only → id=2
-			SearchResult[] results = search.searchLucene(
+			SearchResult[] results = search.search(
 					"created_dt:[2026-08-01T00:00:00Z TO 2026-09-01T00:00:00Z]", 10);
 			System.out.println("testSearchLucene_dateRange: hits=" + results.length);
 			assertEquals(1, results.length);
@@ -191,7 +191,7 @@ public class SchemaAwareQueryParserTestCase extends TestCase {
 			search.commit();
 
 			// On or after 2026-07-01 → 3件すべて
-			SearchResult[] results = search.searchLucene(
+			SearchResult[] results = search.search(
 					"created_dt:[2026-07-01T00:00:00Z TO *]", 10);
 			System.out.println("testSearchLucene_dateRange_openUpper: hits=" + results.length);
 			assertEquals(3, results.length);
@@ -216,7 +216,7 @@ public class SchemaAwareQueryParserTestCase extends TestCase {
 			search.commit();
 
 			// Up to 2026-07-31 → id=1 のみ
-			SearchResult[] results = search.searchLucene(
+			SearchResult[] results = search.search(
 					"created_dt:[* TO 2026-07-31T23:59:59Z]", 10);
 			System.out.println("testSearchLucene_dateRange_openLower: hits=" + results.length);
 			assertEquals(1, results.length);
@@ -240,7 +240,7 @@ public class SchemaAwareQueryParserTestCase extends TestCase {
 			search.commit();
 
 			// suffix *_i → INTEGER (dynamic resolution)
-			SearchResult[] results = search.searchLucene("year_i:2025", 10);
+			SearchResult[] results = search.search("year_i:2025", 10);
 			System.out.println("testSearchLucene_dynamicIntegerSuffix: hits=" + results.length);
 			assertEquals(1, results.length);
 			assertEquals("1", results[0].id);
@@ -258,7 +258,7 @@ public class SchemaAwareQueryParserTestCase extends TestCase {
 				.build()) {
 
 			nlp4j.lucene.LuceneQueryValidationResult result =
-					search.validateLuceneQuery("year_i:[2025 TO 2026]");
+					search.validateQuery("year_i:[2025 TO 2026]");
 			System.out.println("testValidateLuceneQuery_numericRange_valid: " + result.isValid());
 			assertTrue(result.isValid());
 		}
@@ -271,7 +271,7 @@ public class SchemaAwareQueryParserTestCase extends TestCase {
 				.build()) {
 
 			nlp4j.lucene.LuceneQueryValidationResult result =
-					search.validateLuceneQuery("created_dt:[2026-08-01T00:00:00Z TO 2026-09-01T00:00:00Z]");
+					search.validateQuery("created_dt:[2026-08-01T00:00:00Z TO 2026-09-01T00:00:00Z]");
 			System.out.println("testValidateLuceneQuery_dateRange_valid: " + result.isValid());
 			assertTrue(result.isValid());
 		}
@@ -284,7 +284,7 @@ public class SchemaAwareQueryParserTestCase extends TestCase {
 				.build()) {
 
 			nlp4j.lucene.LuceneQueryValidationResult result =
-					search.validateLuceneQuery("created_dt:[2026-08-01 TO 2026-09-01]");
+					search.validateQuery("created_dt:[2026-08-01 TO 2026-09-01]");
 			System.out.println("testValidateLuceneQuery_invalidDate_invalid: " + result.isValid()
 					+ " msg=" + result.getMessage());
 		}

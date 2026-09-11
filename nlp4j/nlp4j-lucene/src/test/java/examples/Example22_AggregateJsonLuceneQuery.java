@@ -35,7 +35,7 @@ public class Example22_AggregateJsonLuceneQuery {
 			String json = search.aggregateJson("""
 					{
 					  "field": "category",
-					  "lucene_query": "text_en:Kyoto AND text_en:historic",
+					  "query": "text_en:Kyoto AND text_en:historic",
 					  "size": 10
 					}
 					""");

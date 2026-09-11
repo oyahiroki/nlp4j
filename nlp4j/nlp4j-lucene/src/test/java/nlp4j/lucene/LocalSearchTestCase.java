@@ -92,7 +92,7 @@ public class LocalSearchTestCase extends TestCase {
 			search.add("3_West", new float[] { -1.0f, 0.0f });
 			search.add("4_South", new float[] { -1.0f, -1.0f });
 			search.commit();
-			SearchResult[] results = search.search(new float[] { 0.9f, 0.1f }, 10);
+			SearchResult[] results = search.searchVector(new float[] { 0.9f, 0.1f }, 10);
 			System.out.println("size: " + results.length);
 			for (int n = 0; n < results.length; n++) {
 				System.out.println("result[" + n + "].id: " + results[n].id);
@@ -107,8 +107,8 @@ public class LocalSearchTestCase extends TestCase {
 	}
 
 	/**
-	 * add(id, vector, fields) でフィールド付きベクトル文書を登録し、 search(vector, limit, filters)
-	 * で単一フィールドフィルターが動作することを確認する。 category=technology を持つ文書のみがヒットすること。
+	 * add(id, vector, fields) でフィールド付きベクトル文書を登録し、 searchVector(vector, limit,
+	 * filters) で単一フィールドフィルターが動作することを確認する。 category=technology を持つ文書のみがヒットすること。
 	 */
 	public void testVectorSearchWithFilter001() throws Exception {
 
@@ -121,7 +121,7 @@ public class LocalSearchTestCase extends TestCase {
 
 			// クエリベクトル (0.9, 0.1) は 1_tech_east に最近傍
 			// category=technology でフィルターすると 1_tech_east, 2_tech_north の 2 件
-			SearchResult[] results = search.search(new float[] { 0.9f, 0.1f }, 10,
+			SearchResult[] results = search.searchVector(new float[] { 0.9f, 0.1f }, 10,
 					java.util.Map.of("category", "technology"));
 
 			System.out.println("testVectorSearchWithFilter001 size: " + results.length);
@@ -149,7 +149,7 @@ public class LocalSearchTestCase extends TestCase {
 			search.commit();
 
 			// category=technology + country=Japan → id=1, id=4 の 2 件
-			SearchResult[] results = search.search(new float[] { 0.9f, 0.1f }, 10,
+			SearchResult[] results = search.searchVector(new float[] { 0.9f, 0.1f }, 10,
 					java.util.Map.of("category", "technology", "country", "Japan"));
 
 			System.out.println("testVectorSearchWithFilter002 size: " + results.length);
@@ -172,7 +172,7 @@ public class LocalSearchTestCase extends TestCase {
 			search.commit();
 
 			// category=travel は存在しない → 0 件
-			SearchResult[] results = search.search(new float[] { 0.9f, 0.1f }, 10,
+			SearchResult[] results = search.searchVector(new float[] { 0.9f, 0.1f }, 10,
 					java.util.Map.of("category", "travel"));
 
 			System.out.println("testVectorSearchWithFilter003 size: " + results.length);
@@ -181,7 +181,7 @@ public class LocalSearchTestCase extends TestCase {
 	}
 
 	/**
-	 * addJson() で登録した追加フィールド（category）をフィールド検索できることを確認する。 category=技術
+	 * addJson() で登録した追加フィールド（category）をLucene Queryで検索できることを確認する。 category=技術
 	 * を持つドキュメントのみが返ること。
 	 */
 	public void testFieldSearch001() throws Exception {
@@ -201,8 +201,8 @@ public class LocalSearchTestCase extends TestCase {
 					""");
 			search.commit();
 
-			// category フィールドで "技術" を検索
-			SearchResult[] results = search.search("category", "技術", 10);
+			// Lucene Query で category=技術 を検索
+			SearchResult[] results = search.search("category:技術", 10);
 			System.out.println("testFieldSearch001 size: " + results.length);
 			for (int n = 0; n < results.length; n++) {
 				System.out.println("result[" + n + "].id: " + results[n].id);
@@ -216,7 +216,7 @@ public class LocalSearchTestCase extends TestCase {
 	}
 
 	/**
-	 * 複数の追加フィールド（category, country）をそれぞれフィールド検索できることを確認する。
+	 * 複数の追加フィールド（category, country）をそれぞれLucene Queryで検索できることを確認する。
 	 */
 	public void testFieldSearch002() throws Exception {
 
@@ -236,7 +236,7 @@ public class LocalSearchTestCase extends TestCase {
 			search.commit();
 
 			// country=Japan で検索 → id=1, id=3 の 2 件
-			SearchResult[] byJapan = search.search("country", "Japan", 10);
+			SearchResult[] byJapan = search.search("country:Japan", 10);
 			System.out.println("testFieldSearch002 country=Japan size: " + byJapan.length);
 			for (int n = 0; n < byJapan.length; n++) {
 				System.out.println("result[" + n + "].id: " + byJapan[n].id);
@@ -245,7 +245,7 @@ public class LocalSearchTestCase extends TestCase {
 			assertEquals(2, byJapan.length);
 
 			// category=技術 で検索 → id=3, id=4 の 2 件
-			SearchResult[] byTech = search.search("category", "技術", 10);
+			SearchResult[] byTech = search.search("category:技術", 10);
 			System.out.println("testFieldSearch002 category=技術 size: " + byTech.length);
 			for (int n = 0; n < byTech.length; n++) {
 				System.out.println("result[" + n + "].id: " + byTech[n].id);
@@ -256,7 +256,7 @@ public class LocalSearchTestCase extends TestCase {
 	}
 
 	/**
-	 * フィールド検索でヒットしない値を指定した場合、空の結果が返ることを確認する。
+	 * Lucene Query でヒットしない値を指定した場合、空の結果が返ることを確認する。
 	 */
 	public void testFieldSearch003() throws Exception {
 
@@ -270,15 +270,14 @@ public class LocalSearchTestCase extends TestCase {
 			search.commit();
 
 			// 存在しない category 値で検索 → 0 件
-			SearchResult[] results = search.search("category", "スポーツ", 10);
+			SearchResult[] results = search.search("category:スポーツ", 10);
 			System.out.println("testFieldSearch003 size: " + results.length);
 			assertEquals(0, results.length);
 		}
 	}
 
 	/**
-	 * addJson() で body フィールド検索と category フィールド検索を組み合わせて動作確認する。 body
-	 * の全文検索と追加フィールド検索が共存できることを確認する。
+	 * addJson() で body 全文検索と category Lucene Query を組み合わせて動作確認する。
 	 */
 	public void testFieldSearch004() throws Exception {
 
@@ -299,8 +298,8 @@ public class LocalSearchTestCase extends TestCase {
 			System.out.println("testFieldSearch004 body=東京 size: " + byBody.length);
 			assertEquals(2, byBody.length);
 
-			// category フィールドで "観光" を検索 → id=1, id=3 の 2 件
-			SearchResult[] byCategory = search.search("category", "観光", 10);
+			// category=観光 を Lucene Query で検索 → id=1, id=3 の 2 件
+			SearchResult[] byCategory = search.search("category:観光", 10);
 			System.out.println("testFieldSearch004 category=観光 size: " + byCategory.length);
 			assertEquals(2, byCategory.length);
 		}
@@ -390,128 +389,6 @@ public class LocalSearchTestCase extends TestCase {
 	}
 
 	/**
-	 * searchByQuery() で全文検索のみ（filters なし）が動作することを確認する。
-	 */
-	public void testSearchByQuery001() throws Exception {
-
-		try (LocalSearch search = new LocalSearch("ja")) {
-			search.addJson("""
-					{"id":"1","body":"東京の観光スポット","category":"観光"}
-					""");
-			search.addJson("""
-					{"id":"2","body":"東京のIT企業","category":"技術"}
-					""");
-			search.addJson("""
-					{"id":"3","body":"大阪の観光地","category":"観光"}
-					""");
-			search.commit();
-
-			// query=東京 のみ → id=1, id=2 の 2 件
-			SearchResult[] results = search.searchByQuery("""
-					{"query":"東京","limit":10}
-					""");
-			System.out.println("testSearchByQuery001 size: " + results.length);
-			for (int n = 0; n < results.length; n++) {
-				System.out.println("result[" + n + "].id: " + results[n].id);
-				System.out.println("result[" + n + "].body: " + results[n].body);
-			}
-			assertEquals(2, results.length);
-		}
-	}
-
-	/**
-	 * searchByQuery() で全文検索 + filters（keyword 絞り込み）が動作することを確認する。
-	 */
-	public void testSearchByQuery002() throws Exception {
-
-		try (LocalSearch search = new LocalSearch("ja")) {
-			search.addJson("""
-					{"id":"1","body":"東京の観光スポット","category":"観光"}
-					""");
-			search.addJson("""
-					{"id":"2","body":"東京のIT企業","category":"技術"}
-					""");
-			search.addJson("""
-					{"id":"3","body":"大阪の観光地","category":"観光"}
-					""");
-			search.commit();
-
-			// query=東京 + category=観光 → id=1 の 1 件のみ
-			SearchResult[] results = search.searchByQuery("""
-					{"query":"東京","limit":10,"filters":{"category":"観光"}}
-					""");
-			System.out.println("testSearchByQuery002 size: " + results.length);
-			for (int n = 0; n < results.length; n++) {
-				System.out.println("result[" + n + "].id: " + results[n].id);
-				System.out.println("result[" + n + "].body: " + results[n].body);
-			}
-			assertEquals(1, results.length);
-			assertEquals("1", results[0].id);
-		}
-	}
-
-	/**
-	 * searchByQuery() で query 省略（match_all）+ filters が動作することを確認する。
-	 */
-	public void testSearchByQuery003() throws Exception {
-
-		try (LocalSearch search = new LocalSearch("ja")) {
-			search.addJson("""
-					{"id":"1","body":"東京の観光スポット","category":"観光"}
-					""");
-			search.addJson("""
-					{"id":"2","body":"Javaプログラミング","category":"技術"}
-					""");
-			search.addJson("""
-					{"id":"3","body":"大阪の観光地","category":"観光"}
-					""");
-			search.commit();
-
-			// query 省略 + category=観光 → id=1, id=3 の 2 件
-			SearchResult[] results = search.searchByQuery("""
-					{"filters":{"category":"観光"},"limit":10}
-					""");
-			System.out.println("testSearchByQuery003 size: " + results.length);
-			for (int n = 0; n < results.length; n++) {
-				System.out.println("result[" + n + "].id: " + results[n].id);
-				System.out.println("result[" + n + "].body: " + results[n].body);
-			}
-			assertEquals(2, results.length);
-		}
-	}
-
-	/**
-	 * searchByQuery() で複数 filters が動作することを確認する。
-	 */
-	public void testSearchByQuery004() throws Exception {
-
-		try (LocalSearch search = new LocalSearch("ja")) {
-			search.addJson("""
-					{"id":"1","body":"東京タワー","category":"観光","country":"Japan"}
-					""");
-			search.addJson("""
-					{"id":"2","body":"パリ観光","category":"観光","country":"France"}
-					""");
-			search.addJson("""
-					{"id":"3","body":"東京のIT","category":"技術","country":"Japan"}
-					""");
-			search.commit();
-
-			// category=観光 + country=Japan → id=1 の 1 件のみ
-			SearchResult[] results = search.searchByQuery("""
-					{"filters":{"category":"観光","country":"Japan"},"limit":10}
-					""");
-			System.out.println("testSearchByQuery004 size: " + results.length);
-			for (int n = 0; n < results.length; n++) {
-				System.out.println("result[" + n + "].id: " + results[n].id);
-				System.out.println("result[" + n + "].body: " + results[n].body);
-			}
-			assertEquals(1, results.length);
-			assertEquals("1", results[0].id);
-		}
-	}
-
-	/**
 	 * search(query, limit, Map) オーバーロードで全文検索＋フィールド絞り込みが動作することを確認する。
 	 */
 	public void testSearchWithFilters001() throws Exception {
@@ -555,16 +432,43 @@ public class LocalSearchTestCase extends TestCase {
 					""");
 			search.commit();
 
-			// id=1: add() → data は null（id フィールドの term 検索で取得）
-			SearchResult[] r1 = search.search("id", "1", 10);
+			// id=1: add() → data は null（Lucene Query で id:1 を検索）
+			SearchResult[] r1 = search.search("id:1", 10);
 			System.out.println("testSearchResultData001 id=1 data: " + r1[0].data);
 			assertNull(r1[0].data);
 
 			// id=2: addJson() → data に元 JSON が格納されている
-			SearchResult[] r2 = search.search("category", "技術", 10);
+			SearchResult[] r2 = search.search("category:技術", 10);
 			System.out.println("testSearchResultData001 id=2 data: " + r2[0].data);
 			assertNotNull(r2[0].data);
 			assertTrue(r2[0].data.contains("\"id\":\"2\""));
+		}
+	}
+
+	/**
+	 * addJson() で vector を含む JSON を登録した場合、 SearchResult.data（stored field）に vector
+	 * が含まれないことを確認する。
+	 *
+	 * <p>
+	 * KNN vector は Lucene 専用フィールドとして保存されるため、 data stored field
+	 * への二重保存はストレージ効率上不要であり、除外される。
+	 * </p>
+	 */
+	public void testSearchResultDataNoVector001() throws Exception {
+		try (LocalSearch search = new LocalSearch("en", 2)) {
+			search.addJson("""
+					{"id":"1","body":"Kyoto is a historic city.","vector":[1.0,0.0],"category":"city"}
+					""");
+			search.commit();
+
+			SearchResult[] results = search.search("category:city", 10);
+			System.out.println("testSearchResultDataNoVector001 data: " + results[0].data);
+
+			assertNotNull(results[0].data);
+			// data に "category" は含まれること
+			assertTrue(results[0].data.contains("\"category\""));
+			// data に "vector" は含まれないこと
+			assertFalse("data field must not contain vector", results[0].data.contains("\"vector\""));
 		}
 	}
 
@@ -1086,7 +990,7 @@ public class LocalSearchTestCase extends TestCase {
 			assertEquals("1", results[0].id);
 
 			// category フィールド検索は両方ヒット
-			SearchResult[] byCategory = search.search("category", "観光", 10);
+			SearchResult[] byCategory = search.search("category:観光", 10);
 			assertEquals(2, byCategory.length);
 		}
 	}
@@ -1242,8 +1146,8 @@ public class LocalSearchTestCase extends TestCase {
 	// =========================================================
 
 	/**
-	 * addJson() で JSON 配列フィールド（tags）を登録し、 search(field, value, limit) で MultiValued
-	 * フィールドの単一値フィルターが 正しく動作することを確認する。
+	 * addJson() で JSON 配列フィールド（tags）を登録し、Lucene Query で MultiValued フィールドの単一値フィルターが
+	 * 正しく動作することを確認する。
 	 *
 	 * <pre>
 	 * tags="Japan" → id=1,2,3,5 の 4件（id=4 は France のみ）
@@ -1269,29 +1173,29 @@ public class LocalSearchTestCase extends TestCase {
 					""");
 			search.commit();
 
-			// tags="Japan" → 4件
-			SearchResult[] byJapan = search.search("tags", "Japan", 10);
+			// tags:Japan → 4件
+			SearchResult[] byJapan = search.search("tags:Japan", 10);
 			System.out.println("testMultiValuedFilter001 tags=Japan size: " + byJapan.length);
 			assertEquals(4, byJapan.length);
 
-			// tags="city" → 3件
-			SearchResult[] byCity = search.search("tags", "city", 10);
+			// tags:city → 3件
+			SearchResult[] byCity = search.search("tags:city", 10);
 			System.out.println("testMultiValuedFilter001 tags=city size: " + byCity.length);
 			assertEquals(3, byCity.length);
 
-			// tags="tourism" → 2件
-			SearchResult[] byTourism = search.search("tags", "tourism", 10);
+			// tags:tourism → 2件
+			SearchResult[] byTourism = search.search("tags:tourism", 10);
 			System.out.println("testMultiValuedFilter001 tags=tourism size: " + byTourism.length);
 			assertEquals(2, byTourism.length);
 
-			// tags="capital" → 1件
-			SearchResult[] byCapital = search.search("tags", "capital", 10);
+			// tags:capital → 1件
+			SearchResult[] byCapital = search.search("tags:capital", 10);
 			System.out.println("testMultiValuedFilter001 tags=capital size: " + byCapital.length);
 			assertEquals(1, byCapital.length);
 			assertEquals("3", byCapital[0].id);
 
-			// tags="sports"（存在しない値）→ 0件
-			SearchResult[] byNone = search.search("tags", "sports", 10);
+			// tags:sports（存在しない値）→ 0件
+			SearchResult[] byNone = search.search("tags:sports", 10);
 			assertEquals(0, byNone.length);
 		}
 	}
@@ -1591,7 +1495,7 @@ public class LocalSearchTestCase extends TestCase {
 			search.commit();
 
 			// word.verb="歩く" でフィルター → id=1 のみ
-			SearchResult[] results = search.search("word.verb", "歩く", 10);
+			SearchResult[] results = search.search("word.verb:歩く", 10);
 			System.out.println("testMorphologicalAnalysis005 word.verb=歩く size: " + results.length);
 			for (int n = 0; n < results.length; n++) {
 				System.out.println("result[" + n + "].id: " + results[n].id);
@@ -1688,7 +1592,7 @@ public class LocalSearchTestCase extends TestCase {
 			search.commit();
 
 			// word.verb="行く" で検索しても 0 件（形態素解析されていないため登録なし）
-			SearchResult[] results = search.search("word.verb", "行く", 10);
+			SearchResult[] results = search.search("word.verb:行く", 10);
 			assertEquals("autoAnalyze=false では word.verb に値が登録されないこと", 0, results.length);
 		}
 	}
@@ -1730,7 +1634,7 @@ public class LocalSearchTestCase extends TestCase {
 			search.commit();
 
 			// クエリ (0.9, 0.1) に最近傍の 1_East がスコア最高
-			SearchResult[] results = search.search(new float[] { 0.9f, 0.1f }, 3);
+			SearchResult[] results = search.searchVector(new float[] { 0.9f, 0.1f }, 3);
 			assertEquals(3, results.length);
 			assertEquals("1_East", results[0].id);
 		}
@@ -1747,13 +1651,13 @@ public class LocalSearchTestCase extends TestCase {
 			search.commit();
 
 			// ベクトル検索が動作すること
-			SearchResult[] results = search.search(new float[] { 0.9f, 0.1f }, 2);
+			SearchResult[] results = search.searchVector(new float[] { 0.9f, 0.1f }, 2);
 			assertEquals(2, results.length);
 			assertEquals("1", results[0].id);
 
 			// word.verb="行く" で検索しても 0 件
 			// （add(id, vector) では本文がなく、かつ autoAnalyze=false のため word フィールドは空）
-			SearchResult[] verbResults = search.search("word.verb", "行く", 10);
+			SearchResult[] verbResults = search.search("word.verb:行く", 10);
 			assertEquals(0, verbResults.length);
 		}
 	}
@@ -1778,7 +1682,7 @@ public class LocalSearchTestCase extends TestCase {
 				assertEquals(2, results.length);
 
 				// フィールド検索
-				SearchResult[] byCategory = search.search("category", "city", 10);
+				SearchResult[] byCategory = search.search("category:city", 10);
 				assertEquals(1, byCategory.length);
 				assertEquals("1", byCategory[0].id);
 			}
@@ -2112,7 +2016,7 @@ public class LocalSearchTestCase extends TestCase {
 					""");
 			search.commit();
 
-			long count = search.count("category", "観光");
+			long count = search.count("category:観光");
 			System.out.println("testCountByField001 count(category, 観光): " + count);
 			assertEquals(2L, count);
 		}
@@ -2132,12 +2036,12 @@ public class LocalSearchTestCase extends TestCase {
 			search.commit();
 
 			// word.noun=ニッサン が出現する文書 → 2件
-			long countNissan = search.count("word.noun", "ニッサン");
+			long countNissan = search.count("word.noun:ニッサン");
 			System.out.println("testCountByField002 count(word.noun, ニッサン): " + countNissan);
 			assertEquals(2L, countNissan);
 
 			// word.noun=トヨタ が出現する文書 → 3件
-			long countToyota = search.count("word.noun", "トヨタ");
+			long countToyota = search.count("word.noun:トヨタ");
 			System.out.println("testCountByField002 count(word.noun, トヨタ): " + countToyota);
 			assertEquals(3L, countToyota);
 		}
@@ -2153,7 +2057,7 @@ public class LocalSearchTestCase extends TestCase {
 					""");
 			search.commit();
 
-			long count = search.count("category", "技術");
+			long count = search.count("category:技術");
 			System.out.println("testCountByField003 count(category, 技術): " + count);
 			assertEquals(0L, count);
 		}
@@ -2187,7 +2091,7 @@ public class LocalSearchTestCase extends TestCase {
 			search.commit();
 
 			// category=観光 に絞り込んで source を集計 → news:1, blog:1
-			java.util.Map<String, Long> result = search.aggregate("source", "category", "観光", 10);
+			java.util.Map<String, Long> result = search.aggregate("source", "category:観光", 10);
 			System.out.println("testAggregateByField001 aggregate(source, category, 観光, 10): " + result);
 
 			assertEquals(2, result.size());
@@ -2213,7 +2117,7 @@ public class LocalSearchTestCase extends TestCase {
 			search.commit();
 
 			// word.noun=ニッサン に絞り込んで word.verb を集計
-			java.util.Map<String, Long> result = search.aggregate("word.verb", "word.noun", "ニッサン", 1000);
+			java.util.Map<String, Long> result = search.aggregate("word.verb", "word.noun:ニッサン", 1000);
 			System.out.println("testAggregateByField002 aggregate(word.verb, word.noun, ニッサン, 1000): " + result);
 
 			// ニッサンが出現する文書（id=1, id=2）の verb が集計されていること
@@ -2240,7 +2144,7 @@ public class LocalSearchTestCase extends TestCase {
 			search.commit();
 
 			// 新シグネチャ
-			java.util.Map<String, Long> result1 = search.aggregate("category", "country", "Japan", 10);
+			java.util.Map<String, Long> result1 = search.aggregate("category", "country:Japan", 10);
 
 			// 既存シグネチャ（等価な呼び出し）
 			java.util.Map<String, Long> result2 = search.aggregate("category", null, 10,
@@ -2282,17 +2186,17 @@ public class LocalSearchTestCase extends TestCase {
 			}
 			{ // ニッサン=2
 				// word.noun=ニッサン が出現する文書の件数（分析フィールドによる絞り込み）
-				long countNissan = search.count("word.noun", "ニッサン");
+				long countNissan = search.count("word.noun:ニッサン");
 				System.out.println("testCountAndAggregateByField001 count(word.noun, ニッサン): " + countNissan);
 				assertEquals(2L, countNissan);
 			}
 			{ // word.noun=トヨタ が出現する文書の件数 = 3
-				long countToyota = search.count("word.noun", "トヨタ");
+				long countToyota = search.count("word.noun:トヨタ");
 				System.out.println("testCountAndAggregateByField001 count(word.noun, トヨタ): " + countToyota);
 				assertEquals(3L, countToyota);
 			}
 			{ // word.noun=ニッサン の文書で word.noun を集計（新シグネチャ）
-				java.util.Map<String, Long> nounNissan = search.aggregate("word.noun", "word.noun", "ニッサン", 1000);
+				java.util.Map<String, Long> nounNissan = search.aggregate("word.noun", "word.noun:ニッサン", 1000);
 				System.out.println("testCountAndAggregateByField001 nounNissan: " + nounNissan);
 				assertFalse("nounNissan は空でないこと", nounNissan.isEmpty());
 				assertEquals("ニッサンが含まれること", Long.valueOf(2L), nounNissan.get("ニッサン"));
@@ -2326,7 +2230,7 @@ public class LocalSearchTestCase extends TestCase {
 			search.addJson("{\"id\":\"2\",\"body\":\"North\",\"vector\":[0.0,1.0]}");
 			search.commit();
 
-			SearchResult[] results = search.search(new float[] { 0.9f, 0.1f }, 10);
+			SearchResult[] results = search.searchVector(new float[] { 0.9f, 0.1f }, 10);
 			System.out.println("testAddJsonVector001 size: " + results.length);
 			for (int n = 0; n < results.length; n++) {
 				System.out.println("result[" + n + "].id: " + results[n].id);
@@ -2358,7 +2262,7 @@ public class LocalSearchTestCase extends TestCase {
 			search.commit();
 
 			// category=technology + country=Japan → id=1 のみ
-			SearchResult[] results = search.search(new float[] { 0.9f, 0.1f }, 10,
+			SearchResult[] results = search.searchVector(new float[] { 0.9f, 0.1f }, 10,
 					java.util.Map.of("category", "technology", "country", "Japan"));
 			System.out.println("testAddJsonVectorWithFilter001 size: " + results.length);
 			for (int n = 0; n < results.length; n++) {
@@ -2386,15 +2290,15 @@ public class LocalSearchTestCase extends TestCase {
 			search.commit();
 
 			// フィールド検索: category=city → 2件どちらも取得できること
-			SearchResult[] results = search.search("category", "city", 10);
+			SearchResult[] results = search.search("category:city", 10);
 			System.out.println("testAddJsonVectorOptional001 size: " + results.length);
 			assertEquals(2, results.length);
 		}
 	}
 
 	/**
-	 * ④ vectorDimension(2) なのに vector=[1.0,0.0,0.5]（3次元）が来た場合、
-	 * LocalSearchException がスローされることを確認する。
+	 * ④ vectorDimension(2) なのに vector=[1.0,0.0,0.5]（3次元）が来た場合、 LocalSearchException
+	 * がスローされることを確認する。
 	 */
 	public void testAddJsonVectorDimensionMismatch001() throws Exception {
 		try (LocalSearch search = LocalSearch.builder("en").vectorDimension(2).build()) {
@@ -2454,7 +2358,7 @@ public class LocalSearchTestCase extends TestCase {
 
 			// 2. 再ロードしてスキーマが復元されていることを確認
 			try (LocalSearch loaded = LocalSearch.builder("en").loadIndexFrom(dir).build()) {
-				nlp4j.lucene9.SearchSchema schema = loaded.schema;
+				nlp4j.lucene9.SearchSchema schema = loaded.getSchema();
 
 				// maker は KEYWORD として動的登録されていること
 				assertTrue("maker field should exist", schema.contains("maker"));
@@ -2471,7 +2375,7 @@ public class LocalSearchTestCase extends TestCase {
 				assertTrue(tagsDef.is_multiValued());
 
 				// 検索も動作すること
-				SearchResult[] results = loaded.search("maker", "Nissan", 10);
+				SearchResult[] results = loaded.search("maker:Nissan", 10);
 				assertEquals(1, results.length);
 				assertEquals("1", results[0].id);
 			}
@@ -2488,8 +2392,8 @@ public class LocalSearchTestCase extends TestCase {
 		try {
 			// 1. ベクトル付きインデックスを作成して保存
 			try (LocalSearch search = LocalSearch.builder("en").vectorDimension(3).build()) {
-				search.add("1", new float[]{1.0f, 0.0f, 0.0f});
-				search.add("2", new float[]{0.0f, 1.0f, 0.0f});
+				search.add("1", new float[] { 1.0f, 0.0f, 0.0f });
+				search.add("2", new float[] { 0.0f, 1.0f, 0.0f });
 				search.commit();
 				search.saveIndexTo(dir);
 			}
@@ -2499,7 +2403,7 @@ public class LocalSearchTestCase extends TestCase {
 				assertEquals("vectorDimension should be restored from schema", 3, loaded.vectorDimension);
 
 				// ベクトル検索も動作すること
-				SearchResult[] results = loaded.search(new float[]{1.0f, 0.0f, 0.0f}, 10);
+				SearchResult[] results = loaded.searchVector(new float[] { 1.0f, 0.0f, 0.0f }, 10);
 				assertEquals(2, results.length);
 				assertEquals("1", results[0].id);
 			}
@@ -2522,12 +2426,10 @@ public class LocalSearchTestCase extends TestCase {
 			}
 
 			// 2. 再ロード時に新規フィールドを Builder.field() で追加
-			try (LocalSearch loaded = LocalSearch.builder("en")
-					.loadIndexFrom(dir)
-					.field("new_field", nlp4j.lucene9.FieldTypeDef.keyword().stored(true).aggregatable(true))
-					.build()) {
+			try (LocalSearch loaded = LocalSearch.builder("en").loadIndexFrom(dir)
+					.field("new_field", nlp4j.lucene9.FieldTypeDef.keyword().stored(true).aggregatable(true)).build()) {
 
-				nlp4j.lucene9.SearchSchema schema = loaded.schema;
+				nlp4j.lucene9.SearchSchema schema = loaded.getSchema();
 				assertTrue("new_field should be added via builder", schema.contains("new_field"));
 				assertEquals(nlp4j.lucene9.FieldTypeDef.Kind.KEYWORD, schema.get("new_field").kind());
 				assertTrue(schema.get("new_field").is_aggregatable());
@@ -2553,10 +2455,8 @@ public class LocalSearchTestCase extends TestCase {
 
 			// 2. 再ロード時に maker を INTEGER として指定 → 型の不一致でエラー
 			try {
-				LocalSearch loaded = LocalSearch.builder("en")
-						.loadIndexFrom(dir)
-						.field("maker", nlp4j.lucene9.FieldTypeDef.integer().stored(true))
-						.build();
+				LocalSearch loaded = LocalSearch.builder("en").loadIndexFrom(dir)
+						.field("maker", nlp4j.lucene9.FieldTypeDef.integer().stored(true)).build();
 				loaded.close();
 				fail("Expected LocalSearchException for conflicting field definition");
 			} catch (LocalSearchException e) {
@@ -2568,35 +2468,120 @@ public class LocalSearchTestCase extends TestCase {
 		}
 	}
 
+	/**
+	 * 非vector indexを保存し、reload時に .vectorDimension(3) を指定してロードした場合、 スキーマに vector
+	 * が追加され、新規 vector 文書を追加およびベクトル検索できることを確認する。
+	 */
+	public void testSaveAndLoadSchemaAddVectorDimension001() throws Exception {
+		java.nio.file.Path dir = java.nio.file.Files.createTempDirectory("nlp4j-test-add-vector-");
+		try {
+			// 1. 非vector index を作成して保存
+			try (LocalSearch search = LocalSearch.builder("en").build()) {
+				search.add("1", "existing document");
+				search.commit();
+				search.saveIndexTo(dir);
+			}
+
+			// 2. reload 時に vectorDimension(3) を指定してロード
+			try (LocalSearch loaded = LocalSearch.builder("en").loadIndexFrom(dir).vectorDimension(3).build()) {
+
+				assertEquals(3, loaded.vectorDimension);
+				assertTrue(loaded.getSchema().contains("vector"));
+				assertEquals(nlp4j.lucene9.FieldTypeDef.Kind.KNN_VECTOR, loaded.getSchema().get("vector").kind());
+
+				// vector を持つ文書を追加
+				loaded.add("2", new float[] { 1.0f, 0.0f, 0.0f });
+				loaded.commit();
+
+				SearchResult[] results = loaded.searchVector(new float[] { 1.0f, 0.0f, 0.0f }, 10);
+				assertEquals(1, results.length);
+				assertEquals("2", results[0].id);
+			}
+		} finally {
+			deleteDirectory(dir);
+		}
+	}
+
+	/**
+	 * vectorDimension=3 のインデックスを reload 時に .vectorDimension(2) を指定した場合、
+	 * LocalSearchException がスローされることを確認する。
+	 */
+	public void testSaveAndLoadSchemaVectorDimensionConflictThrows001() throws Exception {
+		java.nio.file.Path dir = java.nio.file.Files.createTempDirectory("nlp4j-test-vec-conflict-");
+		try {
+			// 1. vectorDimension=3 で保存
+			try (LocalSearch search = LocalSearch.builder("en").vectorDimension(3).build()) {
+				search.add("1", new float[] { 1.0f, 0.0f, 0.0f });
+				search.commit();
+				search.saveIndexTo(dir);
+			}
+
+			// 2. reload 時に vectorDimension(2) を指定 → conflict
+			try {
+				LocalSearch loaded = LocalSearch.builder("en").loadIndexFrom(dir).vectorDimension(2).build();
+				loaded.close();
+				fail("Expected LocalSearchException for conflicting vector dimensions");
+			} catch (LocalSearchException e) {
+				assertTrue(e.getMessage().contains("conflict") || e.getMessage().contains("dimension"));
+			}
+		} finally {
+			deleteDirectory(dir);
+		}
+	}
+
+	/**
+	 * vectorDimension=3 のインデックスを reload 時に .vectorDimension(3) を指定した場合、
+	 * 正常にオープンできることを確認する。
+	 */
+	public void testSaveAndLoadSchemaVectorDimensionMatch001() throws Exception {
+		java.nio.file.Path dir = java.nio.file.Files.createTempDirectory("nlp4j-test-vec-match-");
+		try {
+			// 1. vectorDimension=3 で保存
+			try (LocalSearch search = LocalSearch.builder("en").vectorDimension(3).build()) {
+				search.add("1", new float[] { 1.0f, 0.0f, 0.0f });
+				search.commit();
+				search.saveIndexTo(dir);
+			}
+
+			// 2. reload 時に vectorDimension(3) を指定 → 正常
+			try (LocalSearch loaded = LocalSearch.builder("en").loadIndexFrom(dir).vectorDimension(3).build()) {
+
+				assertEquals(3, loaded.vectorDimension);
+				SearchResult[] results = loaded.searchVector(new float[] { 1.0f, 0.0f, 0.0f }, 10);
+				assertEquals(1, results.length);
+				assertEquals("1", results[0].id);
+			}
+		} finally {
+			deleteDirectory(dir);
+		}
+	}
+
 	/** Recursively deletes a temporary directory. */
 	private static void deleteDirectory(java.nio.file.Path dir) throws Exception {
 		if (dir == null || !java.nio.file.Files.exists(dir)) {
 			return;
 		}
-		java.nio.file.Files.walk(dir)
-				.sorted(java.util.Comparator.reverseOrder())
-				.map(java.nio.file.Path::toFile)
+		java.nio.file.Files.walk(dir).sorted(java.util.Comparator.reverseOrder()).map(java.nio.file.Path::toFile)
 				.forEach(java.io.File::delete);
 	}
 
 	// =========================================================
-	// aggregateLucene() テスト（kaiwa0824-0003.md）
+	// aggregate() Lucene Query テスト
 	// =========================================================
 
 	/**
-	 * aggregateLucene() の基本ケース: Lucene Query で text_en:Kyoto を検索し、
-	 * category フィールドを集計する。
+	 * aggregate() の基本ケース: Lucene Query で text_en:Kyoto を検索し、 category フィールドを集計する。
 	 *
 	 * <pre>
 	 * id=1: body=Kyoto is a historic city in Japan.  category=city    country=Japan
 	 * id=2: body=Nintendo is headquartered in Kyoto. category=company country=Japan
 	 * id=3: body=Paris is the capital city of France. category=city   country=France
 	 *
-	 * aggregateLucene("category", "text_en:Kyoto", 10)
+	 * aggregate("category", "text_en:Kyoto", 10)
 	 * → city=1, company=1
 	 * </pre>
 	 */
-	public void testAggregateLucene001() throws Exception {
+	public void testAggregateQuery001() throws Exception {
 		try (LocalSearch search = new LocalSearch("en")) {
 			search.addJson("""
 					{
@@ -2624,8 +2609,8 @@ public class LocalSearchTestCase extends TestCase {
 					""");
 			search.commit();
 
-			java.util.Map<String, Long> result = search.aggregateLucene("category", "text_en:Kyoto", 10);
-			System.out.println("testAggregateLucene001 result: " + result);
+			java.util.Map<String, Long> result = search.aggregate("category", "text_en:Kyoto", 10);
+			System.out.println("testAggregateQuery001 result: " + result);
 
 			// Kyoto を含む id=1, id=2 の 2 件が対象 → city:1, company:1
 			assertEquals(2, result.size());
@@ -2635,8 +2620,7 @@ public class LocalSearchTestCase extends TestCase {
 	}
 
 	/**
-	 * aggregateLucene() の複数フィールド指定ケース:
-	 * filters で country=Japan を指定して絞り込み、category を集計する。
+	 * aggregate() の複数フィールド指定ケース: filters で country=Japan を指定して絞り込み、category を集計する。
 	 *
 	 * <pre>
 	 * id=1: Kyoto + Japan → city
@@ -2645,7 +2629,7 @@ public class LocalSearchTestCase extends TestCase {
 	 * → city=1, company=1
 	 * </pre>
 	 */
-	public void testAggregateLucene002() throws Exception {
+	public void testAggregateQuery002() throws Exception {
 		try (LocalSearch search = new LocalSearch("en")) {
 			search.addJson("""
 					{
@@ -2674,9 +2658,9 @@ public class LocalSearchTestCase extends TestCase {
 			search.commit();
 
 			// Lucene query で text_en:Kyoto + filters で country=Japan の組み合わせ
-			java.util.Map<String, Long> result = search.aggregateLucene(
-					"category", "text_en:Kyoto", 10, java.util.Map.of("country", "Japan"));
-			System.out.println("testAggregateLucene002 result: " + result);
+			java.util.Map<String, Long> result = search.aggregate("category", "text_en:Kyoto", 10,
+					java.util.Map.of("country", "Japan"));
+			System.out.println("testAggregateQuery002 result: " + result);
 
 			// id=1, id=2 が対象（id=3 は country=France でフィルター除外）
 			assertEquals(2, result.size());
@@ -2686,10 +2670,9 @@ public class LocalSearchTestCase extends TestCase {
 	}
 
 	/**
-	 * aggregateLucene() の size 制限テスト:
-	 * size=1 を指定すると最多 1 バケットのみ返ること。
+	 * aggregate() の size 制限テスト: size=1 を指定すると最多 1 バケットのみ返ること。
 	 */
-	public void testAggregateLuceneSize001() throws Exception {
+	public void testAggregateQuerySize001() throws Exception {
 		try (LocalSearch search = new LocalSearch("en")) {
 			search.addJson("""
 					{"id":"1","body":"Kyoto city doc","category":"city","country":"Japan"}
@@ -2703,8 +2686,8 @@ public class LocalSearchTestCase extends TestCase {
 			search.commit();
 
 			// size=1 → 最多バケット（city=2）のみ
-			java.util.Map<String, Long> result = search.aggregateLucene("category", "text_en:Kyoto", 1);
-			System.out.println("testAggregateLuceneSize001 result: " + result);
+			java.util.Map<String, Long> result = search.aggregate("category", "text_en:Kyoto", 1);
+			System.out.println("testAggregateQuerySize001 result: " + result);
 
 			assertEquals(1, result.size());
 			assertEquals(Long.valueOf(2L), result.get("city"));
@@ -2712,8 +2695,8 @@ public class LocalSearchTestCase extends TestCase {
 	}
 
 	/**
-	 * aggregateJson() に lucene_query を指定した場合、
-	 * Lucene Query Parser で絞り込んだ集計が動作することを確認する。
+	 * aggregateJson() に lucene_query を指定した場合、 Lucene Query Parser
+	 * で絞り込んだ集計が動作することを確認する。
 	 *
 	 * <pre>
 	 * lucene_query="text_en:Kyoto" → city:1, company:1
@@ -2747,10 +2730,11 @@ public class LocalSearchTestCase extends TestCase {
 					""");
 			search.commit();
 
+			// query フィールドは Lucene Query として解釈される
 			String json = search.aggregateJson("""
 					{
 					  "field": "category",
-					  "lucene_query": "text_en:Kyoto",
+					  "query": "text_en:Kyoto",
 					  "size": 10
 					}
 					""");
@@ -2765,31 +2749,630 @@ public class LocalSearchTestCase extends TestCase {
 		}
 	}
 
+	// =========================================================
+	// count() Lucene Query テスト
+	// =========================================================
+
 	/**
-	 * aggregateJson() で query と lucene_query を同時に指定した場合、
-	 * LocalSearchException がスローされることを確認する。
+	 * count() で Lucene Query にマッチする文書件数を返すことを確認する。
+	 *
+	 * <pre>
+	 * id=1: text_en="Kyoto is a historic city."
+	 * id=2: text_en="Nintendo is headquartered in Kyoto."
+	 * id=3: text_en="Sony is a Japanese company based in Tokyo."
+	 *
+	 * count("text_en:Kyoto") → 2件
+	 * </pre>
 	 */
-	public void testAggregateJsonLuceneQueryConflict001() throws Exception {
+	public void testCountQuery001() throws Exception {
+
 		try (LocalSearch search = new LocalSearch("en")) {
-			search.addJson("{\"id\":\"1\",\"body\":\"Kyoto\",\"category\":\"city\"}");
+			search.addJson("""
+					{"id":"1","body":"Kyoto is a historic city.","category":"city"}
+					""");
+			search.addJson("""
+					{"id":"2","body":"Nintendo is headquartered in Kyoto.","category":"company"}
+					""");
+			search.addJson("""
+					{"id":"3","body":"Sony is a Japanese company based in Tokyo.","category":"company"}
+					""");
 			search.commit();
 
+			long count = search.count("text_en:Kyoto");
+
+			System.out.println("testCountQuery001 count: " + count);
+
+			assertEquals(2, count);
+		}
+	}
+
+	/**
+	 * count() で一致する文書がない場合に 0 を返すことを確認する。
+	 */
+	public void testCountQueryNoMatch001() throws Exception {
+
+		try (LocalSearch search = new LocalSearch("en")) {
+			search.addJson("""
+					{"id":"1","body":"Kyoto is a historic city.","category":"city"}
+					""");
+			search.addJson("""
+					{"id":"2","body":"Tokyo is the capital of Japan.","category":"city"}
+					""");
+			search.commit();
+
+			long count = search.count("text_en:Osaka");
+
+			System.out.println("testCountQueryNoMatch001 count: " + count);
+
+			assertEquals(0, count);
+		}
+	}
+
+	/**
+	 * count() で AND 条件の複合クエリが動作することを確認する。
+	 *
+	 * <pre>
+	 * text_en:Kyoto → id=1,2 の 2件
+	 * text_en:Kyoto AND category:company → id=2 の 1件
+	 * </pre>
+	 */
+	public void testCountQueryAnd001() throws Exception {
+
+		try (LocalSearch search = new LocalSearch("en")) {
+			search.addJson("""
+					{"id":"1","body":"Kyoto is a historic city.","category":"city"}
+					""");
+			search.addJson("""
+					{"id":"2","body":"Nintendo is headquartered in Kyoto.","category":"company"}
+					""");
+			search.addJson("""
+					{"id":"3","body":"Tokyo is the capital of Japan.","category":"city"}
+					""");
+			search.commit();
+
+			// Kyoto のみ → 2件
+			assertEquals(2, search.count("text_en:Kyoto"));
+
+			// Kyoto AND category=company → 1件
+			assertEquals(1, search.count("text_en:Kyoto AND category:company"));
+		}
+	}
+
+	/**
+	 * count(query, filters) のオーバーロードで フィールドフィルターが動作することを確認する。
+	 *
+	 * <pre>
+	 * text_en:Kyoto → id=1,2 の 2件
+	 * text_en:Kyoto + filters{category=company} → id=2 の 1件
+	 * </pre>
+	 */
+	public void testCountQueryWithFilters001() throws Exception {
+
+		try (LocalSearch search = new LocalSearch("en")) {
+			search.addJson("""
+					{"id":"1","body":"Kyoto is a historic city.","category":"city"}
+					""");
+			search.addJson("""
+					{"id":"2","body":"Nintendo is headquartered in Kyoto.","category":"company"}
+					""");
+			search.addJson("""
+					{"id":"3","body":"Tokyo is the capital of Japan.","category":"city"}
+					""");
+			search.commit();
+
+			// フィルターなし → 2件
+			assertEquals(2, search.count("text_en:Kyoto", null));
+
+			// category=company フィルター → 1件
+			assertEquals(1, search.count("text_en:Kyoto", java.util.Map.of("category", "company")));
+		}
+	}
+
+	public void testAddTextAndVector001() throws Exception {
+
+		try (LocalSearch search = LocalSearch.builder("en").vectorDimension(2).build()) {
+
+			search.add("1", "Kyoto is a historic city.", new float[] { 1.0f, 0.0f });
+
+			search.add("2", "Tokyo is the capital of Japan.", new float[] { 0.0f, 1.0f });
+
+			search.commit();
+
+			// Text search
+			SearchResult[] textResults = search.search("Kyoto", 10);
+
+			assertEquals(1, textResults.length);
+			assertEquals("1", textResults[0].id);
+			assertEquals("Kyoto is a historic city.", textResults[0].body);
+
+			// Vector search
+			SearchResult[] vectorResults = search.searchVector(new float[] { 0.9f, 0.1f }, 10);
+
+			assertEquals(2, vectorResults.length);
+			assertEquals("1", vectorResults[0].id);
+			assertEquals("Kyoto is a historic city.", vectorResults[0].body);
+		}
+	}
+
+	public void testAddTextVectorAndFields001() throws Exception {
+
+		try (LocalSearch search = LocalSearch.builder("en").vectorDimension(2).build()) {
+
+			search.add("1", "Nintendo is headquartered in Kyoto.", new float[] { 1.0f, 0.0f },
+					java.util.Map.of("category", "company", "country", "Japan"));
+
+			search.add("2", "Kyoto is a historic city.", new float[] { 0.8f, 0.2f },
+					java.util.Map.of("category", "city", "country", "Japan"));
+
+			search.commit();
+
+			// Text + filter
+			SearchResult[] textResults = search.search("Kyoto", 10, java.util.Map.of("category", "company"));
+
+			assertEquals(1, textResults.length);
+			assertEquals("1", textResults[0].id);
+
+			// Vector + filter
+			SearchResult[] vectorResults = search.searchVector(new float[] { 0.9f, 0.1f }, 10,
+					java.util.Map.of("category", "company"));
+
+			assertEquals(1, vectorResults.length);
+			assertEquals("1", vectorResults[0].id);
+			assertEquals("Nintendo is headquartered in Kyoto.", vectorResults[0].body);
+		}
+	}
+
+	// =========================================================
+	// kaiwa0911-1212 仕様検証テスト
+	// =========================================================
+
+	/**
+	 * 1. body 入力: SearchResult.body が設定され、_source.body が存在し、_source.text_ja
+	 * は存在しないことを確認する。
+	 */
+	public void testAddJsonBodyField001() throws Exception {
+		try (LocalSearch search = new LocalSearch("ja")) {
+			search.addJson("""
+					{
+					  "id": "1",
+					  "body": "京都は日本の都市です"
+					}
+					""");
+			search.commit();
+
+			SearchResult[] results = search.search("京都", 10);
+			assertEquals(1, results.length);
+			assertEquals("1", results[0].id);
+			assertEquals("京都は日本の都市です", results[0].body);
+
+			String responseJson = search.searchResponseJson("""
+					{
+					  "size": 10,
+					  "query": {
+					    "match": {
+					      "text_ja": "京都"
+					    }
+					  }
+					}
+					""");
+			nlp4j.json.JsonNode source = nlp4j.json.JsonNode.parse(responseJson).get("hits").get("hits").get(0)
+					.get("_source");
+
+			assertEquals("京都は日本の都市です", source.get("body").asString());
+			assertFalse(source.has("text_ja"));
+		}
+	}
+
+	/**
+	 * 2. text_ja 直接入力: "ja" エンジンで text_ja のみを投入した場合、検索可能で SearchResult.body /
+	 * _source.body に設定されることを確認する。
+	 */
+	public void testAddJsonTextJaDirect001() throws Exception {
+		try (LocalSearch search = new LocalSearch("ja")) {
+			search.addJson("""
+					{
+					  "id": "1",
+					  "text_ja": "京都は日本の都市です"
+					}
+					""");
+			search.commit();
+
+			SearchResult[] results = search.search("京都", 10);
+			assertEquals(1, results.length);
+			assertEquals("1", results[0].id);
+			assertEquals("京都は日本の都市です", results[0].body);
+
+			String responseJson = search.searchResponseJson("""
+					{
+					  "size": 10,
+					  "query": {
+					    "match": {
+					      "text_ja": "京都"
+					    }
+					  }
+					}
+					""");
+			nlp4j.json.JsonNode source = nlp4j.json.JsonNode.parse(responseJson).get("hits").get("hits").get(0)
+					.get("_source");
+
+			assertEquals("京都は日本の都市です", source.get("body").asString());
+			assertFalse(source.has("text_ja"));
+		}
+	}
+
+	/**
+	 * 3. text_en 直接入力: "en" エンジンで text_en のみを投入した場合、検索可能で SearchResult.body /
+	 * _source.body に設定され、 _source.text_en は存在しないことを確認する。
+	 */
+	public void testAddJsonTextEnDirect001() throws Exception {
+		try (LocalSearch search = new LocalSearch("en")) {
+			search.addJson("""
+					{
+					  "id": "1",
+					  "text_en": "Kyoto is a historic city."
+					}
+					""");
+			search.commit();
+
+			SearchResult[] results = search.search("Kyoto", 10);
+			assertEquals(1, results.length);
+			assertEquals("1", results[0].id);
+			assertEquals("Kyoto is a historic city.", results[0].body);
+
+			String responseJson = search.searchResponseJson("""
+					{
+					  "size": 10,
+					  "query": {
+					    "match": {
+					      "text_en": "Kyoto"
+					    }
+					  }
+					}
+					""");
+			nlp4j.json.JsonNode source = nlp4j.json.JsonNode.parse(responseJson).get("hits").get("hits").get(0)
+					.get("_source");
+
+			assertEquals("Kyoto is a historic city.", source.get("body").asString());
+			assertFalse(source.has("text_en"));
+		}
+	}
+
+	/**
+	 * 4. body + text_en 同値重複: 同値の場合は競合エラーにならず、 本文フィールドとして一度だけ処理されることを確認する。
+	 */
+	public void testAddJsonDuplicateSameValue001() throws Exception {
+		try (LocalSearch search = new LocalSearch("en")) {
+			search.addJson("""
+					{
+					  "id": "1",
+					  "body": "Kyoto is a historic city.",
+					  "text_en": "Kyoto is a historic city."
+					}
+					""");
+			search.commit();
+
+			SearchResult[] results = search.search("Kyoto", 10);
+			assertEquals(1, results.length);
+			assertEquals("Kyoto is a historic city.", results[0].body);
+
+			String responseJson = search.searchResponseJson("""
+					{
+					  "size": 10,
+					  "query": {
+					    "match": {
+					      "text_en": "Kyoto"
+					    }
+					  }
+					}
+					""");
+			nlp4j.json.JsonNode source = nlp4j.json.JsonNode.parse(responseJson).get("hits").get("hits").get(0)
+					.get("_source");
+
+			assertEquals("Kyoto is a historic city.", source.get("body").asString());
+			assertFalse(source.has("text_en"));
+		}
+	}
+
+	/**
+	 * 5. body + text_en 異値競合: 値が異なる場合は例外がスローされることを確認する。
+	 */
+	public void testAddJsonConflictDifferentValue001() throws Exception {
+		try (LocalSearch search = new LocalSearch("en")) {
 			try {
-				search.aggregateJson("""
+				search.addJson("""
 						{
-						  "field": "category",
-						  "query": "Kyoto",
-						  "lucene_query": "text_en:Kyoto",
-						  "size": 10
+						  "id": "1",
+						  "body": "Kyoto is a historic city.",
+						  "text_en": "Tokyo is the capital."
 						}
 						""");
-				fail("query と lucene_query の同時指定では LocalSearchException がスローされること");
-			} catch (LocalSearchException e) {
-				System.out.println("testAggregateJsonLuceneQueryConflict001 exception: " + e.getMessage());
-				assertTrue("エラーメッセージに 'lucene_query' が含まれること",
-						e.getMessage().contains("lucene_query") || e.getMessage().contains("query"));
+				fail("Expected LocalSearchException or IllegalArgumentException due to conflicting text fields");
+			} catch (Exception e) {
+				assertTrue(e.getMessage().contains("Conflicting text fields"));
 			}
 		}
 	}
 
+	/**
+	 * 6. 別言語フィールド: "ja" エンジンに body と text_en を指定した場合、text_ja と text_en
+	 * の両方で検索可能であることを確認する。
+	 */
+	public void testAddJsonOtherLanguageField001() throws Exception {
+		try (LocalSearch search = new LocalSearch("ja")) {
+			search.addJson("""
+					{
+					  "id": "1",
+					  "body": "京都について",
+					  "text_en": "About Kyoto"
+					}
+					""");
+			search.commit();
+
+			// 日本語検索でヒット
+			SearchResult[] rJa = search.search("京都", 10);
+			assertEquals(1, rJa.length);
+			assertEquals("1", rJa[0].id);
+			assertEquals("京都について", rJa[0].body);
+
+			// 英語フィールド指定検索でもヒット
+			SearchResult[] rEn = search.search("text_en:Kyoto", 10);
+			assertEquals(1, rEn.length);
+			assertEquals("1", rEn[0].id);
+			assertEquals("京都について", rEn[0].body);
+		}
+	}
+
+	/**
+	 * 7. autoAnalyze(false): body は返り、全文検索可能で、word.* フィールドは生成されないことを確認する。
+	 */
+	public void testAutoAnalyzeFalse001() throws Exception {
+		try (LocalSearch search = LocalSearch.builder("ja").autoAnalyze(false).build()) {
+			search.addJson("""
+					{
+					  "id": "1",
+					  "body": "京都は日本の都市です"
+					}
+					""");
+			search.commit();
+
+			SearchResult[] results = search.search("京都", 10);
+			assertEquals(1, results.length);
+			assertEquals("京都は日本の都市です", results[0].body);
+
+			String responseJson = search.searchResponseJson("""
+					{
+					  "size": 10,
+					  "query": {
+					    "match": {
+					      "text_ja": "京都"
+					    }
+					  }
+					}
+					""");
+			nlp4j.json.JsonNode source = nlp4j.json.JsonNode.parse(responseJson).get("hits").get("hits").get(0)
+					.get("_source");
+
+			assertEquals("京都は日本の都市です", source.get("body").asString());
+			assertFalse(source.has("word"));
+			assertFalse(source.has("word.noun"));
+		}
+	}
+
+	/**
+	 * 8. インデックス保存・再ロード後の新schema挙動確認: 保存・再オープン後も新 schema が保持され、body
+	 * で検索結果が取得できることを確認する。
+	 */
+	public void testSaveAndReloadWithNewSchema001() throws Exception {
+		java.nio.file.Path tempDir = java.nio.file.Files.createTempDirectory("localsearch_test_schema");
+
+		try {
+			try (LocalSearch search = LocalSearch.builder("en").build()) {
+				search.addJson("""
+						{
+						  "id": "1",
+						  "body": "Kyoto is a historic city.",
+						  "category": "city"
+						}
+						""");
+				search.commit();
+				search.saveIndexTo(tempDir);
+			}
+
+			try (LocalSearch search = LocalSearch.builder("en").loadIndexFrom(tempDir).build()) {
+				SearchResult[] results = search.search("Kyoto", 10);
+				assertEquals(1, results.length);
+				assertEquals("1", results[0].id);
+				assertEquals("Kyoto is a historic city.", results[0].body);
+
+				String responseJson = search.searchResponseJson("""
+						{
+						  "size": 10,
+						  "query": {
+						    "match": {
+						      "text_en": "Kyoto"
+						    }
+						  }
+						}
+						""");
+				nlp4j.json.JsonNode source = nlp4j.json.JsonNode.parse(responseJson).get("hits").get("hits").get(0)
+						.get("_source");
+
+				assertEquals("Kyoto is a historic city.", source.get("body").asString());
+				assertFalse(source.has("text_en"));
+			}
+		} finally {
+			try (java.util.stream.Stream<java.nio.file.Path> files = java.nio.file.Files.walk(tempDir)) {
+				files.sorted(java.util.Comparator.reverseOrder()).forEach(p -> {
+					try {
+						java.nio.file.Files.deleteIfExists(p);
+					} catch (Exception ignored) {
+					}
+				});
+			}
+		}
+	}
+
+	/**
+	 * 9. 旧schema互換テスト: 旧形式 schema (body なし, text_en stored=true) を読み込んだ場合でも、
+	 * ensureCoreFields により body が追加され、toSearchResults() のフォールバックにより
+	 * SearchResult.body が取得できることを確認する。
+	 */
+	public void testLegacySchemaCompatibility001() throws Exception {
+		java.nio.file.Path tempDir = java.nio.file.Files.createTempDirectory("localsearch_test_legacy");
+
+		try {
+			// 旧 index に Document を直接書き込む (body なし, text_en stored)
+			try (nlp4j.lucene9.LuceneIndex index = new nlp4j.lucene9.LuceneIndex()) {
+				org.apache.lucene.document.Document doc = new org.apache.lucene.document.Document();
+				doc.add(new org.apache.lucene.document.StringField("id", "legacy1",
+						org.apache.lucene.document.Field.Store.YES));
+				doc.add(new org.apache.lucene.document.TextField("text_en", "Legacy document body",
+						org.apache.lucene.document.Field.Store.YES));
+				index.add(doc);
+				index.commit();
+				index.writeToAndClose(tempDir);
+			}
+
+			// 旧形式の schema.json を手動作成 (body なし, text_en stored=true)
+			nlp4j.lucene9.SearchSchema legacySchema = new nlp4j.lucene9.SearchSchema();
+			legacySchema.add("id", nlp4j.lucene9.FieldTypeDef.keyword().stored(true));
+			legacySchema.add("text_en", nlp4j.lucene9.FieldTypeDef.text().stored(true));
+			legacySchema.add("data", nlp4j.lucene9.FieldTypeDef.storedOnly());
+			nlp4j.lucene9.SearchSchemaStore.save(tempDir, legacySchema);
+
+			// LocalSearch でロードして検索
+			try (LocalSearch search = LocalSearch.builder("en").loadIndexFrom(tempDir).build()) {
+				SearchResult[] results = search.search("Legacy", 10);
+				assertEquals(1, results.length);
+				assertEquals("legacy1", results[0].id);
+				assertEquals("Legacy document body", results[0].body);
+
+				// 新規ドキュメントも問題なく追加可能であること (ensureCoreFields で body が追加されているため)
+				search.addJson("""
+						{
+						  "id": "new1",
+						  "body": "New document body"
+						}
+						""");
+				search.commit();
+
+				SearchResult[] newResults = search.search("New", 10);
+				assertEquals(1, newResults.length);
+				assertEquals("new1", newResults[0].id);
+				assertEquals("New document body", newResults[0].body);
+			}
+		} finally {
+			try (java.util.stream.Stream<java.nio.file.Path> files = java.nio.file.Files.walk(tempDir)) {
+				files.sorted(java.util.Comparator.reverseOrder()).forEach(p -> {
+					try {
+						java.nio.file.Files.deleteIfExists(p);
+					} catch (Exception ignored) {
+					}
+				});
+			}
+		}
+	}
+
+	public void testAddJsonTextAlias001() throws Exception {
+		try (LocalSearch search = new LocalSearch("ja")) {
+			search.addJson("""
+					{
+					  "id": "1",
+					  "text": "京都は日本の都市です"
+					}
+					""");
+			search.commit();
+
+			SearchResult[] results = search.search("京都", 10);
+
+			assertEquals(1, results.length);
+			assertEquals("京都は日本の都市です", results[0].body);
+
+			String json = search.searchResponseJson("""
+					{
+					  "size": 10,
+					  "query": {"match": {"text_ja": "京都"}}
+					}
+					""");
+
+			nlp4j.json.JsonNode source = nlp4j.json.JsonNode.parse(json).get("hits").get("hits").get(0).get("_source");
+
+			assertEquals("京都は日本の都市です", source.get("body").asString());
+
+			assertFalse(source.has("text"));
+			assertFalse(source.has("text_ja"));
+		}
+	}
+
+	public void testAddJsonWrongLanguageField001() throws Exception {
+		try (LocalSearch search = new LocalSearch("ja")) {
+			try {
+				search.addJson("""
+						{
+						  "id": "1",
+						  "text_en": "Kyoto is a city."
+						}
+						""");
+				fail("text_en only must not be document body for ja engine");
+			} catch (LocalSearchException e) {
+				assertTrue(e.getMessage().contains("Required field is missing"));
+			}
+		}
+	}
+
+	public void testAddJsonBodyAndTextConflict001() throws Exception {
+		try (LocalSearch search = new LocalSearch("ja")) {
+			try {
+				search.addJson("""
+						{
+						  "id": "1",
+						  "body": "京都について",
+						  "text": "東京について"
+						}
+						""");
+				fail("Expected conflict");
+			} catch (LocalSearchException e) {
+				assertTrue(e.getMessage().contains("Conflicting text fields"));
+			}
+		}
+	}
+
+	public void testCoreTextFieldSchema001() throws Exception {
+		try (LocalSearch search = new LocalSearch("ja")) {
+
+			assertEquals( //
+					nlp4j.lucene9.FieldTypeDef.Kind.STORED_ONLY, //
+					search.getSchema().get("body").kind() //
+			);
+
+			assertEquals( //
+					nlp4j.lucene9.FieldTypeDef.Kind.TEXT, //
+					search.getSchema().get("text").kind() //
+			);
+
+			assertEquals( //
+					nlp4j.lucene9.FieldTypeDef.Kind.TEXT, //
+					search.getSchema().get("text_ja").kind() //
+			);
+
+			assertEquals( //
+					nlp4j.lucene9.FieldTypeDef.Kind.TEXT, //
+					search.getSchema().get("text_en").kind() //
+			);
+
+			assertTrue( //
+					search.getSchema().get("body").is_stored() //
+			);
+
+			assertFalse( //
+					search.getSchema().get("text").is_stored() //
+			);
+			assertFalse( //
+					search.getSchema().get("text_ja").is_stored() //
+			);
+			assertFalse( //
+					search.getSchema().get("text_en").is_stored() //
+			);
+		}
+	}
 }

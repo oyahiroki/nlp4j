@@ -66,29 +66,29 @@ public class Example05_VectorAndFieldSearch_1 {
 
             // --- フィルターなし ---
             System.out.println("=== ベクトル検索（フィルターなし）: queryVector=[0.9, 0.1] ===");
-            SearchResult[] r1 = search.search(queryVector, 6);
+            SearchResult[] r1 = search.searchVector(queryVector, 6);
             printResults(r1);
 
             // --- 単一フィールドフィルター ---
             System.out.println("=== ベクトル+フィールド: queryVector=[0.9, 0.1] + category=\"tech\" ===");
-            SearchResult[] r2 = search.search(queryVector, 6,
+            SearchResult[] r2 = search.searchVector(queryVector, 6,
                     Map.of("category", "tech"));
             printResults(r2);
 
             System.out.println("=== ベクトル+フィールド: queryVector=[0.9, 0.1] + category=\"travel\" ===");
-            SearchResult[] r3 = search.search(queryVector, 6,
+            SearchResult[] r3 = search.searchVector(queryVector, 6,
                     Map.of("category", "travel"));
             printResults(r3);
 
             // --- 複数フィールドフィルター ---
             System.out.println("=== ベクトル+フィールド: queryVector=[0.9, 0.1] + category=\"tech\" + country=\"Japan\" ===");
-            SearchResult[] r4 = search.search(queryVector, 6,
+            SearchResult[] r4 = search.searchVector(queryVector, 6,
                     Map.of("category", "tech", "country", "Japan"));
             printResults(r4);
 
             // --- フィルターに一致なし ---
             System.out.println("=== ベクトル+フィールド: queryVector=[0.9, 0.1] + country=\"France\" (該当なし相当) ===");
-            SearchResult[] r5 = search.search(queryVector, 6,
+            SearchResult[] r5 = search.searchVector(queryVector, 6,
                     Map.of("category", "tech", "country", "France"));
             printResults(r5);
         }

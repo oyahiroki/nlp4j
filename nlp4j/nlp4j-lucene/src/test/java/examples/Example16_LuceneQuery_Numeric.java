@@ -64,7 +64,7 @@ public class Example16_LuceneQuery_Numeric {
 			// -----------------------------------------------------------
 			System.out.println("=== year_i:2025 ===");
 			{
-				SearchResult[] r1 = search.searchLucene("year_i:2025", 10);
+				SearchResult[] r1 = search.search("year_i:2025", 10);
 				for (SearchResult r : r1) {
 					System.out.println(r.id + " : " + r.body);
 				}
@@ -76,7 +76,7 @@ public class Example16_LuceneQuery_Numeric {
 			System.out.println();
 			{
 				System.out.println("=== year_i:[2025 TO 2026] ===");
-				SearchResult[] r2 = search.searchLucene("year_i:[2025 TO 2026]", 10);
+				SearchResult[] r2 = search.search("year_i:[2025 TO 2026]", 10);
 				for (SearchResult r : r2) {
 					System.out.println(r.id + " : " + r.body);
 				}
@@ -84,7 +84,7 @@ public class Example16_LuceneQuery_Numeric {
 			System.out.println();
 			{
 				System.out.println("=== year_i:{2025 TO 2026] (not include 2025) ===");
-				SearchResult[] r2 = search.searchLucene("year_i:{2025 TO 2026]", 10);
+				SearchResult[] r2 = search.search("year_i:{2025 TO 2026]", 10);
 				for (SearchResult r : r2) {
 					System.out.println(r.id + " : " + r.body);
 				}
@@ -92,7 +92,7 @@ public class Example16_LuceneQuery_Numeric {
 			System.out.println();
 			{
 				System.out.println("=== year_i:[2025 TO 2026} (not include 2026) ===");
-				SearchResult[] r2 = search.searchLucene("year_i:[2025 TO 2026}", 10);
+				SearchResult[] r2 = search.search("year_i:[2025 TO 2026}", 10);
 				for (SearchResult r : r2) {
 					System.out.println(r.id + " : " + r.body);
 				}
@@ -104,7 +104,7 @@ public class Example16_LuceneQuery_Numeric {
 			// -----------------------------------------------------------
 			System.out.println();
 			System.out.println("=== price_d:[100 TO 200] ===");
-			SearchResult[] r3 = search.searchLucene("price_d:[100 TO 200]", 10);
+			SearchResult[] r3 = search.search("price_d:[100 TO 200]", 10);
 			for (SearchResult r : r3) {
 				System.out.println(r.id + " : " + r.body);
 			}

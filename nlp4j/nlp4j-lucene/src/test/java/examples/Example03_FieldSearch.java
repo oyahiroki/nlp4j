@@ -59,25 +59,25 @@ public class Example03_FieldSearch {
 
             // --- category フィールドで検索 ---
             System.out.println("=== フィールド検索: category=\"city\" ===");
-            SearchResult[] r1 = search.search("category", "city", 10);
+            SearchResult[] r1 = search.search("category:city", 10);
             printResults(r1);
 
             System.out.println("=== フィールド検索: category=\"company\" ===");
-            SearchResult[] r2 = search.search("category", "company", 10);
+            SearchResult[] r2 = search.search("category:company", 10);
             printResults(r2);
 
             // --- country フィールドで検索 ---
             System.out.println("=== フィールド検索: country=\"Japan\" ===");
-            SearchResult[] r3 = search.search("country", "Japan", 10);
+            SearchResult[] r3 = search.search("country:Japan", 10);
             printResults(r3);
 
             System.out.println("=== フィールド検索: country=\"France\" ===");
-            SearchResult[] r4 = search.search("country", "France", 10);
+            SearchResult[] r4 = search.search("country:France", 10);
             printResults(r4);
 
             // --- 存在しない値 ---
             System.out.println("=== フィールド検索: category=\"sports\" (該当なし) ===");
-            SearchResult[] r5 = search.search("category", "sports", 10);
+            SearchResult[] r5 = search.search("category:sports", 10);
             printResults(r5);
         }
     }

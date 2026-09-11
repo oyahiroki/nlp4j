@@ -6,12 +6,28 @@
 package nlp4j.lucene;
 
 public class SearchResult {
+
+	/**
+	 * ユーザー定義の文書ID。
+	 */
 	public String id;
+
+	/**
+	 * 文書の論理本文。
+	 *
+	 * addJson() では body / text / language-specific text field
+	 * （text_ja, text_en など）から解決された本文が設定される。
+	 */
 	public String body;
+
+	/**
+	 * Lucene の検索スコア。
+	 */
 	public float score;
 
 	/**
-	 * addJson() でドキュメントを追加した場合に設定される元の JSON 文字列。
+	 * addJson() でドキュメントを追加した場合の元JSON文字列。
+	 * vector フィールドは除外される。
 	 * add(id, body) で追加した場合は null。
 	 */
 	public String data;

@@ -170,6 +170,10 @@ public class LuceneIndex implements Closeable {
 
 	@Override
 	public void close() throws IOException {
+		if (closed) {
+			return;
+		}
+		closed = true;
 
 		if (searcherManager != null) {
 			searcherManager.close();
@@ -253,36 +257,37 @@ public class LuceneIndex implements Closeable {
 			throw new IOException("LuceneIndex is already closed.");
 		}
 
+		// 1. Preflight check: 出力先ディレクトリの確認と空チェックを close 前に行う
 		Files.createDirectories(outputDir);
+		try (Directory outputDirectory = FSDirectory.open(outputDir)) {
+			String[] existingFiles = outputDirectory.listAll();
+			if (existingFiles.length > 0) {
+				throw new IOException("Output directory is not empty: " + outputDir);
+			}
+		}
 
+		// 2. インデックスのマージとコピー、およびリソースの確実なクローズ
 		IOException thrown = null;
 
 		try {
 			// SearcherManager は writer を参照しているため先に閉じる
-			searcherManager.close();
+			if (searcherManager != null) {
+				searcherManager.close();
+			}
 
 			// 保存用なので、時間がかかってもよい前提なら実行してよい
 			// doWait=true なので merge 完了まで待つ
-			writer.forceMerge(1, true);
-
-			// commitOnClose=true の場合:
-			// 変更を書き出し、実行中 merge を待ち、commit して close
-			writer.close();
+			if (writer != null) {
+				writer.forceMerge(1, true);
+				writer.close();
+			}
 
 			try (Directory outputDirectory = FSDirectory.open(outputDir)) {
-
-				String[] existingFiles = outputDirectory.listAll();
-				if (existingFiles.length > 0) {
-					throw new IOException("Output directory is not empty: " + outputDir);
-				}
-
 				for (String fileName : directory.listAll()) {
-
 					// write.lock はコピー不要
 					if (IndexWriter.WRITE_LOCK_NAME.equals(fileName)) {
 						continue;
 					}
-
 					outputDirectory.copyFrom(directory, fileName, fileName, IOContext.DEFAULT);
 				}
 			}
@@ -292,8 +297,23 @@ public class LuceneIndex implements Closeable {
 			throw e;
 
 		} finally {
+			// writer が例外等で閉じられていない場合は finally でクローズ
+			if (writer != null && writer.isOpen()) {
+				try {
+					writer.close();
+				} catch (IOException e) {
+					if (thrown != null) {
+						thrown.addSuppressed(e);
+					} else {
+						thrown = e;
+					}
+				}
+			}
+
 			try {
-				directory.close();
+				if (directory != null) {
+					directory.close();
+				}
 			} catch (IOException e) {
 				if (thrown != null) {
 					thrown.addSuppressed(e);
@@ -302,9 +322,15 @@ public class LuceneIndex implements Closeable {
 				}
 			}
 
-			analyzer.close();
+			if (analyzer != null) {
+				analyzer.close();
+			}
 
 			closed = true;
+
+			if (thrown != null) {
+				throw thrown;
+			}
 		}
 	}
 
