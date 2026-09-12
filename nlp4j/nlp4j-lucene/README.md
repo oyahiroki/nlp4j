@@ -1,242 +1,187 @@
-Copyright © Hiroki OYA / Official repository
-
 # nlp4j-lucene
 
-Apache Lucene を使用したローカル検索ライブラリ
+`nlp4j-lucene` provides an intuitive, easy-to-use search and analytics API built on top of Apache Lucene. It enables you to integrate full-text search, field filtering, vector search, morphological analysis, and real-time aggregations into Java applications with minimal setup.
 
-## 概要
+---
 
-nlp4j-lucene は、Apache Lucene 9.12.2 をベースにした、シンプルで使いやすいローカル検索ライブラリです。OpenSearch/Elasticsearch 互換の JSON API を提供し、日本語と英語のテキスト検索をサポートします。
+## Features
 
-## 主な機能
+- **Simple & Expressive API**: Create indices, index documents, and query in just a few lines of code.
+- **Multilingual Full-Text Search**: Out-of-the-box support for Japanese (Kuromoji analyzer) and English (English analyzer), with automatic multi-field default search across `text_ja`, `text_en`, `text`, and `body`.
+- **JSON & Structured Document Indexing**: Index documents directly from JSON strings, JSON objects (`JsonObject`), or key-value maps without manual schema mapping.
+- **Dynamic & Strongly-Typed Schema**: Supports text, keyword, integer, long, double, and date fields with automatic type inference and range queries.
+- **Vector / Semantic Search**: Built-in vector search and hybrid search (text + vector with filters) powered by Lucene's HNSW vector index.
+- **Integrated Morphological Analysis**: Automatic part-of-speech extraction and indexing (`word`, `word.noun`, `word.verb`, `word.propn`, etc.) powered by Kuromoji or custom NLP annotators.
+- **Real-Time Aggregations & Analytics**: Elasticsearch-like facet and term aggregations, relative rate calculations, and JSON-based request/response APIs.
+- **In-Memory & Persistent Storage**: Work seamlessly with in-memory indexes (ideal for unit testing and fast processing) or disk-based directories.
 
-- **シンプルなAPI**: 簡単に使える高レベルAPIを提供
-- **多言語対応**: 日本語（Kuromoji）、英語（EnglishAnalyzer）をサポート
-- **OpenSearch互換**: OpenSearch/Elasticsearch スタイルの JSON クエリをサポート
-- **インメモリ検索**: 高速なインメモリインデックス
-- **集約機能**: Terms Aggregation などの集約クエリをサポート
-- **柔軟なスキーマ**: カスタマイズ可能なフィールド定義
+---
 
-## 必要要件
+## Getting Started
 
-- Java 17 以上
-- Apache Lucene 9.12.2
-- nlp4j-core 1.3.7.21
-
-## インストール
-
-Maven を使用する場合、`pom.xml` に以下の依存関係を追加してください：
-
-```xml
-<dependency>
-    <groupId>org.nlp4j</groupId>
-    <artifactId>nlp4j-lucene</artifactId>
-    <version>1.0.0.0</version>
-</dependency>
-```
-
-## 使い方
-
-### 基本的な使い方（日本語検索）
+### 1. Basic Full-Text Search
 
 ```java
+import nlp4j.SearchRecord;
+import nlp4j.SearchResult;
 import nlp4j.lucene.LocalSearch;
-import nlp4j.lucene.SearchResult;
 
-public class Example {
-    public static void main(String[] args) {
-        // 日本語検索インスタンスを作成
-        try (LocalSearch search = new LocalSearch("ja")) {
-            // ドキュメントを追加
-            search.add("1", "東京都は日本の都道府県のひとつです");
-            search.add("2", "京都は日本の都市です。");
-            search.add("3", "京都市には任天堂の本社があります");
-            
-            // JSONフォーマットでも追加可能
-            search.addJson("""
-                {
-                    "id":"4",
-                    "body":"京都府は広いです"
-                }
-                """);
-            
-            // インデックスをコミット
-            search.commit();
-            
-            // 検索を実行
-            SearchResult[] results = search.search("京都", 10);
-            
-            // 結果を表示
-            System.out.println("検索結果数: " + results.length);
-            for (int i = 0; i < results.length; i++) {
-                System.out.println("ID: " + results[i].id);
-                System.out.println("本文: " + results[i].body);
-                System.out.println("スコア: " + results[i].score);
-            }
-        }
+// Create an in-memory index for Japanese
+try (LocalSearch search = LocalSearch.builder()
+        .language("ja")
+        .build()) {
+
+    // Index documents
+    search.add("1", "東京都は日本の首都です。");
+    search.add("2", "京都は日本の歴史的な古都です。");
+    search.add("3", "大阪は西日本の主要都市です。");
+    search.commit();
+
+    // Full-text search
+    List<SearchResult> results = search.search("日本");
+    for (SearchResult result : results) {
+        System.out.printf("ID: %s, Score: %.4f, Body: %s%n",
+                result.getId(), result.getScore(), result.getBody());
     }
 }
 ```
 
-### 高度な使い方（OpenSearch互換API）
+---
+
+### 2. English Search with Field Filtering
 
 ```java
-import nlp4j.lucene9.LuceneIndex;
-import nlp4j.lucene9.LuceneLocalSearchApi;
-import nlp4j.json.JsonNode;
-import org.apache.lucene.document.Document;
-import org.apache.lucene.document.Field;
-import org.apache.lucene.document.StringField;
-import org.apache.lucene.document.TextField;
+try (LocalSearch search = LocalSearch.builder()
+        .language("en")
+        .build()) {
 
-public class AdvancedExample {
-    public static void main(String[] args) throws Exception {
-        // インデックスを作成
-        try (LuceneIndex index = new LuceneIndex()) {
-            // ドキュメントを追加
-            Document doc = new Document();
-            doc.add(new StringField("id", "1", Field.Store.YES));
-            doc.add(new TextField("content", "Hello Lucene", Field.Store.YES));
-            index.add(doc);
-            
-            // 検索APIを作成
-            LuceneLocalSearchApi api = new LuceneLocalSearchApi(index);
-            
-            // Match All クエリ
-            JsonNode matchAllRequest = JsonNode.object()
-                .put("query", JsonNode.object()
-                    .put("match_all", JsonNode.object()))
-                .put("size", 10);
-            
-            JsonNode result = api.search("myindex/_search", matchAllRequest);
-            System.out.println(result.toJson());
-            
-            // Match クエリ
-            JsonNode matchRequest = JsonNode.object()
-                .put("query", JsonNode.object()
-                    .put("match", JsonNode.object()
-                        .put("content", "Lucene")))
-                .put("size", 10);
-            
-            result = api.search("myindex/_search", matchRequest);
-            System.out.println(result.toJson());
-            
-            // Terms Aggregation
-            JsonNode aggRequest = JsonNode.object()
-                .put("query", JsonNode.object()
-                    .put("match_all", JsonNode.object()))
-                .put("size", 0)
-                .put("aggs", JsonNode.object()
-                    .put("categories", JsonNode.object()
-                        .put("terms", JsonNode.object()
-                            .put("field", "category")
-                            .put("size", 10))));
-            
-            result = api.search("myindex/_search", aggRequest);
-            System.out.println(result.toJson());
-        }
-    }
+    // Index documents with fields
+    search.add("1", "Kyoto is a historic city.", Map.of("category", "city", "country", "Japan"));
+    search.add("2", "Nintendo is headquartered in Kyoto.", Map.of("category", "company", "country", "Japan"));
+    search.commit();
+
+    // Query with term filters
+    List<SearchResult> results = search.search("Kyoto", Map.of("category", "company"));
+    // Returns document 2
 }
 ```
 
-## サポートされているクエリタイプ
+---
 
-- **match_all**: すべてのドキュメントを取得
-- **term**: 完全一致検索
-- **match**: テキスト検索（アナライザーを使用）
-- **query_string**: 複雑なクエリ構文をサポート
+### 3. JSON Indexing & Search DSL
 
-## サポートされている集約
+Index arbitrary JSON documents with automatic field type mapping:
 
-- **terms**: フィールドの値でグループ化して集計
+```java
+try (LocalSearch search = LocalSearch.builder().build()) {
+    // Index raw JSON string
+    search.addJson("""
+        {
+          "id": "item1",
+          "body": "Apache Lucene is a high-performance text search engine library.",
+          "category": "software",
+          "tags": ["java", "search", "open-source"],
+          "stars_i": 5
+        }
+        """);
+    search.commit();
 
-## プロジェクト構成
-
-```
-nlp4j-lucene/
-├── src/
-│   ├── main/
-│   │   └── java/
-│   │       └── nlp4j/
-│   │           ├── json/          # JSON処理ユーティリティ
-│   │           ├── lucene/        # 高レベルAPI
-│   │           │   ├── LocalSearch.java
-│   │           │   ├── SearchResult.java
-│   │           │   └── LocalSearchException.java
-│   │           └── lucene9/       # 低レベルLucene API
-│   │               ├── LuceneIndex.java
-│   │               ├── LuceneLocalSearchApi.java
-│   │               ├── SearchSchema.java
-│   │               ├── FieldTypeDef.java
-│   │               └── ...
-│   └── test/
-│       └── java/
-│           └── nlp4j/
-│               └── lucene/
-│                   └── LocalSearchTestCase.java
-└── pom.xml
+    // Search using Elasticsearch-style JSON DSL
+    String jsonQuery = """
+        {
+          "query": {
+            "term": { "category": "software" }
+          }
+        }
+        """;
+    String responseJson = search.searchJson(jsonQuery);
+    System.out.println(responseJson);
+}
 ```
 
-## 主要クラス
+---
 
-### LocalSearch
-シンプルなローカル検索APIを提供する高レベルクラス。言語を指定して簡単に検索機能を実装できます。
+### 4. Vector / Semantic Search
 
-### LuceneIndex
-Luceneインデックスの管理を行う低レベルクラス。ドキュメントの追加、検索セッションの管理を担当します。
+Combine dense vector embeddings with metadata filters:
 
-### LuceneLocalSearchApi
-OpenSearch互換のJSON APIを提供するクラス。JSONリクエストを受け取り、JSON レスポンスを返します。
+```java
+try (LocalSearch search = LocalSearch.builder()
+        .vectorDimension(3)
+        .build()) {
 
-### SearchSchema
-ドキュメントのスキーマ定義を管理するクラス。フィールド名とフィールドタイプの対応を定義します。
+    search.add("1", new float[]{1.0f, 0.0f, 0.0f});
+    search.add("2", new float[]{0.0f, 1.0f, 0.0f}, Map.of("category", "tech"));
+    search.commit();
 
-## ライセンス
+    // K-Nearest Neighbor (k-NN) search
+    float[] targetVector = new float[]{0.9f, 0.1f, 0.0f};
+    List<SearchResult> results = search.search(targetVector, 10);
 
-Apache License, Version 2.0
-
-## リンク
-
-- プロジェクトURL: https://nlp4j.org/
-- Apache Lucene: https://lucene.apache.org/
-
-## 開発者向け情報
-
-### ビルド方法
-
-```bash
-mvn clean install
+    // Vector search with filter
+    List<SearchResult> filteredResults = search.search(targetVector, 10, Map.of("category", "tech"));
+}
 ```
 
-### テスト実行
+---
 
-```bash
-mvn test
+### 5. Facet & Keyword Aggregations
+
+Perform instant bucket aggregations:
+
+```java
+try (LocalSearch search = LocalSearch.builder().language("ja").build()) {
+    search.add("1", "京都観光と寺院巡り", Map.of("category", "観光"));
+    search.add("2", "京都の最新IT技術開発", Map.of("category", "技術"));
+    search.add("3", "東京のITスタートアップ", Map.of("category", "技術"));
+    search.commit();
+
+    // Aggregate category field counts
+    Map<String, Integer> counts = search.aggregate("category", 10);
+    // counts -> {"技術": 2, "観光": 1}
+
+    // Aggregate extracted nouns (via morphological analysis)
+    Map<String, Integer> nouns = search.aggregate("word.noun", 10);
+}
 ```
 
-## サンプルコード
+---
 
-プロジェクトには以下のサンプルコードが含まれています：
+### 6. Lucene Query Syntax Support
 
-- `LocalSearchExampleMain_Ja.java`: 日本語検索の基本的な使い方
-- `HelloNlp4jLuceneMain.java`: OpenSearch互換APIの使い方
-- `HelloNlp4jLuceneMain2.java`: より高度な使用例
+Execute rich Lucene queries with AND/OR, phrase matches, range queries, and wildcards:
 
-## 貢献
+```java
+try (LocalSearch search = LocalSearch.builder().language("en").build()) {
+    search.add("1", "Kyoto is a historic city in Japan.");
+    search.add("2", "Tokyo and Kyoto are major cities in Japan.");
+    search.commit();
 
-バグ報告や機能リクエストは、プロジェクトのIssueトラッカーまでお願いします。
+    // Lucene query string
+    List<SearchResult> results = search.searchLucene("Kyoto AND Japan NOT Tokyo");
+    // Returns document 1
+}
+```
 
-## バージョン情報
+---
 
-- nlp4j-lucene: 1.0.0.0
-- Apache Lucene: 9.12.2
-- nlp4j-core: 1.3.7.21
-- Java: 17+
+## Storage & Configuration Options
 
-## History
+[`LocalSearch.builder()`](src/main/java/nlp4j/lucene/LocalSearch.java:1) provides flexible options:
 
-2026-07-30 1.0.0.0 Keyword Search
-2026-08-03 1.1.0.0 Field search and aggregation
-2026-08-06 1.4.0.0 Multi valued field search and aggregation
-2026-MM-DD 1.5.0.0 Built-in Language Analyzer
-	
+```java
+LocalSearch search = LocalSearch.builder()
+    .language("ja")                     // Analyzer language: "ja", "en", etc.
+    .directory(new File("./my-index"))   // Disk-based persistence (omit for in-memory)
+    .vectorDimension(128)               // Enable dense vector search
+    .schema(schema)                     // Custom field definitions
+    .nlp(true)                          // Enable morphological analysis annotator
+    .build();
+```
+
+---
+
+## Requirements
+
+- **Java**: 17 or higher
+- **Apache Lucene**: 9.x
