@@ -3503,4 +3503,134 @@ public class LocalSearchTestCase extends TestCase {
 			assertEquals("1", results[0].id);
 		}
 	}
+
+	// =========================================================
+	// MultiValued Field - 1要素配列のバグ回帰テスト
+	// =========================================================
+
+	/**
+	 * addJson() で最初のドキュメントに1要素の JSON 配列を含む場合でも、
+	 * multiValued=true として登録され、続く複数要素配列でも例外が発生しないことを確認する。
+	 *
+	 * <p>
+	 * Wikipedia 漫画 JSONL のような「最初の文書は1カテゴリ、次の文書は複数カテゴリ」
+	 * というパターンで起きたバグの回帰テスト。
+	 * </p>
+	 */
+	public void testMultiValuedSingleElementArray001() throws Exception {
+
+		try (LocalSearch search = LocalSearch.builder("ja")
+				.autoAnalyze(false)
+				.build()) {
+
+			// 最初の文書では配列だが要素数は1
+			search.addJson("""
+					{
+					  "id":"222",
+					  "text_ja":"日本の漫画家では、日本における漫画家について解説する。",
+					  "category_s":["日本の漫画家"]
+					}
+					""");
+
+			// この時点ですでに multiValued=true であること
+			assertTrue(search.getSchema().contains("category_s"));
+			assertTrue(
+					search.getSchema()
+							.get("category_s")
+							.is_multiValued());
+
+			// 次の文書では2要素
+			search.addJson("""
+					{
+					  "id":"224",
+					  "text_ja":"日本の漫画作品一覧。",
+					  "category_s":["漫画作品一覧","日本の漫画"]
+					}
+					""");
+
+			// さらに多数要素
+			search.addJson("""
+					{
+					  "id":"225",
+					  "text_ja":"うる星やつらは、高橋留美子による日本の漫画。",
+					  "category_s":[
+					    "うる星やつら",
+					    "高橋留美子の漫画作品",
+					    "1978年の漫画",
+					    "SF漫画作品",
+					    "恋愛漫画"
+					  ]
+					}
+					""");
+
+			search.commit();
+
+			assertEquals(3L, search.count());
+
+			assertEquals(
+					1L,
+					search.count("category_s:恋愛漫画"));
+
+			assertEquals(
+					1L,
+					search.count("category_s:日本の漫画"));
+
+			// aggregation まで確認: JSON array → multiValued schema → index → DocValues aggregation
+			java.util.Map<String, Long> categories = search.aggregate("category_s", 100);
+
+			assertEquals(
+					Long.valueOf(1L),
+					categories.get("日本の漫画家"));
+
+			assertEquals(
+					Long.valueOf(1L),
+					categories.get("日本の漫画"));
+
+			assertEquals(
+					Long.valueOf(1L),
+					categories.get("恋愛漫画"));
+		}
+	}
+
+	/**
+	 * addJson() で最初に scalar 値として登録されたフィールドを、
+	 * 後から JSON 配列として渡すと LocalSearchException が発生することを確認する。
+	 *
+	 * <p>
+	 * scalar → array のスキーマ変更は Lucene の DocValues 型変更を引き起こすため、
+	 * 明示的なエラーにすることが安全。
+	 * </p>
+	 */
+	public void testMultiValuedScalarThenArrayThrows001() throws Exception {
+
+		try (LocalSearch search = LocalSearch.builder("en")
+				.autoAnalyze(false)
+				.build()) {
+
+			search.addJson("""
+					{
+					  "id":"1",
+					  "body":"doc1",
+					  "tags":"Japan"
+					}
+					""");
+
+			try {
+				search.addJson("""
+						{
+						  "id":"2",
+						  "body":"doc2",
+						  "tags":["Japan","city"]
+						}
+						""");
+
+				fail("Expected LocalSearchException");
+
+			} catch (LocalSearchException e) {
+				assertTrue(
+						e.getMessage().contains("single-valued")
+						|| e.getMessage().contains("multiple values"));
+			}
+		}
+	}
 }

@@ -611,6 +611,10 @@ public class LocalSearch implements AutoCloseable {
 				}
 
 				if (valueNode.isArray()) {
+
+					// JSON array は要素数に関係なく multi-valued として登録する
+					ensureField(fieldName, true);
+
 					for (JsonNode itemNode : valueNode.asList()) {
 						if (itemNode == null || itemNode.isNull()) {
 							continue;
@@ -808,6 +812,15 @@ public class LocalSearch implements AutoCloseable {
 	 */
 	private void ensureField(String fieldName, boolean multiValued) {
 		if (schema.contains(fieldName)) {
+			FieldTypeDef existing = schema.get(fieldName);
+			if (multiValued && !existing.is_multiValued()) {
+				throw new LocalSearchException(
+						"Field '" + fieldName
+								+ "' is defined as single-valued, "
+								+ "but multiple values were provided.",
+						new IllegalArgumentException(
+								"Field '" + fieldName + "' is single-valued but received an array"));
+			}
 			return;
 		}
 		nlp4j.lucene9.FieldTypeDef type = dynamicFieldResolver.resolve(fieldName);
