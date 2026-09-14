@@ -54,9 +54,8 @@ import nlp4j.lucene9.TypedFieldQueryFactory;
  * </p>
  *
  * <p>
- * Note: multiple values for the same {@code _dt} field are supported, but
- * callers should be aware that derived fields will accumulate all individual
- * calendar values. Single-valued {@code _dt} fields are recommended.
+ * Note: DATE fields must be single-valued. An {@link IllegalArgumentException}
+ * is thrown if a DATE field contains more than one value.
  * </p>
  */
 public class DateFieldEnricher implements SearchRecordEnricher {
@@ -108,6 +107,18 @@ public class DateFieldEnricher implements SearchRecordEnricher {
 				continue;
 			}
 
+			// DATE single-valued を検証（全DATEフィールド対象）
+			List<String> values = record.getDataValues(fieldName);
+
+			if (values.size() > 1) {
+				throw new IllegalArgumentException(
+						"DATE field must be single-valued: " + fieldName);
+			}
+
+			if (values.isEmpty()) {
+				continue;
+			}
+
 			// 派生フィールド名を作るため _dt サフィックスを前提とする
 			if (!fieldName.endsWith("_dt")) {
 				continue;
@@ -115,29 +126,28 @@ public class DateFieldEnricher implements SearchRecordEnricher {
 
 			String base = fieldName.substring(0, fieldName.length() - "_dt".length());
 
-			for (String value : record.getDataValues(fieldName)) {
+			String value = values.get(0);
 
-				DateValue dateValue = FieldValueConverter.toDateValue(value, zoneId);
+			DateValue dateValue = FieldValueConverter.toDateValue(value, zoneId);
 
-				record.addData(base + "_year_i",
-						Integer.toString(dateValue.localDate().getYear()));
+			record.addData(base + "_year_i",
+					Integer.toString(dateValue.localDate().getYear()));
 
-				record.addData(base + "_month_i",
-						Integer.toString(dateValue.localDate().getMonthValue()));
+			record.addData(base + "_month_i",
+					Integer.toString(dateValue.localDate().getMonthValue()));
 
-				record.addData(base + "_day_i",
-						Integer.toString(dateValue.localDate().getDayOfMonth()));
+			record.addData(base + "_day_i",
+					Integer.toString(dateValue.localDate().getDayOfMonth()));
 
-				record.addData(base + "_dow_i",
-						Integer.toString(dateValue.localDate().getDayOfWeek().getValue()));
+			record.addData(base + "_dow_i",
+					Integer.toString(dateValue.localDate().getDayOfWeek().getValue()));
 
-				// hour_i は DATE_TIME 精度のときだけ生成する
-				// DATE 精度（日付のみ入力）の場合は midnight に変換しても
-				// 「元データに 0時という情報が存在した」という誤った意味になるため生成しない
-				if (dateValue.precision() == DatePrecision.DATE_TIME) {
-					record.addData(base + "_hour_i",
-							Integer.toString(dateValue.localTime().getHour()));
-				}
+			// hour_i は DATE_TIME 精度のときだけ生成する
+			// DATE 精度（日付のみ入力）の場合は midnight に変換しても
+			// 「元データに 0時という情報が存在した」という誤った意味になるため生成しない
+			if (dateValue.precision() == DatePrecision.DATE_TIME) {
+				record.addData(base + "_hour_i",
+						Integer.toString(dateValue.localTime().getHour()));
 			}
 		}
 	}

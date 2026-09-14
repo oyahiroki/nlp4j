@@ -72,7 +72,7 @@ public class LuceneLocalSearchApi {
 
 			SearchResult hits = SearchExecutor.execute(session.getSearcher(), query, request);
 
-			JsonNode aggregations = AggregationExecutor.execute(session.getSearcher(), query, request);
+			JsonNode aggregations = AggregationExecutor.execute(session.getSearcher(), query, request, schema, zoneId);
 
 			JsonNode searchResult = SearchResponseBuilder.build(hits, aggregations);
 

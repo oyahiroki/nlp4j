@@ -1,6 +1,6 @@
 # nlp4j-kuromoji
 
-Kuromoji integration for [NLP4J](https://nlp4j.org/) — Japanese morphological analysis using the [Kuromoji](https://www.atilika.org/) tokenizer (IPAdic).
+Kuromoji integration for [NLP4J](https://nlp4j.org/) — Japanese morphological analysis using the [Apache Lucene Kuromoji](https://lucene.apache.org/) tokenizer (IPAdic).
 
 ## Maven Dependency
 
@@ -106,12 +106,47 @@ Input: `"私はEVを買いました。"`
 | 6     | た     | た       |
 | 7     | 。     | 。       |
 
+## Performance
+
+### Migration from Atilika Kuromoji to Apache Lucene Kuromoji
+
+Since version 1.3.7.21, `KuromojiAnnotator` uses **Apache Lucene's `JapaneseTokenizer`** instead of the Atilika Kuromoji library.
+
+The key difference is dictionary loading strategy:
+
+- **Atilika Kuromoji** loads the IPAdic dictionary from disk on every `new Tokenizer()` call — there is no caching.
+- **Lucene Kuromoji** uses a `SingletonHolder` pattern to load the dictionary once per JVM and reuse it across all instances.
+
+In practice, the dominant cost with Atilika was not the Viterbi algorithm itself but the dictionary load (~137 ms per call). With Lucene, that cost disappears after the first call.
+
+### Benchmark Results
+
+Measured with 10 sample sentences × 100 iterations (1,000 total tokenizations), JVM warm-up applied:
+
+| Scenario | Atilika Kuromoji | Lucene Kuromoji | Improvement |
+|---|---|---|---|
+| New instance every call | ~139,000 ms | ~86 ms | **~1,600×** |
+| Reuse single instance | ~137,000 ms | ~23 ms | **~6,000×** |
+
+> Benchmark environment: Windows 10, JDK 11, single thread.
+> See [`KuromojiAnnotatorPerformanceTestCase`](src/test/java/nlp4j/krmj/annotator/KuromojiAnnotatorPerformanceTestCase.java) for the full benchmark code.
+
+### Additional Optimizations Applied
+
+| Optimization | Detail |
+|---|---|
+| `discardPunctuation=false` | Punctuation tokens (e.g. `。`) are preserved, matching previous behavior |
+| `static final Pattern` | The ASCII detection regex is pre-compiled once instead of on every token |
+| Log level `INFO` → `DEBUG` | Per-document log output no longer runs at INFO level in production |
+
 ## Dependencies
 
-| Artifact                           | Version |
-|------------------------------------|---------|
-| `org.nlp4j:nlp4j-core`             | 1.3.7.21 |
-| `com.atilika.kuromoji:kuromoji-ipadic` | 0.9.0 |
+| Artifact                                          | Version  |
+|---------------------------------------------------|----------|
+| `org.nlp4j:nlp4j-core`                            | 1.3.7.21 |
+| `org.apache.lucene:lucene-core`                   | 9.12.2   |
+| `org.apache.lucene:lucene-analysis-kuromoji`      | 9.12.2   |
+| `com.atilika.kuromoji:kuromoji-ipadic` (retained) | 0.9.0    |
 
 ## License
 

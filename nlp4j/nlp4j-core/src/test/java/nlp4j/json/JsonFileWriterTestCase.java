@@ -31,9 +31,13 @@ public class JsonFileWriterTestCase extends TestCase {
 
 		String s = FileUtils.readFileToString(tempFile, "UTF-8");
 
-		String expected = "{\"text\":\"This is test 001\",\"keywords\":[]}\r\n"//
+		String expected_old = "{\"text\":\"This is test 001\",\"keywords\":[]}\r\n"//
 				+ "{\"text\":\"This is test 002\",\"keywords\":[]}\r\n"//
 				+ "{\"text\":\"This is test 003\",\"keywords\":[]}\r\n" //
+				+ ""; //
+		String expected = "{\"text\":\"This is test 001\"}\r\n"//
+				+ "{\"text\":\"This is test 002\"}\r\n"//
+				+ "{\"text\":\"This is test 003\"}\r\n" //
 				+ ""; //
 
 		assertEquals(expected, s);
@@ -57,7 +61,7 @@ public class JsonFileWriterTestCase extends TestCase {
 
 		String s = FileUtils.readFileToString(tempFile, "UTF-8");
 
-		String expected = "{\"text\":\"This is test 0\",\"vector\":[1.0,0.0],\"keywords\":[]}\r\n" //
+		String expected_old = "{\"text\":\"This is test 0\",\"vector\":[1.0,0.0],\"keywords\":[]}\r\n" //
 				+ "{\"text\":\"This is test 1\",\"vector\":[1.0,0.0],\"keywords\":[]}\r\n" //
 				+ "{\"text\":\"This is test 2\",\"vector\":[1.0,0.0],\"keywords\":[]}\r\n" //
 				+ "{\"text\":\"This is test 3\",\"vector\":[1.0,0.0],\"keywords\":[]}\r\n" //
@@ -67,6 +71,17 @@ public class JsonFileWriterTestCase extends TestCase {
 				+ "{\"text\":\"This is test 7\",\"vector\":[1.0,0.0],\"keywords\":[]}\r\n" //
 				+ "{\"text\":\"This is test 8\",\"vector\":[1.0,0.0],\"keywords\":[]}\r\n" //
 				+ "{\"text\":\"This is test 9\",\"vector\":[1.0,0.0],\"keywords\":[]}\r\n" //
+				+ ""; //
+		String expected = "{\"text\":\"This is test 0\",\"vector\":[1.0,0.0]}\r\n" //
+				+ "{\"text\":\"This is test 1\",\"vector\":[1.0,0.0]}\r\n" //
+				+ "{\"text\":\"This is test 2\",\"vector\":[1.0,0.0]}\r\n" //
+				+ "{\"text\":\"This is test 3\",\"vector\":[1.0,0.0]}\r\n" //
+				+ "{\"text\":\"This is test 4\",\"vector\":[1.0,0.0]}\r\n" //
+				+ "{\"text\":\"This is test 5\",\"vector\":[1.0,0.0]}\r\n" //
+				+ "{\"text\":\"This is test 6\",\"vector\":[1.0,0.0]}\r\n" //
+				+ "{\"text\":\"This is test 7\",\"vector\":[1.0,0.0]}\r\n" //
+				+ "{\"text\":\"This is test 8\",\"vector\":[1.0,0.0]}\r\n" //
+				+ "{\"text\":\"This is test 9\",\"vector\":[1.0,0.0]}\r\n" //
 				+ ""; //
 
 		assertEquals(expected, s);

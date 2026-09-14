@@ -829,9 +829,24 @@ public class LocalSearch implements AutoCloseable {
 	 * @param multiValued 複数値フィールドの場合 true
 	 */
 	private void ensureField(String fieldName, boolean multiValued) {
+		nlp4j.lucene9.FieldTypeDef type;
+
 		if (schema.contains(fieldName)) {
-			FieldTypeDef existing = schema.get(fieldName);
-			if (multiValued && !existing.is_multiValued()) {
+			type = schema.get(fieldName);
+		} else {
+			type = dynamicFieldResolver.resolve(fieldName);
+		}
+
+		// DATE fields must always be single-valued
+		if (type.kind() == nlp4j.lucene9.FieldTypeDef.Kind.DATE && multiValued) {
+			throw new LocalSearchException(
+					"DATE field must be single-valued: " + fieldName,
+					new IllegalArgumentException(
+							"DATE field must be single-valued: " + fieldName));
+		}
+
+		if (schema.contains(fieldName)) {
+			if (multiValued && !type.is_multiValued()) {
 				throw new LocalSearchException(
 						"Field '" + fieldName + "' is defined as single-valued, "
 								+ "but multiple values were provided.",
@@ -840,7 +855,7 @@ public class LocalSearch implements AutoCloseable {
 			}
 			return;
 		}
-		nlp4j.lucene9.FieldTypeDef type = dynamicFieldResolver.resolve(fieldName);
+
 		if (multiValued) {
 			type = type.multiValued(true);
 		}
@@ -1653,6 +1668,128 @@ public class LocalSearch implements AutoCloseable {
 		JsonNode response = executeRequest(searchRequest);
 		return toAggregationMap("values", response);
 	}
+
+	// -----------------------------------------------------------------------
+	// Java API: dateHistogram()
+	// -----------------------------------------------------------------------
+
+	/**
+	 * 全ドキュメントを対象に date histogram aggregation を実行します。
+	 *
+	 * @param field    集計対象の DATE フィールド名（例: {@code "created_dt"}）
+	 * @param interval 集計単位（YEAR / MONTH / HOUR）
+	 * @return 時刻昇順の {@link nlp4j.lucene9.DateHistogramBucket} リスト
+	 * @throws LocalSearchException 集計に失敗した場合
+	 */
+	public List<nlp4j.lucene9.DateHistogramBucket> dateHistogram(
+			String field,
+			nlp4j.lucene9.DateHistogramInterval interval) {
+		return dateHistogram(field, interval, null, null);
+	}
+
+	/**
+	 * Lucene Query Parser syntax で絞り込んだ上で date histogram aggregation を実行します。
+	 *
+	 * @param field    集計対象の DATE フィールド名
+	 * @param interval 集計単位（YEAR / MONTH / HOUR）
+	 * @param query    Lucene Query Parser syntax のクエリ文字列（null または空文字の場合は全件）
+	 * @return 時刻昇順の {@link nlp4j.lucene9.DateHistogramBucket} リスト
+	 * @throws LocalSearchException 集計に失敗した場合
+	 */
+	public List<nlp4j.lucene9.DateHistogramBucket> dateHistogram(
+			String field,
+			nlp4j.lucene9.DateHistogramInterval interval,
+			String query) {
+		return dateHistogram(field, interval, query, null);
+	}
+
+	/**
+	 * Lucene Query Parser syntax ＋フィールドフィルターで絞り込んだ上で date histogram aggregation を実行します。
+	 *
+	 * @param field    集計対象の DATE フィールド名
+	 * @param interval 集計単位（YEAR / MONTH / HOUR）
+	 * @param query    Lucene Query Parser syntax のクエリ文字列（null または空文字の場合は全件）
+	 * @param filters  keyword フィールドの絞り込み条件（null または空の場合はスキップ）
+	 * @return 時刻昇順の {@link nlp4j.lucene9.DateHistogramBucket} リスト
+	 * @throws LocalSearchException 集計に失敗した場合
+	 */
+	public List<nlp4j.lucene9.DateHistogramBucket> dateHistogram(
+			String field,
+			nlp4j.lucene9.DateHistogramInterval interval,
+			String query,
+			Map<String, String> filters) {
+
+		if (field == null || field.isBlank()) {
+			throw new LocalSearchException("field must not be blank",
+					new IllegalArgumentException("field must not be blank"));
+		}
+		if (interval == null) {
+			throw new LocalSearchException("interval must not be null",
+					new IllegalArgumentException("interval must not be null"));
+		}
+
+		try {
+			JsonNode request = createDateHistogramRequest(field, interval, query, toFilterNode(filters));
+			JsonNode response = executeRequest(request);
+			return toDateHistogramBuckets("values", response);
+		} catch (LocalSearchException e) {
+			throw e;
+		} catch (Exception e) {
+			throw new LocalSearchException(e.getMessage(), e);
+		}
+	}
+
+	private JsonNode createDateHistogramRequest(
+			String field,
+			nlp4j.lucene9.DateHistogramInterval interval,
+			String query,
+			JsonNode filters) {
+
+		JsonNode root = JsonNode.object();
+		root.put("size", 0);
+
+		boolean hasQuery = query != null && !query.isEmpty();
+		boolean hasFilters = filters != null && !filters.isNull() && filters.size() > 0;
+
+		if (hasQuery || hasFilters) {
+			root.put("query", createQueryWithFilters(hasQuery ? query : null, filters));
+		}
+
+		// Build date_histogram agg
+		JsonNode histogram = JsonNode.object();
+		histogram.put("field", field);
+		histogram.put("calendar_interval", interval.value());
+
+		JsonNode aggBody = JsonNode.object();
+		aggBody.put("date_histogram", histogram);
+
+		JsonNode aggs = JsonNode.object();
+		aggs.put("values", aggBody);
+
+		root.put("aggs", aggs);
+		return root;
+	}
+
+	private List<nlp4j.lucene9.DateHistogramBucket> toDateHistogramBuckets(
+			String aggName, JsonNode response) {
+
+		JsonNode bucketsNode = response
+				.get("aggregations")
+				.get(aggName)
+				.get("buckets");
+
+		List<nlp4j.lucene9.DateHistogramBucket> result = new ArrayList<>();
+
+		for (JsonNode b : bucketsNode.asList()) {
+			long key = b.get("key").asLong(0);
+			String keyAsString = b.get("key_as_string").asString();
+			long docCount = b.get("doc_count").asLong(0);
+			result.add(new nlp4j.lucene9.DateHistogramBucket(key, keyAsString, docCount));
+		}
+
+		return result;
+	}
+
 
 	// -----------------------------------------------------------------------
 	// Java API: validateQuery()

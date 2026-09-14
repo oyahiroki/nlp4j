@@ -124,6 +124,9 @@ public class FieldTypeDef {
 	}
 
 	public FieldTypeDef multiValued(boolean multiValued) {
+		if (multiValued && kind == Kind.DATE) {
+			throw new IllegalArgumentException("DATE field cannot be multi-valued");
+		}
 		this.multiValued = multiValued;
 		return this;
 	}

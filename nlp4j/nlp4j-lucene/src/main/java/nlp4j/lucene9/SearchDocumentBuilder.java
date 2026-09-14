@@ -90,6 +90,17 @@ public class SearchDocumentBuilder {
 			throw new IllegalArgumentException("value must not be null: " + fieldName);
 		}
 
+		FieldTypeDef def = schema.get(fieldName);
+
+		if (!def.is_multiValued()) {
+			boolean alreadyExists = values.stream()
+					.anyMatch(e -> fieldName.equals(e.getKey()));
+			if (alreadyExists) {
+				throw new IllegalArgumentException(
+						"Field must be single-valued: " + fieldName);
+			}
+		}
+
 		values.add(new AbstractMap.SimpleImmutableEntry<>(fieldName, value));
 		return this;
 	}
