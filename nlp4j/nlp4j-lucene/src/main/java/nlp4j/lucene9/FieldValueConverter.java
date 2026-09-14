@@ -212,4 +212,38 @@ public final class FieldValueConverter {
 					"Invalid ISO 8601 date-time (timezone required): " + value, e);
 		}
 	}
+
+	/**
+	 * Returns {@code true} if {@code value} can be parsed as a supported ISO 8601
+	 * date or datetime string.
+	 *
+	 * <p>
+	 * This method uses the same parsing logic as {@link #toDateValue(String, ZoneId)},
+	 * so the set of accepted formats is identical:
+	 * </p>
+	 * <pre>
+	 * 2026-08-21                    (date only)
+	 * 2026-08-21T14:30:00           (local datetime)
+	 * 2026-08-21T14:30:00.123       (local datetime with millis)
+	 * 2026-08-21T14:30:00+09:00     (offset datetime)
+	 * 2026-08-21T05:30:00Z          (UTC)
+	 * </pre>
+	 *
+	 * @param value       the string to test; {@code null} or blank returns {@code false}
+	 * @param defaultZone the {@link ZoneId} used for timezone-less inputs; must not be {@code null}
+	 * @return {@code true} if the value is a parseable date/datetime, {@code false} otherwise
+	 */
+	public static boolean isDateValue(String value, ZoneId defaultZone) {
+
+		if (value == null || value.isBlank()) {
+			return false;
+		}
+
+		try {
+			toDateValue(value, defaultZone);
+			return true;
+		} catch (IllegalArgumentException e) {
+			return false;
+		}
+	}
 }

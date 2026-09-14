@@ -17,86 +17,68 @@ import nlp4j.lucene9.DateHistogramInterval;
  *
  * Demonstrates:
  *
- * 1. Adding DATE fields with the *_dt suffix 2. Searching automatically derived
- * calendar fields 3. YEAR and MONTH date histogram aggregations 4. Filling
- * missing periods with doc_count=0 5. Applying a Lucene query before date
- * histogram aggregation
+ * 1. Adding DATE fields with the *_dt suffix
+ * 2. Range search on DATE fields
+ * 3. YEAR and MONTH date histogram aggregations
+ * 4. Filling missing periods with doc_count=0
+ * 5. Applying a Lucene query before date histogram aggregation
  * @since 1.7.0.0
  */
 public class Example24_DateField {
 
-	public static void main(String[] args) throws Exception {
+ public static void main(String[] args) throws Exception {
 
-		try (LocalSearch search = LocalSearch.builder("ja") //
-				.autoAnalyze(false) //
-				.timeZone("Asia/Tokyo") //
-				.build()) {
+ 	try (LocalSearch search = LocalSearch.builder("ja") //
+ 			.autoAnalyze(false) //
+ 			.timeZone("Asia/Tokyo") //
+ 			.build()) {
 
-			// ------------------------------------------------------------
-			// Add documents with DATE fields
-			// ------------------------------------------------------------
+ 		// ------------------------------------------------------------
+ 		// Add documents with DATE fields
+ 		// ------------------------------------------------------------
 
-			search.addJson("""
-					{
-					  "id": "1",
-					  "body": "ニッサン EV のイベント",
-					  "created_dt": "2023-06-01T10:00:00+09:00"
-					}
-					""");
+ 		search.addJson("""
+ 				{
+ 				  "id": "1",
+ 				  "body": "ニッサン EV のイベント",
+ 				  "created_dt": "2023-06-01T10:00:00+09:00"
+ 				}
+ 				""");
 
-			search.addJson("""
-					{
-					  "id": "2",
-					  "body": "ニッサン e-POWER のイベント",
-					  "created_dt": "2026-03-15T14:00:00+09:00"
-					}
-					""");
+ 		search.addJson("""
+ 				{
+ 				  "id": "2",
+ 				  "body": "ニッサン e-POWER のイベント",
+ 				  "created_dt": "2026-03-15T14:00:00+09:00"
+ 				}
+ 				""");
 
-			search.addJson("""
-					{
-					  "id": "3",
-					  "body": "トヨタ ハイブリッド車のイベント",
-					  "created_dt": "2020-01-01T09:00:00+09:00"
-					}
-					""");
+ 		search.addJson("""
+ 				{
+ 				  "id": "3",
+ 				  "body": "トヨタ ハイブリッド車のイベント",
+ 				  "created_dt": "2020-01-01T09:00:00+09:00"
+ 				}
+ 				""");
 
-			search.commit();
+ 		search.commit();
 
-			// ------------------------------------------------------------
-			// 1. Search automatically derived calendar fields
-			//
-			// created_dt automatically creates:
-			//
-			// created_year_i
-			// created_month_i
-			// created_day_i
-			// created_dow_i
-			// created_hour_i
-			// ------------------------------------------------------------
+ 		// ------------------------------------------------------------
+ 		// 1. Search DATE range query
+ 		// ------------------------------------------------------------
 
-			System.out.println("=== Search: created_year_i:2026 ===");
+ 		System.out.println("=== Search: created_dt:[2026-01-01 TO 2026-12-31] ===");
 
-			SearchResult[] results = //
-					search.search("created_year_i:2026", 10); //
+ 		SearchResult[] results = //
+ 				search.search("created_dt:[2026-01-01 TO 2026-12-31]", 10); //
 
-			for (SearchResult result : results) {
-				System.out.println( //
-						result.id + ": " + result.body);
-			}
+ 		for (SearchResult result : results) {
+ 			System.out.println( //
+ 					result.id + ": " + result.body);
+ 		}
 
-			System.out.println();
-
-			System.out.println("=== Search: created_month_i:6 ===");
-
-			results = search.search("created_month_i:6", 10);
-
-			for (SearchResult result : results) { //
-				System.out.println( //
-						result.id + ": " + result.body); //
-			}
-
-			// ------------------------------------------------------------
-			// 2. YEAR histogram
+ 		// ------------------------------------------------------------
+ 		// 2. YEAR histogram
 			//
 			// Missing years are automatically included with count=0.
 			// ------------------------------------------------------------

@@ -78,7 +78,7 @@ public class Example04_KeywordAndFieldSearch {
 
             // --- query なし（match_all）+ フィールド絞り込み ---
             System.out.println("=== フィールドのみ絞り込み: category=\"city\" + country=\"France\" ===");
-            SearchResult[] r4 = search.search("", 10,
+            SearchResult[] r4 = search.search("*:*", 10,
                     Map.of("category", "city", "country", "France"));
             printResults(r4);
 

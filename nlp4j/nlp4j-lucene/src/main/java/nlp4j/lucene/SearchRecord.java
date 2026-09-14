@@ -7,9 +7,11 @@ package nlp4j.lucene;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * LocalSearch に登録する文書の中間表現クラス。
@@ -42,6 +44,12 @@ public class SearchRecord {
 
 	/** 追加フィールド（フィールド名 → 値リスト）。複数値フィールド対応 */
 	private final Map<String, List<String>> data = new LinkedHashMap<>();
+
+	/**
+	 * JSON 配列として入力されたフィールド名のセット。
+	 * 要素数が1であっても multiValued=true として扱う。
+	 */
+	private final Set<String> declaredMultiValuedFields = new HashSet<>();
 
 	/**
 	 * @param id   ドキュメントの一意識別子
@@ -97,6 +105,30 @@ public class SearchRecord {
 	 */
 	public void addData(String fieldName, String value) {
 		data.computeIfAbsent(fieldName, k -> new ArrayList<>()).add(value);
+	}
+
+	/**
+	 * フィールドを multiValued として明示的に宣言します。
+	 * JSON 配列として入力されたフィールドは要素数に関わらず multiValued=true として扱われます。
+	 *
+	 * @param fieldName フィールド名
+	 */
+	public void declareMultiValued(String fieldName) {
+		declaredMultiValuedFields.add(fieldName);
+	}
+
+	/**
+	 * フィールドが multiValued として宣言されているか、または実際に複数値を持つかを返します。
+	 *
+	 * @param fieldName フィールド名
+	 * @return multiValued の場合 true
+	 */
+	public boolean isMultiValued(String fieldName) {
+		if (declaredMultiValuedFields.contains(fieldName)) {
+			return true;
+		}
+		List<String> values = data.get(fieldName);
+		return values != null && values.size() > 1;
 	}
 
 	/**

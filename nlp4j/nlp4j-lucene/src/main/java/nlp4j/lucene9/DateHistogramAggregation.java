@@ -12,7 +12,6 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.TreeMap;
 
 import org.apache.lucene.index.LeafReaderContext;
 import org.apache.lucene.index.NumericDocValues;
@@ -27,8 +26,8 @@ import nlp4j.json.JsonNode;
  * Date histogram aggregation backed by NumericDocValues (DATE fields).
  *
  * <p>
- * Collects min/max epoch-millis from matching documents in a single pass,
- * then fills in zero-count buckets between them.
+ * Collects min/max epoch-millis from matching documents in a single pass, then
+ * fills in zero-count buckets between them.
  * </p>
  */
 public class DateHistogramAggregation {
@@ -39,14 +38,14 @@ public class DateHistogramAggregation {
 	private final DateHistogramInterval interval;
 	private final ZoneId zoneId;
 
-	private static final DateTimeFormatter FMT_YEAR  = DateTimeFormatter.ofPattern("uuuu");
+	private static final DateTimeFormatter FMT_YEAR = DateTimeFormatter.ofPattern("uuuu");
 	private static final DateTimeFormatter FMT_MONTH = DateTimeFormatter.ofPattern("uuuu-MM");
-	private static final DateTimeFormatter FMT_HOUR  = DateTimeFormatter.ofPattern("uuuu-MM-dd'T'HH");
+	private static final DateTimeFormatter FMT_HOUR = DateTimeFormatter.ofPattern("uuuu-MM-dd'T'HH");
 
 	public DateHistogramAggregation(String field, DateHistogramInterval interval, ZoneId zoneId) {
-		this.field    = field;
+		this.field = field;
 		this.interval = interval;
-		this.zoneId   = (zoneId != null) ? zoneId : ZoneId.systemDefault();
+		this.zoneId = (zoneId != null) ? zoneId : ZoneId.systemDefault();
 	}
 
 	/**
@@ -83,7 +82,7 @@ public class DateHistogramAggregation {
 		long maxMs = collector.maxEpochMillis;
 
 		ZonedDateTime start = truncate(toZdt(minMs));
-		ZonedDateTime end   = truncate(toZdt(maxMs));
+		ZonedDateTime end = truncate(toZdt(maxMs));
 
 		List<DateHistogramBucket> buckets = new ArrayList<>();
 		int bucketCount = 0;
@@ -91,8 +90,7 @@ public class DateHistogramAggregation {
 		ZonedDateTime cursor = start;
 		while (!cursor.isAfter(end)) {
 			if (++bucketCount > MAX_BUCKETS) {
-				throw new IllegalArgumentException(
-						"Too many date histogram buckets: " + field);
+				throw new IllegalArgumentException("Too many date histogram buckets: " + field);
 			}
 
 			long bucketKey = cursor.toInstant().toEpochMilli();
@@ -132,19 +130,27 @@ public class DateHistogramAggregation {
 
 	private ZonedDateTime advance(ZonedDateTime dt) {
 		switch (interval) {
-		case YEAR:  return dt.plusYears(1);
-		case MONTH: return dt.plusMonths(1);
-		case HOUR:  return dt.plusHours(1);
-		default:    throw new IllegalStateException("Unknown interval: " + interval);
+		case YEAR:
+			return dt.plusYears(1);
+		case MONTH:
+			return dt.plusMonths(1);
+		case HOUR:
+			return dt.plusHours(1);
+		default:
+			throw new IllegalStateException("Unknown interval: " + interval);
 		}
 	}
 
 	private String format(ZonedDateTime dt) {
 		switch (interval) {
-		case YEAR:  return dt.format(FMT_YEAR);
-		case MONTH: return dt.format(FMT_MONTH);
-		case HOUR:  return dt.format(FMT_HOUR);
-		default:    throw new IllegalStateException("Unknown interval: " + interval);
+		case YEAR:
+			return dt.format(FMT_YEAR);
+		case MONTH:
+			return dt.format(FMT_MONTH);
+		case HOUR:
+			return dt.format(FMT_HOUR);
+		default:
+			throw new IllegalStateException("Unknown interval: " + interval);
 		}
 	}
 
@@ -196,10 +202,8 @@ public class DateHistogramAggregation {
 
 			epochValues.add(epochMs);
 
-			minEpochMillis = (minEpochMillis == null)
-					? epochMs : Math.min(minEpochMillis, epochMs);
-			maxEpochMillis = (maxEpochMillis == null)
-					? epochMs : Math.max(maxEpochMillis, epochMs);
+			minEpochMillis = (minEpochMillis == null) ? epochMs : Math.min(minEpochMillis, epochMs);
+			maxEpochMillis = (maxEpochMillis == null) ? epochMs : Math.max(maxEpochMillis, epochMs);
 		}
 
 		@Override

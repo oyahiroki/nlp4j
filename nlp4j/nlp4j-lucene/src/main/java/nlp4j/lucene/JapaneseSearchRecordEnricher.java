@@ -20,8 +20,6 @@ import nlp4j.util.StringUtils;
 
 public class JapaneseSearchRecordEnricher implements SearchRecordEnricher {
 
-	private static final Set<String> DEFAULT_WORD_FIELDS = Set.of("word", "word.noun", "word.verb", "word.adj",
-			"word.adp", "word.aux", "word.sym", "word.propn", "word.num", "word.adv");
 	@Override
 	public void enrich(SearchRecord record) {
 

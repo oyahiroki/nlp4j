@@ -10,12 +10,15 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import org.apache.lucene.document.Document;
+import org.apache.lucene.index.FieldInfo;
+import org.apache.lucene.index.FieldInfos;
 
 import nlp4j.json.JsonNode;
 import nlp4j.lucene9.FieldTypeDef;
@@ -221,7 +224,6 @@ public class LocalSearch implements AutoCloseable {
 	int vectorDimension;
 	private ZoneId zoneId;
 	private SearchRecordEnricher textEnricher;
-	private SearchRecordEnricher dateFieldEnricher;
 
 	private String default_field_name;
 	private final SearchSchema schema;
@@ -281,8 +283,6 @@ public class LocalSearch implements AutoCloseable {
 		this.zoneId = builder.zoneId;
 		this.api = new LuceneLocalSearchApi(index, this.schema, this.zoneId);
 		this.default_field_name = resolveDefaultFieldName(builder.language);
-
-		this.dateFieldEnricher = new DateFieldEnricher(this.schema, builder.zoneId);
 
 		if (builder.enricher != null) {
 			this.textEnricher = builder.enricher;
@@ -398,14 +398,14 @@ public class LocalSearch implements AutoCloseable {
 
 			if (fields != null) {
 				for (java.util.Map.Entry<String, String> entry : fields.entrySet()) {
-					String fieldName = entry.getKey();
-					String value = entry.getValue();
-					if (fieldName == null || value == null) {
-						continue;
+						String fieldName = entry.getKey();
+						String value = entry.getValue();
+						if (fieldName == null || value == null) {
+							continue;
+						}
+						ensureField(fieldName, value, false);
+						builder.put(fieldName, value);
 					}
-					ensureField(fieldName, false);
-					builder.put(fieldName, value);
-				}
 			}
 
 			this.index.add(builder.build());
@@ -611,19 +611,19 @@ public class LocalSearch implements AutoCloseable {
 				}
 
 				if (valueNode.isArray()) {
-
-					// JSON array は要素数に関係なく multi-valued として登録する
-					ensureField(fieldName, true);
-
-					for (JsonNode itemNode : valueNode.asList()) {
-						if (itemNode == null || itemNode.isNull()) {
-							continue;
+	
+						// JSON array は要素数に関係なく multi-valued として宣言する
+						record.declareMultiValued(fieldName);
+	
+						for (JsonNode itemNode : valueNode.asList()) {
+							if (itemNode == null || itemNode.isNull()) {
+								continue;
+							}
+							String value = itemNode.asString(null);
+							if (value != null) {
+								record.addData(fieldName, value);
+							}
 						}
-						String value = itemNode.asString(null);
-						if (value != null) {
-							record.addData(fieldName, value);
-						}
-					}
 				} else {
 					String value = valueNode.asString(null);
 					if (value != null) {
@@ -695,7 +695,10 @@ public class LocalSearch implements AutoCloseable {
 		// 追加フィールドを登録
 		for (String fieldName : record.dataKeys()) {
 			List<String> values = record.getDataValues(fieldName);
-			ensureField(fieldName, values.size() > 1);
+			if (values.isEmpty()) {
+				continue;
+			}
+			ensureField(fieldName, values.get(0), record.isMultiValued(fieldName));
 			for (String value : values) {
 				builder.put(fieldName, value);
 			}
@@ -826,15 +829,16 @@ public class LocalSearch implements AutoCloseable {
 	 * 済みのフィールドは変更しません。
 	 *
 	 * @param fieldName   フィールド名
+	 * @param value       フィールドの最初の値（型推論に使用）
 	 * @param multiValued 複数値フィールドの場合 true
 	 */
-	private void ensureField(String fieldName, boolean multiValued) {
+	private void ensureField(String fieldName, String value, boolean multiValued) {
 		nlp4j.lucene9.FieldTypeDef type;
 
 		if (schema.contains(fieldName)) {
 			type = schema.get(fieldName);
 		} else {
-			type = dynamicFieldResolver.resolve(fieldName);
+			type = dynamicFieldResolver.resolve(fieldName, value, zoneId);
 		}
 
 		// DATE fields must always be single-valued
@@ -955,8 +959,8 @@ public class LocalSearch implements AutoCloseable {
 	 * SearchRecord に追加情報を付与します（エンリッチ処理）。
 	 *
 	 * <p>
-	 * DateFieldEnricher は常に実行されます。 {@code autoAnalyze=true} の場合は、language に対応する
-	 * SearchRecordEnricher による自然言語解析も実行されます。
+	 * {@code autoAnalyze=true} の場合は、language に対応する
+	 * SearchRecordEnricher による自然言語解析を実行します。
 	 * </p>
 	 *
 	 * @param record エンリッチ対象のレコード
@@ -966,16 +970,6 @@ public class LocalSearch implements AutoCloseable {
 		if (record == null) {
 			return;
 		}
-
-		// --------------------------------------------------
-		// Date field enrichment（autoAnalyze に関係なく常に実行）
-		// --------------------------------------------------
-
-		dateFieldEnricher.enrich(record);
-
-		// --------------------------------------------------
-		// Natural language enrichment
-		// --------------------------------------------------
 
 		if (!this.autoAnalyze) {
 			return;
@@ -1197,6 +1191,56 @@ public class LocalSearch implements AutoCloseable {
 	 */
 	public List<String> getFields() {
 		return new ArrayList<>(schema.fieldNames());
+	}
+
+	/**
+	 * 実際のインデックスに値が登録されているフィールド名を、
+	 * schema の登録順で返します。
+	 *
+	 * <p>
+	 * {@link #getFields()} が schema に定義されているすべてのフィールドを
+	 * 返すのに対し、このメソッドは Lucene index に実際に出現している
+	 * フィールドのみを返します。
+	 * </p>
+	 *
+	 * <p>
+	 * 例えば autoAnalyze=false の場合、schema に word.noun 等が定義されていても、
+	 * 実際に値が登録されていなければ結果には含まれません。
+	 * </p>
+	 *
+	 * @return 実際にインデックスに存在するフィールド名のリスト
+	 * @throws LocalSearchException フィールド情報の取得に失敗した場合
+	 * @since 1.7.1.0
+	 */
+	public List<String> getFieldsWithValues() {
+
+		try (nlp4j.lucene9.SearchSession session = index.acquireSearcher()) {
+
+			FieldInfos fieldInfos = FieldInfos.getMergedFieldInfos(
+					session.getSearcher().getIndexReader());
+
+			Set<String> indexedFields = new HashSet<>();
+
+			for (FieldInfo fieldInfo : fieldInfos) {
+				indexedFields.add(fieldInfo.name);
+			}
+
+			List<String> result = new ArrayList<>();
+
+			// schema の登録順を維持する
+			for (String fieldName : schema.fieldNames()) {
+				if (indexedFields.contains(fieldName)) {
+					result.add(fieldName);
+				}
+			}
+
+			return result;
+
+		} catch (IOException e) {
+			throw new LocalSearchException(
+					"Failed to get fields with values: " + e.getMessage(),
+					e);
+		}
 	}
 
 	/**
@@ -2208,6 +2252,25 @@ public class LocalSearch implements AutoCloseable {
 		}
 
 		return value.asInt(defaultValue);
+	}
+
+	/**
+	 * Returns the field kind for the specified field.
+	 *
+	 * @param fieldName field name
+	 * @return field kind, or null if the field is not defined
+	 * @throws IllegalArgumentException if fieldName is null or blank
+	 * @since 1.7.1.0
+	 */
+	public FieldTypeDef.Kind getFieldKind(String fieldName) {
+		if (fieldName == null || fieldName.isBlank()) {
+			throw new IllegalArgumentException("fieldName must not be null or blank");
+		}
+		if (schema == null || !schema.contains(fieldName)) {
+			return null;
+		}
+		FieldTypeDef def = schema.get(fieldName);
+		return def != null ? def.kind() : null;
 	}
 
 	SearchSchema getSchema() {

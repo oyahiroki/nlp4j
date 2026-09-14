@@ -7,15 +7,12 @@ package nlp4j.lucene9;
 
 import java.io.Closeable;
 import java.io.IOException;
-import java.lang.invoke.MethodHandles;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.en.EnglishAnalyzer;
 import org.apache.lucene.analysis.ja.JapaneseAnalyzer;
@@ -34,8 +31,6 @@ import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.store.IOContext;
 
 public class LuceneIndex implements Closeable {
-
-	private boolean closed = false;
 
 	private static Analyzer createAnalyzer(String language) {
 
@@ -58,6 +53,8 @@ public class LuceneIndex implements Closeable {
 		return new PerFieldAnalyzerWrapper(defaultAnalyzer, fieldAnalyzers);
 	}
 
+	private boolean closed = false;
+
 	private final Directory directory;
 
 	/**
@@ -78,28 +75,6 @@ public class LuceneIndex implements Closeable {
 	 */
 	public LuceneIndex() throws IOException {
 		this((String) null);
-	}
-
-	/**
-	 * constructor with language
-	 *
-	 * @param language engine language (e.g. "ja", "en")
-	 * @throws IOException if an I/O error occurs
-	 */
-	public LuceneIndex(String language) throws IOException {
-
-		// Index設定
-		{
-			this.directory = new ByteBuffersDirectory();
-		}
-
-		this.analyzer = createAnalyzer(language);
-
-		IndexWriterConfig config = new IndexWriterConfig(analyzer);
-
-		this.writer = new IndexWriter(directory, config);
-
-		this.searcherManager = new SearcherManager(writer, null);
 	}
 
 	/**
@@ -152,6 +127,28 @@ public class LuceneIndex implements Closeable {
 	}
 
 	/**
+	 * constructor with language
+	 *
+	 * @param language engine language (e.g. "ja", "en")
+	 * @throws IOException if an I/O error occurs
+	 */
+	public LuceneIndex(String language) throws IOException {
+
+		// Index設定
+		{
+			this.directory = new ByteBuffersDirectory();
+		}
+
+		this.analyzer = createAnalyzer(language);
+
+		IndexWriterConfig config = new IndexWriterConfig(analyzer);
+
+		this.writer = new IndexWriter(directory, config);
+
+		this.searcherManager = new SearcherManager(writer, null);
+	}
+
+	/**
 	 * acquire searcher
 	 */
 	public SearchSession acquireSearcher() throws IOException {
@@ -161,26 +158,6 @@ public class LuceneIndex implements Closeable {
 		IndexSearcher searcher = searcherManager.acquire();
 
 		return new SearchSession(searcher, searcherManager, analyzer);
-	}
-
-	/**
-	 * Deletes documents having the specified id.
-	 *
-	 * <p>
-	 * If no document with the specified ID exists, this method does nothing.
-	 * Call {@link #commit()} to commit the change.
-	 * </p>
-	 *
-	 * @param id document identifier
-	 * @throws IllegalArgumentException if id is null
-	 * @throws IOException if the index operation fails
-	 */
-	public void delete(String id) throws IOException {
-		ensureOpen();
-		if (id == null) {
-			throw new IllegalArgumentException("id must not be null");
-		}
-		writer.deleteDocuments(new Term("id", id));
 	}
 
 	/**
@@ -226,6 +203,32 @@ public class LuceneIndex implements Closeable {
 	}
 
 	/**
+	 * Deletes documents having the specified id.
+	 *
+	 * <p>
+	 * If no document with the specified ID exists, this method does nothing.
+	 * Call {@link #commit()} to commit the change.
+	 * </p>
+	 *
+	 * @param id document identifier
+	 * @throws IllegalArgumentException if id is null
+	 * @throws IOException if the index operation fails
+	 */
+	public void delete(String id) throws IOException {
+		ensureOpen();
+		if (id == null) {
+			throw new IllegalArgumentException("id must not be null");
+		}
+		writer.deleteDocuments(new Term("id", id));
+	}
+
+	private void ensureOpen() throws IOException {
+		if (closed) {
+			throw new IOException("LuceneIndex is already closed.");
+		}
+	}
+
+	/**
 	 * easy search
 	 */
 	public List<Document> search(String queryString, int size) throws Exception {
@@ -262,12 +265,6 @@ public class LuceneIndex implements Closeable {
 			for (String fileName : directory.listAll()) {
 				outputDirectory.copyFrom(directory, fileName, fileName, IOContext.DEFAULT);
 			}
-		}
-	}
-
-	private void ensureOpen() throws IOException {
-		if (closed) {
-			throw new IOException("LuceneIndex is already closed.");
 		}
 	}
 
