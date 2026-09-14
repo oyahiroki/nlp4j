@@ -561,7 +561,9 @@ public class DocumentUtil {
 					arr.add(toJsonObject(kwdd));
 				}
 			}
-			jsonObj.add("keywords", arr);
+			if (arr.size() > 0) {
+				jsonObj.add("keywords", arr);
+			}
 		} // END OF FOR EACH(KEYWORD)
 
 		return jsonObj;

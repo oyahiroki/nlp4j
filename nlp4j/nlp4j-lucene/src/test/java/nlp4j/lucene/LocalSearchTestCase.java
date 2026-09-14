@@ -3509,19 +3509,16 @@ public class LocalSearchTestCase extends TestCase {
 	// =========================================================
 
 	/**
-	 * addJson() で最初のドキュメントに1要素の JSON 配列を含む場合でも、
-	 * multiValued=true として登録され、続く複数要素配列でも例外が発生しないことを確認する。
+	 * addJson() で最初のドキュメントに1要素の JSON 配列を含む場合でも、 multiValued=true
+	 * として登録され、続く複数要素配列でも例外が発生しないことを確認する。
 	 *
 	 * <p>
-	 * Wikipedia 漫画 JSONL のような「最初の文書は1カテゴリ、次の文書は複数カテゴリ」
-	 * というパターンで起きたバグの回帰テスト。
+	 * Wikipedia 漫画 JSONL のような「最初の文書は1カテゴリ、次の文書は複数カテゴリ」 というパターンで起きたバグの回帰テスト。
 	 * </p>
 	 */
 	public void testMultiValuedSingleElementArray001() throws Exception {
 
-		try (LocalSearch search = LocalSearch.builder("ja")
-				.autoAnalyze(false)
-				.build()) {
+		try (LocalSearch search = LocalSearch.builder("ja").autoAnalyze(false).build()) {
 
 			// 最初の文書では配列だが要素数は1
 			search.addJson("""
@@ -3534,10 +3531,7 @@ public class LocalSearchTestCase extends TestCase {
 
 			// この時点ですでに multiValued=true であること
 			assertTrue(search.getSchema().contains("category_s"));
-			assertTrue(
-					search.getSchema()
-							.get("category_s")
-							.is_multiValued());
+			assertTrue(search.getSchema().get("category_s").is_multiValued());
 
 			// 次の文書では2要素
 			search.addJson("""
@@ -3567,45 +3561,33 @@ public class LocalSearchTestCase extends TestCase {
 
 			assertEquals(3L, search.count());
 
-			assertEquals(
-					1L,
-					search.count("category_s:恋愛漫画"));
+			assertEquals(1L, search.count("category_s:恋愛漫画"));
 
-			assertEquals(
-					1L,
-					search.count("category_s:日本の漫画"));
+			assertEquals(1L, search.count("category_s:日本の漫画"));
 
-			// aggregation まで確認: JSON array → multiValued schema → index → DocValues aggregation
+			// aggregation まで確認: JSON array → multiValued schema → index → DocValues
+			// aggregation
 			java.util.Map<String, Long> categories = search.aggregate("category_s", 100);
 
-			assertEquals(
-					Long.valueOf(1L),
-					categories.get("日本の漫画家"));
+			assertEquals(Long.valueOf(1L), categories.get("日本の漫画家"));
 
-			assertEquals(
-					Long.valueOf(1L),
-					categories.get("日本の漫画"));
+			assertEquals(Long.valueOf(1L), categories.get("日本の漫画"));
 
-			assertEquals(
-					Long.valueOf(1L),
-					categories.get("恋愛漫画"));
+			assertEquals(Long.valueOf(1L), categories.get("恋愛漫画"));
 		}
 	}
 
 	/**
-	 * addJson() で最初に scalar 値として登録されたフィールドを、
-	 * 後から JSON 配列として渡すと LocalSearchException が発生することを確認する。
+	 * addJson() で最初に scalar 値として登録されたフィールドを、 後から JSON 配列として渡すと LocalSearchException
+	 * が発生することを確認する。
 	 *
 	 * <p>
-	 * scalar → array のスキーマ変更は Lucene の DocValues 型変更を引き起こすため、
-	 * 明示的なエラーにすることが安全。
+	 * scalar → array のスキーマ変更は Lucene の DocValues 型変更を引き起こすため、 明示的なエラーにすることが安全。
 	 * </p>
 	 */
 	public void testMultiValuedScalarThenArrayThrows001() throws Exception {
 
-		try (LocalSearch search = LocalSearch.builder("en")
-				.autoAnalyze(false)
-				.build()) {
+		try (LocalSearch search = LocalSearch.builder("en").autoAnalyze(false).build()) {
 
 			search.addJson("""
 					{
@@ -3627,10 +3609,86 @@ public class LocalSearchTestCase extends TestCase {
 				fail("Expected LocalSearchException");
 
 			} catch (LocalSearchException e) {
-				assertTrue(
-						e.getMessage().contains("single-valued")
-						|| e.getMessage().contains("multiple values"));
+				assertTrue(e.getMessage().contains("single-valued") || e.getMessage().contains("multiple values"));
 			}
+		}
+	}
+
+	public void testAddJsonAutoAnalyzeTrue001() throws Exception {
+
+		try (LocalSearch search = LocalSearch.builder("ja").autoAnalyze(true).build()) {
+
+			search.addJson("""
+					{
+					  "id":"222",
+					  "text_ja":"日本の漫画家では、日本における漫画家について解説する。",
+					  "category_s":["日本の漫画家"]
+					}
+					""");
+
+			search.commit();
+
+			assertEquals(1L, search.count());
+
+			// 通常全文検索
+			assertEquals(1, search.search("漫画家", 10).length);
+
+			// autoAnalyze により word.* が生成されていること
+			assertTrue(search.aggregate("word.noun", 100).size() > 0);
+		}
+	}
+
+	public void testAddJsonAutoAnalyzeTrue001b() throws Exception {
+
+		try (LocalSearch search = LocalSearch.builder("ja").autoAnalyze(true).build()) {
+
+			search.addJson("""
+					{
+					  "id":"222",
+					  "text_ja":"日本の漫画家では、日本における漫画家について解説する。",
+					  "category_s":["日本の漫画家"]
+					}
+					""");
+			search.addJson("""
+					{
+					  "id":"223",
+					  "text_ja":"日本の画家では、日本における画家について解説する。",
+					  "category_s":["日本の画家"]
+					}
+					""");
+
+			search.commit();
+
+			assertEquals(2L, search.count());
+
+			// 通常全文検索
+			assertEquals(1, search.search("漫画家", 10).length);
+
+			// autoAnalyze により word.* が生成されていること
+			assertTrue(search.aggregate("word.noun", 100).size() > 0);
+		}
+	}
+
+	public void testAddJsonAutoAnalyzeConj001() throws Exception {
+
+		try (LocalSearch search = LocalSearch.builder("ja").autoAnalyze(true).build()) {
+
+			search.addJson(
+					"""
+							{
+							  "id":"580",
+							  "text_ja":"『秘密戦隊ゴレンジャー』は、1975年4月5日から1977年3月26日まで、NET系列で毎週土曜19時30分から20時に全84話が放送された、NET・東映制作の特撮テレビドラマ特撮全史134}}、および作中に登場するヒーローチームの名称。",
+							  "category_s":["秘密戦隊ゴレンジャー"]
+							}
+							""");
+
+			search.commit();
+
+			assertEquals(1L, search.count());
+
+			assertTrue(search.getSchema().contains("word.conj"));
+
+			assertTrue(search.aggregate("word.conj", 100).size() > 0);
 		}
 	}
 }

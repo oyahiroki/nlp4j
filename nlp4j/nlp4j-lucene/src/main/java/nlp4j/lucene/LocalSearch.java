@@ -640,6 +640,16 @@ public class LocalSearch implements AutoCloseable {
 		}
 	}
 
+	private void ensureWordField(String fieldName) {
+		schema.addIfAbsent( //
+				fieldName, //
+				FieldTypeDef.keyword() //
+						.stored(true) //
+						.aggregatable(true) //
+						.multiValued(true) //
+		);
+	}
+
 	/**
 	 * SearchRecord を Lucene Document としてインデックスに追加します。 add(SearchRecord) と addJson()
 	 * の共通登録経路です。
@@ -671,7 +681,15 @@ public class LocalSearch implements AutoCloseable {
 
 		// word.* フィールドへキーワードを登録
 		for (SearchKeyword kw : record.getKeywords()) {
-			builder.put(kw.getPos(), kw.getLex());
+			String fieldName = kw.getPos();
+
+			if (fieldName == null || fieldName.isBlank()) {
+				continue;
+			}
+
+			ensureWordField(fieldName);
+
+			builder.put(fieldName, kw.getLex());
 		}
 
 		// 追加フィールドを登録
@@ -815,8 +833,7 @@ public class LocalSearch implements AutoCloseable {
 			FieldTypeDef existing = schema.get(fieldName);
 			if (multiValued && !existing.is_multiValued()) {
 				throw new LocalSearchException(
-						"Field '" + fieldName
-								+ "' is defined as single-valued, "
+						"Field '" + fieldName + "' is defined as single-valued, "
 								+ "but multiple values were provided.",
 						new IllegalArgumentException(
 								"Field '" + fieldName + "' is single-valued but received an array"));
