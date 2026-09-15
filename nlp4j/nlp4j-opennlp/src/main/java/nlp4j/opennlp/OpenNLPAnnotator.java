@@ -66,32 +66,40 @@ public class OpenNLPAnnotator extends AbstractDocumentAnnotator implements Docum
 	private static final String MODEL_LEMMAS = "/opennlp-en-ud-ewt-lemmas-1.3-2.5.4.bin";
 	private static final String MODEL_POS = "/opennlp-en-ud-ewt-pos-1.3-2.5.4.bin";
 
+	// Models are shared across all instances (immutable after loading, thread-safe).
+	private static final TokenizerModel TOKENIZER_MODEL;
+	private static final POSModel POS_MODEL;
+	private static final LemmatizerModel LEMMA_MODEL;
+
+	static {
+		try (InputStream in = getModelResource(MODEL_TOKENIZER)) {
+			TOKENIZER_MODEL = new TokenizerModel(in);
+		} catch (IOException e) {
+			throw new ExceptionInInitializerError(e);
+		}
+		try (InputStream in = getModelResource(MODEL_POS)) {
+			POS_MODEL = new POSModel(in);
+		} catch (IOException e) {
+			throw new ExceptionInInitializerError(e);
+		}
+		try (InputStream in = getModelResource(MODEL_LEMMAS)) {
+			LEMMA_MODEL = new LemmatizerModel(in);
+		} catch (IOException e) {
+			throw new ExceptionInInitializerError(e);
+		}
+	}
+
+	// *ME instances are NOT thread-safe. Each instance of this annotator owns its
+	// own *ME objects. Use one OpenNLPAnnotator per thread (e.g. via ThreadLocal).
 	private final TokenizerME tokenizer;
 	private final POSTaggerME posTagger;
 	private final LemmatizerME lemmatizer;
 
 	public OpenNLPAnnotator() {
-		{
-			super.targets.add("text");
-		}
-		try (InputStream in = getModelResource(MODEL_TOKENIZER)) {
-			tokenizer = new TokenizerME(new TokenizerModel(in));
-		} catch (IOException e) {
-			logger.error(e.getMessage());
-			throw new RuntimeException(e);
-		}
-		try (InputStream in = getModelResource(MODEL_POS)) {
-			posTagger = new POSTaggerME(new POSModel(in));
-		} catch (IOException e) {
-			logger.error(e.getMessage());
-			throw new RuntimeException(e);
-		}
-		try (InputStream in = getModelResource(MODEL_LEMMAS)) {
-			lemmatizer = new LemmatizerME(new LemmatizerModel(in));
-		} catch (IOException e) {
-			logger.error(e.getMessage());
-			throw new RuntimeException(e);
-		}
+		super.targets.add("text");
+		tokenizer = new TokenizerME(TOKENIZER_MODEL);
+		posTagger = new POSTaggerME(POS_MODEL);
+		lemmatizer = new LemmatizerME(LEMMA_MODEL);
 	}
 
 	@Override

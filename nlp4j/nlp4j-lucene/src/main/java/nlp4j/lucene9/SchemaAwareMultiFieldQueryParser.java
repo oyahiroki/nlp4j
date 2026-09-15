@@ -26,7 +26,7 @@ public class SchemaAwareMultiFieldQueryParser extends MultiFieldQueryParser {
 	}
 
 	public SchemaAwareMultiFieldQueryParser(String[] fields, Analyzer analyzer, SearchSchema schema, ZoneId zoneId) {
-		super(fields, analyzer);
+		super(fields, SchemaAwareQueryParser.wrapAnalyzer(analyzer, schema));
 		this.schema = schema;
 		this.zoneId = (zoneId != null) ? zoneId : ZoneId.systemDefault();
 	}
@@ -55,19 +55,15 @@ public class SchemaAwareMultiFieldQueryParser extends MultiFieldQueryParser {
 	}
 
 	@Override
-	protected Query getRangeQuery(
-			String field,
-			String part1,
-			String part2,
-			boolean startInclusive,
+	protected Query getRangeQuery(String field, String part1, String part2, boolean startInclusive,
 			boolean endInclusive) throws ParseException {
 
 		if (field == null || !TypedFieldQueryFactory.isNumericOrDate(field, schema)) {
 			return super.getRangeQuery(field, part1, part2, startInclusive, endInclusive);
 		}
 		try {
-			return TypedFieldQueryFactory.newRangeQuery(
-					field, part1, part2, startInclusive, endInclusive, schema, zoneId);
+			return TypedFieldQueryFactory.newRangeQuery(field, part1, part2, startInclusive, endInclusive, schema,
+					zoneId);
 		} catch (RuntimeException e) {
 			throw parseException("Invalid range for field [" + field + "]", e);
 		}

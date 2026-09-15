@@ -13,8 +13,7 @@ import java.util.List;
  * LocalAnalytics による1回の aggregation 分析結果を表すクラス。
  *
  * <p>
- * 分析条件や文書数など、分析全体に関する情報と、
- * {@link AnalyticsAggregationBucket} の一覧を保持します。
+ * 分析条件や文書数など、分析全体に関する情報と、 {@link AnalyticsAggregationBucket} の一覧を保持します。
  * </p>
  *
  * <p>
@@ -22,27 +21,18 @@ import java.util.List;
  * </p>
  *
  * <pre>
- * AnalyticsResult result =
- * 		analytics.relativeRate(
- * 				"maker",
- * 				"ニッサン",
- * 				"word.noun",
- * 				100);
+ * AnalyticsResult result = analytics.relativeRate("maker", "ニッサン", "word.noun", 100);
  *
  * result.getQueryField(); // "maker"
  * result.getQueryValue(); // "ニッサン"
- * result.getField();      // "word.noun"
- * result.getCount();      // ニッサンの文書数
+ * result.getField(); // "word.noun"
+ * result.getCount(); // ニッサンの文書数
  * result.getTotalCount(); // 全文書数
  *
- * for (AnalyticsAggregationBucket bucket
- * 		: result.getBuckets()) {
+ * for (AnalyticsAggregationBucket bucket : result.getBuckets()) {
  *
- * 	System.out.println(
- * 			bucket.getKey()
- * 			+ " count=" + bucket.getCount()
- * 			+ " relativeRate="
- * 			+ bucket.getRelativeRate());
+ * 	System.out
+ * 			.println(bucket.getKey() + " count=" + bucket.getCount() + " relativeRate=" + bucket.getRelativeRate());
  * }
  * </pre>
  */
@@ -56,10 +46,18 @@ public class AnalyticsResult {
 	/**
 	 * aggregation 対象フィールド。
 	 *
-	 * 例:
-	 * word.noun
+	 * 例: word.noun
 	 */
 	private final String field;
+
+	/**
+	 * Date histogram の集計単位。
+	 *
+	 * <p>
+	 * Terms aggregation の場合は null。 Date histogram の場合は "year" / "month" / "hour" 等。
+	 * </p>
+	 */
+	private final String interval;
 
 	/**
 	 * 分析条件に該当する文書数（countQuery）。
@@ -88,11 +86,20 @@ public class AnalyticsResult {
 	 * @param count      分析条件に該当する文書数
 	 * @param totalCount 全文書数
 	 */
-	public AnalyticsResult(
-			AnalyticsQuery query,
-			String field,
-			long count,
-			long totalCount) {
+	public AnalyticsResult(AnalyticsQuery query, String field, long count, long totalCount) {
+		this(query, field, null, count, totalCount);
+	}
+
+	/**
+	 * Date histogram 用コンストラクタ（interval 付き）。
+	 *
+	 * @param query      分析条件
+	 * @param field      aggregation 対象フィールド（Date フィールド名）
+	 * @param interval   集計単位（"year" / "month" / "hour" 等）
+	 * @param count      分析条件に該当する文書数
+	 * @param totalCount 全文書数
+	 */
+	public AnalyticsResult(AnalyticsQuery query, String field, String interval, long count, long totalCount) {
 
 		if (query == null) {
 			throw new IllegalArgumentException("query must not be null");
@@ -117,6 +124,7 @@ public class AnalyticsResult {
 
 		this.query = query;
 		this.field = field;
+		this.interval = interval;
 		this.count = count;
 		this.totalCount = totalCount;
 	}
@@ -130,18 +138,9 @@ public class AnalyticsResult {
 	 * @param count      基準条件に該当する文書数
 	 * @param totalCount 全文書数
 	 */
-	public AnalyticsResult(
-			String queryField,
-			String queryValue,
-			String field,
-			long count,
-			long totalCount) {
+	public AnalyticsResult(String queryField, String queryValue, String field, long count, long totalCount) {
 
-		this(
-				AnalyticsQuery.fieldValue(queryField, queryValue),
-				field,
-				count,
-				totalCount);
+		this(AnalyticsQuery.fieldValue(queryField, queryValue), field, count, totalCount);
 	}
 
 	// -----------------------------------------------------------------------
@@ -163,9 +162,7 @@ public class AnalyticsResult {
 	 * @return フィールド名または null
 	 */
 	public String getQueryField() {
-		return query.getKind() == AnalyticsQuery.Kind.FIELD_VALUE
-				? query.getField()
-				: null;
+		return query.getKind() == AnalyticsQuery.Kind.FIELD_VALUE ? query.getField() : null;
 	}
 
 	/**
@@ -174,9 +171,7 @@ public class AnalyticsResult {
 	 * @return 基準値または null
 	 */
 	public String getQueryValue() {
-		return query.getKind() == AnalyticsQuery.Kind.FIELD_VALUE
-				? query.getValue()
-				: null;
+		return query.getKind() == AnalyticsQuery.Kind.FIELD_VALUE ? query.getValue() : null;
 	}
 
 	/**
@@ -185,9 +180,7 @@ public class AnalyticsResult {
 	 * @return Lucene クエリ文字列または null
 	 */
 	public String getLuceneQuery() {
-		return query.getKind() == AnalyticsQuery.Kind.LUCENE
-				? query.getLuceneQuery()
-				: null;
+		return query.getKind() == AnalyticsQuery.Kind.LUCENE ? query.getLuceneQuery() : null;
 	}
 
 	/**
@@ -197,6 +190,19 @@ public class AnalyticsResult {
 	 */
 	public String getField() {
 		return field;
+	}
+
+	/**
+	 * Date histogram の集計単位を返します。
+	 *
+	 * <p>
+	 * Terms aggregation の場合は null を返します。
+	 * </p>
+	 *
+	 * @return interval（"year" / "month" / "hour" 等）または null
+	 */
+	public String getInterval() {
+		return interval;
 	}
 
 	/**
@@ -229,22 +235,17 @@ public class AnalyticsResult {
 		return Collections.unmodifiableList(buckets);
 	}
 
-	public AnalyticsResult addBucket(
-			AnalyticsAggregationBucket bucket) {
+	public AnalyticsResult addBucket(AnalyticsAggregationBucket bucket) {
 
 		if (bucket == null) {
-			throw new IllegalArgumentException(
-					"bucket must not be null");
+			throw new IllegalArgumentException("bucket must not be null");
 		}
 
 		/*
-		 * Result と Bucket の aggregation field が
-		 * 一致していることを保証します。
+		 * Result と Bucket の aggregation field が 一致していることを保証します。
 		 */
 		if (!field.equals(bucket.getField())) {
-			throw new IllegalArgumentException(
-					"bucket field does not match result field: "
-							+ bucket.getField());
+			throw new IllegalArgumentException("bucket field does not match result field: " + bucket.getField());
 		}
 
 		buckets.add(bucket);
@@ -254,12 +255,8 @@ public class AnalyticsResult {
 
 	@Override
 	public String toString() {
-		return "AnalyticsResult ["
-				+ "query=" + query
-				+ ", field=" + field
-				+ ", count=" + count
-				+ ", totalCount=" + totalCount
-				+ ", buckets=" + buckets
-				+ "]";
+		return "AnalyticsResult [" + "query=" + query + ", field=" + field
+				+ (interval != null ? ", interval=" + interval : "") + ", count=" + count + ", totalCount=" + totalCount
+				+ ", buckets=" + buckets + "]";
 	}
 }

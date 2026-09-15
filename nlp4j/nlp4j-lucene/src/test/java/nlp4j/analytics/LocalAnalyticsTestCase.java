@@ -6,6 +6,7 @@ import java.util.Map;
 import junit.framework.TestCase;
 import nlp4j.lucene.LocalSearch;
 import nlp4j.lucene.LuceneQueryValidationResult;
+import nlp4j.lucene9.DateHistogramInterval;
 
 public class LocalAnalyticsTestCase extends TestCase {
 
@@ -694,8 +695,8 @@ public class LocalAnalyticsTestCase extends TestCase {
 	 * relativeRateLucene() の基本動作を確認する。
 	 *
 	 * <p>
-	 * group:A という Lucene Query で relativeRate を計算し、
-	 * relativeRate(field, value, ...) と数学的に同じ結果になることを確認する。
+	 * group:A という Lucene Query で relativeRate を計算し、 relativeRate(field, value, ...)
+	 * と数学的に同じ結果になることを確認する。
 	 * </p>
 	 *
 	 * <pre>
@@ -873,8 +874,8 @@ public class LocalAnalyticsTestCase extends TestCase {
 	}
 
 	/**
-	 * size（candidateSize）が小さい場合、count が少ないが relativeRate が高い項目は
-	 * aggregateLucene() の返す候補から外れることを確認する。
+	 * size（candidateSize）が小さい場合、count が少ないが relativeRate が高い項目は aggregateLucene()
+	 * の返す候補から外れることを確認する。
 	 *
 	 * <p>
 	 * これは設計上の注意点です。size は「表示件数」ではなく「relativeRate 計算候補数」です。
@@ -949,8 +950,7 @@ public class LocalAnalyticsTestCase extends TestCase {
 			System.out.println("testRelativeRateLuceneCandidateSize001 size=3: " + small);
 
 			// Z は candidates に入らないため bucket に存在しない
-			assertNull("size=3 では Z は候補から外れること",
-					findBucket(small, "Z"));
+			assertNull("size=3 では Z は候補から外れること", findBucket(small, "Z"));
 
 			// A,B,C は含まれる（最大3件）
 			assertNotNull(findBucket(small, "A"));
@@ -971,25 +971,23 @@ public class LocalAnalyticsTestCase extends TestCase {
 			// Z の relativeRate が最高（先頭）であること
 			// Z:
 			// targetRate = 2 / 25 = 0.08
-			// allRate    = 2 / 62 ≈ 0.03226
+			// allRate = 2 / 62 ≈ 0.03226
 			// relativeRate ≈ 2.48
 			//
 			// A:
 			// targetRate = 10 / 25 = 0.4
-			// allRate    = 20 / 62 ≈ 0.32258
+			// allRate = 20 / 62 ≈ 0.32258
 			// relativeRate ≈ 1.24
-			assertEquals("Z は relativeRate 最高のため先頭であること",
-					"Z", large.getBuckets().get(0).getKey());
+			assertEquals("Z は relativeRate 最高のため先頭であること", "Z", large.getBuckets().get(0).getKey());
 
 			// Z の relativeRate は A,B,C より高いこと
 			AnalyticsAggregationBucket a = findBucket(large, "A");
 			assertNotNull(a);
-			assertTrue("Z の relativeRate が A より高いこと",
-					z.getRelativeRate() > a.getRelativeRate());
+			assertTrue("Z の relativeRate が A より高いこと", z.getRelativeRate() > a.getRelativeRate());
 
 			// countAll（全文書数）は 62 であること
 			// group=Query: A=10, B=8, C=5, Z=2 → 25件
-			// group=Other: A=10, B=12, C=15     → 37件
+			// group=Other: A=10, B=12, C=15 → 37件
 			// 合計: 62件
 			assertEquals(62, large.getTotalCount());
 			// countQuery（group=Query の文書数）は 25 であること
@@ -1001,8 +999,8 @@ public class LocalAnalyticsTestCase extends TestCase {
 	 * size（candidateSize）の役割を relativeRate() の既存 API でも確認する。
 	 *
 	 * <p>
-	 * size が候補数を制御することは relativeRate() と relativeRateLucene() で共通の挙動です。
-	 * このテストは relativeRate() の同等ケースを確認します。
+	 * size が候補数を制御することは relativeRate() と relativeRateLucene() で共通の挙動です。 このテストは
+	 * relativeRate() の同等ケースを確認します。
 	 * </p>
 	 *
 	 * <pre>
@@ -1053,8 +1051,7 @@ public class LocalAnalyticsTestCase extends TestCase {
 
 			AnalyticsAggregationBucket z = findBucket(large, "Z");
 			assertNotNull("size=10 では Z が候補に含まれること", z);
-			assertEquals("Z は relativeRate 最高のため先頭であること",
-					"Z", large.getBuckets().get(0).getKey());
+			assertEquals("Z は relativeRate 最高のため先頭であること", "Z", large.getBuckets().get(0).getKey());
 		}
 	}
 
@@ -1063,12 +1060,12 @@ public class LocalAnalyticsTestCase extends TestCase {
 	// =========================================================
 
 	/**
-	 * queryValue にスペースを含む値（例: "Nissan Motor"）を渡した場合でも
-	 * relativeRate() が正常に動作することを確認する。
+	 * queryValue にスペースを含む値（例: "Nissan Motor"）を渡した場合でも relativeRate()
+	 * が正常に動作することを確認する。
 	 *
 	 * <p>
-	 * 以前の実装では "maker:Nissan Motor" という不正な Lucene Query 文字列を生成していたが、
-	 * filters パラメータを使う実装では正確に一致する。
+	 * 以前の実装では "maker:Nissan Motor" という不正な Lucene Query 文字列を生成していたが、 filters
+	 * パラメータを使う実装では正確に一致する。
 	 * </p>
 	 *
 	 * <pre>
@@ -1120,12 +1117,12 @@ public class LocalAnalyticsTestCase extends TestCase {
 	}
 
 	/**
-	 * queryValue に Lucene 特殊文字（コロン）を含む値（例: "A:B"）を渡した場合でも
-	 * relativeRate() が正常に動作することを確認する。
+	 * queryValue に Lucene 特殊文字（コロン）を含む値（例: "A:B"）を渡した場合でも relativeRate()
+	 * が正常に動作することを確認する。
 	 *
 	 * <p>
-	 * 以前の実装では "maker:A:B" という不正な Lucene Query 文字列を生成していた。
-	 * filters パラメータを使う実装では正確に一致する。
+	 * 以前の実装では "maker:A:B" という不正な Lucene Query 文字列を生成していた。 filters
+	 * パラメータを使う実装では正確に一致する。
 	 * </p>
 	 */
 	public void testRelativeRateSpecialValue_Colon() throws Exception {
@@ -1158,7 +1155,8 @@ public class LocalAnalyticsTestCase extends TestCase {
 	// =========================================================
 
 	/**
-	 * relativeRates(queryField, aggregationField, queryValueSize, candidateSize) の基本動作を確認する。
+	 * relativeRates(queryField, aggregationField, queryValueSize, candidateSize)
+	 * の基本動作を確認する。
 	 *
 	 * <p>
 	 * 3引数版（size, size）と4引数版（size, size）の結果が同じになることを確認する。
@@ -1187,8 +1185,8 @@ public class LocalAnalyticsTestCase extends TestCase {
 	}
 
 	/**
-	 * relativeRates() の 4引数版で queryValueSize を小さくした場合、
-	 * queryField の処理される値の種類が制限されることを確認する。
+	 * relativeRates() の 4引数版で queryValueSize を小さくした場合、 queryField
+	 * の処理される値の種類が制限されることを確認する。
 	 *
 	 * <pre>
 	 * group=A=2, group=B=3 の文書がある。
@@ -1214,8 +1212,8 @@ public class LocalAnalyticsTestCase extends TestCase {
 	}
 
 	/**
-	 * relativeRates() の 4引数版で candidateSize に 0 を渡した場合、
-	 * IllegalArgumentException がスローされることを確認する。
+	 * relativeRates() の 4引数版で candidateSize に 0 を渡した場合、 IllegalArgumentException
+	 * がスローされることを確認する。
 	 */
 	public void testRelativeRates_FourArgs_Validation_CandidateSize() throws Exception {
 
@@ -1348,8 +1346,8 @@ public class LocalAnalyticsTestCase extends TestCase {
 	// =========================================================
 
 	/**
-	 * AnalyticsResult のコンストラクタで count > totalCount の場合、
-	 * IllegalArgumentException がスローされることを確認する。
+	 * AnalyticsResult のコンストラクタで count > totalCount の場合、 IllegalArgumentException
+	 * がスローされることを確認する。
 	 */
 	public void testAnalyticsResultCountExceedsTotalCount() throws Exception {
 
@@ -1411,6 +1409,256 @@ public class LocalAnalyticsTestCase extends TestCase {
 				fail();
 			} else {
 				System.out.println("Invalid query: " + result.getMessage());
+			}
+		}
+	}
+
+	// =========================================================
+	// relativeRateDateHistogram()
+	// =========================================================
+
+	/**
+	 * relativeRateDateHistogram() の基本動作を確認する。
+	 *
+	 * <pre>
+	 * Documents:
+	 *   id=1 body=Nissan created_dt=2023-06-01  (Nissan)
+	 *   id=2 body=Nissan created_dt=2024-03-01  (Nissan)
+	 *   id=3 body=Nissan created_dt=2024-09-01  (Nissan)
+	 *   id=4 body=Toyota created_dt=2023-02-01  (other)
+	 *   id=5 body=Toyota created_dt=2025-01-01  (other)
+	 *
+	 * countAll = 5, countQuery(body:Nissan) = 3
+	 *
+	 * YEAR bucket:
+	 *   2023: all=2, query=1
+	 *   2024: all=2, query=2
+	 *   2025: all=1, query=0
+	 *
+	 * 2023: relativeRate = (1/3) / (2/5) = (5/3) / 2 = 5/6 ≈ 0.833333
+	 * 2024: relativeRate = (2/3) / (2/5) = (2/3) * (5/2) = 5/3 ≈ 1.666666
+	 * 2025: relativeRate = (0/3) / (1/5) = 0
+	 * </pre>
+	 * 
+	 * @since 1.7.2.0
+	 */
+	public void testRelativeRateDateHistogram001() throws Exception {
+
+		try (LocalSearch search = LocalSearch.builder("en").autoAnalyze(false).build()) {
+
+			search.addJson("{\"id\":\"1\",\"body\":\"Nissan\",\"created_dt\":\"2023-06-01\"}");
+			search.addJson("{\"id\":\"2\",\"body\":\"Nissan\",\"created_dt\":\"2024-03-01\"}");
+			search.addJson("{\"id\":\"3\",\"body\":\"Nissan\",\"created_dt\":\"2024-09-01\"}");
+			search.addJson("{\"id\":\"4\",\"body\":\"Toyota\",\"created_dt\":\"2023-02-01\"}");
+			search.addJson("{\"id\":\"5\",\"body\":\"Toyota\",\"created_dt\":\"2025-01-01\"}");
+			search.commit();
+
+			LocalAnalytics analytics = new LocalAnalytics(search);
+
+			AnalyticsResult result = analytics.relativeRateDateHistogram("body:Nissan", "created_dt",
+					DateHistogramInterval.YEAR);
+
+			System.out.println("testRelativeRateDateHistogram001: " + result);
+			result.getBuckets().stream().forEach(b -> {
+				System.out.println(b.toString());
+			});
+
+			// Result 全体
+			assertEquals(AnalyticsQuery.Kind.LUCENE, result.getQuery().getKind());
+			assertEquals("created_dt", result.getField());
+			assertEquals("year", result.getInterval());
+			assertEquals(3, result.getCount());
+			assertEquals(5, result.getTotalCount());
+
+			// 3 buckets (2023, 2024, 2025)
+			assertEquals(3, result.getBuckets().size());
+
+			// 時系列昇順
+			List<AnalyticsAggregationBucket> buckets = result.getBuckets();
+			assertEquals("2023", buckets.get(0).getKey());
+			assertEquals("2024", buckets.get(1).getKey());
+			assertEquals("2025", buckets.get(2).getKey());
+
+			// 2023: count=1, allCount=2
+			AnalyticsAggregationBucket b2023 = buckets.get(0);
+			assertEquals(1, b2023.getCount());
+			assertEquals(2, b2023.getAllCount());
+			assertEquals(5.0 / 6.0, b2023.getRelativeRate(), 0.000001);
+
+			// 2024: count=2, allCount=2
+			AnalyticsAggregationBucket b2024 = buckets.get(1);
+			assertEquals(2, b2024.getCount());
+			assertEquals(2, b2024.getAllCount());
+			assertEquals(5.0 / 3.0, b2024.getRelativeRate(), 0.000001);
+
+			// 2025: count=0, allCount=1 → relativeRate=0（0件 bucket）
+			AnalyticsAggregationBucket b2025 = buckets.get(2);
+			assertEquals(0, b2025.getCount());
+			assertEquals(1, b2025.getAllCount());
+			assertEquals(0.0, b2025.getRelativeRate(), 0.000001);
+		}
+	}
+
+	/**
+	 * relativeRateDateHistogram() で query に一致する文書がない場合、 空 bucket の AnalyticsResult
+	 * が返ることを確認する。
+	 * 
+	 * @since 1.7.2.0
+	 */
+	public void testRelativeRateDateHistogram002_NoMatch() throws Exception {
+
+		try (LocalSearch search = LocalSearch.builder("en").autoAnalyze(false).build()) {
+
+			search.addJson("{\"id\":\"1\",\"body\":\"Toyota\",\"created_dt\":\"2023-06-01\"}");
+			search.commit();
+
+			LocalAnalytics analytics = new LocalAnalytics(search);
+
+			AnalyticsResult result = analytics.relativeRateDateHistogram("body:Nissan", "created_dt",
+					DateHistogramInterval.YEAR);
+			result.getBuckets().stream().forEach(b -> {
+				System.out.println(b.toString());
+			});
+
+			assertNotNull(result);
+			assertEquals(AnalyticsQuery.Kind.LUCENE, result.getQuery().getKind());
+			assertEquals("year", result.getInterval());
+			assertEquals(0, result.getCount());
+			assertEquals(1, result.getTotalCount());
+			assertTrue(result.getBuckets().isEmpty());
+		}
+	}
+
+	/**
+	 * relativeRateDateHistogram() で空インデックスの場合、 空 bucket の AnalyticsResult
+	 * が返ることを確認する。
+	 * 
+	 * @since 1.7.2.0
+	 */
+	public void testRelativeRateDateHistogram003_EmptyIndex() throws Exception {
+
+		try (LocalSearch search = LocalSearch.builder("en").autoAnalyze(false).build()) {
+
+			search.commit();
+
+			LocalAnalytics analytics = new LocalAnalytics(search);
+
+			AnalyticsResult result = analytics.relativeRateDateHistogram("body:Nissan", "created_dt",
+					DateHistogramInterval.YEAR);
+			result.getBuckets().stream().forEach(b -> {
+				System.out.println(b.toString());
+			});
+
+			assertNotNull(result);
+			assertEquals("year", result.getInterval());
+			assertEquals(0, result.getCount());
+			assertEquals(0, result.getTotalCount());
+			assertTrue(result.getBuckets().isEmpty());
+		}
+	}
+
+	/**
+	 * relativeRateDateHistogram() で query 側に存在しない年のバケット（0件 bucket）が 全体 aggregation
+	 * 側のキーから補完されることを確認する。
+	 *
+	 * <pre>
+	 * Documents:
+	 *   id=1 body=Nissan created_dt=2024-01-01
+	 *   id=2 body=Toyota created_dt=2023-01-01
+	 *   id=3 body=Toyota created_dt=2025-01-01
+	 *
+	 * query=body:Nissan には 2023 / 2025 が存在しない。
+	 * → 0件 bucket として含まれること。
+	 * </pre>
+	 * 
+	 * @since 1.7.2.0
+	 */
+	public void testRelativeRateDateHistogram004_ZeroBucket() throws Exception {
+
+		try (LocalSearch search = LocalSearch.builder("en").autoAnalyze(false).build()) {
+
+			search.addJson("{\"id\":\"1\",\"body\":\"Nissan\",\"created_dt\":\"2024-01-01\"}");
+			search.addJson("{\"id\":\"2\",\"body\":\"Toyota\",\"created_dt\":\"2023-01-01\"}");
+			search.addJson("{\"id\":\"3\",\"body\":\"Toyota\",\"created_dt\":\"2025-01-01\"}");
+			search.commit();
+
+			LocalAnalytics analytics = new LocalAnalytics(search);
+
+			AnalyticsResult result = analytics.relativeRateDateHistogram("body:Nissan", "created_dt",
+					DateHistogramInterval.YEAR);
+			result.getBuckets().stream().forEach(b -> {
+				System.out.println(b.toString());
+			});
+
+			System.out.println("testRelativeRateDateHistogram004_ZeroBucket: " + result);
+
+			// 3 buckets: 2023, 2024, 2025
+			assertEquals(3, result.getBuckets().size());
+
+			List<AnalyticsAggregationBucket> buckets = result.getBuckets();
+
+			// 時系列昇順
+			assertEquals("2023", buckets.get(0).getKey());
+			assertEquals("2024", buckets.get(1).getKey());
+			assertEquals("2025", buckets.get(2).getKey());
+
+			// 2023: Nissan 0件 → relativeRate=0
+			assertEquals(0, buckets.get(0).getCount());
+			assertEquals(0.0, buckets.get(0).getRelativeRate(), 0.000001);
+
+			// 2024: Nissan 1件
+			assertEquals(1, buckets.get(1).getCount());
+			assertTrue(buckets.get(1).getRelativeRate() > 0);
+
+			// 2025: Nissan 0件 → relativeRate=0
+			assertEquals(0, buckets.get(2).getCount());
+			assertEquals(0.0, buckets.get(2).getRelativeRate(), 0.000001);
+		}
+	}
+
+	/**
+	 * relativeRateDateHistogram() の引数バリデーションを確認する。
+	 * 
+	 * @since 1.7.2.0
+	 */
+	public void testRelativeRateDateHistogram005_Validation() throws Exception {
+
+		try (LocalSearch search = LocalSearch.builder("en").autoAnalyze(false).build()) {
+
+			search.commit();
+
+			LocalAnalytics analytics = new LocalAnalytics(search);
+
+			// luceneQuery が null
+			try {
+				analytics.relativeRateDateHistogram(null, "created_dt", DateHistogramInterval.YEAR);
+				fail("luceneQuery=null は IllegalArgumentException");
+			} catch (IllegalArgumentException e) {
+				assertEquals("luceneQuery must not be empty", e.getMessage());
+			}
+
+			// luceneQuery が空文字
+			try {
+				analytics.relativeRateDateHistogram("", "created_dt", DateHistogramInterval.YEAR);
+				fail("luceneQuery=空文字 は IllegalArgumentException");
+			} catch (IllegalArgumentException e) {
+				assertEquals("luceneQuery must not be empty", e.getMessage());
+			}
+
+			// dateField が null
+			try {
+				analytics.relativeRateDateHistogram("body:Nissan", null, DateHistogramInterval.YEAR);
+				fail("dateField=null は IllegalArgumentException");
+			} catch (IllegalArgumentException e) {
+				assertEquals("dateField must not be empty", e.getMessage());
+			}
+
+			// interval が null
+			try {
+				analytics.relativeRateDateHistogram("body:Nissan", "created_dt", null);
+				fail("interval=null は IllegalArgumentException");
+			} catch (IllegalArgumentException e) {
+				assertEquals("interval must not be null", e.getMessage());
 			}
 		}
 	}
@@ -1526,4 +1774,97 @@ public class LocalAnalyticsTestCase extends TestCase {
 			throw e;
 		}
 	}
+
+	// =========================================================
+	// relativeRateLucene() - KEYWORD 値にコロンと空白を含むケース
+	// =========================================================
+
+	/**
+	 * relativeRateLucene() で component_s:"POWER TRAIN:AUTOMATIC TRANSMISSION"
+	 * のように引用符付き KEYWORD 値を含む Lucene Query が正しく動作することを確認する。
+	 *
+	 * <pre>
+	 * Documents:
+	 *   id=1 model_s=SENTRA  component_s="POWER TRAIN:AUTOMATIC TRANSMISSION"
+	 *   id=2 model_s=SENTRA  component_s="POWER TRAIN:AUTOMATIC TRANSMISSION"
+	 *   id=3 model_s=SENTRA  component_s="WHEELS"
+	 *   id=4 model_s=ALTIMA  component_s="POWER TRAIN:AUTOMATIC TRANSMISSION"
+	 *
+	 * query = "model_s:SENTRA AND component_s:\"POWER TRAIN:AUTOMATIC TRANSMISSION\""
+	 * → count = 2, totalCount = 4
+	 *
+	 * relativeRateLucene(query, "component_s", 100):
+	 *   POWER TRAIN:AUTOMATIC TRANSMISSION:
+	 *     targetRate = 2 / 2 = 1.0
+	 *     allRate    = 3 / 4 = 0.75
+	 *     relativeRate = 1.0 / 0.75 = 1.333333...
+	 * </pre>
+	 */
+	public void testRelativeRateLuceneKeywordQuotedColon001()
+			throws Exception {
+
+		try (LocalSearch search =
+				LocalSearch.builder("en")
+						.autoAnalyze(false)
+						.build()) {
+
+			search.addJson("""
+					{"id":"1","body":"doc1","model_s":"SENTRA",
+					 "component_s":"POWER TRAIN:AUTOMATIC TRANSMISSION"}
+					""");
+
+			search.addJson("""
+					{"id":"2","body":"doc2","model_s":"SENTRA",
+					 "component_s":"POWER TRAIN:AUTOMATIC TRANSMISSION"}
+					""");
+
+			search.addJson("""
+					{"id":"3","body":"doc3","model_s":"SENTRA",
+					 "component_s":"WHEELS"}
+					""");
+
+			search.addJson("""
+					{"id":"4","body":"doc4","model_s":"ALTIMA",
+					 "component_s":"POWER TRAIN:AUTOMATIC TRANSMISSION"}
+					""");
+
+			search.commit();
+
+			LocalAnalytics analytics =
+					new LocalAnalytics(search);
+
+			String query =
+					"model_s:SENTRA AND "
+					+ "component_s:"
+					+ "\"POWER TRAIN:AUTOMATIC TRANSMISSION\"";
+
+			AnalyticsResult result =
+					analytics.relativeRateLucene(
+							query,
+							"component_s",
+							100);
+
+			assertEquals(2L, result.getCount());
+			assertEquals(4L, result.getTotalCount());
+
+			assertEquals(1, result.getBuckets().size());
+
+			AnalyticsAggregationBucket bucket =
+					result.getBuckets().get(0);
+
+			assertEquals(
+					"POWER TRAIN:AUTOMATIC TRANSMISSION",
+					bucket.getKey());
+
+			assertEquals(2L, bucket.getCount());
+			assertEquals(3L, bucket.getAllCount());
+
+			assertEquals(
+					4.0 / 3.0,
+					bucket.getRelativeRate(),
+					0.000001);
+		}
+	}
+
+
 }

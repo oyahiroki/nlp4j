@@ -23,7 +23,8 @@
 	<!-- 2026-09-13 1.6.1.1 Small bugfix -->
 	<!-- 2026-09-14 1.7.0.0 Kuromoji performance improved. Date field aggregation improved. -->
 	<!-- 2026-09-14 1.7.1.0  nlp4j.lucene.LocalSearch.getFieldsWithValues() -->
-	<version>1.7.1.0</version>
+	<!-- 2026-09-XX 1.7.2.0  date view function improved. query parser bug fixed -->
+	<version>1.7.2.0</version>
 	<description>NLP4J for Apache Lucene</description>
 	<url>https://nlp4j.org/</url>
 	<licenses>

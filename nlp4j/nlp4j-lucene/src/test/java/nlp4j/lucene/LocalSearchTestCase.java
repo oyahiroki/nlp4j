@@ -3691,4 +3691,97 @@ public class LocalSearchTestCase extends TestCase {
 			assertTrue(search.aggregate("word.conj", 100).size() > 0);
 		}
 	}
+
+	// =========================================================
+	// KEYWORD field with colon and spaces in quoted Lucene Query
+	// =========================================================
+
+	/**
+	 * _s サフィックスフィールドで「コロン＋スペース」を含む KEYWORD 値を 引用符付き Lucene Query で検索できることを確認する。
+	 *
+	 * <p>
+	 * component_s:"POWER TRAIN:AUTOMATIC TRANSMISSION" という Lucene Query が正しく
+	 * TermQuery に変換され、count / search / aggregate の 3 API で 一貫した結果が得られること。
+	 * </p>
+	 *
+	 * <pre>
+	 * Documents:
+	 *   id=1 model_s=SENTRA  component_s="POWER TRAIN:AUTOMATIC TRANSMISSION"
+	 *   id=2 model_s=SENTRA  component_s="POWER TRAIN:AUTOMATIC TRANSMISSION"
+	 *   id=3 model_s=SENTRA  component_s="WHEELS"
+	 *   id=4 model_s=ALTIMA  component_s="POWER TRAIN:AUTOMATIC TRANSMISSION"
+	 *
+	 * count("model_s:SENTRA") = 3
+	 * count("component_s:\"POWER TRAIN:AUTOMATIC TRANSMISSION\"") = 3
+	 * count("model_s:SENTRA AND component_s:\"POWER TRAIN:AUTOMATIC TRANSMISSION\"") = 2
+	 * search(同上) = 2件
+	 * aggregate("component_s", 同上, 100) → POWER TRAIN:AUTOMATIC TRANSMISSION → 2
+	 * </pre>
+	 */
+	public void testKeywordQuotedValueWithColon001() throws Exception {
+
+		try (LocalSearch search = LocalSearch.builder("en").autoAnalyze(false).build()) {
+
+			search.addJson("""
+					{"id":"1","body":"doc1","model_s":"SENTRA",
+					 "component_s":"POWER TRAIN:AUTOMATIC TRANSMISSION"}
+					""");
+
+			search.addJson("""
+					{"id":"2","body":"doc2","model_s":"SENTRA",
+					 "component_s":"POWER TRAIN:AUTOMATIC TRANSMISSION"}
+					""");
+
+			search.addJson("""
+					{"id":"3","body":"doc3","model_s":"SENTRA",
+					 "component_s":"WHEELS"}
+					""");
+
+			search.addJson("""
+					{"id":"4","body":"doc4","model_s":"ALTIMA",
+					 "component_s":"POWER TRAIN:AUTOMATIC TRANSMISSION"}
+					""");
+
+			search.commit();
+
+			// model_s:SENTRA → 3件
+			assertEquals(3L, search.count("model_s:SENTRA"));
+
+			// component_s:"POWER TRAIN:AUTOMATIC TRANSMISSION" → 3件
+			assertEquals(3L, search.count("component_s:" + "\"POWER TRAIN:AUTOMATIC TRANSMISSION\""));
+
+			String query = "model_s:SENTRA AND " + "component_s:" + "\"POWER TRAIN:AUTOMATIC TRANSMISSION\"";
+
+			// count → 2件
+			assertEquals(2L, search.count(query));
+
+			// search → 2件
+			assertEquals(2, search.search(query, 10).length);
+
+			// aggregate → POWER TRAIN:AUTOMATIC TRANSMISSION → 2
+			java.util.Map<String, Long> result = search.aggregate("component_s", query, 100);
+
+			assertEquals(Long.valueOf(2L), result.get("POWER TRAIN:AUTOMATIC TRANSMISSION"));
+		}
+	}
+
+	public void testValidateKeywordQuotedValueWithColon001() throws Exception {
+
+		try (LocalSearch search = LocalSearch.builder("en").autoAnalyze(false).build()) {
+
+			search.addJson("""
+					{"id":"1",
+					 "model_s":"SENTRA",
+					 "component_s":"POWER TRAIN:AUTOMATIC TRANSMISSION"}
+					""");
+			search.commit();
+
+			String query = "model_s:SENTRA AND " + "component_s:" + "\"POWER TRAIN:AUTOMATIC TRANSMISSION\"";
+
+			LuceneQueryValidationResult result = search.validateQuery(query);
+
+			assertTrue(result.getMessage(), result.isValid());
+		}
+	}
+
 }

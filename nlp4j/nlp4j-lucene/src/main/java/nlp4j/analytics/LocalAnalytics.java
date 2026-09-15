@@ -7,11 +7,15 @@ package nlp4j.analytics;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 import nlp4j.lucene.LocalSearch;
+import nlp4j.lucene9.DateHistogramBucket;
+import nlp4j.lucene9.DateHistogramInterval;
 
 /**
  * LocalSearch 上のデータを利用して、 軽量な統計分析・テキスト分析を行うクラスです。
@@ -112,8 +116,7 @@ public class LocalAnalytics {
 	 * @param size             aggregation の最大バケット数
 	 * @return relativeRate 分析結果
 	 */
-	public AnalyticsResult relativeRate(String queryField, String queryValue, String aggregationField,
-			int size) {
+	public AnalyticsResult relativeRate(String queryField, String queryValue, String aggregationField, int size) {
 
 		validateField(queryField, "queryField");
 
@@ -165,8 +168,7 @@ public class LocalAnalytics {
 		 */
 		Map<String, Long> aggregationQuery = search.aggregate(aggregationField, null, size, queryFilter);
 
-		return calculateRelativeRates(query, aggregationField, countAll, countQuery, aggregationAll,
-				aggregationQuery);
+		return calculateRelativeRates(query, aggregationField, countAll, countQuery, aggregationAll, aggregationQuery);
 	}
 
 	/**
@@ -189,11 +191,7 @@ public class LocalAnalytics {
 	 * </p>
 	 *
 	 * <pre>
-	 * AnalyticsResult result =
-	 *     analytics.relativeRateLucene(
-	 *         "maker:Nissan",
-	 *         "word.noun",
-	 *         1000);
+	 * AnalyticsResult result = analytics.relativeRateLucene("maker:Nissan", "word.noun", 1000);
 	 * </pre>
 	 *
 	 * @param luceneQuery      Lucene Query Parser syntax のクエリ文字列
@@ -243,8 +241,7 @@ public class LocalAnalytics {
 		 */
 		Map<String, Long> aggregationQuery = search.aggregate(aggregationField, luceneQuery, size);
 
-		return calculateRelativeRates(query, aggregationField, countAll, countQuery, aggregationAll,
-				aggregationQuery);
+		return calculateRelativeRates(query, aggregationField, countAll, countQuery, aggregationAll, aggregationQuery);
 	}
 
 	/**
@@ -266,8 +263,8 @@ public class LocalAnalytics {
 	 *
 	 * <p>
 	 * queryField は category / maker 等の比較的低カーディナリティなフィールドを想定します。
-	 * 高カーディナリティなフィールド（user_id 等）を指定すると、queryValue の数だけ
-	 * aggregation を実行するため非常に重くなります。
+	 * 高カーディナリティなフィールド（user_id 等）を指定すると、queryValue の数だけ aggregation
+	 * を実行するため非常に重くなります。
 	 * </p>
 	 *
 	 * @param queryField       基準フィールド
@@ -283,8 +280,8 @@ public class LocalAnalytics {
 	 * queryField に存在するすべての値について relativeRate を計算します。
 	 *
 	 * <p>
-	 * {@code queryValueSize} は queryField の値を何種類まで処理するかを制御し、
-	 * {@code candidateSize} は aggregationField の候補バケット数を制御します。
+	 * {@code queryValueSize} は queryField の値を何種類まで処理するかを制御し、 {@code candidateSize}
+	 * は aggregationField の候補バケット数を制御します。
 	 * </p>
 	 *
 	 * <p>
@@ -297,8 +294,8 @@ public class LocalAnalytics {
 	 * @param candidateSize    aggregation の最大バケット数
 	 * @return queryValue → AnalyticsResult
 	 */
-	public Map<String, AnalyticsResult> relativeRates(String queryField, String aggregationField,
-			int queryValueSize, int candidateSize) {
+	public Map<String, AnalyticsResult> relativeRates(String queryField, String aggregationField, int queryValueSize,
+			int candidateSize) {
 
 		validateField(queryField, "queryField");
 
@@ -362,13 +359,88 @@ public class LocalAnalytics {
 
 			AnalyticsQuery query = AnalyticsQuery.fieldValue(queryField, queryValue);
 
-			AnalyticsResult result = calculateRelativeRates(query, aggregationField,
-					countAll, countQuery, aggregationAll, aggregationQuery);
+			AnalyticsResult result = calculateRelativeRates(query, aggregationField, countAll, countQuery,
+					aggregationAll, aggregationQuery);
 
 			results.put(queryValue, result);
 		}
 
 		return results;
+	}
+
+	/**
+	 * Lucene Query で指定した条件に対する Date histogram relativeRate を計算します。
+	 *
+	 * <p>
+	 * relativeRate は次の式で計算します。
+	 * </p>
+	 *
+	 * <pre>
+	 * targetRate = targetCount / countQuery
+	 *
+	 * allRate = allCount / countAll
+	 *
+	 * relativeRate = targetRate / allRate
+	 * </pre>
+	 *
+	 * <p>
+	 * 全文書と絞り込み後の両方で dateHistogram を取得し、両方のキー集合の和集合から 0件 bucket
+	 * も含めてすべての時系列バケットを計算します。 結果は時系列昇順（keyAsString 昇順）で返します。
+	 * </p>
+	 *
+	 * <p>
+	 * 利用例:
+	 * </p>
+	 *
+	 * <pre>
+	 * AnalyticsResult result = analytics.relativeRateDateHistogram("text_ja:ニッサン", "date", DateHistogramInterval.YEAR);
+	 * result.getInterval(); // "year"
+	 * </pre>
+	 *
+	 * @param luceneQuery Lucene Query Parser syntax のクエリ文字列
+	 * @param dateField   集計対象の DATE フィールド名
+	 * @param interval    集計単位（YEAR / MONTH / HOUR）
+	 * @return relativeRate 分析結果（時系列昇順）
+	 */
+	public AnalyticsResult relativeRateDateHistogram(String luceneQuery, String dateField,
+			DateHistogramInterval interval) {
+
+		if (luceneQuery == null || luceneQuery.isBlank()) {
+			throw new IllegalArgumentException("luceneQuery must not be empty");
+		}
+
+		validateField(dateField, "dateField");
+
+		if (interval == null) {
+			throw new IllegalArgumentException("interval must not be null");
+		}
+
+		long countAll = search.count();
+
+		AnalyticsQuery query = AnalyticsQuery.lucene(luceneQuery);
+
+		if (countAll == 0) {
+			return new AnalyticsResult(query, dateField, interval.value(), 0, 0);
+		}
+
+		long countQuery = search.count(luceneQuery);
+
+		if (countQuery == 0) {
+			return new AnalyticsResult(query, dateField, interval.value(), 0, countAll);
+		}
+
+		/*
+		 * 全文書における dateHistogram。
+		 */
+		List<DateHistogramBucket> all = search.dateHistogram(dateField, interval);
+
+		/*
+		 * luceneQuery に該当する文書のみを対象とした dateHistogram。
+		 */
+		List<DateHistogramBucket> queryBuckets = search.dateHistogram(dateField, interval, luceneQuery);
+
+		return calculateDateHistogramRelativeRates(query, dateField, interval.value(), countAll, countQuery, all,
+				queryBuckets);
 	}
 
 	/**
@@ -382,9 +454,8 @@ public class LocalAnalytics {
 	 * @param aggregationQuery 分析条件に該当する文書の aggregation
 	 * @return AnalyticsResult
 	 */
-	private AnalyticsResult calculateRelativeRates(AnalyticsQuery query,
-			String aggregationField, long countAll, long countQuery, Map<String, Long> aggregationAll,
-			Map<String, Long> aggregationQuery) {
+	private AnalyticsResult calculateRelativeRates(AnalyticsQuery query, String aggregationField, long countAll,
+			long countQuery, Map<String, Long> aggregationAll, Map<String, Long> aggregationQuery) {
 
 		AnalyticsResult result = new AnalyticsResult(query, aggregationField, countQuery, countAll);
 
@@ -407,8 +478,8 @@ public class LocalAnalytics {
 			/*
 			 * aggregation の size 制限によって、 aggregationAll に対象の key が含まれていない場合があります。
 			 *
-			 * その場合は count(field, value) によって 正確な文書数を取得します。
-			 * field/value を構造化条件として渡し、Lucene Query 文字列への変換を避けます。
+			 * その場合は count(field, value) によって 正確な文書数を取得します。 field/value を構造化条件として渡し、Lucene
+			 * Query 文字列への変換を避けます。
 			 */
 			if (allCount == null) {
 				allCount = search.count(null, Map.of(aggregationField, key));
@@ -440,22 +511,122 @@ public class LocalAnalytics {
 		}
 
 		/*
-		 * relativeRate 降順 → count 降順 → key 昇順 の順でソートします。
-		 * 同じ relativeRate の bucket が複数ある場合の順序を安定化するためです。
+		 * relativeRate 降順 → count 降順 → key 昇順 の順でソートします。 同じ relativeRate の bucket
+		 * が複数ある場合の順序を安定化するためです。
 		 */
-		buckets.sort(
-				Comparator.comparingDouble(AnalyticsAggregationBucket::getRelativeRate)
-						.reversed()
-						.thenComparing(
-								Comparator.comparingLong(AnalyticsAggregationBucket::getCount)
-										.reversed())
-						.thenComparing(AnalyticsAggregationBucket::getKey));
+		buckets.sort(Comparator.comparingDouble(AnalyticsAggregationBucket::getRelativeRate).reversed()
+				.thenComparing(Comparator.comparingLong(AnalyticsAggregationBucket::getCount).reversed())
+				.thenComparing(AnalyticsAggregationBucket::getKey));
 
 		for (AnalyticsAggregationBucket bucket : buckets) {
 			result.addBucket(bucket);
 		}
 
 		return result;
+	}
+
+	/**
+	 * Date histogram relativeRate の計算処理。
+	 *
+	 * <p>
+	 * 全文書と検索結果の両方のキー集合の和集合を使って bucket を構築します。 query 側に存在しない bucket は count=0,
+	 * relativeRate=0 として含まれます。 結果は時系列昇順（keyAsString 昇順）で返します。
+	 * </p>
+	 *
+	 * @param query        分析条件
+	 * @param dateField    DATE フィールド名
+	 * @param intervalStr  集計単位文字列（"year" 等）
+	 * @param countAll     全文書数
+	 * @param countQuery   分析条件に該当する文書数
+	 * @param allBuckets   全文書に対する dateHistogram
+	 * @param queryBuckets 分析条件に該当する文書の dateHistogram
+	 * @return AnalyticsResult（時系列昇順）
+	 */
+	private AnalyticsResult calculateDateHistogramRelativeRates(AnalyticsQuery query, String dateField,
+			String intervalStr, long countAll, long countQuery, List<DateHistogramBucket> allBuckets,
+			List<DateHistogramBucket> queryBuckets) {
+
+		AnalyticsResult result = new AnalyticsResult(query, dateField, intervalStr, countQuery, countAll);
+
+		/*
+		 * keyAsString → docCount のマップに変換。
+		 */
+		Map<String, Long> allMap = toKeyMap(allBuckets);
+		Map<String, Long> queryMap = toKeyMap(queryBuckets);
+
+		/*
+		 * 両側のキー集合の和集合を時系列昇順で処理します。 query 側に存在しない bucket（count=0）も有効な bucket として含めます。
+		 */
+		Set<String> keys = new HashSet<>();
+		keys.addAll(allMap.keySet());
+		keys.addAll(queryMap.keySet());
+
+		List<String> sortedKeys = new ArrayList<>(keys);
+		sortedKeys.sort(Comparator.naturalOrder());
+
+		for (String key : sortedKeys) {
+
+			long targetCount = queryMap.getOrDefault(key, 0L);
+
+			long allCount = allMap.getOrDefault(key, 0L);
+
+			if (allCount == 0) {
+				/*
+				 * 全文書に該当バケットがない場合は relativeRate を計算できないためスキップします。
+				 */
+				continue;
+			}
+
+			double relativeRate = calculateRelativeRate(targetCount, countQuery, allCount, countAll);
+
+			AnalyticsKeyword keyword = new AnalyticsKeyword(dateField, key);
+
+			AnalyticsAggregationBucket bucket = new AnalyticsAggregationBucket(keyword, targetCount, allCount,
+					relativeRate);
+
+			result.addBucket(bucket);
+		}
+
+		return result;
+	}
+
+	/**
+	 * List&lt;DateHistogramBucket&gt; を keyAsString → docCount の Map に変換します。
+	 *
+	 * @param buckets DateHistogramBucket リスト
+	 * @return keyAsString → docCount
+	 */
+	private static Map<String, Long> toKeyMap(List<DateHistogramBucket> buckets) {
+		Map<String, Long> map = new LinkedHashMap<>();
+		for (DateHistogramBucket b : buckets) {
+			map.put(b.getKeyAsString(), b.getDocCount());
+		}
+		return map;
+	}
+
+	/**
+	 * 単一バケットの relativeRate を計算します（共通化）。
+	 *
+	 * <pre>
+	 * relativeRate = (targetCount / countQuery) / (allCount / countAll)
+	 * </pre>
+	 *
+	 * @param targetCount 分析条件に該当する文書群のうちこのバケットを含む文書数
+	 * @param countQuery  分析条件に該当する文書数
+	 * @param allCount    全文書のうちこのバケットを含む文書数
+	 * @param countAll    全文書数
+	 * @return relativeRate
+	 */
+	private static double calculateRelativeRate(long targetCount, long countQuery, long allCount, long countAll) {
+
+		double targetRate = (double) targetCount / (double) countQuery;
+		double allRate = (double) allCount / (double) countAll;
+
+		if (allRate == 0.0) {
+			return 0.0;
+		}
+
+		return targetRate / allRate;
 	}
 
 	/**
