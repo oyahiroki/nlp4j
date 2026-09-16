@@ -3772,6 +3772,7 @@ public class LocalSearchTestCase extends TestCase {
 			search.addJson("""
 					{"id":"1",
 					 "model_s":"SENTRA",
+					 "text_en":"this is test",
 					 "component_s":"POWER TRAIN:AUTOMATIC TRANSMISSION"}
 					""");
 			search.commit();

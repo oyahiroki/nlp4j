@@ -1,5 +1,11 @@
 # nlp4j-lucene ビルド・リリース手順
 
+
+echo test | gpg --clearsign
+
+mvn -DperformRelease=true clean deploy
+
+
 ## 前提条件
 
 | 項目 | バージョン |
