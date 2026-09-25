@@ -59,6 +59,61 @@ public final class FieldValueConverter {
 	}
 
 	/**
+	 * Converts an Object (e.g. List of Numbers or float[]) to a float array with dimension validation.
+	 *
+	 * @param value             the vector value (must be List&lt;?&gt; or float[])
+	 * @param expectedDimension expected dimension
+	 * @return float array
+	 * @throws IllegalArgumentException if value is null, not an array/list, has dimension mismatch, or contains non-numeric/invalid values
+	 */
+	public static float[] toFloatVector(Object value, int expectedDimension) {
+		if (value == null) {
+			throw new IllegalArgumentException("Vector value must not be null");
+		}
+		if (expectedDimension <= 0) {
+			throw new IllegalArgumentException("expectedDimension must be > 0");
+		}
+
+		if (value instanceof float[] fArray) {
+			if (fArray.length != expectedDimension) {
+				throw new IllegalArgumentException(
+						"Vector dimension mismatch: expected=" + expectedDimension + ", actual=" + fArray.length);
+			}
+			for (int i = 0; i < fArray.length; i++) {
+				if (Float.isNaN(fArray[i]) || Float.isInfinite(fArray[i])) {
+					throw new IllegalArgumentException(
+							"Vector element at index " + i + " contains NaN or Infinite value");
+				}
+			}
+			return fArray;
+		}
+
+		if (value instanceof java.util.List<?> list) {
+			if (list.size() != expectedDimension) {
+				throw new IllegalArgumentException(
+						"Vector dimension mismatch: expected=" + expectedDimension + ", actual=" + list.size());
+			}
+
+			float[] vector = new float[expectedDimension];
+			for (int i = 0; i < expectedDimension; i++) {
+				Object item = list.get(i);
+				if (item == null || !(item instanceof Number)) {
+					throw new IllegalArgumentException("Vector element must be numeric");
+				}
+				float f = ((Number) item).floatValue();
+				if (Float.isNaN(f) || Float.isInfinite(f)) {
+					throw new IllegalArgumentException(
+							"Vector element at index " + i + " contains NaN or Infinite value");
+				}
+				vector[i] = f;
+			}
+			return vector;
+		}
+
+		throw new IllegalArgumentException("Vector value must be an array or List");
+	}
+
+	/**
 	 * Parses a String as int.
 	 *
 	 * @param value the string value

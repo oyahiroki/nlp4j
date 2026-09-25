@@ -24,9 +24,14 @@
 	<!-- 2026-09-14 1.7.0.0 Kuromoji performance improved. Date field aggregation improved. -->
 	<!-- 2026-09-14 1.7.1.0 nlp4j.lucene.LocalSearch.getFieldsWithValues() -->
 	<!-- 2026-09-16 1.7.2.0 date view function improved. query parser bug fixed -->
+	<!-- https://central.sonatype.com/artifact/org.nlp4j/nlp4j-lucene -->
 	<!-- 2026-09-16 1.7.3.0 field info improved -->
-	<version>1.7.3.0</version>
-	<description>NLP4J for Apache Lucene</description>
+	<!-- 2026-09-25 1.7.4.0 API enhancement -->
+	<version>1.7.4.0</version>
+	<description>
+	    Lightweight local full-text search and text analytics library
+	    powered by Apache Lucene, with built-in support for Japanese and English.
+	</description>
 	<url>https://nlp4j.org/</url>
 	<licenses>
 		<license>

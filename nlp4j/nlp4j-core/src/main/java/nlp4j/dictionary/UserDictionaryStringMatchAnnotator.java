@@ -18,6 +18,7 @@ import nlp4j.Keyword;
 /**
  * @author Hiroki Oya
  * @since 1.3.7.5
+ * created on: 2023-02-12
  */
 public class UserDictionaryStringMatchAnnotator extends AbstractDocumentAnnotator implements DocumentAnnotator {
 

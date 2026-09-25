@@ -120,6 +120,24 @@ public class SearchSchemaStoreTestCase extends TestCase {
     }
 
     /**
+     * KNN_VECTOR field round-trip with model metadata.
+     */
+    public void testSaveAndLoadVectorFieldWithModel() throws Exception {
+        SearchSchema original = new SearchSchema();
+        original.add("vector",
+                FieldTypeDef.knnVector(1024, VectorSimilarityFunction.COSINE, "multilingual-e5-large"));
+
+        SearchSchemaStore.save(tempDir, original);
+        SearchSchema loaded = SearchSchemaStore.load(tempDir);
+
+        FieldTypeDef def = loaded.get("vector");
+        assertEquals(FieldTypeDef.Kind.KNN_VECTOR, def.kind());
+        assertEquals(1024, def.get_dimension());
+        assertEquals(VectorSimilarityFunction.COSINE, def.vectorSimilarityFunction());
+        assertEquals("multilingual-e5-large", def.get_model());
+    }
+
+    /**
      * Default similarity (COSINE) for KNN_VECTOR is preserved.
      */
     public void testSaveAndLoadVectorFieldCosineSimilarity() throws Exception {

@@ -3,6 +3,7 @@ package nlp4j.lucene;
 import java.util.Map;
 
 import junit.framework.TestCase;
+import nlp4j.lucene9.FieldTypeDef;
 
 /**
  * LocalSearch ベクトル検索拡張機能のテストケース。
@@ -11,10 +12,10 @@ import junit.framework.TestCase;
  * kaiwa0830-1810.md の会話内容に基づき実装した以下の機能を検証します:
  * </p>
  * <ol>
- *   <li>{@code add(String id, String body, float[] vector)}</li>
- *   <li>{@code add(String id, String body, float[] vector, Map<String,String> fields)}</li>
- *   <li>{@code validateVector()} による共通バリデーション</li>
- *   <li>{@code getVectorDimension()} / {@code hasVectorField()}</li>
+ * <li>{@code add(String id, String body, float[] vector)}</li>
+ * <li>{@code add(String id, String body, float[] vector, Map<String,String> fields)}</li>
+ * <li>{@code validateVector()} による共通バリデーション</li>
+ * <li>{@code getVectorDimension()} / {@code hasVectorField()}</li>
  * </ol>
  */
 public class LocalSearchVectorExtendedTestCase extends TestCase {
@@ -24,8 +25,7 @@ public class LocalSearchVectorExtendedTestCase extends TestCase {
 	// =========================================================
 
 	/**
-	 * add(id, body, vector) でテキストとベクトルを同時に登録し、
-	 * searchVector() でベクトル検索できることを確認する。
+	 * add(id, body, vector) でテキストとベクトルを同時に登録し、 searchVector() でベクトル検索できることを確認する。
 	 */
 	public void testAddBodyVector001() throws Exception {
 		float[] v1 = { 1.0f, 0.0f };
@@ -77,8 +77,8 @@ public class LocalSearchVectorExtendedTestCase extends TestCase {
 	// =========================================================
 
 	/**
-	 * add(id, body, vector, fields) でテキスト・ベクトル・追加フィールドを同時に登録し、
-	 * searchVector() でフィールドフィルターが動作することを確認する。
+	 * add(id, body, vector, fields) でテキスト・ベクトル・追加フィールドを同時に登録し、 searchVector()
+	 * でフィールドフィルターが動作することを確認する。
 	 */
 	public void testAddBodyVectorFields001() throws Exception {
 		float[] v1 = { 1.0f, 0.0f };
@@ -92,8 +92,7 @@ public class LocalSearchVectorExtendedTestCase extends TestCase {
 			search.commit();
 
 			// category_s=city でフィルター → id=1, id=3 の 2 件
-			SearchResult[] results = search.searchVector(new float[] { 0.9f, 0.1f }, 10,
-					Map.of("category_s", "city"));
+			SearchResult[] results = search.searchVector(new float[] { 0.9f, 0.1f }, 10, Map.of("category_s", "city"));
 			System.out.println("testAddBodyVectorFields001 size: " + results.length);
 			for (int n = 0; n < results.length; n++) {
 				System.out.println("result[" + n + "].id: " + results[n].id);
@@ -116,7 +115,8 @@ public class LocalSearchVectorExtendedTestCase extends TestCase {
 			search.add("1", "Kyoto is a historic city in Japan.", v1, Map.of("category", "city", "country", "Japan"));
 			search.add("2", "Nintendo is headquartered in Kyoto.", v2,
 					Map.of("category", "company", "country", "Japan"));
-			search.add("3", "Paris is the capital city of France.", v3, Map.of("category", "city", "country", "France"));
+			search.add("3", "Paris is the capital city of France.", v3,
+					Map.of("category", "city", "country", "France"));
 			search.commit();
 
 			// "Kyoto" + category=company → id=2 の 1 件
@@ -179,16 +179,50 @@ public class LocalSearchVectorExtendedTestCase extends TestCase {
 	}
 
 	/**
-	 * vectorDimension を設定せずに add(id, body, vector) を呼んだ場合 LocalSearchException がスローされることを確認する。
+	 * vectorDimension を設定せずに add(id, body, vector) を呼んだ場合 LocalSearchException
+	 * がスローされることを確認する。
 	 */
 	public void testValidateVectorNoVectorField() throws Exception {
-		try (LocalSearch search = new LocalSearch("en")) {  // vectorDimension=0
+		try (LocalSearch search = new LocalSearch("en")) { // vectorDimension=0
 			try {
 				search.add("1", "body", new float[] { 1.0f, 0.0f });
 				fail("Expected LocalSearchException when vector field not enabled");
 			} catch (LocalSearchException e) {
 				System.out.println("testValidateVectorNoVectorField: " + e.getMessage());
-				assertTrue(e.getMessage().contains("enabled") || e.getMessage().contains("vectorDimension"));
+				assertTrue(e.getMessage().contains("Vector field is not defined"));
+			}
+		}
+	}
+
+	public void testValidateVectorUnknownField() throws Exception {
+
+		try (LocalSearch search = LocalSearch.builder("en").vectorField("vector3", 3).build()) {
+
+			try {
+				search.searchVector("unknown_vector", new float[] { 1.0f, 0.0f, 0.0f }, 10);
+
+				fail("Expected LocalSearchException");
+
+			} catch (LocalSearchException e) {
+
+				assertTrue(e.getMessage().contains("Vector field is not defined"));
+			}
+		}
+	}
+
+	public void testValidateVectorWrongFieldType() throws Exception {
+
+		try (LocalSearch search = LocalSearch.builder("en").field("category_s", FieldTypeDef.keyword().stored(true))
+				.build()) {
+
+			try {
+				search.searchVector("category_s", new float[] { 1.0f, 0.0f }, 10);
+
+				fail("Expected LocalSearchException");
+
+			} catch (LocalSearchException e) {
+
+				assertTrue(e.getMessage().contains("is not a KNN_VECTOR field"));
 			}
 		}
 	}
@@ -241,8 +275,8 @@ public class LocalSearchVectorExtendedTestCase extends TestCase {
 	}
 
 	/**
-	 * vectorDimension 未設定（=0）の場合 getVectorDimension() が 0 を返し、
-	 * hasVectorField() が false を返すことを確認する。
+	 * vectorDimension 未設定（=0）の場合 getVectorDimension() が 0 を返し、 hasVectorField() が
+	 * false を返すことを確認する。
 	 */
 	public void testGetVectorDimension002() throws Exception {
 		try (LocalSearch search = new LocalSearch("en")) {
@@ -266,9 +300,9 @@ public class LocalSearchVectorExtendedTestCase extends TestCase {
 	// =========================================================
 
 	/**
-	 * Wikipedia サンプルパターンの確認:
-	 * add(id, body, vector, fields) で id/body/category/vector を同時登録し、
-	 * searchVector + filter で category 絞り込みが動作することを確認する。
+	 * Wikipedia サンプルパターンの確認: add(id, body, vector, fields) で
+	 * id/body/category/vector を同時登録し、 searchVector + filter で category
+	 * 絞り込みが動作することを確認する。
 	 */
 	public void testWikipediaSamplePattern() throws Exception {
 		float[] kyotoVec = { 0.9f, 0.1f, 0.0f };
@@ -277,10 +311,8 @@ public class LocalSearchVectorExtendedTestCase extends TestCase {
 		float[] queryVec = { 0.85f, 0.15f, 0.05f };
 
 		try (LocalSearch search = new LocalSearch("en", 3)) {
-			search.add("Kyoto", "Kyoto is a historic city in Japan.", kyotoVec,
-					Map.of("category_s", "city"));
-			search.add("Tokyo", "Tokyo is the capital city of Japan.", tokyoVec,
-					Map.of("category_s", "city"));
+			search.add("Kyoto", "Kyoto is a historic city in Japan.", kyotoVec, Map.of("category_s", "city"));
+			search.add("Tokyo", "Tokyo is the capital city of Japan.", tokyoVec, Map.of("category_s", "city"));
 			search.add("Nintendo", "Nintendo is a video game company headquartered in Kyoto.", nintendoVec,
 					Map.of("category_s", "company"));
 			search.commit();
@@ -303,26 +335,26 @@ public class LocalSearchVectorExtendedTestCase extends TestCase {
 	// =========================================================
 
 	/**
-		* add(id, body, vector) で登録した同一 Document が、
-		* テキスト検索でも KNN ベクトル検索でも取得できることを確認する。
-		*
-		* <p>
-		* Embedding 統合で最も重要なシナリオ:
-		* </p>
-		* <pre>
-		*            same document
-		*                 │
-		*       ┌─────────┴─────────┐
-		*       ↓                   ↓
-		* text search          vector search
-		*       ↓                   ↓
-		*     id=1               id=1
-		*       │                   │
-		*       └─────────┬─────────┘
-		*                 ↓
-		*     "Kyoto is a historic city."
-		* </pre>
-		*/
+	 * add(id, body, vector) で登録した同一 Document が、 テキスト検索でも KNN ベクトル検索でも取得できることを確認する。
+	 *
+	 * <p>
+	 * Embedding 統合で最も重要なシナリオ:
+	 * </p>
+	 * 
+	 * <pre>
+	*            same document
+	*                 │
+	*       ┌─────────┴─────────┐
+	*       ↓                   ↓
+	* text search          vector search
+	*       ↓                   ↓
+	*     id=1               id=1
+	*       │                   │
+	*       └─────────┬─────────┘
+	*                 ↓
+	*     "Kyoto is a historic city."
+	 * </pre>
+	 */
 	public void testAddTextAndVector001() throws Exception {
 		try (LocalSearch search = LocalSearch.builder("en").vectorDimension(2).build()) {
 			search.add("1", "Kyoto is a historic city.", new float[] { 1.0f, 0.0f });
@@ -346,31 +378,21 @@ public class LocalSearchVectorExtendedTestCase extends TestCase {
 	}
 
 	/**
-		* add(id, body, vector, fields) で登録した同一 Document が、
-		* テキスト検索＋フィールドフィルターでも KNN ベクトル検索＋フィールドフィルターでも
-		* 同じ Document を返すことを確認する。
-		*/
+	 * add(id, body, vector, fields) で登録した同一 Document が、 テキスト検索＋フィールドフィルターでも KNN
+	 * ベクトル検索＋フィールドフィルターでも 同じ Document を返すことを確認する。
+	 */
 	public void testAddTextAndVector002() throws Exception {
 		float[] nintendoVec = { 0.1f, 0.9f };
-		float[] kyotoVec    = { 0.9f, 0.1f };
-		float[] queryVec    = { 0.85f, 0.15f };
+		float[] kyotoVec = { 0.9f, 0.1f };
+		float[] queryVec = { 0.85f, 0.15f };
 
 		try (LocalSearch search = LocalSearch.builder("en").vectorDimension(2).build()) {
-			search.add(
-				"1",
-				"Nintendo is headquartered in Kyoto.",
-				nintendoVec,
-				Map.of("category", "company", "country", "Japan"));
-			search.add(
-				"2",
-				"Kyoto is a historic city in Japan.",
-				kyotoVec,
-				Map.of("category", "city", "country", "Japan"));
-			search.add(
-				"3",
-				"Paris is the capital city of France.",
-				new float[] { 0.5f, 0.5f },
-				Map.of("category", "city", "country", "France"));
+			search.add("1", "Nintendo is headquartered in Kyoto.", nintendoVec,
+					Map.of("category", "company", "country", "Japan"));
+			search.add("2", "Kyoto is a historic city in Japan.", kyotoVec,
+					Map.of("category", "city", "country", "Japan"));
+			search.add("3", "Paris is the capital city of France.", new float[] { 0.5f, 0.5f },
+					Map.of("category", "city", "country", "France"));
 			search.commit();
 
 			// テキスト検索 "Kyoto" + category=company → id=1 のみ
@@ -391,54 +413,43 @@ public class LocalSearchVectorExtendedTestCase extends TestCase {
 	}
 
 	/**
-		* add(id, body, vector, fields) で登録した同一 Document が、
-		* テキスト検索＋フィールドフィルターと KNN ベクトル検索＋フィールドフィルターの
-		* 両方で同じ id を返すことを確認する。
-		*
-		* <pre>
-		* search.add(
-		*     "1",
-		*     "Nintendo is headquartered in Kyoto.",
-		*     new float[] {1.0f, 0.0f},
-		*     Map.of("category", "company", "country", "Japan")
-		* );
-		*
-		* search.search("Kyoto", 10, Map.of("category", "company"))
-		*   → id=1
-		*
-		* search.searchVector(queryVector, 10, Map.of("category", "company"))
-		*   → id=1
-		* </pre>
-		*/
+	 * add(id, body, vector, fields) で登録した同一 Document が、 テキスト検索＋フィールドフィルターと KNN
+	 * ベクトル検索＋フィールドフィルターの 両方で同じ id を返すことを確認する。
+	 *
+	 * <pre>
+	* search.add(
+	*     "1",
+	*     "Nintendo is headquartered in Kyoto.",
+	*     new float[] {1.0f, 0.0f},
+	*     Map.of("category", "company", "country", "Japan")
+	* );
+	*
+	* search.search("Kyoto", 10, Map.of("category", "company"))
+	*   → id=1
+	*
+	* search.searchVector(queryVector, 10, Map.of("category", "company"))
+	*   → id=1
+	 * </pre>
+	 */
 	public void testAddTextVectorAndFields001() throws Exception {
 		try (LocalSearch search = LocalSearch.builder("en").vectorDimension(2).build()) {
-			search.add(
-					"1",
-					"Nintendo is headquartered in Kyoto.",
-					new float[] { 1.0f, 0.0f },
+			search.add("1", "Nintendo is headquartered in Kyoto.", new float[] { 1.0f, 0.0f },
 					java.util.Map.of("category", "company", "country", "Japan"));
-			search.add(
-					"2",
-					"Kyoto is a historic city in Japan.",
-					new float[] { 0.9f, 0.1f },
+			search.add("2", "Kyoto is a historic city in Japan.", new float[] { 0.9f, 0.1f },
 					java.util.Map.of("category", "city", "country", "Japan"));
-			search.add(
-					"3",
-					"Paris is the capital city of France.",
-					new float[] { 0.0f, 1.0f },
+			search.add("3", "Paris is the capital city of France.", new float[] { 0.0f, 1.0f },
 					java.util.Map.of("category", "city", "country", "France"));
 			search.commit();
 
 			// テキスト検索 "Kyoto" + category=company → id=1 のみ
-			SearchResult[] textResults = search.search(
-					"Kyoto", 10, java.util.Map.of("category", "company"));
+			SearchResult[] textResults = search.search("Kyoto", 10, java.util.Map.of("category", "company"));
 			System.out.println("testAddTextVectorAndFields001 text size: " + textResults.length);
 			assertEquals(1, textResults.length);
 			assertEquals("1", textResults[0].id);
 
 			// ベクトル検索 (0.9, 0.1) + category=company → id=1 のみ
-			SearchResult[] vectorResults = search.searchVector(
-					new float[] { 0.9f, 0.1f }, 10, java.util.Map.of("category", "company"));
+			SearchResult[] vectorResults = search.searchVector(new float[] { 0.9f, 0.1f }, 10,
+					java.util.Map.of("category", "company"));
 			System.out.println("testAddTextVectorAndFields001 vector size: " + vectorResults.length);
 			assertEquals(1, vectorResults.length);
 			assertEquals("1", vectorResults[0].id);

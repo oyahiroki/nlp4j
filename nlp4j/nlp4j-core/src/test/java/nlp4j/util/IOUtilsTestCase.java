@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URL;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 import org.apache.commons.io.FileUtils;
 
@@ -143,6 +145,73 @@ public class IOUtilsTestCase extends TestCase {
 	}
 
 	public void testPw() {
+	}
+
+	/**
+	 * bufferedReader(File, Charset) should honour the charset argument for plain
+	 * text files (not silently fall back to UTF-8).
+	 */
+	public void testBufferedReaderCharset_plain() throws Exception {
+		// example_sjis.txt is encoded in Shift_JIS
+		File file = new File("src/test/resources/examples/example_sjis.txt");
+		Charset sjis = Charset.forName("Shift_JIS");
+		boolean ok = false;
+		try (BufferedReader br = IOUtils.bufferedReader(file, sjis)) {
+			String line = br.readLine();
+			assertNotNull(line);
+			// If charset is honoured the first line must not contain replacement chars
+			assertFalse("Charset not honoured: got replacement chars", line.contains("\uFFFD"));
+			ok = true;
+		}
+		assertTrue(ok);
+	}
+
+	/**
+	 * bufferedReader(File, Charset) should honour the charset argument for .gz
+	 * files.
+	 */
+	public void testBufferedReaderCharset_gz() throws Exception {
+		File file = new File("src/test/resources/nlp4j.util/IOUtilsTest001.txt.gz");
+		// File is UTF-8; reading with UTF-8 charset should succeed and return content
+		boolean ok = false;
+		try (BufferedReader br = IOUtils.bufferedReader(file, StandardCharsets.UTF_8)) {
+			String line = br.readLine();
+			assertNotNull(line);
+			ok = true;
+		}
+		assertTrue(ok);
+	}
+
+	/**
+	 * flushClose() must close the writer even when flush() throws an IOException.
+	 */
+	public void testFlushClose_closeCalledEvenIfFlushThrows() throws Exception {
+		final boolean[] closed = { false };
+
+		// A Writer whose flush() throws IOException but close() should still be called
+		java.io.Writer delegate = new java.io.Writer() {
+			@Override
+			public void write(char[] cbuf, int off, int len) throws IOException {
+			}
+
+			@Override
+			public void flush() throws IOException {
+				throw new IOException("flush failed intentionally");
+			}
+
+			@Override
+			public void close() throws IOException {
+				closed[0] = true;
+			}
+		};
+
+		try {
+			IOUtils.flushClose(delegate);
+			fail("Expected IOException from flushClose");
+		} catch (IOException e) {
+			// expected: MultiIOException wrapping the flush failure
+		}
+		assertTrue("close() must be called even when flush() throws", closed[0]);
 	}
 
 	public void testPwSystemErr001() throws IOException {

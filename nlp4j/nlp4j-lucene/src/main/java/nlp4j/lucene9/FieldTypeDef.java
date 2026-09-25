@@ -30,6 +30,7 @@ public class FieldTypeDef {
 
 	private int dimension = -1;
 	private VectorSimilarityFunction vectorSimilarityFunction = VectorSimilarityFunction.COSINE;
+	private String vectorModel = null;
 
 	private FieldTypeDef(Kind kind) {
 		this.kind = kind;
@@ -60,12 +61,20 @@ public class FieldTypeDef {
 	}
 
 	public static FieldTypeDef knnVector(int dimension) {
+		return knnVector(dimension, VectorSimilarityFunction.COSINE, null);
+	}
+
+	public static FieldTypeDef knnVector(int dimension, VectorSimilarityFunction similarity, String model) {
 		if (dimension <= 0) {
 			throw new IllegalArgumentException("dimension must be > 0");
 		}
 
 		FieldTypeDef def = new FieldTypeDef(Kind.KNN_VECTOR);
 		def.dimension = dimension;
+		if (similarity != null) {
+			def.vectorSimilarityFunction = similarity;
+		}
+		def.vectorModel = model;
 		return def;
 	}
 
@@ -124,8 +133,8 @@ public class FieldTypeDef {
 	}
 
 	public FieldTypeDef multiValued(boolean multiValued) {
-		if (multiValued && kind == Kind.DATE) {
-			throw new IllegalArgumentException("DATE field cannot be multi-valued");
+		if (multiValued && (kind == Kind.DATE || kind == Kind.KNN_VECTOR)) {
+			throw new IllegalArgumentException(kind + " field cannot be multi-valued");
 		}
 		this.multiValued = multiValued;
 		return this;
@@ -136,6 +145,11 @@ public class FieldTypeDef {
 			throw new IllegalArgumentException("vectorSimilarityFunction must not be null");
 		}
 		this.vectorSimilarityFunction = vectorSimilarityFunction;
+		return this;
+	}
+
+	public FieldTypeDef model(String vectorModel) {
+		this.vectorModel = vectorModel;
 		return this;
 	}
 
@@ -171,6 +185,10 @@ public class FieldTypeDef {
 		return vectorSimilarityFunction;
 	}
 
+	public String get_model() {
+		return vectorModel;
+	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {
@@ -187,7 +205,8 @@ public class FieldTypeDef {
 				&& range == other.range
 				&& multiValued == other.multiValued
 				&& dimension == other.dimension
-				&& vectorSimilarityFunction == other.vectorSimilarityFunction;
+				&& vectorSimilarityFunction == other.vectorSimilarityFunction
+				&& java.util.Objects.equals(vectorModel, other.vectorModel);
 	}
 
 	@Override
@@ -200,6 +219,7 @@ public class FieldTypeDef {
 		result = 31 * result + Boolean.hashCode(multiValued);
 		result = 31 * result + dimension;
 		result = 31 * result + vectorSimilarityFunction.hashCode();
+		result = 31 * result + (vectorModel != null ? vectorModel.hashCode() : 0);
 		return result;
 	}
 }

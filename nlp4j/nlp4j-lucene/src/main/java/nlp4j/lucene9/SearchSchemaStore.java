@@ -66,6 +66,9 @@ public final class SearchSchemaStore {
             if (def.kind() == FieldTypeDef.Kind.KNN_VECTOR) {
                 field.put("dimension", def.get_dimension());
                 field.put("vectorSimilarityFunction", def.vectorSimilarityFunction().name());
+                if (def.get_model() != null) {
+                    field.put("model", def.get_model());
+                }
             }
 
             fields.add(field);
@@ -131,11 +134,15 @@ public final class SearchSchemaStore {
                     def = FieldTypeDef.date();
                     break;
                 case KNN_VECTOR: {
-                    int dimension = field.get("dimension").asInt(0);
+                    int dimension = field.get("dimension") != null ? field.get("dimension").asInt(0) : 0;
                     def = FieldTypeDef.knnVector(dimension);
-                    String simStr = field.get("vectorSimilarityFunction").asString(null);
+                    String simStr = field.get("vectorSimilarityFunction") != null ? field.get("vectorSimilarityFunction").asString(null) : null;
                     if (simStr != null) {
                         def.similarity(VectorSimilarityFunction.valueOf(simStr));
+                    }
+                    String modelStr = field.get("model") != null ? field.get("model").asString(null) : null;
+                    if (modelStr != null) {
+                        def.model(modelStr);
                     }
                     break;
                 }

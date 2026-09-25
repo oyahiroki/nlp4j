@@ -8,7 +8,9 @@ package nlp4j.lucene;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.time.Instant;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
@@ -19,6 +21,14 @@ import java.util.Set;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.FieldInfo;
 import org.apache.lucene.index.FieldInfos;
+import org.apache.lucene.index.IndexReader;
+import org.apache.lucene.index.LeafReaderContext;
+import org.apache.lucene.index.NumericDocValues;
+import org.apache.lucene.index.SortedDocValues;
+import org.apache.lucene.index.SortedNumericDocValues;
+import org.apache.lucene.index.SortedSetDocValues;
+import org.apache.lucene.search.DocIdSetIterator;
+import org.apache.lucene.util.Bits;
 
 import nlp4j.json.JsonNode;
 import nlp4j.lucene9.FieldTypeDef;
@@ -199,6 +209,36 @@ public class LocalSearch implements AutoCloseable {
 		public Builder field(String fieldName, FieldTypeDef fieldTypeDef) {
 			fields.put(fieldName, fieldTypeDef);
 			return this;
+		}
+
+		/**
+		 * ベクトルフィールド定義を追加します。
+		 *
+		 * @param fieldName  フィールド名
+		 * @param dimension  ベクトルの次元数
+		 * @param similarity 類似度関数
+		 * @param model      埋め込みモデル名などのメタデータ（null 許容）
+		 * @return this Builder
+		 */
+		public Builder vectorField(String fieldName, int dimension,
+				org.apache.lucene.index.VectorSimilarityFunction similarity, String model) {
+			FieldTypeDef def = FieldTypeDef.knnVector(dimension, similarity, model);
+			if (VECTOR_FIELD.equals(fieldName)) {
+				this.vectorDimension = dimension;
+			}
+			fields.put(fieldName, def);
+			return this;
+		}
+
+		/**
+		 * ベクトルフィールド定義を追加します（デフォルト: COSINE類似度, model=null）。
+		 *
+		 * @param fieldName フィールド名
+		 * @param dimension ベクトルの次元数
+		 * @return this Builder
+		 */
+		public Builder vectorField(String fieldName, int dimension) {
+			return vectorField(fieldName, dimension, org.apache.lucene.index.VectorSimilarityFunction.COSINE, null);
 		}
 
 		/**
@@ -398,14 +438,14 @@ public class LocalSearch implements AutoCloseable {
 
 			if (fields != null) {
 				for (java.util.Map.Entry<String, String> entry : fields.entrySet()) {
-						String fieldName = entry.getKey();
-						String value = entry.getValue();
-						if (fieldName == null || value == null) {
-							continue;
-						}
-						ensureField(fieldName, value, false);
-						builder.put(fieldName, value);
+					String fieldName = entry.getKey();
+					String value = entry.getValue();
+					if (fieldName == null || value == null) {
+						continue;
 					}
+					ensureField(fieldName, value, false);
+					builder.put(fieldName, value);
+				}
 			}
 
 			this.index.add(builder.build());
@@ -530,8 +570,8 @@ public class LocalSearch implements AutoCloseable {
 	 * @throws LocalSearchException ドキュメントの追加に失敗した場合
 	 */
 	public void add(SearchRecord record) {
-		if (record.hasVector()) {
-			validateVector(record.getVector());
+		for (Map.Entry<String, float[]> entry : record.getVectors().entrySet()) {
+			validateVector(entry.getKey(), entry.getValue());
 		}
 		try {
 			enrich(record);
@@ -560,7 +600,7 @@ public class LocalSearch implements AutoCloseable {
 	 * </p>
 	 *
 	 * <p>
-	 * テキストフィールドが存在しない場合でも、 有効な {@code vector} が指定されていれば登録できます。
+	 * テキストフィールドが存在しない場合でも、 有効な vector フィールドが指定されていれば登録できます。
 	 * </p>
 	 *
 	 * @param json_string 登録するドキュメントの JSON 文字列
@@ -571,9 +611,6 @@ public class LocalSearch implements AutoCloseable {
 			JsonNode json = JsonNode.parse(json_string);
 
 			String id = getRequiredString(json, "id"); // may throw IllegalArgumentException
-
-			// vector フィールドを解析
-			float[] vector = parseVector(json);
 
 			// テキストフィールドを抽出
 			Map<String, String> textFields = new LinkedHashMap<>();
@@ -587,7 +624,10 @@ public class LocalSearch implements AutoCloseable {
 				}
 			}
 
-			if (textFields.isEmpty() && vector == null) {
+			// vector フィールドを抽出（"vector" および schema 内のすべての KNN_VECTOR フィールド）
+			Map<String, float[]> vectorFields = parseVectors(json);
+
+			if (textFields.isEmpty() && vectorFields.isEmpty()) {
 				throw new IllegalArgumentException("Required field is missing: at least one text field (" + TEXT_FIELDS
 						+ ") or vector is required");
 			}
@@ -595,13 +635,14 @@ public class LocalSearch implements AutoCloseable {
 			String analysisText = resolveAnalysisText(textFields);
 			SearchRecord record = new SearchRecord(id, analysisText);
 
-			if (vector != null) {
-				record.setVector(vector);
+			for (Map.Entry<String, float[]> entry : vectorFields.entrySet()) {
+				record.setVector(entry.getKey(), entry.getValue());
 			}
 
 			// JSON の追加フィールドを SearchRecord に転写
 			for (String fieldName : json.keys()) {
-				if ("id".equals(fieldName) || VECTOR_FIELD.equals(fieldName) || TEXT_FIELDS.contains(fieldName)) {
+				if ("id".equals(fieldName) || vectorFields.containsKey(fieldName) || VECTOR_FIELD.equals(fieldName)
+						|| TEXT_FIELDS.contains(fieldName)) {
 					continue;
 				}
 
@@ -611,19 +652,19 @@ public class LocalSearch implements AutoCloseable {
 				}
 
 				if (valueNode.isArray()) {
-	
-						// JSON array は要素数に関係なく multi-valued として宣言する
-						record.declareMultiValued(fieldName);
-	
-						for (JsonNode itemNode : valueNode.asList()) {
-							if (itemNode == null || itemNode.isNull()) {
-								continue;
-							}
-							String value = itemNode.asString(null);
-							if (value != null) {
-								record.addData(fieldName, value);
-							}
+
+					// JSON array は要素数に関係なく multi-valued として宣言する
+					record.declareMultiValued(fieldName);
+
+					for (JsonNode itemNode : valueNode.asList()) {
+						if (itemNode == null || itemNode.isNull()) {
+							continue;
 						}
+						String value = itemNode.asString(null);
+						if (value != null) {
+							record.addData(fieldName, value);
+						}
+					}
 				} else {
 					String value = valueNode.asString(null);
 					if (value != null) {
@@ -633,7 +674,7 @@ public class LocalSearch implements AutoCloseable {
 			}
 
 			enrich(record);
-			addDocument(record, buildStoredDataJson(json), textFields);
+			addDocument(record, buildStoredDataJson(json, vectorFields.keySet()), textFields);
 
 		} catch (Throwable th) {
 			throw new LocalSearchException(th.getMessage(), th);
@@ -674,9 +715,9 @@ public class LocalSearch implements AutoCloseable {
 			builder.put("data", rawJson);
 		}
 
-		// ベクトルを登録
-		if (record.hasVector()) {
-			builder.putVector(VECTOR_FIELD, record.getVector());
+		// ベクトルを登録（任意フィールド名対応）
+		for (Map.Entry<String, float[]> entry : record.getVectors().entrySet()) {
+			builder.putVector(entry.getKey(), entry.getValue());
 		}
 
 		// word.* フィールドへキーワードを登録
@@ -722,11 +763,16 @@ public class LocalSearch implements AutoCloseable {
 	 * </p>
 	 *
 	 * @param json 元の入力 JsonNode
-	 * @return {@code "vector"} フィールドを除いた JSON 文字列
+	 * @return {@code "vector"} 入力 JSON から schema に定義された KNN vector fields を除外する
 	 */
-	private String buildStoredDataJson(JsonNode json) {
+	private String buildStoredDataJson(JsonNode json, Set<String> vectorFieldNames) {
 		com.google.gson.JsonObject copy = json.rawObject().deepCopy();
 		copy.remove(VECTOR_FIELD);
+		if (vectorFieldNames != null) {
+			for (String fn : vectorFieldNames) {
+				copy.remove(fn);
+			}
+		}
 		return copy.toString();
 	}
 
@@ -766,7 +812,7 @@ public class LocalSearch implements AutoCloseable {
 	 * <ul>
 	 * <li>vector が null でないこと</li>
 	 * <li>vectorDimension が 0 より大きいこと（ベクトルフィールドが有効であること）</li>
-	 * <li>vector.length が vectorDimension と一致すること</li>
+	 * <li>vector.length が対象KNN_VECTORフィールドのdimensionと一致</li>
 	 * <li>各要素が NaN / Infinity でないこと</li>
 	 * </ul>
 	 *
@@ -774,54 +820,130 @@ public class LocalSearch implements AutoCloseable {
 	 * @throws LocalSearchException 検証失敗時
 	 */
 	private void validateVector(float[] vector) {
-		if (vector == null) {
-			throw new LocalSearchException("vector must not be null",
-					new IllegalArgumentException("vector must not be null"));
-		}
-		if (vectorDimension <= 0) {
-			throw new LocalSearchException(
-					"Vector field is not enabled. Specify vectorDimension when building LocalSearch.",
-					new IllegalArgumentException("Vector field is not enabled"));
-		}
-		if (vector.length != vectorDimension) {
-			throw new LocalSearchException(
-					"Vector dimension mismatch: expected=" + vectorDimension + ", actual=" + vector.length,
-					new IllegalArgumentException("Vector dimension mismatch"));
-		}
-		for (int i = 0; i < vector.length; i++) {
-			if (Float.isNaN(vector[i]) || Float.isInfinite(vector[i])) {
-				throw new LocalSearchException("vector[" + i + "] contains invalid value: " + vector[i],
-						new IllegalArgumentException("Vector contains NaN or Infinite value"));
-			}
-		}
+		validateVector(VECTOR_FIELD, vector);
 	}
 
+	private void validateVector(String fieldName, float[] vector) {
+
+	    if (vector == null) {
+	        throw new LocalSearchException(
+	                "vector must not be null",
+	                new IllegalArgumentException(
+	                        "vector must not be null"));
+	    }
+
+	    if (schema == null || !schema.contains(fieldName)) {
+	        throw new LocalSearchException(
+	                "Vector field is not defined: " + fieldName,
+	                new IllegalArgumentException(
+	                        "Vector field is not defined: " + fieldName));
+	    }
+
+	    FieldTypeDef def = schema.get(fieldName);
+
+	    if (def.kind() != FieldTypeDef.Kind.KNN_VECTOR) {
+	        throw new LocalSearchException(
+	                "Field '" + fieldName
+	                        + "' is not a KNN_VECTOR field",
+	                new IllegalArgumentException(
+	                        "Field '" + fieldName
+	                                + "' is not a KNN_VECTOR field"));
+	    }
+
+	    int dim = def.get_dimension();
+
+	    if (vector.length != dim) {
+	        throw new LocalSearchException(
+	                "Vector dimension mismatch: expected="
+	                        + dim
+	                        + ", actual="
+	                        + vector.length,
+	                new IllegalArgumentException(
+	                        "Vector dimension mismatch"));
+	    }
+
+	    for (int i = 0; i < vector.length; i++) {
+	        if (Float.isNaN(vector[i])
+	                || Float.isInfinite(vector[i])) {
+
+	            throw new LocalSearchException(
+	                    "vector[" + i
+	                            + "] contains invalid value: "
+	                            + vector[i],
+	                    new IllegalArgumentException(
+	                            "Vector contains NaN or Infinite value"));
+	        }
+	    }
+	}
 	/**
-	 * JSON ノードから "vector" フィールドを解析して float[] を返します。 vector フィールドが存在しない場合は null
-	 * を返します。
+	 * JSON ノードからすべてのベクトルフィールド（"vector" および schema に定義された KNN_VECTOR フィールド）を解析します。
 	 *
 	 * @param json 対象の JsonNode
-	 * @return float[] または null
-	 * @throws IllegalArgumentException vector が配列でない場合
-	 * @throws LocalSearchException     vectorDimension が未設定の場合、 次元数不一致または不正な値を含む場合
+	 * @return フィールド名 → float[] のマップ
 	 */
-	private float[] parseVector(JsonNode json) {
-		JsonNode node = json.get(VECTOR_FIELD);
+	private Map<String, float[]> parseVectors(JsonNode json) {
+		Map<String, float[]> result = new LinkedHashMap<>();
 
-		if (node == null || node.isNull()) {
-			return null;
+		// 1. 固定フィールド "vector"
+		JsonNode defaultVecNode = json.get(VECTOR_FIELD);
+		if (defaultVecNode != null && !defaultVecNode.isNull()) {
+			int dim = getVectorDimension();
+			if (dim <= 0) {
+				throw new LocalSearchException(
+						"Vector field is not enabled. Specify vectorDimension when building LocalSearch.",
+						new IllegalArgumentException("Vector field is not enabled"));
+			}
+			result.put(VECTOR_FIELD, parseVectorNode(VECTOR_FIELD, defaultVecNode, dim));
 		}
 
+		// 2. schema に登録されている KNN_VECTOR フィールド
+		if (schema != null) {
+			for (String fn : schema.fieldNames()) {
+				if (VECTOR_FIELD.equals(fn)) {
+					continue;
+				}
+				FieldTypeDef def = schema.get(fn);
+				if (def.kind() == FieldTypeDef.Kind.KNN_VECTOR) {
+					JsonNode node = json.get(fn);
+					if (node != null && !node.isNull()) {
+						result.put(fn, parseVectorNode(fn, node, def.get_dimension()));
+					}
+				}
+			}
+		}
+
+		return result;
+	}
+
+	private float[] parseVectorNode(String fieldName, JsonNode node, int expectedDim) {
 		if (!node.isArray()) {
-			throw new IllegalArgumentException("vector must be an array");
+			throw new IllegalArgumentException(fieldName + " must be an array");
 		}
-
-		float[] vector = new float[node.size()];
+		List<Number> list = new ArrayList<>(node.size());
 		for (int i = 0; i < node.size(); i++) {
-			vector[i] = (float) node.get(i).asDouble(0.0);
+			JsonNode item = node.get(i);
+			if (item == null || item.isNull()) {
+				throw new LocalSearchException(fieldName + " element must be numeric",
+						new IllegalArgumentException(fieldName + " element must be numeric"));
+			}
+			String strVal = item.asString(null);
+			if (strVal == null) {
+				throw new LocalSearchException(fieldName + " element must be numeric",
+						new IllegalArgumentException(fieldName + " element must be numeric"));
+			}
+			try {
+				double d = Double.parseDouble(strVal);
+				list.add(Double.valueOf(d));
+			} catch (NumberFormatException e) {
+				throw new LocalSearchException(fieldName + " element must be numeric: " + strVal,
+						new IllegalArgumentException(fieldName + " element must be numeric: " + strVal, e));
+			}
 		}
-		validateVector(vector);
-		return vector;
+		try {
+			return nlp4j.lucene9.FieldValueConverter.toFloatVector(list, expectedDim);
+		} catch (IllegalArgumentException e) {
+			throw new LocalSearchException(e.getMessage(), e);
+		}
 	}
 
 	/**
@@ -843,10 +965,8 @@ public class LocalSearch implements AutoCloseable {
 
 		// DATE fields must always be single-valued
 		if (type.kind() == nlp4j.lucene9.FieldTypeDef.Kind.DATE && multiValued) {
-			throw new LocalSearchException(
-					"DATE field must be single-valued: " + fieldName,
-					new IllegalArgumentException(
-							"DATE field must be single-valued: " + fieldName));
+			throw new LocalSearchException("DATE field must be single-valued: " + fieldName,
+					new IllegalArgumentException("DATE field must be single-valued: " + fieldName));
 		}
 
 		if (schema.contains(fieldName)) {
@@ -943,7 +1063,7 @@ public class LocalSearch implements AutoCloseable {
 		// 形態素解析結果の word.* フィールド（multiValued keyword）
 		addDefaultWordFields(schema);
 
-		if (builder.vectorDimension > 0) {
+		if (builder.vectorDimension > 0 && !builder.fields.containsKey(VECTOR_FIELD)) {
 			schema.add(VECTOR_FIELD, FieldTypeDef.knnVector(builder.vectorDimension));
 		}
 
@@ -959,8 +1079,8 @@ public class LocalSearch implements AutoCloseable {
 	 * SearchRecord に追加情報を付与します（エンリッチ処理）。
 	 *
 	 * <p>
-	 * {@code autoAnalyze=true} の場合は、language に対応する
-	 * SearchRecordEnricher による自然言語解析を実行します。
+	 * {@code autoAnalyze=true} の場合は、language に対応する SearchRecordEnricher
+	 * による自然言語解析を実行します。
 	 * </p>
 	 *
 	 * @param record エンリッチ対象のレコード
@@ -1176,12 +1296,22 @@ public class LocalSearch implements AutoCloseable {
 	}
 
 	/**
-	 * ベクトルフィールドが有効かどうかを返します。
+	 * ベクトルフィールドが有効かどうかを返します（デフォルト "vector" または schema 内に KNN_VECTOR が存在するか）。
 	 *
-	 * @return vectorDimension > 0 の場合 {@code true}
+	 * @return KNN_VECTOR フィールドが 1 つ以上存在する場合 {@code true}
 	 */
 	public boolean hasVectorField() {
-		return vectorDimension > 0;
+		if (vectorDimension > 0) {
+			return true;
+		}
+		if (schema != null) {
+			for (String fn : schema.fieldNames()) {
+				if (schema.get(fn).kind() == FieldTypeDef.Kind.KNN_VECTOR) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 	/**
@@ -1194,13 +1324,11 @@ public class LocalSearch implements AutoCloseable {
 	}
 
 	/**
-	 * 実際のインデックスに値が登録されているフィールド名を、
-	 * schema の登録順で返します。
+	 * 実際のインデックスに値が登録されているフィールド名を、 schema の登録順で返します。
 	 *
 	 * <p>
-	 * {@link #getFields()} が schema に定義されているすべてのフィールドを
-	 * 返すのに対し、このメソッドは Lucene index に実際に出現している
-	 * フィールドのみを返します。
+	 * {@link #getFields()} が schema に定義されているすべてのフィールドを 返すのに対し、このメソッドは Lucene index
+	 * に実際に出現している フィールドのみを返します。
 	 * </p>
 	 *
 	 * <p>
@@ -1216,8 +1344,7 @@ public class LocalSearch implements AutoCloseable {
 
 		try (nlp4j.lucene9.SearchSession session = index.acquireSearcher()) {
 
-			FieldInfos fieldInfos = FieldInfos.getMergedFieldInfos(
-					session.getSearcher().getIndexReader());
+			FieldInfos fieldInfos = FieldInfos.getMergedFieldInfos(session.getSearcher().getIndexReader());
 
 			Set<String> indexedFields = new HashSet<>();
 
@@ -1237,10 +1364,205 @@ public class LocalSearch implements AutoCloseable {
 			return result;
 
 		} catch (IOException e) {
-			throw new LocalSearchException(
-					"Failed to get fields with values: " + e.getMessage(),
-					e);
+			throw new LocalSearchException("Failed to get fields with values: " + e.getMessage(), e);
 		}
+	}
+
+	/**
+	 * 現在のインデックスの全フィールドに関する統計サマリーを返します。
+	 *
+	 * <p>
+	 * 返される {@link FieldsSummary} には、実際に値が存在するフィールドのみが schema 登録順で含まれます。
+	 * </p>
+	 *
+	 * <ul>
+	 * <li>Coverage: aggregatable フィールドに対して計算（DocumentsWithValue /
+	 * DocumentCount）</li>
+	 * <li>Unique / Diversity: KEYWORD + aggregatable のみ計算</li>
+	 * <li>Example: stored フィールドのみ取得可能</li>
+	 * </ul>
+	 *
+	 * <p>
+	 * すべての集計は live documents のみを対象とします（deleted / updated 済みの古い document は除外）。
+	 * </p>
+	 *
+	 * @return フィールドサマリー
+	 * @throws LocalSearchException フィールド情報の取得に失敗した場合
+	 * @since 1.7.2.0
+	 */
+	public FieldsSummary getFieldsSummary() {
+
+		try (nlp4j.lucene9.SearchSession session = index.acquireSearcher()) {
+
+			IndexReader reader = session.getSearcher().getIndexReader();
+
+			// 1. DocumentCount (live documents)
+			long documentCount = reader.numDocs();
+
+			// 2. FieldInfos (fields that actually appear in the index)
+			FieldInfos fieldInfos = FieldInfos.getMergedFieldInfos(reader);
+			Set<String> indexedFields = new HashSet<>();
+			for (FieldInfo fi : fieldInfos) {
+				indexedFields.add(fi.name);
+			}
+
+			List<FieldSummary> summaries = new ArrayList<>();
+
+			// 3. schema 順に処理（実データのあるフィールドのみ）
+			for (String fieldName : schema.fieldNames()) {
+				if (!indexedFields.contains(fieldName)) {
+					continue;
+				}
+
+				FieldTypeDef def = schema.get(fieldName);
+				FieldTypeDef.Kind kind = def.kind();
+				boolean aggregatable = def.is_aggregatable();
+
+				long documentsWithValue = -1L;
+				long uniqueValueCount = -1L;
+
+				// 4. Coverage & Unique の計算（KNN_VECTOR は aggregatable=false のためスキップ）
+				if (aggregatable) {
+					documentsWithValue = 0L;
+
+					if (kind == FieldTypeDef.Kind.KEYWORD) {
+						// KEYWORD: Coverage + Unique を同時に計算
+						Set<String> uniqueValues = new HashSet<>();
+						for (LeafReaderContext leaf : reader.leaves()) {
+							Bits liveDocs = leaf.reader().getLiveDocs();
+							if (def.is_multiValued()) {
+								SortedSetDocValues values = leaf.reader().getSortedSetDocValues(fieldName);
+								if (values == null) {
+									continue;
+								}
+								int docId;
+								while ((docId = values.nextDoc()) != DocIdSetIterator.NO_MORE_DOCS) {
+									if (liveDocs != null && !liveDocs.get(docId)) {
+										continue;
+									}
+									documentsWithValue++;
+									long ord;
+									while ((ord = values.nextOrd()) != SortedSetDocValues.NO_MORE_ORDS) {
+										uniqueValues.add(values.lookupOrd(ord).utf8ToString());
+									}
+								}
+							} else {
+								SortedDocValues values = leaf.reader().getSortedDocValues(fieldName);
+								if (values == null) {
+									continue;
+								}
+								int docId;
+								while ((docId = values.nextDoc()) != DocIdSetIterator.NO_MORE_DOCS) {
+									if (liveDocs != null && !liveDocs.get(docId)) {
+										continue;
+									}
+									documentsWithValue++;
+									uniqueValues.add(values.lookupOrd(values.ordValue()).utf8ToString());
+								}
+							}
+						}
+						uniqueValueCount = uniqueValues.size();
+
+					} else {
+						// INTEGER / DOUBLE: SortedNumericDocValues
+						// LONG / DATE: NumericDocValues
+						boolean useSortedNumeric = kind == FieldTypeDef.Kind.INTEGER
+								|| kind == FieldTypeDef.Kind.DOUBLE;
+
+						for (LeafReaderContext leaf : reader.leaves()) {
+							Bits liveDocs = leaf.reader().getLiveDocs();
+							if (useSortedNumeric) {
+								SortedNumericDocValues values = leaf.reader().getSortedNumericDocValues(fieldName);
+								if (values == null) {
+									continue;
+								}
+								int docId;
+								while ((docId = values.nextDoc()) != DocIdSetIterator.NO_MORE_DOCS) {
+									if (liveDocs != null && !liveDocs.get(docId)) {
+										continue;
+									}
+									documentsWithValue++;
+								}
+							} else {
+								NumericDocValues values = leaf.reader().getNumericDocValues(fieldName);
+								if (values == null) {
+									continue;
+								}
+								int docId;
+								while ((docId = values.nextDoc()) != DocIdSetIterator.NO_MORE_DOCS) {
+									if (liveDocs != null && !liveDocs.get(docId)) {
+										continue;
+									}
+									documentsWithValue++;
+								}
+							}
+						}
+						// Unique は Numeric / DATE では計算しない（仕様）
+					}
+
+					// aggregatable で値が1件もなければ除外
+					if (aggregatable && documentsWithValue == 0) {
+						continue;
+					}
+				}
+
+				// 5. Example: stored フィールドのみ最初の live document から取得
+				String example = null;
+				if (def.is_stored()) {
+					example = findExample(reader, fieldName, kind, this.zoneId);
+				}
+
+				// 非 aggregatable + stored でも値がなければ除外
+				if (!aggregatable && def.is_stored() && example == null) {
+					continue;
+				}
+
+				summaries.add(new FieldSummary(fieldName, kind, aggregatable, documentCount, documentsWithValue,
+						uniqueValueCount, example));
+			}
+
+			return new FieldsSummary(documentCount, summaries);
+
+		} catch (IOException e) {
+			throw new LocalSearchException("Failed to get fields summary: " + e.getMessage(), e);
+		}
+	}
+
+	/**
+	 * 指定フィールドの最初の stored value を live documents から検索して返します。
+	 *
+	 * @param reader    IndexReader
+	 * @param fieldName フィールド名
+	 * @param kind      フィールド種別
+	 * @return stored value の文字列表現。見つからない場合 null
+	 */
+	private static String findExample(IndexReader reader, String fieldName, FieldTypeDef.Kind kind, ZoneId zoneId)
+			throws IOException {
+		for (LeafReaderContext leaf : reader.leaves()) {
+			Bits liveDocs = leaf.reader().getLiveDocs();
+			int maxDoc = leaf.reader().maxDoc();
+			for (int docId = 0; docId < maxDoc; docId++) {
+				if (liveDocs != null && !liveDocs.get(docId)) {
+					continue;
+				}
+				Document doc = leaf.reader().document(docId, java.util.Set.of(fieldName));
+				String value = doc.get(fieldName);
+				if (value != null) {
+					if (kind == FieldTypeDef.Kind.DATE) {
+						// stored as epoch millis → convert to ISO 8601 using LocalSearch zoneId
+						try {
+							long epochMillis = Long.parseLong(value);
+							return Instant.ofEpochMilli(epochMillis).atZone(zoneId)
+									.format(DateTimeFormatter.ISO_OFFSET_DATE_TIME);
+						} catch (NumberFormatException ex) {
+							return value;
+						}
+					}
+					return value;
+				}
+			}
+		}
+		return null;
 	}
 
 	/**
@@ -1328,6 +1650,55 @@ public class LocalSearch implements AutoCloseable {
 					new IllegalArgumentException("limit must be greater than 0"));
 		}
 		return executeSearch(createVectorSearchRequest(vector, limit, filters));
+	}
+
+	/**
+	 * 指定したフィールドに対するベクトル検索を行います。
+	 *
+	 * @param field  ベクトルフィールド名
+	 * @param vector クエリベクトル
+	 * @param limit  返す結果の最大件数
+	 * @return 類似度スコア順の SearchResult 配列
+	 * @throws LocalSearchException 検索に失敗した場合
+	 */
+	public SearchResult[] searchVector(String field, float[] vector, int limit) {
+		return searchVector(field, vector, limit, (String) null);
+	}
+
+	/**
+	 * 指定したフィールドに対する Lucene クエリフィルター付きベクトル検索を行います。
+	 *
+	 * @param field             ベクトルフィールド名
+	 * @param vector            クエリベクトル
+	 * @param limit             返す結果の最大件数
+	 * @param filterLuceneQuery Lucene クエリ構文のフィルター文字列（null または空の場合はフィルターなし）
+	 * @return 類似度スコア順の SearchResult 配列
+	 * @throws LocalSearchException 検索に失敗した場合
+	 */
+	public SearchResult[] searchVector(String field, float[] vector, int limit, String filterLuceneQuery) {
+		if (field == null || field.isBlank()) {
+			throw new LocalSearchException("field must not be blank",
+					new IllegalArgumentException("field must not be blank"));
+		}
+		validateVector(field, vector);
+		if (limit < 1) {
+			throw new LocalSearchException("limit must be greater than 0",
+					new IllegalArgumentException("limit must be greater than 0"));
+		}
+		JsonNode request = JsonNode.object();
+		request.put("size", limit);
+
+		JsonNode knn = JsonNode.object();
+		knn.put("field", field);
+		knn.put("query_vector", vector);
+		knn.put("k", limit);
+
+		if (filterLuceneQuery != null && !filterLuceneQuery.isBlank()) {
+			knn.put("filter", createQueryNode(filterLuceneQuery));
+		}
+
+		request.put("knn", knn);
+		return executeSearch(request);
 	}
 
 	/**
@@ -1725,8 +2096,7 @@ public class LocalSearch implements AutoCloseable {
 	 * @return 時刻昇順の {@link nlp4j.lucene9.DateHistogramBucket} リスト
 	 * @throws LocalSearchException 集計に失敗した場合
 	 */
-	public List<nlp4j.lucene9.DateHistogramBucket> dateHistogram(
-			String field,
+	public List<nlp4j.lucene9.DateHistogramBucket> dateHistogram(String field,
 			nlp4j.lucene9.DateHistogramInterval interval) {
 		return dateHistogram(field, interval, null, null);
 	}
@@ -1740,15 +2110,14 @@ public class LocalSearch implements AutoCloseable {
 	 * @return 時刻昇順の {@link nlp4j.lucene9.DateHistogramBucket} リスト
 	 * @throws LocalSearchException 集計に失敗した場合
 	 */
-	public List<nlp4j.lucene9.DateHistogramBucket> dateHistogram(
-			String field,
-			nlp4j.lucene9.DateHistogramInterval interval,
-			String query) {
+	public List<nlp4j.lucene9.DateHistogramBucket> dateHistogram(String field,
+			nlp4j.lucene9.DateHistogramInterval interval, String query) {
 		return dateHistogram(field, interval, query, null);
 	}
 
 	/**
-	 * Lucene Query Parser syntax ＋フィールドフィルターで絞り込んだ上で date histogram aggregation を実行します。
+	 * Lucene Query Parser syntax ＋フィールドフィルターで絞り込んだ上で date histogram aggregation
+	 * を実行します。
 	 *
 	 * @param field    集計対象の DATE フィールド名
 	 * @param interval 集計単位（YEAR / MONTH / HOUR）
@@ -1757,11 +2126,8 @@ public class LocalSearch implements AutoCloseable {
 	 * @return 時刻昇順の {@link nlp4j.lucene9.DateHistogramBucket} リスト
 	 * @throws LocalSearchException 集計に失敗した場合
 	 */
-	public List<nlp4j.lucene9.DateHistogramBucket> dateHistogram(
-			String field,
-			nlp4j.lucene9.DateHistogramInterval interval,
-			String query,
-			Map<String, String> filters) {
+	public List<nlp4j.lucene9.DateHistogramBucket> dateHistogram(String field,
+			nlp4j.lucene9.DateHistogramInterval interval, String query, Map<String, String> filters) {
 
 		if (field == null || field.isBlank()) {
 			throw new LocalSearchException("field must not be blank",
@@ -1783,11 +2149,8 @@ public class LocalSearch implements AutoCloseable {
 		}
 	}
 
-	private JsonNode createDateHistogramRequest(
-			String field,
-			nlp4j.lucene9.DateHistogramInterval interval,
-			String query,
-			JsonNode filters) {
+	private JsonNode createDateHistogramRequest(String field, nlp4j.lucene9.DateHistogramInterval interval,
+			String query, JsonNode filters) {
 
 		JsonNode root = JsonNode.object();
 		root.put("size", 0);
@@ -1814,13 +2177,9 @@ public class LocalSearch implements AutoCloseable {
 		return root;
 	}
 
-	private List<nlp4j.lucene9.DateHistogramBucket> toDateHistogramBuckets(
-			String aggName, JsonNode response) {
+	private List<nlp4j.lucene9.DateHistogramBucket> toDateHistogramBuckets(String aggName, JsonNode response) {
 
-		JsonNode bucketsNode = response
-				.get("aggregations")
-				.get(aggName)
-				.get("buckets");
+		JsonNode bucketsNode = response.get("aggregations").get(aggName).get("buckets");
 
 		List<nlp4j.lucene9.DateHistogramBucket> result = new ArrayList<>();
 
@@ -1833,7 +2192,6 @@ public class LocalSearch implements AutoCloseable {
 
 		return result;
 	}
-
 
 	// -----------------------------------------------------------------------
 	// Java API: validateQuery()
@@ -2273,8 +2631,64 @@ public class LocalSearch implements AutoCloseable {
 		return def != null ? def.kind() : null;
 	}
 
-	SearchSchema getSchema() {
+	public SearchSchema getSchema() {
 		return schema;
+	}
+
+	/**
+	 * 指定フィールドの型定義（{@link FieldTypeDef}）を返します。未定義の場合は null を返します。
+	 *
+	 * @param field フィールド名
+	 * @return FieldTypeDef または null
+	 */
+	public FieldTypeDef getField(String field) {
+		if (field == null || field.isBlank() || schema == null || !schema.contains(field)) {
+			return null;
+		}
+		return schema.get(field);
+	}
+
+	/**
+	 * 指定フィールドの型定義（{@link FieldTypeDef}）を返します。未定義の場合は null を返します。
+	 *
+	 * @param field フィールド名
+	 * @return FieldTypeDef または null
+	 */
+	public FieldTypeDef getFieldInfo(String field) {
+		return getField(field);
+	}
+
+	/**
+	 * 指定したベクトルフィールドのモデル名メタデータを返します。
+	 *
+	 * @param field フィールド名
+	 * @return モデル名。未設定またはベクトルフィールドでない場合は null
+	 */
+	public String getVectorModel(String field) {
+		FieldTypeDef def = getField(field);
+		return (def != null && def.kind() == FieldTypeDef.Kind.KNN_VECTOR) ? def.get_model() : null;
+	}
+
+	/**
+	 * 指定したベクトルフィールドの次元数を返します。
+	 *
+	 * @param field フィールド名
+	 * @return 次元数。未設定またはベクトルフィールドでない場合は null
+	 */
+	public Integer getVectorDimension(String field) {
+		FieldTypeDef def = getField(field);
+		return (def != null && def.kind() == FieldTypeDef.Kind.KNN_VECTOR) ? def.get_dimension() : null;
+	}
+
+	/**
+	 * 指定フィールドの論理型名を返します（例: "KEYWORD", "TEXT", "INTEGER", "LONG", "DOUBLE", "DATE", "KNN_VECTOR", "STORED_ONLY"）。
+	 *
+	 * @param field フィールド名
+	 * @return 型名文字列。未定義の場合は null
+	 */
+	public String getFieldType(String field) {
+		FieldTypeDef.Kind kind = getFieldKind(field);
+		return kind != null ? kind.name() : null;
 	}
 
 	@Override

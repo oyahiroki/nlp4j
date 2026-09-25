@@ -20,6 +20,7 @@ import nlp4j.KeywordBuilder;
  * 
  * @author Hiroki Oya
  * @since 1.3.7.5
+ * created on: 2023-02-12
  */
 public class UserDictionaryStringMatcher {
 

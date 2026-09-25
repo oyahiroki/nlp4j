@@ -14,6 +14,7 @@ import nlp4j.impl.DefaultKeyword;
 import opennlp.tools.lemmatizer.LemmatizerME;
 import opennlp.tools.lemmatizer.LemmatizerModel;
 import opennlp.tools.postag.POSModel;
+import opennlp.tools.postag.POSTagFormat;
 import opennlp.tools.postag.POSTaggerME;
 import opennlp.tools.tokenize.TokenizerME;
 import opennlp.tools.tokenize.TokenizerModel;
@@ -98,7 +99,9 @@ public class OpenNLPAnnotator extends AbstractDocumentAnnotator implements Docum
 	public OpenNLPAnnotator() {
 		super.targets.add("text");
 		tokenizer = new TokenizerME(TOKENIZER_MODEL);
-		posTagger = new POSTaggerME(POS_MODEL);
+		// POSTagFormat.UD を明示することで、コンストラクタ内部のモデルフォーマット推定処理をスキップする。
+		// 使用モデル opennlp-en-ud-ewt-pos は UD フォーマットであるため変換は不要。
+		posTagger = new POSTaggerME(POS_MODEL, POSTagFormat.UD);
 		lemmatizer = new LemmatizerME(LEMMA_MODEL);
 	}
 
@@ -120,13 +123,8 @@ public class OpenNLPAnnotator extends AbstractDocumentAnnotator implements Docum
 				Span[] spans = tokenizer.tokenizePos(text);
 
 				String[] tokens = new String[spans.length];
-				int[] starts = new int[spans.length];
-				int[] ends = new int[spans.length];
-
 				for (int i = 0; i < spans.length; i++) {
-					starts[i] = spans[i].getStart();
-					ends[i] = spans[i].getEnd();
-					tokens[i] = text.substring(spans[i].getStart(), spans[i].getEnd());
+					tokens[i] = spans[i].getCoveredText(text).toString();
 				}
 
 				// -------------------------
@@ -145,25 +143,15 @@ public class OpenNLPAnnotator extends AbstractDocumentAnnotator implements Docum
 				// Output
 				// -------------------------
 
-//				System.out.printf("%-15s %-10s %-15s%n", "TOKEN", "POS", "LEMMA");
-
 				for (int i = 0; i < tokens.length; i++) {
-
-//					System.out.printf("%-15s %-10s %-15s%n", tokens[i], posTags[i], lemmas[i]);
-
-					{
-						DefaultKeyword kwd = new DefaultKeyword();
-						{
-							kwd.setLex(lemmas[i]);
-							kwd.setStr(tokens[i]);
-							kwd.setUPos(posTags[i]);
-							kwd.setBegin(starts[i]);
-							kwd.setEnd(ends[i]);
-							kwd.setFacet(posTags[i]);
-						}
-						doc.addKeyword(kwd);
-					}
-
+					DefaultKeyword kwd = new DefaultKeyword();
+					kwd.setLex(lemmas[i]);
+					kwd.setStr(tokens[i]);
+					kwd.setUPos(posTags[i]);
+					kwd.setBegin(spans[i].getStart());
+					kwd.setEnd(spans[i].getEnd());
+					kwd.setFacet(posTags[i]);
+					doc.addKeyword(kwd);
 				} // END OF for each token
 			} // END OF tokenize
 		} // END OF for each target

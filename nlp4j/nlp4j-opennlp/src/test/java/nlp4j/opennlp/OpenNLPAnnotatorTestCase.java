@@ -9,6 +9,25 @@ import nlp4j.impl.DefaultDocument;
 
 public class OpenNLPAnnotatorTestCase extends TestCase {
 
+	public void testRun() throws Exception {
+		long t0 = System.nanoTime();
+
+		OpenNLPAnnotator ann = new OpenNLPAnnotator();
+
+		long t1 = System.nanoTime();
+
+		for (int i = 0; i < 1000; i++) {
+			Document doc = new DefaultDocument("Dogs are running quickly." + i);
+			ann.annotate(doc);
+		}
+
+		long t2 = System.nanoTime();
+
+		System.out.println("init: " + (t1 - t0) / 1_000_000 + " ms");
+
+		System.out.println("annotate 1000: " + (t2 - t1) / 1_000_000 + " ms");
+	}
+
 	public void testAnnotateDocument() throws Exception {
 
 		// -------------------------

@@ -36,8 +36,11 @@ public class SearchRecord {
 	/** 本文テキスト */
 	private final String body;
 
-	/** KNN ベクトル（null の場合はベクトルなし） */
+	/** KNN ベクトル（null の場合はベクトルなし、デフォルトフィールド "vector" 用） */
 	private float[] vector;
+
+	/** 任意フィールド名ごとの KNN ベクトル（フィールド名 → ベクトル） */
+	private final Map<String, float[]> vectors = new LinkedHashMap<>();
 
 	/** 形態素解析結果のキーワードリスト */
 	private final List<SearchKeyword> keywords = new ArrayList<>();
@@ -66,10 +69,41 @@ public class SearchRecord {
 
 	public void setVector(float[] vector) {
 		this.vector = vector;
+		if (vector != null) {
+			vectors.put("vector", vector);
+		} else {
+			vectors.remove("vector");
+		}
+	}
+
+	public void setVector(String fieldName, float[] vector) {
+		if (vector != null) {
+			vectors.put(fieldName, vector);
+			if ("vector".equals(fieldName)) {
+				this.vector = vector;
+			}
+		} else {
+			vectors.remove(fieldName);
+			if ("vector".equals(fieldName)) {
+				this.vector = null;
+			}
+		}
+	}
+
+	public float[] getVector(String fieldName) {
+		return vectors.get(fieldName);
+	}
+
+	public Map<String, float[]> getVectors() {
+		return Collections.unmodifiableMap(vectors);
 	}
 
 	public boolean hasVector() {
-		return vector != null;
+		return !vectors.isEmpty() || vector != null;
+	}
+
+	public boolean hasVector(String fieldName) {
+		return vectors.containsKey(fieldName);
 	}
 
 	public String getId() {
@@ -153,6 +187,6 @@ public class SearchRecord {
 	public String toString() {
 		return "SearchRecord [id=" + id + ", body=" + body
 				+ ", keywords=" + keywords.size() + ", data=" + data.keySet()
-				+ ", hasVector=" + (vector != null) + "]";
+				+ ", hasVector=" + (hasVector()) + "]";
 	}
 }

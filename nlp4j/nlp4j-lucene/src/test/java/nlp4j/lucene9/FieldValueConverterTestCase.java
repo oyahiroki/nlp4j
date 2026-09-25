@@ -53,6 +53,66 @@ public class FieldValueConverterTestCase extends TestCase {
 	}
 
 	// -----------------------------------------------------------------------
+	// toFloatVector
+	// -----------------------------------------------------------------------
+
+	public void testToFloatVector_validList() {
+		java.util.List<Number> list = java.util.List.of(0.123, -0.456, 0.789);
+		float[] vec = FieldValueConverter.toFloatVector(list, 3);
+		assertEquals(3, vec.length);
+		assertEquals(0.123f, vec[0], 1e-6f);
+		assertEquals(-0.456f, vec[1], 1e-6f);
+		assertEquals(0.789f, vec[2], 1e-6f);
+	}
+
+	public void testToFloatVector_validFloatArray() {
+		float[] input = new float[] { 1.0f, 2.0f };
+		float[] vec = FieldValueConverter.toFloatVector(input, 2);
+		assertEquals(2, vec.length);
+		assertEquals(1.0f, vec[0], 1e-6f);
+	}
+
+	public void testToFloatVector_dimensionMismatch() {
+		java.util.List<Number> list = java.util.List.of(0.1, 0.2);
+		try {
+			FieldValueConverter.toFloatVector(list, 3);
+			fail("Should throw IllegalArgumentException");
+		} catch (IllegalArgumentException e) {
+			assertTrue(e.getMessage().contains("mismatch"));
+		}
+	}
+
+	public void testToFloatVector_nonNumeric() {
+		java.util.List<Object> list = java.util.List.of("abc", 0.2);
+		try {
+			FieldValueConverter.toFloatVector(list, 2);
+			fail("Should throw IllegalArgumentException");
+		} catch (IllegalArgumentException e) {
+			assertTrue(e.getMessage().contains("numeric"));
+		}
+	}
+
+	public void testToFloatVector_nan() {
+		java.util.List<Number> list = java.util.List.of(Float.NaN, 0.2f);
+		try {
+			FieldValueConverter.toFloatVector(list, 2);
+			fail("Should throw IllegalArgumentException");
+		} catch (IllegalArgumentException e) {
+			assertTrue(e.getMessage().contains("NaN"));
+		}
+	}
+
+	public void testToFloatVector_infinite() {
+		java.util.List<Number> list = java.util.List.of(Float.POSITIVE_INFINITY, 0.2f);
+		try {
+			FieldValueConverter.toFloatVector(list, 2);
+			fail("Should throw IllegalArgumentException");
+		} catch (IllegalArgumentException e) {
+			assertTrue(e.getMessage().contains("Infinite"));
+		}
+	}
+
+	// -----------------------------------------------------------------------
 	// toDouble
 	// -----------------------------------------------------------------------
 
