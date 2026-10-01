@@ -5,10 +5,9 @@
  */
 package examples;
 
-import org.apache.lucene.index.VectorSimilarityFunction;
-
 import nlp4j.lucene.LocalSearch;
 import nlp4j.lucene.SearchResult;
+import nlp4j.lucene.VectorSimilarity;
 
 /**
  * Example25_VectorField
@@ -39,7 +38,7 @@ public class Example25_VectorField {
 				.vectorField( //
 						"vector3", //
 						3, //
-						VectorSimilarityFunction.COSINE, //
+						VectorSimilarity.COSINE, //
 						"demo-3d") //
 				.build()) {
 

@@ -3,7 +3,7 @@ package nlp4j.lucene;
 import java.util.Map;
 
 import junit.framework.TestCase;
-import nlp4j.lucene9.FieldTypeDef;
+import nlp4j.lucene.FieldTypeDef;
 
 /**
  * LocalSearch ベクトル検索拡張機能のテストケース。

@@ -31,11 +31,10 @@ import org.apache.lucene.search.DocIdSetIterator;
 import org.apache.lucene.util.Bits;
 
 import nlp4j.json.JsonNode;
-import nlp4j.lucene9.FieldTypeDef;
-import nlp4j.lucene9.LuceneIndex;
-import nlp4j.lucene9.LuceneLocalSearchApi;
-import nlp4j.lucene9.SearchSchema;
-import nlp4j.lucene9.SearchSchemaStore;
+import nlp4j.lucene10.LuceneIndex;
+import nlp4j.lucene10.LuceneLocalSearchApi;
+import nlp4j.lucene10.SearchSchema;
+import nlp4j.lucene10.SearchSchemaStore;
 
 /**
  * Simple local search engine wrapper for Lucene. Provides a simplified API for
@@ -221,7 +220,7 @@ public class LocalSearch implements AutoCloseable {
 		 * @return this Builder
 		 */
 		public Builder vectorField(String fieldName, int dimension,
-				org.apache.lucene.index.VectorSimilarityFunction similarity, String model) {
+				VectorSimilarity similarity, String model) {
 			FieldTypeDef def = FieldTypeDef.knnVector(dimension, similarity, model);
 			if (VECTOR_FIELD.equals(fieldName)) {
 				this.vectorDimension = dimension;
@@ -238,7 +237,7 @@ public class LocalSearch implements AutoCloseable {
 		 * @return this Builder
 		 */
 		public Builder vectorField(String fieldName, int dimension) {
-			return vectorField(fieldName, dimension, org.apache.lucene.index.VectorSimilarityFunction.COSINE, null);
+			return vectorField(fieldName, dimension, VectorSimilarity.COSINE, null);
 		}
 
 		/**
@@ -271,7 +270,7 @@ public class LocalSearch implements AutoCloseable {
 
 	LuceneLocalSearchApi api;
 
-	private final nlp4j.lucene9.DynamicFieldResolver dynamicFieldResolver = new nlp4j.lucene9.DynamicFieldResolver();
+	private final nlp4j.lucene10.DynamicFieldResolver dynamicFieldResolver = new nlp4j.lucene10.DynamicFieldResolver();
 
 	// -----------------------------------------------------------------------
 	// Constructors
@@ -940,7 +939,7 @@ public class LocalSearch implements AutoCloseable {
 			}
 		}
 		try {
-			return nlp4j.lucene9.FieldValueConverter.toFloatVector(list, expectedDim);
+			return nlp4j.lucene10.FieldValueConverter.toFloatVector(list, expectedDim);
 		} catch (IllegalArgumentException e) {
 			throw new LocalSearchException(e.getMessage(), e);
 		}
@@ -955,7 +954,7 @@ public class LocalSearch implements AutoCloseable {
 	 * @param multiValued 複数値フィールドの場合 true
 	 */
 	private void ensureField(String fieldName, String value, boolean multiValued) {
-		nlp4j.lucene9.FieldTypeDef type;
+		FieldTypeDef type;
 
 		if (schema.contains(fieldName)) {
 			type = schema.get(fieldName);
@@ -964,7 +963,7 @@ public class LocalSearch implements AutoCloseable {
 		}
 
 		// DATE fields must always be single-valued
-		if (type.kind() == nlp4j.lucene9.FieldTypeDef.Kind.DATE && multiValued) {
+		if (type.kind() == FieldTypeDef.Kind.DATE && multiValued) {
 			throw new LocalSearchException("DATE field must be single-valued: " + fieldName,
 					new IllegalArgumentException("DATE field must be single-valued: " + fieldName));
 		}
@@ -1342,7 +1341,7 @@ public class LocalSearch implements AutoCloseable {
 	 */
 	public List<String> getFieldsWithValues() {
 
-		try (nlp4j.lucene9.SearchSession session = index.acquireSearcher()) {
+		try (nlp4j.lucene10.SearchSession session = index.acquireSearcher()) {
 
 			FieldInfos fieldInfos = FieldInfos.getMergedFieldInfos(session.getSearcher().getIndexReader());
 
@@ -1392,7 +1391,7 @@ public class LocalSearch implements AutoCloseable {
 	 */
 	public FieldsSummary getFieldsSummary() {
 
-		try (nlp4j.lucene9.SearchSession session = index.acquireSearcher()) {
+		try (nlp4j.lucene10.SearchSession session = index.acquireSearcher()) {
 
 			IndexReader reader = session.getSearcher().getIndexReader();
 
@@ -1441,9 +1440,9 @@ public class LocalSearch implements AutoCloseable {
 										continue;
 									}
 									documentsWithValue++;
-									long ord;
-									while ((ord = values.nextOrd()) != SortedSetDocValues.NO_MORE_ORDS) {
-										uniqueValues.add(values.lookupOrd(ord).utf8ToString());
+									int count = values.docValueCount();
+									for (int i = 0; i < count; i++) {
+										uniqueValues.add(values.lookupOrd(values.nextOrd()).utf8ToString());
 									}
 								}
 							} else {
@@ -1545,7 +1544,7 @@ public class LocalSearch implements AutoCloseable {
 				if (liveDocs != null && !liveDocs.get(docId)) {
 					continue;
 				}
-				Document doc = leaf.reader().document(docId, java.util.Set.of(fieldName));
+				Document doc = leaf.reader().storedFields().document(docId, java.util.Set.of(fieldName));
 				String value = doc.get(fieldName);
 				if (value != null) {
 					if (kind == FieldTypeDef.Kind.DATE) {
@@ -1568,7 +1567,7 @@ public class LocalSearch implements AutoCloseable {
 	/**
 	 * スキーマに登録されている集計可能なフィールド名のみを、登録順で返します。 ファセット・集計 UI の構築に利用できます。
 	 *
-	 * @return {@link nlp4j.lucene9.FieldTypeDef#is_aggregatable()} が {@code true}
+	 * @return {@link FieldTypeDef#is_aggregatable()} が {@code true}
 	 *         のフィールド名のリスト
 	 */
 	public List<String> getAggregatableFields() {
@@ -2093,11 +2092,11 @@ public class LocalSearch implements AutoCloseable {
 	 *
 	 * @param field    集計対象の DATE フィールド名（例: {@code "created_dt"}）
 	 * @param interval 集計単位（YEAR / MONTH / HOUR）
-	 * @return 時刻昇順の {@link nlp4j.lucene9.DateHistogramBucket} リスト
+	 * @return 時刻昇順の {@link nlp4j.lucene10.DateHistogramBucket} リスト
 	 * @throws LocalSearchException 集計に失敗した場合
 	 */
-	public List<nlp4j.lucene9.DateHistogramBucket> dateHistogram(String field,
-			nlp4j.lucene9.DateHistogramInterval interval) {
+	public List<nlp4j.lucene10.DateHistogramBucket> dateHistogram(String field,
+			nlp4j.lucene10.DateHistogramInterval interval) {
 		return dateHistogram(field, interval, null, null);
 	}
 
@@ -2107,11 +2106,11 @@ public class LocalSearch implements AutoCloseable {
 	 * @param field    集計対象の DATE フィールド名
 	 * @param interval 集計単位（YEAR / MONTH / HOUR）
 	 * @param query    Lucene Query Parser syntax のクエリ文字列（null または空文字の場合は全件）
-	 * @return 時刻昇順の {@link nlp4j.lucene9.DateHistogramBucket} リスト
+	 * @return 時刻昇順の {@link nlp4j.lucene10.DateHistogramBucket} リスト
 	 * @throws LocalSearchException 集計に失敗した場合
 	 */
-	public List<nlp4j.lucene9.DateHistogramBucket> dateHistogram(String field,
-			nlp4j.lucene9.DateHistogramInterval interval, String query) {
+	public List<nlp4j.lucene10.DateHistogramBucket> dateHistogram(String field,
+			nlp4j.lucene10.DateHistogramInterval interval, String query) {
 		return dateHistogram(field, interval, query, null);
 	}
 
@@ -2123,11 +2122,11 @@ public class LocalSearch implements AutoCloseable {
 	 * @param interval 集計単位（YEAR / MONTH / HOUR）
 	 * @param query    Lucene Query Parser syntax のクエリ文字列（null または空文字の場合は全件）
 	 * @param filters  keyword フィールドの絞り込み条件（null または空の場合はスキップ）
-	 * @return 時刻昇順の {@link nlp4j.lucene9.DateHistogramBucket} リスト
+	 * @return 時刻昇順の {@link nlp4j.lucene10.DateHistogramBucket} リスト
 	 * @throws LocalSearchException 集計に失敗した場合
 	 */
-	public List<nlp4j.lucene9.DateHistogramBucket> dateHistogram(String field,
-			nlp4j.lucene9.DateHistogramInterval interval, String query, Map<String, String> filters) {
+	public List<nlp4j.lucene10.DateHistogramBucket> dateHistogram(String field,
+			nlp4j.lucene10.DateHistogramInterval interval, String query, Map<String, String> filters) {
 
 		if (field == null || field.isBlank()) {
 			throw new LocalSearchException("field must not be blank",
@@ -2149,7 +2148,7 @@ public class LocalSearch implements AutoCloseable {
 		}
 	}
 
-	private JsonNode createDateHistogramRequest(String field, nlp4j.lucene9.DateHistogramInterval interval,
+	private JsonNode createDateHistogramRequest(String field, nlp4j.lucene10.DateHistogramInterval interval,
 			String query, JsonNode filters) {
 
 		JsonNode root = JsonNode.object();
@@ -2177,17 +2176,17 @@ public class LocalSearch implements AutoCloseable {
 		return root;
 	}
 
-	private List<nlp4j.lucene9.DateHistogramBucket> toDateHistogramBuckets(String aggName, JsonNode response) {
+	private List<nlp4j.lucene10.DateHistogramBucket> toDateHistogramBuckets(String aggName, JsonNode response) {
 
 		JsonNode bucketsNode = response.get("aggregations").get(aggName).get("buckets");
 
-		List<nlp4j.lucene9.DateHistogramBucket> result = new ArrayList<>();
+		List<nlp4j.lucene10.DateHistogramBucket> result = new ArrayList<>();
 
 		for (JsonNode b : bucketsNode.asList()) {
 			long key = b.get("key").asLong(0);
 			String keyAsString = b.get("key_as_string").asString();
 			long docCount = b.get("doc_count").asLong(0);
-			result.add(new nlp4j.lucene9.DateHistogramBucket(key, keyAsString, docCount));
+			result.add(new nlp4j.lucene10.DateHistogramBucket(key, keyAsString, docCount));
 		}
 
 		return result;
@@ -2221,9 +2220,9 @@ public class LocalSearch implements AutoCloseable {
 	 */
 	public LuceneQueryValidationResult validateQuery(String query) {
 
-		try (nlp4j.lucene9.SearchSession session = index.acquireSearcher()) {
+		try (nlp4j.lucene10.SearchSession session = index.acquireSearcher()) {
 
-			nlp4j.lucene9.LuceneQueryBuilder.parseQueryString(query, getDefaultSearchFields().toArray(new String[0]),
+			nlp4j.lucene10.LuceneQueryBuilder.parseQueryString(query, getDefaultSearchFields().toArray(new String[0]),
 					session.getAnalyzer(), this.schema, this.zoneId);
 
 			return LuceneQueryValidationResult.valid();

@@ -4,9 +4,9 @@ import java.util.List;
 import java.util.Map;
 
 import junit.framework.TestCase;
-import nlp4j.lucene9.DateHistogramBucket;
-import nlp4j.lucene9.DateHistogramInterval;
-import nlp4j.lucene9.FieldTypeDef;
+import nlp4j.lucene10.DateHistogramBucket;
+import nlp4j.lucene10.DateHistogramInterval;
+import nlp4j.lucene.FieldTypeDef;
 
 /**
  * DATE histogram aggregation tests for LocalSearch.
@@ -251,7 +251,7 @@ public class LocalSearchDateHistogramTestCase extends TestCase {
 			search.addJson("{\"id\":\"setup\",\"body\":\"setup\",\"created_dt\":\"2026-01-01\"}");
 			search.commit();
 
-			nlp4j.lucene9.SearchSchema schema = search.getSchema();
+			nlp4j.lucene10.SearchSchema schema = search.getSchema();
 			try {
 				schema.document(java.time.ZoneId.systemDefault()).put("id", "1").put("created_dt", "2026-01-01")
 						.put("created_dt", "2026-02-01") // duplicate

@@ -94,7 +94,7 @@ public class LuceneVectorSearchWithFilter {
 				System.out.println();
 
 				for (ScoreDoc scoreDoc : topDocs.scoreDocs) {
-					Document doc = searcher.doc(scoreDoc.doc);
+					Document doc = searcher.storedFields().document(scoreDoc.doc);
 
 					System.out.println("score=" + scoreDoc.score + ", id=" + doc.get(FIELD_ID) + ", category="
 							+ doc.get(FIELD_CATEGORY) + ", text=" + doc.get(FIELD_TEXT));

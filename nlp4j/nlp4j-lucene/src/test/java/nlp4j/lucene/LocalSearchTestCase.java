@@ -2358,20 +2358,20 @@ public class LocalSearchTestCase extends TestCase {
 
 			// 2. 再ロードしてスキーマが復元されていることを確認
 			try (LocalSearch loaded = LocalSearch.builder("en").loadIndexFrom(dir).build()) {
-				nlp4j.lucene9.SearchSchema schema = loaded.getSchema();
+				nlp4j.lucene10.SearchSchema schema = loaded.getSchema();
 
 				// maker は KEYWORD として動的登録されていること
 				assertTrue("maker field should exist", schema.contains("maker"));
-				assertEquals(nlp4j.lucene9.FieldTypeDef.Kind.KEYWORD, schema.get("maker").kind());
+				assertEquals(FieldTypeDef.Kind.KEYWORD, schema.get("maker").kind());
 
 				// year_i は INTEGER（suffix ルール）として動的登録されていること
 				assertTrue("year_i field should exist", schema.contains("year_i"));
-				assertEquals(nlp4j.lucene9.FieldTypeDef.Kind.INTEGER, schema.get("year_i").kind());
+				assertEquals(FieldTypeDef.Kind.INTEGER, schema.get("year_i").kind());
 
 				// tags は KEYWORD + multiValued として動的登録されていること
 				assertTrue("tags field should exist", schema.contains("tags"));
-				nlp4j.lucene9.FieldTypeDef tagsDef = schema.get("tags");
-				assertEquals(nlp4j.lucene9.FieldTypeDef.Kind.KEYWORD, tagsDef.kind());
+				FieldTypeDef tagsDef = schema.get("tags");
+				assertEquals(FieldTypeDef.Kind.KEYWORD, tagsDef.kind());
 				assertTrue(tagsDef.is_multiValued());
 
 				// 検索も動作すること
@@ -2427,11 +2427,11 @@ public class LocalSearchTestCase extends TestCase {
 
 			// 2. 再ロード時に新規フィールドを Builder.field() で追加
 			try (LocalSearch loaded = LocalSearch.builder("en").loadIndexFrom(dir)
-					.field("new_field", nlp4j.lucene9.FieldTypeDef.keyword().stored(true).aggregatable(true)).build()) {
+					.field("new_field", FieldTypeDef.keyword().stored(true).aggregatable(true)).build()) {
 
-				nlp4j.lucene9.SearchSchema schema = loaded.getSchema();
+				nlp4j.lucene10.SearchSchema schema = loaded.getSchema();
 				assertTrue("new_field should be added via builder", schema.contains("new_field"));
-				assertEquals(nlp4j.lucene9.FieldTypeDef.Kind.KEYWORD, schema.get("new_field").kind());
+				assertEquals(FieldTypeDef.Kind.KEYWORD, schema.get("new_field").kind());
 				assertTrue(schema.get("new_field").is_aggregatable());
 			}
 		} finally {
@@ -2456,7 +2456,7 @@ public class LocalSearchTestCase extends TestCase {
 			// 2. 再ロード時に maker を INTEGER として指定 → 型の不一致でエラー
 			try {
 				LocalSearch loaded = LocalSearch.builder("en").loadIndexFrom(dir)
-						.field("maker", nlp4j.lucene9.FieldTypeDef.integer().stored(true)).build();
+						.field("maker", FieldTypeDef.integer().stored(true)).build();
 				loaded.close();
 				fail("Expected LocalSearchException for conflicting field definition");
 			} catch (LocalSearchException e) {
@@ -2487,7 +2487,7 @@ public class LocalSearchTestCase extends TestCase {
 
 				assertEquals(3, loaded.vectorDimension);
 				assertTrue(loaded.getSchema().contains("vector"));
-				assertEquals(nlp4j.lucene9.FieldTypeDef.Kind.KNN_VECTOR, loaded.getSchema().get("vector").kind());
+				assertEquals(FieldTypeDef.Kind.KNN_VECTOR, loaded.getSchema().get("vector").kind());
 
 				// vector を持つ文書を追加
 				loaded.add("2", new float[] { 1.0f, 0.0f, 0.0f });
@@ -3221,7 +3221,7 @@ public class LocalSearchTestCase extends TestCase {
 
 		try {
 			// 旧 index に Document を直接書き込む (body なし, text_en stored)
-			try (nlp4j.lucene9.LuceneIndex index = new nlp4j.lucene9.LuceneIndex()) {
+			try (nlp4j.lucene10.LuceneIndex index = new nlp4j.lucene10.LuceneIndex()) {
 				org.apache.lucene.document.Document doc = new org.apache.lucene.document.Document();
 				doc.add(new org.apache.lucene.document.StringField("id", "legacy1",
 						org.apache.lucene.document.Field.Store.YES));
@@ -3233,11 +3233,11 @@ public class LocalSearchTestCase extends TestCase {
 			}
 
 			// 旧形式の schema.json を手動作成 (body なし, text_en stored=true)
-			nlp4j.lucene9.SearchSchema legacySchema = new nlp4j.lucene9.SearchSchema();
-			legacySchema.add("id", nlp4j.lucene9.FieldTypeDef.keyword().stored(true));
-			legacySchema.add("text_en", nlp4j.lucene9.FieldTypeDef.text().stored(true));
-			legacySchema.add("data", nlp4j.lucene9.FieldTypeDef.storedOnly());
-			nlp4j.lucene9.SearchSchemaStore.save(tempDir, legacySchema);
+			nlp4j.lucene10.SearchSchema legacySchema = new nlp4j.lucene10.SearchSchema();
+			legacySchema.add("id", FieldTypeDef.keyword().stored(true));
+			legacySchema.add("text_en", FieldTypeDef.text().stored(true));
+			legacySchema.add("data", FieldTypeDef.storedOnly());
+			nlp4j.lucene10.SearchSchemaStore.save(tempDir, legacySchema);
 
 			// LocalSearch でロードして検索
 			try (LocalSearch search = LocalSearch.builder("en").loadIndexFrom(tempDir).build()) {
@@ -3323,22 +3323,22 @@ public class LocalSearchTestCase extends TestCase {
 		try (LocalSearch search = new LocalSearch("ja")) {
 
 			assertEquals( //
-					nlp4j.lucene9.FieldTypeDef.Kind.TEXT, //
+					FieldTypeDef.Kind.TEXT, //
 					search.getSchema().get("body").kind() //
 			);
 
 			assertEquals( //
-					nlp4j.lucene9.FieldTypeDef.Kind.TEXT, //
+					FieldTypeDef.Kind.TEXT, //
 					search.getSchema().get("text").kind() //
 			);
 
 			assertEquals( //
-					nlp4j.lucene9.FieldTypeDef.Kind.TEXT, //
+					FieldTypeDef.Kind.TEXT, //
 					search.getSchema().get("text_ja").kind() //
 			);
 
 			assertEquals( //
-					nlp4j.lucene9.FieldTypeDef.Kind.TEXT, //
+					FieldTypeDef.Kind.TEXT, //
 					search.getSchema().get("text_en").kind() //
 			);
 

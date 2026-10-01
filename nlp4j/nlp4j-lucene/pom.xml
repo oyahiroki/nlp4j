@@ -27,7 +27,8 @@
 	<!-- https://central.sonatype.com/artifact/org.nlp4j/nlp4j-lucene -->
 	<!-- 2026-09-16 1.7.3.0 field info improved -->
 	<!-- 2026-09-25 1.7.4.0 API enhancement -->
-	<version>1.7.4.0</version>
+	<!-- 2026-09-26 1.8.0.0 Lucene 10.x, Java 21+  -->
+	<version>1.8.0.0</version>
 	<description>
 	    Lightweight local full-text search and text analytics library
 	    powered by Apache Lucene, with built-in support for Japanese and English.
@@ -46,8 +47,8 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<maven.compiler.release>17</maven.compiler.release>
-		<lucene.version>9.12.2</lucene.version>
+		<maven.compiler.release>21</maven.compiler.release>
+		<lucene.version>10.5.1</lucene.version>
 	</properties>
 	<build>
 		<plugins>
@@ -56,7 +57,7 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.11.0</version>
 				<configuration>
-					<release>17</release>
+					<release>21</release>
 				</configuration>
 			</plugin>
 		</plugins>

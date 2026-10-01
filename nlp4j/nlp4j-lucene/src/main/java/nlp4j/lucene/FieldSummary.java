@@ -5,8 +5,6 @@
  */
 package nlp4j.lucene;
 
-import nlp4j.lucene9.FieldTypeDef;
-
 /**
  * Summary statistics for a single field.
  *

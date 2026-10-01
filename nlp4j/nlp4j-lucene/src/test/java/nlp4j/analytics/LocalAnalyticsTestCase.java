@@ -6,7 +6,7 @@ import java.util.Map;
 import junit.framework.TestCase;
 import nlp4j.lucene.LocalSearch;
 import nlp4j.lucene.LuceneQueryValidationResult;
-import nlp4j.lucene9.DateHistogramInterval;
+import nlp4j.lucene10.DateHistogramInterval;
 
 public class LocalAnalyticsTestCase extends TestCase {
 

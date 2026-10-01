@@ -117,7 +117,7 @@ public class LuceneVectorSearchExample {
 	private static void printResults(IndexSearcher searcher, TopDocs topDocs) throws IOException {
 
 		for (ScoreDoc scoreDoc : topDocs.scoreDocs) {
-			Document doc = searcher.doc(scoreDoc.doc);
+			Document doc = searcher.storedFields().document(scoreDoc.doc);
 
 			System.out.println("score=" + scoreDoc.score + ", id=" + doc.get(FIELD_ID) + ", title="
 					+ doc.get(FIELD_TITLE) + ", text=" + doc.get(FIELD_TEXT));

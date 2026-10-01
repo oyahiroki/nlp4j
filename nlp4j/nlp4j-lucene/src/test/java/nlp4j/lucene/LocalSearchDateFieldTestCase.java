@@ -6,9 +6,9 @@ import java.nio.file.Path;
 import java.util.List;
 
 import junit.framework.TestCase;
-import nlp4j.lucene9.DateHistogramBucket;
-import nlp4j.lucene9.DateHistogramInterval;
-import nlp4j.lucene9.FieldTypeDef;
+import nlp4j.lucene10.DateHistogramBucket;
+import nlp4j.lucene10.DateHistogramInterval;
+import nlp4j.lucene.FieldTypeDef;
 
 /**
  * DATE フィールドの統合テスト。

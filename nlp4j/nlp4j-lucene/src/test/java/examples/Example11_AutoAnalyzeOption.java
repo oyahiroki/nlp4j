@@ -1,7 +1,6 @@
 package examples;
 
 import nlp4j.lucene.LocalSearch;
-import nlp4j.lucene.SearchResult;
 
 /**
  * @since 1.5

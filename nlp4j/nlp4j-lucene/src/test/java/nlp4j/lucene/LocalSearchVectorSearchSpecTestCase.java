@@ -10,14 +10,13 @@ import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.lucene.index.VectorSimilarityFunction;
-
 import junit.framework.TestCase;
 import nlp4j.analytics.LocalAnalytics;
-import nlp4j.lucene9.FieldTypeDef;
-import nlp4j.lucene9.FieldValueConverter;
-import nlp4j.lucene9.SearchSchema;
-import nlp4j.lucene9.SearchSchemaStore;
+import nlp4j.lucene.FieldTypeDef;
+import nlp4j.lucene.VectorSimilarity;
+import nlp4j.lucene10.FieldValueConverter;
+import nlp4j.lucene10.SearchSchema;
+import nlp4j.lucene10.SearchSchemaStore;
 
 /**
  * JUnit3 test case verifying all specifications described in kaiwa0924-2105.md.
@@ -50,17 +49,17 @@ public class LocalSearchVectorSearchSpecTestCase extends TestCase {
 	// ========================================================================
 
 	public void testVectorFieldTypeDefAndMetadata() {
-		FieldTypeDef def = FieldTypeDef.knnVector(1024, VectorSimilarityFunction.COSINE, "multilingual-e5-large");
+		FieldTypeDef def = FieldTypeDef.knnVector(1024, VectorSimilarity.COSINE, "multilingual-e5-large");
 		assertEquals(FieldTypeDef.Kind.KNN_VECTOR, def.kind());
 		assertEquals(1024, def.get_dimension());
-		assertEquals(VectorSimilarityFunction.COSINE, def.vectorSimilarityFunction());
+		assertEquals(VectorSimilarity.COSINE, def.vectorSimilarity());
 		assertEquals("multilingual-e5-large", def.get_model());
 		assertFalse(def.is_aggregatable());
 
 		FieldTypeDef def2 = FieldTypeDef.knnVector(512);
 		assertEquals(FieldTypeDef.Kind.KNN_VECTOR, def2.kind());
 		assertEquals(512, def2.get_dimension());
-		assertEquals(VectorSimilarityFunction.COSINE, def2.vectorSimilarityFunction());
+		assertEquals(VectorSimilarity.COSINE, def2.vectorSimilarity());
 		assertNull(def2.get_model());
 	}
 
@@ -70,7 +69,7 @@ public class LocalSearchVectorSearchSpecTestCase extends TestCase {
 
 	public void testBuilderVectorField() throws Exception {
 		try (LocalSearch search = LocalSearch.builder("ja")
-				.vectorField("vector", 1024, VectorSimilarityFunction.COSINE, "multilingual-e5-large")
+				.vectorField("vector", 1024, VectorSimilarity.COSINE, "multilingual-e5-large")
 				.build()) {
 
 			assertEquals(1024, search.getVectorDimension());
@@ -83,7 +82,7 @@ public class LocalSearchVectorSearchSpecTestCase extends TestCase {
 			assertNotNull(info);
 			assertEquals(1024, info.get_dimension());
 			assertEquals("multilingual-e5-large", info.get_model());
-			assertEquals(VectorSimilarityFunction.COSINE, info.vectorSimilarityFunction());
+			assertEquals(VectorSimilarity.COSINE, info.vectorSimilarity());
 		}
 	}
 
@@ -152,7 +151,7 @@ public class LocalSearchVectorSearchSpecTestCase extends TestCase {
 	// ========================================================================
 
 	public void testDynamicFieldResolverDoesNotInferVector() {
-		nlp4j.lucene9.DynamicFieldResolver resolver = new nlp4j.lucene9.DynamicFieldResolver();
+		nlp4j.lucene10.DynamicFieldResolver resolver = new nlp4j.lucene10.DynamicFieldResolver();
 		FieldTypeDef def = resolver.resolve("unknown_field");
 		assertEquals(FieldTypeDef.Kind.KEYWORD, def.kind());
 	}
@@ -166,7 +165,7 @@ public class LocalSearchVectorSearchSpecTestCase extends TestCase {
 		// doc2: maker=BBB, vector=[0.99, 0.01]
 		// doc3: maker=AAA, vector=[0, 1]
 		try (LocalSearch search = LocalSearch.builder("ja")
-				.vectorField("vector", 2, VectorSimilarityFunction.COSINE, "multilingual-e5-large")
+				.vectorField("vector", 2, VectorSimilarity.COSINE, "multilingual-e5-large")
 				.field("maker_s", FieldTypeDef.keyword().stored(true))
 				.build()) {
 
@@ -203,7 +202,7 @@ public class LocalSearchVectorSearchSpecTestCase extends TestCase {
 
 	public void testSchemaApiPublic() throws Exception {
 		try (LocalSearch search = LocalSearch.builder("ja")
-				.vectorField("vector", 1024, VectorSimilarityFunction.COSINE, "multilingual-e5-large")
+				.vectorField("vector", 1024, VectorSimilarity.COSINE, "multilingual-e5-large")
 				.build()) {
 
 			SearchSchema schema = search.getSchema();
@@ -224,7 +223,7 @@ public class LocalSearchVectorSearchSpecTestCase extends TestCase {
 
 	public void testSchemaPersistenceWithVectorMetadata() throws Exception {
 		try (LocalSearch search = LocalSearch.builder("ja")
-				.vectorField("vector", 1024, VectorSimilarityFunction.DOT_PRODUCT, "multilingual-e5-large")
+				.vectorField("vector", 1024, VectorSimilarity.DOT_PRODUCT, "multilingual-e5-large")
 				.build()) {
 
 			search.add("1", (String) null, new float[1024]);
@@ -245,7 +244,7 @@ public class LocalSearchVectorSearchSpecTestCase extends TestCase {
 			assertNotNull(def);
 			assertEquals(FieldTypeDef.Kind.KNN_VECTOR, def.kind());
 			assertEquals(1024, def.get_dimension());
-			assertEquals(VectorSimilarityFunction.DOT_PRODUCT, def.vectorSimilarityFunction());
+			assertEquals(VectorSimilarity.DOT_PRODUCT, def.vectorSimilarity());
 			assertEquals("multilingual-e5-large", def.get_model());
 		}
 	}
@@ -256,7 +255,7 @@ public class LocalSearchVectorSearchSpecTestCase extends TestCase {
 
 	public void testLocalAnalyticsRejectionOnVectorField() throws Exception {
 		try (LocalSearch search = LocalSearch.builder("ja")
-				.vectorField("vector", 2, VectorSimilarityFunction.COSINE, "model-a")
+				.vectorField("vector", 2, VectorSimilarity.COSINE, "model-a")
 				.field("category", FieldTypeDef.keyword().stored(true).aggregatable(true))
 				.build()) {
 
@@ -290,7 +289,7 @@ public class LocalSearchVectorSearchSpecTestCase extends TestCase {
 
 	public void testAddJsonArbitraryVectorField() throws Exception {
 		try (LocalSearch search = LocalSearch.builder("en")
-				.vectorField("custom_vec", 3, VectorSimilarityFunction.COSINE, "model-custom")
+				.vectorField("custom_vec", 3, VectorSimilarity.COSINE, "model-custom")
 				.build()) {
 
 			assertTrue(search.hasVectorField());

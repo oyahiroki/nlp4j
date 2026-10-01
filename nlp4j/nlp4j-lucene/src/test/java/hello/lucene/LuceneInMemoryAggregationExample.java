@@ -124,7 +124,7 @@ public class LuceneInMemoryAggregationExample {
 
 		System.out.println();
 		System.out.println("query = " + luceneQueryString);
-		System.out.println("hit count = " + topDocs.totalHits.value);
+		System.out.println("hit count = " + topDocs.totalHits.value());
 
 		if (result == null) {
 			System.out.println("keyword aggregation: no result");

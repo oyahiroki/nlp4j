@@ -5,7 +5,7 @@ import java.time.ZoneId;
 import java.util.Map;
 
 import junit.framework.TestCase;
-import nlp4j.lucene9.FieldTypeDef;
+import nlp4j.lucene.FieldTypeDef;
 
 /**
  * Test target: nlp4j.lucene.LocalSearch.Builder
@@ -587,7 +587,7 @@ public class LocalSearchBuilderTestCase extends TestCase {
 		Path dir = java.nio.file.Files.createTempDirectory("nlp4j-test-badver-");
 		try {
 			// 壊れた schema ファイルを手動で書き込む（formatVersion=999）
-			Path schemaFile = dir.resolve(nlp4j.lucene9.SearchSchemaStore.FILE_NAME);
+			Path schemaFile = dir.resolve(nlp4j.lucene10.SearchSchemaStore.FILE_NAME);
 			java.nio.file.Files.writeString(schemaFile,
 					"{\"formatVersion\":999,\"fields\":[]}",
 					java.nio.charset.StandardCharsets.UTF_8);

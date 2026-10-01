@@ -3,7 +3,7 @@ package nlp4j.lucene;
 import java.util.List;
 
 import junit.framework.TestCase;
-import nlp4j.lucene9.FieldTypeDef;
+import nlp4j.lucene.FieldTypeDef;
 
 /**
  * Tests for {@link LocalSearch#getFieldsSummary()}.

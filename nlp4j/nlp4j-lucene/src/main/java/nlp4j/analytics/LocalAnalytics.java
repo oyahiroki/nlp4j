@@ -14,8 +14,8 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import nlp4j.lucene.LocalSearch;
-import nlp4j.lucene9.DateHistogramBucket;
-import nlp4j.lucene9.DateHistogramInterval;
+import nlp4j.lucene10.DateHistogramBucket;
+import nlp4j.lucene10.DateHistogramInterval;
 
 /**
  * LocalSearch 上のデータを利用して、 軽量な統計分析・テキスト分析を行うクラスです。

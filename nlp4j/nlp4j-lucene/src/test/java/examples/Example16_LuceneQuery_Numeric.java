@@ -2,7 +2,7 @@ package examples;
 
 import nlp4j.lucene.LocalSearch;
 import nlp4j.lucene.SearchResult;
-import nlp4j.lucene9.FieldTypeDef;
+import nlp4j.lucene.FieldTypeDef;
 
 /**
  * @since 1.5

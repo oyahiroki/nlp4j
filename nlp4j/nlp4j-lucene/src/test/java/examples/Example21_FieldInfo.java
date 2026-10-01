@@ -1,7 +1,7 @@
 package examples;
 
 import nlp4j.lucene.LocalSearch;
-import nlp4j.lucene9.FieldTypeDef;
+import nlp4j.lucene.FieldTypeDef;
 
 public class Example21_FieldInfo {
 

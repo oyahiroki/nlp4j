@@ -9,8 +9,8 @@ import java.util.List;
 
 import nlp4j.lucene.LocalSearch;
 import nlp4j.lucene.SearchResult;
-import nlp4j.lucene9.DateHistogramBucket;
-import nlp4j.lucene9.DateHistogramInterval;
+import nlp4j.lucene10.DateHistogramBucket;
+import nlp4j.lucene10.DateHistogramInterval;
 
 /**
  * Example24_DateField
