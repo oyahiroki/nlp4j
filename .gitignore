@@ -62,6 +62,7 @@ Thumbs.db
 /private/
 
 
-/nlp4j/nlp4j-lucene/.bob
+.bob
 /nlp4j/nlp4j-lucene9
 /nlp4j/nlp4j-wiki/examples/target
+kaiwa*.md
