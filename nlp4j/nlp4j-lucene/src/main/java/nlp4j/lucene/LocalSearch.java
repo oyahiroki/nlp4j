@@ -99,7 +99,7 @@ public class LocalSearch implements AutoCloseable {
 	 */
 	public static class Builder {
 
-		private final String language;
+		private String language;
 		private boolean autoAnalyze = true;
 		private int vectorDimension = 0;
 		private Path indexDir = null;
@@ -112,11 +112,23 @@ public class LocalSearch implements AutoCloseable {
 		/**
 		 * language は、フィールド名省略時のデフォルトテキストフィールド、 body/text フィールドのAnalyzer、デフォルト検索対象、
 		 * および自然言語エンリッチ処理を決定します。
-		 * 
+		 *
 		 * @param language LocalSearch で使用する言語コード
 		 */
 		private Builder(String language) {
 			this.language = language;
+		}
+
+		/**
+		 * {@link LocalSearchConfig} から Builder を初期化します。
+		 * {@link LocalSearch#open(Path)} から使用されます。
+		 *
+		 * @param config 永続化された設定
+		 */
+		private Builder(LocalSearchConfig config) {
+			this.language = config.getLanguage();
+			this.autoAnalyze = config.isAutoAnalyze();
+			this.zoneId = config.getZoneId();
 		}
 
 		/**
@@ -391,6 +403,43 @@ public class LocalSearch implements AutoCloseable {
 	 */
 	public static LocalSearch open(String language, int vectorDimension, Path indexDir) {
 		return new Builder(language).vectorDimension(vectorDimension).loadIndexFrom(indexDir).build();
+	}
+
+	/**
+	 * 保存済みインデックスを開き、{@link LocalSearchConfig} から設定を完全復元します。
+	 *
+	 * <p>
+	 * {@link #saveIndexTo(Path)} で保存したディレクトリを指定すると、
+	 * {@code local-search.json} から language / autoAnalyze / timeZone を復元し、
+	 * {@code schema.json} からフィールド定義を復元します。
+	 * </p>
+	 *
+	 * <pre>
+	 * LocalSearch search = LocalSearch.open(Path.of("./my-index"));
+	 * </pre>
+	 *
+	 * @param indexDir インデックスを保存したディレクトリパス
+	 * @return 設定が完全復元された LocalSearch インスタンス
+	 * @throws LocalSearchException {@code local-search.json} が見つからない場合、または読み込みに失敗した場合
+	 */
+	public static LocalSearch open(Path indexDir) {
+		if (!LocalSearchConfigStore.exists(indexDir)) {
+			throw new LocalSearchException(
+					"LocalSearch configuration file was not found in: " + indexDir
+							+ ". Open this legacy index by specifying the language: "
+							+ "LocalSearch.open(language, vectorDimension, indexDir)",
+					new java.io.FileNotFoundException(
+							"local-search.json not found in " + indexDir));
+		}
+		try {
+			LocalSearchConfig config = LocalSearchConfigStore.load(indexDir);
+			Builder builder = new Builder(config);
+			builder.indexDir = indexDir;
+			return builder.build();
+		} catch (java.io.IOException e) {
+			throw new LocalSearchException(
+					"Failed to open index: " + indexDir + " - " + e.getMessage(), e);
+		}
 	}
 
 	/**
@@ -1575,15 +1624,45 @@ public class LocalSearch implements AutoCloseable {
 	}
 
 	/**
-	 * 現在のインデックスを指定したディレクトリに保存します。 保存後はインデックスが閉じられます。 スキーマ情報も同ディレクトリに保存されます。
+	 * 現在の動作設定を {@link LocalSearchConfig} として返します。
+	 *
+	 * <p>
+	 * {@link #saveIndexTo(Path)} の内部から呼び出され、{@code local-search.json} に書き出す
+	 * 設定オブジェクトを生成します。
+	 * </p>
+	 *
+	 * @return 現在の language / autoAnalyze / zoneId を持つ設定オブジェクト
+	 */
+	public LocalSearchConfig getConfig() {
+		return new LocalSearchConfig(this.language, this.autoAnalyze, this.zoneId);
+	}
+
+	/**
+	 * 現在のインデックスを指定したディレクトリに保存します。
+	 *
+	 * <p>
+	 * 保存後はインデックスが閉じられます。 Lucene index files、{@code schema.json}、
+	 * {@code local-search.json} の 3 種類のファイルが保存されます。
+	 * </p>
+	 *
+	 * <p>
+	 * 保存したディレクトリは {@link #open(Path)} で完全復元できます:
+	 * </p>
+	 *
+	 * <pre>
+	 * search.saveIndexTo(Path.of("./my-index"));
+	 * // ...
+	 * LocalSearch restored = LocalSearch.open(Path.of("./my-index"));
+	 * </pre>
 	 *
 	 * @param dir インデックスを保存するディレクトリパス
-	 * @throws IOException インデックスまたはスキーマの書き込みに失敗した場合
+	 * @throws IOException インデックス、スキーマ、または設定の書き込みに失敗した場合
 	 */
 	public void saveIndexTo(Path dir) throws IOException {
 		if (index != null) {
 			this.index.writeToAndClose(dir);
 			SearchSchemaStore.save(dir, schema);
+			LocalSearchConfigStore.save(dir, getConfig());
 		}
 	}
 

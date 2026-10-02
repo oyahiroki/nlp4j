@@ -28,7 +28,8 @@
 	<!-- 2026-09-16 1.7.3.0 field info improved -->
 	<!-- 2026-09-25 1.7.4.0 API enhancement -->
 	<!-- 2026-09-26 1.8.0.0 Lucene 10.x, Java 21+  -->
-	<version>1.8.0.0</version>
+	<!-- 2026-10-01 1.8.1.0 Enhanced nlp4j.lucene.LocalSearch.saveIndexTo(Path) -->
+	<version>1.8.1.0</version>
 	<description>
 	    Lightweight local full-text search and text analytics library
 	    powered by Apache Lucene, with built-in support for Japanese and English.
